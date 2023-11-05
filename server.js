@@ -1,12 +1,20 @@
 const express = require('express')
 const app = express()
 const path = require('path')
-const PORT = process.env.PORT || 3000
+const { logger } = require('./middleware/logger')
+const errorhandler = require('./middleware/errorHandler')
+const cookieParser = require('cookie-parser')
+const PORT = process.env.PORT | 3000;
 
-app.use('/', express.static(path.join(__dirname,  '/public'))) /*code for telling the program to fetch static files like css */
+app.use(logger)
+
+app.use(express.json())
+
+app.use(cookieParser())
+
+app.use('/', express.static(path.join(__dirname, 'public'))) /*code for telling the program to fetch static css files from the public folder */
 
 app.use('/', require('./routes/root'))
-app.listen(PORT, () => console.log('server running on port ${PORT}'))
 
 app.all('*', (req, res) => {
     res.status(404)
@@ -19,3 +27,8 @@ app.all('*', (req, res) => {
     }
 
 })
+
+app.use(errorhandler)
+
+app.listen(PORT, () => console.log(`server running on port http://localhost:${PORT}`))
+
