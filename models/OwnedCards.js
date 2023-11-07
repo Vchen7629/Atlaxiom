@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const AutoIncrement = require('mongoose-sequence')(mongoose)
 
-const OwnedCardsSchema = new mongoose.schema(
+const OwnedCardsSchema = new mongoose.Schema(
     {
         user: {
             type: mongoose.Schema.Types.ObjectId,
