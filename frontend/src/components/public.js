@@ -35,40 +35,44 @@ const Public = () => {
                     </li>
                 </ul>
             </header>
-            <main>
+            <banner>
                 <div className="banner"></div>
-            </main> 
-            <section className="tech-circle">
-                <div>
-                    <h1 className= "h1titlebox">
-                        Welcome to the My Deck Database website
-                    </h1>
+            </banner> 
+            <body>
+                <h1 className= "h1titlebox">
+                    Welcome to the My Deck Database website
+                </h1>
+                <div className="tech-circle">
                 </div>
-            </section>
-            <div className="homepage-card-container-one"> 
-                <div className="Homepage-card">
-                    <span className="underline-white"><strong>What is this website about</strong></span>
-                    <p className="Homepage-cardstyle">
-                        This website is a personal project that aims to act as a card catalog website that allows users to search for cards, log them as owned, and
-                        have a sign-in feature that allows users to save their cards. 
-                    </p>
+                <div className="homepage-card-container-one"> 
+                    <div className="Homepage-card">
+                        <span className="underline-white"><strong>What is this website about</strong></span>
+                            <p className="Homepage-cardstyle">
+                            This website is a personal project that aims to act as a card catalog website that allows users to search for cards, log them as owned, and
+                                have a sign-in feature that allows users to save their cards. 
+                                This website is a personal project that aims to act as a card catalog website that allows users to search for cards, log them as owned, and
+                                have a sign-in feature that allows users to save their cards. 
+                                This website is a personal project that aims to act as a card catalog website that allows users to search for cards, log them as owned, and
+                                have a sign-in feature that allows users to save their cards. 
+                                This website is a personal project that aims to act as a card catalog website that allows users to search for cards, log them as owned, and
+                                have a sign-in feature that allows users to save their cards. 
+                                This website is a personal project that aims to act as a card catalog website that allows users to search for cards, log them as owned, and
+                                have a sign-in feature that allows users to save their cards. 
+                                This website is a personal project that aims to act as a card catalog website that allows users to search for cards, log them as owned, and
+                                have a sign-in feature that allows users to save their cards. 
+                                This website is a personal project that aims to act as a card catalog website that allows users to search for cards, log them as owned, and
+                                have a sign-in feature that allows users to save their cards. 
+                                This website is a personal project that aims to act as a card catalog website that allows users to search for cards, log them as owned, and
+                                have a sign-in feature that allows users to save their cards. 
+                                
+                                
+                                
+                            </p>
+                    </div>
                 </div>
-            </div>
-            <h1 className= "h1titleboxtwo"> Features of the website</h1>
-            <div className="homepage-card-container-two">
-                <div className="Homepage-card">
-                    <span className="underline-white"><strong>What is this website about</strong></span>
-                    <p className="Homepage-cardstyle">
-                        This website is a personal project that aims to act as a card catalog website that allows users to search for cards, log them as owned, and
-                        have a sign-in feature that allows users to save their cards. 
-                    </p>
-                </div>
-
-            </div>
-            
+            </body>
             <footer>
-                
-                <div className="footer-container">
+                <div  className="footer-container">
                     <p classname="copyright-container">&copy; 2023 DeckDatabaseOnline. All rights reserved.</p>   
                     <ul className="footer-links">
                         <li>

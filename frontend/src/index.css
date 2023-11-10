@@ -7,66 +7,18 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-}
-
-/* || VARIABLES */
-
-:root {
-  /* COLORS */
-  --BGCOLOR: #0F172A;
-  --BORDER-COLOR: #FFF;
-  --COLOR: #FFF;
-  --ERROR: firebrick;
-  --INACTIVE: lightgray;
-  --LINK-COLOR: whitesmoke;
-  --LINK-HOVER: rgba(245, 245, 245, 0.9);
-  --NOTE-BGCOLOR: hsla(240, 64%, 27%, 0.65);
-  --STATUS-COMPLETE: limegreen;
-  --STATUS-OPEN: firebrick;
-  --TABLE-BGCOLOR: #FFF;
-  --TABLE-COLOR: #000;
-}
-
-/* || UTILITY CLASSES */
-.errmsg {
-  display: inline-block;
-  background-color: var(--TABLE-BGCOLOR);
-  color: var(--ERROR);
-  padding: 0.25em;
-  margin-bottom: 0.5em;
-}
-
-.nowrap {
-  white-space: nowrap;
-}
-
-
-.icon-button {
-  width: 48px;
-  height: 48px;
-  font-size: 2.5rem;
-  background-color: transparent;
-  border: none;
-  color: var(--COLOR);
-  display: grid;
-  place-content: center;
-}
-
-.icon-button:hover,
-.icon-button:focus-visible {
-  transform: scale(1.2);
-}
-
-.icon-button[disabled] {
-  visibility: hidden;
+  overflow: visible;
 }
 
 /* || GENERAL STYLES */
 
+
+
 body {
   font-family: 'Nunito', sans-serif;
   min-height: 100vh;
-  background-color: gray
+  background-color: gray;
+  overflow: visible;
 }
 
 .Menu-container-left {
@@ -168,35 +120,17 @@ select {
   font: inherit;
 }
 
-.navbar_text {
-  text-align:center;
-  color: white;
-}
+
 
 .fatextmargin {
   margin-left: 10px;
 }
 
-#root {
-  /* React root div */
-  min-height: 100vh;
-  display: flex;
-  flex-flow: column nowrap;
-}
 
 a {
   text-decoration: none;
 }
 
-a,
-a:visited {
-  color: var(--LINK-COLOR);
-}
-
-a:hover,
-a:focus-visible {
-  color: var(--LINK-HOVER);
-}
 
 /* || PAGES */
 
@@ -205,6 +139,10 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  min-height: 100%;
+  left: 30px;
+  right: 30px;
+
 }
 
 
@@ -213,6 +151,8 @@ a:focus-visible {
   padding: 1em;
   flex-grow: 1;
   text-align: center;
+  min-height: 100%;
+
 }
 
 .main {
@@ -224,18 +164,6 @@ a:focus-visible {
   border-radius: 10px;
   font-size: var(--common-fontS_s);
   padding: 12px 0;
-}
-
-.login {
-  flex-grow: 1;
-  border-bottom: 2px solid var(--BORDER-COLOR);
-  border-top: 2px solid black;
-  margin-top: flex;
-  display: flex;
-  flex-direction: column;
-  position: flex;
-  width: 100%;
-  padding: 10px;
 }
 
 .public__main {
@@ -253,9 +181,6 @@ a:focus-visible {
   margin-top: 1em;
 }
 
-.welcome a::before {
-  content: "➜ "
-}
 
 /* || DASH HEADER, CONTAINER & FOOTER */
 
@@ -285,16 +210,6 @@ a:focus-visible {
   height: flex;
   text-align: center;
   z-index: 2;
-}
-
-
-
-.header-welcome {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
 }
 
 .h1-container {
@@ -351,12 +266,6 @@ a:focus-visible {
 }
 
 
-.dash-header__container {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
-}
 
 .dash-header__nav {
   display: flex;
@@ -391,27 +300,14 @@ a:focus-visible {
   position: absolute;
   text-align: center;
   left: 50%;
-  top: -13%;
+  top: 500px;
   background-color: rgb(51, 48, 48);
   transform: translate(-50%);
   border: 2px solid aqua;
   padding: 15px;
-  width: 500px;
+  width: 700px;
   height: 70px;
-}
 
-.h1titleboxtwo {
-  border-radius: 25px;
-  position: absolute;
-  text-align: center;
-  left: 50%;
-  top: 92%;
-  background-color: rgb(51, 48, 48);
-  transform: translate(-50%);
-  border: 2px solid aqua;
-  padding: 15px;
-  width: 500px;
-  height: 70px;
 }
 
 
@@ -422,14 +318,16 @@ a:focus-visible {
   background-color: rgb(51, 48, 48);
   padding: 20px;
   margin-left: 20px;
-  position: absolute;
+  margin-top: 600px;
+  margin-bottom: 100px;
+  position: relative;
   width: 380px;
   height: auto;
+  
   left: 200px;
-  bottom: 140px;
   border: 2px solid aqua;
   border-radius: 25px;
-  
+  vertical-align: text-bottom;
   
 }
 
@@ -439,14 +337,14 @@ a:focus-visible {
   justify-content: space-around;
   background-color: rgb(51, 48, 48);
   padding: 20px;
-  margin-left: 20px;
+  margin-left: 30px;
   position: absolute;
   width: 500px;
   height: auto;
-  right: 455px;
   border: 2px solid aqua;
   border-radius: 25px;
-  bottom: -50%;
+  bottom: 0;
+  overflow: visible;
 }
 
 
@@ -458,25 +356,27 @@ a:focus-visible {
 }
 
 .homepage-card {
-  width: 200px; /* Adjust the width of each card */
-  padding: 20px; /* Optional: Adjust padding based on your design */
+  width: 200px; 
+  padding: 20px; 
   flex-direction: column;
   border: 1px solid #ccc;
   padding: 20px;
-  border-radius: 10px; /* Optional: Add rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle box shadow */
+  border-radius: 10px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
+
 
 .Homepage-cardstyle {
   margin-top: 5px;
+  vertical-align: top;
 }
 
 .tech-circle {
   background-image: url('img/techcirclepng.png');
   position: absolute;
-  top: 85%;
+  top: 560px;
   left: 50%;
-  transform: translate(-50%, -85%);
+  transform: translate(-50%);
   background-color:transparent;
   background-position: center;
   background-size: contain;
@@ -498,7 +398,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   background: rgb(51, 48, 48);
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
@@ -508,26 +408,10 @@ footer {
   width: 100%;
   text-align: center;
   z-index: 2;
+  
 }
 
 
-.testingtext {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgb(51, 48, 48);
-  position: fixed;
-  bottom: 0px;
-  left: 0;
-  right: 0;
-  top: 200px;
-  color: white;
-  border: 1px solid rgb(37, 34, 34);
-  padding: 10px;
-  width: 100%;
-  text-align: center;
-  z-index: 1;
-}
 
 .dash-footer__button {
   font-size: 1rem;
@@ -537,148 +421,7 @@ footer {
   top: 900px;
 }
 
-/* || TABLES - GENERAL */
 
-thead,
-tbody,
-tr {
-  display: contents;
-}
-
-.table {
-  font-size: 1rem;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  color: var(--TABLE-COLOR);
-  gap: 0.1em;
-}
-
-.table__button {
-  padding: 0.25em;
-  font-size: 1.5rem;
-  color: var(--TABLE-COLOR);
-}
-
-.table__thead {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-
-.table__th,
-.table__cell {
-  background-color: var(--TABLE-BGCOLOR);
-  text-align: left;
-  border: 1px solid var(--TABLE-COLOR);
-  padding: 0.5em;
-}
-
-.table__cell:last-child {
-  display: grid;
-  place-content: center;
-}
-
-.table__cell--inactive {
-  background-color: var(--INACTIVE);
-}
-
-/* ||  NOTE */
-
-.note__created,
-.note__updated,
-.note__username {
-  display: none;
-}
-
-.note__status {
-  font-weight: bold;
-}
-
-.note__status--open {
-  color: var(--STATUS-OPEN);
-}
-
-.note__status--completed {
-  color: var(--STATUS-COMPLETE);
-}
-
-
-/* || FORM - GENERAL */
-
-.form {
-  display: flex;
-  flex-flow: column nowrap;
-  gap: 0.75em;
-  max-width: 800px;
-}
-
-.form__checkbox-container {
-  display: flex;
-  align-items: center;
-  width: fit-content;
-  gap: 0.5em;
-}
-
-.form__persist {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  gap: 0.5em;
-}
-
-.form__title-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.form__input,
-.form__submit-button {
-  padding: 0.5em;
-  border-radius: 15px;
-}
-
-.form__input--text {
-  min-height: 150px;
-}
-
-.form__input--incomplete {
-  border: 1px solid red;
-  outline: 1px solid red;
-}
-
-
-.form__checkbox {
-  width: 24px;
-  height: 24px;
-}
-
-.form__select {
-  width: fit-content;
-  padding: 0.25em;
-}
-
-.form__action-buttons {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 0.5em;
-  position: absolute;
-  right: 0.5em;
-}
-
-.form__row {
-  display: flex;
-  flex-flow: row nowrap;
-  gap: 2em;
-}
-
-.form__divider {
-  display: flex;
-  flex-flow: column nowrap;
-  gap: 0.5em;
-}
 
 @media screen and (max-width: 400px) {
   h1 {
@@ -698,6 +441,7 @@ tr {
 
   body {
     font-size: 1.25rem;
+    min-height: 100vh;
   }
 
   .dash-header {
