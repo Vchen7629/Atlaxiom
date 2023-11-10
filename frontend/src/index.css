@@ -212,6 +212,17 @@ a {
   z-index: 2;
 }
 
+.header::after {
+  content: '';
+  display: block;
+  height: 1px; 
+  background-color: aqua; 
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+}
+
 .h1-container {
   text-align: center; /* Center the h1 text horizontally */
   margin: 10px 0; 
@@ -305,8 +316,24 @@ a {
   transform: translate(-50%);
   border: 2px solid aqua;
   padding: 15px;
-  width: 700px;
-  height: 70px;
+  width: auto;
+  height: auto;
+
+}
+
+.h1titleboxtwo {
+  border-radius: 25px;
+  position: absolute;
+  text-align: center;
+  left: 50%;
+  top: 500px;
+  background-color: rgb(51, 48, 48);
+  transform: translate(-50%);
+  border: 2px solid aqua;
+  padding: 15px;
+  width: auto;
+  height: auto;
+  margin-top: 500px;
 
 }
 
