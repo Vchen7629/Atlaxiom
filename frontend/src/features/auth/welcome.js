@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from "react-router-dom"
 
 const Welcome = () => {
@@ -15,6 +16,8 @@ const Welcome = () => {
             <p><Link to="/dash/ownedcards">View Owned Cards</Link></p>
 
             <p><Link to="/dash/users">View User Settings</Link></p>
+
+            <p><Link to="/search">Search</Link></p>
 
         </section>
     )
