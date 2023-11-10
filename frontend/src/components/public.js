@@ -63,13 +63,13 @@ const Public = () => {
                                 This website is a personal project that aims to act as a card catalog website that allows users to search for cards, log them as owned, and
                                 have a sign-in feature that allows users to save their cards. 
                                 This website is a personal project that aims to act as a card catalog website that allows users to search for cards, log them as owned, and
-                                have a sign-in feature that allows users to save their cards. 
-                                
-                                
-                                
+                                have a sign-in feature that allows users to save their cards.
                             </p>
                     </div>
                 </div>
+                <h1 className= "h1titleboxtwo">
+                    features of this website
+                </h1>
             </body>
             <footer>
                 <div  className="footer-container">
