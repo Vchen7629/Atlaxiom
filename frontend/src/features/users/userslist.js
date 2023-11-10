@@ -1,7 +1,49 @@
+import { useGetUsersQuery } from "./usersApiSlice"
+import User from './user'
+
 const UsersList = () => {
-    return (
-        <h1>UsersList</h1>
-    )
+
+    const {
+        data: users,
+        isloading,
+        isSuccess,
+        isError,
+        error
+    } = useGetUsersQuery()
+
+    let content
+
+    if (isloading) content = <p>Loading... </p>
+
+    if (isError) {
+        content = <p className="errmsg">{error?.data?.message}</p>
+    }
+
+    if (isSuccess) {
+
+        const { ids } = users
+
+        const tableContent = ids?.length
+            ? ids.map(userId => <User key={userId} userId={userId} />)
+            : null
+
+        content = (
+            <table className="table table--users">
+                <thead className="table__thead">
+                    <tr>
+                        <th scope="col" className="table__th user__username">Username</th>
+                        <th scope="col" className="table__th user__roles">Roles</th>
+                        <th scope="col" className="table__th user__edit">Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {tableContent}
+                </tbody>
+            </table>
+        )
+    }
+
+    return content
 }
 
 export default UsersList
