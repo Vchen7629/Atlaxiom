@@ -11,8 +11,6 @@ Welcome to my Card Catelog Web App! This web app is a fullstack project that is 
 </ul>
 
 <h1> <strong> How to install this project </strong> </h1>
-<h2> 1) Run: git clone: https://github.com/Vchen7629/CardWebApp.git </h2><br>
-<h2> 2) Install Dependencies: </h2>
-<ul>
-  <li> yes </li>
-</ul>
+```bash
+hi
+```
