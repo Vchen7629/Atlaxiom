@@ -1,10 +1,3 @@
-<style>
-.code {
-    text-color: red;
-}
-</style>
-
-
 <h1><strong>DeckDatabaseOne</strong></h1>
 Welcome to my Card Catelog Web App! This web app is a fullstack project that is aimed to catelog yugioh cards<br>
 
@@ -20,7 +13,9 @@ Welcome to my Card Catelog Web App! This web app is a fullstack project that is 
 <h1> <strong> Getting started </strong> </h1>
 <div> 
     1) Clone the Project:
-    <div className="code">
-        testing
-    </div>
+    <li>Run: git clone https://github.com/Vchen7629/CardWebApp.git </li>
+</div>
+<div>
+    2) install node-modules:
+    <li>Run: n</li>
 </div>
