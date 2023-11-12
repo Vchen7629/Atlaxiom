@@ -1,6 +1,8 @@
+
 const OwnedCardsList = () => {
     return (
-        <h1>OwnedCardsList</h1>
+    <h1>OwnedCardsList</h1>
+
     )
 }
 

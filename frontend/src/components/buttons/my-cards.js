@@ -7,7 +7,7 @@ const Mycards = () => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate('/my-cards');
+    navigate('/dash/ownedcards');
   };
 
   return (
