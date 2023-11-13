@@ -27,10 +27,6 @@ const DashFooter = () => {
     }
 
     const content = (
-<<<<<<< HEAD
-=======
-        
->>>>>>> 5a1f343a60e800cd9368e61a45af8641ea9b74a6
         <footer>
         <div  className="footer-container">
             <p classname="copyright-container">&copy; 2023 DeckDatabaseOnline. All rights reserved.</p>   
@@ -51,10 +47,6 @@ const DashFooter = () => {
                     Click for Surprise
                 </li>
             </ul>
-<<<<<<< HEAD
-=======
-            
->>>>>>> 5a1f343a60e800cd9368e61a45af8641ea9b74a6
         </div>
         </footer>
     )
