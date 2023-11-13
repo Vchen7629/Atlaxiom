@@ -1,5 +1,5 @@
 <h1><strong>DeckDatabaseOne</strong></h1>
-Welcome to my Card Catelog Web App! This web app is a fullstack project that is aimed to catelog yugioh cards<br>
+Welcome to my Card Catalog Web App! This web app is a full-stack project that is aimed to catalog Yugioh cards<br>
 
 <h1><strong>Features I am planning to include</strong></h1>
 <ul>
@@ -16,6 +16,6 @@ Welcome to my Card Catelog Web App! This web app is a fullstack project that is 
     <li>Run: git clone https://github.com/Vchen7629/CardWebApp.git </li>
 </div>
 <div>
-    2) install node-modules:
-    <li>Run: n</li>
+    2) install node modules:
+    <li>Run: npm install</li>
 </div>
