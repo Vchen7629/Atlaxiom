@@ -377,9 +377,19 @@ a {
   margin-bottom: 10px;
   position: relative;
   width: auto;
-  height: auto;
+  height: 700px;
   vertical-align: text-bottom;
 
+}
+
+
+
+.homepage-parallelogram-upperleft:hover,
+.homepage-parallelogram-upperright:hover, 
+.homepage-parallelogram-bottomleft:hover, 
+.homepage-parallelogram-bottomright:hover {
+  box-shadow: 0 0 80px aqua;
+  border: 2px solid
 }
 
 .homepage-parallelogram-upperleft {
@@ -387,24 +397,16 @@ a {
   flex-direction: row;
   background-color: rgb(51, 48, 48);
   padding: 20px;
-  margin-left: 40px;
-  margin-top: 10px;
-  position: relative;
+  left: 220px;
+  top: 50px;
+  position: absolute;
   width: 380px;
   height: 200px;
-  border: 2px solid pink;
+  border: 2px solid aqua;
   border-radius: 25px;
   vertical-align: text-bottom;
   transform: skew(20deg);
   box-shadow: 0 0 10px aqua
-}
-
-.homepage-parallelogram-upperleft:hover,
-.homepage-parallelogram-upperright:hover, 
-.homepage-parallelogram-bottomleft:hover, 
-.homepage-parallelogram-bottomright:hover {
-  box-shadow: 0 0 80px aqua;
-
 }
 
 .homepage-parallelogram-upperright {
@@ -412,9 +414,9 @@ a {
   flex-direction: row;
   background-color: rgb(51, 48, 48);
   padding: 20px;
-  margin-left: 610px;
-  margin-top: 10px;
-  position: relative;
+  right: 220px;
+  top: 50px;
+  position: absolute;
   width: 380px;
   height: 200px;
   border: 2px solid aqua;
@@ -429,9 +431,9 @@ a {
   flex-direction: row;
   background-color: rgb(51, 48, 48);
   padding: 20px;
-  margin-top: 300px;
-  margin-left: -380px;
-  position: relative;
+  left: 220px;
+  bottom: 50px;
+  position: absolute;
   width: 380px;
   height: 200px;
   border: 2px solid aqua;
@@ -441,15 +443,15 @@ a {
   box-shadow: 0 0 10px pink
 }
 
+
 .homepage-parallelogram-bottomright {
   display: flex;
   flex-direction: row;
   background-color: rgb(51, 48, 48);
   padding: 20px;
-  margin-left: -380px;
-  margin-top: 300px;
-  margin-bottom: 10px;
-  position: relative;
+  right: 220px;
+  bottom: 50px;
+  position: absolute;
   width: 380px;
   height: 200px;
   border: 2px solid aqua;
@@ -458,6 +460,7 @@ a {
   transform: skew(20deg);
   box-shadow: 0 0 10px pink
 }
+
 
 .features-container {
   display: flex;
