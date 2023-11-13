@@ -1,0 +1,9 @@
+.searchbar {
+    background-color: black;
+    height: 50px;
+    width: 50px;
+}
+
+.search-bar-container {
+    background-color: yellow;
+}

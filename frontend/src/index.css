@@ -17,7 +17,7 @@
 body {
   font-family: 'Nunito', sans-serif;
   min-height: 100vh;
-  background-color: gray;
+  background-color: rgb(77, 72, 72);
   overflow: visible;
 }
 
@@ -27,7 +27,7 @@ body {
   list-style: none;
   align-items: left;
   justify-content: left;
-
+  z-index: 2;
   
 }
 
@@ -37,11 +37,11 @@ body {
   list-style: none;
   align-items: right;
   justify-content: right;
-
+  z-index: 2;
   
 }
 
-.privpolbtn, .contact-info, .home, .logins {
+.privpolbtn, .contact-info, .home, .about-us {
   background: transparent;
   border: none;
   color: #fff;
@@ -50,11 +50,11 @@ body {
 
 }
 
-.privpolbtn:hover, .contact-info:hover, .home:hover, .logins:hover {
+.privpolbtn:hover, .contact-info:hover, .home:hover, .about-us:hover {
   border-bottom: 2px solid #fff; /* Add a white underline on hover */
 }
 
-.menu_card_search, .banlist, .my-cards, .about-us  {
+.menu_card_search, .banlist, .my-cards, .logins  {
   background: linear-gradient(to bottom, #0055BB, #0000AA);
   color: white;
   padding: 10px 20px;
@@ -66,8 +66,10 @@ body {
   height: 80px;
   text-align: center;
   margin-right: 10px;
+  border-radius: 25px;
+  box-shadow: 0 0 5px black
 }
-.menu_card_search:hover, .banlist:hover, .my-cards:hover, .about-us:hover {
+.menu_card_search:hover, .banlist:hover, .my-cards:hover, .logins:hover {
   background: linear-gradient(to bottom, #00c6fb, #005bea);
   color: #eee; /* New text color on hover */
   border-radius: 20px;
@@ -81,6 +83,26 @@ body {
   transform: scale(1.08);
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s;
+  box-shadow: 0 0 20px aqua
+}
+
+.bannerone {
+  position: absolute;
+  background-color: black;
+  height: 70px;
+  top: 105px;
+  width: 100%
+}
+
+.bannerone:after {
+  content: '';
+  display: block;
+  height: 1px; 
+  background-color: white; 
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+
 }
 
 
@@ -134,7 +156,7 @@ a {
 
 /* || PAGES */
 
-.public,
+.public
 .welcome {
   display: flex;
   flex-direction: column;
@@ -193,6 +215,15 @@ a {
   border-bottom: 1px solid var(--BORDER-COLOR);
 }
 
+.dash-header__container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;
+
+}
+
 .header {
   display: flex;
   flex-direction: row;
@@ -207,7 +238,7 @@ a {
   border: 1px solid black;
   padding: 10px;
   width: 100%;
-  height: flex;
+  height: auto;
   text-align: center;
   z-index: 2;
 }
@@ -224,9 +255,18 @@ a {
 }
 
 .h1-container {
-  text-align: center; /* Center the h1 text horizontally */
+  text-align: center; 
   margin: 10px 0; 
   position: absolute;
+  left: 295.21px;
+  right: 295.21px;
+}
+
+.h1-container-dash {
+  text-align: center; 
+  color: white;
+  position: absolute;
+  bottom: 25px;
   left: 295.21px;
   right: 295.21px;
 }
@@ -283,19 +323,24 @@ a {
   flex-flow: row nowrap;
   justify-content: flex-end;
   gap: 0.5em;
+  z-index: 2;
 }
 
 .dash-container {
-  padding: 0.75em 0.5em 0.5em;
+  padding: 20px 0.5em 0.5em;
   flex-grow: 1;
+  position: absolute;
+  top: 100px;
+
 }
 
 .dash-footer {
   font-size: 1rem;
-  position: fixed;
-  bottom: 0;
+  position: absolute;
+  bottom: 20px;
   z-index: 1;
   background-color: var(--BGCOLOR);
+  top: 20px;
   padding: 0.5em;
   border-top: 1px solid var(--BORDER-COLOR);
   display: flex;
@@ -311,68 +356,137 @@ a {
   position: absolute;
   text-align: center;
   left: 50%;
-  top: 500px;
+  top: 550px;
   background-color: rgb(51, 48, 48);
   transform: translate(-50%);
   border: 2px solid aqua;
   padding: 15px;
   width: auto;
   height: auto;
-
-}
-
-.h1titleboxtwo {
-  border-radius: 25px;
-  position: absolute;
-  text-align: center;
-  left: 50%;
-  top: 500px;
-  background-color: rgb(51, 48, 48);
-  transform: translate(-50%);
-  border: 2px solid aqua;
-  padding: 15px;
-  width: auto;
-  height: auto;
-  margin-top: 500px;
-
+  box-shadow: 0 0 10px pink;
+  z-index: 2;
 }
 
 
-.homepage-card-container-one {
+.body-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  background-color: transparent;
+  padding: 20px;
+  margin-top: 600px;
+  margin-bottom: 10px;
+  position: relative;
+  width: auto;
+  height: 700px;
+  vertical-align: text-bottom;
+
+}
+
+
+
+.homepage-parallelogram-upperleft:hover,
+.homepage-parallelogram-upperright:hover, 
+.homepage-parallelogram-bottomleft:hover, 
+.homepage-parallelogram-bottomright:hover {
+  box-shadow: 0 0 80px aqua;
+  border: 2px solid pink
+}
+
+.homepage-parallelogram-upperleft {
+  display: flex;
+  flex-direction: row;
   background-color: rgb(51, 48, 48);
   padding: 20px;
-  margin-left: 20px;
-  margin-top: 600px;
-  margin-bottom: 100px;
-  position: relative;
+  left: 220px;
+  top: 50px;
+  position: absolute;
   width: 380px;
-  height: auto;
-  
-  left: 200px;
+  height: 200px;
   border: 2px solid aqua;
   border-radius: 25px;
   vertical-align: text-bottom;
-  
+  transform: skew(20deg);
+  box-shadow: 0 0 10px pink
 }
 
-.homepage-card-container-two {
+.homepage-parallelogram-upperright {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
   background-color: rgb(51, 48, 48);
   padding: 20px;
-  margin-left: 30px;
+  right: 220px;
+  top: 50px;
   position: absolute;
-  width: 500px;
-  height: auto;
+  width: 380px;
+  height: 200px;
   border: 2px solid aqua;
   border-radius: 25px;
-  bottom: 0;
-  overflow: visible;
+  vertical-align: text-bottom;
+  transform: skew(-20deg);
+  box-shadow: 0 0 10px pink
 }
+
+.homepage-parallelogram-bottomleft {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(51, 48, 48);
+  padding: 20px;
+  left: 220px;
+  bottom: 50px;
+  position: absolute;
+  width: 380px;
+  height: 200px;
+  border: 2px solid aqua;
+  border-radius: 25px;
+  vertical-align: text-bottom;
+  transform: skew(-20deg);
+  box-shadow: 0 0 10px pink
+}
+
+
+.homepage-parallelogram-bottomright {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(51, 48, 48);
+  padding: 20px;
+  right: 220px;
+  bottom: 50px;
+  position: absolute;
+  width: 380px;
+  height: 200px;
+  border: 2px solid aqua;
+  border-radius: 25px;
+  vertical-align: text-bottom;
+  transform: skew(20deg);
+  box-shadow: 0 0 10px pink
+}
+
+
+.features-container {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(51, 48, 48);
+  padding: 20px;
+  margin-top: 78px;
+  position: relative;
+  width: 100%;
+  height: auto;
+  margin-bottom: 80px;
+  border: 2px solid aqua;
+  border-radius: 25px;
+  vertical-align: text-bottom;
+}
+
+.feature-container title {
+  border-radius: 25px;
+  position: absolute;
+  text-align: center;
+  width: auto;
+  height: auto;
+  background-color: coral;
+  box-shadow: 10px 10px 5px lightblue;
+}
+
 
 
 .underline-white {
@@ -401,9 +515,9 @@ a {
 .tech-circle {
   background-image: url('img/techcirclepng.png');
   position: absolute;
-  top: 560px;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%);
+  transform: translate(-50%,-50%);
   background-color:transparent;
   background-position: center;
   background-size: contain;
@@ -432,6 +546,7 @@ footer {
   color: white;
   border: 1px solid rgb(37, 34, 34);
   padding: 10px;
+  margin-top: 20px;
   width: 100%;
   text-align: center;
   z-index: 2;

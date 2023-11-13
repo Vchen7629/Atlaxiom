@@ -1,5 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,7 +13,10 @@ const Login = () => {
   return (
     <div>
         <button className="logins" onClick={handleButtonClick}>
-                Login
+          <FontAwesomeIcon icon={faUser}/>
+            <span className="fatextmargin">
+                  Login
+            </span>
         </button>
     </div>
   );
