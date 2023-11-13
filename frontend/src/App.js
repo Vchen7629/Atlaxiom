@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/layout'
-import Public from './components/homepage/public'
+import Public from './components/publicpage/public'
 import Login from './features/auth/login';
 import DashLayout from './components/dash/dashlayout'
 import Welcome from './features/auth/welcome'
@@ -10,8 +10,6 @@ import Banlists from './features/pages/banlist';
 import ContactInfos from './features/pages/contactinfo';
 import AboutUs from './features/pages/aboutus';
 import Searchs from './features/pages/search';
-import Privacypolicies from './features/pages/privacypolicy';
-import MyCards from './features/pages/mycards';
 
 function App() {
   return (
@@ -24,8 +22,6 @@ function App() {
         <Route path="contact-info" element={<ContactInfos />} />
         <Route path="About-us" element={<AboutUs />} />
         <Route path="search" element={<Searchs />} />
-        <Route path="privacy-policy" element={<Privacypolicies />} />
-        <Route path="my-cards" element={<MyCards />} />
  
         <Route path="dash" element={<DashLayout />}>
 

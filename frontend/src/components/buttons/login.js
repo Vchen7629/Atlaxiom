@@ -14,9 +14,15 @@ const Login = () => {
     <div>
         <button className="logins" onClick={handleButtonClick}>
           <FontAwesomeIcon icon={faUser}/>
+<<<<<<< HEAD
             <span className="fatextmargin">
                   Login
             </span>
+=======
+          <span className="fatextmargin">
+                Login
+          </span>
+>>>>>>> 5a1f343a60e800cd9368e61a45af8641ea9b74a6
         </button>
     </div>
   );
