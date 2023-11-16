@@ -1,0 +1,111 @@
+.NormalMonsterCardProp {
+    height: 900px;
+    width: 900px;
+    background-color: red;
+}
+  
+  .EffectCardProp {
+    height: 900px;
+    width: 900px;
+    background-color: brown;
+  }
+  
+  .PendulumCardProp {
+    height: 900px;
+    width: 900px;
+    background-color: green;
+  }
+  
+  .RitualCardProp {
+    height: 900px;
+    width: 900px;
+    background-color: darkblue;
+  }
+  
+  .RitualPendulumCardProp {
+    height: 900px;
+    width: 900px;
+    background-color: lightblue;
+  }
+  
+  .FusionCardProp {
+    height: 900px;
+    width: 900px;
+    background-color: rgb(59, 7, 59);
+  }
+  
+  .FusionPendulumCardProp {
+    height: 900px;
+    width: 900px;
+    background-color: pink;
+  }
+  
+  .SynchroCardProp {
+    height: 900px;
+    width: 900px;
+    background-color: gray;
+  }
+  
+  .SynchroPendulumCardProp {
+    height: 900px;
+    width: 900px;
+    background-color: rgb(173, 168, 168);
+  }
+  
+  .XyzCardProp {
+    height: 900px;
+    width: 900px;
+    background-color: rgb(43, 40, 40);
+  }
+  
+  .XyzPendulumCardProp {
+    height: 900px;
+    width: 900px;
+    background-color: rgb(82, 72, 72);
+  }
+  
+  .LinkCardProp {
+    height: 900px;
+    width: 900px;
+    background-color: turquoise;
+  }
+  
+  .MonsterTunerCardProp {
+    height: 900px;
+    width: 900px;
+    background-color: yellow;
+  }
+  
+  .TunerEffectCardProp {
+    height: 900px;
+    width: 900px;
+    background-color: gold;
+  }
+  
+  .FlipCardProp {
+    height: 900px;
+    width: 900px;
+    background-color: yellow;
+  }
+  
+  .FlipPendulumCardProp {
+    height: 900px;
+    width: 900px;
+    background-color: darkred;
+  }
+  .TunerPendulumCardProp {
+    height: 900px;
+    width: 900px;
+    background-color: cadetblue;
+  }
+  .SpellCardProp {
+    height: 900px;
+    width: 900px;
+    background-color: blue;
+  }
+  
+  .TrapCardProp {
+    height: 900px;
+    width: 900px;
+    background-color: purple;
+  }
