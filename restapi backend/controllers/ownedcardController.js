@@ -5,12 +5,12 @@ const asyncHandler = require('express-async-handler')
 // @route POST /ownedcards
 // @access Public
 const createOwnedCard = asyncHandler(async (req, res) => {
-  
-  const { username, ownedCards } = req.body;
+
+  const { id, ownedCards } = req.body;
 
   // Check if username and ownedCard are provided
-  if (!username || !ownedCards) {
-    return res.status(400).json({ message: 'username and ownedCard are required' });
+  if (!id || !ownedCards) {
+    return res.status(400).json({ message: 'user id and ownedCard are required' });
   }
 
   // Check if ownedCard has the required fields
@@ -21,7 +21,7 @@ const createOwnedCard = asyncHandler(async (req, res) => {
   }
 
   // Check if the user exists in the database
-  const user = await User.findOne({ username });
+  const user = await User.findById(id);
 
   if (!user) {
     return res.status(404).json({ message: 'User not found' });
@@ -42,20 +42,25 @@ const createOwnedCard = asyncHandler(async (req, res) => {
   // Save the user with the new ownedCard
   await user.save();
 
-  res.status(201).json({ message: `New card named ${ownedCards[0].card_name} created for user ${username}` });
+  res.status(201).json({ message: `New card named ${ownedCards[0].card_name} created for user ${user.username}` });
 
 });
 
 
 // @desc Get all owned cards for a user
-// @route GET /ownedcards/:username
+// @route GET /ownedcards/:id
 // @access Public
 const getAllOwnedCards = asyncHandler(async (req, res) => {
 
-  const { username } = req.params;
+  const { Userid } = req.params;
+  
+  //Check if the user ID is provided
+  if (!Userid) {
+    return res.status(400).json({ message: 'User ID is required' });
+  }
 
-  // Find the user by username
-  const user = await User.findOne({ username });
+  // Find the user by id
+  const user = await User.findById(Userid);
 
   if (!user) {
     return res.status(404).json({ message: 'User not found' });
@@ -73,15 +78,15 @@ const getAllOwnedCards = asyncHandler(async (req, res) => {
 
 
 // @desc Update an owned card
-// @route PATCH /ownedcards/:username
+// @route PATCH /ownedcards/:Userid
 // @access Public
 const updateOwnedCard = asyncHandler(async (req, res) => {
 
-  const { username } = req.params;
+  const { Userid } = req.params;
   const { card_name, image_url, ownedprop } = req.body;
 
   // Find the user by username
-  const user = await User.findOne({ username });
+  const user = await User.findById(Userid);
     
   //check to see if user exists in db
   if (!user) {
@@ -108,19 +113,19 @@ const updateOwnedCard = asyncHandler(async (req, res) => {
 });
 
 // @desc Delete an owned card for a user by card name
-// @route DELETE /ownedcards/:username/:cardName
+// @route DELETE /ownedcards/:Userid/:cardName
 // @access Public
 const deleteOwnedCardByUsername = asyncHandler(async (req, res) => {
 
-  const { username, cardName } = req.params;
+  const { Userid, cardName } = req.params;
 
   // Check if username and cardName are provided
-  if (!username || !cardName) {
+  if (!Userid || !cardName) {
     return res.status(400).json({ message: 'Username and card name are required' });
   }
 
   // Find the user by username
-  const user = await User.findOne({ username });
+  const user = await User.findById(Userid);
 
   // Check if the user exists in the database
   if (!user) {
@@ -141,7 +146,7 @@ const deleteOwnedCardByUsername = asyncHandler(async (req, res) => {
   // Save the updated user
   await user.save();
 
-  res.json({ message: 'Owned card deleted successfully' });
+  res.status(201).json({ message: `Owned card ${user.ownedCards[0].card_name} for user ${user.username} deleted successfully` });
 
 });
 

@@ -28,9 +28,9 @@ app.use('/', require('./routes/root'))
 app.use('/users', require('./routes/userRoutes'))
 app.use('/ownedcard', require('./routes/ownedCardRoutes'))
 
-app.get('/ownedcard/:username', getAllOwnedCards)
-app.patch('/ownedcard/:username', updateOwnedCard)
-app.delete('/ownedcard/:username/:cardName', deleteOwnedCardByUsername)
+app.get('/ownedcard/:Userid', getAllOwnedCards)
+app.patch('/ownedcard/:Userid', updateOwnedCard)
+app.delete('/ownedcard/:Userid/:cardName', deleteOwnedCardByUsername)
 
 app.all('*', (req, res) => {
     res.status(404)

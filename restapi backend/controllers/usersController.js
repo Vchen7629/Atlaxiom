@@ -1,6 +1,8 @@
 const { OwnedCard, User } = require('../models/genmodels');
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
+const mongoose = require('mongoose');
+
 
 // @desc create a new users
 // @route POST /user
@@ -101,32 +103,31 @@ const updateUser = asyncHandler(async (req, res) => {
 // @access private
 const deleteUser = asyncHandler(async (req, res) => {
     
-    const { username } = req.body
+    const { id } = req.body
 
-    // Confirm data
-    if (!username) {
-        return res.status(400).json({ message: 'username required' })
+    if (!id) {
+        return res.status(400).json({ message: 'Invalid user ID' });
     }
 
     // Does the user exist to delete?
-    const user = await User.findOne({ username }).exec();
+    const user = await User.findById(id).exec()
 
     if (!user) {
-        return res.status(404).json({ message: 'User not found' });
+        return res.status(400).json({ message: 'User not found' })
     }
 
-    //Check to see if the user has owned cards
-    const ownedCards = await OwnedCard.findOne({ user_ids: user._id }).lean().exec();
+    const ownedCards = await OwnedCard.findOne({ user_ids: id }).lean().exec();
 
-    if (ownedCards && ownedCards.ownedCards.length > 0) {
+    if (user.ownedCards && user.ownedCards.length > 0) {
         return res.status(400).json({ message: 'User has owned cards, cannot delete' });
     }
 
-    // Delete the user
-    const result = await user.deleteOne();
-        
-    res.json({ message: `User ${username} deleted` });
-        
+    console.log('Owned Cards:', ownedCards);
+
+    const result = await user.deleteOne()
+
+    res.json({message: `Username ${result.username} with ID ${result._id} deleted` })
+
 })
 
 module.exports = {
