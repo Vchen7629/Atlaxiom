@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const ownedCardSchema = require('./OwnedCards')
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -18,6 +19,10 @@ const userSchema = new mongoose.Schema({
         default: true
     },
 
-})
+    ownedCards: {
+        type: [ownedCardSchema],
+        default: []
+    }
+});
 
-module.exports = mongoose.model('User', userSchema)
+module.exports = userSchema

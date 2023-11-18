@@ -9,6 +9,7 @@ const cors = require('cors')
 const corsOptions = require('./config/corsOptions')
 const connectDB = require('./config/dbConn')
 const mongoose = require('mongoose')
+const { getAllOwnedCards, updateOwnedCard, deleteOwnedCardByUsername } = require('./controllers/ownedcardController')
 const PORT = process.env.PORT | 3000;
 
 console.log(process.env.NODE_ENV)
@@ -25,6 +26,11 @@ app.use('/', express.static(path.join(__dirname, 'public'))) /*code for telling 
 app.use('/', require('./routes/root'))
 
 app.use('/users', require('./routes/userRoutes'))
+app.use('/ownedcard', require('./routes/ownedCardRoutes'))
+
+app.get('/ownedcard/:username', getAllOwnedCards)
+app.patch('/ownedcard/:username', updateOwnedCard)
+app.delete('/ownedcard/:username/:cardName', deleteOwnedCardByUsername)
 
 app.all('*', (req, res) => {
     res.status(404)

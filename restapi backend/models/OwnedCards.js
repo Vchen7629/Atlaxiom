@@ -1,35 +1,20 @@
-const mongoose = require('mongoose')
-const AutoIncrement = require('mongoose-sequence')(mongoose)
+const mongoose = require('mongoose');
 
-const OwnedCardsSchema = new mongoose.Schema(
-    {
-        user: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-            ref: 'User'
-        },
-        title: {
-            type: String,
-            required: true
-        },
-        text: {
-            type: String,
-            default: true
-        },
-        owned: {
-            type: Boolean,
-            default: false
-        }
+
+const ownedCardSchema = new mongoose.Schema({
+    card_name: {
+        type: String,
+        required: true
     },
-    {
-        timestamps: true
-    }
-)
+    image_url: {
+        type: String,
+        default: true
+    },
+    ownedprop: {
+        type: Boolean,
+        default: false
+    },
+    _id: false 
+});
 
-OwnedCardsSchema.plugin(AutoIncrement, {
-    inc_field: 'ticket',
-    id: 'ticketNums', 
-    start_seq: 500
-})
-
-module.exports = mongoose.model('OwnedCards', OwnedCardsSchema)
+module.exports = ownedCardSchema;
