@@ -1,7 +1,4 @@
-import {
-    createSelector,
-    createEntityAdapter
-} from "@reduxjs/toolkit";
+import { createSelector, createEntityAdapter} from "@reduxjs/toolkit";
 import { apiSlice } from "../../app/api/apiSlice"
 
 const usersAdapter = createEntityAdapter({})
@@ -15,8 +12,8 @@ export const usersApiSlice = apiSlice.injectEndpoints({
             validateStatus: (response, result) => {
                 return response.status === 200 && !result.isError
             },
-            keepUnusedDataFor: 5,
             transformResponse: responseData => {
+                console.log('Response Data:', responseData);
                 const loadedUsers = responseData.map(user => {
                     user.id = user._id
                     return user
@@ -35,23 +32,22 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     }),
 })
 
-export const {
-    useGetUsersQuery,
-} = usersApiSlice
+export const { useGetUsersQuery, } = usersApiSlice
 
-// returns the query result object
-export const selectUsersResult = usersApiSlice.endpoints.getUsers.select()
+//method for select all users for a admin account
+    // returns the query result object
+    export const selectUsersResult = usersApiSlice.endpoints.getUsers.select()
 
-// creates memoized selector
-const selectUsersData = createSelector(
-    selectUsersResult,
-    usersResult => usersResult.data // normalized state object with ids & entities
-)
+    // creates memoized selector
+    const selectUsersData = createSelector(
+        selectUsersResult,
+        usersResult => usersResult.data // normalized state object with ids & entities
+    )
 
-//getSelectors creates these selectors and we rename them with aliases using destructuring
-export const {
-    selectAll: selectAllUsers,
-    selectById: selectUserById,
-    selectIds: selectUserIds
-    // Pass in a selector that returns the users slice of state
-} = usersAdapter.getSelectors(state => selectUsersData(state) ?? initialState)
+    //getSelectors creates these selectors and we rename them with aliases using destructuring
+    export const {
+        selectAll: selectAllUsers, // returns an array for all users
+        selectById: selectUserById, //Retrieves a user object with that id
+        selectIds: selectUserIds // returns an array of all user ids
+        // Pass in a selector that returns the users slice of state
+    } = usersAdapter.getSelectors(state => selectUsersData(state) ?? initialState)

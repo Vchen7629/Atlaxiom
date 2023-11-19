@@ -14,7 +14,7 @@ const ownedCardSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    _id: false 
+
 });
 
 module.exports = ownedCardSchema;

@@ -10,7 +10,7 @@ const corsOptions = require('./config/corsOptions')
 const connectDB = require('./config/dbConn')
 const mongoose = require('mongoose')
 const { getAllOwnedCards, updateOwnedCard, deleteOwnedCardByUsername } = require('./controllers/ownedcardController')
-const PORT = process.env.PORT | 3000;
+const PORT = process.env.PORT || 3000;
 
 console.log(process.env.NODE_ENV)
 
@@ -26,11 +26,12 @@ app.use('/', express.static(path.join(__dirname, 'public'))) /*code for telling 
 app.use('/', require('./routes/root'))
 
 app.use('/users', require('./routes/userRoutes'))
-app.use('/ownedcard', require('./routes/ownedCardRoutes'))
 
-app.get('/ownedcard/:Userid', getAllOwnedCards)
-app.patch('/ownedcard/:Userid', updateOwnedCard)
-app.delete('/ownedcard/:Userid/:cardName', deleteOwnedCardByUsername)
+
+app.use('/dash/users/addownedcard', require('./routes/ownedCardRoutes'))
+app.get('/dash/users/ownedcards/:id', getAllOwnedCards)
+app.patch('/dash/users/ownedcards/:id', updateOwnedCard)
+app.delete('/dash/ownedcards/:id/:cardName', deleteOwnedCardByUsername)
 
 app.all('*', (req, res) => {
     res.status(404)

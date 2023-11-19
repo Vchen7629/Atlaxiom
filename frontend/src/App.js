@@ -5,12 +5,15 @@ import Public from './components/publicpage/public'
 import Login from './features/auth/login';
 import DashLayout from './components/dash/dashlayout'
 import Welcome from './features/auth/welcome'
-import OwnedCardsList from './features/ownedcards/ownedcardslist'
+//import defaultownedcardpage from './features/ownedcards/defaultpage';
 import UsersList from './features/users/userslist'
 import Banlists from './features/pages/banlist';
 import ContactInfos from './features/pages/contactinfo';
 import AboutUs from './features/pages/aboutus';
 import Searchs from './features/pages/search';
+import OwnedCardsList from './features/ownedcards/ownedcardslist';
+
+
 
 function App() {
   return (
@@ -28,12 +31,11 @@ function App() {
 
           <Route index element={<Welcome />} />
 
-          <Route path="ownedcards">
-            <Route index element={<OwnedCardsList />} />
-          </Route>
-
           <Route path="users">
             <Route index element={<UsersList />} />
+            <Route path="ownedcards">
+              <Route path=":id" element={<OwnedCardsList/>}/>
+            </Route>
           </Route>
 
         </Route>{/* End Dash path */}
