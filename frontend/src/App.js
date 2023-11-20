@@ -1,17 +1,16 @@
 import { Routes, Route } from 'react-router-dom'
-
 import Layout from './components/layout'
-import Public from './components/publicpage/public'
 import Login from './features/auth/login';
 import DashLayout from './components/dash/dashlayout'
 import Welcome from './features/auth/welcome'
-//import defaultownedcardpage from './features/ownedcards/defaultpage';
 import UsersList from './features/users/userslist'
 import Banlists from './features/pages/banlist';
 import ContactInfos from './features/pages/contactinfo';
 import AboutUs from './features/pages/aboutus';
 import Searchs from './features/pages/search';
-import OwnedCardsList from './features/ownedcards/ownedcardslist';
+import UserOwnedCard from './features/ownedcards/ownedcardslist';
+import PublicPage from './components/publicpage/public';
+
 
 
 
@@ -19,7 +18,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<Public />} />
+        <Route index element={<PublicPage />} />
 
         <Route path="login" element={<Login />} />
         <Route path="banlist" element={<Banlists />} />
@@ -34,7 +33,8 @@ function App() {
           <Route path="users">
             <Route index element={<UsersList />} />
             <Route path="ownedcards">
-              <Route path=":id" element={<OwnedCardsList/>}/>
+              <Route path=":id" element={<UserOwnedCard/>}/>
+        
             </Route>
           </Route>
 

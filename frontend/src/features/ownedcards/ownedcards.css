@@ -24,7 +24,58 @@
     left: 0px;
 }
 
-.cardimage {
-    max-width: 200px;
-    max-height: 200px;
-}
+    .cardtableimage {
+        max-width: 200px;
+        max-height: 180px;
+    }
+
+    .cardtableimagecontainer {
+        max-width: auto;
+        max-height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+
+    .card-container {
+        max-width: 8px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: white;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+        
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .card-box {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 5px;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }

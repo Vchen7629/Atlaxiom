@@ -54,7 +54,7 @@ const Public = () => {
                 </div>
             </body>
             <footer>
-                <div  className="footer-container">
+                <div className="footer-container-homepage">
                     <p classname="copyright-container">&copy; 2023 DeckDatabaseOnline. All rights reserved.</p>   
                     <ul className="footer-links">
                         <li>

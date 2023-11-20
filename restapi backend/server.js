@@ -30,7 +30,7 @@ app.use('/users', require('./routes/userRoutes'))
 
 app.use('/dash/users/addownedcard', require('./routes/ownedCardRoutes'))
 app.get('/dash/users/ownedcards/:id', getAllOwnedCards)
-app.patch('/dash/users/ownedcards/:id', updateOwnedCard)
+app.patch('/dash/users/ownedcards/:id/:CardName', updateOwnedCard)
 app.delete('/dash/ownedcards/:id/:cardName', deleteOwnedCardByUsername)
 
 app.all('*', (req, res) => {

@@ -2,12 +2,15 @@ import { Link } from 'react-router-dom'
 import React from 'react';
 import DashFooter from '../dash/dashfooter';
 import DashHeader from '../dash/dashheader';
+import Privacypolicy from '../buttons/Privacypolicy';
+import ContactInfo from '../buttons/contactinfo';
+import Home from '../buttons/home';
+import Aboutus from '../buttons/about-us';
 
 
 
 
-
-const Public = () => {
+const PublicPage = () => {
    
     const content = (
         <section className="public">
@@ -16,7 +19,7 @@ const Public = () => {
                 <div className="banner"></div>
             </banner> 
             <body>
-                <h1 className= "h1titlebox">
+                <h1 className= "homepagetitlebox">
                     Welcome to the My Deck Database website
                 </h1>
                 
@@ -28,11 +31,33 @@ const Public = () => {
                     <div className="tech-circle"></div>
                 </div>
             </body>
-            <DashFooter/>
+            <footer className="footer-container-homepage">
+                <div className="footer-homepage">
+                    <p classname="copyright-container">&copy; 2023 DeckDatabaseOnline. All rights reserved.</p>   
+                    <ul className="footer-links">
+                        <li>
+                            <Privacypolicy/> {/*button component to redirect to /privacy-policy endpoint */}
+                        </li>
+                        <li>
+                            <ContactInfo/> {/*button component to redirect to /contact-info endpoint */}
+                        </li> 
+                        <li>
+                            <Aboutus/> {/*button component to redirect to /login endpoint */}
+                        </li>
+                        <li>
+                            <Home/> {/*button component to redirect to / endpoint */}
+                        </li>
+                        <li>
+                            Click for Surprise
+                        </li>
+                    </ul>
+                    
+                </div>
+            </footer>
         </section>
     )
     return content
 }
 
-export default Public
+export default PublicPage
 
