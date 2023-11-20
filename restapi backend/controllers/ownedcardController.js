@@ -78,12 +78,17 @@ const getAllOwnedCards = asyncHandler(async (req, res) => {
 
 
 // @desc Update an owned card
-// @route PATCH /ownedcards/:Userid
+// @route PATCH /dash/users/ownedcards/:id/:CardName
 // @access Public
 const updateOwnedCard = asyncHandler(async (req, res) => {
 
-  const { id } = req.params;
-  const { card_name, image_url, ownedprop } = req.body;
+  const { id, CardName } = req.params;
+  const { image_url, ownedprop } = req.body;
+
+  // Check if CardId is provided in the request params
+  if (!CardName) {
+    return res.status(400).json({ message: 'Card Name is required' });
+  }
 
   // Find the user by username
   const user = await User.findById(id);
@@ -94,7 +99,7 @@ const updateOwnedCard = asyncHandler(async (req, res) => {
   }
 
   // Find the owned card by its properties within the user's ownedCards array
-  const ownedCard = user.ownedCards.find(card => card.card_name === card_name)
+  const ownedCard = user.ownedCards.find(card => card.card_name === CardName)
 
   //check to see if the owned card exists for that user
   if (!ownedCard) {

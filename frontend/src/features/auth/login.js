@@ -1,11 +1,13 @@
 import DashFooter from "../../components/dash/dashfooter"
+import DashHeader from "../../components/dash/dashheader"
 
 const Login = () => {
     return (
     <>
-
-        <h1>Login</h1>
-
+        <DashHeader/> 
+        <main className="login-body-container">
+            <h1>Login</h1>
+        </main>
         <DashFooter/>
     </>
     )
