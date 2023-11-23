@@ -3,7 +3,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import './ownedcards.css'
 
 const UserOwnedCardTable = ({ ownedCards }) => {
-  const itemsPerPage = 19;
+  const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [visibleCards, setVisibleCards] = useState([]);
