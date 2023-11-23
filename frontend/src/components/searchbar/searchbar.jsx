@@ -1,6 +1,6 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import debounce from 'lodash/debounce';
 import './searchbar.css';
 import YugiohCard from './cardprop.jsx';
@@ -8,128 +8,215 @@ import Fuse from 'fuse.js';
 import FlipPendulumMonsterCard from './specializedCardProps/FlipPendulumCardProp.jsx';
 
 const SearchBar = () => {
-    const [cardName, setCardName] = useState('');
-    const [cardData, setCardData] = useState(null);
-    const [error, setError] = useState(null);
-    const [suggestions, setSuggestions] = useState([]);
-    const [selectedSuggestion, setSelectedSuggestion] = useState(null);
-    const [threshold] = useState(0.3); // Initial threshold value
-    const [data] = useState({ data: [] }); // Initial state for data
-    const [showEffectType] = useState(false);
-    const maxSuggestions = 20;
+  const [cardName, setCardName] = useState('');
+  const [cardData, setCardData] = useState(null);
+  const [error, setError] = useState(null);
+  const [mainSuggestions, setMainSuggestions] = useState([]);
+  const [leftSuggestions, setLeftSuggestions] = useState([]);
+  const [selectedSuggestion, setSelectedSuggestion] = useState(null);
+  const [threshold] = useState(0.3); // Initial threshold value
+  const [data] = useState({ data: [] }); // Initial state for data
+  const [showEffectType] = useState(false);
+  const maxMainSuggestions = 30;
 
-    const apiUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
+  const apiUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
 
-    const searchCard = async () => {
-        try {
-          if (!cardName.trim()) {
-            return;
-          }
-    
-          const response = await fetch(`${apiUrl}?fname=${encodeURIComponent(cardName)}`);
-          const data = await response.json();
-    
-          if (response.ok) {
-            setCardData(data);
-            setError(null);
-    
-            // Set the suggestions based on the results
-            setSuggestions(data.data.slice(0, maxSuggestions).map((card) => card.name));
-          } else {
-            setError(`Error: ${data.message}`);
-            setCardData(null);
-            setSuggestions([]);
-            setSelectedSuggestion(null);
-          }
-        } catch (error) {
-          console.error('Error fetching data:', error);
-          setError('Error fetching data. Please try again.');
-          setCardData(null);
-          setSuggestions([]);
-          setSelectedSuggestion(null);
-        }
-      };
-    
-        // Debounce the searchCard function with a delay of 500 milliseconds
-        const debouncedSearchCard = debounce(searchCard, 500);
-        
-        useEffect(() => {
-            debouncedSearchCard();
-        }, [debouncedSearchCard]);
-        
-        const handleInputChange = (e) => {
-            setCardName(e.target.value);
-            setSelectedSuggestion(null);
-        };
-        
-        const handleSuggestionClick = (suggestion) => {
-            setCardName(suggestion);
-            setSelectedSuggestion(suggestion);
-            setSuggestions([]);
-        };
-        
-        const handleInputFocus = () => {
-            // Clear suggestions and reset selectedSuggestion when input is focused
-            setSuggestions([]);
-            setSelectedSuggestion(null);
-        };
-        
-        // Create a new Fuse instance with dynamic threshold
-        const fuseOptions = {
-            keys: ['name'],
-            threshold: threshold,
-        };
-        const fuse = new Fuse(data?.data || [], fuseOptions);
-        
-        // Determine the card type based on the "type" property
-        let CardComponent;
-        if (cardData && cardData.data && cardData.data.length > 0) {
-            const cardType = cardData.data[0].type.toLowerCase();
-            switch (cardType) {
-                case 'pendulum flip effect monster':
-                    CardComponent = FlipPendulumMonsterCard;
-                    break
-                default:
-                    CardComponent = YugiohCard; 
-                }
-              }
-      
-        return (
-          <div className="search-bar-container">
-          <div className="Input-Wrapper">
-            <input
-              type="text"
-              value={cardName}
-              onChange={handleInputChange}
-    
-              onFocus={handleInputFocus}
-              placeholder="Enter card name"
-              
-            />
-            <button className="Searchbar-button" onClick={searchCard}>
-              <FontAwesomeIcon icon={faSearch} rotation={90} />
-              Search
+  const searchCard = async () => {
+    try {
+      if (!cardName.trim()) {
+        return;
+      }
+
+      const response = await fetch(`${apiUrl}?fname=${encodeURIComponent(cardName)}`);
+      const data = await response.json();
+
+      if (response.ok) {
+        setCardData(data);
+        setError(null);
+
+        // Set the main suggestions based on the results
+        setMainSuggestions(data.data.slice(0, maxMainSuggestions).map((card) => card.name));
+        // Set all suggestions for the left container
+        setLeftSuggestions(data.data.map((card) => card.name));
+      } else {
+        setError(`Error: ${data.message}`);
+        setCardData(null);
+        setMainSuggestions([]);
+        setLeftSuggestions([]);
+        setSelectedSuggestion(null);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setError('Error fetching data. Please try again.');
+      setCardData(null);
+      setMainSuggestions([]);
+      setLeftSuggestions([]);
+      setSelectedSuggestion(null);
+    }
+  };
+
+  // Debounce the searchCard function with a delay of 500 milliseconds
+  const debouncedSearchCard = useCallback(debounce(searchCard, 500), [searchCard]);
+
+  const suggestionsPerPage = 30;
+  const totalPages = Math.ceil(leftSuggestions.length / suggestionsPerPage);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentLeftSuggestions, setCurrentLeftSuggestions] = useState([]);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  useEffect(() => {
+    // Calculate the index range for the current page
+    const startIndex = (currentPage - 1) * suggestionsPerPage;
+    const endIndex = startIndex + suggestionsPerPage;
+  
+    // Extract suggestions for the current page
+    const currentLeftSuggestions = leftSuggestions.slice(startIndex, endIndex);
+  
+    // Update the state with the current left suggestions
+    setCurrentLeftSuggestions(currentLeftSuggestions);
+  }, [currentPage, leftSuggestions, suggestionsPerPage]);
+
+  useEffect(() => {
+    debouncedSearchCard();
+  }, [debouncedSearchCard, currentPage]);
+
+  const handleInputChange = (e) => {
+    setCardName(e.target.value);
+    setSelectedSuggestion(null);
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setCardName(suggestion);
+    setSelectedSuggestion(suggestion);
+    setMainSuggestions([]);
+    setLeftSuggestions([]);
+  };
+
+  // Function for clearing text
+  const handleClearClick = () => {
+    setCardName('');
+    setCardData(null);
+    setError(null);
+    setMainSuggestions([]);
+    setLeftSuggestions([]);
+    setSelectedSuggestion(null);
+  };
+
+  // Create a new Fuse instance with dynamic threshold
+  const fuseOptions = {
+    keys: ['name'],
+    threshold: threshold,
+  };
+  const fuse = new Fuse(data?.data || [], fuseOptions);
+
+  // Determine the card type based on the "type" property
+  let CardComponent;
+  if (cardData && cardData.data && cardData.data.length > 0) {
+    const cardType = cardData.data[0].type.toLowerCase();
+    switch (cardType) {
+      case 'pendulum flip effect monster':
+        CardComponent = FlipPendulumMonsterCard;
+        break;
+      default:
+        CardComponent = YugiohCard;
+    }
+  }
+
+  return (
+    <div className="search-bar-container">
+      <div className="Input-Wrapper">
+        <div className="search-input">
+          <FontAwesomeIcon icon={faSearch} className="search-icon" />
+          <input
+            type="text"
+            value={cardName}
+            onChange={handleInputChange}
+            placeholder="Enter card name"
+          />
+          {cardName && (
+            <button className="clear-button" onClick={handleClearClick}>
+              <FontAwesomeIcon icon={faTimes} />
+            </button>
+          )}
+        </div>
+      </div>
+
+      {mainSuggestions.length > 0 && (
+        <>
+          <div className="suggestion-container">
+            {mainSuggestions.map((suggestion) => (
+              <div
+                key={suggestion}
+                className={`suggestion ${selectedSuggestion === suggestion ? 'selected' : ''}`}
+                onClick={() => handleSuggestionClick(suggestion)}
+              >
+                <div className="suggestionbox">
+                  <img
+                    src={cardData.data.find((card) => card.name === suggestion)?.card_images[0].image_url_cropped}
+                    alt={suggestion}
+                    className="suggestion-image"
+                  />
+                  <div className="suggestion-name-container">
+                    <div className="suggestion-name">
+                      {suggestion}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="pagination">
+            <button className="button-left" disabled={currentPage === 1} onClick={() => handlePageChange(currentPage - 1)}>
+              {'<'}
+            </button>
+            <span>{`Page ${currentPage} of ${totalPages}`}</span>
+            <button className="button-right" disabled={currentPage === totalPages} onClick={() => handlePageChange(currentPage + 1)}>
+              {'>'}
             </button>
           </div>
-    
-          {suggestions.length > 0 && (
-            <div className="suggestion-list">
-              {suggestions.map((suggestion) => (
+
+
+
+
+          <div className="suggestion-left-container">
+            {currentLeftSuggestions.map((suggestion) => (
                 <div
                   key={suggestion}
-                  className={`suggestion ${selectedSuggestion === suggestion ? 'selected' : ''}`}
+                  className={`suggestion-left ${selectedSuggestion === suggestion ? 'selected' : ''}`}
                   onClick={() => handleSuggestionClick(suggestion)}
-                  
                 >
-                  {suggestion}
-                </div>
-              ))}
-            </div>
-          )}
-    
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-    
-          
+                
+                <div>
+                    <img
+                      src={cardData.data.find((card) => card.name === suggestion)?.card_images[0].image_url_small}
+                      alt={suggestion}
+                      className="suggestion-image-left"
+                    />
+                    <div className="suggestion-name-left-container">
+                      <div className="suggestion-name">
+                        {suggestion}
+                      </div>
+                    </div>
+                    <div className="suggestion-carddata-container"> 
+                      <p>Type: {cardData.data.find((card) => card.name === suggestion)?.type}</p>
+                      
+                    </div>
+                  </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      {error &&
+        <p className="errormessage">
+              {error}
+        </p>
+          }
     
           {selectedSuggestion && cardData && cardData.data && cardData.data.length > 0 && (
             <CardComponent
