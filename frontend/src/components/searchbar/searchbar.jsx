@@ -14,7 +14,6 @@ const SearchBar = () => {
   const [mainSuggestions, setMainSuggestions] = useState([]);
   const [leftSuggestions, setLeftSuggestions] = useState([]);
   const [selectedSuggestion, setSelectedSuggestion] = useState(null);
-  const [threshold] = useState(0.3); // Initial threshold value
   const [data] = useState({ data: [] }); // Initial state for data
   const [showEffectType] = useState(false);
   const maxMainSuggestions = 30;
@@ -84,8 +83,10 @@ const SearchBar = () => {
   }, [debouncedSearchCard, currentPage]);
 
   const handleInputChange = (e) => {
-    setCardName(e.target.value);
+    const inputValue = e.target.value;
+    setCardName(inputValue);
     setSelectedSuggestion(null);
+
   };
 
   const handleSuggestionClick = (suggestion) => {
@@ -105,12 +106,6 @@ const SearchBar = () => {
     setSelectedSuggestion(null);
   };
 
-  // Create a new Fuse instance with dynamic threshold
-  const fuseOptions = {
-    keys: ['name'],
-    threshold: threshold,
-  };
-  const fuse = new Fuse(data?.data || [], fuseOptions);
 
   // Determine the card type based on the "type" property
   let CardComponent;
@@ -169,19 +164,6 @@ const SearchBar = () => {
             ))}
           </div>
 
-          <div className="pagination">
-            <button className="button-left" disabled={currentPage === 1} onClick={() => handlePageChange(currentPage - 1)}>
-              {'<'}
-            </button>
-            <span>{`Page ${currentPage} of ${totalPages}`}</span>
-            <button className="button-right" disabled={currentPage === totalPages} onClick={() => handlePageChange(currentPage + 1)}>
-              {'>'}
-            </button>
-          </div>
-
-
-
-
           <div className="suggestion-left-container">
             {currentLeftSuggestions.map((suggestion) => (
                 <div
@@ -208,6 +190,16 @@ const SearchBar = () => {
                   </div>
               </div>
             ))}
+            <div className="pagination">
+              <button className="button-left" disabled={currentPage === 1} onClick={() => handlePageChange(currentPage - 1)}>
+                {'<'}
+              </button>
+              <span>{`Page ${currentPage} of ${totalPages}`}</span>
+              <button className="button-right" disabled={currentPage === totalPages} onClick={() => handlePageChange(currentPage + 1)}>
+                {'>'}
+              </button>
+            </div>
+
           </div>
         </>
       )}

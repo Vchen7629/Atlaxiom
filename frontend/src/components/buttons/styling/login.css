@@ -1,0 +1,12 @@
+/*login body styling*/
+
+.login-body-container {
+    background-color: transparent;
+    min-height: 900px;
+    top: 400px;
+    padding-top: 50px;
+    text-align: center;
+    margin-top: 102px;
+    margin-bottom: -100px;
+  }
+  

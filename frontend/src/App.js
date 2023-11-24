@@ -9,7 +9,7 @@ import ContactInfos from './features/pages/contactinfo';
 import AboutUs from './features/pages/aboutus';
 import Searchs from './features/pages/search';
 import UserOwnedCard from './features/ownedcards/ownedcardslist';
-import PublicPage from './components/publicpage/public';
+import HomePage from './components/homepage/homepage';
 
 
 
@@ -18,7 +18,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<PublicPage />} />
+        <Route index element={<HomePage />} />
 
         <Route path="login" element={<Login />} />
         <Route path="banlist" element={<Banlists />} />

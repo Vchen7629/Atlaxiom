@@ -1,51 +1,4 @@
-.pagination {
-  background-color: lightgray;
-  width: 220px;
-  position: relative;
-  left:1150px;
-  top: 6180px;
-  padding: 3px;
-  border-radius: 5px;
-  border: 2px solid black;
-  text-align: center;
-}
 
-.button-right {
-  background-color: gray;
-  width: 30px;
-  border-radius: 7px;
-  position: relative;
-  left: 10px
-}
-
-.button-left {
-  background-color: gray;
-  width: 30px;
-  border-radius: 7px;
-  position: relative;
-  margin-left: -10px;
-  margin-right: 10px;
-}
-
-
-.suggestion-left {
-  background-color: white;
-  width: 900px;
-  height: 220px;
-  position: relative;
-  padding: 15px;
-  border-radius: 25px;
-
-}
-
-.suggestion-left-container {
-  background-color: rgb(68, 65, 65);
-  width: 900px;
-  position: relative;
-  left: 800px;
-  top: -500px;
-  padding: 15px;
-}
 
 .suggestion-name-left-container {
   position: relative;
@@ -400,7 +353,87 @@
     width: 100%;
   }
   
+  input:focus {
+    outline: none;
+  }
   
+  #search-icon {
+    color: royalblue;
+  }
+  
+
+/* mobile devices */
+@media screen and (max-width: 480px) {
+
+  /* Pagination */
+  .pagination {
+    background-color: lightgray;
+    width: 220px;
+    position: relative;
+    left:370px;
+    top: 100px;
+    padding: 3px;
+    border-radius: 5px;
+    border: 2px solid black;
+    text-align: center;
+  }
+
+  .button-right {
+    background-color: gray;
+    width: 30px;
+    border-radius: 7px;
+    position: relative;
+    left: 10px
+  }
+  
+  .button-left {
+    background-color: gray;
+    width: 30px;
+    border-radius: 7px;
+    position: relative;
+    margin-left: -10px;
+    margin-right: 10px;
+  }
+}
+
+/* medium Devices (iPads, Landscape tablets) */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+
+  /* Pagination */
+  .pagination {
+    background-color: lightgray;
+    width: 220px;
+    position: relative;
+    left:370px;
+    top: 100px;
+    padding: 3px;
+    border-radius: 5px;
+    border: 2px solid black;
+    text-align: center;
+  }
+
+  .button-right {
+    background-color: gray;
+    width: 30px;
+    border-radius: 7px;
+    position: relative;
+    left: 10px
+  }
+  
+  .button-left {
+    background-color: gray;
+    width: 30px;
+    border-radius: 7px;
+    position: relative;
+    margin-left: -10px;
+    margin-right: 10px;
+  }
+}
+
+/* medium-large devices (laptops and small screen) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+
+  /* Searchbar styling */
   .search-bar-container {
     margin-left: 50px;
     display: flex;
@@ -408,17 +441,173 @@
     min-height: 100vh;
     height: auto;
     position: relative;
+    top: 100px;
   }
 
   .Input-Wrapper {
     background-color: lightblue;
-    width: 700px;
+    width: 370px;
     height: 50px;
     border-radius: 15px;  
     padding-left: 20px;
     box-shadow: 0px 0px 15px black;
     position: absolute;
-    top: 150px;
+    top: 50px;
+    display: flex;
+    justify-content: left;
+  }
+  input {
+    background-color: transparent;
+    border: none;
+    height: 100%;
+    font-size: 13px;
+    width: 100%;
+    margin-left: 5px;
+  }
+  
+  /* Pagination */
+  .pagination {
+    background-color: lightgray;
+    width: 220px;
+    position: relative;
+    left:370px;
+    top: 100px;
+    padding: 3px;
+    border-radius: 5px;
+    border: 2px solid black;
+    text-align: center;
+  }
+
+  .button-right {
+    background-color: gray;
+    width: 30px;
+    border-radius: 7px;
+    position: relative;
+    left: 10px
+  }
+  
+  .button-left {
+    background-color: gray;
+    width: 30px;
+    border-radius: 7px;
+    position: relative;
+    margin-left: -10px;
+    margin-right: 10px;
+  }
+}
+
+/* Large devices (laptops/desktops) */
+@media screen and (min-width: 1025px) and (max-width: 1200px) {
+
+  /* Searchbar styling */
+  .search-bar-container {
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    height: auto;
+    position: relative;
+    top: 100px;
+  }
+
+  .Input-Wrapper {
+    background-color: lightblue;
+    width: 400px;
+    height: 50px;
+    border-radius: 15px;  
+    padding-left: 20px;
+    box-shadow: 0px 0px 15px black;
+    position: absolute;
+    top: 50px;
+    display: flex;
+    justify-content: left;
+  }
+  input {
+    background-color: transparent;
+    border: none;
+    height: 100%;
+    font-size: 15px;
+    width: 100%;
+    margin-left: 5px;
+  }
+  
+  /* Pagination */
+  .pagination {
+    background-color: lightgray;
+    width: 220px;
+    position: relative;
+    left:370px;
+    top: 100px;
+    padding: 3px;
+    border-radius: 5px;
+    border: 2px solid black;
+    text-align: center;
+  }
+
+  .button-right {
+    background-color: gray;
+    width: 30px;
+    border-radius: 7px;
+    position: relative;
+    left: 10px
+  }
+  
+  .button-left {
+    background-color: gray;
+    width: 30px;
+    border-radius: 7px;
+    position: relative;
+    margin-left: -10px;
+    margin-right: 10px;
+  }
+
+  /* Suggestions styling */
+  
+
+  .suggestion-left {
+    background-color: white;
+    width: auto;
+    height: 220px;
+    position: relative;
+    padding: 15px;
+    border-radius: 25px;
+  
+  }
+  
+  .suggestion-left-container {
+    background-color: rgb(68, 65, 65);
+    width: 500px;
+    position: relative;
+    left: 800px;
+    top: -500px;
+    padding: 15px;
+  }
+
+}
+
+/* Extra large laptops */
+@media screen and (min-width: 1201px) and (max-width: 1536px) {
+
+  /* Searchbar styling */
+  .search-bar-container {
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    height: auto;
+    position: relative;
+    top: 100px;
+  }
+
+  .Input-Wrapper {
+    background-color: lightblue;
+    width: 650px;
+    height: 50px;
+    border-radius: 15px;  
+    padding-left: 20px;
+    box-shadow: 0px 0px 15px black;
+    position: absolute;
+    top: 50px;
     display: flex;
     justify-content: left;
   }
@@ -431,11 +620,146 @@
     margin-left: 5px;
   }
   
-  input:focus {
-    outline: none;
+  /* Pagination */
+  .pagination {
+    background-color: lightgray;
+    width: 220px;
+    position: relative;
+    left:370px;
+    top: 100px;
+    padding: 3px;
+    border-radius: 5px;
+    border: 2px solid black;
+    text-align: center;
+  }
+
+  .button-right {
+    background-color: gray;
+    width: 30px;
+    border-radius: 7px;
+    position: relative;
+    left: 10px
   }
   
-  #search-icon {
-    color: royalblue;
+  .button-left {
+    background-color: gray;
+    width: 30px;
+    border-radius: 7px;
+    position: relative;
+    margin-left: -10px;
+    margin-right: 10px;
+  }
+
+  /* Suggestions styling */
+  
+
+  .suggestion-left {
+    background-color: white;
+    width: auto;
+    height: 220px;
+    position: relative;
+    padding: 15px;
+    border-radius: 25px;
+  
   }
   
+  .suggestion-left-container {
+    background-color: rgb(68, 65, 65);
+    width: 600px;
+    position: relative;
+    left: 800px;
+    top: -500px;
+    padding: 15px;
+  }
+
+
+}
+
+/* TV and large desktops */
+@media screen and (min-width: 1537px) {
+
+  /* Searchbar styling */
+  .search-bar-container {
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    height: auto;
+    position: relative;
+    top: 100px;
+  }
+
+  .Input-Wrapper {
+    background-color: lightblue;
+    width: 700px;
+    height: 50px;
+    border-radius: 15px;  
+    padding-left: 20px;
+    box-shadow: 0px 0px 15px black;
+    position: absolute;
+    top: 50px;
+    display: flex;
+    justify-content: left;
+  }
+  input {
+    background-color: transparent;
+    border: none;
+    height: 100%;
+    font-size: 20px;
+    width: 100%;
+    margin-left: 5px;
+  }
+  
+  /* Pagination */
+  .pagination {
+    background-color: lightgray;
+    width: 220px;
+    position: relative;
+    left:370px;
+    top: 100px;
+    padding: 3px;
+    border-radius: 5px;
+    border: 2px solid black;
+    text-align: center;
+  }
+
+  .button-right {
+    background-color: gray;
+    width: 30px;
+    border-radius: 7px;
+    position: relative;
+    left: 10px
+  }
+  
+  .button-left {
+    background-color: gray;
+    width: 30px;
+    border-radius: 7px;
+    position: relative;
+    margin-left: -10px;
+    margin-right: 10px;
+  }
+
+
+  /* Suggestions styling */
+  
+  .suggestion-left {
+    background-color: white;
+    width: 900px;
+    height: 220px;
+    position: relative;
+    padding: 15px;
+    border-radius: 25px;
+  
+  }
+  
+  .suggestion-left-container {
+    background-color: rgb(68, 65, 65);
+    width: 900px;
+    position: relative;
+    left: 800px;
+    top: -500px;
+    padding: 15px;
+  }
+
+}

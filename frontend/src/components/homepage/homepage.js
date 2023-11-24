@@ -1,16 +1,18 @@
 import { Link } from 'react-router-dom'
 import React from 'react';
-import DashFooter from '../dash/dashfooter';
 import DashHeader from '../dash/dashheader';
 import Privacypolicy from '../buttons/Privacypolicy';
 import ContactInfo from '../buttons/contactinfo';
 import Home from '../buttons/home';
 import Aboutus from '../buttons/about-us';
+import "./styling/body.css"
+import "./styling/banner.css"
+import "./styling/footer.css"
+import "./styling/parallelogram.css"
 
 
 
-
-const PublicPage = () => {
+const HomePage = () => {
    
     const content = (
         <section className="public">
@@ -59,5 +61,5 @@ const PublicPage = () => {
     return content
 }
 
-export default PublicPage
+export default HomePage
 

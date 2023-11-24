@@ -1,0 +1,79 @@
+/*parallelogram div styling*/
+.homepage-parallelogram-upperleft {
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(51, 48, 48);
+    padding: 20px;
+    left: 220px;
+    top: 50px;
+    position: absolute;
+    width: 380px;
+    height: 200px;
+    border: 2px solid aqua;
+    border-radius: 25px;
+    vertical-align: text-bottom;
+    transform: skew(20deg);
+    box-shadow: 0 0 10px aqua
+  }
+  
+  .homepage-parallelogram-upperright {
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(51, 48, 48);
+    padding: 20px;
+    right: 220px;
+    top: 50px;
+    position: absolute;
+    width: 380px;
+    height: 200px;
+    border: 2px solid aqua;
+    border-radius: 25px;
+    vertical-align: text-bottom;
+    transform: skew(-20deg);
+    box-shadow: 0 0 10px pink
+  }
+  
+  .homepage-parallelogram-bottomleft {
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(51, 48, 48);
+    padding: 20px;
+    left: 220px;
+    bottom: 50px;
+    position: absolute;
+    width: 380px;
+    height: 200px;
+    border: 2px solid aqua;
+    border-radius: 25px;
+    vertical-align: text-bottom;
+    transform: skew(-20deg);
+    box-shadow: 0 0 10px pink
+  }
+  
+  
+  .homepage-parallelogram-bottomright {
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(51, 48, 48);
+    padding: 20px;
+    right: 220px;
+    bottom: 50px;
+    position: absolute;
+    width: 380px;
+    height: 200px;
+    border: 2px solid aqua;
+    border-radius: 25px;
+    vertical-align: text-bottom;
+    transform: skew(20deg);
+    box-shadow: 0 0 10px pink
+  }
+
+  
+/*parallelogram hover effect*/
+.homepage-parallelogram-upperleft:hover,
+.homepage-parallelogram-upperright:hover, 
+.homepage-parallelogram-bottomleft:hover, 
+.homepage-parallelogram-bottomright:hover {
+  box-shadow: 0 0 80px aqua;
+  border: 2px
+}

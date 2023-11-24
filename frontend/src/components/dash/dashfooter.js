@@ -2,6 +2,7 @@ import Privacypolicy from "../buttons/Privacypolicy"
 import ContactInfo from "../buttons/contactinfo"
 import Aboutus from "../buttons/about-us"
 import Home from "../buttons/home"
+import "./styling/dash-footer.css"
 
 const DashFooter = () => {
 
