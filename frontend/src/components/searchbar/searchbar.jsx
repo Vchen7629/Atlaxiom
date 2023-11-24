@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import debounce from 'lodash/debounce';
-import './searchbar.css';
+import './styling/searchbar.css';
 import YugiohCard from './cardprop.jsx';
 import Fuse from 'fuse.js';
 import FlipPendulumMonsterCard from './specializedCardProps/FlipPendulumCardProp.jsx';

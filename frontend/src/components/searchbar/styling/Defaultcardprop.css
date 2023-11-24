@@ -1,0 +1,231 @@
+/*card prop container*/
+.YugiohCardProp {
+    width: auto;
+    height: auto;
+    background-color: #9e1b32;
+    padding: 25px;
+    margin-bottom: 2px;
+    position: absolute;
+    border-radius: 25px;
+    top: 240px;
+    left: 850px;
+    border: 3px solid black;
+    box-shadow: 0 0 30px yellow;
+    display: flex;
+    
+  }
+
+/*Card prop styling*/
+  
+  .descriptioncontainer {
+    background-color: #22092C;
+    color: white;
+    position: absolute;
+    display: flex;
+    text-align: center;
+    right: 0.1;
+    width: 75%;
+    top: 425px;
+    height: auto;
+    max-height: 130px;
+    overflow-y: auto;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 25px;
+    border: 2px solid goldenrod;
+    font-size: 15px;
+  }
+  
+  .cardpricer {
+    width: 200px;
+    height: 200px;
+    background-color: gray;
+  }
+  
+  .cardpricecontainer {
+    background-color: red;
+    position: relative;
+    display: flex;
+    
+    height: auto;
+    width: auto;
+    right: 60%;
+    
+    border-radius: 20px;
+    top: 7rem;
+    font-size: 1px;
+    
+  }
+  
+  .Cardimage {
+    position: absolute;
+    margin-top: 90px;
+    box-shadow: 0px 0px 20px yellow;
+    width: 200px;
+    left: 38.5%;
+    max-height: 291.5px;
+    
+    
+  }
+  
+  .CardName {
+    position: relative;
+    margin-left: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-width: 400px;
+    font-size: 15px;
+    height: auto;
+    max-height: 70px;
+    bottom: 5px;
+    border-radius: 45px;
+    color: gold;
+    background-color: #22092C;
+    transform: translateX(-50%);
+    border: 3px solid white;
+    box-shadow: 0px 0px 15px red;
+  }
+  
+  .Cardtype {
+    font-size: 18px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: auto;
+    min-width: 190px;
+    height: auto;
+    max-height: 50px;
+    padding: 5px;
+    border-radius: 10px;
+    color: gold;
+    background-color: #22092C;
+    border: 2px solid white;
+    left: -715px;
+    top: 120px;
+  }
+  
+  .CardRace{
+    font-size: 18px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: auto;
+    min-width: 190px;
+    height: auto;
+    max-height: 45px;
+    border-radius: 10px;
+    color: gold;
+    background-color: #22092C;
+    border: 2px solid white;
+    margin-top: 190px;
+    left: -905px;
+  }
+  
+  .Cardattribute {
+  font-size: 18px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: auto;
+  min-width: 190px;
+  height: auto;
+  max-height: 45px;
+  border-radius: 10px;
+  color: gold;
+  background-color: #22092C;
+  border: 2px solid white;;
+  margin-top: 260px;
+  left: -1095px;
+  
+  }
+  
+  .Cardlevel_Rank {
+  font-size: 18px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: auto;
+  min-width: 190px;
+  height: auto;
+  max-height: 45px;
+  border-radius: 8px;
+  color: gold;
+  background-color: #22092C;
+  border: 2px solid white;
+  margin-top: 330px;
+  left: -1285px;
+  
+  }
+  
+  
+  
+  .CardArchetype {
+    font-size: 18px;
+    text-align: center;
+    justify-content: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    min-width: 170px;
+    height: auto;
+    max-height: 70px;
+    border-radius: 8px;
+    color: gold;
+    background-color: #22092C;
+    border: 2px solid white;
+    margin-top: 120px;
+    right: 480px;
+    margin-left: -180px;
+  }
+  
+  
+  
+  .Cardattack {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-left: -880px;
+    margin-top: 480px;
+    left: -30px;
+    bottom: 80px;
+    font-size: 18px;
+    width:auto;
+    height: 41px;
+    min-width: 160px;
+    border-radius: 15px;
+    color: red;
+    background-color: #22092C;
+    border: 2px solid goldenrod;
+  }
+  .Carddefense {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-left: 200px;
+    left: -390px;
+    margin-top: 500px;
+    top: -35px;
+    font-size: 18px;
+    width:auto;
+    min-width: 160px;
+    padding: 5px;
+    border-radius: 15px;
+    color: cyan;
+    background-color: #22092C;
+    border: 2px solid goldenrod;
+  }
