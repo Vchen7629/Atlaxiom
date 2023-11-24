@@ -1,0 +1,38 @@
+/* homepage body styling */
+.body-container {
+    background-color: transparent;
+    padding: 20px;
+    margin-top: 600px;
+    margin-bottom: 10px;
+    position: relative;
+    height: 700px;
+  }
+
+/* tech circle styling */
+.tech-circle {
+  background-image: url('../img/techcirclepng.png');
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color:transparent;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 350px;
+  width: 50%;
+}
+
+/* styling for title div element under banner*/
+.homepagetitlebox {
+  border-radius: 25px;
+  position: absolute;
+  left: 50%;
+  top: 550px;
+  background-color: rgb(51, 48, 48);
+  transform: translate(-50%);
+  border: 2px solid aqua;
+  padding: 15px;
+  box-shadow: 0 0 10px pink;
+}
+

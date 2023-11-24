@@ -1,0 +1,8 @@
+/*dash page body*/
+.dash-page-body {
+    background-color: transparent;
+    position: relative;
+    top: 101px;
+    min-height: 545px;
+    padding: 20px;
+}

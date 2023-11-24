@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook } from '@fortawesome/free-solid-svg-icons';
+import "./styling/headerbuttons.css"
 
 const Mycards = () => {
   const navigate = useNavigate();

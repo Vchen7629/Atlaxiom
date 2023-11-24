@@ -3,6 +3,7 @@ import Cardsearch from '../buttons/searchbar'
 import Banlist from '../buttons/banlist'
 import Mycards from '../buttons/my-cards'
 import Login from '../buttons/login'
+import "./styling/dash-header.css"
 
 
 const DashHeader = () => {
@@ -17,21 +18,21 @@ const DashHeader = () => {
                         <Banlist/> {/*button component to redirect to /banlist endpoint*/}
                     </li>
                 </ul>
-            <div className="dash-header__container">
+            <div>
                 <Link to="/dash">
-                <div className="h1-container-dash">
+                <div className="website-title">
                     <h1>DeckDatabaseOnline</h1>
                 </div>
                 </Link>
-                <ul className='Menu-container-right'>
-                    <li>
-                        <Mycards/> {/*button component to redirect to /my-cards endpoint*/}
-                    </li>
-                    <li>
-                        <Login/> {/*button component to redirect to /about-us endpoint*/}
-                    </li>
-                </ul>
             </div>
+            <ul className='Menu-container-right'>
+                <li>
+                    <Mycards/> {/*button component to redirect to /my-cards endpoint*/}
+                </li>
+                <li>
+                    <Login/> {/*button component to redirect to /about-us endpoint*/}
+                </li>
+            </ul>
         </header>
     )
 

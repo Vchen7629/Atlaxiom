@@ -1,0 +1,14 @@
+/*footer button styling*/
+
+.privpolbtn, .contact-info, .home, .about-us {
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    transition: text-decoration 0.5s ease;
+  
+  }
+  
+  .privpolbtn:hover, .contact-info:hover, .home:hover, .about-us:hover {
+    border-bottom: 2px solid #fff; /* Add a white underline on hover */
+  }

@@ -1,0 +1,47 @@
+/*dash header button containers*/
+.Menu-container-left {
+    display: flex;
+    list-style: none;
+  }
+  
+  .Menu-container-right {
+    display: flex;
+    list-style: none; 
+  }
+
+/*header styling*/
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, #0055BB, #0000AA);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+  
+  }
+  
+  .header::after {
+    content: '';
+    display: block;
+    height: 1px; 
+    background-color: aqua; 
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+  }
+
+/*header text styling*/
+.website-title { 
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    transform: translateX(-50%);
+    font-size: 20px;
+  }
+   
+

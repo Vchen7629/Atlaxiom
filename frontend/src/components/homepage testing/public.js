@@ -25,7 +25,7 @@ const Public = () => {
                         <Banlist/> {/*button component to redirect to /banlist endpoint*/}
                     </li>
                 </ul>
-                <div className="h1-container">
+                <div className="h1-container-dash">
                     <h1>DeckDatabaseOnline</h1>
                 </div>
                 <ul className='Menu-container-right'>
