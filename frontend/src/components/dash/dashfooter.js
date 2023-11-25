@@ -9,7 +9,9 @@ const DashFooter = () => {
     const content = (
         <footer>
         <div  className="footer-container">
-            <p className="copyright-container">&copy; 2023 DeckDatabaseOnline. All rights reserved.</p>   
+            <p className="copyright-container">
+                &copy; 2023 DeckDatabaseOnline. All rights reserved.
+            </p>   
             <ul className="footer-links">
                 <li>
                     <Privacypolicy/> {/*button component to redirect to /privacy-policy endpoint */}

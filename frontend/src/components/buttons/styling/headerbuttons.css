@@ -1,7 +1,7 @@
 /*dash header nav button styling*/
 
 .menu_card_search, .banlist, .my-cards, .logins  {
-    background: linear-gradient(to bottom, #0055BB, #0000AA);
+    background: linear-gradient(to bottom, goldenrod, black);
     color: white;
     padding: 10px 20px;
     border: none;

@@ -1,16 +1,3 @@
-/*banner background */
-.banner {
-    position: absolute;
-    background-image: url('../img/cardicon.jpg');
-    background-color:black;
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    height: 350px;
-    top: 102px;
-    left: 0;
-    right: 0;
-  }
 
 /*white divider after banner*/
   .banner::after {
@@ -24,3 +11,39 @@
     left: 0;
   }
   
+
+/* small devices  */
+@media screen and (width <= 1024px) {
+  /*banner background */
+  .banner {
+    position: absolute;
+    background-image: url('../img/cardicon.jpg');
+    background-color:black;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 350px;
+    top: 54px;
+    left: 0;
+    right: 0;
+  }
+
+}
+
+/*large devices*/
+@media screen and ( 1025px <= width) {
+  /*banner background */
+  .banner {
+    position: absolute;
+    background-image: url('../img/cardicon.jpg');
+    background-color:black;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 350px;
+    top: 100px;
+    left: 0;
+    right: 0;
+  }
+
+}

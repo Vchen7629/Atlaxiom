@@ -3,56 +3,87 @@ footer {
     background: rgb(51, 48, 48);
     bottom: 0;
     color: white;
-    border: 1px solid rgb(37, 34, 34);
     padding: 10px;
     margin-top: 20px;
     width: 100%;
-    left: 0;
-    right: 0;
-    top: 80px;
     position: relative;
-    text-align: center;
-    z-index: 2;
-    
 }
 
-.footer-container {
-    background-color: #333;
-    flex-direction: row;
-    width: 100%;
-    padding: 20px;
-    color: #fff;
-    padding: 20px;
-    font-size: 15px;
-    justify-content: space-between;
-    align-items: center;
-    display: flex;
-    position: relative;
-    bottom: 0;
-    left: 0;
-    
+/* medium Devices (iPads, Landscape tablets) */
+@media screen and (width <= 768px) {
+    .footer-container {
+        background-color: #333;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 20px;
+        color: #fff;
+       
+        align-items: center;
+        position: relative;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    /* footer-link div element styling */
+    .footer-links {
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+    }
+
+    .footer-links li {
+        margin-right: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid white;
+        width: auto
+    }
 }
 
-/* copyright div element styling */
-.copyright-container {
-    text-align: left;
-    margin: 10px 0;
+/* medium-large devices (laptops and small screen) */
+@media screen and (769px <= width) {
+    .footer-container {
+        background-color: #333;
+        flex-direction: row;
+        width: 100%;
+        padding: 20px;
+        color: #fff;
+        padding: 20px;
+        font-size: calc(15px + 0.390625vw);
+        justify-content: space-between;
+        align-items: center;
+        display: flex;
+        position: relative;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    /* footer-link div element styling */
+    .footer-links {
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+    }
+
+    .footer-links li {
+        margin-right: 10px;
+        padding-right: 10px;
+        border-right: 1px solid white;
+        width: auto
+    }
+
+    .footer-links li:last-child {
+        border-right: none; /* Remove the border from the last item */
+    }
 }
 
-/* footer-link div element styling */
-.footer-links {
-    display: flex;
-    list-style: none;
-  }
 
-/* footer-link div text styling*/
-.footer-links li {
-    margin-right: 10px;
-    padding-right: 10px;
-    border-right: 1px solid white;
-  }
-  
-.footer-links li:last-child {
-    border-right: none; /* Remove the border from the last item */
+
+
+/* TV and large desktops */
+@media screen and (1537px <= width) {
+
 }
-  
