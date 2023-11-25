@@ -49,11 +49,9 @@ select {
 
 
 .public {
-  padding: 1em;
   flex-grow: 1;
   text-align: center;
   min-height: 100%;
-
 }
 
 .main {

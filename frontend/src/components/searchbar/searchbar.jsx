@@ -4,7 +4,7 @@ import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import debounce from 'lodash/debounce';
 import './styling/searchbar.css';
 import YugiohCard from './cardprop.jsx';
-import Fuse from 'fuse.js';
+
 import FlipPendulumMonsterCard from './specializedCardProps/FlipPendulumCardProp.jsx';
 
 const SearchBar = () => {
@@ -154,11 +154,9 @@ const SearchBar = () => {
                     alt={suggestion}
                     className="suggestion-image"
                   />
-                  <div className="suggestion-name-container">
-                    <div className="suggestion-name">
+                    <div className="suggestion-name-container">
                       {suggestion}
                     </div>
-                  </div>
                 </div>
               </div>
             ))}
@@ -179,13 +177,26 @@ const SearchBar = () => {
                       className="suggestion-image-left"
                     />
                     <div className="suggestion-name-left-container">
-                      <div className="suggestion-name">
                         {suggestion}
-                      </div>
                     </div>
                     <div className="suggestion-carddata-container"> 
-                      <p>Type: {cardData.data.find((card) => card.name === suggestion)?.type}</p>
-                      
+                      <p className="cardtype">
+                        Type: {cardData.data.find((card) => card.name === suggestion)?.type}
+                      </p>
+                      <p className="card-description">
+                        Description: {cardData.data.find((card) => card.name === suggestion)?.desc}
+                      </p>
+                      {(cardData.data.find((card) => card.name === suggestion)?.atk ||
+                      cardData.data.find((card) => card.name === suggestion)?.def) && (
+                      <p className="cardstats">
+                        <p className="cardattack">
+                          Attack: {cardData.data.find((card) => card.name === suggestion)?.atk}
+                        </p>
+                        <p className="carddefense">
+                          defense: {cardData.data.find((card) => card.name === suggestion)?.def}
+                        </p>
+                      </p>
+                      )}
                     </div>
                   </div>
               </div>
@@ -203,12 +214,13 @@ const SearchBar = () => {
           </div>
         </>
       )}
-
-      {error &&
+      
+      {error && (
         <p className="errormessage">
               {error}
         </p>
-          }
+          )}
+      
     
           {selectedSuggestion && cardData && cardData.data && cardData.data.length > 0 && (
             <CardComponent

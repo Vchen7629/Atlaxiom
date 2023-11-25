@@ -14,8 +14,8 @@
 .header {
     display: flex;
     justify-content: space-between;
-    background: linear-gradient(to bottom, #0055BB, #0000AA);
-    position: absolute;
+    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
+    position: relative;
     top: 0;
     left: 0;
     right: 0;
@@ -34,8 +34,129 @@
     left: 0;
   }
 
-/*header text styling*/
-.website-title { 
+
+
+/* Styles for the dropdown button */
+.dropdown-btn {
+  display: none;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: white;
+  position: relative
+}
+
+.dropdown-btn.active {
+  background-color: transparent; /* Change color when the dropdown is active */
+}
+
+/* Styles for the dropdown menu */
+.dropdown {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  background-color: gray;
+  top: 70px;
+  width: 50%;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 2
+}
+
+.dropdown a {
+  padding: 10px;
+  text-decoration: none;
+  color: white;
+  text-align: center;
+  border-bottom: 1px solid #555; /* Add a border between dropdown items */
+}
+
+/* mobile devices */
+@media screen and (width <= 480px) {
+/*changing the navigation from buttons to the dropdownmenu*/
+  .Menu-container-left,
+  .Menu-container-right {
+    display: none;
+  }
+
+  .website-title { 
+    color: goldenrod;
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    transform: translateX(-50%);
+    font-size: 15px;
+  }
+
+  .dropdown-btn {
+    display: block;
+    
+  }
+
+  .dropdown {
+    display: flex;
+  }
+
+}
+
+/* medium Devices (iPads, Landscape tablets) */
+@media screen and (481px <= width <= 768px) {
+  .Menu-container-left,
+  .Menu-container-right {
+    display: none;
+  }
+
+  .website-title { 
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    transform: translateX(-50%);
+    font-size: 15px;
+  }
+
+  .dropdown-btn {
+    display: block;
+  }
+
+  .dropdown {
+    display: flex;
+  }
+
+  
+}
+
+/* medium-large devices (laptops and small screen) */
+@media screen and (769px <= width <= 1024px) {
+  /*changing the navigation from buttons to the dropdownmenu*/
+  .Menu-container-left,
+  .Menu-container-right {
+    display: none;
+  }
+
+  .website-title { 
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    transform: translateX(-50%);
+    font-size: 18px;
+  }
+  
+  .dropdown-btn {
+    display: block;
+    left: 0px;
+  }
+
+  .dropdown {
+    display: flex;
+  }
+
+
+}
+
+/* Large devices (laptops/desktops) */
+@media screen and (1025px <= width <= 1200px) {
+
+  .website-title { 
     color: white;
     position: absolute;
     left: 50%;
@@ -43,5 +164,28 @@
     transform: translateX(-50%);
     font-size: 20px;
   }
-   
+}
 
+/* Extra-large device*/
+@media screen and (1201px <= width <= 1536px) {
+  .website-title { 
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    transform: translateX(-50%);
+    font-size: 18px;
+  }
+}
+
+/* TV and large desktops */
+@media screen and (1537px <= width) { 
+  .website-title { 
+    color: goldenrod;
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    transform: translateX(-50%);
+    font-size: 18px;
+  }
+}

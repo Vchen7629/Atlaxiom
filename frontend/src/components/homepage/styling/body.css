@@ -36,3 +36,13 @@
   box-shadow: 0 0 10px pink;
 }
 
+.Homepage-body-container {
+  background-color: wheat;
+  min-height: 900px;
+  top: 400px;
+  padding-top: 50px;
+  text-align: center;
+  margin-top: 102px;
+  margin-bottom: -100px;
+  width: 100%;
+}
