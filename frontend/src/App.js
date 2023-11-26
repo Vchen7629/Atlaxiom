@@ -10,6 +10,7 @@ import AboutUs from './features/pages/aboutus';
 import Searchs from './features/pages/search';
 import UserOwnedCard from './features/ownedcards/ownedcardslist';
 import HomePage from './components/homepage/homepage';
+import SearchResult from './features/pages/searchresult';
 
 
 
@@ -24,7 +25,11 @@ function App() {
         <Route path="banlist" element={<Banlists />} />
         <Route path="contact-info" element={<ContactInfos />} />
         <Route path="About-us" element={<AboutUs />} />
-        <Route path="search" element={<Searchs />} />
+
+        <Route path="search">
+          <Route index element={<Searchs />} />
+          <Route path=":cardname" element={<SearchResult />} />
+        </Route>
  
         <Route path="dash" element={<DashLayout />}>
 

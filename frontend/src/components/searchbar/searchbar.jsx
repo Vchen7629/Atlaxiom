@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 import './styling/searchbar.css';
-import YugiohCard from './cardprop.jsx';
-
-import FlipPendulumMonsterCard from './specializedCardProps/FlipPendulumCardProp.jsx';
 
 const SearchBar = () => {
   const [cardName, setCardName] = useState('');
@@ -17,26 +15,26 @@ const SearchBar = () => {
   const [data] = useState({ data: [] }); // Initial state for data
   const [showEffectType] = useState(false);
   const maxMainSuggestions = 30;
+  const navigate = useNavigate();
 
   const apiUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
 
-  const searchCard = async () => {
+  const searchCard = async (inputValue) => {
     try {
-      if (!cardName.trim()) {
+      if (!inputValue.trim()) {
         return;
       }
 
-      const response = await fetch(`${apiUrl}?fname=${encodeURIComponent(cardName)}`);
+      const response = await fetch(`${apiUrl}?fname=${encodeURIComponent(inputValue)}`);
       const data = await response.json();
 
       if (response.ok) {
         setCardData(data);
-        setError(null);
-
         // Set the main suggestions based on the results
         setMainSuggestions(data.data.slice(0, maxMainSuggestions).map((card) => card.name));
         // Set all suggestions for the left container
         setLeftSuggestions(data.data.map((card) => card.name));
+        setError(null);
       } else {
         setError(`Error: ${data.message}`);
         setCardData(null);
@@ -53,9 +51,11 @@ const SearchBar = () => {
       setSelectedSuggestion(null);
     }
   };
-
   // Debounce the searchCard function with a delay of 500 milliseconds
-  const debouncedSearchCard = useCallback(debounce(searchCard, 500), [searchCard]);
+  const debouncedSearchCard = useCallback(
+    debounce((inputValue) => searchCard(inputValue), 500),
+    []
+  );
 
   const suggestionsPerPage = 30;
   const totalPages = Math.ceil(leftSuggestions.length / suggestionsPerPage);
@@ -79,14 +79,14 @@ const SearchBar = () => {
   }, [currentPage, leftSuggestions, suggestionsPerPage]);
 
   useEffect(() => {
-    debouncedSearchCard();
-  }, [debouncedSearchCard, currentPage]);
+    debouncedSearchCard(cardName);
+  }, [debouncedSearchCard, cardName]);
 
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
     setCardName(inputValue);
     setSelectedSuggestion(null);
-
+    debouncedSearchCard(inputValue);
   };
 
   const handleSuggestionClick = (suggestion) => {
@@ -94,6 +94,7 @@ const SearchBar = () => {
     setSelectedSuggestion(suggestion);
     setMainSuggestions([]);
     setLeftSuggestions([]);
+    navigate(`/search/${encodeURIComponent(suggestion)}`);
   };
 
   // Function for clearing text
@@ -105,20 +106,6 @@ const SearchBar = () => {
     setLeftSuggestions([]);
     setSelectedSuggestion(null);
   };
-
-
-  // Determine the card type based on the "type" property
-  let CardComponent;
-  if (cardData && cardData.data && cardData.data.length > 0) {
-    const cardType = cardData.data[0].type.toLowerCase();
-    switch (cardType) {
-      case 'pendulum flip effect monster':
-        CardComponent = FlipPendulumMonsterCard;
-        break;
-      default:
-        CardComponent = YugiohCard;
-    }
-  }
 
   return (
     <div className="search-bar-container">
@@ -201,6 +188,7 @@ const SearchBar = () => {
                   </div>
               </div>
             ))}
+
             <div className="pagination">
               <button className="button-left" disabled={currentPage === 1} onClick={() => handlePageChange(currentPage - 1)}>
                 {'<'}
@@ -214,36 +202,12 @@ const SearchBar = () => {
           </div>
         </>
       )}
-      
+
       {error && (
         <p className="errormessage">
-              {error}
+          {error}
         </p>
-          )}
-      
-    
-          {selectedSuggestion && cardData && cardData.data && cardData.data.length > 0 && (
-            <CardComponent
-              name={cardData.data[0].name}
-              image={cardData.data[0].card_images[0].image_url}
-              type={cardData.data[0].type}
-              attribute={cardData.data[0].attribute}
-              level={cardData.data[0].level}
-              race={cardData.data[0].race}
-              archetype={cardData.data[0].archetype}
-              attack={cardData.data[0].atk}
-              defense={cardData.data[0].def}
-              description={cardData.data[0].desc}
-              showEffectType={showEffectType}
-              pend_desc={cardData.data[0].pend_desc}
-              monster_desc={cardData.data[0].monster_desc}
-              scale={cardData.data[0].scale}
-              linkval={cardData.data[0].linkval}
-              card_sets={cardData.data[0].card_sets[0].set_name}
-            />
-            
-            
-          )}
+      )} 
         </div>
         );
     };
