@@ -3,8 +3,8 @@
   .banner::after {
     content: '';
     display: block;
-    height: 3px; 
-    background-color: white; 
+    height: 1px; 
+    background-color: gold; 
     width: 100%;
     position: absolute;
     bottom: -5px;

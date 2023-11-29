@@ -13,59 +13,129 @@
     position: absolute
 }
 
-.testing {
-    background-color: palegoldenrod;
+
+.pagination {
+    background-color: darkgray;
+    height: fit-content;
+    width: 200px;
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    top: 34px;
-    left: 0px;
+    margin-bottom: 5%;
 }
 
-    .cardtableimage {
-        max-width: 200px;
-        max-height: 180px;
-    }
+/*styling for the image column in the table*/
+.card-image-name-title {
+    width: 10%;
+    height: 10%;
+}
 
-    .cardtableimagecontainer {
-        max-width: auto;
-        max-height: 200px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
+.cardtableimage {
+    max-width: 100%; 
+    max-height: 100%;
+}
 
+.card-container {
+    max-width: 8px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
 
-    .card-container {
-        max-width: 8px;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        box-sizing: border-box;
-    }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 1%;
+    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
+    color: goldenrod;
+}
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        background-color: white;
-    }
+/*styling for text elements in table*/
+.table-card-name-container,
+.table-card-type-container,
+.table-card-subtype-container,
+.table-card-attribute-container,
+.table-card-archetype-container {
+    display: flex;
+    height: fit-content;
+    width: fit-content;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid orange;
+}
 
-    th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-        
-    }
+.table-card-level-container,
+.table-card-linkval-container,
+.table-card-pendscale-container,
+.table-card-attack-container,
+.table-card-defense-container {
+    display: flex;
+    height: fit-content;
+    width: fit-content;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid orange;
+}
 
-    th {
-        background-color: #f2f2f2;
-    }
+.table-card-name-header,
+.table-card-type-header,
+.table-card-subtype-header,
+.table-card-attribute-header,
+.table-card-archetype-header {
+    background-color: rgba(128, 128, 128, 0.212);
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.table-card-level-header,
+.table-card-linkval-header,
+.table-card-pendscale-header,
+.table-card-attack-header,
+.table-card-defense-header {
+    background-color: rgba(128, 128, 128, 0.212);
+    width: 87px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.table-card-name-body,
+.table-card-type-body,
+.table-card-subtype-body,
+.table-card-attribute-body,
+.table-card-archetype-body {
+    overflow-wrap: break-word;
+    text-align: center;
+    margin-left: 5px;
+}
+
+.table-card-level-body,
+.table-card-linkval-body,
+.table-card-pendscale-body,
+.table-card-attack-body,
+.table-card-defense-body {
+    overflow-wrap: break-word;
+    text-align: center;
+    margin-left: 10px;
+}
+
+/*styling for the card stats column in the table*/
+
+/*table line seperator styling*/
+th, td {
+    border: 1px solid rgba(128, 128, 128, 0.301);
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: rgba(128, 128, 128, 0.295);
+    text-align: center;
+}
 
     .card-box {
         background-color: white;

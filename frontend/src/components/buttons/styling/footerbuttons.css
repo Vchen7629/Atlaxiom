@@ -10,5 +10,5 @@
   }
   
   .privpolbtn:hover, .contact-info:hover, .home:hover, .about-us:hover {
-    border-bottom: 2px solid #fff; /* Add a white underline on hover */
+    border-bottom: 2px solid darkgoldenrod; /* Add a white underline on hover */
   }

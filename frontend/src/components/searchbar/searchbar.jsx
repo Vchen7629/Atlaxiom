@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback} from 'react';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
@@ -13,10 +14,10 @@ const SearchBar = () => {
   const [leftSuggestions, setLeftSuggestions] = useState([]);
   const [selectedSuggestion, setSelectedSuggestion] = useState(null);
   const [data] = useState({ data: [] }); // Initial state for data
-  const [showEffectType] = useState(false);
+
   const maxMainSuggestions = 30;
   const navigate = useNavigate();
-
+ 
   const apiUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
 
   const searchCard = async (inputValue) => {
@@ -36,7 +37,7 @@ const SearchBar = () => {
         setLeftSuggestions(data.data.map((card) => card.name));
         setError(null);
       } else {
-        setError(`Error: ${data.message}`);
+        setError(`Error: ${data.message} card name`);
         setCardData(null);
         setMainSuggestions([]);
         setLeftSuggestions([]);
@@ -96,7 +97,6 @@ const SearchBar = () => {
     setLeftSuggestions([]);
     navigate(`/search/${encodeURIComponent(suggestion)}`);
   };
-
   // Function for clearing text
   const handleClearClick = () => {
     setCardName('');
@@ -148,7 +148,7 @@ const SearchBar = () => {
               </div>
             ))}
           </div>
-
+          
           <div className="suggestion-left-container">
             {currentLeftSuggestions.map((suggestion) => (
                 <div

@@ -36,7 +36,7 @@ footer {
     .footer-links li {
         padding-top: 10px;
         padding-bottom: 10px;
-        border-bottom: 1px solid white;
+        border-bottom: 1px solid goldenrod;
         width: auto
     }
 }
@@ -71,7 +71,7 @@ footer {
     .footer-links li {
         margin-right: 10px;
         padding-right: 10px;
-        border-right: 2px solid white;
+        border-right: 2px solid darkgoldenrod;
         width: auto
     }
 

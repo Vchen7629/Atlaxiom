@@ -1,0 +1,253 @@
+.card-background {
+    background-color: transparent;
+    position: relative;
+    padding: 6%;
+    height: auto
+}
+
+.card-name {
+    color: goldenrod;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    height: fit-content;
+    padding-left: 6%;
+    padding-right: 6%;
+    padding-bottom: 1%;
+    margin-bottom: 2%;
+}
+.card-name:after {
+    content: '';
+    display: block;
+    height: 1px; 
+    background-color: white; 
+    width: 80%;
+    position: absolute;
+    bottom: 0px;
+    left: 10%;
+}
+
+.cardbody {
+    display: flex;
+    flex-direction: row;
+    display: relative;
+    width: 80%;
+    height: fit-content;
+    margin-left: 10%;
+}
+
+.normal-desc-container,
+.monster-desc-container,
+.pend-desc-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.normal-desc-header,
+.monster-desc-header,
+.pend-desc-header  {
+    display: flex;
+    color: darkorange;
+    align-items: center;
+    padding-left: 4%;
+    padding-right: 4%;
+    width: 20%;
+    font-size: calc(8px + 0.390625vw);
+}
+
+.normal-desc-body,
+.monster-desc-body,
+.pend-desc-body  {
+    padding-left: 6%;
+    padding-right: 6%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    color: goldenrod;
+    width: 80%;
+    border-bottom: 1px solid orange;
+    font-size: calc(8px + 0.390625vw);
+}
+
+.card-type-container,
+.card-subtype-container,
+.card-attribute-container,
+.card-archetype-container,
+.card-level-container,
+.card-pendulum-scale-container,
+.card-link-container,
+.card-atk-container,
+.card-def-container {
+    display: flex;
+    flex-direction: row;
+    background-color: transparent;
+    width: 100%;
+    margin-bottom: 5%;
+
+}
+
+.card-type-header,
+.card-subtype-header,
+.card-attribute-header,
+.card-archetype-header,
+.card-level-header,
+.card-pendulum-scale-header,
+.card-link-header,
+.card-atk-header,
+.card-def-header {
+    background: linear-gradient(to right, rgb(31, 27, 27), rgb(95, 94, 94));
+    display: flex;
+    color: darkorange;
+    padding-left: 4%;
+    padding-right: 4%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    width: 33%;
+    font-size: calc(8px + 0.390625vw);
+}
+
+.card-subtype-body,
+.card-type-body,
+.card-attribute-body,
+.card-archetype-body,
+.card-level-body,
+.card-pendulum-scale-body,
+.card-link-body,
+.card-atk-body,
+.card-def-body {
+    padding-left: 6%;
+    padding-right: 6%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    border-bottom: 1px solid white;
+    color: goldenrod;
+    width: 50%;
+    font-size: calc(8px + 0.390625vw);
+}
+
+.card-level,
+.card-link,
+.card-attribute,
+.card-archetype{
+    background: linear-gradient(to left, rgb(31, 27, 27), rgb(95, 94, 94));;
+    color: goldenrod;
+    text-align: center;
+    font-size: calc(11px + 0.390625vw);
+    font-weight: bold;
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    padding-left: 6%;
+    padding-right: 6%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin-bottom: 4%;
+    margin-left: 0.5%;
+    border-radius: 10px;    
+    border: 1px solid white
+}
+
+.card-descriptions-container:before {
+    content: '';
+    display: block;
+    height: 1px; 
+    background-color: darkorange; 
+    width: 100%;
+    position: absolute;
+    top: -10px;
+    left: -0.01%
+    
+}
+
+.card-descriptions-container {
+    display:flex;
+    position: relative;
+    flex-direction: column;
+    margin-left: 10%;
+    color: goldenrod;
+    padding: 10px;
+    height: fit-content;
+    width: 80%
+}
+
+.cardstats {
+    display: flex;
+    flex-direction: column;
+}
+.columnone {
+    
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+    margin-bottom: 3%;
+    width: 50%;
+    height: fit-content;
+}
+
+
+
+.columntwo {
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+    margin-bottom: 3%;
+    margin-left: 1%;
+    width: 50%;
+    height: fit-content;
+}
+
+@media screen and ( width <= 768px) {
+    .Card-container {
+        background: linear-gradient(to bottom, rgb(45, 43, 43), black);
+        width: 100%;
+        height: auto;
+        padding: 6%;
+        border-radius: 25px;
+    }
+    
+    .card-image {
+        position: relative;
+        max-width: 100%;
+        height: auto;
+        max-height: 500px; 
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .card-details {
+        position: relative;
+        margin-top: 20px;
+        padding: 5%;
+        width: fit-content
+    }
+}
+
+@media screen and ( 768px <= width) {
+    
+    .Card-container {
+        background: linear-gradient(to bottom, rgb(45, 43, 43), black);
+        width: 100%;
+        position: relative;
+        height: auto;
+        display: flex;
+        padding: 6%;
+        border-radius: 25px;
+    }
+
+
+    .card-image {
+        position: relative;
+        max-width: 100%;
+        height: auto;
+        max-height: 500px; 
+        left: 10%;
+        margin-top: 3%;
+    }
+
+    .card-details {
+    position: relative;
+    margin-left: 13%;
+    padding: 2%;
+    width: 70%
+}
+}

@@ -10,7 +10,12 @@ const SearchResult = () => {
     return (
         <>
         <DashHeader/>
-        <SearchResults/>
+            <div className="Searchbar-title">
+                Card Details
+            </div>
+            <body className="card-background">
+                <SearchResults/>
+            </body>
         <DashFooter/>
         </>
     )

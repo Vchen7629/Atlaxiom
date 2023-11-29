@@ -1,4 +1,5 @@
 /* Searchbar styling */
+
 input {
   background-color: transparent;
   border: none;
@@ -93,7 +94,7 @@ input:focus {
   }
 
   .Input-Wrapper {
-    background-color: lightblue;
+    background-color: goldenrod;
     width: 90%;
     height: 50px;
     border-radius: 15px;  
@@ -175,7 +176,7 @@ input:focus {
     position: relative;
     top: 10px;
     left: -10px;
-    padding-top: 15px;
+    padding: 10px;
     margin-bottom: 10px;
   }
 
@@ -187,6 +188,7 @@ input:focus {
     padding: 15px;
     border-radius: 25px;
     margin-bottom: 5px;
+    border: 1px solid darkgoldenrod
   }
 
   .suggestion-name-left-container {
@@ -211,8 +213,6 @@ input:focus {
     height: 120px;
     width: 90px;
     position: relative;
-    border: 2px solid yellow
-    
   }
 
   .suggestion-carddata-container {
@@ -266,7 +266,7 @@ input:focus {
 }
 
 .Input-Wrapper {
-  background-color: lightblue;
+  background-color: goldenrod;
   width: 90%;
   height: 50px;
   border-radius: 15px;  
@@ -348,7 +348,7 @@ input:focus {
   position: relative;
   top: 10px;
   left: -10px;
-  padding-top: 15px;
+  padding: 15px;
   margin-bottom: 10px;
 }
 
@@ -360,6 +360,7 @@ input:focus {
   padding: 15px;
   border-radius: 25px;
   margin-bottom: 5px;
+  border: 1px solid darkgoldenrod
 }
 
 .suggestion-name-left-container {
@@ -383,9 +384,7 @@ input:focus {
 .suggestion-image-left {
   height: 170px;
   width: auto;
-  position: relative;
-  border: 2px solid yellow
-  
+  position: relative; 
 }
 
 .suggestion-carddata-container {
@@ -440,7 +439,7 @@ input:focus {
 }
 
 .Input-Wrapper {
-  background-color: lightblue;
+  background-color: goldenrod;
   width: 90%;
   height: 50px;
   border-radius: 15px;  
@@ -523,7 +522,7 @@ input:focus {
   position: relative;
   top: 10px;
   left: -10px;
-  padding-top: 15px;
+  padding: 15px;
   margin-bottom: 10px;
 }
 
@@ -535,6 +534,7 @@ input:focus {
   padding: 15px;
   border-radius: 25px;
   margin-bottom: 5px;
+  border: 1px solid darkgoldenrod
 }
 
 .suggestion-name-left-container {
@@ -558,9 +558,7 @@ input:focus {
 .suggestion-image-left {
   height: 170px;
   width: auto;
-  position: relative;
-  border: 2px solid yellow
-  
+  position: relative; 
 }
 
 .suggestion-carddata-container {
@@ -617,7 +615,7 @@ input:focus {
 }
 
 .Input-Wrapper {
-  background-color: lightblue;
+  background-color: goldenrod;
   width: 45%;
   height: 50px;
   border-radius: 15px;  
@@ -699,7 +697,7 @@ input:focus {
   position: relative;
   top: -320px;
   left: 48%;
-  padding-top: 15px;
+  padding: 10px;
   margin-bottom: 10px;
 }
 
@@ -711,6 +709,7 @@ input:focus {
   padding: 15px;
   border-radius: 25px;
   margin-bottom: 5px;
+  border: 1px solid darkgoldenrod
 }
 
 .suggestion-name-left-container {
@@ -734,9 +733,7 @@ input:focus {
 .suggestion-image-left {
   height: 170px;
   width: auto;
-  position: relative;
-  border: 2px solid yellow
-  
+  position: relative;  
 }
 
 .suggestion-carddata-container {
@@ -792,7 +789,7 @@ input:focus {
 }
 
 .Input-Wrapper {
-  background-color: lightblue;
+  background-color: goldenrod;
   width: 45%;
   height: 50px;
   border-radius: 15px;  
@@ -874,7 +871,7 @@ input:focus {
   position: relative;
   top: -320px;
   left: 48%;
-  padding-top: 15px;
+  padding: 10px;
   margin-bottom: 10px;
 }
 
@@ -886,6 +883,7 @@ input:focus {
   padding: 15px;
   border-radius: 25px;
   margin-bottom: 5px;
+  border: 1px solid darkgoldenrod
 }
 
 .suggestion-name-left-container {
@@ -910,7 +908,6 @@ input:focus {
   height: 170px;
   width: auto;
   position: relative;
-  border: 2px solid yellow
   
 }
 
@@ -968,7 +965,7 @@ input:focus {
 }
 
 .Input-Wrapper {
-  background-color: lightblue;
+  background-color: goldenrod;
   width: 45%;
   height: 50px;
   border-radius: 15px;  
@@ -1050,7 +1047,7 @@ input:focus {
   position: relative;
   top: -320px;
   left: 48%;
-  padding-top: 15px;
+  padding: 15px;
   margin-bottom: 10px;
 }
 
@@ -1062,6 +1059,7 @@ input:focus {
   padding: 15px;
   border-radius: 25px;
   margin-bottom: 5px;
+  border: 1px solid darkgoldenrod
 }
 
 .suggestion-name-left-container {
@@ -1086,8 +1084,6 @@ input:focus {
   height: 170px;
   width: auto;
   position: relative;
-  border: 2px solid yellow
-  
 }
 
 .suggestion-carddata-container {
