@@ -14,10 +14,10 @@ const createOwnedCard = asyncHandler(async (req, res) => {
   }
 
   // Check if ownedCard has the required fields
-  const invalidCards = ownedCards.filter(card => !card.card_name || !card.image_url || card.ownedprop === undefined);
+  const invalidCards = ownedCards.filter(card => !card.card_name || !card.image_url || card.ownedprop === undefined || !card.type || !card.race || !card.desc);
 
   if (invalidCards.length > 0) {
-    return res.status(400).json({ message: 'card_name, image_url, and owned are required for each card in ownedCards' });
+    return res.status(400).json({ message: 'Missing either card_name, image_url, ownedprop, type, race, or desc params in input' });
   }
 
   // Check if the user exists in the database
@@ -83,7 +83,7 @@ const getAllOwnedCards = asyncHandler(async (req, res) => {
 const updateOwnedCard = asyncHandler(async (req, res) => {
 
   const { id, CardName } = req.params;
-  const { image_url, ownedprop } = req.body;
+  const { image_url, ownedprop, type, race, attribute, archetype, level, linkval, scale, atk, def, desc, pend_desc, monster_desc } = req.body;
 
   // Check if CardId is provided in the request params
   if (!CardName) {
@@ -109,6 +109,18 @@ const updateOwnedCard = asyncHandler(async (req, res) => {
   // Update the owned card properties
   ownedCard.image_url = image_url;
   ownedCard.ownedprop = ownedprop;
+  ownedCard.type = type;
+  ownedCard.race = race;
+  ownedCard.attribute = attribute;
+  ownedCard.archetype = archetype;
+  ownedCard.level = level;
+  ownedCard.linkval = linkval;
+  ownedCard.scale = scale;
+  ownedCard.atk = atk;
+  ownedCard.def = def;
+  ownedCard.desc = desc;
+  ownedCard.pend_desc = pend_desc;
+  ownedCard.monster_desc = monster_desc;
 
   // Save the updated user
   await user.save();
@@ -123,7 +135,6 @@ const updateOwnedCard = asyncHandler(async (req, res) => {
 const deleteOwnedCardByUsername = asyncHandler(async (req, res) => {
 
   const { id, cardName } = req.params;
-
   // Check if username and cardName are provided
   if (!id || !cardName) {
     return res.status(400).json({ message: 'Username and card name are required' });
@@ -147,11 +158,16 @@ const deleteOwnedCardByUsername = asyncHandler(async (req, res) => {
 
   // Remove the owned card from the user's ownedCards array
   user.ownedCards.splice(cardIndex, 1);
-
+  
   // Save the updated user
   await user.save();
 
-  res.status(201).json({ message: `Owned card ${user.ownedCards[0].card_name} for user ${user.username} deleted successfully` });
+  // Check if there are remaining owned cards before accessing properties
+  if (user.ownedCards.length > 0) {
+    res.status(200).json({ message: `Owned card ${cardName} for user ${user.username} deleted successfully` });
+  } else {
+    res.status(200).json({ message: `Last owned card ${cardName} for user ${user.username} deleted successfully` });
+  }
 
 });
 

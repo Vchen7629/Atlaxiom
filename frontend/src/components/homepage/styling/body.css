@@ -31,13 +31,13 @@
   top: 550px;
   background-color: rgb(51, 48, 48);
   transform: translate(-50%);
-  border: 2px solid aqua;
+  border: 2px solid goldenrod;
   padding: 15px;
-  box-shadow: 0 0 10px pink;
+  box-shadow: 0 0 10px black;
 }
 
 .Homepage-body-container {
-  background-color: wheat;
+  background-color: transparent;
   min-height: 900px;
   top: 400px;
   padding-top: 50px;

@@ -39,8 +39,20 @@ export const ownedCardsApiSlice = apiSlice.injectEndpoints({
                 const Userdata = {
                     ownedCards: responseData.ownedCards.map(card => ({
                         id: card._id,
-                        cardname: card.card_name,
-                        cardimage: card.image_url,
+                        name: card.card_name,
+                        type: card.type,
+                        subtype: card.race,
+                        attribute: card.attribute,
+                        archetype: card.archetype,
+                        level: card.level,
+                        linkval: card.linkval,
+                        pendscale: card.scale,
+                        attack: card.atk,
+                        defense: card.def,
+                        desc: card.desc,
+                        monsterdesc: card.monster_desc,
+                        penddesc: card.pend_desc,
+                        image: card.image_url,
                         ownedProp: card.ownedprop,
                     })),
                 };

@@ -44,12 +44,37 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         }),
 
         updateUser: builder.mutation({
+            query: initialUserData => ({
+                url: '/users',
+                method: 'PATCH',
+                body: {
+                    ...initialUserData,
+                }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'User', id: arg.id }
+            ]
+        }),
 
+        deleteUser: builder.mutation({
+            query: ({ id }) => ({
+                url: `/users`,
+                method: 'DELETE',
+                body: { id }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'User', id: arg.id }
+            ]
         }),
     }),
 })
 
-export const { useGetUsersQuery, } = usersApiSlice
+export const { 
+    useGetUsersQuery, 
+    useAddNewUserMutation,
+    useUpdateUserMutation,
+    useDeleteUserMutation,
+} = usersApiSlice
 
 //method for select all users for a admin account
     // returns the query result object
