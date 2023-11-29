@@ -9,15 +9,15 @@ const mongoose = require('mongoose');
 // @access private
 const createNewUser = asyncHandler(async (req, res) => {
 
-    const { username, password, roles} = req.body
+    const { username, email, password} = req.body
 
     // confirm data
-    if (!username || !password || !Array.isArray(roles) || !roles.length) {
+    if (!username || !password || !email) {
         return res.status(400).json({ message: 'All fields are required'})
     }
 
     // check for duplicate users
-    const duplicate = await User.findOne({ username }).lean().exec()
+    const duplicate = await User.findOne({ username, email}).lean().exec()
 
     if (duplicate) {
         return res.status(409).json({ message: 'duplicate users' })
@@ -27,11 +27,11 @@ const createNewUser = asyncHandler(async (req, res) => {
     const hashPassword = await bcrypt.hash(password, 10) //salt rounds for password encryptions
 
     // create and store new user object
-    const userObject = { username, "password": hashPassword, roles}
+    const userObject = { username, email, "password": hashPassword, roles: ["Member"]}
     const user = await User.create(userObject)
 
     if (user) { //created
-        res.status(201).json({ message: `new user ${username} created`})
+        res.status(201).json({ message: `new user ${username} with email ${email} created`})
     } else {
         res.status(400).json({ message: "Invalid user data recieved"})
     }
@@ -61,10 +61,10 @@ const getAllUsers = asyncHandler(async (req, res) => {
 // @access private
 const updateUser = asyncHandler(async (req, res) => {
 
-    const { id, username, roles, active, password } = req.body
+    const { id, username, email, roles, active, password } = req.body
 
     // Confirm data 
-    if (!id || !username || !Array.isArray(roles) || !roles.length || typeof active !== 'boolean') {
+    if (!id || !username || !email || !Array.isArray(roles) || !roles.length || typeof active !== 'boolean') {
         return res.status(400).json({ message: 'All fields except password are required' })
     }
 
@@ -84,6 +84,7 @@ const updateUser = asyncHandler(async (req, res) => {
     }
 
     user.username = username
+    user.email = email
     user.roles = roles
     user.active = active
 
@@ -94,7 +95,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
     const updatedUser = await user.save()
 
-    res.json({ message: `${updatedUser.username} updated`})
+    res.json({ message: `${updatedUser.username} with email ${updatedUser.email}updated`})
 
 })
 

@@ -62,6 +62,10 @@ const ownedCardSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    ownedamount: {
+        type: Number,
+        default: 0
+    }
 
 });
 

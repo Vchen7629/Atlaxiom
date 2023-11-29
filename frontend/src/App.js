@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/layout'
-import Login from './features/auth/login';
 import DashLayout from './components/dash/dashlayout'
 import Welcome from './features/auth/welcome'
 import UsersList from './features/users/userslist'
@@ -11,6 +10,8 @@ import Searchs from './features/pages/search';
 import UserOwnedCard from './features/ownedcards/ownedcardslist';
 import HomePage from './components/homepage/homepage';
 import SearchResult from './features/pages/searchresult';
+import EditUser from './features/users/editUser.js';
+import AccountCreationForm from './features/auth/AccountCreationForm.js'
 
 
 
@@ -21,7 +22,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
 
-        <Route path="login" element={<Login />} />
+        <Route path="login" element={<AccountCreationForm/>}/>
         <Route path="banlist" element={<Banlists />} />
         <Route path="contact-info" element={<ContactInfos />} />
         <Route path="About-us" element={<AboutUs />} />
@@ -36,10 +37,10 @@ function App() {
           <Route index element={<Welcome />} />
 
           <Route path="users">
+            <Route path=":id" element={<EditUser/>}/>
             <Route index element={<UsersList />} />
             <Route path="ownedcards">
               <Route path=":id" element={<UserOwnedCard/>}/>
-        
             </Route>
           </Route>
 
