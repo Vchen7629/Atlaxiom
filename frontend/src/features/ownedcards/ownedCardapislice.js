@@ -33,7 +33,7 @@ export const ownedCardsApiSlice = apiSlice.injectEndpoints({
                 if (!responseData || !responseData.ownedCards || !Array.isArray(responseData.ownedCards)) {
                     // Handle the case where the response data is not as expected
                     console.error('Invalid response data:', responseData);
-                    return initialState; // Assuming initialState is properly defined
+                    return initialState; 
                 }
 
                 const Userdata = {
@@ -56,7 +56,6 @@ export const ownedCardsApiSlice = apiSlice.injectEndpoints({
                         ownedProp: card.ownedprop,
                     })),
                 };
-                console.log('Transformed Userdata:', Userdata);
                 const state = ownedCardsAdapter.setAll(initialState, Userdata)
                 return state;
             },

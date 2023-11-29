@@ -36,6 +36,11 @@ const createOwnedCard = asyncHandler(async (req, res) => {
     return res.status(409).json({ message: 'Duplicate card for the user' });
   }
 
+  // Increment the ownedamount for each new card added
+  ownedCards.forEach(newCard => {
+    newCard.ownedamount = 1;
+  });
+
   // Add the new ownedCard to the user's ownedCards array
   user.ownedCards.push(...ownedCards);
 
@@ -83,7 +88,7 @@ const getAllOwnedCards = asyncHandler(async (req, res) => {
 const updateOwnedCard = asyncHandler(async (req, res) => {
 
   const { id, CardName } = req.params;
-  const { image_url, ownedprop, type, race, attribute, archetype, level, linkval, scale, atk, def, desc, pend_desc, monster_desc } = req.body;
+  const {  ownedprop, ownedamount } = req.body;
 
   // Check if CardId is provided in the request params
   if (!CardName) {
@@ -107,20 +112,8 @@ const updateOwnedCard = asyncHandler(async (req, res) => {
   }
 
   // Update the owned card properties
-  ownedCard.image_url = image_url;
   ownedCard.ownedprop = ownedprop;
-  ownedCard.type = type;
-  ownedCard.race = race;
-  ownedCard.attribute = attribute;
-  ownedCard.archetype = archetype;
-  ownedCard.level = level;
-  ownedCard.linkval = linkval;
-  ownedCard.scale = scale;
-  ownedCard.atk = atk;
-  ownedCard.def = def;
-  ownedCard.desc = desc;
-  ownedCard.pend_desc = pend_desc;
-  ownedCard.monster_desc = monster_desc;
+  ownedCard.ownedamount = ownedamount;
 
   // Save the updated user
   await user.save();
@@ -158,7 +151,7 @@ const deleteOwnedCardByUsername = asyncHandler(async (req, res) => {
 
   // Remove the owned card from the user's ownedCards array
   user.ownedCards.splice(cardIndex, 1);
-  
+
   // Save the updated user
   await user.save();
 
