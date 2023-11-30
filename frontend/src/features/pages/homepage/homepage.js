@@ -1,9 +1,9 @@
 import React from 'react';
-import DashHeader from '../dash/dashheader';
 import "./styling/body.css"
 import "./styling/banner.css"
 import "./styling/parallelogram.css"
-import DashFooter from '../dash/dashfooter';
+import Header from '../../../components/header/header';
+import Footer from '../../../components/footer/Footer';
 
 
 
@@ -11,7 +11,7 @@ const HomePage = () => {
    
     const content = (
         <section className="public">
-            <DashHeader/>
+            <Header/>
             <banner>
                 <div className="banner"></div>
             </banner> 
@@ -28,7 +28,7 @@ const HomePage = () => {
                     <div className="tech-circle"></div>
                 </div>
             </ main>
-            <DashFooter/>
+            <Footer/>
         </section>
     )
     return content

@@ -1,0 +1,8 @@
+.Profile-side-nav-container {
+    background-color: white;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    width: 20%;
+}

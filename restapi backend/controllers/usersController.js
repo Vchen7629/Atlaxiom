@@ -123,11 +123,9 @@ const deleteUser = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: 'User has owned cards, cannot delete' });
     }
 
-    console.log('Owned Cards:', ownedCards);
-
     const result = await user.deleteOne()
 
-    res.json({message: `Username ${result.username} with ID ${result._id} deleted` })
+    res.json({message: `Username ${user.username} with ID ${user._id} deleted` })
 
 })
 

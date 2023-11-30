@@ -1,34 +1,29 @@
 /*dash header nav button styling*/
 
 .menu_card_search, .banlist, .my-cards, .logins  {
-    background: linear-gradient(to bottom, goldenrod, black);
+    background: rgba(128, 128, 128, 0.301);
     color: white;
-    padding: 10px 20px;
-    border: none;
+    padding: 10px;
+    border: 2px solid goldenrod;
     border-radius: 5px;
-    cursor: pointer;
     transition: background-color 0.3s, color 0.3s, border-radius 0.3s;
-    width: 130px;
-    height: 80px;
+    width: 120px;
+    height: 70px;
     text-align: center;
     margin-right: 10px;
     border-radius: 25px;
-    box-shadow: 0 0 5px black
   }
   .menu_card_search:hover, .banlist:hover, .my-cards:hover, .logins:hover {
-    background: linear-gradient(to bottom, #00c6fb, #005bea);
+    background-color: goldenrod;
     color: #eee; /* New text color on hover */
     border-radius: 20px;
     border: 2px solid white;
     padding: 10px;
-    width: 130px;
-    height: 80px;
-    text-align: center;
     margin-right: 10px;
     backface-visibility: hidden;
     transform: scale(1.08);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s;
-    box-shadow: 0 0 20px aqua
+    box-shadow: 0 0 20px white
   }
 

@@ -69,34 +69,24 @@ export const ownedCardsApiSlice = apiSlice.injectEndpoints({
             }
         }),
 
-        /*getOwnedCards: builder.query({
-            query: () => "/users",
-            validateStatus: (response, result) => {
-                return response.status === 200 && !result.isError
-            },
-            transformResponse: (responseData) => {
-                console.log('Response Data:', responseData);
-                const loadedcardata = responseData.map(card => {
-                    card.id = card._id
-                    return card
-                });
-                return ownedCardsAdapter.setAll(initialState, loadedcardata);
-                
-            },
-            providesTags: (result, error, arg) => {
-                if (result?.ids) {
-                    return [
-                        { type: 'OwnedCard', id: 'LIST' },
-                        ...result.ids.map(id => ({ type: 'OwnedCard', id }))
-                    ]
-                } else return [{ type: 'OwnedCard', id: 'LIST' }]
-            }
-        }), */
-
+        AddNewOwnedCard: builder.mutation({
+            query: (newOwnedCard) => ({
+              url: '/addownedcard',
+              method: 'POST',
+              body: newOwnedCard,
+            }),
+            invalidatesTags: [
+              { type: 'ownedcard', id: 'LIST' },
+            ],
+        }),
+        
     }),
 })
 
-export const { useGetOwnedCardsQuery } = ownedCardsApiSlice
+export const { 
+    useGetOwnedCardsQuery,
+    useAddNewOwnedCardMutation
+} = ownedCardsApiSlice
 
 // returns the query result object
 export const selectOwnedCardsResult = ownedCardsApiSlice.endpoints.getOwnedCards.select();

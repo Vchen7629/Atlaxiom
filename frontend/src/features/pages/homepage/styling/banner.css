@@ -7,11 +7,10 @@
     background-color: gold; 
     width: 100%;
     position: absolute;
-    bottom: -5px;
+    bottom: -1px;
     left: 0;
   }
   
-
 /* small devices  */
 @media screen and (width <= 1024px) {
   /*banner background */
@@ -32,16 +31,16 @@
 
 /*large devices*/
 @media screen and ( 1025px <= width) {
-  /*banner background */
+  /*banner background */ 
+
   .banner {
-    position: absolute;
+    position: relative;
     background-image: url('../img/cardicon.jpg');
-    background-color:black;
+    background-color:gray;
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
     height: 350px;
-    top: 100px;
     left: 0;
     right: 0;
   }

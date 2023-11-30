@@ -1,11 +1,11 @@
-import DashFooter from "../../components/dash/dashfooter"
-import DashHeader from "../../components/dash/dashheader"
+import Footer from "../../components/footer/Footer"
+import Header from "../../components/header/header"
 
 
 const AboutUs = () => {
     return (
     <>
-        <DashHeader/>
+        <Header/>
         <banner className="bannerone"></banner>
         <h1>
         AboutUs  AboutUs AboutUs AboutUsAboutUs  AboutUs AboutUs AboutUsAboutUs  
@@ -23,7 +23,7 @@ const AboutUs = () => {
             
         </h1>
 
-        <DashFooter/>
+        <Footer/>
     </>
     )
 }

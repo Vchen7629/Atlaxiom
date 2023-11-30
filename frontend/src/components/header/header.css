@@ -1,14 +1,12 @@
 /*dash header button containers*/
-.Menu-container-left {
+.Menu-container-left,
+.Menu-container-right  {
     display: flex;
+    padding-top: 10px;
+    padding-bottom: 15px;
     list-style: none;
   }
   
-  .Menu-container-right {
-    display: flex;
-    list-style: none; 
-  }
-
 /*header styling*/
 
 .header {
@@ -34,7 +32,14 @@
     left: 0;
   }
 
-
+  .website-title { 
+    color: goldenrod;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    font-size: calc(18px + 0.390625vw);
+  }
 
 /* Styles for the dropdown button */
 .dropdown-btn {
@@ -77,15 +82,6 @@
     display: none;
   }
 
-  .website-title { 
-    color: goldenrod;
-    position: absolute;
-    left: 50%;
-    top: 25%;
-    transform: translateX(-50%);
-    font-size: 15px;
-  }
-
   .dropdown-btn {
     display: block;
     
@@ -102,15 +98,6 @@
   .Menu-container-left,
   .Menu-container-right {
     display: none;
-  }
-
-  .website-title { 
-    color: white;
-    position: absolute;
-    left: 50%;
-    top: 25%;
-    transform: translateX(-50%);
-    font-size: 15px;
   }
 
   .dropdown-btn {
@@ -131,15 +118,6 @@
   .Menu-container-right {
     display: none;
   }
-
-  .website-title { 
-    color: white;
-    position: absolute;
-    left: 50%;
-    top: 25%;
-    transform: translateX(-50%);
-    font-size: 18px;
-  }
   
   .dropdown-btn {
     display: block;
@@ -153,39 +131,3 @@
 
 }
 
-/* Large devices (laptops/desktops) */
-@media screen and (1025px <= width <= 1200px) {
-
-  .website-title { 
-    color: white;
-    position: absolute;
-    left: 50%;
-    top: 25%;
-    transform: translateX(-50%);
-    font-size: 20px;
-  }
-}
-
-/* Extra-large device*/
-@media screen and (1201px <= width <= 1536px) {
-  .website-title { 
-    color: white;
-    position: absolute;
-    left: 50%;
-    top: 25%;
-    transform: translateX(-50%);
-    font-size: 18px;
-  }
-}
-
-/* TV and large desktops */
-@media screen and (1537px <= width) { 
-  .website-title { 
-    color: goldenrod;
-    position: absolute;
-    left: 50%;
-    top: 25%;
-    transform: translateX(-50%);
-    font-size: 18px;
-  }
-}

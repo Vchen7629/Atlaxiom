@@ -1,0 +1,9 @@
+.Profile-content-container {
+    background-color: black;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 20px;
+    margin: 10px;
+}
