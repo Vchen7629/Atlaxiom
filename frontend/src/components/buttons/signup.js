@@ -1,26 +1,26 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import "./styling/headerbuttons.css"
 
-const Login = () => {
+const Signup = () => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate('/login');
+    navigate('/signup');
   };
 
   return (
     <div>
         <button className="logins" onClick={handleButtonClick}>
-          <FontAwesomeIcon icon={faRightToBracket}/>
+          <FontAwesomeIcon icon={faUserPlus}/>
             <span className="fatextmargin">
-                  Login
+                  Sign Up
             </span>
         </button>
     </div>
   );
 }
 
-export default Login;
+export default Signup;

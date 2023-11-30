@@ -1,11 +1,11 @@
-import DashFooter from "../../components/dash/dashfooter"
-import DashHeader from "../../components/dash/dashheader"
+import Footer from "../../components/footer/Footer"
+import Header from "../../components/header/header"
 
 
 const Banlists = () => {
     return (
     <>
-        <DashHeader/>
+        <Header/>
         <banner className="bannerone"></banner>
         <h1>
             Banlist BanlistBanlistBanlistBanlistBanlistBanlistBanlistBanlist
@@ -28,7 +28,7 @@ const Banlists = () => {
             
         </h1>
 
-        <DashFooter/>
+        <Footer/>
     </>
     )
 }

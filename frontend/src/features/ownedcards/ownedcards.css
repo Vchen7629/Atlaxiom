@@ -149,3 +149,12 @@ th {
         max-width: 100%;
         height: auto;
     }
+
+.user-not-found {
+    background-color: white;
+    width: 200px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 40px;
+}

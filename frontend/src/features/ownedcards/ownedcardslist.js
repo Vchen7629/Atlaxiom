@@ -11,7 +11,11 @@ const UserOwnedCard = () => {
       error, 
       isLoading, 
       isSuccess 
-    } = useGetOwnedCardsQuery(id);
+    } = useGetOwnedCardsQuery(id, {
+      pollingInterval: 15000,
+      refetchOnFocus: true,
+      refetchOnMountOrArgChange: true
+    });
 
     if (isLoading) {
       return <div>Loading...</div>;
@@ -19,16 +23,12 @@ const UserOwnedCard = () => {
 
   if (error) {
     if (error.status === 404) {
-      return <div>User not found</div>;
+      return <div className="user-not-found">User not found</div>;
   }
     
       console.error('Error fetching user data:', error);
       return <div>Error fetching user data</div>;
   }
-
-  if (!userOwnedCards || !userOwnedCards.entities || !userOwnedCards.entities.defaultId) {
-    return <div>User not found</div>;
-  } 
 
   const ownedCards = userOwnedCards.entities.defaultId;
 

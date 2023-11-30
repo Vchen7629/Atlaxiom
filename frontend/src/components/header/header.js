@@ -4,10 +4,11 @@ import Cardsearch from '../buttons/searchbar'
 import Banlist from '../buttons/banlist'
 import Mycards from '../buttons/my-cards'
 import Login from '../buttons/login'
-import "./styling/dash-header.css"
+import "./header.css"
+import Signup from '../buttons/signup'
 
 
-const DashHeader = () => {
+const Header = () => {
 
     const [showDropdown, setShowDropdown] = useState(false);
 
@@ -19,14 +20,17 @@ const DashHeader = () => {
         <header className="header">
             <ul className={`Menu-container-left ${showDropdown ? "hidden" : ''}`}>
                     <li>
-                        <Cardsearch/> {/*button component to redirect to /search endpoint */}
+                        <Banlist/> 
                     </li>
                     <li>
-                        <Banlist/> {/*button component to redirect to /banlist endpoint*/}
+                        <Mycards/> 
+                    </li>
+                    <li>
+                        <Cardsearch/> 
                     </li>
                 </ul>
             <div>
-                <Link to="/dash">
+                <Link to="/">
                 <div className={`website-title ${showDropdown ? "hidden" : ''}`}>
                     <h1>DeckDatabaseOnline</h1>
                 </div>
@@ -34,10 +38,10 @@ const DashHeader = () => {
             </div>
             <ul className={`Menu-container-right ${showDropdown ? "hidden" : ''}`}>
                 <li>
-                    <Mycards/> {/*button component to redirect to /my-cards endpoint*/}
+                    <Login/> 
                 </li>
                 <li>
-                    <Login/> {/*button component to redirect to /about-us endpoint*/}
+                    <Signup/>
                 </li>
             </ul>
 
@@ -60,4 +64,4 @@ const DashHeader = () => {
     return content
 }
 
-export default DashHeader
+export default Header

@@ -1,6 +1,6 @@
 
-import DashFooter from "../../components/dash/dashfooter"
-import DashHeader from "../../components/dash/dashheader"
+import Footer from "../../components/footer/Footer"
+import Header from "../../components/header/header"
 import SearchBar from "../../components/searchbar/searchbar"
 import "../pages/styling/banner.css"
 
@@ -9,14 +9,14 @@ import "../pages/styling/banner.css"
 const Searchs = () => {
     return (
     <>
-        <DashHeader/>
+        <Header/>
             <div className="Searchbar-title">
                 Card Search
             </div>
             <body>
                 <SearchBar/>
             </body>
-        <DashFooter/>
+        <Footer/>
     </>
     )
 }

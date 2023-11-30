@@ -1,16 +1,16 @@
 import { Outlet } from 'react-router-dom'
-import DashHeader from './dashheader'
-import DashFooter from './dashfooter'
 import "./styling/dash-page.css"
+import Header from '../header/header'
+import Footer from '../footer/Footer'
 
 const DashLayout = () => {
     return (
         <>
-            <DashHeader />
+            <Header />
             <div className ="dash-page-body">
                 <Outlet />
             </div>
-            <DashFooter />
+            <Footer/>
         </>
     )
 }

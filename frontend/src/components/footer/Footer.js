@@ -2,9 +2,9 @@ import Privacypolicy from "../buttons/Privacypolicy"
 import ContactInfo from "../buttons/contactinfo"
 import Aboutus from "../buttons/about-us"
 import Home from "../buttons/home"
-import "./styling/dash-footer.css"
+import "./footer.css"
 
-const DashFooter = () => {
+const Footer = () => {
 
     const content = (
         <footer>
@@ -36,4 +36,4 @@ const DashFooter = () => {
     return content
 }
 
-export default DashFooter
+export default Footer

@@ -1,5 +1,5 @@
-import DashFooter from "../../components/dash/dashfooter"
 import DashHeader from "../../components/dash/dashheader"
+import Footer from "../../components/footer/Footer"
 
 
 const MyCards = () => {
@@ -16,7 +16,7 @@ const MyCards = () => {
             Mycards  Mycards  Mycards  Mycards Mycards  Mycards  Mycards  Mycards
         </h1>
 
-        <DashFooter/>
+        <Footer/>
     </>
     )
 }

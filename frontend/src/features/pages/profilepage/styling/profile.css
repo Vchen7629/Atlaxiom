@@ -1,0 +1,11 @@
+.Profile-page-body-container {
+    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    min-height: 600px;
+    left: 50%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    transform: translateX(-50%);
+}

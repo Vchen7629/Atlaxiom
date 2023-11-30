@@ -1,100 +1,23 @@
 /*login banner styling*/
 .login-page-banner {
-  background-color: rgb(45, 43, 43);
-  position: relative;
-  width: 100%;
-  height: fit-content;
-  text-align: center;
-  padding: 20px;
-  color: white;
-}
-
-/*login body styling*/
-
-.loginpage-body-container {
-    min-height: 900px;
-    top: 400px;
+    background-color: rgb(45, 43, 43);
+    position: relative;
+    width: 100%;
+    height: fit-content;
     text-align: center;
+    padding: 20px;
+    color: white;
   }
-
-
-.form-container {
-  background: linear-gradient(to bottom, rgb(45, 43, 43), black);
-  margin-top: 100px;
-  width: 40%;
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  align-items: center;
-  border-radius: 25px;
-  box-shadow: 0 0 15px 0.5px orange;
-}
-
-.form-title {
-  position: relative;
-  width: 80%;
-  margin-top: 20px;
-  margin-bottom: 30px;
-  font-size: 25px;
-  padding: 20px;
-  color: goldenrod;
-  border-bottom: 2px solid rgba(128, 128, 128, 0.205)
-}
-
-
-.form-body {
-  position: relative;
-  width: 80%;
-  height: fit-content;
-}
-
-.form-body-title {
-  font-size: calc(15px + 0.390625vw);
-  background-color: rgba(70, 63, 63, 0.671);
-  padding: 15px;
-  margin-bottom: 30px;
-  width: fit-content;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  color: orange;
-  border: 2px solid rgba(128, 128, 128, 0.205);
-}
-
-.form-username-container,
-.form-password-container,
-.form-email-container {
-  height: fit-content;
-  margin-bottom: 30px;
-}
-
-.form-username-input,
-.form-password-input,
-.form-email-input {
-  background: linear-gradient(to left, rgba(128, 128, 128, 0.671), black);
-  width: 87%;
-  height: 50px;
-  padding-left: 10px;
-  color: white;
-}
-
-.form-save-button {
-  background-color: darkorange;
-  width: 87%;
-  padding-left: 10px;
-  height: 50px;
-  border-radius: 15px;
-  margin-bottom: 30px;
-}
-
-.save-button-text {
-  color: white;
-  font-size: 20px
-}
-
-.canSave {
-  box-shadow: 0 0 15px 5px gray;
-  background-color: orange
-}
+  
+  /*login body styling*/
+  
+  .login-page-body-container {
+      min-height: 900px;
+      top: 400px;
+      text-align: center;
+      background-color: rgb(32, 32, 32);
+      background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
+      background-size: 10px 10px, 10px 10px, 10px 5px;
+      background-position: 0px 0px, 5px 5px, 0px 0px;
+    }
+  

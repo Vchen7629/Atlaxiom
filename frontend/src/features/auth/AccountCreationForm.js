@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react"
 import { useAddNewUserMutation } from "../users/usersApiSlice"
 import { useNavigate } from "react-router-dom"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSave } from "@fortawesome/free-solid-svg-icons"
-import DashFooter from "../../components/dash/dashfooter"
-import "./styling/login.css"
+import "./styling/Signup.css"
+import Footer from "../../components/footer/Footer"
 
 const USER_REGEX = /^[A-z0-9!@#$%]{3,40}$/
 const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,50}$/
@@ -49,7 +47,7 @@ const AccountCreationForm = () => {
             setUsername('')
             setUsername('')
             setPassword('')
-            navigate('/dash')
+            navigate('/Login')
         }
     }, [isSuccess, navigate])
 
@@ -75,9 +73,9 @@ const AccountCreationForm = () => {
     const content = (
         <>  
             <banner>
-                <h1 className="login-page-banner">New Account Creation</h1>
+                <h1 className="signup-page-banner">New Account Creation</h1>
             </banner>
-            <body className="loginpage-body-container">
+            <body className="signup-page-body-container">
                 <p className={errClass}>{error?.data?.message}</p>
 
                 <form className="form-container" onSubmit={onSaveUserClicked}>
@@ -133,7 +131,7 @@ const AccountCreationForm = () => {
                     </div>
                 </form>
             </body>
-            <DashFooter/>
+            <Footer/>
         </>
     )
 
