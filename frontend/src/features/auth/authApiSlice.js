@@ -1,5 +1,5 @@
 import { apiSlice } from "../../app/api/apiSlice";
-import { logOut } from "./authSlice";
+import { logOut, setCredentials } from "./authSlice";
 
 export const authApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
@@ -18,11 +18,15 @@ export const authApiSlice = apiSlice.injectEndpoints({
             }),
             async onQueryStarted(arg, { dispatch, queryFulfilled}) {
                 try {
-                    await queryFulfilled
+                    const { data } = await queryFulfilled
+                    console.log("sendlogout onQueryStarted returned with data: ", data)
                     dispatch(logOut())
-                    dispatch(apiSlice.util.resetApiState())
+                    setTimeout(() => {
+                        dispatch(apiSlice.util.resetApiState())
+                    }, 1000)
+                   
                 } catch (err) {
-                    console.log(err)
+                    console.log("sendLogout onQueryStarted returned with error: ", err)
                 }
             }
         }),
@@ -31,7 +35,17 @@ export const authApiSlice = apiSlice.injectEndpoints({
             query: () => ({
                 url: "/auth/refresh",
                 method: "GET",
-            })
+            }), 
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+                try {
+                    const { data } = await queryFulfilled
+                    console.log("refresh OnQueryStarted returned: ", data)
+                    const { accessToken } = data
+                    dispatch(setCredentials({ accessToken }))
+                } catch (err) {
+                    console.log("refresh onQueryStarted returned with error: ", err)
+                }
+            }
         })
     })
 })

@@ -1,23 +1,76 @@
-/*login banner styling*/
-.login-page-banner {
-    background-color: rgb(45, 43, 43);
-    position: relative;
-    width: 100%;
-    height: fit-content;
+/*login body styling*/
+.login-page-background-container {
+    min-height: 900px;
+    top: 400px;
     text-align: center;
-    padding: 20px;
-    color: white;
+
+    background-color: rgb(32, 32, 32);
+    background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
+    background-size: 10px 10px, 10px 10px, 10px 5px;
+    background-position: 0px 0px, 5px 5px, 0px 0px;
+}
+
+/*Login form container styling*/
+
+.login-page-form-container {
+    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
+    margin-top: 100px;
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+    border-radius: 25px;
+    box-shadow: 0 0 15px 0.5px orange;
   }
   
-  /*login body styling*/
-  
-  .login-page-body-container {
-      min-height: 900px;
-      top: 400px;
-      text-align: center;
-      background-color: rgb(32, 32, 32);
-      background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
-      background-size: 10px 10px, 10px 10px, 10px 5px;
-      background-position: 0px 0px, 5px 5px, 0px 0px;
-    }
-  
+/*Login form elements styling*/
+.Login-form-title {
+position: relative;
+    width: 80%;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    font-size: 25px;
+    padding: 25px;
+    color: goldenrod;
+    border-bottom: 2px solid rgba(128, 128, 128, 0.205)
+}
+
+.Login-form-body {
+    position: relative;
+    width: 80%;
+    height: fit-content;
+}
+
+.Login-emailoruser-container,
+.Login-password-container,
+.Login-submit-container {
+    height: fit-content;
+    margin-bottom: 45px;
+}
+
+.form-emailoruser-input,
+.form-password-input {
+    background: linear-gradient(to left, rgba(128, 128, 128, 0.671), black);
+    width: 87%;
+    height: 50px;
+    padding-left: 10px;
+    color: white;
+}
+
+.Login-submit-button {
+    background-color: darkorange;
+    width: 87%;
+    padding-left: 10px;
+    height: 50px;
+    border-radius: 15px;
+    margin-top: 10px;
+    margin-bottom: 45px;
+}
+
+.Login-submit-button-text {
+    color: white;
+    font-size: 25px
+}

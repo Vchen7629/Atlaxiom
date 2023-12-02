@@ -1,6 +1,11 @@
 /*dash header nav button styling*/
 
-.menu_card_search, .banlist, .my-cards, .logins  {
+.menu_card_search, 
+.banlist, 
+.my-cards, 
+.logins,
+.my-decks,
+.profile {
     background: rgba(128, 128, 128, 0.301);
     color: white;
     padding: 10px;
@@ -13,7 +18,12 @@
     margin-right: 10px;
     border-radius: 25px;
   }
-  .menu_card_search:hover, .banlist:hover, .my-cards:hover, .logins:hover {
+  .menu_card_search:hover, 
+  .banlist:hover, 
+  .my-cards:hover, 
+  .logins:hover,
+  .my-decks:hover,
+  .profile:hover {
     background-color: goldenrod;
     color: #eee; /* New text color on hover */
     border-radius: 20px;

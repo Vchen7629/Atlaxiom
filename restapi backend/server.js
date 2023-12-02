@@ -28,10 +28,7 @@ app.use('/auth', require('./routes/authRoutes'))
 
 app.use('/users', require('./routes/userRoutes'))
 
-app.use('/dash/users/addownedcard', require('./routes/ownedCardRoutes'))
-app.use('/dash/users/ownedcards', require('./routes/ownedCardRoutes'))
-app.use('/dash/users/ownedcards', require('./routes/ownedCardRoutes'))
-app.use('/dash/ownedcards', require('./routes/ownedCardRoutes'))
+app.use('/card', require('./routes/ownedCardRoutes'))
 
 app.all('*', (req, res) => {
     res.status(404)

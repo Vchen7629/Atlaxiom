@@ -22,18 +22,21 @@ const initialState = ownedCardsAdapter.getInitialState()
 export const ownedCardsApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getOwnedCards: builder.query({
-            query: (id) => `/dash/users/ownedcards/${id}`,
+            query: ({ username }) => ({
+                url: '/getcards',
+                method: 'POST',
+                body: { username },
+            }),
             validateStatus: (response, result) => {
-                return response.status === 200 && !result.isError
+                return response.status === 200 && !result.isError;
             },
             transformResponse: (responseData) => {
                 console.log('Response Data:', responseData);
-                
-                
+    
                 if (!responseData || !responseData.ownedCards || !Array.isArray(responseData.ownedCards)) {
                     // Handle the case where the response data is not as expected
                     console.error('Invalid response data:', responseData);
-                    return initialState; 
+                    return initialState;
                 }
 
                 const Userdata = {

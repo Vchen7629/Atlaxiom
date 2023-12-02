@@ -1,18 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const ownedcardController = require('../controllers/ownedcardController');
+const verifyJWT = require('../middleware/verifyJWT')
+
+router.use(verifyJWT)
 
 
-router.route('/')
+router.route('/addcard')
   .post(ownedcardController.createOwnedCard)
 
-router.route('/:id')
+router.route('/getcards')
   .get(ownedcardController.getAllOwnedCards)
 
-router.route('/:id/:CardName')
+router.route('/updatecard')
   .patch(ownedcardController.updateOwnedCard)
 
-router.route('/:id/:cardName')
+router.route('/deletecard')
   .delete(ownedcardController.deleteOwnedCardByUsername)
 
 module.exports = router;

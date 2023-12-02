@@ -1,26 +1,26 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBook } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import "./styling/headerbuttons.css"
 
-const Mycards = () => {
+const Profile = () => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate('/users/getall');
+    navigate('/profile');
   };
 
   return (
     <div>
-        <button className="my-cards" onClick={handleButtonClick}>
-            <FontAwesomeIcon icon={faBook} />
+        <button className="profile" onClick={handleButtonClick}>
+            <FontAwesomeIcon icon={faUser} />
             <span className="fatextmargin">
-                My Cards
+                Profile
             </span>
         </button>
     </div>
   );
 }
 
-export default Mycards;
+export default Profile;

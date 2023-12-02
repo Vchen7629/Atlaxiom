@@ -1,41 +1,37 @@
 import React from 'react';
 import { useGetOwnedCardsQuery } from './ownedCardapislice';
-import { useParams } from 'react-router-dom';
 import OwnedCardTable from './ownedCardTable';
 
 const UserOwnedCard = () => {
-    const { id } = useParams();
+  const {
+    data: userOwnedCards,
+    error,
+    isLoading,
+    isSuccess,
+  } = useGetOwnedCardsQuery({ username: 'your-username' }, {
+    pollingInterval: 15000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+  });
 
-    const { 
-      data: userOwnedCards, 
-      error, 
-      isLoading, 
-      isSuccess 
-    } = useGetOwnedCardsQuery(id, {
-      pollingInterval: 15000,
-      refetchOnFocus: true,
-      refetchOnMountOrArgChange: true
-    });
-
-    if (isLoading) {
-      return <div>Loading...</div>;
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
 
   if (error) {
     if (error.status === 404) {
       return <div className="user-not-found">User not found</div>;
-  }
-    
-      console.error('Error fetching user data:', error);
-      return <div>Error fetching user data</div>;
+    }
+
+    console.error('Error fetching user data:', error);
+    return <div>Error fetching user data</div>;
   }
 
-  const ownedCards = userOwnedCards.entities.defaultId;
+  const ownedCards = userOwnedCards?.ownedCards;
 
   if (isSuccess) {
-    console.log('userOwnedCards:', userOwnedCards)
-    return <OwnedCardTable ownedCards={ownedCards}/> 
-
+    console.log('userOwnedCards:', userOwnedCards);
+    return <OwnedCardTable ownedCards={ownedCards} />;
 
     /*return (
       
