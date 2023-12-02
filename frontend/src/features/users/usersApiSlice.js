@@ -1,7 +1,21 @@
 import { createSelector, createEntityAdapter} from "@reduxjs/toolkit";
 import { apiSlice } from "../../app/api/apiSlice"
 
-const usersAdapter = createEntityAdapter({})
+const usersAdapter = createEntityAdapter({
+    selectId: (entityArray) => {
+        // Check if the entityArray is defined and has elements
+        if (entityArray && entityArray.length > 0) {
+          const firstEntity = entityArray[0];
+          // Check if the first entity is defined and has a id property
+          if (firstEntity && firstEntity.id) {
+            return firstEntity.id;
+          }
+        }
+    
+        // Return a default value if the entityArray or card_name is undefined
+        return 'defaultId';
+      },
+})
 
 const initialState = usersAdapter.getInitialState()
 
@@ -30,9 +44,68 @@ export const usersApiSlice = apiSlice.injectEndpoints({
             }
         }),
 
+        GetSpecificUser: builder.query({
+            query: (username) => `/users/${username}`,
+            method: "GET",
+            validateStatus: (response, result) => {
+                return response.status === 200 && !result.isError
+            },
+            transformResponse: (responseData, username) => {
+                console.log('Response Data:', responseData);
+                console.log('Current USERNAME:', username);
+                if (!username) {
+                    throw new Error('User NAME IS UNDEFINED');
+                } else if (Array.isArray(responseData)) {
+                    const loadedUsers = responseData.map(user => {
+                        return user
+                    });
+                    return usersAdapter.setAll(initialState, loadedUsers)
+                } else if (responseData && typeof responseData === 'object') {
+                    // Handle the case where responseData is an object (single user)
+                    responseData.id = responseData._id;
+                    return usersAdapter.upsertOne(initialState, responseData);
+                  } else {
+                    // Handle other cases, e.g., responseData is undefined or not an array/object
+                    return initialState;
+                  }
+            },
+            providesTags: (result, error, arg) => {
+                if (result?.ids) {
+                    return [
+                        { type: 'User', id: 'LIST' },
+                        ...result.ids.map(id => ({ type: 'User', id }))
+                    ]
+                } else return [{ type: 'User', id: 'LIST' }]
+            }
+        }),
+        /*getspecificuser: builder.query({
+            query: (username) => `/users/${username}`,
+            validateStatus: (response, result) => {
+                return response.status === 200 && !result.isError
+            },
+            transformResponse: responseData => {
+                console.log('Response Data:', responseData);
+                if (Array.isArray(responseData)) {
+                    const loadedUsers = responseData.map(user => {
+                        user.id = user._id
+                        return user
+                    });
+                    return usersAdapter.setAll(initialState, loadedUsers)
+                }
+            },
+            providesTags: (result, error, arg) => {
+                if (result?.ids) {
+                    return [
+                        { type: 'User', id: 'LIST' },
+                        ...result.ids.map(id => ({ type: 'User', id }))
+                    ]
+                } else return [{ type: 'User', id: 'LIST' }]
+            }
+        }),*/
+
        addNewUser: builder.mutation({
             query: initialUserData => ({
-                url: '/users',
+                url: '/users/newuser',
                 method: 'POST',
                 body: {
                     ...initialUserData,
@@ -70,7 +143,8 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 })
 
 export const { 
-    useGetUsersQuery, 
+    useGetUsersQuery,
+    useGetSpecificUserQuery,
     useAddNewUserMutation,
     useUpdateUserMutation,
     useDeleteUserMutation,

@@ -1,19 +1,23 @@
-import { useGetUsersQuery } from "./usersApiSlice"
-import User from './user'
+import { useGetUsersQuery } from '../../users/usersApiSlice'
+import User from './profile.js'
 
 const UsersList = () => {
 
     const {
         data: users,
-        isloading,
+        isLoading,
         isSuccess,
         isError,
         error
-    } = useGetUsersQuery()
+    } = useGetUsersQuery('usersList', {
+        pollingInterval: 60000,
+        refetchOnFocus: true,
+        refetchOnMountOrArgChange: true
+    })
 
     let content
 
-    if (isloading) content = <p>Loading... </p>
+    if (isLoading) content = <p>Loading...</p>
 
     if (isError) {
         content = <p className="errmsg">{error?.data?.message}</p>
@@ -32,7 +36,6 @@ const UsersList = () => {
                 <thead className="table__thead">
                     <tr>
                         <th scope="col" className="table__th user__username">Username</th>
-                        <th scope="col" className="table__th user__username">Email</th>
                         <th scope="col" className="table__th user__roles">Roles</th>
                         <th scope="col" className="table__th user__edit">Edit</th>
                     </tr>
@@ -46,5 +49,4 @@ const UsersList = () => {
 
     return content
 }
-
 export default UsersList

@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 
 // @desc create a new users
-// @route POST /user
+// @route POST /user/newuser
 // @access private
 const createNewUser = asyncHandler(async (req, res) => {
 
@@ -17,7 +17,7 @@ const createNewUser = asyncHandler(async (req, res) => {
     }
 
     // check for duplicate users
-    const duplicate = await User.findOne({ username, email}).lean().exec()
+    const duplicate = await User.findOne({ username }).lean().exec()
 
     if (duplicate) {
         return res.status(409).json({ message: 'duplicate users' })
@@ -27,7 +27,7 @@ const createNewUser = asyncHandler(async (req, res) => {
     const hashPassword = await bcrypt.hash(password, 10) //salt rounds for password encryptions
 
     // create and store new user object
-    const userObject = { username, email, "password": hashPassword, roles: ["Member"]}
+    const userObject = { username, email, "password": hashPassword, roles: ["Member"], description: ""}
     const user = await User.create(userObject)
 
     if (user) { //created
@@ -39,7 +39,7 @@ const createNewUser = asyncHandler(async (req, res) => {
 })
 
 // @desc Get all users
-// @route GET /user
+// @route GET /users
 // @access private
 const getAllUsers = asyncHandler(async (req, res) => {
     // Get all users from MongoDB
@@ -54,17 +54,36 @@ const getAllUsers = asyncHandler(async (req, res) => {
 
 })
 
+// @desc Get a specific user
+// @route GET /users/:username
+// @access private
+const getspecificuser = asyncHandler(async (req, res) => {
+    // Extract username from the request parameters
+    const { username } = req.params
+
+    // Find the user with the specified username
+    const user = await User.findOne({ username }).select('-password').lean();
+
+    // If no user found
+    if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json(user);
+});
+
 
 
 // @desc update a user
-// @route PATCH /user
+// @route PATCH /users
 // @access private
 const updateUser = asyncHandler(async (req, res) => {
 
-    const { id, username, email, roles, active, password } = req.body
+    const { username } = req.params;
+    const { email, roles, active, password } = req.body
 
     // Confirm data 
-    if (!id || !username || !email || !Array.isArray(roles) || !roles.length || typeof active !== 'boolean') {
+    if (!id || !username || !description || !email || !Array.isArray(roles) || !roles.length || typeof active !== 'boolean') {
         return res.status(400).json({ message: 'All fields except password are required' })
     }
 
@@ -84,6 +103,7 @@ const updateUser = asyncHandler(async (req, res) => {
     }
 
     user.username = username
+    //user.description = description
     user.email = email
     user.roles = roles
     user.active = active
@@ -131,6 +151,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 module.exports = {
     getAllUsers,
+    getspecificuser,
     createNewUser,
     updateUser,
     deleteUser

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ownedcards.css';
 
-const UserOwnedCardTable = ({ ownedCards }) => {
+const UserOwnedCardTable = ({ username, ownedCards }) => {
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);

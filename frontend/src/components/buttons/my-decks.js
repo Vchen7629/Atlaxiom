@@ -4,23 +4,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import "./styling/headerbuttons.css"
 
-const Mycards = () => {
+const Mydecks = () => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate('/users/getall');
+    navigate('/mydecks');
   };
 
   return (
     <div>
-        <button className="my-cards" onClick={handleButtonClick}>
+        <button className="my-decks" onClick={handleButtonClick}>
             <FontAwesomeIcon icon={faBook} />
             <span className="fatextmargin">
-                My Cards
+                My Decks
             </span>
         </button>
     </div>
   );
 }
 
-export default Mycards;
+export default Mydecks;

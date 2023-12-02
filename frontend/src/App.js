@@ -1,7 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/layout'
 import DashLayout from './components/dash/dashlayout'
-import UsersList from './features/users/userslist'
 import Banlists from './features/pages/banlist';
 import ContactInfos from './features/pages/contactinfo';
 import AboutUs from './features/pages/aboutus';
@@ -14,6 +13,9 @@ import AccountCreationForm from './features/auth/AccountCreationForm.js'
 import LoginPage from './features/auth/login.js'
 import Prefetch from './features/auth/Prefetch.js'
 import Profile from './features/pages/profilepage/Profile.js'
+import Profilepage from './features/pages/profilepage/Profilepage.js';
+import StayLoggedIn from './features/auth/stayloggedin.js';
+import UsersList from './features/pages/testprofilepage/profilelist.js';
 
 
 
@@ -26,7 +28,8 @@ function App() {
 
         <Route path="login" element={<LoginPage/>}/>
         <Route path="signup" element={<AccountCreationForm/>}/>
-        <Route path="banlist" element={<Banlists />} />
+        {/*<Route path="banlist" element={<Banlists />} />*/}
+        <Route path="banlist" element={<UsersList />} />
         <Route path="contact-info" element={<ContactInfos />} />
         <Route path="About-us" element={<AboutUs />} />
 
@@ -35,19 +38,20 @@ function App() {
           <Route path=":cardname" element={<SearchResult />} />
         </Route>
 
-        <Route element={<Prefetch/>}>
-          <Route path="dash" element={<DashLayout />}>
-
-            <Route index element={<Profile />} />
-
-            <Route path="users">
-              <Route path=":id" element={<EditUser/>}/>
-              <Route index element={<UsersList />} />
-              <Route path="ownedcards">
-                <Route path=":id" element={<UserOwnedCard/>}/>
-              </Route>
+        <Route element={<StayLoggedIn/>}>
+          <Route element={<Prefetch/>}>
+            <Route path="card" element={<DashLayout />}>
+              <Route index element={<HomePage/>}/>
+              <Route path="getcards" element={<UserOwnedCard/>}/>
+              <Route path=":username" element={<Profilepage />}/>
             </Route>
-
+            
+            <Route path="users" element={<DashLayout />}>
+              <Route index element={<Profile/>}/>
+                {/*<Route path="getall" element={<UsersList />}/> */}
+                <Route path=":userId" element={<EditUser/>}/>
+            </Route>
+            <Route path="profile" element={<Profilepage />}/>
           </Route>
         </Route>
 

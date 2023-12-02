@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { selectUserById } from './usersApiSlice'
 
+import { useSelector } from 'react-redux'
+import { selectUserById } from '../../users/usersApiSlice'
 
 const User = ({ userId }) => {
     const user = useSelector(state => selectUserById(state, userId))
@@ -11,20 +11,15 @@ const User = ({ userId }) => {
     const navigate = useNavigate()
 
     if (user) {
-        const handleEdit = () => {
-            console.log('Editing user with ID:', userId);
-            navigate(`/users/${userId}`)
-        };
+        const handleEdit = () => navigate(`/dash/users/${userId}`)
 
         const userRolesString = user.roles.toString().replaceAll(',', ', ')
 
         const cellStatus = user.active ? '' : 'table__cell--inactive'
 
         return (
-        <>
             <tr className="table__row user">
                 <td className={`table__cell ${cellStatus}`}>{user.username}</td>
-                <td className={`table__cell ${cellStatus}`}>{user.ownedCards[2].card_name}</td>
                 <td className={`table__cell ${cellStatus}`}>{userRolesString}</td>
                 <td className={`table__cell ${cellStatus}`}>
                     <button
@@ -35,7 +30,6 @@ const User = ({ userId }) => {
                     </button>
                 </td>
             </tr>
-            </>
         )
 
     } else return null

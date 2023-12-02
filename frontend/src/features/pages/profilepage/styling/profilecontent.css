@@ -1,9 +1,85 @@
+/*Profile information container styling*/
 .Profile-content-container {
-    background-color: black;
+    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 80%;
-    height: 20px;
-    margin: 10px;
+    width: 60%;
+    height: 100%px;
+    margin-left: 30px;
+    border-radius: 25px;
+    padding: 20px;
 }
+
+/*profile header styling*/
+    .Profile-header-container {
+        height: fit-content;
+        padding-left: 15px;
+        padding-bottom: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-bottom: 3px solid rgba(128, 128, 128, 0.377)
+    }
+
+    .Profile-picture { 
+        height: 120px;
+        width: 120px;
+        border-radius: 50%;
+        border: 2px solid goldenrod;
+        overflow: hidden;
+    }
+
+    .Profile-header {
+        width: fit-content;
+        margin-top: 40px;
+        margin-left: 10px;
+        color: goldenrod;
+        text-align: center;
+        font-size: 35px;
+        height: fit-content;
+        
+    }
+
+    .Profile-title-text {
+        margin-left: 20px
+    }
+
+/* profile body styling*/
+.profile-body-container {
+    margin-top: 20px;
+    height: fit-content;
+    padding: 10px;
+}
+
+.profile-username-container,
+.profile-email-container,
+.profile-roles-container {
+    display: flex;
+    height: fit-content;
+    width: 90%;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    justify-content: space-between;
+}
+
+.profile-username-header,
+.profile-email-header,
+.profile-roles-header {
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 25px;
+}
+
+.profile-username-body,
+.profile-email-body,
+.profile-roles-body {
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 25px;
+    margin-left: 80px;
+    color: darkorange;
+}
+
