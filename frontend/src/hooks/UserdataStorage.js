@@ -1,24 +1,23 @@
-import { useState, useEffect } from 'react';
+/*import { useState, useEffect } from "react";
 
-const DataStorage = (initialData) => {
-  const storedData = localStorage.getItem('userData');
-  let initialParsedData 
-  try {
-    initialParsedData = storedData ? JSON.parse(storedData) : initialData;
-  } catch (error) {
-    console.error('Error parsing JSON:', error);
-    initialParsedData = initialData;
-  }
+const UserDataStorage = () => {
+    let storedUsername;
 
-  const [persistedData, setPersistedData] = useState(initialParsedData);
+    try {
+        storedUsername = JSON.parse(localStorage.getItem("username")) || '';
+    } catch (error) {
+        console.error("Error parsing username from localStorage:", error);
+        storedUsername = '';
+    }
 
-  useEffect(() => {
-    localStorage.setItem('userData', JSON.stringify(persistedData));
-  }, [persistedData]);
+    const [username, setUsername] = useState(storedUsername);
 
-  console.log('Local Storage:', localStorage.getItem('userData'));
+    useEffect(() => {
+        localStorage.setItem("username", JSON.stringify(username));
+        console.log("Username Data:", username);
+    }, [username]);
 
-  return [persistedData, setPersistedData];
+    return [username, setUsername];
 };
 
-export default DataStorage;
+export default UserDataStorage;*/

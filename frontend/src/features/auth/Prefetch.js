@@ -10,13 +10,13 @@ const Prefetch = () => {
     console.log('Prefetch:', authState);
     useEffect(() => {
         //const ownedcards = store.dispatch(ownedCardsApiSlice.endpoints.getOwnedCards.initiate())
-        //const users = store.dispatch(usersApiSlice.endpoints.GetSpecificUser.initiate());
-        //const allusers = store.dispatch(usersApiSlice.endpoints.getUsers.initiate());
+        //const users = store.dispatch(usersApiSlice.endpoints.GetSpecificUser.initiate("65682adb77f68d82af9894db"));
+        const allusers = store.dispatch(usersApiSlice.endpoints.getUsers.initiate());
 
         return () => {
             console.log("unsubscribing");
             //users.unsubscribe();
-            //allusers.unsubscribe();
+            allusers.unsubscribe();
             //ownedcards.unsubscribe();
         };
 

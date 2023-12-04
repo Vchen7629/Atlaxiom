@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux"
 import { setCredentials } from "./authSlice"
 import { useLoginMutation } from "./authApiSlice"
 import usePersist from "../../hooks/usePersist"
-import { setUsersData } from "../users/userSlice"
 
 
 const LoginPage = () => {
@@ -36,17 +35,11 @@ const LoginPage = () => {
         e.preventDefault()
 
         try {
-            const { accessToken } = await login({ username, password }).unwrap();
-            console.log('API Response login:', { accessToken });
-            console.log("hi", setCredentials)
+            const { accessToken, userId } = await login({ username, password }).unwrap();
+            dispatch(setCredentials({ accessToken, userId }));
             setUsername('');
             setPassword('');
-            dispatch(setCredentials({ accessToken }));
-            console.log('accesstoken passed to setUsersData:', { accessToken });
-            dispatch(setUsersData({ username: username, password}))
-            console.log('Username and password passed to setUsersData:', { username, password });
-
-            navigate(`/profile`);
+            navigate("/profile");
         } catch (err) {
             console.error('Login Error:', err);
             if (!err.status) {

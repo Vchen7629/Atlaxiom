@@ -55,14 +55,14 @@ const getAllUsers = asyncHandler(async (req, res) => {
 })
 
 // @desc Get a specific user
-// @route GET /users/:username
+// @route GET /users/:id
 // @access private
 const getspecificuser = asyncHandler(async (req, res) => {
     // Extract username from the request parameters
-    const { username } = req.params
+    const { id } = req.params
 
-    // Find the user with the specified username
-    const user = await User.findOne({ username }).select('-password').lean();
+    // Find the user with the specified id
+    const user = await User.findById(id).select('-password').lean();
 
     // If no user found
     if (!user) {
@@ -75,15 +75,21 @@ const getspecificuser = asyncHandler(async (req, res) => {
 
 
 // @desc update a user
-// @route PATCH /users
+// @route PATCH /users/:id
 // @access private
 const updateUser = asyncHandler(async (req, res) => {
 
-    const { username } = req.params;
-    const { email, roles, active, password } = req.body
+    const { id } = req.params;
+    const { username, password} = req.body
+    //const { username, email, description, roles, active, password } = req.body
 
     // Confirm data 
-    if (!id || !username || !description || !email || !Array.isArray(roles) || !roles.length || typeof active !== 'boolean') {
+    /*if ( !id || !username || !description || !email || !Array.isArray(roles) || !roles.length || typeof active !== 'boolean') {
+        return res.status(400).json({ message: 'All fields except password are required' })
+    }*/
+
+    // Confirm data 
+    if ( !username  ) {
         return res.status(400).json({ message: 'All fields except password are required' })
     }
 
@@ -103,10 +109,10 @@ const updateUser = asyncHandler(async (req, res) => {
     }
 
     user.username = username
-    //user.description = description
+    /*user.description = description
     user.email = email
     user.roles = roles
-    user.active = active
+    user.active = active*/
 
     if (password) {
         //Hash password
@@ -115,7 +121,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
     const updatedUser = await user.save()
 
-    res.json({ message: `${updatedUser.username} with email ${updatedUser.email}updated`})
+    res.json({ message: `${updatedUser.username} with email ${updatedUser.email} updated`})
 
 })
 
@@ -149,10 +155,11 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 })
 
+
 module.exports = {
     getAllUsers,
     getspecificuser,
     createNewUser,
     updateUser,
-    deleteUser
+    deleteUser,
 }

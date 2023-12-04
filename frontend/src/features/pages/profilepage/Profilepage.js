@@ -1,36 +1,37 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentUsername } from '../../users/userSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faGear, faUser } from '@fortawesome/free-solid-svg-icons';
 import "./styling/profilecontent.css"
 import "./styling/profile.css"
 import "./styling/sidenav.css"
 import Header from '../../../components/header/header';
 import Footer from '../../../components/footer/Footer';
 import { useGetSpecificUserQuery } from '../../users/usersApiSlice';
-import { setCredentials } from '../../auth/authSlice';
+import ProfileContent from './profile/profile';
+import UserSettings from './profile/users-settings';
+
 
 const Profilepage = () => {
     const dispatch = useDispatch();
-    const currentUser = useSelector(selectCurrentUsername);
     const [selectedNavItem, setSelectedNavItem] = useState('');
-    const { username } = useSelector(state => state.users);
-    const accessToken = useSelector(state => state.auth.token)
+    const userId = useSelector((state) => state.auth.userId);
+
+    useEffect(() => {
+        console.log("Current userId:", userId);
+    }, [userId]);
     
     const { 
         data: usersData, 
         isLoading,
         isError,
         error, 
-    } = useGetSpecificUserQuery(username);
-
-    useEffect(() => {
-        if (currentUser) {
-          dispatch(setCredentials({ username, accessToken }));
-        }
-      }, [currentUser, dispatch, username, accessToken]);
+    } = useGetSpecificUserQuery(userId, {
+        pollingInterval: 15000,
+        refetchOnFocus: true,
+        refetchOnMountOrArgChange: true
+    });
     
     const navigate = useNavigate();
     
@@ -57,7 +58,7 @@ const Profilepage = () => {
         if (isLoading || usersData == null) {
           return <p>Loading user data...</p>;
         } 
-        if (!currentUser) {
+        if (!userId) {
           return <p>Please Login</p>;
         }
 
@@ -73,41 +74,12 @@ const Profilepage = () => {
             case 'profile':
 
                 return (
-                    <div>
-                        <header className="Profile-header-container">
-                            <div className="Profile-header">
-                                <FontAwesomeIcon icon={faUser} />
-                                <span className="Profile-title-text">Profile Page</span>
-                            </div>
-                            <img
-                                    className="Profile-picture"
-                                    src="https://picsum.photos/200/300"
-                            />
-                        </header>
-                        <main className="profile-body-container">
-                            <div className="profile-username-container">
-                                <div className="profile-username-header">Username:</div>
-                                <div className="profile-username-body">{username}</div>
-                            </div>
-                            <div className="profile-email-container">
-                                <div className="profile-email-header">Email:</div>
-                                <div className="profile-email-body">{email}</div>
-                            </div>
-                            <div className="profile-roles-container">
-                                <div className="profile-roles-header">Roles:</div>
-                                <div className="profile-roles-body">{roles?.join(', ')}</div>
-                            </div>
-                            <div className="profile-roles-container">
-                                <div className="profile-roles-header">Description:</div>
-                                <div className="profile-roles-body">{description}</div>
-                            </div>
-                        </main>
-                    </div>
+                    <ProfileContent user={user} />
                 );
-            case 'users':
+            case 'users-settings':
                 return (
                     <div>
-                        View User Settings
+                        <UserSettings user={user} />
                     </div>
                     );
             case 'ownedcards':
@@ -146,11 +118,23 @@ const Profilepage = () => {
         <main className="Profile-page-background">
             <section className="Profile-page-body-container">
                 <div className="Profile-side-nav-container">
-                    <button onClick={() => handleNavItemClick('profile')}>Profile</button>
-                    <button onClick={() => handleNavItemClick('users')}>View User Settings</button>
-                    <button onClick={() => handleNavItemClick('ownedcards')}>View Owned Cards</button>
-                    <button onClick={() => handleNavItemClick('security')}>Security</button>
-                    <button onClick={() => handleNavItemClick('delete')}>Delete Account</button>
+                    <button className="Profile-side-nav-button" onClick={() => handleNavItemClick('profile')}>
+                        <FontAwesomeIcon icon={faUser} className="button-icon"/>
+                        <span className="button-text">Profile</span>
+                    </button>
+                    <button className="User-setting-nav-button" onClick={() => handleNavItemClick('users-settings')}>
+                        <FontAwesomeIcon icon={faGear} className="button-icon"/>
+                        <span className="button-text">View User Settings</span>
+                    </button>
+                    <button className="Owned-cards-nav-button" onClick={() => handleNavItemClick('ownedcards')}>
+                        View Owned Cards
+                    </button>
+                    <button className="security-nav-button"onClick={() => handleNavItemClick('security')}>
+                        Security
+                    </button>
+                    <button className="delete-nav-button" onClick={() => handleNavItemClick('delete')}>
+                        Delete Account
+                    </button>
                 </div>
                 <div className="Profile-content-container">
                     {renderProfileContent()}

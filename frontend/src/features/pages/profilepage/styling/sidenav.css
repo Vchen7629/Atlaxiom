@@ -1,8 +1,51 @@
 .Profile-side-nav-container {
-    background-color: white;
     position: relative;
     display: flex;
     flex-direction: column;
     margin: 10px;
     width: 20%;
+}
+
+.Profile-side-nav-button {
+    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 10px;
+    color: goldenrod;
+    transition: transform 0.4s ease;
+}
+
+.User-setting-nav-button,
+.Owned-cards-nav-button,
+.security-nav-button,
+.delete-nav-button {
+    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 10px;
+    transition: transform 0.4s ease;
+    color: goldenrod;
+}
+
+
+.Profile-side-nav-button:hover,
+.User-setting-nav-button:hover,
+.Owned-cards-nav-button:hover,
+.security-nav-button:hover,
+.delete-nav-button:hover {
+    transform: translateX(20px);
+    box-shadow: 0 0 10px 2px gold;
+    
+}
+
+.button-text {
+    margin-left: 10px;
+    color: goldenrod;
+}
+
+.button-icon {
+    color: gray
 }

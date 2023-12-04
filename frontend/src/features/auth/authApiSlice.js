@@ -39,9 +39,9 @@ export const authApiSlice = apiSlice.injectEndpoints({
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled
+                    const { accessToken, userId } = data
+                    dispatch(setCredentials({ accessToken, userId }))
                     console.log("refresh OnQueryStarted returned: ", data)
-                    const { accessToken } = data
-                    dispatch(setCredentials({ accessToken }))
                 } catch (err) {
                     console.log("refresh onQueryStarted returned with error: ", err)
                 }
