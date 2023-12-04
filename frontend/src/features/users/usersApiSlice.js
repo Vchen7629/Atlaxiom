@@ -21,6 +21,7 @@ const initialState = usersAdapter.getInitialState()
 
 export const usersApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
+        
         getUsers: builder.query({
             query: () => '/users',
             validateStatus: (response, result) => {
@@ -32,7 +33,12 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                     user.id = user._id
                     return user
                 });
-                return usersAdapter.setAll(initialState, loadedUsers)
+                const entities = loadedUsers.reduce((acc, user) => {
+                    acc[user.id] = user;
+                    return acc;
+                }, {});
+            
+                return { ids: loadedUsers.map(user => user.id), entities };
             },
             providesTags: (result, error, arg) => {
                 if (result?.ids) {
@@ -45,7 +51,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         }),
 
         GetSpecificUser: builder.query({
-            query: (username) => `/users/${username}`,
+            query: (userId) => `/users/${userId}`,
             method: "GET",
             validateStatus: (response, result) => {
                 return response.status === 200 && !result.isError
@@ -117,12 +123,10 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         }),
 
         updateUser: builder.mutation({
-            query: initialUserData => ({
-                url: '/users',
+            query: ({ id, userData }) => ({
+                url: `/users/${id}`,
                 method: 'PATCH',
-                body: {
-                    ...initialUserData,
-                }
+                body: userData
             }),
             invalidatesTags: (result, error, arg) => [
                 { type: 'User', id: arg.id }

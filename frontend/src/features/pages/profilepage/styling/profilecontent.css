@@ -28,6 +28,7 @@
         border-radius: 50%;
         border: 2px solid goldenrod;
         overflow: hidden;
+        margin-right: 20px;
     }
 
     .Profile-header {
@@ -69,7 +70,7 @@
     width: fit-content;
     padding: 5px;
     border-radius: 5px;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .profile-username-body,
@@ -78,8 +79,22 @@
     width: fit-content;
     padding: 5px;
     border-radius: 5px;
-    font-size: 25px;
+    font-size: 20px;
     margin-left: 80px;
     color: darkorange;
 }
 
+.description-container {
+    display: flex;
+    height: fit-content;
+    width: 90%;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    justify-content: space-between;
+}
+
+.description-body {
+    background-color: gray;
+    border: 2px solid black;
+    padding: 10px
+}

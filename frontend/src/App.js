@@ -15,10 +15,6 @@ import Prefetch from './features/auth/Prefetch.js'
 import Profile from './features/pages/profilepage/Profile.js'
 import Profilepage from './features/pages/profilepage/Profilepage.js';
 import StayLoggedIn from './features/auth/stayloggedin.js';
-import UsersList from './features/pages/testprofilepage/profilelist.js';
-
-
-
 
 function App() {
   return (
@@ -29,7 +25,7 @@ function App() {
         <Route path="login" element={<LoginPage/>}/>
         <Route path="signup" element={<AccountCreationForm/>}/>
         {/*<Route path="banlist" element={<Banlists />} />*/}
-        <Route path="banlist" element={<UsersList />} />
+        <Route path="banlist" element={<Banlists />} />
         <Route path="contact-info" element={<ContactInfos />} />
         <Route path="About-us" element={<AboutUs />} />
 
@@ -48,7 +44,6 @@ function App() {
             
             <Route path="users" element={<DashLayout />}>
               <Route index element={<Profile/>}/>
-                {/*<Route path="getall" element={<UsersList />}/> */}
                 <Route path=":userId" element={<EditUser/>}/>
             </Route>
             <Route path="profile" element={<Profilepage />}/>
