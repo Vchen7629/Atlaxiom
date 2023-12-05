@@ -59,9 +59,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
             transformResponse: (responseData, username) => {
                 console.log('Response Data:', responseData);
                 console.log('Current USERNAME:', username);
-                if (!username) {
-                    throw new Error('User NAME IS UNDEFINED');
-                } else if (Array.isArray(responseData)) {
+                if (Array.isArray(responseData)) {
                     const loadedUsers = responseData.map(user => {
                         return user
                     });
@@ -84,34 +82,10 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 } else return [{ type: 'User', id: 'LIST' }]
             }
         }),
-        /*getspecificuser: builder.query({
-            query: (username) => `/users/${username}`,
-            validateStatus: (response, result) => {
-                return response.status === 200 && !result.isError
-            },
-            transformResponse: responseData => {
-                console.log('Response Data:', responseData);
-                if (Array.isArray(responseData)) {
-                    const loadedUsers = responseData.map(user => {
-                        user.id = user._id
-                        return user
-                    });
-                    return usersAdapter.setAll(initialState, loadedUsers)
-                }
-            },
-            providesTags: (result, error, arg) => {
-                if (result?.ids) {
-                    return [
-                        { type: 'User', id: 'LIST' },
-                        ...result.ids.map(id => ({ type: 'User', id }))
-                    ]
-                } else return [{ type: 'User', id: 'LIST' }]
-            }
-        }),*/
 
        addNewUser: builder.mutation({
             query: initialUserData => ({
-                url: '/users/newuser',
+                url: '/user/newuser',
                 method: 'POST',
                 body: {
                     ...initialUserData,
@@ -134,10 +108,10 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         }),
 
         deleteUser: builder.mutation({
-            query: ({ id }) => ({
-                url: `/users`,
+            query: ({ id, userData }) => ({
+                url: `/users/${id}`,
                 method: 'DELETE',
-                body: { id }
+                body: userData
             }),
             invalidatesTags: (result, error, arg) => [
                 { type: 'User', id: arg.id }

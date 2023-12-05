@@ -3,10 +3,7 @@ import { useAddNewUserMutation } from "../users/usersApiSlice"
 import { useNavigate } from "react-router-dom"
 import "./styling/Signup.css"
 import Footer from "../../components/footer/Footer"
-
-const USER_REGEX = /^[A-z0-9!@#$%]{3,40}$/
-const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,50}$/
-const PWD_REGEX = /^[A-z0-9!@#$%]{2,40}$/
+import { isUsernameValid, isPasswordValid, isEmailValid } from "../util/UserDataValidation"
 
 const AccountCreationForm = () => {
 
@@ -28,17 +25,17 @@ const AccountCreationForm = () => {
     
     /*Check if the username is valid compared against regex */
     useEffect(() => {
-        setValidUsername(USER_REGEX.test(username))
+        setValidUsername(isUsernameValid(username))
     }, [username])
 
     /*Check if the email is valid compared against regex */
     useEffect(() => {
-        setValidEmail(EMAIL_REGEX.test(email))
+        setValidEmail(isEmailValid(email))
     }, [email])
 
     /*Check if the password is valid compared against regex */
     useEffect(() => {
-        setValidPassword(PWD_REGEX.test(password))
+        setValidPassword(isPasswordValid(password))
     }, [password])
 
     /*if all checks pass navigate to the users page and clear user data */

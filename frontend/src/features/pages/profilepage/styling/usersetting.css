@@ -1,0 +1,176 @@
+.user-setting-header-container {
+    height: fit-content;
+    padding-left: 15px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 3px solid rgba(128, 128, 128, 0.377)
+}
+
+.user-setting-header {
+    width: fit-content;
+    margin-top: 40px;
+    margin-left: 10px;
+    color: goldenrod;
+    text-align: center;
+    font-size: 35px;
+    height: fit-content;
+}
+
+.user-setting-title-text {
+    margin-left: 20px
+}
+
+.user-setting-picture {
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    border: 2px solid goldenrod;
+    overflow: hidden;
+    margin-right: 20px;
+}
+
+.Form-container {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    justify-content: space-between;
+}
+
+.form {
+    display: flex;
+    align-items: center;
+}
+
+/*Valid input styling*/
+.canSave {
+    box-shadow: 0 0 15px 5px rgb(51, 50, 50);
+    background-color: orange
+} 
+
+.canSave:hover { 
+    color: orangered;
+    box-shadow: 0 0 10px 5px goldenrod;
+}
+
+
+/*Username input header styling*/
+.username-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.change-username-header {
+    width: fit-content;
+    padding-top: 10px;
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+.change-username-header-button {
+    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
+    border: 1px solid black;
+    height: fit-content;
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 12px;
+    box-shadow: 0 0 10px 1px black;
+    color: goldenrod
+}
+
+.change-username-header-button:hover { 
+    background: linear-gradient(to right, rgb(45, 43, 43), black);
+    box-shadow: 0 0 10px 1px goldenrod;
+}
+
+/*Change username input form body styling*/
+
+.username-update-input-body {
+    background-color: rgba(128, 128, 128, 0.096);
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 8px;
+    border: 1px solid gray;
+    padding: 5px;
+    color: orange;
+    width: 60%;
+    padding-right: 150px;
+}
+
+.update-username-button {
+    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
+    border: 1px solid black;
+    height: 37px;
+    position: relative;
+    margin-left: -17px;
+    border-radius: 8px;
+    padding: 5px;
+    color: goldenrod;
+}
+
+/*Email input form header styling*/
+.email-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.change-email-header {
+    width: fit-content;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+.change-email-header-button {
+    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
+    border: 1px solid black;
+    height: fit-content;
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 12px;
+    box-shadow: 0 0 10px 1px black;
+    color: goldenrod
+}
+
+.change-email-header-button:hover { 
+    background: linear-gradient(to right, rgb(45, 43, 43), black);
+    box-shadow: 0 0 10px 1px goldenrod;
+}
+
+/*Change email input form styling*/
+
+.email-form {
+    display: flex;
+    align-items: center;
+}
+
+.email-update-input-body {
+    background-color: rgba(128, 128, 128, 0.096);
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 8px;
+    border: 1px solid gray;
+    padding: 5px;
+    color: orange;
+    width: 60%;
+    padding-right: 150px;
+}
+
+.update-email-button {
+    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
+    border: 1px solid black;
+    height: 37px;
+    position: relative;
+    margin-left: 15px;
+    border-radius: 8px;
+    padding: 5px;
+    color: goldenrod;
+}

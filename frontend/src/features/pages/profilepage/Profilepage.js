@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGear, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faChartColumn, faGear, faLock, faUser, faUserSlash } from '@fortawesome/free-solid-svg-icons';
 import "./styling/profilecontent.css"
 import "./styling/profile.css"
 import "./styling/sidenav.css"
@@ -11,12 +11,14 @@ import Footer from '../../../components/footer/Footer';
 import { useGetSpecificUserQuery } from '../../users/usersApiSlice';
 import ProfileContent from './profile/profile';
 import UserSettings from './profile/users-settings';
+import DeleteAccount from './profile/deleteaccount';
 
 
 const Profilepage = () => {
     const dispatch = useDispatch();
     const [selectedNavItem, setSelectedNavItem] = useState('');
     const userId = useSelector((state) => state.auth.userId);
+    //const [isactive, setIsActive] = useState(false)
 
     useEffect(() => {
         console.log("Current userId:", userId);
@@ -27,11 +29,7 @@ const Profilepage = () => {
         isLoading,
         isError,
         error, 
-    } = useGetSpecificUserQuery(userId, {
-        pollingInterval: 15000,
-        refetchOnFocus: true,
-        refetchOnMountOrArgChange: true
-    });
+    } = useGetSpecificUserQuery(userId);
     
     const navigate = useNavigate();
     
@@ -78,14 +76,12 @@ const Profilepage = () => {
                 );
             case 'users-settings':
                 return (
-                    <div>
-                        <UserSettings user={user} />
-                    </div>
+                    <UserSettings user={user} />
                     );
-            case 'ownedcards':
+            case 'statistics':
                 return (
                     <div>
-                        View Owned Cards
+                        View Stats
                     </div>
                     );
             case 'security':
@@ -99,9 +95,7 @@ const Profilepage = () => {
                     );
             case 'delete':
                 return (
-                    <div> 
-                        Delete Account
-                    </div>
+                    <DeleteAccount user={user}/>
                 );
             default:
                 return (
@@ -120,20 +114,25 @@ const Profilepage = () => {
                 <div className="Profile-side-nav-container">
                     <button className="Profile-side-nav-button" onClick={() => handleNavItemClick('profile')}>
                         <FontAwesomeIcon icon={faUser} className="button-icon"/>
-                        <span className="button-text">Profile</span>
+                        <span className="button-text">
+                            Profile
+                        </span>
                     </button>
                     <button className="User-setting-nav-button" onClick={() => handleNavItemClick('users-settings')}>
                         <FontAwesomeIcon icon={faGear} className="button-icon"/>
                         <span className="button-text">View User Settings</span>
                     </button>
-                    <button className="Owned-cards-nav-button" onClick={() => handleNavItemClick('ownedcards')}>
-                        View Owned Cards
+                    <button className="Owned-cards-nav-button" onClick={() => handleNavItemClick('statistics')}>
+                        <FontAwesomeIcon icon={faChartColumn} className="button-icon"/>
+                        <span className="button-text">View Statistics</span>
                     </button>
                     <button className="security-nav-button"onClick={() => handleNavItemClick('security')}>
-                        Security
+                        <FontAwesomeIcon icon={faLock} className="button-icon"/>
+                        <span className="button-text">Security</span>
                     </button>
                     <button className="delete-nav-button" onClick={() => handleNavItemClick('delete')}>
-                        Delete Account
+                        <FontAwesomeIcon icon={faUserSlash} className="button-icon"/>
+                        <span className="button-text">Delete Account</span>
                     </button>
                 </div>
                 <div className="Profile-content-container">

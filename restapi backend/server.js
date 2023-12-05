@@ -28,6 +28,8 @@ app.use('/auth', require('./routes/authRoutes'))
 
 app.use('/users', require('./routes/userRoutes'))
 
+app.use('/user', require('./routes/userSignUpRoutes'))
+
 app.use('/card', require('./routes/ownedCardRoutes'))
 
 app.all('*', (req, res) => {

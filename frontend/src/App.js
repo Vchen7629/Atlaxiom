@@ -12,7 +12,7 @@ import EditUser from './features/users/editUser.js';
 import AccountCreationForm from './features/auth/AccountCreationForm.js'
 import LoginPage from './features/auth/login.js'
 import Prefetch from './features/auth/Prefetch.js'
-import Profile from './features/pages/profilepage/Profile.js'
+//import Profile from './features/pages/profilepage/Profile.js'
 import Profilepage from './features/pages/profilepage/Profilepage.js';
 import StayLoggedIn from './features/auth/stayloggedin.js';
 
@@ -22,8 +22,8 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
 
-        <Route path="login" element={<LoginPage/>}/>
         <Route path="signup" element={<AccountCreationForm/>}/>
+        <Route path="login" element={<LoginPage/>}/>
         {/*<Route path="banlist" element={<Banlists />} />*/}
         <Route path="banlist" element={<Banlists />} />
         <Route path="contact-info" element={<ContactInfos />} />
@@ -43,7 +43,7 @@ function App() {
             </Route>
             
             <Route path="users" element={<DashLayout />}>
-              <Route index element={<Profile/>}/>
+              <Route index element={<Searchs/>}/>
                 <Route path=":userId" element={<EditUser/>}/>
             </Route>
             <Route path="profile" element={<Profilepage />}/>
