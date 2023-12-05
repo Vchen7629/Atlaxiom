@@ -80,7 +80,7 @@ const getspecificuser = asyncHandler(async (req, res) => {
 const updateUser = asyncHandler(async (req, res) => {
 
     const { id } = req.params;
-    const { username, password} = req.body
+    const { username, email, password } = req.body
     //const { username, email, description, roles, active, password } = req.body
 
     // Confirm data 
@@ -89,7 +89,7 @@ const updateUser = asyncHandler(async (req, res) => {
     }*/
 
     // Confirm data 
-    if ( !username  ) {
+    if ( !username && !email ) {
         return res.status(400).json({ message: 'All fields except password are required' })
     }
 
@@ -109,8 +109,8 @@ const updateUser = asyncHandler(async (req, res) => {
     }
 
     user.username = username
-    /*user.description = description
     user.email = email
+    /*user.description = description
     user.roles = roles
     user.active = active*/
 
@@ -126,11 +126,16 @@ const updateUser = asyncHandler(async (req, res) => {
 })
 
 // @desc delete a user
-// @route DELETE /user
+// @route DELETE /user/:id
 // @access private
 const deleteUser = asyncHandler(async (req, res) => {
     
-    const { id } = req.body
+    const { id } = req.params
+    const { password } = req.body
+
+    if (!password) {
+        return res.status(400).json({ message: 'password is required' })
+    }
 
     if (!id) {
         return res.status(400).json({ message: 'Invalid user ID' });
@@ -143,10 +148,10 @@ const deleteUser = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: 'User not found' })
     }
 
-    const ownedCards = await OwnedCard.findOne({ user_ids: id }).lean().exec();
+    const match = await bcrypt.compare(password, user.password)
 
-    if (user.ownedCards && user.ownedCards.length > 0) {
-        return res.status(400).json({ message: 'User has owned cards, cannot delete' });
+    if (!match) {
+        return res.status(401).json({ message: 'Incorrect password' })
     }
 
     const result = await user.deleteOne()
