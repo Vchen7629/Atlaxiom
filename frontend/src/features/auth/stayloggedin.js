@@ -1,13 +1,11 @@
 import { outlet, Link, Outlet } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
 import { useRefreshMutation } from "./authApiSlice"
-import usePersist from "../../hooks/usePersist"
 import { useSelector } from "react-redux"
 import { selectCurrentToken } from "./authSlice"
 
 const StayLoggedIn = () => {
 
-    const [persist] = usePersist()
     const token = useSelector(selectCurrentToken)
     const effectRan = useRef(false)
 
@@ -35,7 +33,7 @@ const StayLoggedIn = () => {
                 }
             }
         
-            if (!token && persist) verifyRefreshToken()
+            if (!token) verifyRefreshToken()
         }
         
         return () => effectRan.current = true
@@ -43,10 +41,7 @@ const StayLoggedIn = () => {
     }, [])
 
     let content 
-    if (!persist) {
-        console.log("no persist")
-        content = <Outlet/>
-    } else if (isLoading) {
+    if (isLoading) {
         console.log("loading")
         content = <p>Loading...</p>
     } else if (isError) {

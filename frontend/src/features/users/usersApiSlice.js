@@ -56,9 +56,9 @@ export const usersApiSlice = apiSlice.injectEndpoints({
             validateStatus: (response, result) => {
                 return response.status === 200 && !result.isError
             },
-            transformResponse: (responseData, username) => {
+            transformResponse: (responseData, userId) => {
                 console.log('Response Data:', responseData);
-                console.log('Current USERNAME:', username);
+                console.log('Current USERNAME:', userId);
                 if (Array.isArray(responseData)) {
                     const loadedUsers = responseData.map(user => {
                         return user

@@ -32,6 +32,8 @@ app.use('/user', require('./routes/userSignUpRoutes'))
 
 app.use('/card', require('./routes/ownedCardRoutes'))
 
+app.use('/deck', require('./routes/deckRoutes'))
+
 app.all('*', (req, res) => {
     res.status(404)
     if (req.accepts('html')) {

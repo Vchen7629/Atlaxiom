@@ -96,11 +96,8 @@ const UserSettings = ({ user }) => {
   return (
     <div>
         <header className="user-setting-header-container">
-            <div className="user-setting-header">
-              <FontAwesomeIcon icon={faGear} />
-              <span className="user-setting-title-text">User Settings</span>
-            </div>
-            <img className="user-setting-picture" src="https://picsum.photos/200/300" alt="Profile" />
+            <FontAwesomeIcon icon={faGear} />
+            <span className="user-setting-title-text">User Settings</span>
         </header>
         <main>
             <form onSubmit={handleSubmitUsername}>

@@ -1,34 +1,15 @@
 .user-setting-header-container {
     height: fit-content;
-    padding-left: 15px;
-    padding-bottom: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border-bottom: 3px solid rgba(128, 128, 128, 0.377)
-}
-
-.user-setting-header {
-    width: fit-content;
-    margin-top: 40px;
-    margin-left: 10px;
+    padding-left: 30px;
+    padding-bottom: 40px;
+    border-bottom: 3px solid rgba(128, 128, 128, 0.377);
     color: goldenrod;
-    text-align: center;
     font-size: 35px;
-    height: fit-content;
+    margin-top: 30px;
 }
 
 .user-setting-title-text {
     margin-left: 20px
-}
-
-.user-setting-picture {
-    height: 120px;
-    width: 120px;
-    border-radius: 50%;
-    border: 2px solid goldenrod;
-    overflow: hidden;
-    margin-right: 20px;
 }
 
 .Form-container {

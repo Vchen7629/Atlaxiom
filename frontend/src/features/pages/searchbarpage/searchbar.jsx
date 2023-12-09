@@ -12,8 +12,7 @@ const SearchBar = () => {
   const [mainSuggestions, setMainSuggestions] = useState([]);
   const [leftSuggestions, setLeftSuggestions] = useState([]);
   const [selectedSuggestion, setSelectedSuggestion] = useState(null);
-  const [data] = useState({ data: [] }); // Initial state for data
-
+  
   const maxMainSuggestions = 30;
   const navigate = useNavigate();
  
@@ -30,9 +29,7 @@ const SearchBar = () => {
 
       if (response.ok) {
         setCardData(data);
-        // Set the main suggestions based on the results
         setMainSuggestions(data.data.slice(0, maxMainSuggestions).map((card) => card.name));
-        // Set all suggestions for the left container
         setLeftSuggestions(data.data.map((card) => card.name));
         setError(null);
       } else {

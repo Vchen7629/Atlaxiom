@@ -22,11 +22,36 @@ const initialState = ownedCardsAdapter.getInitialState()
 export const ownedCardsApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getOwnedCards: builder.query({
-            query: ({ username }) => ({
-                url: '/getcards',
-                method: 'POST',
-                body: { username },
-            }),
+            query: (userId) => `/card/${userId}`,
+            method: 'GET',
+            validateStatus: (response, result) => {
+                return response.status === 200 && !result.isError;
+            },
+            transformResponse: (responseData, userId) => {
+                console.log('Response Data getownedCards:', responseData);
+                console.log('Response Data getownedCards UserID:', userId);
+    
+                if (Array.isArray(responseData)) {
+                    const loadedCardData = responseData.map(card => {
+                        return card
+                    })
+                    return ownedCardsAdapter.setAll(initialState, loadedCardData)
+                }
+            },
+            providesTags: (result, error, arg) => {
+                if (result?.ids) {
+                    return [
+                        { type: 'OwnedCard', id: 'LIST' },
+                        ...result.ids.map(id => ({ type: 'OwnedCard', id }))
+                    ]
+                } else return [{ type: 'OwnedCard', id: 'LIST' }]
+            }
+        }),
+
+
+        /*getOwnedCards: builder.query({
+            query: (userId) => `/card/${userId}`,
+            method: 'GET',
             validateStatus: (response, result) => {
                 return response.status === 200 && !result.isError;
             },
@@ -70,25 +95,39 @@ export const ownedCardsApiSlice = apiSlice.injectEndpoints({
                     ]
                 } else return [{ type: 'OwnedCard', id: 'LIST' }]
             }
-        }),
+        }),*/
 
         AddNewOwnedCard: builder.mutation({
-            query: (newOwnedCard) => ({
-              url: '/addownedcard',
+            query: ({ id, CardData }) => ({
+              url: `/card/${id}`,
               method: 'POST',
-              body: newOwnedCard,
+              body: CardData,
             }),
-            invalidatesTags: [
-              { type: 'ownedcard', id: 'LIST' },
-            ],
+            invalidatesTags: (result, error, arg) => [
+                { type: 'ownedcard', id: arg.id }
+            ]
         }),
+
+        IncreaseOwnedCard: builder.mutation({
+            query: ({ id, CardData }) => ({
+                url: `/card/${id}`,
+                method: 'PATCH',
+                body: CardData
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'ownedcard', id: arg.id }
+            ]
+        }),
+
         
     }),
 })
 
 export const { 
     useGetOwnedCardsQuery,
-    useAddNewOwnedCardMutation
+    useAddNewOwnedCardMutation,
+    useIncreaseOwnedCardMutation,
+
 } = ownedCardsApiSlice
 
 // returns the query result object

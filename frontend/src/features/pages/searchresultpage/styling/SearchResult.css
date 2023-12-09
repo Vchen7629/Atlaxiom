@@ -5,6 +5,15 @@
     height: auto
 }
 
+.loading-body {
+    background-color: white;
+}
+
+.loading-text {
+    text-align: center;
+    color: goldenrod;
+}
+
 .card-name {
     color: goldenrod;
     position: relative;

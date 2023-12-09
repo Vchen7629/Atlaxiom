@@ -1,4 +1,4 @@
-const { OwnedCard, User } = require('../models/genmodels');
+const { OwnedCard, User } = require('../../login api/models/genmodels');
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
 const mongoose = require('mongoose');
@@ -27,7 +27,14 @@ const createNewUser = asyncHandler(async (req, res) => {
     const hashPassword = await bcrypt.hash(password, 10) //salt rounds for password encryptions
 
     // create and store new user object
-    const userObject = { username, email, "password": hashPassword, roles: ["Member"], description: ""}
+    const userObject = { 
+        username, 
+        email, 
+        "password": hashPassword, 
+        roles: ["Member"], 
+        description: "", 
+    }
+
     const user = await User.create(userObject)
 
     if (user) { //created
@@ -81,12 +88,6 @@ const updateUser = asyncHandler(async (req, res) => {
 
     const { id } = req.params;
     const { username, email, password } = req.body
-    //const { username, email, description, roles, active, password } = req.body
-
-    // Confirm data 
-    /*if ( !id || !username || !description || !email || !Array.isArray(roles) || !roles.length || typeof active !== 'boolean') {
-        return res.status(400).json({ message: 'All fields except password are required' })
-    }*/
 
     // Confirm data 
     if ( !username && !email ) {

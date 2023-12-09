@@ -10,17 +10,38 @@
     background-position: 0px 0px, 5px 5px, 0px 0px;
 }
 
+.error-message-container {
+    background-color: transparent;
+    position: relative;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 86.5%;
+    padding: 10px;
+    color: orangered;
+    border: 1px solid red
+}
+
+.error-message {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+    color: red;
+    margin-bottom: -20px;
+}
+
 /*Login form container styling*/
 
 .login-page-form-container {
     background: linear-gradient(to bottom, rgb(45, 43, 43), black);
-    margin-top: 100px;
     width: 35%;
     display: flex;
     flex-direction: column;
     position: absolute;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     align-items: center;
     border-radius: 25px;
     box-shadow: 0 0 15px 0.5px orange;
@@ -31,7 +52,7 @@
 position: relative;
     width: 80%;
     margin-top: 30px;
-    margin-bottom: 40px;
+    margin-bottom: 45px;
     font-size: 25px;
     padding: 25px;
     color: goldenrod;
@@ -45,10 +66,18 @@ position: relative;
 }
 
 .Login-emailoruser-container,
-.Login-password-container,
-.Login-submit-container {
+.Login-password-container {
     height: fit-content;
-    margin-bottom: 45px;
+    margin-bottom: 20px;
+    padding-bottom: 30px;
+
+}
+
+.Login-submit-container {
+    position: relative;
+    height: 100px;
+    margin-bottom: 50px;
+    bottom: 10px;
 }
 
 .form-emailoruser-input,
@@ -58,6 +87,10 @@ position: relative;
     height: 50px;
     padding-left: 10px;
     color: white;
+}
+
+.error-border {
+    border: 2px solid orangered;
 }
 
 .Login-submit-button {

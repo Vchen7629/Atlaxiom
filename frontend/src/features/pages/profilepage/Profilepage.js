@@ -9,16 +9,16 @@ import "./styling/sidenav.css"
 import Header from '../../../components/header/header';
 import Footer from '../../../components/footer/Footer';
 import { useGetSpecificUserQuery } from '../../users/usersApiSlice';
-import ProfileContent from './profile/profile';
-import UserSettings from './profile/users-settings';
-import DeleteAccount from './profile/deleteaccount';
+import ProfileContent from './profile-subpages/profile';
+import UserSettings from './profile-subpages/users-settings';
+import DeleteAccount from './profile-subpages/deleteaccount';
+import UserStatistics from './profile-subpages/statistics';
 
 
 const Profilepage = () => {
     const dispatch = useDispatch();
     const [selectedNavItem, setSelectedNavItem] = useState('');
     const userId = useSelector((state) => state.auth.userId);
-    //const [isactive, setIsActive] = useState(false)
 
     useEffect(() => {
         console.log("Current userId:", userId);
@@ -64,8 +64,6 @@ const Profilepage = () => {
             return <p>Err</p>
         }
 
-        // Now, you can use the user object properties in your component
-        const { username, email, roles, description} = user;
         console.log('Render usersData:', usersData);
       
         switch (selectedNavItem) {
@@ -80,9 +78,7 @@ const Profilepage = () => {
                     );
             case 'statistics':
                 return (
-                    <div>
-                        View Stats
-                    </div>
+                    <UserStatistics user={user} />
                     );
             case 'security':
                 return (

@@ -1,0 +1,30 @@
+/* User Statistics header styling */
+
+.Stats-header-container {
+    height: fit-content;
+    padding-left: 30px;
+    padding-bottom: 40px;
+    border-bottom: 3px solid rgba(128, 128, 128, 0.377);
+    color: goldenrod;
+    font-size: 35px;
+    margin-top: 30px;
+}
+
+.stats-header-text {
+    margin-left: 20px;
+}
+
+.OwnedCards-container {
+    display: flex;
+    flex-direction: row;
+}
+.image {
+    background-image: url("../../../../components/icons/Card_Icon_custom.png"); 
+    position: relative;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 200px;
+    width: 200px;
+    left: 0;
+}

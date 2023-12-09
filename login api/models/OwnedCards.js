@@ -58,10 +58,6 @@ const ownedCardSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    ownedprop: {
-        type: Boolean,
-        default: false
-    },
     ownedamount: {
         type: Number,
         default: 0
