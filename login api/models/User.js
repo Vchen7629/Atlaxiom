@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const ownedCardSchema = require('./OwnedCards')
+const ownedCardSchema = require('./OwnedCards');
+const ownedDeckSchema = require('./decks');
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -26,7 +27,18 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
-
+    totalOwnedCards: {
+        type: Number,
+        default: 0
+    },
+    totalOwnedDecks: {
+        type: Number,
+        default: 0
+    },
+    ownedDecks: {
+        type: [ownedDeckSchema],
+        default: []
+    },
     ownedCards: {
         type: [ownedCardSchema],
         default: []

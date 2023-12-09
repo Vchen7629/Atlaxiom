@@ -6,6 +6,7 @@ import { faUserSlash} from "@fortawesome/free-solid-svg-icons";
 import { useDeleteUserMutation } from "../../../users/usersApiSlice";
 import { isPasswordValid } from "../../../util/UserDataValidation";
 import { useSendLogoutMutation } from "../../../auth/authApiSlice";
+import "../styling/deleteaccount.css"
 
 const DeleteAccount = ({ user }) => {
     const userId = useSelector((state) => state.auth.userId);
@@ -35,13 +36,9 @@ const DeleteAccount = ({ user }) => {
     const canSavePassword = [validPassword].every(Boolean)
 
     const handledeletebuttonclick = () => {
-        setShowAccountDeleteForm(true);
+        setShowAccountDeleteForm(!showAccountDeleteform);
     };
 
-    const handleCancelDeleteClick = () => {
-        setShowAccountDeleteForm(false);
-        setPassword('');
-    };
 
     const handleConfirmDeleteClick = async(e) => {
         e.preventDefault();
@@ -63,12 +60,13 @@ const DeleteAccount = ({ user }) => {
                         logoutResult = await sendLogout();
                             if (logoutResult) {
                                 console.log("User deleted and logged out successfully");
+                                navigate("/login");
                             }
 
                             if (logoutError) {
                                 console.log("Logout ran into an issue")
                             }
-                            navigate("/login");
+                            
                     }
 
                     if (deleteUserError) {
@@ -87,33 +85,38 @@ const DeleteAccount = ({ user }) => {
 
     return (
         <div>
-            <header className="user-setting-header-container">
-                <div className="user-setting-header">
-                    <FontAwesomeIcon icon={faUserSlash} />
-                    <span className="user-setting-title-text">Delete Account</span>
-                </div>
-                <img className="user-setting-picture" src="https://picsum.photos/200/300" alt="Profile" />
+            <header className="Delete-account-header-container">
+                <FontAwesomeIcon icon={faUserSlash} />
+                <span className="delete-account-header-text">Delete Account</span>
             </header>
             <main>
-                <div>
-                    <form onSubmit={handleConfirmDeleteClick}>
-                        <label htmlFor="password">Enter your password:</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            placeholder="enter password"
-                            value={password}
-                            onChange={onPasswordChanged}
-                        />
-                        <button disabled={deleteUserloading}>
-                            Confirm Deletion
-                        </button>
-                        <button onClick={handleCancelDeleteClick}>
-                            Cancel
-                        </button>
-                    </form>
+                <div className="banner-container">
+                    <div className="banner-text">Delete Your Account:</div>
+                    <button
+                        className="show-form-button"
+                        onClick={handledeletebuttonclick}
+                    >
+                        Delete 
+                    </button>
                 </div>
+                {showAccountDeleteform && (
+                    <div className="delete-form-container">
+                        <form onSubmit={handleConfirmDeleteClick}>
+                            <input
+                                type="password"
+                                className="delete-account-input-field"
+                                id="password"
+                                name="password"
+                                placeholder="enter password"
+                                value={password}
+                                onChange={onPasswordChanged}
+                            />
+                            <button className="Confirm-Delete-Button">
+                                Confirm Deletion
+                            </button>
+                        </form>
+                    </div>
+                )}
             </main>
         </div>
     )

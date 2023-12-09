@@ -1,4 +1,4 @@
-const { User } = require('../models/genmodels');
+const { User } = require('../../login api/models/genmodels');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const asyncHandler = require('express-async-handler')

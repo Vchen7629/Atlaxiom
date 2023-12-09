@@ -12,44 +12,42 @@ import EditUser from './features/users/editUser.js';
 import AccountCreationForm from './features/auth/AccountCreationForm.js'
 import LoginPage from './features/auth/login.js'
 import Prefetch from './features/auth/Prefetch.js'
-//import Profile from './features/pages/profilepage/Profile.js'
 import Profilepage from './features/pages/profilepage/Profilepage.js';
 import StayLoggedIn from './features/auth/stayloggedin.js';
+
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
+          <Route path="signup" element={<AccountCreationForm/>}/>
+          <Route path="login" element={<LoginPage/>}/>
+          {/*<Route path="banlist" element={<Banlists />} />*/}
+          <Route path="banlist" element={<Banlists />} />
+          <Route path="contact-info" element={<ContactInfos />} />
+          <Route path="About-us" element={<AboutUs />} />
 
-        <Route path="signup" element={<AccountCreationForm/>}/>
-        <Route path="login" element={<LoginPage/>}/>
-        {/*<Route path="banlist" element={<Banlists />} />*/}
-        <Route path="banlist" element={<Banlists />} />
-        <Route path="contact-info" element={<ContactInfos />} />
-        <Route path="About-us" element={<AboutUs />} />
-
-        <Route path="search">
-          <Route index element={<Searchs />} />
-          <Route path=":cardname" element={<SearchResult />} />
-        </Route>
-
-        <Route element={<StayLoggedIn/>}>
-          <Route element={<Prefetch/>}>
-            <Route path="card" element={<DashLayout />}>
-              <Route index element={<HomePage/>}/>
-              <Route path="getcards" element={<UserOwnedCard/>}/>
-              <Route path=":username" element={<Profilepage />}/>
-            </Route>
-            
-            <Route path="users" element={<DashLayout />}>
-              <Route index element={<Searchs/>}/>
-                <Route path=":userId" element={<EditUser/>}/>
-            </Route>
-            <Route path="profile" element={<Profilepage />}/>
+          <Route path="search">
+            <Route index element={<Searchs />} />
+            <Route path=":cardname" element={<SearchResult />} />
           </Route>
-        </Route>
 
+          <Route element={<StayLoggedIn/>}>
+            <Route element={<Prefetch/>}>
+              <Route path="card" element={<DashLayout />}>
+                <Route index element={<HomePage/>}/>
+                <Route path="getcards" element={<UserOwnedCard/>}/>
+                <Route path=":username" element={<Profilepage />}/>
+              </Route>
+              
+              <Route path="users" element={<DashLayout />}>
+                <Route index element={<Searchs/>}/>
+                  <Route path=":userId" element={<EditUser/>}/>
+              </Route>
+              <Route path="profile" element={<Profilepage />}/>
+            </Route>
+          </Route>
       </Route>
     </Routes>
   );

@@ -6,17 +6,17 @@ import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { setCredentials } from "./authSlice"
 import { useLoginMutation } from "./authApiSlice"
-import usePersist from "../../hooks/usePersist"
 
 
 const LoginPage = () => {
     const userRef = useRef()
     const errRef = useRef()
     const [username, setUsername] = useState('')
+    const [usernameError, setUsernameError] = useState('');
     const [password, setPassword] = useState('')
+    const [passwordError, setPasswordError] = useState('');
     const [errMsg, setErrMsg] = useState('')
-    const [persist, setPersist] = usePersist()
-    const [login, { isLoading }] = useLoginMutation()
+    const [login] = useLoginMutation()
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -32,7 +32,24 @@ const LoginPage = () => {
 
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
+
+        let hasError = false;
+
+        if (username.trim() === '') {
+            setUsernameError('Please enter a username');
+            hasError = true;
+        }
+
+        if (password.trim() === '') {
+            setPasswordError('Please enter a password');
+            hasError = true;
+        }
+
+        if (hasError) {
+            // Don't proceed with the form submission if there are errors
+            return;
+        }
 
         try {
             const { accessToken, userId } = await login({ username, password }).unwrap();
@@ -44,24 +61,26 @@ const LoginPage = () => {
             console.error('Login Error:', err);
             if (!err.status) {
                 setErrMsg("No Server Response")
-            } else if (err.status === 400) {
-                setErrMsg("Missing username or password")
             } else if (err.status === 401) {
-                setErrMsg("Unauthorized")
+                setErrMsg("Invalid Username or Password")
             } else {
                 setErrMsg(err.data?.message);
             }
             errRef.current.focus();
         }
     }
+    
+     const handleUserInput = (e) => {
+        setUsername(e.target.value);
+        setUsernameError('');
+    }
 
-    const handleUserInput = (e) => setUsername(e.target.value)
-    const handlePwdInput = (e) => setPassword(e.target.value)
-    const handleToggle = () => setPersist(prev => !prev)
+    const handlePwdInput = (e) => {
+        setPassword(e.target.value);
+        setPasswordError('');
+    }
 
     const errClass = errMsg ? "errmsg" : "offscreen"
-
-    if (isLoading) return <p>Loading...</p>
 
     const content = (
         <>
@@ -69,12 +88,12 @@ const LoginPage = () => {
             <main className="login-page-background-container">
                 <p ref={errRef} className={errClass} aria-live="assertive">{errMsg}</p>
 
-                <form className="login-page-form-container" onSubmit={handleSubmit}>
+                <form className="login-page-form-container" onSubmit={handleSubmit} noValidate>
                     <header className="Login-form-title">Login with your Account Credentials</header>
                     <div className="Login-form-body">
                         <div className="Login-emailoruser-container">
                             <input
-                                className="form-emailoruser-input"
+                                className={`form-emailoruser-input ${usernameError ? 'error-border' : ''}`}
                                 placeholder="Enter Email or Username"
                                 id="username"
                                 ref={userRef}
@@ -84,11 +103,16 @@ const LoginPage = () => {
                                 autoComplete="off"
                                 required
                             />
+                            {usernameError && (
+                                <div className="error-message">
+                                    {usernameError}
+                                </div>
+                            )}
                         </div>
 
                         <div className="Login-password-container">
                             <input
-                                className="form-password-input"
+                                className={`form-password-input ${passwordError ? 'error-border' : ''}`}
                                 placeholder="Enter Password"
                                 id="password"
                                 value={password}
@@ -96,26 +120,26 @@ const LoginPage = () => {
                                 type="password"
                                 required
                             />
+                            {passwordError && (
+                                <div className="error-message">
+                                    {passwordError}
+                                </div>
+                            )}
                         </div>
-
                         <div className="Login-submit-container">
                             <button className="Login-submit-button">
                                 <h1 className="Login-submit-button-text">Login</h1>
                             </button>
-                        </div>
-
-                        <label htmlFor="persist" className="login-submit-container">
-                            <input 
-                                type="checkbox"
-                                className="login-submit-button"
-                                id="persist"
-                                onChange={handleToggle}
-                                check={persist}
-                            />
-                            <h1 className="Login-submit-button-text">Trust this device</h1>
-                        </label>
-                    </div>
-                </form>
+                            {errMsg && (
+                                <div>
+                                    <div className="error-message-container">
+                                        {errMsg}
+                                    </div>
+                                </div>
+                            )}  
+                         </div>
+                    </div>    
+                </form>          
             </main>
         <Footer/>
         </>
