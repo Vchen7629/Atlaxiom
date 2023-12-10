@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './ownedcards.css';
+import './styling/ownedcards.css';
 
 const UserOwnedCardTable = ({ username, ownedCards }) => {
   const itemsPerPage = 10;

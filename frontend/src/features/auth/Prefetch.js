@@ -1,6 +1,6 @@
 import { store } from "../../app/store"
-import { ownedCardsApiSlice } from "../ownedcards/ownedCardapislice"
-import { usersApiSlice } from "../users/usersApiSlice"
+import { ownedCardsApiSlice } from "../api-slices/ownedCardapislice"
+import { usersApiSlice } from "../api-slices/usersApiSlice"
 import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { Outlet } from "react-router-dom"

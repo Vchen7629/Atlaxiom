@@ -21,30 +21,33 @@ const initialState = ownedCardsAdapter.getInitialState()
 
 export const ownedCardsApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
+        AddNewOwnedCard: builder.mutation({
+            query: ({ id, CardData }) => ({
+              url: `/card/${id}`,
+              method: 'POST',
+              body: CardData,
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'OwnedCards', id: arg.id }
+            ]
+        }),
+
         getOwnedCards: builder.query({
-            query: (userId) => `/card/${userId}`,
+            query: (id) => `/card/${id}`,
             method: 'GET',
             validateStatus: (response, result) => {
                 return response.status === 200 && !result.isError;
             },
-            transformResponse: (responseData, userId) => {
-                console.log('Response Data getownedCards:', responseData);
-                console.log('Response Data getownedCards UserID:', userId);
-    
-                if (Array.isArray(responseData)) {
-                    const loadedCardData = responseData.map(card => {
-                        return card
-                    })
-                    return ownedCardsAdapter.setAll(initialState, loadedCardData)
-                }
+            transformResponse: (responseData) => {
+                return ownedCardsAdapter.upsertOne(initialState, { ...responseData, id: responseData._id });
             },
             providesTags: (result, error, arg) => {
                 if (result?.ids) {
                     return [
-                        { type: 'OwnedCard', id: 'LIST' },
+                        { type: 'OwnedCards', id: 'LIST' },
                         ...result.ids.map(id => ({ type: 'OwnedCard', id }))
                     ]
-                } else return [{ type: 'OwnedCard', id: 'LIST' }]
+                } else return [{ type: 'OwnedCards', id: 'LIST' }]
             }
         }),
 
@@ -97,17 +100,6 @@ export const ownedCardsApiSlice = apiSlice.injectEndpoints({
             }
         }),*/
 
-        AddNewOwnedCard: builder.mutation({
-            query: ({ id, CardData }) => ({
-              url: `/card/${id}`,
-              method: 'POST',
-              body: CardData,
-            }),
-            invalidatesTags: (result, error, arg) => [
-                { type: 'ownedcard', id: arg.id }
-            ]
-        }),
-
         IncreaseOwnedCard: builder.mutation({
             query: ({ id, CardData }) => ({
                 url: `/card/${id}`,
@@ -115,7 +107,7 @@ export const ownedCardsApiSlice = apiSlice.injectEndpoints({
                 body: CardData
             }),
             invalidatesTags: (result, error, arg) => [
-                { type: 'ownedcard', id: arg.id }
+                { type: 'OwnedCards', id: arg.id }
             ]
         }),
 
@@ -127,20 +119,4 @@ export const {
     useGetOwnedCardsQuery,
     useAddNewOwnedCardMutation,
     useIncreaseOwnedCardMutation,
-
 } = ownedCardsApiSlice
-
-// returns the query result object
-export const selectOwnedCardsResult = ownedCardsApiSlice.endpoints.getOwnedCards.select();
-
-// creates memoized selector
-const selectOwnedCardsData = createSelector(
-    selectOwnedCardsResult,
-    (ownedCardsResult) => ownedCardsResult.data // normalized state object with ids & entities
-)
-
-//getSelectors creates these selectors and we rename them with aliases using destructuring
-export const {
-    selectAll: selectAllOwnedCards, // returns an array for all ownedCard
-    selectById: selectOwnedCardById, //Retrieves a user object with that id
-} = ownedCardsAdapter.getSelectors(state => selectOwnedCardsData(state) ?? initialState)

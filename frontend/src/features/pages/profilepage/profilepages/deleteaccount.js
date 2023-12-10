@@ -39,6 +39,10 @@ const DeleteAccount = ({ user }) => {
         setShowAccountDeleteForm(!showAccountDeleteform);
     };
 
+    const handleCancelDeleteClick = () => {
+        setShowAccountDeleteForm(false);
+        setPassword('');
+    };
 
     const handleConfirmDeleteClick = async(e) => {
         e.preventDefault();
@@ -85,9 +89,12 @@ const DeleteAccount = ({ user }) => {
 
     return (
         <div>
-            <header className="Delete-account-header-container">
-                <FontAwesomeIcon icon={faUserSlash} />
-                <span className="delete-account-header-text">Delete Account</span>
+            <header className="user-setting-header-container">
+                <div className="user-setting-header">
+                    <FontAwesomeIcon icon={faUserSlash} />
+                    <span className="user-setting-title-text">Delete Account</span>
+                </div>
+                <img className="user-setting-picture" src="https://picsum.photos/200/300" alt="Profile" />
             </header>
             <main>
                 <div className="banner-container">
@@ -111,8 +118,13 @@ const DeleteAccount = ({ user }) => {
                                 value={password}
                                 onChange={onPasswordChanged}
                             />
-                            <button className="Confirm-Delete-Button">
+                            <button 
+                                className="Confirm-Delete-Button"
+                            >
                                 Confirm Deletion
+                            </button>
+                            <button onClick={handleCancelDeleteClick}>
+                                Cancel
                             </button>
                         </form>
                     </div>

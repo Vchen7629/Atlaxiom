@@ -79,15 +79,12 @@ const IncreaseCard = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { card_name, increaseOwnedAmount } = req.body;
 
-  // Check if user ID and card details are provided
   if (!id || !card_name || isNaN(increaseOwnedAmount)) {
     return res.status(400).json({ message: 'User ID and card name and valid increaseownedamount are required' });
   }
 
-  // Find the user by ID
   const user = await User.findById(id);
 
-  // Check if the user exists in the database
   if (!user) {
     return res.status(404).json({ message: 'User not found' });
   }

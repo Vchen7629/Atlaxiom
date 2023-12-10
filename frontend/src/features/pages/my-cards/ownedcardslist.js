@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGetOwnedCardsQuery } from './ownedCardapislice';
+import { useGetOwnedCardsQuery } from '../../api-slices/ownedCardapislice';
 import OwnedCardTable from './ownedCardTable';
 
 const UserOwnedCard = () => {

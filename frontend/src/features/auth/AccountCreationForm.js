@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useAddNewUserMutation } from "../users/usersApiSlice"
+import { useAddNewUserMutation } from "../api-slices/usersApiSlice"
 import { useNavigate } from "react-router-dom"
 import "./styling/Signup.css"
 import Footer from "../../components/footer/Footer"
