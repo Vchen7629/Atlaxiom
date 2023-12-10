@@ -5,15 +5,15 @@ import Banlists from './features/pages/banlist';
 import ContactInfos from './features/pages/contactinfo';
 import AboutUs from './features/pages/aboutus';
 import Searchs from './features/pages/search';
-import UserOwnedCard from './features/ownedcards/ownedcardslist';
+import UserOwnedCard from './features/pages/my-cards/ownedcardslist.js';
 import HomePage from './features/pages/homepage/homepage.js';
 import SearchResult from './features/pages/searchresult';
-import EditUser from './features/users/editUser.js';
 import AccountCreationForm from './features/auth/AccountCreationForm.js'
 import LoginPage from './features/auth/login.js'
 import Prefetch from './features/auth/Prefetch.js'
 import Profilepage from './features/pages/profilepage/Profilepage.js';
 import StayLoggedIn from './features/auth/stayloggedin.js';
+import MyDeck from './features/pages/mydeckpage/my-deck.js';
 
 
 function App() {
@@ -41,9 +41,10 @@ function App() {
                 <Route path=":username" element={<Profilepage />}/>
               </Route>
               
+              <Route path="mydeck" element={<MyDeck/>}/>
               <Route path="users" element={<DashLayout />}>
                 <Route index element={<Searchs/>}/>
-                  <Route path=":userId" element={<EditUser/>}/>
+                  <Route path=":userId"/>
               </Route>
               <Route path="profile" element={<Profilepage />}/>
             </Route>

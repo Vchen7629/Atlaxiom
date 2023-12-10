@@ -8,7 +8,7 @@ import "./styling/profile.css"
 import "./styling/sidenav.css"
 import Header from '../../../components/header/header';
 import Footer from '../../../components/footer/Footer';
-import { useGetSpecificUserQuery } from '../../users/usersApiSlice';
+import { useGetSpecificUserQuery } from '../../api-slices/usersApiSlice';
 import ProfileContent from './profile-subpages/profile';
 import UserSettings from './profile-subpages/users-settings';
 import DeleteAccount from './profile-subpages/deleteaccount';

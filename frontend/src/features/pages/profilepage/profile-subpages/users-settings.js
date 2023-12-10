@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
 import "../styling/usersetting.css"
 import { useSelector } from 'react-redux';
-import { useUpdateUserMutation, useGetSpecificUserQuery } from '../../../users/usersApiSlice';
+import { useUpdateUserMutation, useGetSpecificUserQuery } from '../../../api-slices/usersApiSlice';
 import { isEmailValid, isUsernameValid } from '../../../util/UserDataValidation';
 
 const UserSettings = ({ user }) => {

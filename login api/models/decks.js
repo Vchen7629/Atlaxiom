@@ -10,10 +10,31 @@ const ownedDeckSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    deck_cards: {
+    total_cards_main_deck: {
+        type: Number,
+        default: 0
+    },
+    total_cards_extra_deck: {
+        type: Number,
+        default: 0
+    },
+    total_cards_side_deck: {
+        type: Number,
+        default: 0
+    },
+    main_deck_cards: {
+        type: [ownedCardSchema],
+        default: []
+    },
+    extra_deck_cards: {
+        type: [ownedCardSchema],
+        default: []
+    },
+    side_deck_cards: {
         type: [ownedCardSchema],
         default: []
     }
+
 })
 
 module.exports = ownedDeckSchema;
