@@ -1,0 +1,188 @@
+/*Signup banner styling*/
+.signup-page-banner {
+  background-color: rgb(45, 43, 43);
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  text-align: center;
+  padding: 20px;
+  color: orange;
+  border-bottom: 2px solid white;
+}
+
+/*signup body styling*/
+
+.signup-page-body-container {
+    min-height: 900px;
+    top: 400px;
+    text-align: center;
+    background-color: rgb(32, 32, 32);
+    background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
+    background-size: 10px 10px, 10px 10px, 10px 5px;
+    background-position: 0px 0px, 5px 5px, 0px 0px;
+  }
+
+
+.form-container {
+  background-color: rgb(26, 25, 25);
+  margin-top: 100px;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+  border-radius: 25px;
+  box-shadow: 0 0 15px 0.5px orange;
+}
+
+.form-title {
+  position: relative;
+  width: 80%;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  font-size: 25px;
+  padding: 20px;
+  color: goldenrod;
+  border-bottom: 2px solid rgba(128, 128, 128, 0.205)
+}
+
+
+.form-body {
+  position: relative;
+  width: 80%;
+  height: fit-content;
+}
+
+.form-body-title {
+  font-size: calc(15px + 0.390625vw);
+  background-color: rgba(70, 63, 63, 0.671);
+  padding: 15px;
+  margin-bottom: 30px;
+  width: fit-content;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  color: orange;
+}
+
+.form-username-container,
+.form-password-container,
+.form-email-container {
+  height: fit-content;
+  margin-bottom: 35px;
+  position: relative;
+}
+
+.form-username-input,
+.form-password-inputs,
+.form-email-input {
+  width: 87%;
+  height: 50px;
+  padding-left: 20px;
+  transition: 0.3s;
+  color: goldenrod;
+  border: 2px solid gray;
+}
+
+
+.form-email-label,
+.form-username-label,
+.form-password-label {
+  position: absolute;
+  left: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  transition: top 0.2s, font-size 0.3s;
+  pointer-events: none;
+  color: orange;
+  
+}
+
+.form-email-input:focus + .form-email-label,
+.form-email-input:not(:placeholder-shown) + .form-email-label {
+  top: 1px;
+  font-size: 16px; 
+  background-color: rgb(26, 25, 25);
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.form-username-input:focus + .form-username-label,
+.form-username-input:not(:placeholder-shown) + .form-username-label {
+  top: 1px;
+  font-size: 16px; 
+  background-color: rgb(26, 25, 25);
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.form-password-inputs:focus + .form-password-label,
+.form-password-inputs:not(:placeholder-shown) + .form-password-label {
+  top: 1px;
+  font-size: 16px; 
+  background-color: rgb(26, 25, 25);
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.form-username-input:hover,
+.form-password-inputs:hover,
+.form-email-input:hover {
+  border-radius: 15px;  
+  border: 2px solid orange
+}
+
+.form-save-button {
+  background-color: darkorange;
+  width: 87%;
+  padding-left: 10px;
+  height: 50px;
+  border-radius: 15px;
+  margin-bottom: 70px;
+  transition: background-color 1s ease-in-out
+}
+
+
+.form-save-button:hover {
+  background-color: orangered;
+  color: goldenrod;
+  border: 1px solid goldenrod;
+  box-shadow: 0 0 10px 5px rgb(80, 76, 76)
+}
+
+
+.save-button-text {
+  color: white;
+  font-size: 20px
+}
+
+
+/* error styling */
+
+.error-border {
+  border: 2px solid orangered;
+}
+
+.sign-up-error-message {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  color: red;
+  margin-top: -30px;
+}
+
+.sign-up-error-message-footer {
+  background-color: transparent;
+    position: relative;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 86.5%;
+    padding: 10px;
+    color: orangered;
+    border: 1px solid red
+}

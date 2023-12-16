@@ -13,6 +13,7 @@ import ProfileContent from './profile-subpages/profile';
 import UserSettings from './profile-subpages/users-settings';
 import DeleteAccount from './profile-subpages/deleteaccount';
 import UserStatistics from './profile-subpages/statistics';
+import Security from './profile-subpages/security';
 
 
 const Profilepage = () => {
@@ -82,12 +83,7 @@ const Profilepage = () => {
                     );
             case 'security':
                 return (
-                    <div>
-                        <header>Security</header>
-                        <div>
-                            Change Password
-                        </div>
-                    </div>
+                    <Security user={user} />
                     );
             case 'delete':
                 return (

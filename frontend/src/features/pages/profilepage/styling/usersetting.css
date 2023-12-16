@@ -12,12 +12,12 @@
     margin-left: 20px
 }
 
-.Form-container {
+.Username-form-container {
     display: flex;
     flex-direction: column;
     height: auto;
-    margin-bottom: 10px;
-    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-top: 50px;
     justify-content: space-between;
 }
 
@@ -38,49 +38,39 @@
 }
 
 
-/*Username input header styling*/
+/*Username input form styling*/
 .username-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
+    height: fit-content;
 }
 
 .change-username-header {
+    position: relative;
+    font-size: 18px;
     width: fit-content;
-    padding-top: 10px;
-    margin-left: 10px;
-    font-size: 20px;
-}
-
-.change-username-header-button {
-    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
-    border: 1px solid black;
-    height: fit-content;
-    border-radius: 10px;
-    padding: 5px;
-    margin-top: 12px;
-    box-shadow: 0 0 10px 1px black;
-    color: goldenrod
-}
-
-.change-username-header-button:hover { 
-    background: linear-gradient(to right, rgb(45, 43, 43), black);
-    box-shadow: 0 0 10px 1px goldenrod;
+    top: 10px;
+    left: 10px;
 }
 
 /*Change username input form body styling*/
-
 .username-update-input-body {
     background-color: rgba(128, 128, 128, 0.096);
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 8px;
-    border: 1px solid gray;
+    border: 2px solid gray;
     padding: 5px;
     color: orange;
-    width: 60%;
+    width: 70%;
     padding-right: 150px;
+    padding-left: 20px;
+    margin-right: 10px;
+    margin-left: 20px;
+    left: 30px;
+    height: 43px
+}
+
+.username-update-input-body:hover {
+    border-radius: 15px;  
+    border: 2px solid orange
 }
 
 .update-username-button {
@@ -88,10 +78,35 @@
     border: 1px solid black;
     height: 37px;
     position: relative;
-    margin-left: -17px;
-    border-radius: 8px;
+    margin-left: -170px;
+    margin-top: 3px;
+    border-radius: 15px;
     padding: 5px;
     color: goldenrod;
+}
+
+.update-username-button:hover {
+    background-color: red;
+}
+
+/* Change username input form label styling */
+.username-update-input-label {
+    position: absolute;
+    left: 220px;
+    top: 199px;
+    font-size: 18px;
+    transition: top 0.2s, font-size 0.3s;
+    pointer-events: none;
+    color: orange;
+}
+
+.username-update-input-body:focus + .username-update-input-label,
+.username-update-input-body:not(:placeholder-shown) + .username-update-input-label {
+  top: 180px;
+  font-size: 16px; 
+  background-color: rgb(26, 25, 25);
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 /*Email input form header styling*/
@@ -154,4 +169,27 @@
     border-radius: 8px;
     padding: 5px;
     color: goldenrod;
+}
+
+
+/* Error message styling */
+.user-setting-update-error-message {
+    position: absolute;
+    left: 50%;
+    width: fit-content;
+    color: red;
+    margin-top: 50px;
+}
+
+.error-border {
+    border: 2px solid orangered;
+}
+
+/*Success message styling*/
+.user-setting-update-success-message {
+    position: absolute;
+    left: 50%;
+    width: fit-content;
+    color: green;
+    margin-top: 50px;
 }

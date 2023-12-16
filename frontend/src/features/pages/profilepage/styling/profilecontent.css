@@ -1,6 +1,6 @@
 /*Profile information container styling*/
 .Profile-content-container {
-    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
+    background-color: rgb(26, 25, 25);
     position: relative;
     display: flex;
     flex-direction: column;
