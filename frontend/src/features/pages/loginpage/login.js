@@ -1,11 +1,11 @@
-import Footer from "../../components/footer/Footer"
-import Header from "../../components/header/header"
+import Footer from "../../../components/footer/Footer"
+import Header from "../../../components/header/header"
 import "./styling/Login.css"
 import { useRef, useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { setCredentials } from "./authSlice"
-import { useLoginMutation } from "./authApiSlice"
+import { setCredentials } from "../../auth/authSlice"
+import { useLoginMutation } from "../../auth/authApiSlice"
 
 
 const LoginPage = () => {
@@ -70,31 +70,29 @@ const LoginPage = () => {
         }
     }
     
-     const handleUserInput = (e) => {
-        setUsername(e.target.value);
-        setUsernameError('');
+    const handleUserInput = (e) => {
+        setUsername(e.target.value)
+        setUsernameError('')
     }
 
     const handlePwdInput = (e) => {
-        setPassword(e.target.value);
-        setPasswordError('');
+        setPassword(e.target.value)
+        setPasswordError('')
     }
-
-    const errClass = errMsg ? "errmsg" : "offscreen"
 
     const content = (
         <>
         <Header/>
             <main className="login-page-background-container">
-                <p ref={errRef} className={errClass} aria-live="assertive">{errMsg}</p>
+                <p ref={errRef} aria-live="assertive">{errMsg}</p>
 
                 <form className="login-page-form-container" onSubmit={handleSubmit} noValidate>
                     <header className="Login-form-title">Login with your Account Credentials</header>
                     <div className="Login-form-body">
-                        <div className="Login-emailoruser-container">
+                        <div className="Login-username-container">
                             <input
-                                className={`form-emailoruser-input ${usernameError ? 'error-border' : ''}`}
-                                placeholder="Enter Email or Username"
+                                className={`login-username-input ${usernameError ? 'error-border' : ''}`}
+                                placeholder=" "
                                 id="username"
                                 ref={userRef}
                                 value={username}
@@ -103,29 +101,35 @@ const LoginPage = () => {
                                 autoComplete="off"
                                 required
                             />
-                            {usernameError && (
+                            <label className="login-username-label" htmlFor="username">
+                                Enter Username
+                            </label>
+                        </div>
+                        {usernameError && (
                                 <div className="error-message">
                                     {usernameError}
                                 </div>
                             )}
-                        </div>
 
                         <div className="Login-password-container">
                             <input
-                                className={`form-password-input ${passwordError ? 'error-border' : ''}`}
-                                placeholder="Enter Password"
+                                className={`login-password-input ${passwordError ? 'error-border' : ''}`}
+                                placeholder=" "
                                 id="password"
                                 value={password}
                                 onChange={handlePwdInput}
                                 type="password"
                                 required
                             />
-                            {passwordError && (
+                            <label className="login-password-label" htmlFor="password">
+                                Enter Password
+                            </label>
+                        </div>
+                        {passwordError && (
                                 <div className="error-message">
                                     {passwordError}
                                 </div>
                             )}
-                        </div>
                         <div className="Login-submit-container">
                             <button className="Login-submit-button">
                                 <h1 className="Login-submit-button-text">Login</h1>

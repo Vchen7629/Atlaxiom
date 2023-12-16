@@ -42,7 +42,6 @@ const createNewUser = asyncHandler(async (req, res) => {
     } else {
         res.status(400).json({ message: "Invalid user data recieved"})
     }
-    
 })
 
 // @desc Get all users

@@ -10,31 +10,10 @@
     background-position: 0px 0px, 5px 5px, 0px 0px;
 }
 
-.error-message-container {
-    background-color: transparent;
-    position: relative;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 86.5%;
-    padding: 10px;
-    color: orangered;
-    border: 1px solid red
-}
-
-.error-message {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    width: fit-content;
-    color: red;
-    margin-bottom: -20px;
-}
-
 /*Login form container styling*/
 
 .login-page-form-container {
-    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
+    background-color: rgb(27, 25, 25);
     width: 35%;
     display: flex;
     flex-direction: column;
@@ -65,7 +44,7 @@ position: relative;
     height: fit-content;
 }
 
-.Login-emailoruser-container,
+.Login-username-container,
 .Login-password-container {
     height: fit-content;
     margin-bottom: 20px;
@@ -80,17 +59,21 @@ position: relative;
     bottom: 10px;
 }
 
-.form-emailoruser-input,
-.form-password-input {
+.login-username-input,
+.login-password-input {
     background: linear-gradient(to left, rgba(128, 128, 128, 0.671), black);
     width: 87%;
     height: 50px;
     padding-left: 10px;
     color: white;
+    border: 2px solid gray;
+    transition: 0.3s;
 }
 
-.error-border {
-    border: 2px solid orangered;
+.login-username-input:hover,
+.login-password-input:hover {
+  border-radius: 15px;  
+  border: 2px solid orange
 }
 
 .Login-submit-button {
@@ -106,4 +89,70 @@ position: relative;
 .Login-submit-button-text {
     color: white;
     font-size: 25px
+}
+
+/* login label styling */
+.login-username-label {
+    position: absolute;
+    left: 50px;
+    top: 11px;
+    font-size: 20px;
+    transition: top 0.2s, font-size 0.3s;
+    pointer-events: none;
+    color: orange;
+}
+
+.login-password-label {
+    position: absolute;
+    left: 50px;
+    bottom: 212px;
+    font-size: 20px;
+    transition: top 0.2s, font-size 0.3s;
+    pointer-events: none;
+    color: orange;
+}
+
+.login-username-input:focus + .login-username-label,
+.login-username-input:not(:placeholder-shown) + .login-username-label {
+  top: -10px;
+  font-size: 16px; 
+  background-color: rgb(27, 25, 25);
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.login-password-input:focus + .login-password-label,
+.login-password-input:not(:placeholder-shown) + .login-password-label {
+  top: 90px;
+  font-size: 16px; 
+  height: fit-content;
+  background-color: rgb(27, 25, 25);
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* error messages styling*/
+.error-border {
+    border: 2px solid orangered;
+}
+
+.error-message-container {
+    background-color: transparent;
+    position: relative;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 86.5%;
+    padding: 10px;
+    color: orangered;
+    border: 1px solid red
+}
+
+.error-message {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+    color: red;
+    margin-top: -45px;
 }

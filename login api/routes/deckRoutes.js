@@ -1,7 +1,9 @@
 const express = require("express")
 const router = express.Router()
 const deckController = require("../controllers/deckController")
+const verifyJWT = require('../middleware/verifyJWT')
 
+router.use(verifyJWT)
 
 router.route("/:id")
     .post(deckController.createNewDeck)

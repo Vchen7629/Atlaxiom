@@ -8,51 +8,98 @@ import { isEmailValid, isUsernameValid } from '../../../util/UserDataValidation'
 
 const UserSettings = ({ user }) => {
     const userId = useSelector((state) => state.auth.userId);
+
     const [username, setUsername] = useState(user.username)
+    const [validUsername, setValidUsername] = useState(false)
+    const [usernameError, setUsernameError] = useState('')
+    const [usernameSuccess, setUsernameSuccess] = useState('')
+
     const [email, setEmail] = useState(user.email)
-    const [validusername, setValidUsername] = useState(false)
-    const [validemail, setValidEmail] = useState(false)
-    const [showUsernameInput, setShowUsernameInput] = useState(false);
-    const [showEmailInput, setShowEmailInput] = useState(false);
+    const [validEmail, setValidEmail] = useState(false)
+    const [emailError, setEmailError] = useState('')
+    const [emailSuccess, setEmailSuccess] = useState('')
+
+    const [updateClick, setUpdateClick] = useState(false)
 
     const { refetch: refetchUser } = useGetSpecificUserQuery(userId);
 
-    const onUsernameChanged = e => setUsername(e.target.value)
-    const onEmailChanged = e => setEmail(e.target.value)
+    const onUsernameChanged = (e) => {
+      setUsername(e.target.value)
+      setUsernameError('')
+      setUsernameSuccess('')
+      setUpdateClick(false)
+    }
 
-    const handleUsernameButtonClick = () => {
-      setShowUsernameInput(!showUsernameInput);
-    };
-
-    const handleEmailButtonClick = () => {
-      setShowEmailInput(!showEmailInput);
-    };
+    const onEmailChanged = (e) => {
+      setEmail(e.target.value)
+      setEmailError('')
+      setEmailSuccess('')
+      setUpdateClick(false)
+    }
 
     const [updateUsername, {
       isSuccess: isUsernameSuccess,
       isError: isUsernameError,
-      error: usernameError
+      error: usernameErrorRes,
+      reset: resetUsernameError,
     }] = useUpdateUserMutation(userId)
+
+    console.log("hi 1", isUsernameError)
+    console.log("hi 2", usernameErrorRes)
+
 
     const [updateEmail, {
       isSuccess: isEmailSuccess,
       isError: isEmailError,
-      error: emailError
     }] = useUpdateUserMutation(userId)
 
     useEffect(() => {
-      setValidUsername(isUsernameValid(username))
-    }, [username])
+      if (!username) {
+        setValidUsername(false);
+        setUsernameError("Please enter an Username")
+        setUsernameSuccess('')
+      } else if (!isUsernameValid(username)) {
+        setValidUsername(false);
+        setUsernameError("Please enter a valid username")
+        setUsernameSuccess('')
+      } else if (username === user.username) {
+        setValidUsername(false);
+        setUsernameError("Username entered is the same as current");
+        setUsernameSuccess('')
+      } else if (isUsernameError && usernameErrorRes?.status === 409) {
+        setValidUsername(false);
+        setUsernameError("Username already Taken")
+        setUsernameSuccess('')
+        resetUsernameError()
+      } else {
+        console.log("testing")
+        setValidUsername(true);
+        setUsernameError('')
+        resetUsernameError()
+        setUsernameSuccess("Username Updated Successfully")
+      }
+    }, [username, updateClick, isUsernameError])
 
     useEffect(() => {
-      setValidEmail(isEmailValid(email))
-    }, [email])
+      if (!email) {
+        setValidEmail(false);
+        setEmailError("Please enter an Email")
+      } else if (!isEmailValid(email)) {
+        setValidEmail(false);
+        setEmailError("Please enter a valid email")
+      } else {
+        setValidEmail(true);
+        setEmailError('')
+      }
+    }, [email, updateClick])
 
-    const canSaveUsername = [validusername].every(Boolean)
-    const canSaveEmail = [validemail].every(Boolean)
+    const canSaveUsername = validUsername 
+    const canSaveEmail = validEmail
 
     const handleSubmitUsername = async (e) => {
         e.preventDefault();
+        setUpdateClick(true);
+        
 
         if (canSaveUsername) {
           await updateUsername({ 
@@ -60,34 +107,23 @@ const UserSettings = ({ user }) => {
             userData: { username, email },
           })
             if (isUsernameSuccess) {
-              console.log('User updated successfully:', updateUsername);
               setUsername('');
               refetchUser();
-            }
-
-            if (isUsernameError) {
-              console.log("error saving username")
-            }
+            } 
         }
       };
 
-      const handleSubmitEmail = async (e) => {
-        e.preventDefault();
+    const handleSubmitEmail = async (e) => {
+      e.preventDefault();
 
-        if (canSaveEmail) {
-          await updateEmail({
-            id: user.id,
-            userData: { username, email },
-          })
-
+      if (canSaveEmail) {
+        await updateEmail({
+          id: user.id,
+          userData: { username, email },
+        })
             if (isEmailSuccess) {
-              console.log("Email updated successfully");
               setEmail('');
               refetchUser();
-            }
-
-            if (isEmailError) {
-              console.log("error saving email")
             }
         }
       };
@@ -101,34 +137,37 @@ const UserSettings = ({ user }) => {
         </header>
         <main>
             <form onSubmit={handleSubmitUsername}>
-              <div className="Form-container">
+              <div className="Username-form-container">
                 <div className="username-header">
-                  <div className="change-username-header">Change Username: </div>
-                  <button className="change-username-header-button" onClick={handleUsernameButtonClick}>
-                    Change Username
+                  <div className="change-username-header">
+                    Change Username:
+                  </div>
+                  <input
+                      type="text"
+                      className="username-update-input-body"
+                      id="username"
+                      name="username"
+                      placeholder=" "
+                      value={username}
+                      onChange={onUsernameChanged}
+                    />
+                  <label className="username-update-input-label" htmlFor="username">
+                    Enter New Username
+                  </label>
+                  <button className="update-username-button">
+                    Update Username
                   </button>
                 </div>
-                <div className="form">
-                  {showUsernameInput && (
-                    <>
-                      <input
-                        type="text"
-                        className="username-update-input-body"
-                        id="username"
-                        name="username"
-                        placeholder="enter new username"
-                        value={username}
-                        onChange={onUsernameChanged}
-                      />
-                      <button 
-                        className={`update-username-button ${canSaveUsername ? 'canSave' : ''}`}
-                        disabled={!canSaveUsername} 
-                      >
-                        Update Username
-                      </button>
-                    </>
-                  )}
-                </div>
+                {usernameError && updateClick && (
+                  <div className="user-setting-update-error-message">
+                    {usernameError}
+                  </div>
+                )}
+                {usernameSuccess && updateClick && (
+                  <div className="user-setting-update-success-message">
+                    {usernameSuccess}
+                  </div>
+                )}
               </div>
             </form>
 
@@ -136,13 +175,9 @@ const UserSettings = ({ user }) => {
               <div className="Form-container">
                 <div className="email-header">
                   <div className="change-email-header">Change Email: </div>
-                  <button className="change-email-header-button" onClick={handleEmailButtonClick}>
-                    Change Email
-                  </button>
                 </div>
                 <div className="form">
-                  {showEmailInput && (
-                    <>
+                    <div>
                       <input 
                       type="text" 
                       className="email-update-input-body"
@@ -158,8 +193,7 @@ const UserSettings = ({ user }) => {
                       >
                         Update Email
                       </button>
-                    </>
-                  )}
+                    </div>
                 </div>
               </div>
             </form>
