@@ -8,17 +8,9 @@
     margin-top: 30px;
 }
 
+
 .user-setting-title-text {
     margin-left: 20px
-}
-
-.Username-form-container {
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    margin-bottom: 30px;
-    margin-top: 50px;
-    justify-content: space-between;
 }
 
 .form {
@@ -39,32 +31,37 @@
 
 
 /*Username input form styling*/
-.username-header {
+
+.Username-form-container {
+    position: relative;
     display: flex;
+    align-items: center;
+    margin-top: 8%;
+    margin-bottom: 10%;
     justify-content: space-between;
-    height: fit-content;
 }
 
 .change-username-header {
     position: relative;
     font-size: 18px;
-    width: fit-content;
-    top: 10px;
+    width: 30%;
     left: 10px;
+    margin-right: 10px;
 }
 
-/*Change username input form body styling*/
+.username-input-container {
+    position: relative;
+    width: 70%
+}
+
 .username-update-input-body {
     background-color: rgba(128, 128, 128, 0.096);
     border: 2px solid gray;
     padding: 5px;
     color: orange;
-    width: 70%;
+    width: 95%;
     padding-right: 150px;
     padding-left: 20px;
-    margin-right: 10px;
-    margin-left: 20px;
-    left: 30px;
     height: 43px
 }
 
@@ -77,9 +74,9 @@
     background: linear-gradient(to bottom, rgb(45, 43, 43), black);
     border: 1px solid black;
     height: 37px;
-    position: relative;
-    margin-left: -170px;
-    margin-top: 3px;
+    position: absolute;
+    right: 4.5%;
+    top: 3px;
     border-radius: 15px;
     padding: 5px;
     color: goldenrod;
@@ -92,8 +89,8 @@
 /* Change username input form label styling */
 .username-update-input-label {
     position: absolute;
-    left: 220px;
-    top: 199px;
+    left: 15px;
+    top: 25%;
     font-size: 18px;
     transition: top 0.2s, font-size 0.3s;
     pointer-events: none;
@@ -102,83 +99,95 @@
 
 .username-update-input-body:focus + .username-update-input-label,
 .username-update-input-body:not(:placeholder-shown) + .username-update-input-label {
-  top: 180px;
+  top: -10px;
   font-size: 16px; 
   background-color: rgb(26, 25, 25);
   padding-left: 5px;
   padding-right: 5px;
 }
 
-/*Email input form header styling*/
-.email-header {
+/*Email input form styling*/
+.Email-form-container {
+    position: relative;
     display: flex;
+    align-items: center;
+    margin-top: 12%;
+    margin-bottom: 10%;
     justify-content: space-between;
-    margin-bottom: 15px;
 }
 
 .change-email-header {
-    width: fit-content;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-left: 10px;
-    font-size: 20px;
+    position: relative;
+    font-size: 18px;
+    width: 30%;
+    left: 10px;
+    margin-right: 10px;
 }
 
-.change-email-header-button {
-    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
-    border: 1px solid black;
-    height: fit-content;
-    border-radius: 10px;
-    padding: 5px;
-    margin-top: 12px;
-    box-shadow: 0 0 10px 1px black;
-    color: goldenrod
-}
-
-.change-email-header-button:hover { 
-    background: linear-gradient(to right, rgb(45, 43, 43), black);
-    box-shadow: 0 0 10px 1px goldenrod;
-}
-
-/*Change email input form styling*/
-
-.email-form {
-    display: flex;
-    align-items: center;
+.email-input-container {
+    position: relative;
+    width: 70%
 }
 
 .email-update-input-body {
     background-color: rgba(128, 128, 128, 0.096);
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 8px;
-    border: 1px solid gray;
+    border: 2px solid gray;
     padding: 5px;
     color: orange;
-    width: 60%;
+    width: 95%;
     padding-right: 150px;
+    padding-left: 20px;
+    height: 43px
+}
+
+.email-update-input-body:hover {
+    border-radius: 15px;  
+    border: 2px solid orange
 }
 
 .update-email-button {
     background: linear-gradient(to bottom, rgb(45, 43, 43), black);
     border: 1px solid black;
     height: 37px;
-    position: relative;
-    margin-left: 15px;
-    border-radius: 8px;
+    position: absolute;
+    right: 4.5%;
+    top: 3px;
+    border-radius: 15px;
     padding: 5px;
     color: goldenrod;
+}
+
+.update-email-button:hover {
+    background-color: red;
+}
+/* Change email input form label styling */
+.email-update-input-label {
+    position: absolute;
+    left: 15px;
+    top: 25%;
+    font-size: 18px;
+    transition: top 0.2s, font-size 0.3s;
+    pointer-events: none;
+    color: orange;
+}
+
+.email-update-input-body:focus + .email-update-input-label,
+.email-update-input-body:not(:placeholder-shown) + .email-update-input-label {
+  top: -10px;
+  font-size: 16px; 
+  background-color: rgb(26, 25, 25);
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 
 /* Error message styling */
 .user-setting-update-error-message {
     position: absolute;
-    left: 50%;
-    width: fit-content;
+    width: 100%;
+    text-align: center;
     color: red;
-    margin-top: 50px;
+    margin-top: 10px;
 }
 
 .error-border {
@@ -188,8 +197,8 @@
 /*Success message styling*/
 .user-setting-update-success-message {
     position: absolute;
-    left: 50%;
-    width: fit-content;
+    width: 100%;
+    text-align: center;
     color: green;
-    margin-top: 50px;
+    margin-top: 10px;
 }
