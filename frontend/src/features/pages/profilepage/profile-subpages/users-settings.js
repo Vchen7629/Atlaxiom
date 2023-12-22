@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
 import "../styling/usersetting.css"
@@ -13,6 +13,7 @@ const UserSettings = ({ user }) => {
     const [validUsername, setValidUsername] = useState(false)
     const [usernameError, setUsernameError] = useState('')
     const [usernameSuccess, setUsernameSuccess] = useState('')
+    const [usernameConflict, setUsernameConflict] = useState(false);
 
     const [email, setEmail] = useState(user.email)
     const [validEmail, setValidEmail] = useState(false)
@@ -23,25 +24,24 @@ const UserSettings = ({ user }) => {
 
     const { refetch: refetchUser } = useGetSpecificUserQuery(userId);
 
-    const onUsernameChanged = (e) => {
+    const onUsernameChanged = useCallback((e) => {
       setUsername(e.target.value)
       setUsernameError('')
       setUsernameSuccess('')
       setUpdateClick(false)
-    }
+    }, [])
 
-    const onEmailChanged = (e) => {
+    const onEmailChanged = useCallback((e) => {
       setEmail(e.target.value)
       setEmailError('')
       setEmailSuccess('')
       setUpdateClick(false)
-    }
+    }, [])
 
     const [updateUsername, {
       isSuccess: isUsernameSuccess,
       isError: isUsernameError,
       error: usernameErrorRes,
-      reset: resetUsernameError,
     }] = useUpdateUserMutation(userId)
 
     console.log("hi 1", isUsernameError)
@@ -54,33 +54,27 @@ const UserSettings = ({ user }) => {
     }] = useUpdateUserMutation(userId)
 
     useEffect(() => {
+      //username validation logic
+      setValidUsername(true);
+      setUsernameError('');
+      setUsernameSuccess('');
+
       if (!username) {
         setValidUsername(false);
         setUsernameError("Please enter an Username")
-        setUsernameSuccess('')
       } else if (!isUsernameValid(username)) {
         setValidUsername(false);
         setUsernameError("Please enter a valid username")
-        setUsernameSuccess('')
       } else if (username === user.username) {
         setValidUsername(false);
         setUsernameError("Username entered is the same as current");
-        setUsernameSuccess('')
-      } else if (isUsernameError && usernameErrorRes?.status === 409) {
-        setValidUsername(false);
-        setUsernameError("Username already Taken")
-        setUsernameSuccess('')
-        resetUsernameError()
       } else {
         console.log("testing")
         setValidUsername(true);
-        setUsernameError('')
-        resetUsernameError()
         setUsernameSuccess("Username Updated Successfully")
+        setUsernameConflict(false);
       }
-    }, [username, updateClick, isUsernameError])
-
-    useEffect(() => {
+      //email validation logic 
       if (!email) {
         setValidEmail(false);
         setEmailError("Please enter an Email")
@@ -91,7 +85,10 @@ const UserSettings = ({ user }) => {
         setValidEmail(true);
         setEmailError('')
       }
-    }, [email, updateClick])
+
+      
+    }, [username, email, updateClick, isUsernameError])
+
 
     const canSaveUsername = validUsername 
     const canSaveEmail = validEmail
@@ -99,14 +96,13 @@ const UserSettings = ({ user }) => {
     const handleSubmitUsername = async (e) => {
         e.preventDefault();
         setUpdateClick(true);
-        
 
         if (canSaveUsername) {
           await updateUsername({ 
             id: user.id, 
             userData: { username, email },
           })
-            if (isUsernameSuccess) {
+          if (isUsernameSuccess) {
               setUsername('');
               refetchUser();
             } 
@@ -137,63 +133,69 @@ const UserSettings = ({ user }) => {
         </header>
         <main>
             <form onSubmit={handleSubmitUsername}>
-              <div className="Username-form-container">
-                <div className="username-header">
-                  <div className="change-username-header">
-                    Change Username:
+                  <div className="Username-form-container">
+                    <div className="change-username-header">Change Username:</div>
+                    <div className="username-input-container">
+                      <input
+                          type="text"
+                          className="username-update-input-body"
+                          id="username"
+                          name="username"
+                          placeholder=" "
+                          value={username}
+                          onChange={onUsernameChanged}
+                        />
+                      <label className="username-update-input-label" htmlFor="username">
+                        Enter New Username
+                      </label>
+                      <button className="update-username-button">
+                        Update Username
+                      </button>
+                      {updateClick && (
+                        <>
+                          {usernameError && !usernameConflict && (
+                            <div className="user-setting-update-error-message">
+                              {usernameError}
+                            </div>
+                          )}
+                          {usernameSuccess && (
+                            <div className="user-setting-update-success-message">
+                              {usernameSuccess}
+                            </div>
+                          )}
+                          {usernameErrorRes?.status === 409 && (
+                            <div className="user-setting-update-error-message">
+                              Username already taken. Please choose another one.
+                            </div>
+                          )}
+                        </>
+                      )}
+                    </div>
                   </div>
-                  <input
-                      type="text"
-                      className="username-update-input-body"
-                      id="username"
-                      name="username"
-                      placeholder=" "
-                      value={username}
-                      onChange={onUsernameChanged}
-                    />
-                  <label className="username-update-input-label" htmlFor="username">
-                    Enter New Username
-                  </label>
-                  <button className="update-username-button">
-                    Update Username
-                  </button>
-                </div>
-                {usernameError && updateClick && (
-                  <div className="user-setting-update-error-message">
-                    {usernameError}
-                  </div>
-                )}
-                {usernameSuccess && updateClick && (
-                  <div className="user-setting-update-success-message">
-                    {usernameSuccess}
-                  </div>
-                )}
-              </div>
             </form>
 
             <form onSubmit={handleSubmitEmail}>
-              <div className="Form-container">
-                <div className="email-header">
-                  <div className="change-email-header">Change Email: </div>
-                </div>
-                <div className="form">
-                    <div>
-                      <input 
-                      type="text" 
-                      className="email-update-input-body"
-                      id="email"
-                      name="email"
-                      placeholder="enter new email"
-                      value={email} 
-                      onChange={onEmailChanged}
-                      />
-                      <button 
-                        className={`update-email-button ${canSaveEmail ? 'canSave' : ''}`}
-                        disabled={!canSaveEmail} 
-                      >
-                        Update Email
-                      </button>
-                    </div>
+              <div className="Email-form-container">
+                <div className="change-email-header">Change Email:</div>
+                <div className="email-input-container">
+                    <input 
+                    type="text" 
+                    className="email-update-input-body"
+                    id="email"
+                    name="email"
+                    placeholder=" "
+                    value={email} 
+                    onChange={onEmailChanged}
+                    />
+                    <label className="email-update-input-label" htmlFor="email">
+                      Enter New Email
+                    </label>
+                    <button 
+                      className={`update-email-button ${canSaveEmail ? 'canSave' : ''}`}
+                      disabled={!canSaveEmail} 
+                    >
+                      Update Email
+                    </button>
                 </div>
               </div>
             </form>
