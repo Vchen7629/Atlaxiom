@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useLocation, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useAddNewOwnedCardMutation } from '../../api-slices/ownedCardapislice';
 import "./styling/SearchResult.css"
 
 const SearchResult = () => {
   const { cardname } = useParams();
   const [carddata, setCardData] = useState(null);
-  const [isloading, setIsLoading] = useState(true)
+  const [isloading, setIsLoading] = useState(true);
+  const userId = useSelector((state) => state.auth.userId);
+  const [AddNewOwnedCard] = useAddNewOwnedCardMutation();
 
   const apiurl = "https://db.ygoprodeck.com/api/v7/cardinfo.php"
 
@@ -27,9 +31,39 @@ const SearchResult = () => {
         setIsLoading(false)
       }
     };
-    //console.log(carddata.card_images)
     fetchCardData();
   }, [cardname]);
+
+  const handleButtonClick = async () => {
+    if (carddata) {
+        const cardToPost = {
+            ownedCards: [
+                {
+                    card_name: carddata.name,
+                    image_url: carddata.card_images && carddata.card_images.length > 0 ? carddata.card_images[0].image_url : 'fallback-image-url',
+                    ownedprop: "True",
+                    type: carddata.type,
+                    race: carddata.race,
+                    attribute: carddata.attribute,
+                    archetype: carddata.archetype,
+                    level: carddata.level,
+                    linkval: carddata.linkval,
+                    scale: carddata.scale,
+                    atk: carddata.atk,
+                    def: carddata.def,
+                    desc: carddata.desc || carddata.pend_desc || carddata.monster_desc,
+                },
+            ],
+        };
+
+        try {
+            const result = await AddNewOwnedCard({ id: userId, CardData: cardToPost }).unwrap();
+            console.log("Card data successfully posted:", result);
+        } catch (error) {
+            console.error('Error posting card data:', error);
+        }
+    }
+  }
   
   return (
     <div className="Card-container">
@@ -138,6 +172,9 @@ const SearchResult = () => {
                                     </p>
                                 }
                             </div>
+                        </div>
+                        <div className="button-container">
+                            <button className="my-button" onClick={handleButtonClick}>Add to Owned</button>
                         </div>
                     </div>
             </>

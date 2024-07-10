@@ -51,7 +51,6 @@ export const ownedCardsApiSlice = apiSlice.injectEndpoints({
             }
         }),
 
-
         /*getOwnedCards: builder.query({
             query: (userId) => `/card/${userId}`,
             method: 'GET',

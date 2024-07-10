@@ -1,14 +1,18 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useGetOwnedCardsQuery } from '../../api-slices/ownedCardapislice';
 import OwnedCardTable from './ownedCardTable';
 
 const UserOwnedCard = () => {
+
+  const userId = useSelector((state) => state.auth.userId);
+
   const {
     data: userOwnedCards,
     error,
     isLoading,
     isSuccess,
-  } = useGetOwnedCardsQuery({ username: 'your-username' }, {
+  } = useGetOwnedCardsQuery(userId, {
     pollingInterval: 15000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
@@ -27,12 +31,11 @@ const UserOwnedCard = () => {
     return <div>Error fetching user data</div>;
   }
 
-  const ownedCards = userOwnedCards?.ownedCards;
+  const ownedCards = userOwnedCards?.entities;
 
   if (isSuccess) {
     console.log('userOwnedCards:', userOwnedCards);
     return <OwnedCardTable ownedCards={ownedCards} />;
-
     /*return (
       
       <div>
