@@ -8,7 +8,7 @@ const Mycards = () => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate('/users/getall');
+    navigate('/card/getcards');
   };
 
   return (

@@ -1,5 +1,8 @@
 .card-background {
-    background-color: transparent;
+    background-color: rgb(32, 32, 32);
+    background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
+    background-size: 10px 10px, 10px 10px, 10px 5px;
+    background-position: 0px 0px, 5px 5px, 0px 0px;
     position: relative;
     padding: 6%;
     height: auto
@@ -183,6 +186,24 @@
     display: flex;
     flex-direction: column;
 }
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Add some margin if needed */
+    width: 100%;
+}
+
+.my-button {
+    padding: 10px 20px;
+    border-radius: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    background: linear-gradient(to left, rgb(31, 27, 27), rgb(95, 94, 94));;
+    color: goldenrod;
+    text-align: center;
+}
+
 .columnone {
     
     display: flex;
