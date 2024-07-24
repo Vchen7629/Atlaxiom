@@ -1,9 +1,8 @@
 /*login body styling*/
 .login-page-background-container {
-    height: 82vh;
+    height: 82.5vh;
     top: 400px;
     text-align: center;
-
     background-color: rgb(32, 32, 32);
     background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
     background-size: 10px 10px, 10px 10px, 10px 5px;
@@ -94,7 +93,7 @@ position: relative;
 /* login label styling */
 .login-username-label {
     position: absolute;
-    left: 50px;
+    left: 9%;
     top: 11px;
     font-size: 20px;
     transition: top 0.2s, font-size 0.3s;
@@ -104,7 +103,7 @@ position: relative;
 
 .login-password-label {
     position: absolute;
-    left: 50px;
+    left: 9%;
     bottom: 212px;
     font-size: 20px;
     transition: top 0.2s, font-size 0.3s;

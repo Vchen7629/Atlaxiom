@@ -136,7 +136,7 @@
         const content = (
             <>  
                 <div>
-                    <h1 className="signup-page-banner">New Account Creation</h1>
+                    <h1 className="signup-page-header">New Account Creation</h1>
                 </div>
                 <main className="signup-page-body-container">
                     <p ref={errRef} aria-live="assertive">{errMsg}</p>

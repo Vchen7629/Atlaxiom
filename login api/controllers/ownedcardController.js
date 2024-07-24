@@ -35,6 +35,7 @@ const createOwnedCard = asyncHandler(async (req, res) => {
   }
 
   user.totalOwnedCards = Number(user.totalOwnedCards) + ownedCards.length || 1;
+  user.lastAdded = ownedCards[0].card_name;
 
   user.ownedCards.push(...ownedCards);
 
@@ -169,7 +170,13 @@ const deleteOwnedCardByUsername = asyncHandler(async (req, res) => {
     return res.status(404).json({ message: 'Owned card not found' });
   }
 
+  const cardToDelete = user.ownedCards[cardIndex];
+  const cardAmount = cardToDelete.ownedamount;
+
   user.ownedCards.splice(cardIndex, 1);
+
+  user.totalOwnedCards = Number(user.totalOwnedCards) - Number(cardAmount);
+  user.lastDeleted = card_name;
   
   await user.save();
 

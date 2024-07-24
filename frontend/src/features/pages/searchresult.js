@@ -1,6 +1,5 @@
 import React from 'react';
 import SearchResults from './searchresultpage/SearchPageResult';
-import { useState } from 'react';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/Footer';
 

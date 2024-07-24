@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback} from 'react';
+import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
@@ -12,11 +13,20 @@ const SearchBar = () => {
   const [mainSuggestions, setMainSuggestions] = useState([]);
   const [leftSuggestions, setLeftSuggestions] = useState([]);
   const [selectedSuggestion, setSelectedSuggestion] = useState(null);
+  const authenticated = useSelector((state) => state.auth.token !== null);
   
   const maxMainSuggestions = 30;
   const navigate = useNavigate();
  
   const apiUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
+
+  const isAuthenticated = (suggestion) => {
+      if (!authenticated) {
+        navigate(`/search/${encodeURIComponent(suggestion)}`);
+      } else {
+        navigate(`/${encodeURIComponent(suggestion)}`);
+      }
+  }
 
   const searchCard = async (inputValue) => {
     try {
@@ -54,7 +64,7 @@ const SearchBar = () => {
     []
   );
 
-  const suggestionsPerPage = 30;
+  const suggestionsPerPage = 5;
   const totalPages = Math.ceil(leftSuggestions.length / suggestionsPerPage);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentLeftSuggestions, setCurrentLeftSuggestions] = useState([]);
@@ -91,9 +101,8 @@ const SearchBar = () => {
     setSelectedSuggestion(suggestion);
     setMainSuggestions([]);
     setLeftSuggestions([]);
-    navigate(`/search/${encodeURIComponent(suggestion)}`);
+    isAuthenticated(suggestion)
   };
-  // Function for clearing text
   const handleClearClick = () => {
     setCardName('');
     setCardData(null);
@@ -128,7 +137,7 @@ const SearchBar = () => {
             {mainSuggestions.map((suggestion) => (
               <div
                 key={suggestion}
-                className={`suggestion ${selectedSuggestion === suggestion ? 'selected' : ''}`}
+                className={`${selectedSuggestion === suggestion ? 'selected' : ''}`}
                 onClick={() => handleSuggestionClick(suggestion)}
               >
                 <div className="suggestionbox">

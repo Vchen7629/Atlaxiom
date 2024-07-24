@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../styling/statistics.css"
 
 const UserStatistics = ({ user }) => {
-    const { totalOwnedCards, totalOwnedDecks } = user;
+    const { creation, lastUpdated } = user;
 
     return (
         <div>
@@ -12,13 +12,13 @@ const UserStatistics = ({ user }) => {
                 <span className="stats-header-text">User Statistics</span>
             </header>
             <main>
-                <div className="OwnedCards-container">
-                    <div className="image"></div>
-                    <p>Total Owned Cards: {totalOwnedCards}</p>
+                <div className="Creation-Date-container"> 
+                    <div className="Creation-Date-header">Account created on:</div> 
+                    <div className="Creation-Date">{creation}</div>
                 </div>
-                <div className="OwnedCards-container">
-                    <div className="image"></div>
-                    <p>Total Owned Decks: {totalOwnedDecks}</p>
+                <div className="Update-Date-container"> 
+                    <div className="Update-Date-header">User details last Updated on: </div>
+                    <div className="Update-Date">{lastUpdated}</div>
                 </div>
             </main>
         </div>

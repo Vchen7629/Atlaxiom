@@ -11,6 +11,22 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    creation: {
+        type: String,
+        required: true
+    },
+    lastUpdated: {
+        type: String,
+        default: null
+    },
+    lastAdded: {
+        type: String, 
+        default: null
+    },
+    lastDeleted: {
+        type: String,
+        default: null
+    },
     description: {
         type: String,
         required: false

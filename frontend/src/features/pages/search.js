@@ -6,7 +6,7 @@ import "../pages/styling/banner.css"
 
 
 
-const Searchs = () => {
+const Search = () => {
     return (
     <>
         <Header/>
@@ -21,4 +21,4 @@ const Searchs = () => {
     )
 }
 
-export default Searchs
+export default Search

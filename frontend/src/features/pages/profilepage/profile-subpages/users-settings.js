@@ -44,10 +44,6 @@ const UserSettings = ({ user }) => {
       error: usernameErrorRes,
     }] = useUpdateUserMutation(userId)
 
-    console.log("hi 1", isUsernameError)
-    console.log("hi 2", usernameErrorRes)
-
-
     const [updateEmail, {
       isSuccess: isEmailSuccess,
       isError: isEmailError,
