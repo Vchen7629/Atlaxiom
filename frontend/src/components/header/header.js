@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Cardsearch from '../buttons/searchbar'
+import CardsearchLoggedIn from '../buttons/searchbarloggedin'
 import Banlist from '../buttons/banlist'
 import Mycards from '../buttons/my-cards'
 import Login from '../buttons/login'
@@ -43,6 +44,13 @@ const Header = () => {
     let profileClass = null
     if (!PROFILE_REGEX.test(pathname) && !OWNEDCARDS_REGEX.test(pathname) && !USER_REGEX.test(pathname)) {
         profileClass = "profile-page-container"
+    }
+
+    const renderCardSearchButton = () => {
+        if (!isAuthenticated) {
+            return <Cardsearch />;
+        } 
+        return <CardsearchLoggedIn />;
     }
 
     const renderAuthButtons = () => {
@@ -105,7 +113,8 @@ const Header = () => {
                     <Banlist/> 
                 </li>
                 <li>
-                    <Cardsearch/> 
+                    {/*<Cardsearch/>*/}
+                    {renderCardSearchButton()}
                 </li>
             </ul>
             <div>

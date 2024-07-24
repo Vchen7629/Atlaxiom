@@ -49,7 +49,7 @@ const StayLoggedIn = () => {
         content = (
             <p className="errmsg">
                 {error.data?.message}
-                <Link to="/login">Please Login again</Link>
+                <Link to="/login">Please Login agains</Link>
             </p>
         )
     } else if (isSuccess && TrueSuccess) {

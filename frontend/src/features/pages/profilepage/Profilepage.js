@@ -41,12 +41,10 @@ const Profilepage = () => {
     const renderProfileContent = () => {
         const { ids, entities } = usersData || {}
 
-        // Check if ids is an array and has at least one element
         if (!Array.isArray(ids) || ids.length === 0) {
             return <p>No user data available</p>;
         }
 
-        // Assuming the key for the user is "defaultId"
         const defaultIdKey = ids[0];
         const user = entities[defaultIdKey];
 

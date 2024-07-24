@@ -1,3 +1,16 @@
+.logged-in-search-result-page-body {
+    background-color: transparent;
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 82vh;
+    padding: 20px;
+    background-color: rgb(32, 32, 32);
+    background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
+    background-size: 10px 10px, 10px 10px, 10px 5px;
+    background-position: 0px 0px, 5px 5px, 0px 0px;
+}
+
 .card-background {
     background-color: rgb(32, 32, 32);
     background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
@@ -8,47 +21,37 @@
     height: auto
 }
 
-.loading-body {
-    background-color: white;
-}
-
-.loading-text {
-    text-align: center;
-    color: goldenrod;
-}
-
-.card-name {
-    color: goldenrod;
-    position: relative;
-    text-align: center;
-    width: 100%;
+.Card-information-container {
+    flex-grow: 1;
     height: fit-content;
-    padding-left: 6%;
-    padding-right: 6%;
-    padding-bottom: 1%;
-    margin-bottom: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -5%;
 }
-.card-name:after {
-    content: '';
-    display: block;
-    height: 1px; 
-    background-color: white; 
-    width: 80%;
-    position: absolute;
-    bottom: 0px;
-    left: 10%;
+
+.search-card-name {
+    color: goldenrod;
+    text-align: center;
+    height: fit-content;
+    background: rgba(95, 94, 94, 0.363);    
+    border-radius: 15px;
+    padding: 10px;
+    width: 40%;
+    margin-bottom: 4%;
+    font-size: calc(15px + 0.390625vw);
+    font-weight: bold;
 }
+
 
 .cardbody {
     display: flex;
     flex-direction: row;
-    display: relative;
     width: 80%;
-    height: fit-content;
-    margin-left: 10%;
 }
 
 .normal-desc-container,
+.desc-container,
 .monster-desc-container,
 .pend-desc-container {
     display: flex;
@@ -71,13 +74,14 @@
 .normal-desc-body,
 .monster-desc-body,
 .pend-desc-body  {
+    background: rgba(95, 94, 94, 0.185);
     padding-left: 6%;
     padding-right: 6%;
     padding-top: 2%;
     padding-bottom: 2%;
     color: goldenrod;
     width: 80%;
-    border-bottom: 1px solid orange;
+    border-radius: 25px;
     font-size: calc(8px + 0.390625vw);
 }
 
@@ -159,17 +163,7 @@
     border: 1px solid white
 }
 
-.card-descriptions-container:before {
-    content: '';
-    display: block;
-    height: 1px; 
-    background-color: darkorange; 
-    width: 100%;
-    position: absolute;
-    top: -10px;
-    left: -0.01%
-    
-}
+
 
 .card-descriptions-container {
     display:flex;
@@ -190,7 +184,8 @@
 .button-container {
     display: flex;
     justify-content: center;
-    margin-top: 20px; /* Add some margin if needed */
+    width: fit-content;
+    margin-top: 20px;
     width: 100%;
 }
 
@@ -202,6 +197,12 @@
     background: linear-gradient(to left, rgb(31, 27, 27), rgb(95, 94, 94));;
     color: goldenrod;
     text-align: center;
+}
+
+.success-message {
+    color: green;
+    margin-left: 10px;
+    font-weight: bold;
 }
 
 .columnone {
@@ -226,58 +227,61 @@
     height: fit-content;
 }
 
-@media screen and ( width <= 768px) {
-    .Card-container {
-        background: linear-gradient(to bottom, rgb(45, 43, 43), black);
-        width: 100%;
-        height: auto;
-        padding: 6%;
-        border-radius: 25px;
-    }
-    
-    .card-image {
-        position: relative;
-        max-width: 100%;
-        height: auto;
-        max-height: 500px; 
-        margin-left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .card-details {
-        position: relative;
-        margin-top: 20px;
-        padding: 5%;
-        width: fit-content
-    }
+.Card-container {
+    display: flex;
+    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
+    width: 100%;
+    padding: 6%;
+    border-radius: 25px;
 }
 
-@media screen and ( 768px <= width) {
-    
-    .Card-container {
-        background: linear-gradient(to bottom, rgb(45, 43, 43), black);
-        width: 100%;
-        position: relative;
-        height: auto;
-        display: flex;
-        padding: 6%;
-        border-radius: 25px;
-    }
+.logged-in-card-container {
+    display: flex;
+    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
+    width: 90%;
+    padding: 6%;
+    border-radius: 25px;
+}
 
 
-    .card-image {
-        position: relative;
-        max-width: 100%;
-        height: auto;
-        max-height: 500px; 
-        left: 10%;
-        margin-top: 3%;
-    }
+.card-image {
+    width: 300px;
+    min-height: 450px;
+    object-fit: contain;
+    margin-right: 20px;
+}
 
-    .card-details {
+.card-details {
     position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
     margin-left: 13%;
     padding: 2%;
-    width: 70%
+    width: 100%
 }
+
+
+/* mobile devices */
+@media screen and (width <= 480px) {
+}
+  
+/* medium Devices (iPads, Landscape tablets) */
+@media screen and (481px <= width <= 768px) {
+}
+
+/* medium-large devices (laptops and small screen) */
+@media screen and (769px <= width <= 1024px) {
+}
+  
+/* Large devices (laptops/desktops) */
+@media screen and (1025px <= width <= 1200px) {
+}
+  
+/* Extra large laptops */
+@media screen and (1201px <= width <= 1536px) {
+}
+  
+/* TV and large desktops */
+@media screen and (1537px <= width) { 
 }

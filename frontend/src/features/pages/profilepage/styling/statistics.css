@@ -14,17 +14,26 @@
     margin-left: 20px;
 }
 
-.OwnedCards-container {
+.Creation-Date-container,
+.Update-Date-container {
+    margin-top: 8%;
+    margin-bottom: 8%;
+    align-items: center;
     display: flex;
-    flex-direction: row;
 }
-.image {
-    background-image: url("../../../../components/icons/Card_Icon_custom.png"); 
-    position: relative;
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    height: 200px;
-    width: 200px;
-    left: 0;
+
+.Creation-Date-header,
+.Update-Date-header {
+    margin-right: 5%;
+    margin-left: 5%;
+    left: 5px;
+    font-size: 20px;    
+    color: lightgray;
+    font-weight:800;
+}
+
+.Creation-Date,
+.Update-Date {
+    font-size: 15px;
+    color: goldenrod
 }

@@ -1,4 +1,16 @@
 /* Searchbar styling */
+.search-bar-container {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  height: auto;
+  position: relative;
+  background-color: rgb(32, 32, 32);
+  background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
+  background-size: 10px 10px, 10px 10px, 10px 5px;
+  background-position: 0px 0px, 5px 5px, 0px 0px;
+}
 
 input {
   background-color: transparent;
@@ -8,6 +20,7 @@ input {
   width: 100%;
   margin-left: 5px;
 }
+
 .clear-button {
   cursor: pointer;
   background: none;
@@ -30,24 +43,42 @@ input:focus {
   outline: none;
 }
 
-#search-icon {
-  color: royalblue;
-}
-
-.suggestion {
-    height: auto;
-    width: auto;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    border-bottom: 1px solid black;
-}
-
-
 .suggestionbox {
   width: 100%;
   display: flex;
   background-color: rgb(45, 43, 43)
+}
+
+/* Pagination */
+.pagination {
+  background-color: rgb(85, 78, 78);
+  width: fit-content;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 5px;
+  padding: 2px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  color: goldenrod;
+  border: 2px solid black;
+  text-align: center;
+  font-size: 12px;
+}
+
+.button-right {
+  background-color: rgba(218, 165, 32, 0.575);
+  width: 30px;
+  border-radius: 7px;
+  position: relative;
+}
+
+.button-left {
+  background-color: rgba(218, 165, 32, 0.575);
+  width: 30px;
+  border-radius: 7px;
+  position: relative;
 }
 
 /*error*/
@@ -64,35 +95,24 @@ input:focus {
   color: white;
   }
 
-  .suggestion-container::-webkit-scrollbar {
-    width: 13px; /* Adjust the width as needed */
-  }
+.suggestion-container::-webkit-scrollbar {
+  width: 13px; 
+}
   
-  .suggestion-container::-webkit-scrollbar-thumb {
-    background-color: goldenrod; /* Color of the thumb */
-    border-radius: 5px; /* Roundness of the thumb */
-    border: 1px solid black
-  }
+.suggestion-container::-webkit-scrollbar-thumb {
+  background-color: goldenrod; /* Color of the thumb */
+  border-radius: 5px; /* Roundness of the thumb */
+  border: 1px solid black
+}
   
-  .suggestion-container::-webkit-scrollbar-track {
-    background: linear-gradient(to bottom, rgb(45, 43, 43), black); /* Color of the track */
-    border-left: 0.5px solid gray
-  }
-
+.suggestion-container::-webkit-scrollbar-track {
+  background-color: rgb(45, 43, 43);
+}
   
 /* mobile devices */
 @media screen and (width <= 480px) {
 
   /* Searchbar styling */
-  .search-bar-container {
-    padding-left: 20px;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    height: auto;
-    position: relative;
-  }
-
   .Input-Wrapper {
     background-color: goldenrod;
     width: 90%;
@@ -106,44 +126,12 @@ input:focus {
     justify-content: left;
   }
 
-  /* Pagination */
-  .pagination {
-    background-color: lightgray;
-    width: 170px;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 5px;
-    padding: 3px;
-    border-radius: 5px;
-    border: 2px solid black;
-    text-align: center;
-    font-size: 12px;
-  }
-
-  .button-right {
-    background-color: gray;
-    width: 25px;
-    border-radius: 7px;
-    position: relative;
-    left: 10px
-  }
-  
-  .button-left {
-    background-color: gray;
-    width: 25px;
-    border-radius: 7px;
-    position: relative;
-    margin-left: -10px;
-    margin-right: 10px;
-  }
-
   /* Suggestions styling */
 
   .suggestion-container {
     max-height: 200px;
     overflow-y: auto;
-    position: relative;
+    position: absolute;
     margin-top: 120px;
     width: 90%;
     border: 2px solid gray;
@@ -171,13 +159,15 @@ input:focus {
   /*suggestion left styling*/
 
   .suggestion-left-container {
-    background-color: rgb(68, 65, 65);
+    background-color: rgb(45, 43, 43);
     width: 100%;
     position: relative;
-    top: 10px;
-    left: -10px;
+    margin-top: 100%;
+    height:fit-content;
     padding: 10px;
     margin-bottom: 10px;
+    border-radius: 25px;
+    box-shadow: 0 0 15px 0.5px orange;
   }
 
   .suggestion-left {
@@ -254,17 +244,7 @@ input:focus {
 
 /* medium Devices (iPads, Landscape tablets) */
 @media screen and (481px <= width <= 768px) {
-
- /* Searchbar styling */
- .search-bar-container {
-  padding-left: 20px;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  height: auto;
-  position: relative;
-}
-
+/* Searchbar styling */
 .Input-Wrapper {
   background-color: goldenrod;
   width: 90%;
@@ -278,44 +258,12 @@ input:focus {
   justify-content: left;
 }
 
-/* Pagination */
-.pagination {
-  background-color: lightgray;
-  width: 180px;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 5px;
-  padding: 3px;
-  border-radius: 5px;
-  border: 2px solid black;
-  text-align: center;
-  font-size: 12px;
-}
-
-.button-right {
-  background-color: gray;
-  width: 30px;
-  border-radius: 7px;
-  position: relative;
-  left: 15px
-}
-
-.button-left {
-  background-color: gray;
-  width: 30px;
-  border-radius: 7px;
-  position: relative;
-  margin-left: -15px;
-  margin-right: 30px;
-}
-
 /* Suggestions styling */
 
 .suggestion-container {
   max-height: 250px;
   overflow-y: auto;
-  position: relative;
+  position: absolute;
   margin-top: 120px;
   width: 90%;
   border: 2px solid gray;
@@ -343,13 +291,14 @@ input:focus {
 /*suggestion left styling*/
 
 .suggestion-left-container {
-  background-color: rgb(68, 65, 65);
+  background-color: rgb(45, 43, 43);
   width: 96%;
   position: relative;
-  top: 10px;
-  left: -10px;
+  margin-top: 70%;
   padding: 15px;
   margin-bottom: 10px;
+  border-radius: 25px;
+  box-shadow: 0 0 15px 0.5px orange;
 }
 
 .suggestion-left {
@@ -427,17 +376,7 @@ input:focus {
 }
 /* medium-large devices (laptops and small screen) */
 @media screen and (769px <= width <= 1024px) {
-
-   /* Searchbar styling */
- .search-bar-container {
-  padding-left: 20px;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  height: auto;
-  position: relative;
-}
-
+/* Searchbar styling */
 .Input-Wrapper {
   background-color: goldenrod;
   width: 90%;
@@ -451,48 +390,16 @@ input:focus {
   justify-content: left;
 }
 
-/* Pagination */
-.pagination {
-  background-color: lightgray;
-  width: 180px;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 5px;
-  padding: 3px;
-  border-radius: 5px;
-  border: 2px solid black;
-  text-align: center;
-  font-size: 12px;
-}
-
-.button-right {
-  background-color: gray;
-  width: 30px;
-  border-radius: 7px;
-  position: relative;
-  left: 15px
-}
-
-.button-left {
-  background-color: gray;
-  width: 30px;
-  border-radius: 7px;
-  position: relative;
-  margin-left: -15px;
-  margin-right: 30px;
-}
 
 /* Suggestions styling */
 
 .suggestion-container {
   max-height: 250px;
   overflow-y: auto;
-  position: relative;
+  position: absolute;
   margin-top: 120px;
   width: 90%;
   border: 2px solid gray;
-  left: 1%;
 }
 
 .suggestion-name-container {
@@ -517,13 +424,14 @@ input:focus {
 /*suggestion left styling*/
 
 .suggestion-left-container {
-  background-color: rgb(68, 65, 65);
-  width: 96%;
+  background-color: rgb(45, 43, 43);
+  width: 92%;
   position: relative;
-  top: 10px;
-  left: -10px;
+  margin-top: 50%;
   padding: 15px;
   margin-bottom: 10px;
+  border-radius: 25px;
+  box-shadow: 0 0 15px 0.5px orange;
 }
 
 .suggestion-left {
@@ -604,16 +512,7 @@ input:focus {
 /* Large devices (laptops/desktops) */
 @media screen and (1025px <= width <= 1200px) {
 
-  /* Searchbar styling */
- .search-bar-container {
-  padding-left: 20px;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  height: auto;
-  position: relative;
-}
-
+/* Searchbar styling */
 .Input-Wrapper {
   background-color: goldenrod;
   width: 45%;
@@ -627,37 +526,6 @@ input:focus {
   justify-content: left;
 }
 
-/* Pagination */
-.pagination {
-  background-color: lightgray;
-  width: 180px;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 5px;
-  padding: 3px;
-  border-radius: 5px;
-  border: 2px solid black;
-  text-align: center;
-  font-size: 12px;
-}
-
-.button-right {
-  background-color: gray;
-  width: 30px;
-  border-radius: 7px;
-  position: relative;
-  left: 15px
-}
-
-.button-left {
-  background-color: gray;
-  width: 30px;
-  border-radius: 7px;
-  position: relative;
-  margin-left: -15px;
-  margin-right: 30px;
-}
 
 /* Suggestions styling */
 
@@ -692,13 +560,14 @@ input:focus {
 /*suggestion left styling*/
 
 .suggestion-left-container {
-  background-color: rgb(68, 65, 65);
+  background-color: rgb(45, 43, 43);
   width: 50%;
   position: relative;
-  top: -320px;
-  left: 48%;
+  margin-top: 50px;
+  left: 2%;
   padding: 10px;
-  margin-bottom: 10px;
+  border-radius: 25px;
+  box-shadow: 0 0 15px 0.5px orange;
 }
 
 .suggestion-left {
@@ -777,16 +646,7 @@ input:focus {
 
 /* Extra large laptops */
 @media screen and (1201px <= width <= 1536px) {
-
- /* Searchbar styling */
- .search-bar-container {
-  padding-left: 20px;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  height: auto;
-  position: relative;
-}
+/* Searchbar styling */
 
 .Input-Wrapper {
   background-color: goldenrod;
@@ -799,38 +659,6 @@ input:focus {
   top: 50px;
   display: flex;
   justify-content: left;
-}
-
-/* Pagination */
-.pagination {
-  background-color: lightgray;
-  width: 180px;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 5px;
-  padding: 3px;
-  border-radius: 5px;
-  border: 2px solid black;
-  text-align: center;
-  font-size: 12px;
-}
-
-.button-right {
-  background-color: gray;
-  width: 30px;
-  border-radius: 7px;
-  position: relative;
-  left: 15px
-}
-
-.button-left {
-  background-color: gray;
-  width: 30px;
-  border-radius: 7px;
-  position: relative;
-  margin-left: -15px;
-  margin-right: 30px;
 }
 
 /* Suggestions styling */
@@ -866,13 +694,14 @@ input:focus {
 /*suggestion left styling*/
 
 .suggestion-left-container {
-  background-color: rgb(68, 65, 65);
+  background-color: rgb(45, 43, 43);
   width: 50%;
   position: relative;
-  top: -320px;
-  left: 48%;
+  margin-top: 50px;
+  left: 2%;
   padding: 10px;
-  margin-bottom: 10px;
+  border-radius: 20px;
+  box-shadow: 0 0 15px 0.5px orange;
 }
 
 .suggestion-left {
@@ -953,21 +782,7 @@ input:focus {
 
 /* TV and large desktops */
 @media screen and (1537px <= width) { 
-
-  /* Searchbar styling */
- .search-bar-container {
-  padding-left: 20px;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  height: auto;
-  position: relative;
-  background-color: rgb(32, 32, 32);
-  background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
-  background-size: 10px 10px, 10px 10px, 10px 5px;
-  background-position: 0px 0px, 5px 5px, 0px 0px;
-}
-
+/* Searchbar styling */
 .Input-Wrapper {
   background-color: goldenrod;
   width: 45%;
@@ -981,40 +796,7 @@ input:focus {
   justify-content: left;
 }
 
-/* Pagination */
-.pagination {
-  background-color: lightgray;
-  width: 180px;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 5px;
-  padding: 3px;
-  border-radius: 5px;
-  border: 2px solid black;
-  text-align: center;
-  font-size: 12px;
-}
-
-.button-right {
-  background-color: gray;
-  width: 30px;
-  border-radius: 7px;
-  position: relative;
-  left: 15px
-}
-
-.button-left {
-  background-color: gray;
-  width: 30px;
-  border-radius: 7px;
-  position: relative;
-  margin-left: -15px;
-  margin-right: 30px;
-}
-
 /* Suggestions styling */
-
 .suggestion-container {
   max-height: 270px;
   overflow-y: auto;
@@ -1046,13 +828,15 @@ input:focus {
 /*suggestion left styling*/
 
 .suggestion-left-container {
-  background-color: rgb(68, 65, 65);
+  background-color: rgb(45, 43, 43);
   width: 50%;
   position: relative;
-  top: -320px;
-  left: 48%;
+  height: fit-content;
+  border-radius: 25px;
+  margin-top: 50px;
+  left: 2%;
   padding: 15px;
-  margin-bottom: 10px;
+  box-shadow: 0 0 15px 0.5px orange;
 }
 
 .suggestion-left {
