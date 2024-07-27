@@ -11,14 +11,13 @@
 .tech-circle {
   background-image: url('../img/techcirclepng.png');
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
+  top: 17%;
+  left: 47%;
   background-color:transparent;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  height: 350px;
+  height: 50%;
   width: 50%;
 }
 
@@ -26,23 +25,35 @@
 .homepagetitlebox {
   border-radius: 25px;
   position: absolute;
-  left: 50%;
-  top: 550px;
-  background-color: rgb(51, 48, 48);
-  transform: translate(-50%);
-  border: 2px solid goldenrod;
-  padding: 15px;
-  box-shadow: 0 0 10px black;
+  left: 15%;
+  top: 30%;
+  width: 30%;
+  font-weight: 1000;
+  text-align: left;
+  font-size: 95px;
+  color: rgb(173, 216, 230);
+  display: flex;
+  justify-content: left;
+}
+
+.homepagedescriptionbox {
+  border-radius: 25px;
+  position: absolute;
+  left: 15%;
+  top: 50%;
+  width: 30%;
+  font-weight: 100;
+  text-align: left;
+  color: rgb(128, 128, 128);
+  font-size: 25px;
+  display: flex;
+  justify-content: left;
 }
 
 .Homepage-body-container {
-  background-color: rgb(32, 32, 32);
-  background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
-  background-size: 10px 10px, 10px 10px, 10px 5px;
-  background-position: 0px 0px, 5px 5px, 0px 0px;
-  min-height: 900px;
+  background: radial-gradient(circle, #2e2e2e, #000000);
+  min-height: 83vh;
   top: 400px;
-  padding-top: 50px;
   text-align: center;
   margin-bottom: -20px;
   width: 100%;
