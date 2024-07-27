@@ -16,9 +16,12 @@
     background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
     background-size: 10px 10px, 10px 10px, 10px 5px;
     background-position: 0px 0px, 5px 5px, 0px 0px;
+    align-items: center;
+    justify-content: center;
     position: relative;
+    min-height: 75vh;
+    height: auto;
     padding: 6%;
-    height: auto
 }
 
 .Card-information-container {
@@ -30,6 +33,20 @@
     margin-top: -5%;
 }
 
+.Search-Result-back-icon-container {
+    position: relative;
+    z-index: 10;
+    margin-top: -5%;
+    right: -4%
+}
+
+.Search-Result-back-icon {
+    background-color: transparent;
+    border: none;
+    color: gold;
+    cursor: pointer;
+}
+
 .search-card-name {
     color: goldenrod;
     text-align: center;
@@ -38,7 +55,7 @@
     border-radius: 15px;
     padding: 10px;
     width: 40%;
-    margin-bottom: 4%;
+    margin-bottom: 2%;
     font-size: calc(15px + 0.390625vw);
     font-weight: bold;
 }
@@ -135,7 +152,6 @@
     padding-right: 6%;
     padding-top: 2%;
     padding-bottom: 2%;
-    border-bottom: 1px solid white;
     color: goldenrod;
     width: 50%;
     font-size: calc(8px + 0.390625vw);
@@ -160,7 +176,6 @@
     margin-bottom: 4%;
     margin-left: 0.5%;
     border-radius: 10px;    
-    border: 1px solid white
 }
 
 
@@ -169,7 +184,6 @@
     display:flex;
     position: relative;
     flex-direction: column;
-    margin-left: 10%;
     color: goldenrod;
     padding: 10px;
     height: fit-content;
@@ -261,6 +275,30 @@
     width: 100%
 }
 
+/*loading styling*/
+.loading-spinner-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 7%;
+}
+
+.logged-in-loading-spinner-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -2%
+}
+
+.loading-spinner-icon {
+    color: goldenrod;
+    margin-right: 70px;
+}
+
+.loading-spinner-text {
+    font-size: 50px;
+    color: white
+}
 
 /* mobile devices */
 @media screen and (width <= 480px) {
