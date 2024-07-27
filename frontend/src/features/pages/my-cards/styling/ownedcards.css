@@ -43,59 +43,57 @@
     border-radius: 15px;  
     box-shadow: 0px 0px 15px black;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
 }
 
 /* Sidebar searchbar styling */
 .My-Cards-Search-Bar-container {
     background-color: goldenrod;
-    width: 15%;
+    width: 80%;
     height: 30px;
     border-radius: 15px;  
     padding-left: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     box-shadow: 0px 0px 15px black;
     margin-top: 40px;
-    position: absolute;
+    position: relative;
     display: flex;
     justify-content: left;
+    align-items: center;
 }
 
 .My-Cards-Search-input {
     display: flex;
-    align-items: center;
     width: 100%;
+}
+
+.My-Cards-Clear-button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: black;
+    margin-right: 25px;
 }
 
 /* Sidebar statistics styling */
 .My-Cards-Sidebar-Statistics-title {
-    position: absolute;
-    margin-top: 70px;
+    position: relative;
+    margin-top: 15%;
     font-size: 25px;
-    left: 5px;
-    color: rgba(255, 217, 0, 0.486);
-}
-.My-Cards-tally {
-    margin-top: 140px;
-    left: 5px;
-    position: absolute;
-    font-size: 18px;
-    color: gray;
-    }
-
-.My-Cards-last-added {
-    margin-top: 200px;
-    left: 5px;
-    position: absolute;
-    font-size: 18px;
-    color: gray
+    color: goldenrod;
+    left: 10%;
 }
 
+.My-Cards-tally,
+.My-Cards-last-added,
 .My-Cards-last-deleted {
-    margin-top: 280px;
-    left: 5px;
-    position: absolute;
+    position: relative;
+    margin-top: 8%;
     font-size: 18px;
-    color: gray
+    color: white;
+    width: 80%;
+    left: 10%;
 }
 
 /*Display for owned Cards styling*/
@@ -118,13 +116,24 @@
 .My-Card-Display-Grid {
     display: Grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    max-height: 100px;
+}
+
+.My-Cards-Display-Container::-webkit-scrollbar {
+    width: 13px; 
+}
+    
+.My-Cards-Display-Container::-webkit-scrollbar-thumb {
+    background-color: goldenrod; 
+    border-radius: 5px; 
+    border: 1px solid black;
 }
 
 .my-card-item {
     display: flex;
     flex-direction: column;
     width: fit-content;
-    margin-bottom: 10px;
+    margin: 10px;
     height: fit-content;
     margin-left: 20px;
 }
@@ -190,4 +199,111 @@
     border: none;
     color: rgba(255, 0, 0, 0.582);
     cursor: pointer
+}
+
+/* Styling for selected Card */
+.My-Card-selected-back-icon {
+    position: relative;
+    height: 40px;
+    width: 100px;
+    background-color: transparent;
+    border: none;
+    color: gold;
+    cursor: pointer;
+    left: 94%;
+}
+
+.My-Card-selected-card-item {
+    position: relative;
+    width: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+    max-height: 620px;
+    display: flex;
+}
+
+/* Scrollbar styling */
+.My-Card-selected-card-item-left::-webkit-scrollbar {
+    width: 13px; 
+}
+    
+.My-Card-selected-card-item-left::-webkit-scrollbar-thumb {
+    background-color: goldenrod; 
+    border-radius: 5px; 
+    border: 1px solid black;
+}
+
+.My-Card-selected-card-name {
+    position: relative;
+    color: goldenrod;
+    font-size: 25px;
+    font-weight: 800;
+    margin-bottom: 10%;
+}
+
+.My-Card-selected-card-name {
+    position: relative;
+    color: goldenrod;
+    font-size: 25px;
+    font-weight: 800;
+    margin-bottom: 10%;
+}
+
+.My-card-selected-card-image {
+    position: relative;
+    max-height: 500px;
+    width: auto;
+}
+
+.My-Card-selected-owned-amount {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(65, 57, 57, 0.356);
+    padding: 10px;
+    margin-top: 5%;
+    border-radius: 10px;
+    color: gold;
+    width: fit-content;
+}
+
+.My-Card-selected-card-item-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-left: 5%;
+    padding-right: 5%;
+    max-height: 100%;
+    overflow-y: auto
+}
+
+.My-Card-selected-card-type-container,
+.My-Card-selected-card-race-container,
+.My-Card-selected-card-attribute-container,
+.My-Card-selected-card-archetype-container,
+.My-Card-selected-card-level-container,
+.My-Card-selected-card-linkval-container,
+.My-Card-selected-card-pendscale-container,
+.My-Card-selected-card-atk-container,
+.My-Card-selected-card-def-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5%;
+}
+
+.My-Card-selected-card-type-header,
+.My-Card-selected-card-race-header,
+.My-Card-selected-card-attribute-header,
+.My-Card-selected-card-archetype-header,
+.My-Card-selected-card-level-header,
+.My-Card-selected-card-linkval-header,
+.My-Card-selected-card-pendscale-header,
+.My-Card-selected-card-atk-header,
+.My-Card-selected-card-def-header {
+    background-color: rgba(65, 57, 57, 0.356);
+    padding: 10px;
+    border-radius: 10px;
+    color: gold;
+    margin-right: 10px;
 }

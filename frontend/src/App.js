@@ -8,7 +8,7 @@ import Search from './features/pages/search';
 import UserOwnedCard from './features/pages/my-cards/ownedcardslist.js';
 import HomePage from './features/pages/homepage/homepage.js';
 import SearchResult from './features/pages/searchresult';
-import SearchResultLoggedIn from './features/pages/searchresultpage/SearchPageResultLoggedin.js';
+import SearchResultLoggedIn from './features/pages/searchresultpage/SearchPageResultLoggedin.jsx';
 import AccountCreationForm from './features/pages/sign-up-page/AccountCreationForm.js'
 import LoginPage from './features/pages/loginpage/login.js';
 import Prefetch from './features/auth/Prefetch.js'

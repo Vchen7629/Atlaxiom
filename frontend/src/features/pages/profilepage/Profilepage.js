@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartColumn, faGear, faLock, faUser, faUserSlash } from '@fortawesome/free-solid-svg-icons';
@@ -31,9 +30,7 @@ const Profilepage = () => {
         isError,
         error, 
     } = useGetSpecificUserQuery(userId);
-    
-    const navigate = useNavigate();
-    
+        
     const handleNavItemClick = (navItem) => {
         setSelectedNavItem(navItem);
     };
