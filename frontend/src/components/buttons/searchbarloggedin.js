@@ -8,7 +8,7 @@ const CardsearchLoggedIn = () => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate('/search');
+    navigate('/searchloggedin');
   };
 
   return (
@@ -16,7 +16,7 @@ const CardsearchLoggedIn = () => {
         <button className="menu_card_search" onClick={handleButtonClick}>
             <FontAwesomeIcon icon={faSearch} rotation={90} />
             <span className="fatextmargin">
-                Card Searchs
+                Card Search
             </span>
         </button>
     </div>

@@ -25,9 +25,9 @@ function App() {
           <Route path="signup" element={<AccountCreationForm/>}/>
           <Route path="login" element={<LoginPage/>}/>
           <Route path="banlist" element={<Banlists />} />
+          <Route path="privacy-policy" element={<HomePage/>} />
           <Route path="contact-info" element={<ContactInfos />} />
-          <Route path="About-us" element={<AboutUs />} />
-
+          
           <Route path="search">
             <Route index element={<Search />} />
             <Route path=":cardname" element={<SearchResult />} />
@@ -35,7 +35,8 @@ function App() {
 
           <Route element={<StayLoggedIn/>}>
             <Route element={<Prefetch/>}>
-              <Route path=":cardname" element={<SearchResultLoggedIn />} />
+              <Route path="searchloggedin" element={<Search/>}/>
+              <Route path=":cardname" element={<SearchResultLoggedIn />}/>
               <Route path="card" element={<DashLayout />}>
                 <Route path="getcards" element={<UserOwnedCard/>}/>
               </Route>

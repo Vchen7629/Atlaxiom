@@ -3,8 +3,7 @@
   padding-left: 20px;
   display: flex;
   flex-direction: row;
-  min-height: 100vh;
-  height: auto;
+  min-height: 75.2vh;
   position: relative;
   background-color: rgb(32, 32, 32);
   background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
@@ -834,6 +833,7 @@ input:focus {
   height: fit-content;
   border-radius: 25px;
   margin-top: 50px;
+  margin-bottom: 100px;
   left: 2%;
   padding: 15px;
   box-shadow: 0 0 15px 0.5px orange;
