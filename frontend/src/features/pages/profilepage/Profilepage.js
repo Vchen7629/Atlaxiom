@@ -86,12 +86,10 @@ const Profilepage = () => {
                 );
             default:
                 return (
-                    <div>
-                        Default Content
-                    </div>
-                    );
-                }
-            };
+                    <ProfileContent user={user} />
+                );
+            }
+        };
 
     const content = (
         <>
