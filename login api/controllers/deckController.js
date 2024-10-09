@@ -6,7 +6,7 @@ const { User } = require("../models/genmodels");
 // @access Public
 const createNewDeck = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const { deck_name } = req.body;
+    const { deck_name = req.body.deckname || '' } = req.body;
 
     if (!id || !deck_name) {
         return res.status(400).json({ message: "User ID and deck name are required" });
@@ -28,8 +28,15 @@ const createNewDeck = asyncHandler(async (req, res) => {
 
     user.totalOwnedDecks = (user.totalOwnedDecks || 0) + 1;
 
+    const now = new Date();
+    const formattedDate = now.toISOString().split('T')[0];
+    const formattedTime = now.toTimeString().split(' ')[0];
+
+    user.lastUpdated = `${formattedDate} ${formattedTime}`;
+
     const newDeck = {
         deck_name: deck_name,
+        deck_desc: "a new deck maybe its cool maybe its mysterious"
     };
 
     user.ownedDecks.push(newDeck);
@@ -90,6 +97,34 @@ const getSpecificDeckforUser = asyncHandler(async (req, res) => {
     res.json(specificDeck);
 });
 
+// @desc Change the Deck description or name of a specific deck
+// @route PATCH /specific/:id
+// @access Public
+/*const changeSpecificDeckDetailsforUser = asyncHandler(async (req, res) => {
+    const { id } = req.params
+    const [ deck_name ] = req.body 
+
+    if (!id || !deck_name) {
+        return res.status(400).json({ message: "User ID and deck name are required" });
+    }
+
+    const user = await User.findById(id);
+
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+
+    const specificDeck = user.ownedDecks.find(deck => deck.deck_name === deck_name);
+
+    if (!specificDeck) {
+        return res.status(404).json({ message: "Deck not found for the specified user and deck name" });
+    }
+
+    user.username = username
+    user.email = email
+
+})*/
+
 // @desc Add a card to the main deck
 // @route PATCH /maindeck/:id
 // @access Public
@@ -135,6 +170,13 @@ const addCardtoMainDeck = asyncHandler(async (req, res) => {
 
     selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) + main_deck_cards.length;
     selectedDeck.total_cards_main_deck = (selectedDeck.total_cards_main_deck || 0) + main_deck_cards.length;
+
+
+    const now = new Date();
+    const formattedDate = now.toISOString().split('T')[0];
+    const formattedTime = now.toTimeString().split(' ')[0];
+
+    user.lastUpdated = `${formattedDate} ${formattedTime}`;
 
     await user.save();
 
@@ -187,6 +229,12 @@ const addCardtoExtraDeck = asyncHandler(async (req, res) => {
     selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) + extra_deck_cards.length;
     selectedDeck.total_cards_extra_deck = (selectedDeck.total_cards_extra_deck || 0) + extra_deck_cards.length;
 
+    const now = new Date();
+    const formattedDate = now.toISOString().split('T')[0];
+    const formattedTime = now.toTimeString().split(' ')[0];
+
+    user.lastUpdated = `${formattedDate} ${formattedTime}`;
+
     await user.save();
 
     res.status(200).json({ message: `Card with card name ${extra_deck_cards[0].card_name} added to the main deck of deck with name${deck_name} for user called ${user.username}`})
@@ -238,6 +286,12 @@ const addCardtoSideDeck = asyncHandler(async (req, res) => {
     selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) + side_deck_cards.length;
     selectedDeck.total_cards_side_deck = (selectedDeck.total_cards_side_deck || 0) + side_deck_cards.length;
 
+    const now = new Date();
+    const formattedDate = now.toISOString().split('T')[0];
+    const formattedTime = now.toTimeString().split(' ')[0];
+
+    user.lastUpdated = `${formattedDate} ${formattedTime}`;
+
     await user.save();
 
     res.status(200).json({ message: `Card with card name ${side_deck_cards[0].card_name} added to the main deck of deck with name${deck_name} for user called ${user.username}`})
@@ -287,6 +341,12 @@ const increaseCardAmountinMainDeck = asyncHandler(async (req, res) => {
     selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) + parseInt(increaseOwnedAmount, 10);
     selectedDeck.total_cards_main_deck = (selectedDeck.total_cards_main_deck || 0) + parseInt(increaseOwnedAmount, 10);
 
+    const now = new Date();
+    const formattedDate = now.toISOString().split('T')[0];
+    const formattedTime = now.toTimeString().split(' ')[0];
+
+    user.lastUpdated = `${formattedDate} ${formattedTime}`;
+
     await user.save()
 
     res.json({ message: `Owned amount of card ${card_name} in deck ${deck_name} increased by ${increaseOwnedAmount} successfully`, ownedDeck: selectedDeck });
@@ -333,6 +393,12 @@ const increaseCardAmountinExtraDeck = asyncHandler(async (req, res) => {
 
     selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) + parseInt(increaseOwnedAmount, 10);
     selectedDeck.total_cards_extra_deck = (selectedDeck.total_cards_extra_deck || 0) + parseInt(increaseOwnedAmount, 10);
+
+    const now = new Date();
+    const formattedDate = now.toISOString().split('T')[0];
+    const formattedTime = now.toTimeString().split(' ')[0];
+
+    user.lastUpdated = `${formattedDate} ${formattedTime}`;
 
     await user.save()
 
@@ -381,6 +447,12 @@ const increaseCardAmountinSideDeck = asyncHandler(async (req, res) => {
     selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) + parseInt(increaseOwnedAmount, 10);
     selectedDeck.total_cards_side_deck = (selectedDeck.total_cards_side_deck || 0) + parseInt(increaseOwnedAmount, 10);
 
+    const now = new Date();
+    const formattedDate = now.toISOString().split('T')[0];
+    const formattedTime = now.toTimeString().split(' ')[0];
+
+    user.lastUpdated = `${formattedDate} ${formattedTime}`;
+
     await user.save()
 
     res.json({ message: `Owned amount of card ${card_name} in deck ${deck_name} increased by ${increaseOwnedAmount} successfully`, ownedDeck: selectedDeck });
@@ -426,6 +498,12 @@ const decreaseCardAmountinMainDeck = asyncHandler(async (req, res) => {
 
     selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) - parseInt(decreaseOwnedAmount, 10);
     selectedDeck.total_cards_main_deck = (selectedDeck.total_cards_main_deck || 0) - parseInt(decreaseOwnedAmount, 10);
+
+    const now = new Date();
+    const formattedDate = now.toISOString().split('T')[0];
+    const formattedTime = now.toTimeString().split(' ')[0];
+
+    user.lastUpdated = `${formattedDate} ${formattedTime}`;
 
     await user.save()
 
@@ -473,6 +551,12 @@ const decreaseCardAmountinExtraDeck = asyncHandler(async (req, res) => {
     selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) - parseInt(decreaseOwnedAmount, 10);
     selectedDeck.total_cards_extra_deck = (selectedDeck.total_cards_extra_deck || 0) - parseInt(decreaseOwnedAmount, 10);
 
+    const now = new Date();
+    const formattedDate = now.toISOString().split('T')[0];
+    const formattedTime = now.toTimeString().split(' ')[0];
+
+    user.lastUpdated = `${formattedDate} ${formattedTime}`;
+
     await user.save()
 
     res.json({ message: `Owned amount of card ${card_name} in deck ${deck_name} decreased by ${decreaseOwnedAmount} successfully`, ownedDeck: selectedDeck });
@@ -519,6 +603,12 @@ const decreaseCardAmountinSideDeck = asyncHandler(async (req, res) => {
     selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) - parseInt(decreaseOwnedAmount, 10);
     selectedDeck.total_cards_side_deck = (selectedDeck.total_cards_side_deck || 0) - parseInt(decreaseOwnedAmount, 10);
 
+    const now = new Date();
+    const formattedDate = now.toISOString().split('T')[0];
+    const formattedTime = now.toTimeString().split(' ')[0];
+
+    user.lastUpdated = `${formattedDate} ${formattedTime}`;
+
     await user.save()
 
     res.json({ message: `Owned amount of card ${card_name} in deck ${deck_name} decreased by ${decreaseOwnedAmount} successfully`, ownedDeck: selectedDeck });
@@ -557,6 +647,12 @@ const DeleteCardfromMainDeck = asyncHandler(async (req, res) => {
 
     selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) - 1;
     selectedDeck.total_cards_main_deck = (selectedDeck.total_cards_main_deck || 0) - 1;
+
+    const now = new Date();
+    const formattedDate = now.toISOString().split('T')[0];
+    const formattedTime = now.toTimeString().split(' ')[0];
+
+    user.lastUpdated = `${formattedDate} ${formattedTime}`;
 
     await user.save();
 
@@ -598,6 +694,12 @@ const DeleteCardfromExtraDeck = asyncHandler(async (req, res) => {
     selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) - 1;
     selectedDeck.total_cards_extra_deck = (selectedDeck.total_cards_extra_deck || 0) - 1;
 
+    const now = new Date();
+    const formattedDate = now.toISOString().split('T')[0];
+    const formattedTime = now.toTimeString().split(' ')[0];
+
+    user.lastUpdated = `${formattedDate} ${formattedTime}`;
+
     await user.save();
 
     res.status(200).json({ message: `Card ${card_name} deleted from the extra deck in deck ${deck_name} for user ${user.username} successfully` });
@@ -638,6 +740,12 @@ const DeleteCardfromSideDeck = asyncHandler(async (req, res) => {
     selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) - 1;
     selectedDeck.total_cards_side_deck = (selectedDeck.total_cards_side_deck || 0) - 1;
 
+    const now = new Date();
+    const formattedDate = now.toISOString().split('T')[0];
+    const formattedTime = now.toTimeString().split(' ')[0];
+
+    user.lastUpdated = `${formattedDate} ${formattedTime}`;
+
     await user.save();
 
     res.status(200).json({ message: `Card ${card_name} deleted from the side deck in deck ${deck_name} for user ${user.username} successfully` });
@@ -670,6 +778,12 @@ const DeleteDeck = asyncHandler(async (req, res) => {
     user.ownedDecks.splice(DeckIndex, 1);
 
     user.totalOwnedDecks = (user.totalOwnedDecks || 0) - 1;
+    
+    const now = new Date();
+    const formattedDate = now.toISOString().split('T')[0];
+    const formattedTime = now.toTimeString().split(' ')[0];
+
+    user.lastUpdated = `${formattedDate} ${formattedTime}`;
     
     await user.save();
 

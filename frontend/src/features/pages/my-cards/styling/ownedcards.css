@@ -132,7 +132,7 @@
 .my-card-item {
     display: flex;
     flex-direction: column;
-    width: fit-content;
+    width: fit-content;     
     margin: 10px;
     height: fit-content;
     margin-left: 20px;

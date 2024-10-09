@@ -6,6 +6,10 @@ const ownedDeckSchema = new mongoose.Schema({
         type: String,
         require: true
     },
+    deck_desc: {
+        type: String,
+        require: false
+    },
     total_cards_deck: {
         type: Number,
         default: 0

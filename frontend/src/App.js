@@ -3,7 +3,6 @@ import Layout from './components/layout'
 import DashLayout from './components/dash/dashlayout'
 import Banlists from './features/pages/banlist';
 import ContactInfos from './features/pages/contactinfo';
-import AboutUs from './features/pages/aboutus';
 import Search from './features/pages/search';
 import UserOwnedCard from './features/pages/my-cards/ownedcardslist.js';
 import HomePage from './features/pages/homepage/homepage.js';
@@ -15,6 +14,7 @@ import Prefetch from './features/auth/Prefetch.js'
 import Profilepage from './features/pages/profilepage/Profilepage.js';
 import StayLoggedIn from './features/auth/stayloggedin.js';
 import MyDeck from './features/pages/mydeckpage/my-deck.js';
+import CreateNewDeckForm from './features/pages/mydeckpage/new-deck-creation-form.jsx';
 
 
 function App() {
@@ -40,8 +40,8 @@ function App() {
               <Route path="card" element={<DashLayout />}>
                 <Route path="getcards" element={<UserOwnedCard/>}/>
               </Route>
-              
-              <Route path="mydeck" element={<MyDeck/>}/>
+              <Route path="mydeckhomepage" element={<MyDeck/>}/>
+              <Route path="newDeck" element={<CreateNewDeckForm/>}/>
               <Route path="users" element={<DashLayout />}/>
               <Route path="profile" element={<Profilepage />}/>
             </Route>
