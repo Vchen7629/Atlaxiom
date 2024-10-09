@@ -6,7 +6,7 @@ import "./styling/deck-creation.css"
 import { useLocation, useNavigate } from 'react-router-dom';
 
 
-const CreateNewDeckForm = () => {
+const Deckview = () => {
     const location = useLocation();
     const { userId } = location.state;
     const navigate = useNavigate()
@@ -145,4 +145,4 @@ const CreateNewDeckForm = () => {
     return content
 };
 
-export default CreateNewDeckForm
+export default Deckview

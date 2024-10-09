@@ -15,6 +15,7 @@ import Profilepage from './features/pages/profilepage/Profilepage.js';
 import StayLoggedIn from './features/auth/stayloggedin.js';
 import MyDeck from './features/pages/mydeckpage/my-deck.js';
 import CreateNewDeckForm from './features/pages/mydeckpage/new-deck-creation-form.jsx';
+import Deckview from './features/pages/mydeckpage/view-deck.jsx';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
               </Route>
               <Route path="mydeckhomepage" element={<MyDeck/>}/>
               <Route path="newDeck" element={<CreateNewDeckForm/>}/>
+              <Route path="viewDeck" element={<Deckview/>}/>         
               <Route path="users" element={<DashLayout />}/>
               <Route path="profile" element={<Profilepage />}/>
             </Route>
