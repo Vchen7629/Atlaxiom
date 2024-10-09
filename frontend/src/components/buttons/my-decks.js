@@ -8,7 +8,7 @@ const Mydecks = () => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate('/mydeck');
+    navigate('/mydeckhomepage');
   };
 
   return (
