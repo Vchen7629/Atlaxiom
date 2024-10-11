@@ -9,30 +9,19 @@
 
 /*logout button*/
 .logout-button  {
-  background: rgba(128, 128, 128, 0.301);
+  background: transparent;
   color: white;
-  padding: 10px;
-  border: 2px solid goldenrod;
-  border-radius: 5px;
+  border: transparent;
   transition: background-color 0.3s, color 0.3s, border-radius 0.3s;
   width: 120px;
   height: 70px;
   text-align: center;
   margin-right: 10px;
-  border-radius: 25px;
 }
+
 .logout-button:hover {
-  background-color: goldenrod;
-  color: #eee; /* New text color on hover */
-  border-radius: 20px;
-  border: 2px solid white;
-  padding: 10px;
-  margin-right: 10px;
-  backface-visibility: hidden;
-  transform: scale(1.08);
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s;
-  box-shadow: 0 0 20px white
+  border-bottom: 2px solid white;
+  color: gold;
 }
   
 /*header styling*/
@@ -40,7 +29,7 @@
 .header {
     display: flex;
     justify-content: space-between;
-    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
+    background: none rgb(25, 25, 25); color: rgb(255, 255, 255);
     position: relative;
     top: 0;
     left: 0;

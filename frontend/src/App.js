@@ -4,7 +4,6 @@ import DashLayout from './components/dash/dashlayout'
 import Banlists from './features/pages/banlist';
 import ContactInfos from './features/pages/contactinfo';
 import Search from './features/pages/search';
-import UserOwnedCard from './features/pages/my-cards/ownedcardslist.js';
 import HomePage from './features/pages/homepage/homepage.js';
 import SearchResult from './features/pages/searchresult';
 import SearchResultLoggedIn from './features/pages/searchresultpage/SearchPageResultLoggedin.jsx';
@@ -15,7 +14,8 @@ import Profilepage from './features/pages/profilepage/Profilepage.js';
 import StayLoggedIn from './features/auth/stayloggedin.js';
 import MyDeck from './features/pages/mydeckpage/my-deck.js';
 import CreateNewDeckForm from './features/pages/mydeckpage/new-deck-creation-form.jsx';
-import Deckview from './features/pages/mydeckpage/view-deck.jsx';
+import Deckview from './features/pages/mydeckpage/modify-deck.jsx';
+import UserOwnedCardTable from './features/pages/my-cards/ownedCardTable.jsx';
 
 
 function App() {
@@ -39,11 +39,11 @@ function App() {
               <Route path="searchloggedin" element={<Search/>}/>
               <Route path=":cardname" element={<SearchResultLoggedIn />}/>
               <Route path="card" element={<DashLayout />}>
-                <Route path="getcards" element={<UserOwnedCard/>}/>
+                <Route path="getcards" element={<UserOwnedCardTable/>}/>
               </Route>
               <Route path="mydeckhomepage" element={<MyDeck/>}/>
               <Route path="newDeck" element={<CreateNewDeckForm/>}/>
-              <Route path="viewDeck" element={<Deckview/>}/>         
+              <Route path="modifyDeck" element={<Deckview/>}/>         
               <Route path="users" element={<DashLayout />}/>
               <Route path="profile" element={<Profilepage />}/>
             </Route>

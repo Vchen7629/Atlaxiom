@@ -24,7 +24,7 @@ const SearchResult = () => {
           setTimeout(() => {
             setCardData(data.data[0]);
             setIsLoading(false);
-          }, 1000)
+          }, 10)
         } else {
           console.error('Error fetching card data:', data.message);
         }

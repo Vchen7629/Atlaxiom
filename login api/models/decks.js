@@ -10,6 +10,10 @@ const ownedDeckSchema = new mongoose.Schema({
         type: String,
         require: false
     },
+    lastUpdated: {
+        type: String,
+        default: null
+    },
     total_cards_deck: {
         type: Number,
         default: 0
