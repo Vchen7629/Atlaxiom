@@ -6,34 +6,24 @@
 .logins,
 .my-decks,
 .profile {
-    background: rgba(128, 128, 128, 0.301);
+    background: transparent;
     color: white;
+    border: transparent;
     padding: 10px;
-    border: 2px solid goldenrod;
-    border-radius: 5px;
     transition: background-color 0.3s, color 0.3s, border-radius 0.3s;
     width: 120px;
     height: 70px;
     text-align: center;
     margin-right: 10px;
-    border-radius: 25px;
-  }
-  .menu_card_search:hover, 
-  .banlist:hover, 
-  .my-cards:hover, 
-  .logins:hover,
-  .my-decks:hover,
-  .profile:hover {
-    background-color: goldenrod;
-    color: #eee; /* New text color on hover */
-    border-radius: 20px;
-    border: 2px solid white;
-    padding: 10px;
-    margin-right: 10px;
-    backface-visibility: hidden;
-    transform: scale(1.08);
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s;
-    box-shadow: 0 0 20px white
-  }
+}
+
+.menu_card_search:hover, 
+.banlist:hover, 
+.my-cards:hover, 
+.logins:hover,
+.my-decks:hover,
+.profile:hover {
+    border-bottom: 2px solid white;
+    color: gold;
+}
 

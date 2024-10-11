@@ -36,7 +36,8 @@ const createNewDeck = asyncHandler(async (req, res) => {
 
     const newDeck = {
         deck_name: deck_name,
-        deck_desc: "a new deck maybe its cool maybe its mysterious"
+        deck_desc: "a new deck maybe its cool maybe its mysterious",
+        lastUpdated: `${formattedDate}`
     };
 
     user.ownedDecks.push(newDeck);
@@ -177,6 +178,7 @@ const addCardtoMainDeck = asyncHandler(async (req, res) => {
     const formattedTime = now.toTimeString().split(' ')[0];
 
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
+    deck.lastUpdated = `${formattedDate}`;
 
     await user.save();
 
@@ -234,6 +236,7 @@ const addCardtoExtraDeck = asyncHandler(async (req, res) => {
     const formattedTime = now.toTimeString().split(' ')[0];
 
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
+    deck.lastUpdated = `${formattedDate}`;
 
     await user.save();
 
@@ -291,6 +294,7 @@ const addCardtoSideDeck = asyncHandler(async (req, res) => {
     const formattedTime = now.toTimeString().split(' ')[0];
 
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
+    deck.lastUpdated = `${formattedDate}`;
 
     await user.save();
 
@@ -346,6 +350,7 @@ const increaseCardAmountinMainDeck = asyncHandler(async (req, res) => {
     const formattedTime = now.toTimeString().split(' ')[0];
 
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
+    deck.lastUpdated = `${formattedDate}`;
 
     await user.save()
 
@@ -399,6 +404,7 @@ const increaseCardAmountinExtraDeck = asyncHandler(async (req, res) => {
     const formattedTime = now.toTimeString().split(' ')[0];
 
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
+    deck.lastUpdated = `${formattedDate}`;
 
     await user.save()
 
@@ -452,6 +458,7 @@ const increaseCardAmountinSideDeck = asyncHandler(async (req, res) => {
     const formattedTime = now.toTimeString().split(' ')[0];
 
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
+    deck.lastUpdated = `${formattedDate}`;
 
     await user.save()
 
@@ -504,6 +511,7 @@ const decreaseCardAmountinMainDeck = asyncHandler(async (req, res) => {
     const formattedTime = now.toTimeString().split(' ')[0];
 
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
+    deck.lastUpdated = `${formattedDate}`;
 
     await user.save()
 
@@ -556,6 +564,7 @@ const decreaseCardAmountinExtraDeck = asyncHandler(async (req, res) => {
     const formattedTime = now.toTimeString().split(' ')[0];
 
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
+    deck.lastUpdated = `${formattedDate}`;
 
     await user.save()
 
@@ -608,6 +617,7 @@ const decreaseCardAmountinSideDeck = asyncHandler(async (req, res) => {
     const formattedTime = now.toTimeString().split(' ')[0];
 
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
+    deck.lastUpdated = `${formattedDate}`;
 
     await user.save()
 
@@ -653,6 +663,7 @@ const DeleteCardfromMainDeck = asyncHandler(async (req, res) => {
     const formattedTime = now.toTimeString().split(' ')[0];
 
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
+    deck.lastUpdated = `${formattedDate}`;
 
     await user.save();
 
@@ -699,6 +710,7 @@ const DeleteCardfromExtraDeck = asyncHandler(async (req, res) => {
     const formattedTime = now.toTimeString().split(' ')[0];
 
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
+    deck.lastUpdated = `${formattedDate}`;
 
     await user.save();
 
@@ -745,6 +757,7 @@ const DeleteCardfromSideDeck = asyncHandler(async (req, res) => {
     const formattedTime = now.toTimeString().split(' ')[0];
 
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
+    deck.lastUpdated = `${formattedDate}`;
 
     await user.save();
 
@@ -784,7 +797,8 @@ const DeleteDeck = asyncHandler(async (req, res) => {
     const formattedTime = now.toTimeString().split(' ')[0];
 
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
-    
+    deck.lastUpdated = `${formattedDate}`;
+
     await user.save();
 
     res.status(200).json({ message: `Deck ${deck_name} deleted for user ${user.username} successfully` });

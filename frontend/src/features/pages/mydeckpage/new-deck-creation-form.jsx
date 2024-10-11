@@ -4,12 +4,17 @@ import Header from '../../../components/header/header';
 import Footer from '../../../components/footer/Footer';
 import "./styling/deck-creation.css"
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useGetSpecificUserQuery } from '../../api-slices/usersApiSlice';
 
 
 const CreateNewDeckForm = () => {
     const location = useLocation();
     const { userId } = location.state;
     const navigate = useNavigate()
+
+    const { refetch } = useGetSpecificUserQuery(userId, {
+        refetchOnMountOrArgChange: true
+    });
 
 
     const [addNewDeck, {
@@ -47,6 +52,9 @@ const CreateNewDeckForm = () => {
         if (isSuccess) {
             setDeckname('')
             setErrMsg('')
+
+            
+
             navigate('/mydeckhomepage')
         }
     }, [isSuccess, navigate])
@@ -80,7 +88,16 @@ const CreateNewDeckForm = () => {
         }
         
         if (canSave && userId) {
-            const result = await addNewDeck({ id: userId, DeckData: { deckname, deckdesc } })
+            try {
+                const result = await addNewDeck({ id: userId, DeckData: { deckname, deckdesc } })
+                if (result) {
+                    refetch()
+                } else {
+                    console.error('Error: Failed to create deck.');
+                }
+            } catch (error) {
+                console.error('Error: Unable to save the deck.', error);
+            }
         } else {
             console.error('Error: Missing userId or invalid data');
         }
