@@ -1,18 +1,53 @@
 /* Searchbar styling */
-.search-bar-container {
-  padding-left: 20px;
+.Searchbar-page-background {
+  background: #1f1d1d;
+  min-height: 83vh;
+  margin-bottom: -20px;
+  width: 100%;
   display: flex;
-  flex-direction: row;
-  min-height: 75.2vh;
-  position: relative;
-  background-color: rgb(32, 32, 32);
-  background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
-  background-size: 10px 10px, 10px 10px, 10px 5px;
-  background-position: 0px 0px, 5px 5px, 0px 0px;
+  justify-content: center; 
+  align-items: center;
+}
+
+.Searchbar-page-header {
+  position: absolute;
+  top: 117px;
+  width: 100%;
+  display: flex;
+}
+
+.Searchbar-page-title {
+  font-size: 40px;
+  color: white;
+  margin-left: 6%;
+  margin-top: 2%;
+}
+
+/*list view Gallery view styling*/
+.list-view-setting-button-searchbar {
+  background-color: transparent;
+  color: rgb(128, 128, 128);
+  border-color: transparent;
+  margin-left: 47%;
+  margin-right: 0.6%;
+  margin-top: 2%;
+}
+
+.gallery-view-setting-button-searchbar {
+  background-color: transparent;
+  color: rgb(128, 128, 128);
+  border-color: transparent;
+  margin-top: 2%;
+}
+
+.list-view-setting-button-searchbar:hover,
+.gallery-view-setting-button-searchbar:hover {
+  color: gold;
 }
 
 input {
   background-color: transparent;
+  color: white;
   border: none;
   height: 100%;
   font-size: 20px;
@@ -24,8 +59,8 @@ input {
   cursor: pointer;
   background: none;
   border: none;
-  color: black; 
   margin-right: 25px; 
+  color: white;
 }
 
 .search-icon {
@@ -42,42 +77,99 @@ input:focus {
   outline: none;
 }
 
-.suggestionbox {
+.suggestionbox-container {
   width: 100%;
   display: flex;
   background-color: rgb(45, 43, 43)
 }
 
+.suggestion-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(45, 43, 43)
+}
+
+/*Grid styling*/
+
+.gallery-view-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+  max-height: 64vh;
+  margin-top: 5%;
+  margin-bottom: 3%;
+}
+
+.Searchbar-suggestion-grid {
+  display: Grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 25px;
+  position: relative;
+  overflow-y: auto;
+  width: 100%;
+  position: relative;
+  overflow-y: auto;
+}
+
+.gallery-item-image {
+  width: 100%;
+  position: relative;
+}
+
 /* Pagination */
 .pagination {
-  background-color: rgb(85, 78, 78);
-  width: fit-content;
+  width: 10%;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-  top: 5px;
-  padding: 2px;
+  top: 40px;
+  padding: 5px;
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
   color: goldenrod;
-  border: 2px solid black;
   text-align: center;
-  font-size: 12px;
+  font-size: 20px;
+}
+
+.pagination-gallery {
+  width: 13.5%;
+  position: relative;
+  top: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  color: goldenrod;
+  text-align: center;
+  font-size: 20px;
 }
 
 .button-right {
   background-color: rgba(218, 165, 32, 0.575);
+  color: white;
   width: 30px;
+  margin-left: 1%;
   border-radius: 7px;
   position: relative;
+  border-color: transparent;
 }
 
 .button-left {
   background-color: rgba(218, 165, 32, 0.575);
+  color: white;
   width: 30px;
+  margin-right: 1%;
   border-radius: 7px;
   position: relative;
+  border-color: transparent;
+}
+
+.button-right:hover,
+.button-left:hover {
+  color: orangered
 }
 
 /*error*/
@@ -94,32 +186,17 @@ input:focus {
   color: white;
   }
 
-.suggestion-container::-webkit-scrollbar {
-  width: 13px; 
-}
-  
-.suggestion-container::-webkit-scrollbar-thumb {
-  background-color: goldenrod; /* Color of the thumb */
-  border-radius: 5px; /* Roundness of the thumb */
-  border: 1px solid black
-}
-  
-.suggestion-container::-webkit-scrollbar-track {
-  background-color: rgb(45, 43, 43);
-}
-  
 /* mobile devices */
 @media screen and (width <= 480px) {
 
   /* Searchbar styling */
   .Input-Wrapper {
-    background-color: goldenrod;
     width: 90%;
     height: 50px;
     border-radius: 15px;  
     padding-left: 20px;
     box-shadow: 0px 0px 15px black;
-    position: absolute;
+    position: relative;
     top: 50px;
     display: flex;
     justify-content: left;
@@ -155,54 +232,6 @@ input:focus {
     position: relative;
   }
 
-  /*suggestion left styling*/
-
-  .suggestion-left-container {
-    background-color: rgb(45, 43, 43);
-    width: 100%;
-    position: relative;
-    margin-top: 100%;
-    height:fit-content;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 25px;
-    box-shadow: 0 0 15px 0.5px orange;
-  }
-
-  .suggestion-left {
-    background-color: rgb(45, 43, 43);
-    width: auto;
-    height: 145px;
-    position: relative;
-    padding: 15px;
-    border-radius: 25px;
-    margin-bottom: 5px;
-    border: 1px solid darkgoldenrod
-  }
-
-  .suggestion-name-left-container {
-    position: relative;
-    background-color: rgb(68, 65, 65);
-    display: flex;
-    flex-direction: row;
-    width: 240px;
-    height: 30px;
-    max-width: fit-content;
-    font-size: 13px;
-    overflow-x: hidden;
-    font-weight: bold;
-    color: goldenrod;
-    top: -135px;
-    left: 95px;
-    padding:5px;
-    border-radius: 5px;
-    border: 2px solid black;
-  }
-  .suggestion-image-left {
-    height: 120px;
-    width: 90px;
-    position: relative;
-  }
 
   .suggestion-carddata-container {
     background-color: rgb(68, 65, 65);
@@ -245,13 +274,12 @@ input:focus {
 @media screen and (481px <= width <= 768px) {
 /* Searchbar styling */
 .Input-Wrapper {
-  background-color: goldenrod;
   width: 90%;
   height: 50px;
   border-radius: 15px;  
   padding-left: 20px;
   box-shadow: 0px 0px 15px black;
-  position: absolute;
+  position: relative;
   top: 50px;
   display: flex;
   justify-content: left;
@@ -285,54 +313,6 @@ input:focus {
   width: 50px;
   min-height: 60px;
   position: relative;
-}
-
-/*suggestion left styling*/
-
-.suggestion-left-container {
-  background-color: rgb(45, 43, 43);
-  width: 96%;
-  position: relative;
-  margin-top: 70%;
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 25px;
-  box-shadow: 0 0 15px 0.5px orange;
-}
-
-.suggestion-left {
-  background-color: rgb(45, 43, 43);
-  width: auto;
-  height: 200px;
-  position: relative;
-  padding: 15px;
-  border-radius: 25px;
-  margin-bottom: 5px;
-  border: 1px solid darkgoldenrod
-}
-
-.suggestion-name-left-container {
-  position: relative;
-  background-color: rgb(68, 65, 65);
-  display: flex;
-  flex-direction: row;
-  width: 400px;
-  height: 30px;
-  max-width: fit-content;
-  font-size: 15px;
-  overflow-x: hidden;
-  font-weight: bold;
-  color: goldenrod;
-  top: -175px;
-  left: 125px;
-  padding:5px;
-  border-radius: 5px;
-  border: 2px solid black;
-}
-.suggestion-image-left {
-  height: 170px;
-  width: auto;
-  position: relative; 
 }
 
 .suggestion-carddata-container {
@@ -377,13 +357,12 @@ input:focus {
 @media screen and (769px <= width <= 1024px) {
 /* Searchbar styling */
 .Input-Wrapper {
-  background-color: goldenrod;
   width: 90%;
   height: 50px;
   border-radius: 15px;  
   padding-left: 20px;
   box-shadow: 0px 0px 15px black;
-  position: absolute;
+  position: relative;
   top: 50px;
   display: flex;
   justify-content: left;
@@ -418,54 +397,6 @@ input:focus {
   width: 50px;
   min-height: 60px;
   position: relative;
-}
-
-/*suggestion left styling*/
-
-.suggestion-left-container {
-  background-color: rgb(45, 43, 43);
-  width: 92%;
-  position: relative;
-  margin-top: 50%;
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 25px;
-  box-shadow: 0 0 15px 0.5px orange;
-}
-
-.suggestion-left {
-  background-color: rgb(45, 43, 43);
-  width: auto;
-  height: 200px;
-  position: relative;
-  padding: 15px;
-  border-radius: 25px;
-  margin-bottom: 5px;
-  border: 1px solid darkgoldenrod
-}
-
-.suggestion-name-left-container {
-  position: relative;
-  background-color: rgb(68, 65, 65);
-  display: flex;
-  flex-direction: row;
-  width: 400px;
-  height: 30px;
-  max-width: fit-content;
-  font-size: 15px;
-  overflow-x: hidden;
-  font-weight: bold;
-  color: goldenrod;
-  top: -175px;
-  left: 125px;
-  padding:5px;
-  border-radius: 5px;
-  border: 2px solid black;
-}
-.suggestion-image-left {
-  height: 170px;
-  width: auto;
-  position: relative; 
 }
 
 .suggestion-carddata-container {
@@ -513,13 +444,12 @@ input:focus {
 
 /* Searchbar styling */
 .Input-Wrapper {
-  background-color: goldenrod;
   width: 45%;
   height: 50px;
   border-radius: 15px;  
   padding-left: 20px;
   box-shadow: 0px 0px 15px black;
-  position: absolute;
+  position: relative;
   top: 50px;
   display: flex;
   justify-content: left;
@@ -554,54 +484,6 @@ input:focus {
   width: 50px;
   min-height: 50px;
   position: relative;
-}
-
-/*suggestion left styling*/
-
-.suggestion-left-container {
-  background-color: rgb(45, 43, 43);
-  width: 50%;
-  position: relative;
-  margin-top: 50px;
-  left: 2%;
-  padding: 10px;
-  border-radius: 25px;
-  box-shadow: 0 0 15px 0.5px orange;
-}
-
-.suggestion-left {
-  background-color: rgb(45, 43, 43);
-  width: auto;
-  height: 200px;
-  position: relative;
-  padding: 15px;
-  border-radius: 25px;
-  margin-bottom: 5px;
-  border: 1px solid darkgoldenrod
-}
-
-.suggestion-name-left-container {
-  position: relative;
-  background-color: rgb(68, 65, 65);
-  display: flex;
-  flex-direction: row;
-  width: 400px;
-  height: 30px;
-  max-width: fit-content;
-  font-size: 15px;
-  overflow-x: hidden;
-  font-weight: bold;
-  color: goldenrod;
-  top: -175px;
-  left: 125px;
-  padding:5px;
-  border-radius: 5px;
-  border: 2px solid black;
-}
-.suggestion-image-left {
-  height: 170px;
-  width: auto;
-  position: relative;  
 }
 
 .suggestion-carddata-container {
@@ -648,13 +530,12 @@ input:focus {
 /* Searchbar styling */
 
 .Input-Wrapper {
-  background-color: goldenrod;
   width: 45%;
   height: 50px;
   border-radius: 15px;  
   padding-left: 20px;
   box-shadow: 0px 0px 15px black;
-  position: absolute;
+  position: relative;
   top: 50px;
   display: flex;
   justify-content: left;
@@ -688,55 +569,6 @@ input:focus {
   width: 60px;
   min-height: 70px;
   position: relative;
-}
-
-/*suggestion left styling*/
-
-.suggestion-left-container {
-  background-color: rgb(45, 43, 43);
-  width: 50%;
-  position: relative;
-  margin-top: 50px;
-  left: 2%;
-  padding: 10px;
-  border-radius: 20px;
-  box-shadow: 0 0 15px 0.5px orange;
-}
-
-.suggestion-left {
-  background-color: rgb(45, 43, 43);
-  width: auto;
-  height: 200px;
-  position: relative;
-  padding: 15px;
-  border-radius: 25px;
-  margin-bottom: 5px;
-  border: 1px solid darkgoldenrod
-}
-
-.suggestion-name-left-container {
-  position: relative;
-  background-color: rgb(68, 65, 65);
-  display: flex;
-  flex-direction: row;
-  width: 400px;
-  height: 30px;
-  max-width: fit-content;
-  font-size: 15px;
-  overflow-x: hidden;
-  font-weight: bold;
-  color: goldenrod;
-  top: -175px;
-  left: 125px;
-  padding:5px;
-  border-radius: 5px;
-  border: 2px solid black;
-}
-.suggestion-image-left {
-  height: 170px;
-  width: auto;
-  position: relative;
-  
 }
 
 .suggestion-carddata-container {
@@ -781,97 +613,119 @@ input:focus {
 
 /* TV and large desktops */
 @media screen and (1537px <= width) { 
+
+.Searchbar-body-container {
+  background-color: rgb(26, 25, 25);
+  color: white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 80%;
+  border-radius: 25px;
+  padding: 20px;
+}
+  
 /* Searchbar styling */
 .Input-Wrapper {
-  background-color: goldenrod;
-  width: 45%;
+  width: 30%;
   height: 50px;
   border-radius: 15px;  
   padding-left: 20px;
   box-shadow: 0px 0px 15px black;
-  position: absolute;
-  top: 50px;
+  position: relative;
+  top: 60px;
+  left: 23%;
   display: flex;
   justify-content: left;
+  color: gold;
 }
 
-/* Suggestions styling */
-.suggestion-container {
-  max-height: 270px;
+/* Suggestions styling for list view */
+
+.Searchbar-suggestion-container {
+  position: relative;
+  min-height: 58vh;
+  max-height: 58vh;
+  position: relative;
   overflow-y: auto;
-  position: relative;
-  margin-top: 120px;
-  width: 45%;
-  border: 2px solid gray;
+  width: 95%;
+  margin-top: 5%;
+  margin-bottom: 1%;
+  overflow-y: auto;
 }
 
-.suggestion-name-container {
-  width: 100%;
-  height: 70px;
+.suggestion-image {
+  width: 6.5%;
   position: relative;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
+}
+
+.suggestion-box-header {
+  width: 100%;
+  height: 80px;
+  position: relative;
+  justify-content: space-between;
   display: flex;
   color: goldenrod;
   font-weight: bold;
   font-size: calc(15px + 0.390625vw);
+  background: #1f1d1d;
 }
 
-.suggestion-image {
-  width: 60px;
-  min-height: 70px;
-  position: relative;
-}
-
-/*suggestion left styling*/
-
-.suggestion-left-container {
-  background-color: rgb(45, 43, 43);
-  width: 50%;
-  position: relative;
-  height: fit-content;
-  border-radius: 25px;
-  margin-top: 50px;
-  margin-bottom: 100px;
-  left: 2%;
-  padding: 15px;
-  box-shadow: 0 0 15px 0.5px orange;
-}
-
-.suggestion-left {
-  background-color: rgb(45, 43, 43);
-  width: auto;
-  height: 200px;
-  position: relative;
-  padding: 15px;
-  border-radius: 25px;
-  margin-bottom: 5px;
-  border: 1px solid darkgoldenrod
-}
-
-.suggestion-name-left-container {
-  position: relative;
-  background-color: rgb(68, 65, 65);
-  display: flex;
-  flex-direction: row;
-  width: 400px;
-  height: 30px;
-  max-width: fit-content;
-  font-size: 15px;
-  overflow-x: hidden;
-  font-weight: bold;
+.suggestion-name-container {
   color: goldenrod;
-  top: -175px;
-  left: 125px;
-  padding:5px;
-  border-radius: 5px;
-  border: 2px solid black;
+  font-weight: bold;
+  font-size: calc(15px + 0.390625vw);
+  padding-left: 10%;
+  width: 50%;
+  display: flex;
+  text-align: center;
+  align-items: center;
 }
-.suggestion-image-left {
-  height: 170px;
-  width: auto;
-  position: relative;
+
+.heas {
+  width: 20%;
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  align-items: center;
+}
+
+.suggestion-card-type-container,
+.suggestion-card-race-container {
+  color: white;
+  font-weight: bold;
+  font-size: calc(10px + 0.390625vw);
+}
+
+.suggestion-card-atk-container {
+  display: flex;
+  color: white;
+  font-weight: bold;
+  font-size: calc(10px + 0.390625vw);
+}
+
+.suggestion-card-stats-container {
+  display: flex;
+  color: rgb(173, 170, 170);
+  font-weight: bold;
+  font-size: calc(9px + 0.390625vw);
+}
+
+.suggestion-box-body {
+    display: flex;
+    background: #1f1d1d;
+    justify-content: space-between;
+    width: 100%;
+    height: 67%
+}
+
+.suggestion-card-desc-container {
+  color: rgba(255, 255, 255, 0.438);
+  font-weight: bold;
+  font-size: calc(8px + 0.390625vw);
+  width: 60%;
+  padding-left: 3%;
 }
 
 .suggestion-carddata-container {

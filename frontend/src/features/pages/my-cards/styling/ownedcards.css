@@ -163,7 +163,7 @@
 }
     
 .list-view-container::-webkit-scrollbar-thumb {
-    background-color: gold; 
+    background-color: goldenrod; 
     border-radius: 5px; 
     border: 1px solid black;
 }
@@ -172,7 +172,7 @@
     background-color: transparent;
     display: flex;
     width:100%;
-    height: fit-content;
+    height: 200px;
     align-items: center;
     transition: background-color 0.25s ease-in
 }
@@ -184,26 +184,37 @@
 .list-view--card-image {
     max-height: 200px;
     margin-bottom: 10px;
-    margin-right: 2%;
+    width: 10%;
+    padding-right: 2%;
 }
 
 .list-view-card-name {
     width: 20%;
     font-size: 20px;
     overflow-y: auto;
-    margin-right: 2%;
+    height: 100%;
+    padding-right: 5%;
+
+    display: flex;
+    justify-content: center; 
+    align-items: center;
 }
 
 .list-view-card-description {
     width: 70%;
     font-size: 15px;
-    margin-right: 2%;
+    padding-right: 5%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center; 
+    align-items: center;
 }
 
 .my-card-owned-amount-container-list {
     display: flex;
     width: 10%;
-    height: fit-content;
+    height: 10%;
     align-items: center;
 }
 

@@ -23,7 +23,6 @@ const DeleteAccount = ({ user }) => {
     }] = useSendLogoutMutation()
 
     const [deleteUser, {
-        isLoading: deleteUserloading,
         isError: deleteUserError,
         error,
         reset,

@@ -1,5 +1,4 @@
 import { store } from "../../app/store"
-import { ownedCardsApiSlice } from "../api-slices/ownedCardapislice"
 import { usersApiSlice } from "../api-slices/usersApiSlice"
 import { useEffect } from "react"
 import { useSelector } from "react-redux"

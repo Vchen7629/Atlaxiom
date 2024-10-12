@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartColumn, faGear, faLock, faUser, faUserSlash } from '@fortawesome/free-solid-svg-icons';
 import "./styling/profilecontent.css"
@@ -16,7 +16,6 @@ import Security from './profile-subpages/security';
 
 
 const Profilepage = () => {
-    const dispatch = useDispatch();
     const [selectedNavItem, setSelectedNavItem] = useState('');
     const userId = useSelector((state) => state.auth.userId);
 
