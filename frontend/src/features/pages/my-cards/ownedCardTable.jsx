@@ -14,7 +14,6 @@ const UserOwnedCardTable = () => {
   const [increaseOwnedCard] = useIncreaseOwnedCardMutation();
   const [decreaseOwnedCard] = useDecreaseOwnedCardMutation();
   const [deleteOwnedCard] = useDeleteOwnedCardMutation();
-  const [lastCard, setLastCard] = useState(false);
 
   const [listView, setListView] = useState(true);
 
@@ -43,13 +42,11 @@ const UserOwnedCardTable = () => {
   const handleListView = () => {
     setListView(true)
     setGalleryView(false)
-    setLastCard(false)
   }
 
   const handleGalleryView = () => {
       setListView(false)
       setGalleryView(true)
-      setLastCard(false)
   }
 
   const handleSearchTerm = (e) => {
@@ -157,7 +154,7 @@ const UserOwnedCardTable = () => {
                   <div className="My-Card-selected-card-item">
                     <div>
                       <div className="My-Card-selected-card-name">{selectedCard.card_name}</div>
-                      <img src={selectedCard.image_url} alt="image unavailable" className="My-card-selected-card-image"/>
+                      <img src={selectedCard.image_url} alt="Unavailable"className="My-card-selected-card-image"/>
                       <div className="My-Card-selected-owned-amount"> Owned amount: {selectedCard.ownedamount}</div>
                     </div>
                     <div className="My-Card-selected-card-item-left">

@@ -19,9 +19,7 @@ const CreateNewDeckForm = () => {
 
     const [addNewDeck, {
         isLoading,
-        isSuccess,
-        isError,
-        error
+        isSuccess
     }] = useCreateNewDeckMutation()
 
     const deckNameRef = useRef()

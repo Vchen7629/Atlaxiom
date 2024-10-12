@@ -3,7 +3,6 @@ import Layout from './components/layout'
 import DashLayout from './components/dash/dashlayout'
 import Banlists from './features/pages/banlist';
 import ContactInfos from './features/pages/contactinfo';
-import Search from './features/pages/search';
 import HomePage from './features/pages/homepage/homepage.js';
 import SearchResult from './features/pages/searchresult';
 import SearchResultLoggedIn from './features/pages/searchresultpage/SearchPageResultLoggedin.jsx';
@@ -16,6 +15,7 @@ import MyDeck from './features/pages/mydeckpage/my-deck.js';
 import CreateNewDeckForm from './features/pages/mydeckpage/new-deck-creation-form.jsx';
 import Deckview from './features/pages/mydeckpage/modify-deck.jsx';
 import UserOwnedCardTable from './features/pages/my-cards/ownedCardTable.jsx';
+import SearchBar from './features/searchbar/searchbar.jsx';
 
 
 function App() {
@@ -29,14 +29,13 @@ function App() {
           <Route path="privacy-policy" element={<HomePage/>} />
           <Route path="contact-info" element={<ContactInfos />} />
           
-          <Route path="search">
-            <Route index element={<Search />} />
+          <Route path="search" element={<SearchBar/>}/>
             <Route path=":cardname" element={<SearchResult />} />
           </Route>
 
           <Route element={<StayLoggedIn/>}>
             <Route element={<Prefetch/>}>
-              <Route path="searchloggedin" element={<Search/>}/>
+              <Route path="searchloggedin" element={<SearchBar/>}/>
               <Route path=":cardname" element={<SearchResultLoggedIn />}/>
               <Route path="card" element={<DashLayout />}>
                 <Route path="getcards" element={<UserOwnedCardTable/>}/>
@@ -48,7 +47,6 @@ function App() {
               <Route path="profile" element={<Profilepage />}/>
             </Route>
           </Route>
-      </Route>
     </Routes>
   );
 } 

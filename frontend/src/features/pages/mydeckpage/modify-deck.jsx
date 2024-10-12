@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGetAllOwnedDecksQuery } from '../../api-slices/decksapislice';
 import Header from '../../../components/header/header';
 import Footer from '../../../components/footer/Footer';
 import "./styling/view-decks.css"
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faGripHorizontal, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -11,21 +11,17 @@ import { faBars, faGripHorizontal, faSearch, faTimes } from '@fortawesome/free-s
 const Deckmodify = () => {
     const location = useLocation();
     const { userId } = location.state || {};
-    const navigate = useNavigate()
+    //const navigate = useNavigate()
 
     const [searchTerm, setSearchTerm] = useState('');
 
     const [listView, setListView] = useState(true);
-    const [listViewDecks, setListViewDecks] = useState([]);
+    //const [listViewDecks, setListViewDecks] = useState([]);
 
     const [galleryView, setGalleryView] = useState(false);  
 
     const {
         data: modifyDecks,
-        isLoading,
-        isSuccess,
-        isError,
-        error,
         refetch
     } = useGetAllOwnedDecksQuery(userId);
     
