@@ -128,18 +128,22 @@ const UserOwnedCardTable = () => {
                 <FontAwesomeIcon icon={faTimes}/>
               </button>
           </div>
-          <button
-              className="list-view-setting-button-owned-card"
-              onClick={handleListView}
-            >
-              <FontAwesomeIcon icon={faBars} className="fa-2xl"/>
-            </button>
-            <button
-              className="gallery-view-setting-button-owned-card"
-              onClick={handleGalleryView}
-            >
-              <FontAwesomeIcon icon={faGripHorizontal} className="fa-2xl"/>
-            </button>
+          {!selectedCard && (
+            <>
+              <button
+                className="list-view-setting-button-owned-card"
+                onClick={handleListView}
+              >
+                <FontAwesomeIcon icon={faBars} className="fa-2xl"/>
+              </button>
+              <button
+                className="gallery-view-setting-button-owned-card"
+                onClick={handleGalleryView}
+              >
+                <FontAwesomeIcon icon={faGripHorizontal} className="fa-2xl"/>
+              </button>
+            </>
+          )}
         </div>
           <main>
             <div>

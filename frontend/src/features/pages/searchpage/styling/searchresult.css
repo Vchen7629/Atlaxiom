@@ -1,0 +1,66 @@
+.search-result-container {
+    display: flex;
+    position: relative;
+    width: 70%;
+    height: 50vh;
+}
+
+.search-result-card-image {
+    width: 400px;
+    object-fit: contain;
+    margin-left: 10%;
+    margin-right: 3%;
+}
+
+.search-result-card-data-container {
+    width: 80%;
+    padding-top: 3%;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-result-card-name {
+    color: gold;
+    font-size: 30px;
+    width: 100%;
+}
+
+.data-body {
+    display: flex;
+    flex-direction: column;
+    height: 79%;
+    width: 100%;
+    padding-top: 4%;
+}
+
+.data-header,
+.data-desc,
+.data-stats {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 4%;
+    width: 90%;
+    justify-content: left;
+}
+
+.Card-type {
+    display: flex;
+    font-size: 20px;
+    color: white;
+    max-width: 50%;
+}
+
+.add-card-button-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.add-card-button {
+    width: 150px;
+    height: 50px;
+    border-radius: 15px;
+    background-color: #1f1d1d;
+    border: 2px solid gray;
+    color: wheat
+}
