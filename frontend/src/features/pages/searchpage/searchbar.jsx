@@ -22,7 +22,8 @@ const SearchBar = () => {
   const authenticated = useSelector((state) => state.auth.token !== null);
   const userId = useSelector((state) => state.auth.userId);
   const [AddNewOwnedCard] = useAddNewOwnedCardMutation();
-  const [successMessage, setSuccessMessage] = useState('')
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('')
 
   const [listView, setListView] = useState(true);
 
@@ -61,7 +62,7 @@ const SearchBar = () => {
           console.log("Card data successfully posted:", result);
       } catch (error) {
           console.error('Error posting card data:', error);
-          setSuccessMessage('Failed to add card to your collection.');
+          setErrorMessage('Error adding Card to Collection.');
       }
     } else {
       console.log("No selected Card Data")
@@ -183,12 +184,16 @@ const SearchBar = () => {
     setClickedOnCard(false);
     setSelectedCardData(null);
     setCurrentPage(1);
+    setErrorMessage(null);
+    setSuccessMessage(null);
     debouncedSearchCard(inputValue);
   };
 
   const handleSuggestionClick = (suggestion) => {
     setCardName(suggestion);
     setClickedOnCard(true);
+    setErrorMessage(null);
+    setSuccessMessage(null);
     setMainSuggestions([]);
     setSelectedCardData(null);
     fetchSelectedCardData(suggestion);
@@ -197,6 +202,8 @@ const SearchBar = () => {
   const handleClearClick = () => {
     setCardName('');
     setError(null);
+    setErrorMessage(null);
+    setSuccessMessage(null);
     setMainSuggestions([]);
     setGallerySuggestions([]);
     setSelectedCardData(null);
@@ -320,10 +327,17 @@ const SearchBar = () => {
                   {authenticated && (
                     <div>
                       <div className="add-card-button-container">
-                        <button className="add-card-button" onClick={handleAddOwnedCardClick}>Add to Owned</button>
-                          {successMessage && (
-                            <span className="success-message">{successMessage}</span>
-                          )}
+                        {(!successMessage && !errorMessage) && (
+                          <>
+                          <button className="add-card-button" onClick={handleAddOwnedCardClick}>Add to Owned</button>
+                          </>
+                        )}
+                        {successMessage && (
+                          <div className="success-message">{successMessage}</div>
+                        )}
+                        {errorMessage && (
+                          <div className="error-message">{errorMessage}</div>
+                        )}
                       </div>
                     </div>
                     )} 

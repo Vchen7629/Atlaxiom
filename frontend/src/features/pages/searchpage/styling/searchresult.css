@@ -64,3 +64,34 @@
     border: 2px solid gray;
     color: wheat
 }
+
+.success-message {
+    width: 500px;
+    height: 50px;
+    border-radius: 15px;
+    font-size: 20px;
+    background-color: green;
+    color: gold;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin-top: auto;
+}
+
+.error-message {
+    width: 500px;
+    height: 50px;
+    border-radius: 15px;
+    font-size: 20px;
+    background-color: darkred;
+    color: white;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin-top: auto;
+}
+

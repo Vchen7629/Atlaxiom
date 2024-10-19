@@ -31,6 +31,7 @@ function App() {
 
           <Route element={<StayLoggedIn/>}>
             <Route element={<Prefetch/>}>
+              <Route path="searchloggedin" element={<SearchBar/>} />
               <Route path="card" element={<DashLayout />}>
                 <Route path="getcards" element={<UserOwnedCardTable/>}/>
               </Route>
