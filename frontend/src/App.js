@@ -11,7 +11,7 @@ import Profilepage from './features/pages/profilepage/Profilepage.js';
 import StayLoggedIn from './features/auth/stayloggedin.js';
 import MyDeck from './features/pages/mydeckpage/my-deck.js';
 import CreateNewDeckForm from './features/pages/mydeckpage/new-deck-creation-form.jsx';
-import Deckview from './features/pages/mydeckpage/modify-deck.jsx';
+import Deckview from './features/pages/mydeckpage/My-deck.jsx';
 import UserOwnedCardTable from './features/pages/my-cards/ownedCardTable.jsx';
 import SearchBar from './features/pages/searchpage/searchbar.jsx';
 

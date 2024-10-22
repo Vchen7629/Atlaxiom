@@ -24,7 +24,6 @@ const StayLoggedIn = () => {
         if (effectRan.current === true || process.env.NODE_ENV !== 'development') {/*React 18 strict mode*/
 
             const verifyRefreshToken = async() => {
-                console.log("verifying refresh token")
                 try {
                     await refresh()
                     setTrueSuccess(true)
@@ -42,10 +41,8 @@ const StayLoggedIn = () => {
 
     let content 
     if (isLoading) {
-        console.log("loading")
         content = <p>Loading...</p>
     } else if (isError) {
-        console.log("error")
         content = (
             <p className="errmsg">
                 {error.data?.message}
@@ -53,7 +50,6 @@ const StayLoggedIn = () => {
             </p>
         )
     } else if (isSuccess && TrueSuccess) {
-        console.log("success")
         content=<Outlet/>
     } else if (token && isUninitialized) {
         console.log("Token exists but not initialized", isUninitialized)

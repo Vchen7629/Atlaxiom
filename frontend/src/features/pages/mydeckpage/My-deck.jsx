@@ -26,14 +26,10 @@ const Deckmodify = () => {
     } = useGetAllOwnedDecksQuery(userId);
     
     const decksToDisplay = modifyDecks?.entities?.undefined?.ownedDecks || [];
-    console.log("decks to display is", decksToDisplay)
-
-    console.log("hi sir", modifyDecks)
-
+    
     useEffect(() => {
         if (userId) {
             refetch(); 
-            console.log("Refetched data after entering Modify Deck page");
         }
     }, [userId, refetch]);
 
@@ -49,8 +45,12 @@ const Deckmodify = () => {
     }
 
     const handleSearchTerm = (e) => {
-        setSearchTerm(e.target.value);
+        setSearchTerm(e.target.value)
     }
+
+    const filteredDecks = decksToDisplay.filter(deck =>
+        deck.deck_name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     const handleClearClick = () => {
         setSearchTerm('')
@@ -94,11 +94,16 @@ const Deckmodify = () => {
                         <>
                             <div className="My-Decks-Display-List">
                                 <div className="List-view-header">
-
+                                    <div className="list-view-deck-name-title">Deck Name</div>
+                                    <div className="list-view-deck-desc-title">Description</div>
+                                    <div className="list-view-deck-updated-title">Last Updated</div>
                                 </div>
-                                {decksToDisplay.map((deck) => (
+                                {filteredDecks.map((deck) => (
                                     <>
-                                    <div className="list-view-deck-item" key={deck._id}>
+                                    <div 
+                                        className="list-view-deck-item" 
+                                        key={deck._id}
+                                    >
                                         <div className="list-view-deck-name">
                                             <strong>{deck.deck_name}</strong>
                                         </div>

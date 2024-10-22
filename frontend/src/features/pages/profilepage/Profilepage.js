@@ -20,7 +20,6 @@ const Profilepage = () => {
     const userId = useSelector((state) => state.auth.userId);
 
     useEffect(() => {
-        console.log("Current userId:", userId);
     }, [userId]);
     
     const { 
@@ -58,9 +57,7 @@ const Profilepage = () => {
         if (error) {
             return <p>Err</p>
         }
-
-        console.log('Render usersData:', usersData);
-      
+              
         switch (selectedNavItem) {
             case 'profile':
 

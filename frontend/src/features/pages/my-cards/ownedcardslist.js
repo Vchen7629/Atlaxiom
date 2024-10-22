@@ -44,13 +44,10 @@ const UserOwnedCard = () => {
         return <p>No user data available</p>;
       }
       
-      
       if (!user) {
         console.error('User entity not found');
         return <p>No user data available</p>;
       }
-
-      console.log('Render usersData:', usersData);
 
       return <OwnedCardTable user={user} refetchUserData={refetch}/>
     } catch (e) {

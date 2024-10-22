@@ -65,7 +65,6 @@ const UserSettings = ({ user }) => {
         setValidUsername(false);
         setUsernameError("Username entered is the same as current");
       } else {
-        console.log("testing")
         setValidUsername(true);
         setUsernameSuccess("Username Updated Successfully")
         setUsernameConflict(false);
