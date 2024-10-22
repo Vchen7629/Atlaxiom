@@ -13,7 +13,6 @@ const Prefetch = () => {
         const allusers = store.dispatch(usersApiSlice.endpoints.getUsers.initiate());
 
         return () => {
-            console.log("unsubscribing");
             //users.unsubscribe();
             allusers.unsubscribe();
             //ownedcards.unsubscribe();
@@ -23,14 +22,5 @@ const Prefetch = () => {
 
     return <Outlet/>;
 }
-    
-        //const allusers = store.dispatch(usersApiSlice.endpoints.getUsers.initiate(loggedInUsername))
 
-        //return () => {
-            //console.log("unsubscribing")
-            //ownedcards.unsubscribe()
-            //users.unsubscribe()
-            //allusers.unsubscribe()
-        //}
-    //}
 export default Prefetch

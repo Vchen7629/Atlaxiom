@@ -12,7 +12,6 @@ const User = ({ userId }) => {
 
     if (user) {
         const handleEdit = () => {
-            console.log('Editing user with ID:', userId);
             navigate(`/users/${userId}`)
         };
 

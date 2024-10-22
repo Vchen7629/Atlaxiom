@@ -59,13 +59,12 @@ const SearchBar = () => {
       try {
           const result = await AddNewOwnedCard({ id: userId, CardData: cardToPost }).unwrap();
           setSuccessMessage("Card successfully added to Collection!")
-          console.log("Card data successfully posted:", result);
       } catch (error) {
           console.error('Error posting card data:', error);
           setErrorMessage('Error adding Card to Collection.');
       }
     } else {
-      console.log("No selected Card Data")
+      console.error("No selected Card Data")
     }
     
   }
@@ -96,8 +95,6 @@ const SearchBar = () => {
 
       if (response.ok) {
         setSelectedCardData(data.data[0]);
-        console.log("setting", data.data[0])
-
       } else {
         console.error('Error fetching card data:', data.message);
       }
@@ -106,8 +103,6 @@ const SearchBar = () => {
     }
     
   }
-
-
 
   const debouncedSearchCard = useCallback(
     debounce((inputValue) => {

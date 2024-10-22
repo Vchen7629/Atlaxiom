@@ -101,7 +101,6 @@ const UserOwnedCardTable = () => {
         id: userId,
         CardData: { card_name: cardName }
       });
-      console.log("success delete")
       refetch();
     } catch (err) {
       console.error('Failed to delete card:', err);

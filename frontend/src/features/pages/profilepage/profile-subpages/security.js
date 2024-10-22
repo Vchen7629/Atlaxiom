@@ -29,13 +29,11 @@ const Security = ({ user }) => {
         })
             
             if (isSuccess) {
-                console.log("User password update Success", updatePassword)
                 setPassword('')
                 navigate("/login")
             }
 
             if (isError) {
-                console.log("Error saving password")
                 setErrMsg("Password was incorrect")
             }
     }

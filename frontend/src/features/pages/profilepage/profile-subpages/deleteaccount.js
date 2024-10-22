@@ -52,28 +52,21 @@ const DeleteAccount = ({ user }) => {
                     userData: { password }
                 })
                     if (deleteUser) {
-
                         let logoutResult;
-
-                        console.log("User Deleted Successfully not yet logged out");
                         logoutResult = await sendLogout();
                             if (logoutResult) {
-                                console.log("User deleted and logged out successfully");
                                 navigate("/login");
                             }
-
                             if (logoutError) {
-                                console.log("Logout ran into an issue")
+                                console.error("Logout ran into an issue")
                             }
                             
                     }
-
                     if (deleteUserError) {
-                        console.log("Error deleting user", error)
+                        console.error("Error deleting user", error)
                     }
-
                     if (error) {
-                        console.log("error", error)
+                        console.error("error", error)
                     }
             } finally {
                 reset();

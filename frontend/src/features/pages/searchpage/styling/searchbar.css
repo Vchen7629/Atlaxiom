@@ -87,7 +87,12 @@ input:focus {
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: rgb(45, 43, 43)
+  background: #1f1d1d;
+}
+
+.suggestion-box:hover {
+  border:  2px solid gray;
+  border-radius: 25px;
 }
 
 /*Grid styling*/
@@ -114,7 +119,7 @@ input:focus {
   max-width: 100%;
   max-height: 100%;
   justify-items: stretch; 
-  overflow-y: auto;
+  overflow: hidden;
   justify-items: center;
 }
 
@@ -123,6 +128,10 @@ input:focus {
   width: 100%;
   max-width: 550px;
   height: auto; 
+}
+
+.gallery-item-image:hover {
+  width: 105%;
 }
 
 /* Pagination */
@@ -676,7 +685,6 @@ input:focus {
   color: goldenrod;
   font-weight: bold;
   font-size: calc(15px + 0.390625vw);
-  background: #1f1d1d;
 }
 
 .suggestion-name-container {
@@ -721,7 +729,6 @@ input:focus {
 
 .suggestion-box-body {
     display: flex;
-    background: #1f1d1d;
     justify-content: space-between;
     width: 100%;
     height: 67%

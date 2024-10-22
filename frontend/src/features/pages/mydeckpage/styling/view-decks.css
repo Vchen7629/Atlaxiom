@@ -105,8 +105,34 @@
 }
 
 .List-view-header {
-    background-color: gray;
-    height: 50px;
+    height: 70px;
+    display: flex;
+}
+
+.list-view-deck-name-title {
+    margin-left: 5%;
+    font-size: 25px;
+    width: 30%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.list-view-deck-desc-title {
+    font-size: 25px;
+    width: 30%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.list-view-deck-updated-title {
+    padding-left: 10%;
+    font-size: 25px;
+    width: 30%;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .list-view-deck-item {
@@ -119,12 +145,13 @@
 }
 
 .list-view-deck-item:hover{
-    background-color: gray;
+    height: 60px;
+    border: 2px solid rgba(128, 128, 128, 0.438)
 }
 
 .list-view-deck-name {
     margin-left: 5%;
-    font-size: 25px;
+    font-size: 20px;
     width: 30%
 }
 

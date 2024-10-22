@@ -44,7 +44,7 @@ const MyDeck = () => {
                     <div className="Modify-deck-button-container">
                         <FontAwesomeIcon icon={faArrowRightArrowLeft} className="icon-styling-two fa-2xl"/>
                         <button className="modify-deck-button" onClick={handleModifyDeckClick}>
-                            <div className="Name-of-button">Modify Decks</div>
+                            <div className="Name-of-button">My Decks</div>
                             <div className="button-desc">View and Modify decks you own, add or remove cards from deck </div>
                         </button>
                     </div>
