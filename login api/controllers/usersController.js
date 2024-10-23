@@ -26,15 +26,11 @@ const createNewUser = asyncHandler(async (req, res) => {
     // hash password
     const hashPassword = await bcrypt.hash(password, 10) //salt rounds for password encryptions
 
-<<<<<<< HEAD
-    const creationDate = new Date().toISOString().split('T')[0]
-=======
     const creationDate = new Date().toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'short',
         day: 'numeric'
     })
->>>>>>> 14ef751 (testing)
 
     // create and store new user object
     const userObject = { 
@@ -123,29 +119,22 @@ const updateUser = asyncHandler(async (req, res) => {
     user.username = username
     user.email = email
 
-<<<<<<< HEAD
-=======
     if (req.body.description) {
         user.description = req.body.description;
     }
 
->>>>>>> 14ef751 (testing)
     if (password) {
         //Hash password
         user.password = await bcrypt.hash(password, 10) //10 salt rounds
     }
 
     const now = new Date();
-<<<<<<< HEAD
-    const formattedDate = now.toISOString().split('T')[0];
-=======
     const formattedDate = now.toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'short',
         day: 'numeric'
     });
 
->>>>>>> 14ef751 (testing)
     const formattedTime = now.toTimeString().split(' ')[0];
 
     user.lastUpdated = `${formattedDate} ${formattedTime}`;

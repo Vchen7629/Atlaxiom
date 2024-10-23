@@ -1,10 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
-<<<<<<< HEAD
-=======
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
->>>>>>> 14ef751 (testing)
 
 * {
   margin: 0;
