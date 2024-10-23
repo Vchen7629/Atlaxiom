@@ -108,9 +108,14 @@ const UserOwnedCardTable = () => {
   }
 
   return (
+<<<<<<< HEAD
 
       <main className="My-Cards-box">
         <div className="My-Cards-header">
+=======
+      <main className="bg-blackone text-white relative flex flex-col w-[80%] min-h-[68vh] rounded-[25px] p-5">
+        <div className="relative justify-evenly flex w-full pb-5 my-5">
+>>>>>>> 14ef751 (testing)
           <div className="My-Cards-Title"> 
             <strong>My Card Collection</strong> 
           </div>

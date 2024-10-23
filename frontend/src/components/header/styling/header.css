@@ -29,13 +29,21 @@
 .header {
     display: flex;
     justify-content: space-between;
+<<<<<<< HEAD
     background: none rgb(25, 25, 25); color: rgb(255, 255, 255);
+=======
+    background:#191919;
+    color: rgb(255, 255, 255);
+>>>>>>> 14ef751 (testing)
     position: relative;
     top: 0;
     left: 0;
     right: 0;
     padding: 10px;
+<<<<<<< HEAD
   
+=======
+>>>>>>> 14ef751 (testing)
   }
   
   .header::after {
@@ -55,7 +63,13 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
+<<<<<<< HEAD
     font-size: calc(18px + 0.390625vw);
+=======
+    background-color: transparent;
+    border: transparent;
+    font-size: calc(32px + 0.390625vw);
+>>>>>>> 14ef751 (testing)
   }
 
 /* Styles for the dropdown button */

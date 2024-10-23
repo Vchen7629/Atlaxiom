@@ -1,5 +1,6 @@
 /*Profile information container styling*/
 .Profile-content-container {
+<<<<<<< HEAD
     background-color: rgb(26, 25, 25);
     position: relative;
     display: flex;
@@ -8,10 +9,20 @@
     height: 100%px;
     margin-left: 30px;
     border-radius: 25px;
+=======
+    background-color: transparent;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    overflow: auto;
+    height: 100%;
+>>>>>>> 14ef751 (testing)
     padding: 20px;
 }
 
 /*profile header styling*/
+<<<<<<< HEAD
     .Profile-header-container {
         height: fit-content;
         padding-left: 30px;
@@ -22,14 +33,34 @@
         margin-top: 30px;
         margin-bottom: 30px;
     }
+=======
+.Profile-header-container {
+    height: fit-content;
+    padding-left: 30px;
+    padding-bottom: 40px;
+    border-bottom: 2px solid gray;
+    color: goldenrod;
+    font-size: 35px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+>>>>>>> 14ef751 (testing)
 
     .Profile-title-text {
         margin-left: 20px
     }
 
 /* profile body styling*/
+<<<<<<< HEAD
 .profile-body-container {
     margin-top: 20px;
+=======
+.Account-details-container {
+    margin-top: 20px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+>>>>>>> 14ef751 (testing)
     height: fit-content;
     padding: 10px;
 }
@@ -39,43 +70,168 @@
 .profile-roles-container {
     display: flex;
     height: fit-content;
+<<<<<<< HEAD
     width: 90%;
     margin-bottom: 20px;
     margin-left: 10px;
     justify-content: space-between;
+=======
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 25px;
+>>>>>>> 14ef751 (testing)
 }
 
 .profile-username-header,
 .profile-email-header,
 .profile-roles-header {
     width: fit-content;
+<<<<<<< HEAD
     padding: 5px;
     border-radius: 5px;
     font-size: 20px;
+=======
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+>>>>>>> 14ef751 (testing)
 }
 
 .profile-username-body,
 .profile-email-body,
 .profile-roles-body {
     width: fit-content;
+<<<<<<< HEAD
     padding: 5px;
     border-radius: 5px;
     font-size: 20px;
     margin-left: 80px;
+=======
+    min-width: 60%;
+    padding: 5px;
+    border-radius: 5px;
+    margin-left: 20px;
+>>>>>>> 14ef751 (testing)
     color: darkorange;
 }
 
 .description-container {
     display: flex;
     height: fit-content;
+<<<<<<< HEAD
     width: 90%;
     margin-bottom: 20px;
     margin-left: 10px;
     justify-content: space-between;
+=======
+    margin-bottom: 20px;
+    margin-left: 5px;
+    color: white;
+    font-size: 25px;
+>>>>>>> 14ef751 (testing)
 }
 
 .description-body {
     background-color: gray;
+<<<<<<< HEAD
     border: 2px solid black;
     padding: 10px
+=======
+    color: black;
+    border: 2px solid black;
+    padding: 10px;
+    width: 500px;
+    height: 200px;
+    margin-left: 50px;
+}
+
+.edit-username-button {
+    width: 100px;
+    height: 35px;
+    background-color: gold;
+    font-size: 22px;
+}
+
+.edit-email-button {
+    width: 100px;
+    height: 35px;
+    background-color: gold;
+    font-size: 22px;
+    margin-left: 9%;
+}
+
+.input-container {
+    display: flex;
+    width: 40%;
+    align-items: center;
+}
+
+.username-update-input-body {
+    background-color: rgba(128, 128, 128, 0.096);
+    border: 2px solid gray;
+    padding: 5px;
+    color: orange;
+    width: 412px;
+    padding-right: 20px;
+    padding-left: 20px;
+    height: 43px
+}
+
+.username-update-input-body:hover {
+    border: 2px solid orange
+}
+
+.email-update-input-body {
+    background-color: rgba(128, 128, 128, 0.096);
+    border: 2px solid gray;
+    padding: 5px;
+    color: orange;
+    width: 71%;
+    padding-right: 150px;
+    padding-left: 20px;
+    height: 43px
+}
+
+.email-update-input-body:hover {
+    border: 2px solid orange
+}
+
+.submit-username-button {
+    width: 100px;
+    height: 45px;
+    background-color: gold;
+    font-size: 22px;
+    margin-left: -2px;
+    border: 2px solid gray;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.submit-email-button {
+    width: 120px;
+    height: 45px;
+    background-color: gold;
+    font-size: 22px;
+    margin-left: -2px;
+    border: 2px solid gray;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.Submit-button {
+    width: 30%;
+    background-color: gold;
+    margin-left: 51px;
+    border-radius: 7px;
+}
+
+.submit-error-message {
+    margin-left: -36%;
+    color: red
+}
+
+.email-submit-error-message {
+    margin-left: 2%;
+    color: red
+>>>>>>> 14ef751 (testing)
 }

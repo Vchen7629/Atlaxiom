@@ -1,5 +1,6 @@
 .Profile-page-body-container {
     display: flex;
+<<<<<<< HEAD
     flex-direction: row;
     width: 60%;
     height: fit-content;
@@ -14,6 +15,25 @@
     position: relative;
     height: 82vh;
     padding: 20px;
+=======
+    align-items: center;
+    background-color: rgb(26, 25, 25);
+    padding: 1%;
+    border-radius: 25px;
+    width: 85%;
+    height: 90%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.Profile-page-background {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 82vh;
+    padding: 2%;
+>>>>>>> 14ef751 (testing)
     background-color: rgb(32, 32, 32);
     background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
     background-size: 10px 10px, 10px 10px, 10px 5px;

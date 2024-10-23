@@ -9,7 +9,10 @@ import Header from '../../../components/header/header';
 import Footer from '../../../components/footer/Footer';
 import { useGetSpecificUserQuery } from '../../api-slices/usersApiSlice';
 import ProfileContent from './profile-subpages/profile';
+<<<<<<< HEAD
 import UserSettings from './profile-subpages/users-settings';
+=======
+>>>>>>> 14ef751 (testing)
 import DeleteAccount from './profile-subpages/deleteaccount';
 import UserStatistics from './profile-subpages/statistics';
 import Security from './profile-subpages/security';
@@ -60,6 +63,7 @@ const Profilepage = () => {
               
         switch (selectedNavItem) {
             case 'profile':
+<<<<<<< HEAD
 
                 return (
                     <ProfileContent user={user} />
@@ -68,6 +72,11 @@ const Profilepage = () => {
                 return (
                     <UserSettings user={user} />
                     );
+=======
+                return (
+                    <ProfileContent user={user} />
+                );
+>>>>>>> 14ef751 (testing)
             case 'statistics':
                 return (
                     <UserStatistics user={user} />
@@ -91,7 +100,11 @@ const Profilepage = () => {
         <>
         <Header/>
         <main className="Profile-page-background">
+<<<<<<< HEAD
             <section className="Profile-page-body-container">
+=======
+            <div className="Profile-page-body-container">
+>>>>>>> 14ef751 (testing)
                 <div className="Profile-side-nav-container">
                     <button className="Profile-side-nav-button" onClick={() => handleNavItemClick('profile')}>
                         <FontAwesomeIcon icon={faUser} className="button-icon"/>
@@ -99,10 +112,13 @@ const Profilepage = () => {
                             Profile
                         </span>
                     </button>
+<<<<<<< HEAD
                     <button className="User-setting-nav-button" onClick={() => handleNavItemClick('users-settings')}>
                         <FontAwesomeIcon icon={faGear} className="button-icon"/>
                         <span className="button-text">View User Settings</span>
                     </button>
+=======
+>>>>>>> 14ef751 (testing)
                     <button className="Owned-cards-nav-button" onClick={() => handleNavItemClick('statistics')}>
                         <FontAwesomeIcon icon={faChartColumn} className="button-icon"/>
                         <span className="button-text">View Statistics</span>
@@ -119,7 +135,11 @@ const Profilepage = () => {
                 <div className="Profile-content-container">
                     {renderProfileContent()}
                 </div>
+<<<<<<< HEAD
             </section>
+=======
+            </div>
+>>>>>>> 14ef751 (testing)
         </main>
         <Footer/>
         </>

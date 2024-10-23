@@ -58,7 +58,11 @@ const UserOwnedCard = () => {
   };
 
     return (
+<<<<<<< HEAD
       <div className="My-Cards-Container">
+=======
+      <div>
+>>>>>>> 14ef751 (testing)
         {renderOwnedCardContent()}
       </div>
     )
