@@ -1,8 +1,4 @@
 import { Routes, Route } from 'react-router-dom'
-<<<<<<< HEAD
-import Layout from './components/layout'
-=======
->>>>>>> 14ef751 (testing)
 import DashLayout from './components/dash/dashlayout'
 import Banlists from './features/pages/banlist';
 import ContactInfos from './features/pages/contactinfo';
@@ -22,31 +18,6 @@ import SearchBar from './features/pages/searchpage/searchbar.jsx';
 function App() {
   return (
     <Routes>
-<<<<<<< HEAD
-      <Route path="/" element={<Layout />}>
-        <Route index element={<HomePage />} />
-          <Route path="signup" element={<AccountCreationForm/>}/>
-          <Route path="login" element={<LoginPage/>}/>
-          <Route path="banlist" element={<Banlists />} />
-          <Route path="privacy-policy" element={<HomePage/>} />
-          <Route path="contact-info" element={<ContactInfos />} />
-          <Route path="search" element={<SearchBar/>} />
-        </Route>
-
-          <Route element={<StayLoggedIn/>}>
-            <Route element={<Prefetch/>}>
-              <Route path="searchloggedin" element={<SearchBar/>} />
-              <Route path="card" element={<DashLayout />}>
-                <Route path="getcards" element={<UserOwnedCardTable/>}/>
-              </Route>
-              <Route path="mydeckhomepage" element={<MyDeck/>}/>
-              <Route path="newDeck" element={<CreateNewDeckForm/>}/>
-              <Route path="modifyDeck" element={<Deckview/>}/>         
-              <Route path="users" element={<DashLayout />}/>
-              <Route path="profile" element={<Profilepage />}/>
-            </Route>
-          </Route>
-=======
       <Route path="/" element={<HomePage />} />
       <Route path="signup" element={<AccountCreationForm/>}/>
       <Route path="login" element={<LoginPage/>}/>
@@ -69,7 +40,6 @@ function App() {
           <Route path="profile" element={<Profilepage />}/>
         </Route>
       </Route>
->>>>>>> 14ef751 (testing)
     </Routes>
   );
 } 

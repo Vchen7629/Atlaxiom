@@ -1,15 +1,5 @@
 /*Profile information container styling*/
 .Profile-content-container {
-<<<<<<< HEAD
-    background-color: rgb(26, 25, 25);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    height: 100%px;
-    margin-left: 30px;
-    border-radius: 25px;
-=======
     background-color: transparent;
     position: relative;
     display: flex;
@@ -17,23 +7,10 @@
     width: 75%;
     overflow: auto;
     height: 100%;
->>>>>>> 14ef751 (testing)
     padding: 20px;
 }
 
 /*profile header styling*/
-<<<<<<< HEAD
-    .Profile-header-container {
-        height: fit-content;
-        padding-left: 30px;
-        padding-bottom: 40px;
-        border-bottom: 3px solid rgba(128, 128, 128, 0.377);
-        color: goldenrod;
-        font-size: 35px;
-        margin-top: 30px;
-        margin-bottom: 30px;
-    }
-=======
 .Profile-header-container {
     height: fit-content;
     padding-left: 30px;
@@ -44,23 +21,17 @@
     margin-top: 30px;
     margin-bottom: 30px;
 }
->>>>>>> 14ef751 (testing)
 
     .Profile-title-text {
         margin-left: 20px
     }
 
 /* profile body styling*/
-<<<<<<< HEAD
-.profile-body-container {
-    margin-top: 20px;
-=======
 .Account-details-container {
     margin-top: 20px;
     margin-left: 20px;
     display: flex;
     flex-direction: column;
->>>>>>> 14ef751 (testing)
     height: fit-content;
     padding: 10px;
 }
@@ -70,73 +41,42 @@
 .profile-roles-container {
     display: flex;
     height: fit-content;
-<<<<<<< HEAD
-    width: 90%;
-    margin-bottom: 20px;
-    margin-left: 10px;
-    justify-content: space-between;
-=======
     align-items: center;
     margin-bottom: 20px;
     font-size: 25px;
->>>>>>> 14ef751 (testing)
 }
 
 .profile-username-header,
 .profile-email-header,
 .profile-roles-header {
     width: fit-content;
-<<<<<<< HEAD
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 20px;
-=======
     color: white;
     padding: 5px;
     border-radius: 5px;
->>>>>>> 14ef751 (testing)
 }
 
 .profile-username-body,
 .profile-email-body,
 .profile-roles-body {
     width: fit-content;
-<<<<<<< HEAD
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 20px;
-    margin-left: 80px;
-=======
     min-width: 60%;
     padding: 5px;
     border-radius: 5px;
     margin-left: 20px;
->>>>>>> 14ef751 (testing)
     color: darkorange;
 }
 
 .description-container {
     display: flex;
     height: fit-content;
-<<<<<<< HEAD
-    width: 90%;
-    margin-bottom: 20px;
-    margin-left: 10px;
-    justify-content: space-between;
-=======
     margin-bottom: 20px;
     margin-left: 5px;
     color: white;
     font-size: 25px;
->>>>>>> 14ef751 (testing)
 }
 
 .description-body {
     background-color: gray;
-<<<<<<< HEAD
-    border: 2px solid black;
-    padding: 10px
-=======
     color: black;
     border: 2px solid black;
     padding: 10px;
@@ -233,5 +173,4 @@
 .email-submit-error-message {
     margin-left: 2%;
     color: red
->>>>>>> 14ef751 (testing)
 }

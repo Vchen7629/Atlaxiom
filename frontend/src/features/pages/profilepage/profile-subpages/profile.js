@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import "../styling/profilecontent.css"
-
-const ProfileContent = ({ user }) => {
-  const { username, email, roles, description } = user;
-=======
 import React, {useCallback, useEffect, useState }from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -150,24 +141,11 @@ const ProfileContent = ({ user }) => {
       console.error("Error updating bio:", err);
     }
   };
->>>>>>> 14ef751 (testing)
 
   return (
     <>
       <header className="Profile-header-container">
           <FontAwesomeIcon icon={faUser} />
-<<<<<<< HEAD
-          <span className="Profile-title-text">Profile Page</span>
-      </header>
-      <main>
-        <div className="profile-username-container">
-          <div className="profile-username-header">Username:</div>
-          <div className="profile-username-body">{username}</div>
-        </div>
-        <div className="profile-email-container">
-          <span className="profile-email-header">Email:</span>
-          <div className="profile-email-body">{email}</div>
-=======
           <span className="Profile-title-text">Account Details</span>
       </header>
       <div className="Account-details-container">
@@ -245,24 +223,11 @@ const ProfileContent = ({ user }) => {
               {emailError && <div className="email-submit-error-message">{emailError}</div>}
             </>
           )}
->>>>>>> 14ef751 (testing)
         </div>
         <div className="profile-roles-container">
           <span className="profile-roles-header">Roles:</span>
           <div className="profile-roles-body">{roles?.join(', ')}</div>
         </div>
-<<<<<<< HEAD
-        <form className="description-container">
-          <label>Description</label>
-          <textarea
-            className="description-body"
-            placeholder="Enter description"
-          >
-            {description}
-          </textarea>
-        </form>
-      </main>
-=======
         <form 
           className="description-container"
           onSubmit={handleSubmitBio}
@@ -294,7 +259,6 @@ const ProfileContent = ({ user }) => {
           <div className="profile-email-body">{lastUpdated}</div>
         </div>
       </div>
->>>>>>> 14ef751 (testing)
       </>
   );
 };

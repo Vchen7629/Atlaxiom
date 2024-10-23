@@ -1,22 +1,4 @@
 .Profile-side-nav-container {
-<<<<<<< HEAD
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-    width: 20%;
-}
-
-.Profile-side-nav-button {
-    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    border: 1px solid black;
-    padding: 10px;
-    color: goldenrod;
-    transition: transform 0.4s ease;
-=======
     border-right: 2px solid gray;
     position: relative;
     display: flex;
@@ -35,29 +17,18 @@
     padding: 10px;
     color: goldenrod;
     border: 2px solid rgb(26, 25, 25);
->>>>>>> 14ef751 (testing)
 }
 
 .User-setting-nav-button,
 .Owned-cards-nav-button,
 .security-nav-button,
 .delete-nav-button {
-<<<<<<< HEAD
-    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
-    margin-bottom: 10px;
-    border-radius: 10px;
-    border: 1px solid black;
-    padding: 10px;
-    transition: transform 0.4s ease;
-    color: goldenrod;
-=======
     background-color: rgb(26, 25, 25);
     width: 70%;
     margin-bottom: 5%;
     padding: 10px;
     color: goldenrod;
     border: 2px solid rgb(26, 25, 25);
->>>>>>> 14ef751 (testing)
 }
 
 
@@ -66,13 +37,7 @@
 .Owned-cards-nav-button:hover,
 .security-nav-button:hover,
 .delete-nav-button:hover {
-<<<<<<< HEAD
-    transform: translateX(20px);
-    box-shadow: 0 0 10px 2px gold;
-    
-=======
    border-bottom-color: gray;
->>>>>>> 14ef751 (testing)
 }
 
 .button-text {
