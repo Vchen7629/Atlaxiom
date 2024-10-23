@@ -54,6 +54,7 @@
     width: 70%
 }
 
+<<<<<<< HEAD
 .username-update-input-body {
     background-color: rgba(128, 128, 128, 0.096);
     border: 2px solid gray;
@@ -69,6 +70,9 @@
     border-radius: 15px;  
     border: 2px solid orange
 }
+=======
+
+>>>>>>> 14ef751 (testing)
 
 .update-username-button {
     background: linear-gradient(to bottom, rgb(45, 43, 43), black);
@@ -129,6 +133,7 @@
     width: 70%
 }
 
+<<<<<<< HEAD
 .email-update-input-body {
     background-color: rgba(128, 128, 128, 0.096);
     border: 2px solid gray;
@@ -145,6 +150,8 @@
     border: 2px solid orange
 }
 
+=======
+>>>>>>> 14ef751 (testing)
 .update-email-button {
     background: linear-gradient(to bottom, rgb(45, 43, 43), black);
     border: 1px solid black;
