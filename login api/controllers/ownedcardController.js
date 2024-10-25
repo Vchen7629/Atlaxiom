@@ -37,6 +37,11 @@ const createOwnedCard = asyncHandler(async (req, res) => {
   user.totalOwnedCards = Number(user.totalOwnedCards) + ownedCards.length || 1;
   user.lastAdded = ownedCards[0].card_name;
 
+  const now = new Date();
+  const formattedDate = now.toISOString().split('T')[0];
+  const formattedTime = now.toTimeString().split(' ')[0];
+
+  user.lastUpdated = `${formattedDate} ${formattedTime}`;
   user.ownedCards.push(...ownedCards);
 
   await user.save();
