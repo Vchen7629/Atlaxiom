@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import "./styling/footerbuttons.css"
 
 
 const Home = () => {
@@ -12,8 +11,11 @@ const Home = () => {
 
   return (
     <div>
-        <button className="home" onClick={handleButtonClick}>
-                Home
+        <button 
+          className="bg-transparent border-transparent text-white cursor-pointer border-b-2 hover:border-b-goldenrod" 
+          onClick={handleButtonClick}
+        >
+          Home
         </button>
     </div>
   );

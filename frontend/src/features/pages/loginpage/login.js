@@ -1,6 +1,5 @@
 import Footer from "../../../components/footer/Footer"
 import Header from "../../../components/header/header"
-import "./styling/Login.css"
 import { useRef, useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
@@ -49,7 +48,6 @@ const LoginPage = () => {
         }
 
         if (hasError) {
-            // Don't proceed with the form submission if there are errors
             return;
         }
 
@@ -68,7 +66,9 @@ const LoginPage = () => {
             } else {
                 setErrMsg(err.data?.message);
             }
-            errRef.current.focus();
+            if (errRef.current) {
+                errRef.current.focus();
+            }
         }
     }
     
@@ -85,9 +85,8 @@ const LoginPage = () => {
     const content = (
         <>
         <Header/>
-            <main className="login-page-background-container">
-                <p ref={errRef} aria-live="assertive">{errMsg}</p>
-                <form className="absolute pt-16 bg-blackone w-[25%] h-[55%] flex flex-col items-center rounded-3xl" onSubmit={handleSubmit} noValidate>
+            <main className="flex items-center justify-center relative xs:h-[86vh] xl:h-[82vh] bg-metal bg-metal-size bg-metal-position">
+                <form className="relative pt-16 bg-blackone xs:w-[70%] xl:w-[40%] 2xl:w-[30%] flex flex-col items-center rounded-3xl" onSubmit={handleSubmit} noValidate>
                     <div>
                         <FontAwesomeIcon className="text-gray-600 h-20 w-20 p-4 shadow-custom rounded-[24px] bg-blackone" icon={faUser}/>
                     </div>
@@ -107,7 +106,7 @@ const LoginPage = () => {
                                 required
                             />
                             {usernameError && (
-                                <div className="w-1/2 h-8 mt-1 text-xl text-red-600">{usernameError}</div>
+                                <div className="w-1/2 ml-14 h-8 mt-1 text-xl text-red-600">{usernameError}</div>
                             )}
                         </div>
                         <div className="mb-8 w-full h-20 flex flex-col items-center">
@@ -121,23 +120,23 @@ const LoginPage = () => {
                                 required
                             />
                             {passwordError && (
-                                <div className="w-1/2 h-8 mt-1 text-xl text-red-600">{passwordError}</div>
+                                <div className="h-8 mt-1 text-xl text-red-600">{passwordError}</div>
                             )}
                         </div>
-                        <div className="mb-9 w-full h-28 flex flex-col items-center">
+                        <div className="w-full h-36 flex flex-col items-center">
                             <button className="bg-blue-700 w-[92%] h-12 rounded-2xl">
                                 <h1 className="text-[25px] text-white">Login</h1>
                             </button>
-                            {errMsg && (
-                                <div className="bg-transparent p-[10px] mt-[30px] border-2 border-red-600 text-red-600 text-[18px]">
-                                    {errMsg}
-                                </div>
-                            )}  
                         </div>
-                        <div className="flex items-center justify-evenly w-full">
-                            <div className="w-[9vw] h-[2px] bg-gray-500">hi</div>
-                            <FontAwesomeIcon className= "text-gold w-7 h-7"icon={faGear}/>
-                            <div className="w-[9vw] h-[2px] bg-gray-500">hi</div>
+                        {errMsg && (
+                            <p ref={errRef} aria-live="assertive" className="absolute bg-transparent p-[10px] bottom-[19%] mb-[30px] border-2 border-red-600 text-red-600 text-[18px]">
+                                {errMsg}
+                            </p>
+                        )} 
+                        <div className="flex items-center justify-evenly w-full pb-16">
+                            <div className="xs:w-[21vw] xl:w-[11vw] h-[2px] bg-gray-500"></div>
+                            <FontAwesomeIcon className= "text-gray-500 w-7 h-7"icon={faGear}/>
+                            <div className="xs:w-[21vw] xl:w-[11vw] h-[2px] bg-gray-500"></div>
                         </div>
                     </div>    
                 </form>          
