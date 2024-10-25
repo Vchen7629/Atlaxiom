@@ -21,7 +21,9 @@ const LoginPage = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-
+    const handleSignUpClick = () => {
+        navigate('/signup')
+    }
 
     useEffect(() => { //code so that username field is focused on page init
         userRef.current.focus()
@@ -91,7 +93,12 @@ const LoginPage = () => {
                         <FontAwesomeIcon className="text-gray-600 h-20 w-20 p-4 shadow-custom rounded-[24px] bg-blackone" icon={faUser}/>
                     </div>
                     <header className="mt-6 mb-3 text-4xl text-white font-black">Welcome Back</header>
-                    <div className="text-xl mb-12 text-gray-500">Don't have an account yet? Sign Up</div>
+                    <div className="flex text-xl mb-12 text-gray-500">
+                        <div className="mr-2">Don't have an account yet? </div>
+                        <button className="text-white font-light"onClick={handleSignUpClick}>
+                            Sign Up
+                        </button>
+                    </div>
                     <div className="relative flex flex-col items-center w-[85%]">
                         <div className="mb-1 w-full h-20 flex flex-col items-center">
                             <input

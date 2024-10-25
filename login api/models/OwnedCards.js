@@ -61,8 +61,11 @@ const ownedCardSchema = new mongoose.Schema({
     ownedamount: {
         type: Number,
         default: 0
-    }
-
+    },
+    addedOn: {
+        type: String,
+        default: null
+    }   
 });
 
 module.exports = ownedCardSchema;

@@ -10,7 +10,7 @@ const ownedDeckSchema = new mongoose.Schema({
         type: String,
         require: false
     },
-    lastUpdated: {
+    createdOn: {
         type: String,
         default: null
     },
