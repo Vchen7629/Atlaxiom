@@ -7,7 +7,6 @@ import Cardsearch from '../buttons/searchbar'
 import Banlist from '../buttons/banlist'
 import Mycards from '../buttons/my-cards'
 import Login from '../buttons/login'
-import "./styling/header.css"
 import Signup from '../buttons/signup'
 import { useSendLogoutMutation } from '../../features/auth/authApiSlice'    
 import Mydecks from '../buttons/my-decks'
@@ -35,8 +34,6 @@ const Header = () => {
     const isAuthenticated = useSelector((state) => state.auth.token !== null);
 
     useEffect(() => {
-        console.log('isSuccess:', isSuccess);
-        console.log('isError:', isError);
         if (isSuccess && !isError) navigate('/')
     }, [isSuccess, isError, navigate])
 
@@ -49,9 +46,7 @@ const Header = () => {
         return <Cardsearch />;
     }
 
-    const renderAuthButtons = () => {
-        if (isLoading) return <p>Logging Out...</p>;
-    
+    const renderAuthButtons = () => {   
         if (isError) {
             console.error('Logout Error:', error);
             return <p>Error: {error.data?.message}</p>;
@@ -59,23 +54,17 @@ const Header = () => {
 
         if (isAuthenticated) {
           return (
-            <ul className={`Menu-container-right ${showDropdown ? "hidden" : ''}`}>
-                <li>
-                    <Mydecks/>
-                </li>
-                <li>
-                    <Mycards/> 
-                </li>
-                <li>
-                    <Profile/>
-                </li>
+            <ul className={`flex xs:hidden lg:flex py-2.5 mr-2.5 ${showDropdown ? "hidden" : ''}`}>
+                <li><Mydecks/></li>
+                <li><Mycards/></li>
+                <li><Profile/></li>
                 <li>
                     <button
-                    className="logout-button"
-                    title="Logout"
-                    onClick={sendLogout}
+                        className="bg-transparent border-transparent xs:w-16 xl:w-32 h-16 items-center border-b-2 hover:border-b-white"
+                        title="Logout"
+                        onClick={sendLogout}
                     >
-                    <FontAwesomeIcon icon={faRightFromBracket} /> Logout
+                    <FontAwesomeIcon className="fatextmargin text-white"icon={faRightFromBracket} /> Logout
                     </button>
                 </li>
             </ul>
@@ -84,18 +73,12 @@ const Header = () => {
         
         return (
             <>
-                <ul className={`Menu-container-right ${showDropdown ? "hidden" : ''}`}>
-                    <li>
-                        <Login />
-                    </li>
-                    <li>
-                        <Signup />
-                    </li>
+                <ul className={`flex xs:hidden lg:flex py-2.5 mr-2.5 ${showDropdown ? "hidden" : ''}`}>
+                    <li><Login /></li>
+                    <li><Signup /></li>
                 </ul>
             </>
         );
-        // Render nothing if not logged in
-        //return null;
       };
 
     const toggleDropdown = () => {
@@ -103,36 +86,38 @@ const Header = () => {
     };
 
     const content = (
-        <header className={`header ${profileClass}`}>
-            <ul className={`Menu-container-left ${showDropdown ? "hidden" : ''}`}>
-                <li>
-                    <Banlist/> 
-                </li>
-                <li>
-                    {/*<Cardsearch/>*/}
-                    {renderCardSearchButton()}
-                </li>
+        <header className={`flex justify-between  text-white bg-blackone relative p-2.5 border-b-2 border-gold ${profileClass}`}>
+            <ul className={`flex xs:hidden lg:flex py-2.5 ml-2.5 ${showDropdown ? "hidden" : ''}`}>
+                <li><Banlist/> </li>
+                <li>{renderCardSearchButton()}</li>
             </ul>
             <div>
                 <Link to="/">
-                <div className={`website-title ${showDropdown ? "hidden" : ''}`}>
-                    <h1>DeckDatabaseOnline</h1>
+                <div className={`absolute text-goldenrod font-black left-1/2 top-1/2 translate-y-[-50%] translate-x-[-50%] bg-transparent text-4xl ${showDropdown ? "hidden" : ''}`}>
+                    <h1>Atlaxiom</h1>
                 </div>
                 </Link>
             </div>
             {renderAuthButtons()}
 
-            {/* Responsive dropdown button for screens less than or equal to 768px*/}
-            <div className={`dropdown-btn ${showDropdown ? 'active' : ''}`} onClick={toggleDropdown}>
+            <div className={`relative xs:flex lg:hidden text-3xl cursor-pointer ${showDropdown ? 'active' : ''}`} onClick={toggleDropdown}>
                 ☰
             </div>
 
             {showDropdown && (
-                <div className="dropdown">
-                <Link to="/search">Card Search</Link>
-                <Link to="/banlist">Banlist</Link>
-                <Link to="/my-cards">My Cards</Link>
-                <Link to="/about-us">Login</Link>
+                <div className={`items-center absolute right-0 h-12 mt-16 z-10 ${showDropdown ? 'flex' : 'hidden'}`}>
+                    <a className="p-2.5 text-gold bg-blackone border-2 border-footer">
+                        <Link to="/search">Card Search</Link>
+                    </a>
+                    <a className="p-2.5 text-gold border-r-2 border-y-2 border-footer">
+                        <Link to="/banlist">Banlist</Link>
+                    </a>
+                    <a className="p-2.5 text-gold border-r-2 border-y-2 border-footer">
+                        <Link to="/my-cards">My Cards</Link>
+                    </a>
+                    <a className="p-2.5 text-gold border-r-2 border-y-2 border-footer">
+                        <Link to="/about-us">Login</Link>
+                        </a>
                 </div>
             )}
         </header>

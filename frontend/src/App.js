@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom'
-import DashLayout from './components/dash/dashlayout'
 import Banlists from './features/pages/banlist';
 import ContactInfos from './features/pages/contactinfo';
 import HomePage from './features/pages/homepage/homepage.js';
@@ -30,13 +29,10 @@ function App() {
         <Route element={<Prefetch/>}>
           <Route path="/loggedin" element={<HomePage/>}/>
           <Route path="searchloggedin" element={<SearchBar/>} />
-          <Route path="card" element={<DashLayout />}>
-            <Route path="getcards" element={<UserOwnedCardTable/>}/>
-          </Route>
+          <Route path="getcards" element={<UserOwnedCardTable/>}/>
           <Route path="mydeckhomepage" element={<MyDeck/>}/>
           <Route path="newDeck" element={<CreateNewDeckForm/>}/>
           <Route path="modifyDeck" element={<Deckview/>}/>         
-          <Route path="users" element={<DashLayout />}/>
           <Route path="profile" element={<Profilepage />}/>
         </Route>
       </Route>

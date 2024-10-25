@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook } from '@fortawesome/free-solid-svg-icons';
-import "./styling/headerbuttons.css"
 import { useGetSpecificOwnedDeckQuery } from '../../features/api-slices/decksapislice';
 
 
@@ -18,14 +17,17 @@ const Mycards = () => {
   });
 
   const handleButtonClick = () => {
-    navigate('/card/getcards', { state: { userId }});
+    navigate('/getcards', { state: { userId }});
   };
 
   return (
     <div>
-        <button className="my-cards" onClick={handleButtonClick}>
+        <button 
+          className="bg-transparent border-transparent xs:w-16 xl:w-32 h-16 items-center border-b-2 hover:border-b-white" 
+          onClick={handleButtonClick}
+        >
             <FontAwesomeIcon icon={faBook} />
-            <span className="fatextmargin">
+            <span className="fatextmargin text-white">
                 My Cards
             </span>
         </button>

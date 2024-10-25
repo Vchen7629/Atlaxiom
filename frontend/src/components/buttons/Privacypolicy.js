@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import "./styling/footerbuttons.css"
 
 const Privacypolicy = () => {
   const navigate = useNavigate();
@@ -11,8 +10,11 @@ const Privacypolicy = () => {
 
   return (
     <div>
-        <button className="privpolbtn"onClick={handleButtonClick} >
-                Privacypolicy
+        <button 
+          className="bg-transparent border-transparent cursor-pointer border-b-2 hover:border-b-goldenrod text-white"
+          onClick={handleButtonClick} 
+        >
+          Privacypolicy
         </button>
     </div>
   );

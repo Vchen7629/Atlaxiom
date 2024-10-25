@@ -1,7 +1,6 @@
-import React, {useCallback, useEffect, useState }from 'react';
+import React, {useCallback, useState }from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import "../styling/profilecontent.css"
 import { useSelector } from 'react-redux';
 import { useUpdateUserMutation, useGetSpecificUserQuery } from '../../../api-slices/usersApiSlice';
 import { isEmailValid, isUsernameValid } from '../../../util/UserDataValidation';
@@ -144,19 +143,19 @@ const ProfileContent = ({ user }) => {
 
   return (
     <>
-      <header className="Profile-header-container">
+      <header className="px-[30px] pb-10 border-b-2 border-gray-500 text-goldenrod text-4xl my-[30px]">
           <FontAwesomeIcon icon={faUser} />
-          <span className="Profile-title-text">Account Details</span>
+          <span className="ml-5">Account Details</span>
       </header>
-      <div className="Account-details-container">
-        <div className="profile-username-container">
+      <div className="flex flex-col h-fit p-5">
+        <div className="flex items-center mb-5 text-2xl">
           {!userbuttonClick && (
             <>
-              <div className="profile-username-header">Username:</div>
-              <div className="input-container">
-                <div className="profile-username-body">{username}</div>
+              <div className="p-1.25 text-white">Username:</div>
+              <div className="flex w-[40%] items-center">
+                <div className="w-fit min-w-[60%] text-orange-400 p-1.25 ml-5">{username}</div>
                 <button 
-                  className="edit-username-button"
+                  className="w-20 h-[35px] bg-gold text-2xl"
                   onClick={handleEditUserName}
                 >
                   Edit
@@ -166,35 +165,35 @@ const ProfileContent = ({ user }) => {
           )}
           {userbuttonClick && (
             <>
-              <form style={{display:"flex", alignItems: "center", width: "1200px"}}>
-                <div className="profile-username-header">Username:</div>
+              <form className="flex items-center w-[1200px] h-12.5">
+                <div className="p-1.25 text-white">Username:</div>
                 <input
                   type="text"
-                  className="username-update-input-body"
+                  className="bg-[#4c607a18] border-solid border-gray-500 text-2xl text-orange-400 w-[412px] px-5 h-[45px] hover:border-2 hover:border-orange-500"
                   placeholder="Enter New username"
                   value={updateusername}
                   onChange={onUsernameChanged}
                 />
                 <button 
                   type="submit"
-                  className="submit-username-button"
+                  className="w-[100px] h-[45px] rounded-tr-2xl rounded-br-2xl bg-gold text-xl"
                   onClick={handleSubmitUsername}
                 >
                   Update 
                 </button>
               </form>
-              {usernameError && <div className="submit-error-message">{usernameError}</div>}
+              {usernameError && <div className="ml-[-36%] text-red-700">{usernameError}</div>}
             </>
           )}
         </div>
-        <div className="profile-email-container">
+        <div className="flex items-center mb-5 text-2xl">
           {!emailbuttonClick && (
             <>
-              <div className="profile-email-header">Email:</div>
-              <div className="input-container">
-                <div className="profile-email-body">{email}</div>
+              <div className="p-1.25 text-white">Email:</div>
+              <div className="flex w-[40%] items-center">
+                <div className="w-fit min-w-[68.3%] text-orange-400 p-1.25 ml-5">{email}</div>
                 <button
-                  className="edit-email-button"
+                  className="w-20 h-[35px] bg-gold text-2xl"
                   onClick={handleEditEmail}
                 >
                   Edit
@@ -204,38 +203,38 @@ const ProfileContent = ({ user }) => {
           )}
           {emailbuttonClick && (
             <>
-              <form onSubmit={handleSubmitEmail} style={{display:"flex", alignItems: "center", width: "46%"}}>
-                <div className="profile-email-header">Email:</div>
+              <form onSubmit={handleSubmitEmail} className="flex items-center w-[1200px] h-12.5">
+                <div className="p-1.25 text-white">Email:</div>
                 <input
                   type="text"
-                  className="email-update-input-body"
+                  className="bg-[#4c607a18] border-solid border-gray-500 text-2xl text-orange-400 w-[450px] px-5 h-[45px] hover:border-2 hover:border-orange-500"
                   placeholder="Enter New Email"
                   value={updateemail}
                   onChange={onEmailChanged}
                 />
                 <button
                   type="submit"
-                  className="submit-email-button"
+                  className="w-[100px] h-[45px] rounded-tr-2xl rounded-br-2xl bg-gold text-xl"
                 >
                   Update
                 </button>
               </form>
-              {emailError && <div className="email-submit-error-message">{emailError}</div>}
+              {emailError && <div className="ml-[-36%] text-red-700">{emailError}</div>}
             </>
           )}
         </div>
-        <div className="profile-roles-container">
-          <span className="profile-roles-header">Roles:</span>
-          <div className="profile-roles-body">{roles?.join(', ')}</div>
+        <div className="flex items-center mb-5 text-2xl">
+          <span className="p-1.25 text-white">Roles:</span>
+          <div className="w-fit min-w-[60%] p-1.25 ml-5 text-orange-500">{roles?.join(', ')}</div>
         </div>
         <form 
-          className="description-container"
+          className="flex h-fit mb-5 ml-1.25 text-white text-2xl"
           onSubmit={handleSubmitBio}
         >
           <label>Bio:</label>
-          <div style={{display: "flex", flexDirection: "column"}}> 
+          <div className="flex flex-col"> 
             <textarea
-              className="description-body"
+              className="bg-gray-500 text-black border-solid border-black p-2.5 w-[500px] h-[200px] ml-[50px]"
               placeholder="Enter description"
               value={bio}
               onChange={(e) => setBio(e.target.value)} 
@@ -244,19 +243,19 @@ const ProfileContent = ({ user }) => {
             </textarea>
             <button 
               type="submit"
-              className="Submit-button"
+              className="w-[30%] bg-gold ml-[51px] rounded-md"
             >
               Enter
             </button>
           </div>
         </form>
-        <div className="profile-email-container">
-          <span className="profile-email-header">Joined:</span>
-          <div className="profile-email-body">{creation}</div>
+        <div className="flex w-fit min-w-3/4 text-2xl items-center">
+          <span className="text-white p-1.25">Joined:</span>
+          <div className="w-fit min-w-[60%] p-1.25 ml-5 text-orange-400">{creation}</div>
         </div>
-        <div className="profile-email-container">
-          <span className="profile-email-header">last Updated:</span>
-          <div className="profile-email-body">{lastUpdated}</div>
+        <div className="flex w-fit min-w-3/4 text-2xl items-center my-5">
+          <span className="text-white p-1.25 min-w-[40%]">last Updated:</span>
+          <div className="w-fit min-w-[60%] p-1.25 ml-5 text-orange-400">{lastUpdated}</div>
         </div>
       </div>
       </>
