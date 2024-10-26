@@ -1,0 +1,39 @@
+/* User Statistics header styling */
+
+.Stats-header-container {
+    height: fit-content;
+    padding-left: 30px;
+    padding-bottom: 40px;
+    border-bottom: 3px solid rgba(128, 128, 128, 0.377);
+    color: goldenrod;
+    font-size: 35px;
+    margin-top: 30px;
+}
+
+.stats-header-text {
+    margin-left: 20px;
+}
+
+.Creation-Date-container,
+.Update-Date-container {
+    margin-top: 8%;
+    margin-bottom: 8%;
+    align-items: center;
+    display: flex;
+}
+
+.Creation-Date-header,
+.Update-Date-header {
+    margin-right: 5%;
+    margin-left: 5%;
+    left: 5px;
+    font-size: 20px;    
+    color: lightgray;
+    font-weight:800;
+}
+
+.Creation-Date,
+.Update-Date {
+    font-size: 15px;
+    color: goldenrod
+}
