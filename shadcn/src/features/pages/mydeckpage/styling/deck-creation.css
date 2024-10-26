@@ -1,0 +1,125 @@
+.Deck-creation-page-background {
+    background-color: transparent;
+    position: relative;
+    height: 81vh;
+    padding: 20px;
+    background-color: rgb(32, 32, 32);
+    background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
+    background-size: 10px 10px, 10px 10px, 10px 5px;
+    background-position: 0px 0px, 5px 5px, 0px 0px;
+}
+
+.Deck-creation-form-container {
+    padding: 15px;
+    background-color: rgba(26, 25, 25, 0.747);
+    box-shadow: 0px 0px 15px rgb(19, 18, 18);
+    border-radius: 20px;
+    width: 40%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    padding-top: 30px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+    border-radius: 25px;
+}
+
+.Deck-creation-form-title {
+    width: 80%;
+    font-size: 40px;
+    font-weight: bolder;
+    height: fit-content;
+    text-align: center;
+    padding-bottom: 30px;
+    color: rgb(235, 194, 120);
+    border-bottom: 2px solid rgb(100, 99, 99);
+}
+
+.Deck-name-container,
+.Deck-desc-container,
+.Deck-form-save-container,
+.Deck-add-owned-card-container {
+    padding-top: 7%;
+    padding-left: 20px;
+    font-size: 20px;
+    width: 80%;
+    display: flex;
+    position: relative;
+}
+
+.form-deck-name-label {
+    width: 30%;
+    font-size: 30px;
+    color: rgb(199, 178, 58);
+    text-align: center;
+}
+
+.form-deck-name-input {
+    width: 87%;
+    height: 50px;
+    padding-left: 20px;
+    transition: 0.3s;
+    color: goldenrod;
+    border: 2px solid gray;
+}
+
+.form-deck-desc-label {
+    width: 30%;
+    font-size: 30px;
+    color: rgb(199, 178, 58);
+    padding-left: 16px;
+    margin-right: 4px;
+}
+
+.form-deck-add-owned-card-label {
+    width: 35%;
+    text-align: center;
+    font-size: 25px;
+    color: rgb(199, 178, 58);
+}
+
+.form-deck-desc-input {
+    width: 87%;
+    height: 200px;
+    padding: 20px;
+    text-align: start;
+    transition: 0.3s;
+    color: goldenrod;
+    background-color: rgba(26, 25, 25, 0.747);
+    border: 2px solid gray;
+    resize: none;
+    overflow-y: auto;
+    word-wrap: break-word;
+}
+
+
+.deck-form-save-button {
+    background-color: darkorange;
+    width: 30%;
+    margin-left: 35%;
+    height: 50px;
+    border-radius: 15px;
+    margin-top: 5%;
+    margin-bottom: 10%;
+    color: white;
+    transition: background-color 1s ease-in-out
+}
+
+.deck-form-save-button:hover {
+    background-color: orangered;
+    color: goldenrod;
+    border: 1px solid goldenrod;
+    box-shadow: 0 0 10px 5px rgb(80, 76, 76)
+}
+
+.save-deck-error-message-footer {
+    position: absolute;
+    left: 51%;
+    transform: translateX(-50%);
+    width: fit-content;
+    color: red;
+    margin-top: 13%;
+}

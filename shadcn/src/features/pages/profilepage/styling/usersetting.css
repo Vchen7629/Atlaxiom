@@ -1,0 +1,211 @@
+.user-setting-header-container {
+    height: fit-content;
+    padding-left: 30px;
+    padding-bottom: 40px;
+    border-bottom: 3px solid rgba(128, 128, 128, 0.377);
+    color: goldenrod;
+    font-size: 35px;
+    margin-top: 30px;
+}
+
+
+.user-setting-title-text {
+    margin-left: 20px
+}
+
+.form {
+    display: flex;
+    align-items: center;
+}
+
+/*Valid input styling*/
+.canSave {
+    box-shadow: 0 0 15px 5px rgb(51, 50, 50);
+    background-color: orange
+} 
+
+.canSave:hover { 
+    color: orangered;
+    box-shadow: 0 0 10px 5px goldenrod;
+}
+
+
+/*Username input form styling*/
+
+.Username-form-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top: 8%;
+    margin-bottom: 10%;
+    justify-content: space-between;
+}
+
+.change-username-header {
+    position: relative;
+    font-size: 18px;
+    width: 30%;
+    left: 10px;
+    margin-right: 10px;
+}
+
+.username-input-container {
+    position: relative;
+    width: 70%
+}
+
+<<<<<<< HEAD
+.username-update-input-body {
+    background-color: rgba(128, 128, 128, 0.096);
+    border: 2px solid gray;
+    padding: 5px;
+    color: orange;
+    width: 95%;
+    padding-right: 150px;
+    padding-left: 20px;
+    height: 43px
+}
+
+.username-update-input-body:hover {
+    border-radius: 15px;  
+    border: 2px solid orange
+}
+=======
+
+>>>>>>> 14ef751 (testing)
+
+.update-username-button {
+    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
+    border: 1px solid black;
+    height: 37px;
+    position: absolute;
+    right: 4.5%;
+    top: 3px;
+    border-radius: 15px;
+    padding: 5px;
+    color: goldenrod;
+}
+
+.update-username-button:hover {
+    background-color: red;
+}
+
+/* Change username input form label styling */
+.username-update-input-label {
+    position: absolute;
+    left: 15px;
+    top: 25%;
+    font-size: 18px;
+    transition: top 0.2s, font-size 0.3s;
+    pointer-events: none;
+    color: orange;
+}
+
+.username-update-input-body:focus + .username-update-input-label,
+.username-update-input-body:not(:placeholder-shown) + .username-update-input-label {
+  top: -10px;
+  font-size: 16px; 
+  background-color: rgb(26, 25, 25);
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/*Email input form styling*/
+.Email-form-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top: 12%;
+    margin-bottom: 10%;
+    justify-content: space-between;
+}
+
+.change-email-header {
+    position: relative;
+    font-size: 18px;
+    width: 30%;
+    left: 10px;
+    margin-right: 10px;
+}
+
+.email-input-container {
+    position: relative;
+    width: 70%
+}
+
+<<<<<<< HEAD
+.email-update-input-body {
+    background-color: rgba(128, 128, 128, 0.096);
+    border: 2px solid gray;
+    padding: 5px;
+    color: orange;
+    width: 95%;
+    padding-right: 150px;
+    padding-left: 20px;
+    height: 43px
+}
+
+.email-update-input-body:hover {
+    border-radius: 15px;  
+    border: 2px solid orange
+}
+
+=======
+>>>>>>> 14ef751 (testing)
+.update-email-button {
+    background: linear-gradient(to bottom, rgb(45, 43, 43), black);
+    border: 1px solid black;
+    height: 37px;
+    position: absolute;
+    right: 4.5%;
+    top: 3px;
+    border-radius: 15px;
+    padding: 5px;
+    color: goldenrod;
+}
+
+.update-email-button:hover {
+    background-color: red;
+}
+/* Change email input form label styling */
+.email-update-input-label {
+    position: absolute;
+    left: 15px;
+    top: 25%;
+    font-size: 18px;
+    transition: top 0.2s, font-size 0.3s;
+    pointer-events: none;
+    color: orange;
+}
+
+.email-update-input-body:focus + .email-update-input-label,
+.email-update-input-body:not(:placeholder-shown) + .email-update-input-label {
+  top: -10px;
+  font-size: 16px; 
+  background-color: rgb(26, 25, 25);
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+
+/* Error message styling */
+.user-setting-update-error-message {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: red;
+    margin-top: 10px;
+}
+
+.error-border {
+    border: 2px solid orangered;
+}
+
+/*Success message styling*/
+.user-setting-update-success-message {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: green;
+    margin-top: 10px;
+}
