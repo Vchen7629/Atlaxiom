@@ -143,12 +143,13 @@ const ProfileContent = ({ user }) => {
 
   return (
     <>
-      <header className="px-[30px] pb-10 border-b-2 border-gray-500 text-goldenrod text-4xl my-[30px]">
+    <div className="px-[30px] max-h-full ">
+      <header className="pb-[2vh] border-b-2 border-gray-500 text-goldenrod text-4xl">
           <FontAwesomeIcon icon={faUser} />
           <span className="ml-5">Account Details</span>
       </header>
-      <div className="flex flex-col h-fit p-5">
-        <div className="flex items-center mb-5 text-2xl">
+      <div className="flex flex-col h-[50vh] my-[3vh] overflow-y-auto">
+        <div className="flex items-center mb-[2vh] text-2xl">
           {!userbuttonClick && (
             <>
               <div className="p-1.25 text-white">Username:</div>
@@ -186,7 +187,7 @@ const ProfileContent = ({ user }) => {
             </>
           )}
         </div>
-        <div className="flex items-center mb-5 text-2xl">
+        <div className="flex items-center mb-[2vh] text-2xl">
           {!emailbuttonClick && (
             <>
               <div className="p-1.25 text-white">Email:</div>
@@ -223,18 +224,18 @@ const ProfileContent = ({ user }) => {
             </>
           )}
         </div>
-        <div className="flex items-center mb-5 text-2xl">
+        <div className="flex items-center mb-[2vh] text-2xl">
           <span className="p-1.25 text-white">Roles:</span>
           <div className="w-fit min-w-[60%] p-1.25 ml-5 text-orange-500">{roles?.join(', ')}</div>
         </div>
         <form 
-          className="flex h-fit mb-5 ml-1.25 text-white text-2xl"
+          className="flex h-fit mb-[2vh] ml-1.25 text-white text-2xl"
           onSubmit={handleSubmitBio}
         >
           <label>Bio:</label>
           <div className="flex flex-col"> 
             <textarea
-              className="bg-gray-500 text-black border-solid border-black p-2.5 w-[500px] h-[200px] ml-[50px]"
+              className="bg-gray-500 text-black border-solid border-black p-2.5 w-[25vw] h-[15vh] ml-[40px] text-xl"
               placeholder="Enter description"
               value={bio}
               onChange={(e) => setBio(e.target.value)} 
@@ -243,22 +244,23 @@ const ProfileContent = ({ user }) => {
             </textarea>
             <button 
               type="submit"
-              className="w-[30%] bg-gold ml-[51px] rounded-md"
+              className="w-[30%] bg-gold ml-[41px] rounded-md"
             >
               Enter
             </button>
           </div>
         </form>
-        <div className="flex w-fit min-w-3/4 text-2xl items-center">
+        <div className="flex w-fit min-w-3/4 my-[2vh] text-2xl items-center">
           <span className="text-white p-1.25">Joined:</span>
           <div className="w-fit min-w-[60%] p-1.25 ml-5 text-orange-400">{creation}</div>
         </div>
-        <div className="flex w-fit min-w-3/4 text-2xl items-center my-5">
+        <div className="flex w-fit min-w-3/4 text-2xl items-center">
           <span className="text-white p-1.25 min-w-[40%]">last Updated:</span>
           <div className="w-fit min-w-[60%] p-1.25 ml-5 text-orange-400">{lastUpdated}</div>
         </div>
       </div>
-      </>
+    </div>
+  </>
   );
 };
 

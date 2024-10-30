@@ -22,11 +22,16 @@ const Profilepage = () => {
         data: usersData, 
         isLoading,
         isError,
-        error, 
+        error,
+        refetch 
     } = useGetSpecificUserQuery(userId);
         
     const handleNavItemClick = (navItem) => {
         setSelectedNavItem(navItem);
+
+        if (navItem === 'statistics') {
+            refetch();
+        }
     };
 
     const renderProfileContent = () => {
@@ -82,8 +87,8 @@ const Profilepage = () => {
         <>
         <Header/>
         <main className="flex items-center justify-center relative xs:min-h-[86vh] xl:min-h-[82.5vh] bg-metal bg-metal-size bg-metal-position">
-            <div className="flex  bg-[#1a1919] p-[1%] rounded-3xl w-[85%] h-[100%]">
-                <div className="flex flex-col items-center mt-[2%] w-[15%] h-[750px] border-r-2 border-gray-500">
+            <div className="flex  bg-[#1a1919] px-[1%] rounded-3xl w-[85%] h-[70vh]">
+                <div className="flex flex-col my-[3%] items-center w-[15%] h-[88%] border-r-2 border-gray-500">
                     <button 
                         className="bg-[#1a1919] mt-[10px] w-[70%] p-[10px] text-goldenrod border-b-2 border-[#1a1919] hover:border-gray-500" 
                         onClick={() => handleNavItemClick('profile')}
@@ -113,7 +118,7 @@ const Profilepage = () => {
                         <span className="ml-[10px] text-goldenrod">Delete Account</span>
                     </button>
                 </div>
-                <div className="flex flex-col w-full h-full p-[20px]">
+                <div className="flex flex-col mt-[3%] align-center w-full px-[20px]">
                     {renderProfileContent()}
                 </div>
             </div>

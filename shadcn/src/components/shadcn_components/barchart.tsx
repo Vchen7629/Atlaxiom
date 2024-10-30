@@ -1,14 +1,12 @@
 "use client"
-import { TrendingUp } from "lucide-react"
-import { useGetSpecificUserQuery } from "../../src/features/api-slices/usersApiSlice"
+import { useGetSpecificUserQuery } from "../../features/api-slices/usersApiSlice"
 import { useSelector } from "react-redux"
 import { useMemo } from "react"
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { Bar, BarChart, XAxis } from "recharts"
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -22,10 +20,13 @@ import {
 //types
 interface OwnedDeck {
     createdOn: string;
+    deck: string; 
 }
   
 interface OwnedCard {
-    addedOn: string; 
+    addedOn: string;
+    card: string
+
 }
   
 interface UserEntity {
@@ -57,7 +58,8 @@ const chartConfig = {
     color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig
-export function ComponentChart(): JSX.Element {
+
+export function ComponentBarChart(): JSX.Element {
     const userId = useSelector((state: { auth: { userId: string } }) => state.auth.userId);
     const { data: userData, isLoading, isError } = useGetSpecificUserQuery<UserData>(userId);
   
@@ -105,16 +107,15 @@ if (isLoading) return <div>Loading statistics...</div>;
 if (isError || !userData) return <div>Error loading statistics.</div>;
 
     return (
-    <div className="relative max-w-[40vw]">
-        <Card className="bg-radial-gray">
+    <div className="relative w-[30vw]">
+        <Card className="bg-blackthree border-gray-500 border-4">
         <CardHeader>
-            <CardTitle className="text-white">Your Cards/Deck Statistics</CardTitle>
-            <CardDescription>January - December 2024</CardDescription>
+            <CardTitle className="text-gold">Your Cards/Deck Statistics</CardTitle>
+            <CardDescription className="">Decks created January - December 2024</CardDescription>
         </CardHeader>
         <CardContent>
-            <ChartContainer config={chartConfig} className="max-h-200">
+            <ChartContainer config={chartConfig} className="max-h-200 ">
             <BarChart accessibilityLayer data={chartData}>
-                <CartesianGrid vertical={false} />
                 <XAxis
                     dataKey="month"
                     tickLine={false}
@@ -124,7 +125,7 @@ if (isError || !userData) return <div>Error loading statistics.</div>;
                 />
                 <ChartTooltip
                     cursor={false}
-                    content={<ChartTooltipContent indicator="dashed" />}
+                    content={<ChartTooltipContent indicator="dashed" className="bg-white"/>}
                 />
                 <Bar 
                     dataKey="decks" 
