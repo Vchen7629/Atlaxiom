@@ -43,7 +43,7 @@ export default {
         },
       },
       boxShadow: {
-        'custom': '0 4px 20px rgba(0, 0, 0, 0.5)',
+        'custom': '0 4px 30px rgba(0, 0, 0, 0.5)',
         'mycards': '0px 0px 15px rgb(19, 18, 18)'
       },
       

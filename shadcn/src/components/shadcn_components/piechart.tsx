@@ -17,6 +17,7 @@ import { useGetSpecificUserQuery } from "../../features/api-slices/usersApiSlice
 import { useSelector } from "react-redux"
 export const description = "A donut chart with text"
 
+
 const chartConfig = {
   monster: {
     label: "Monster",
@@ -33,7 +34,7 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function ComponentPieChart() {
-  const userId = useSelector((state) => state.auth.userId)
+  const userId = useSelector((state: { auth: { userId: string } }) => state.auth.userId);
   const { data: userData, isLoading, isError } = useGetSpecificUserQuery(userId)
 
   const chartData = React.useMemo(() => {

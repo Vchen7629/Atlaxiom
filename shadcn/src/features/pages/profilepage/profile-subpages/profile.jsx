@@ -143,9 +143,9 @@ const ProfileContent = ({ user }) => {
 
   return (
     <>
-    <div className="px-[30px] max-h-full ">
+    <div className="flex flex-col min-h-full pb-[1vh] ">
       <header className="pb-[2vh] border-b-2 border-gray-500 text-goldenrod text-4xl">
-          <FontAwesomeIcon icon={faUser} />
+          <FontAwesomeIcon icon={faUser} className="ml-7"/>
           <span className="ml-5">Account Details</span>
       </header>
       <div className="flex flex-col h-[50vh] my-[3vh] overflow-y-auto">

@@ -58,9 +58,9 @@ const UserOwnedCard = () => {
   };
 
     return (
-      <div>
+      <>
         {renderOwnedCardContent()}
-      </div>
+      </>
     )
 
 };
