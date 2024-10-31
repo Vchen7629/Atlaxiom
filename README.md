@@ -3,11 +3,11 @@ Welcome to Atlaxiom! This is a wip full-stack web applicationproject that is aim
 
 <h1><strong>Notable features of the website</strongZ></h1>
 <ul>
-    <li>built in User authentication to create and login to accounts using mongodb</li>
-    <li>Searchbar feature that uses a 3rd party api to allow for users to search for desired yugioh cards from their database</li>
-    <li>Card Collection feature to display user's card collections</li>
-    <li>WIP: Deck creation feature that allows users to create decks using their card collection or delete existing decks</li>
-    <li>WIP: Profile Page to display User Details and Statistics using charts and graphs</li>
+    <li>built in User authentication to create and login to accounts using mongodb.</li>
+    <li>Searchbar feature that uses a 3rd party api to allow for users to search for desired yugioh cards from their database.</li>
+    <li>Card Collection feature to display user's card collections.</li>
+    <li>Charts to display user collection statistics.</li>
+    <li>WIP: Deck creation feature that allows users to create decks using their card collection or delete existing decks.</li>
 </ul>
 
 <h1> <strong> Getting started with this project </strong> </h1>
