@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Footer from "../../../components/footer/Footer"
 import Header from "../../../components/header/header"
-import "./styling/my-deck.css"
 import { useGetSpecificUserQuery } from '../../api-slices/usersApiSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightArrowLeft, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -29,36 +28,36 @@ const MyDeck = () => {
     }
 
     return (
-        <>
+        <main className="min-h-[100vh] flex flex-col  bg-metal bg-metal-size bg-metal-position justify-between">
             <Header/>
-            <main className="Deck-page-background">
-                <div className="Deck-page-menu-container">
-                    <h1 className="Deck-page-menu-title">My decks Menu</h1>
-                    <div className="New-deck-button-container">
-                        <FontAwesomeIcon icon={faPlus} className="icon-styling fa-2xl"/>
-                        <button className="new-deck-button" onClick={handleCreateDeckClick}>
-                            <div className="Name-of-button">New Deck</div>
-                            <div className="button-desc">Create a new deck </div>
+            <div className="flex items-center justify-center">
+                <div className="flex flex-col items-center px-[15px] w-[29vw] h-[50vh] pt-[30px] rounded-3xl bg-[#1a1919]">
+                    <h1 className="mt-[8%] text-4xl font-black pb-[5%] text-goldenrod">My decks Menu</h1>
+                    <div className="w-[80%] pl-5 border-transparent border-b-2 hover:border-b-2 hover:border-gold">
+                        <FontAwesomeIcon icon={faPlus} className="text-gold mb-[20px] fa-2xl"/>
+                        <button className="h-[50px] ml-[5%] mt-[5%] mb-[10%]" onClick={handleCreateDeckClick}>
+                            <div className="text-[32px] text-left">New Deck</div>
+                            <div className="text-left text-gray-500 text-[20px]">Create a new deck </div>
                         </button>
                     </div>
-                    <div className="Modify-deck-button-container">
-                        <FontAwesomeIcon icon={faArrowRightArrowLeft} className="icon-styling-two fa-2xl"/>
-                        <button className="modify-deck-button" onClick={handleModifyDeckClick}>
-                            <div className="Name-of-button">My Decks</div>
-                            <div className="button-desc">View and Modify decks you own, add or remove cards from deck </div>
+                    <div className="w-[80%] pl-5 border-transparent border-b-2 hover:border-b-2 hover:border-gold">
+                        <FontAwesomeIcon icon={faArrowRightArrowLeft} className="mb-[39px] text-gold fa-2xl"/>
+                        <button className="w-[80%] ml-[5%] h-[75px] mt-[5%] mb-[10%]" onClick={handleModifyDeckClick}>
+                            <div className="text-[32px] text-left">My Decks</div>
+                            <div className="text-left text-gray-500 text-[20px]">View and Modify decks you own, add or remove cards from deck </div>
                         </button>
                     </div>
-                    <div className="Delete-deck-button-container">
-                        <FontAwesomeIcon icon={faTrash} className="icon-styling fa-2xl"/>
-                        <button className="delete-deck-button" onClick={handleCreateDeckClick}>
-                            <div className="Name-of-button">Delete Decks</div>
-                            <div className="button-desc">Delete decks you own </div>
+                    <div className="w-[80%] pl-5 border-transparent border-b-2 hover:border-b-2 hover:border-gold">
+                        <FontAwesomeIcon icon={faTrash} className="mb-[20px] text-gold fa-2xl"/>
+                        <button className="h-[50px] ml-[5%] mt-[5%] mb-[10%]" onClick={handleCreateDeckClick}>
+                            <div className="text-[32px] text-left">Delete Decks</div>
+                            <div className="text-left text-gray-500 text-[20px]">Delete decks you own </div>
                         </button>
                     </div>
                 </div>
-            </main>
+            </div>
             <Footer/>
-        </>
+        </main>
     )
 
 }

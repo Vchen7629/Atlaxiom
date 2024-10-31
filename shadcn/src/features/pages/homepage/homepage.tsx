@@ -5,9 +5,9 @@ import Footer from '../../../components/footer/Footer';
 
 const HomePage = () => {
     const content = (
-        <section className="public">
+        <main className="flex flex-col bg-radial-gray min-h-[100vh] justify-between">
             <Header/>
-            <main className="top-[400px] flex items-center w-full xs:h-[86vh] lg:h-[83vh] bg-radial-gray">
+            <div className="flex items-center w-full xs:h-[86vh] lg:h-[83vh]">
                 <div className="relative left-[15%] flex flex-col items-center">
                     <div className= "w-[50%] font-black text-left xs:text-6xl lg:text-6xl 2xl:text-8xl text-gold">
                         Atlaxiom
@@ -18,9 +18,9 @@ const HomePage = () => {
                     </div>
                 </div>
                 <div className="bg-[url('../img/dragonicon.png')] relative bg-center bg-contain bg-no-repeat h-[45%] w-[45%]"/>
-            </ main>
+            </div>
             <Footer/>
-        </section>
+        </main>
     )
     return content
 }
