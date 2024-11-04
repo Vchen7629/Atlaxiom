@@ -156,7 +156,7 @@ const ProfileContent = ({ user }) => {
               <div className="flex w-[40%] items-center">
                 <div className="w-fit min-w-[60%] text-orange-400 p-1.25 ml-5">{username}</div>
                 <button 
-                  className="w-20 h-[35px] bg-gold text-2xl"
+                  className="w-20 h-[35px] bg-gray-500 text-2xl"
                   onClick={handleEditUserName}
                 >
                   Edit
@@ -194,7 +194,7 @@ const ProfileContent = ({ user }) => {
               <div className="flex w-[40%] items-center">
                 <div className="w-fit min-w-[68.3%] text-orange-400 p-1.25 ml-5">{email}</div>
                 <button
-                  className="w-20 h-[35px] bg-gold text-2xl"
+                  className="w-20 h-[35px] bg-gray-500  text-2xl"
                   onClick={handleEditEmail}
                 >
                   Edit

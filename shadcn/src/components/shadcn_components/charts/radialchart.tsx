@@ -13,7 +13,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { useGetSpecificUserQuery } from "../../features/api-slices/usersApiSlice"
+import { useGetSpecificUserQuery } from "../../../features/api-slices/usersApiSlice"
 import { useSelector } from "react-redux"
 export const description = "A radial chart with stacked sections"
 

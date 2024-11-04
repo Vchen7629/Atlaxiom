@@ -40,10 +40,10 @@ const Security = ({ user }) => {
 
 
     return (
-        <>
-            <header className="security-header-container">
-                <FontAwesomeIcon icon={faLock}/>
-                <span className="security-header-text">User Security</span>
+        <main className="flex flex-col min-h-full pb-[1vh]">
+            <header className="pb-[2vh] border-b-2 border-gray-500 text-goldenrod text-4xl">
+                <FontAwesomeIcon icon={faLock} className="ml-7"/>
+                <span className="ml-5">User Security</span>
             </header>
             <main>
                 <form onSubmit={handleSubmitPassword}>
@@ -52,7 +52,7 @@ const Security = ({ user }) => {
                     </div>
                 </form>
             </main>
-        </>
+        </main>
     )
 }
 

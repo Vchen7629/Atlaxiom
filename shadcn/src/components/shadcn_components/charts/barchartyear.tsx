@@ -1,5 +1,5 @@
 "use client"
-import { useGetSpecificUserQuery } from "../../features/api-slices/usersApiSlice"
+import { useGetSpecificUserQuery } from "../../../features/api-slices/usersApiSlice"
 import { useSelector } from "react-redux"
 import { useMemo } from "react"
 import { Bar, BarChart, XAxis } from "recharts"
