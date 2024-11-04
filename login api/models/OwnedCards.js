@@ -62,6 +62,22 @@ const ownedCardSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    set_name: {
+        type: String,
+        required: false
+    },
+    rarity: {
+        type: String,
+        required: false
+    },
+    set_code: {
+        type: String,
+        required: false
+    },
+    price: {
+        type: Number,
+        required: false
+    },
     addedOn: {
         type: String,
         default: null

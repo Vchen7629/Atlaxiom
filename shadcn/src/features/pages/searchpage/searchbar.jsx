@@ -7,7 +7,7 @@ import debounce from 'lodash/debounce';
 import './styling/searchbar.css';
 import Header from '../../../components/header/header';
 import Footer from '../../../components/footer/Footer';
-import { useAddNewOwnedCardMutation } from '../../api-slices/ownedCardapislice';
+import { ComponentCardSetPopup } from '../../../components/shadcn_components/popup'
 
 const SearchBar = () => {
   const [cardName, setCardName] = useState('');
@@ -15,12 +15,12 @@ const SearchBar = () => {
   const [error, setError] = useState(null);
   const [mainSuggestions, setMainSuggestions] = useState([]);
   const [gallerySuggestions, setGallerySuggestions] = useState([]);
+  const [cardSets, setCardSets] = useState([]);
   const [selectedSuggestion, setSelectedSuggestion] = useState(null);
   const [clickedOnCard, setClickedOnCard] = useState(false);
   const [selectedCardData, setSelectedCardData] = useState(null);
   const authenticated = useSelector((state) => state.auth.token !== null);
   const userId = useSelector((state) => state.auth.userId);
-  const [AddNewOwnedCard] = useAddNewOwnedCardMutation();
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -32,41 +32,6 @@ const SearchBar = () => {
   const navigate = useNavigate();
 
   const apiUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
-
-  const handleAddOwnedCardClick = async () => {
-    if (selectedCardData){
-      const cardToPost = {
-        ownedCards: [
-            {
-                card_name: selectedCardData.name,
-                image_url: selectedCardData.card_images && selectedCardData.card_images.length > 0 ? selectedCardData.card_images[0].image_url : 'fallback-image-url',
-                ownedprop: "True",
-                ownedamount: 1,
-                type: selectedCardData.type,
-                race: selectedCardData.race,
-                attribute: selectedCardData.attribute,
-                archetype: selectedCardData.archetype,
-                level: selectedCardData.level,
-                linkval: selectedCardData.linkval,
-                scale: selectedCardData.scale,
-                atk: selectedCardData.atk,
-                def: selectedCardData.def,
-                desc: selectedCardData.desc || selectedCardData.pend_desc || selectedCardData.monster_desc,
-            },
-        ],
-      };
-      try {
-          const result = await AddNewOwnedCard({ id: userId, CardData: cardToPost }).unwrap();
-          setSuccessMessage("Card successfully added to Collection!")
-      } catch (error) {
-          console.error('Error posting card data:', error);
-          setErrorMessage('Error adding Card to Collection.');
-      }
-    } else {
-      console.error("No selected Card Data")
-    }
-    
-  }
 
   const fetchAllCardData = async () => {
     try {
@@ -94,6 +59,8 @@ const SearchBar = () => {
 
       if (response.ok) {
         setSelectedCardData(data.data[0]);
+        setCardSets(data.data[0].card_sets || []);
+        console.log("testing Card Set Data", cardSets)
       } else {
         console.error('Error fetching card data:', data.message);
       }
@@ -120,15 +87,14 @@ const SearchBar = () => {
     [cardData]
   );
 
-  const suggestionsPerGalleryPage = 30;
-  const suggestionsPerPage = 3;
+  const suggestionsPerGalleryPage = 55;
+  const suggestionsPerPage = 4;
   const totalPages = Math.ceil(mainSuggestions.length / suggestionsPerPage);
   const totalGalleryPages = Math.ceil(gallerySuggestions.length / suggestionsPerGalleryPage);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentMainSuggestions, setCurrentMainSuggestions] = useState([]);
   const [currentGallerySuggestions, setCurrentGallerySuggestions] = useState([]);
-
-
+  
 
   useEffect(() => {
     const startIndex = (currentPage - 1) * suggestionsPerPage;
@@ -208,14 +174,14 @@ const SearchBar = () => {
   return (
     <main className="flex flex-col min-h-[100vh] bg-[#1f1d1d] justify-between">
       <Header/>     
-      <div className="items-center">   
+      <div className="h-[75vh] overflow-auto ">   
             {!clickedOnCard &&  (
-              <>
-                <div className="flex relative top-10 w-[95%] justify-between items-center">
-                  <div className="text-5xl text-white ml-[4%]">
+              <main>
+                <div className="flex relative w-full justify-between items-center mb-[5vh] ">
+                  <div className="text-4xl text-white ml-[4%]">
                     <strong>Card Search</strong>
                   </div>
-                  <div className="flex w-[30%] h-[50px] rounded-2xl pl-5 relative top-12.5 border-2 border-gray-400 right-32 justify-start text-gold">
+                  <div className="flex w-[30%] h-[50px] rounded-2xl pl-5 relative border-2 border-gray-400 right-32 justify-start text-gold">
                     <div className="flex items-center w-full">
                       <FontAwesomeIcon icon={faSearch} className="mr-2" />
                       <input
@@ -247,16 +213,16 @@ const SearchBar = () => {
                     </button>
                   </div>
                 </div>
-              </>
+              </main>
             )}
           
             {clickedOnCard && selectedCardData ? (
-              <>
-                <div className="flex relative top-10 w-[65%] justify-between items-center">
-                  <div className="text-5xl text-white ml-[5%]">
+              <main className="min-h-[70vh] flex flex-col items-center">
+                <div className="flex w-full justify-between items-center">
+                  <div className="text-5xl text-white ml-[10%]">
                     <strong>Card Search</strong>
                   </div>
-                  <div className="flex w-[50%] h-[50px] rounded-2xl pl-5 relative top-12.5 border-2 border-gray-400 right-30 justify-start text-gold">
+                  <div className="flex w-[32vw] h-[50px] rounded-2xl pl-5 relative top-12.5 border-2 border-gray-400 mr-[30%] justify-start text-gold">
                     <div className="flex items-center w-full">
                       <FontAwesomeIcon icon={faSearch} className="mr-2" />
                       <input
@@ -274,31 +240,31 @@ const SearchBar = () => {
                     </div>
                   </div>
                 </div>
-                <main className="flex absolute top-[22%] w-[70%] h-[50vh]">
-                  <img className="w-[400px] object-contain mx-[5%]"
+                <main className="flex mt-[5vh] w-3/4 ">
+                  <img className="w-[15vw] object-contain mx-[5%] "
                     src={selectedCardData.card_images[0].image_url}
                     alt={selectedCardData.name}
                   /> 
-                  <div className="flex flex-col w-[80%] pt-[3%]">
-                    <div className="text-4xl text-gold w-full">{selectedCardData.name}</div>
-                    <div className="flex flex-col h-[79%] w-full pt-[4%]">
-                      <div className="flex mb-[4%] w-[90%] justify-left">
+                  <div className="flex flex-col w-[50%] pt-[1%] items-center">
+                    <div className="text-4xl text-goldenrod w-full text-center">{selectedCardData.name}</div>
+                    <div className="flex flex-col h-[79%] w-fit pt-[4%]">
+                      <div className="flex mb-[4%] w-full justify-center ">
                         <div className="flex text-xl max-w-1/2 text-white">
-                          <div className="mr-5">Card type:</div> 
-                          <div className="mr-10"> {selectedCardData.type}</div>
+                          <div className="mr-5 text-gold">Card type:</div> 
+                          <div className="mr-10 text-gray-400"> {selectedCardData.type}</div>
                         </div>
                         {selectedCardData.archetype && (
                           <div className="flex text-xl max-w-1/2 text-white">
-                            <div className="mr-5">Archetype:</div>
-                            <div className="mr-10">{selectedCardData.archetype}</div>
+                            <div className="mr-5 text-gold">Archetype:</div>
+                            <div className="mr-10 text-gray-400">{selectedCardData.archetype}</div>
                           </div>
                         )}
                         <div className="flex text-xl max-w-1/2 text-white">
-                          <div className="mr-5">Race:</div>
-                          {selectedCardData.race}
+                          <div className="mr-5 text-gold">Race:</div>
+                          <div className="text-gray-400">{selectedCardData.race}</div>
                         </div>
                       </div>
-                      <div className="flex mb-[4%] w-[90%] justify-left">
+                      <div className="flex mb-[4%] w-full justify-left">
                         <div>
                           <div className="text-gold text-2xl mb-2.5">Card Desc: </div>
                           <div className="text-gray-400 text-xl">{selectedCardData.desc}</div>
@@ -347,30 +313,18 @@ const SearchBar = () => {
                     {authenticated && (
                       <div>
                         <div className="flex justify-center">
-                          {(!successMessage && !errorMessage) && (
-                            <button className="relative right-[10%] w-[150px] h-[50px] border-2 border-green-500 text-green-500" onClick={handleAddOwnedCardClick}>Add to Owned</button>
-                          )}
-                          {successMessage && (
-                            <div className="flex relative r-[10%] justify-center items-center p-2.5 text-2xl text-green-500 border-2 border-green-500 w-[450px]">
-                              {successMessage}
-                            </div>
-                          )}
-                          {errorMessage && (
-                            <div className="flex relative r-[10%] justify-center items-center p-2.5 text-2xl text-red-600 border-2 border-red-600 w-[450px]">
-                              {errorMessage}
-                            </div>
-                          )}
+                         <ComponentCardSetPopup selectedCardData={selectedCardData} userId={userId} cardSets={cardSets} />
                         </div>
                       </div>
                       )} 
                   </div>    
                 </main>        
-              </>
+              </main>
             ) : (
               <>
                 {listView && (
-                  <> 
-                    <div className="h-[58vh] overflow-auto w-[95%] my-[5%] flex flex-col items-center">
+                  <main className="h-[58vh] flex justify-center"> 
+                    <div className="w-[95%] flex flex-col items-center ">
                       {mainSuggestions.length > 0 && (
                         <>
                           <div>
@@ -380,23 +334,23 @@ const SearchBar = () => {
                                 className={`${selectedSuggestion === suggestion ? 'selected' : ''}`}
                                 onClick={() => handleSuggestionClick(suggestion)}
                               >
-                                <div className="flex bg-[#1f1d1d]">
+                                <div className="flex max-h-[14vh] bg-[#1f1d1d]">
                                   <img
                                     src={cardData.find((card) => card.name === suggestion)?.card_images[0].image_url}
                                     alt={suggestion}
                                     className="w-[6.5%] min-w-[%]"
                                   />
-                                  <div className="flex w-full min-h-full flex-col justify-between border-2 border-transparent hover:border-gray-500">
+                                  <div className="flex w-full min-h-full flex-col border-2 border-transparent hover:border-gray-500">
                                     <div className="relative flex justify-between w-full">
                                       <div className="flex text-center items-center pl-[3%] w-1/2 text-goldenrod font-black text-2xl">{suggestion}</div>
-                                      <div className="flex justify-evenly items-center w-[20%]">
+                                      <div className="flex justify-evenly items-center font-bold w-[25vw]">
                                         <div className="text-white text-xl">{cardData.find((card) => card.name === suggestion)?.type}</div>
                                         <div className="text-white text-xl">{cardData.find((card) => card.name === suggestion)?.race}</div>
                                         <div className="text-white text-xl">{cardData.find((card) => card.name === suggestion)?.attribute}</div>
                                       </div>
                                     </div>
-                                    <div className="w-full flex flex-col min-h-[140px] mb-5 justify-between">
-                                      <div className="font-black text-gray-400 text-lg w-1/2 pl-[3%]">{cardData.find((card) => card.name === suggestion)?.desc}</div>
+                                    <div className="w-full flex flex-col justify-between ">
+                                      <div className="w-full font-black text-gray-400 text-md max-h-[7vh] overflow-auto pl-[3%]">{cardData.find((card) => card.name === suggestion)?.desc}</div>
                                       <div className="w-[30%] flex justify-between pl-[3%]">
                                         {cardData.find((card) => card.name === suggestion)?.atk && (
                                           <div className="flex text-gray-300 font-black text-lg">
@@ -432,12 +386,12 @@ const SearchBar = () => {
                           </div>
                           {totalPages > 1 && (
                             <>
-                              <div className="w-[10%] mt-[30px] p-1.25 flex justify-between text-goldenrod text-center text-xl">
-                                <button className="bg-goldenrod text-white w-[30px] mr-[1%] rounded-lg hover:text-red-600" disabled={currentPage === 1} onClick={() => handlePageChange(currentPage - 1)}>
+                              <div className="w-[20%] mt-[30px] p-1.25 flex justify-center  text-goldenrod text-center text-xl">
+                                <button className="bg-goldenrod text-white w-[30px] mr-[5%] rounded-lg hover:text-red-600" disabled={currentPage === 1} onClick={() => handlePageChange(currentPage - 1)}>
                                   {'<'}
                                 </button>
                                 <span>{`Page ${currentPage} of ${totalPages}`}</span>
-                                <button className="bg-goldenrod text-white w-[30px] ml-[1%] rounded-lg hover:text-red-600" disabled={currentPage === totalPages} onClick={() => handlePageChange(currentPage + 1)}>
+                                <button className="bg-goldenrod text-white w-[30px] ml-[5%] rounded-lg hover:text-red-600" disabled={currentPage === totalPages} onClick={() => handlePageChange(currentPage + 1)}>
                                   {'>'}
                                 </button>
                               </div>
@@ -452,10 +406,10 @@ const SearchBar = () => {
                         </p>
                       )}
                     </div>
-                  </> 
+                  </main> 
                 )}
                 {galleryView && (
-                  <div className="flex flex-col items-center w-[70%] justify-center min-h-[30vh] max-h-[60vh] my-[5%] overflow-hidden">
+                  <div className="flex flex-col items-center w-full h-fit  px-[4vw]">
                     {gallerySuggestions.length > 0 && (
                       <div className="Searchbar-suggestion-grid">
                         {currentGallerySuggestions.map((suggestion) => (
@@ -464,7 +418,7 @@ const SearchBar = () => {
                               src={cardData.find((card) => card.name === suggestion)?.card_images[0].image_url}
                               alt={suggestion}
                               onClick={() => handleSuggestionClick(suggestion)}
-                              className="w-full max-w-[550px] border-2 border-transparent hover:border-cyan-400"
+                              className="w-[90%] max-w-[540px] border-2 border-transparent hover:border-cyan-400"
                             />
                           </div>
                         ))}
