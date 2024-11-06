@@ -21,8 +21,85 @@ import {
  
 const frameworks = [
   {
-    value: "Eart",
-    label: "Earth",
+    value: "aqua",
+    label: "aqua",
+  },
+  {
+    value: "beast",
+    label: "beast",
+  },
+  {
+    value: "beast-warrior",
+    label: "beast-warrior",
+  },
+  {
+    value: "creator god",
+    label: "creator god",
+  },
+  {
+    value: "astro",
+    label: "Astro",
+  },
+  {
+    value: "next.js",
+    label: "Next.js",
+  },
+  {
+    value: "sveltekit",
+    label: "SvelteKit",
+  },
+  {
+    value: "nuxt.js",
+    label: "Nuxt.js",
+  },
+  {
+    value: "remix",
+    label: "Remix",
+  },
+  {
+    value: "astro",
+    label: "Astro",
+  },  {
+    value: "next.js",
+    label: "Next.js",
+  },
+  {
+    value: "sveltekit",
+    label: "SvelteKit",
+  },
+  {
+    value: "nuxt.js",
+    label: "Nuxt.js",
+  },
+  {
+    value: "remix",
+    label: "Remix",
+  },
+  {
+    value: "astro",
+    label: "Astro",
+  },  {
+    value: "next.js",
+    label: "Next.js",
+  },
+  {
+    value: "sveltekit",
+    label: "SvelteKit",
+  },
+  {
+    value: "nuxt.js",
+    label: "Nuxt.js",
+  },
+  {
+    value: "remix",
+    label: "Remix",
+  },
+  {
+    value: "astro",
+    label: "Astro",
+  },  {
+    value: "next.js",
+    label: "Next.js",
   },
   {
     value: "sveltekit",
@@ -40,17 +117,9 @@ const frameworks = [
     value: "astro",
     label: "Astro",
   },
-  {
-    value: "yes",
-    label: "test",
-  },
-  {
-    value: "yes",
-    label: "test",
-  }
 ]
  
-export function AttributeDropDownComponent() {
+export function MonsterTypeDropDownComponent() {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
  
@@ -61,19 +130,22 @@ export function AttributeDropDownComponent() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[15vw] bg-transparent text-gold hover:text-gold hover:border-gold hover:bg-transparent justify-between"
+          className="w-[95%] h-8 bg-transparent border-transparent text-base hover:text-gold hover:bg-transparent justify-between"
         >
-          {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : "Select Card Attribute..."}
+            <div>Monster Type:</div>
+            {value && (
+                <span className={`flex relative items-center left-2 justify-between w-fit px-2 py-1 bg-blue-500 text-white rounded text-sm`}>
+                    {frameworks.find((framework) => framework.value === value)?.label}
+                </span>
+            )}
           <CaretSortIcon className="min-h-6 min-w-6 shrink-0 text-white" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[15vw] p-0">
+      <PopoverContent className="w-[15vw] p-0 border-tra">
         <Command className="bg-blackone text-white ">
-          <CommandInput placeholder="Search framework..." className="h-9" />
-          <CommandList>
-            <CommandEmpty>No Attribute found.</CommandEmpty>
+          <CommandInput placeholder="Search Card Subtypes..." className="h-9" />
+          <CommandList className="max-h-[300px] overflow-y-auto">
+            <CommandEmpty>No Card Subtype found.</CommandEmpty>
             <CommandGroup>
               {frameworks.map((framework) => (
                 <CommandItem
@@ -84,7 +156,8 @@ export function AttributeDropDownComponent() {
                     setValue(currentValue === value ? "" : currentValue)
                     setOpen(false)
                   }}
-                >
+                > 
+                 
                   {framework.label}
                   <CheckIcon
                     className={cn(

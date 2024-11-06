@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useCallback} from 'react';
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faBars, faGripHorizontal, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faBars,  faGripHorizontal, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 import './styling/searchbar.css';
 import Header from '../../../components/header/header';
 import Footer from '../../../components/footer/Footer';
-import { ComponentCardSetPopup } from '../../../components/shadcn_components/popup'
+import FilterResults from './filterresults';
+import { ComponentCardSetPopup } from '../../../components/shadcn_components/popup';
 
 const SearchBar = () => {
   const [cardName, setCardName] = useState('');
@@ -88,7 +89,7 @@ const SearchBar = () => {
   );
 
   const suggestionsPerGalleryPage = 55;
-  const suggestionsPerPage = 4;
+  const suggestionsPerPage = 50;
   const totalPages = Math.ceil(mainSuggestions.length / suggestionsPerPage);
   const totalGalleryPages = Math.ceil(gallerySuggestions.length / suggestionsPerGalleryPage);
   const [currentPage, setCurrentPage] = useState(1);
@@ -172,278 +173,290 @@ const SearchBar = () => {
   };
 
   return (
-    <main className="flex flex-col min-h-[100vh] bg-[#1f1d1d] justify-between">
-      <Header/>     
-      <div className="h-[75vh] overflow-auto ">   
+    <main className="min-h-[100vh]">
+      <body className="flex flex-col min-h-[100vh] bg-[#1f1d1d] justify-between overflow-auto" >
+        <Header/>
+        <main className="flex flex-grow py-[5%] items-center ">            
+          <div className="flex flex-col w-[80%]">
             {!clickedOnCard &&  (
-              <main>
-                <div className="flex relative w-full justify-between items-center mb-[5vh] ">
-                  <div className="text-4xl text-white ml-[4%]">
-                    <strong>Card Search</strong>
-                  </div>
-                  <div className="flex w-[30%] h-[50px] rounded-2xl pl-5 relative border-2 border-gray-400 right-32 justify-start text-gold">
-                    <div className="flex items-center w-full">
-                      <FontAwesomeIcon icon={faSearch} className="mr-2" />
-                      <input
-                        className="bg-transparent w-full h-full text-xl text-white focus:outline-none"
-                        type="text"
-                        value={cardName}
-                        onChange={handleInputChange}
-                        placeholder="Enter card name"
-                      />
-                      {cardName && (
-                        <button className="cursor-pointer mr-[25px]" onClick={handleClearClick}>
-                          <FontAwesomeIcon icon={faTimes} className="fa-lg" />
-                        </button>
-                      )}
+                <main>
+                  <div className="flex relative w-full justify-between items-center mb-[5vh] pr-[3%]">
+                    <div className="text-4xl text-white ml-[4%]">
+                      <strong>Card Search</strong>
                     </div>
-                  </div>
-                  <div className="flex relative left-[-4%] w-20 justify-between">
-                    <button
-                      className="text-gray-400 hover:text-gold"
-                      onClick={handleListView}
-                    >
-                      <FontAwesomeIcon icon={faBars} className="fa-2xl"/>
-                    </button>
-                    <button
-                      className="text-gray-400 hover:text-gold"
-                      onClick={handleGalleryView}
-                    >
-                      <FontAwesomeIcon icon={faGripHorizontal } className="fa-2xl"/>
-                    </button>
-                  </div>
-                </div>
-              </main>
-            )}
-          
-            {clickedOnCard && selectedCardData ? (
-              <main className="min-h-[70vh] flex flex-col items-center">
-                <div className="flex w-full justify-between items-center">
-                  <div className="text-5xl text-white ml-[10%]">
-                    <strong>Card Search</strong>
-                  </div>
-                  <div className="flex w-[32vw] h-[50px] rounded-2xl pl-5 relative top-12.5 border-2 border-gray-400 mr-[30%] justify-start text-gold">
-                    <div className="flex items-center w-full">
-                      <FontAwesomeIcon icon={faSearch} className="mr-2" />
-                      <input
-                        className="bg-transparent w-full h-full text-xl text-white focus:outline-none"
-                        type="text"
-                        value={cardName}
-                        onChange={handleInputChange}
-                        placeholder="Enter card name"
-                      />
-                      {cardName && (
-                        <button className="cursor-pointer mr-[25px]" onClick={handleClearClick}>
-                          <FontAwesomeIcon icon={faTimes} className="fa-lg" />
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                <main className="flex mt-[5vh] w-3/4 ">
-                  <img className="w-[15vw] object-contain mx-[5%] "
-                    src={selectedCardData.card_images[0].image_url}
-                    alt={selectedCardData.name}
-                  /> 
-                  <div className="flex flex-col w-[50%] pt-[1%] items-center">
-                    <div className="text-4xl text-goldenrod w-full text-center">{selectedCardData.name}</div>
-                    <div className="flex flex-col h-[79%] w-fit pt-[4%]">
-                      <div className="flex mb-[4%] w-full justify-center ">
-                        <div className="flex text-xl max-w-1/2 text-white">
-                          <div className="mr-5 text-gold">Card type:</div> 
-                          <div className="mr-10 text-gray-400"> {selectedCardData.type}</div>
-                        </div>
-                        {selectedCardData.archetype && (
-                          <div className="flex text-xl max-w-1/2 text-white">
-                            <div className="mr-5 text-gold">Archetype:</div>
-                            <div className="mr-10 text-gray-400">{selectedCardData.archetype}</div>
-                          </div>
-                        )}
-                        <div className="flex text-xl max-w-1/2 text-white">
-                          <div className="mr-5 text-gold">Race:</div>
-                          <div className="text-gray-400">{selectedCardData.race}</div>
-                        </div>
-                      </div>
-                      <div className="flex mb-[4%] w-full justify-left">
-                        <div>
-                          <div className="text-gold text-2xl mb-2.5">Card Desc: </div>
-                          <div className="text-gray-400 text-xl">{selectedCardData.desc}</div>
-                        </div>
-                      </div>
-                      {(selectedCardData.scale || selectedCardData.linkval || selectedCardData.atk || selectedCardData.def)&& (
-                        <>
-                        <div className="flex mb-[4%] w-[90%] justify-left">
-                          {selectedCardData.scale && (
-                            <>
-                            <div className="flex text-xl text-white">
-                              <div className="mr-5">Pend-Scale:</div>
-                              <div className="mr-[50px]">{selectedCardData.scale}</div>
-                            </div>
-                            </>
-                          )}
-                          {selectedCardData.linkval && (
-                            <>
-                            <div className="flex text-xl text-white">
-                              <div className="mr-5">Link-value:</div>
-                              <div className="mr-[50px]">{selectedCardData.linkval}</div>
-                            </div>
-                            </>
-                          )}
-                          {selectedCardData.atk && (
-                            <>
-                            <div className="flex text-xl text-white">
-                              <div className="mr-5">Attack:</div>
-                              <div className="mr-[50px]">{selectedCardData.atk}</div>
-                            </div>
-                            </>
-                          )}
-                          {selectedCardData.def && (
-                            <>
-                            <div className="flex text-xl text-white">
-                              <div className="mr-5">Defense:</div>
-                              <div>{selectedCardData.def}</div>
-                            </div>
-                            </>
-                          )}
-                        </div>
-                        </>
-                      )}
+                    <div className="flex w-[40%] h-[50px] pl-5 relative border-2 border-gray-400 justify-start text-gold">
                       
-                    </div>
-                    {authenticated && (
-                      <div>
-                        <div className="flex justify-center">
-                         <ComponentCardSetPopup selectedCardData={selectedCardData} userId={userId} cardSets={cardSets} />
-                        </div>
+                      <div className="flex items-center w-full">
+                        <FontAwesomeIcon icon={faSearch} className="mr-2" />
+                        <input
+                          className="bg-transparent w-full h-full text-xl text-white focus:outline-none"
+                          type="text"
+                          value={cardName}
+                          onChange={handleInputChange}
+                          placeholder="Enter card name"
+                        />
+                        {cardName && (
+                          <button className="cursor-pointer mr-[25px]" onClick={handleClearClick}>
+                            <FontAwesomeIcon icon={faTimes} className="fa-lg" />
+                          </button>
+                        )}
                       </div>
-                      )} 
-                  </div>    
-                </main>        
-              </main>
-            ) : (
-              <>
-                {listView && (
-                  <main className="h-[58vh] flex justify-center"> 
-                    <div className="w-[95%] flex flex-col items-center ">
-                      {mainSuggestions.length > 0 && (
-                        <>
+                    </div>
+                    <div className="flex w-20 bg-footer rounded-xl">
+                      <button
+                        className={`text-gray-400 p-2 rounded-xl hover:text-gold mr-2 ${listView ? "bg-goldenrod text-white" : "bg-transparent"}`}
+                        onClick={handleListView}
+                      >
+                        <FontAwesomeIcon icon={faBars} className="fa-xl"/>
+                      </button>
+                      <button
+                        className={`text-gray-400 p-2 rounded-xl hover:text-gold mr-2 ${galleryView ? "bg-goldenrod text-white" : "bg-transparent"}`}
+                        onClick={handleGalleryView}
+                      >
+                        <FontAwesomeIcon icon={faGripHorizontal } className="fa-xl"/>
+                      </button>
+                    </div>
+                  </div>
+                </main>
+              )}
+            
+              {clickedOnCard && selectedCardData ? (
+                <main className="min-h-[70vh] flex flex-col items-center">
+                  <div className="flex w-full justify-between items-center">
+                    <div className="text-5xl text-white ml-[10%]">
+                      <strong>Card Search</strong>
+                    </div>
+                    <div className="flex w-[32vw] h-[50px] rounded-2xl pl-5 relative top-12.5 border-2 border-gray-400 mr-[30%] justify-start text-gold">
+                      <div className="flex items-center w-full">
+                        <FontAwesomeIcon icon={faSearch} className="mr-2" />
+                        <input
+                          className="bg-transparent w-full h-full text-xl text-white focus:outline-none"
+                          type="text"
+                          value={cardName}
+                          onChange={handleInputChange}
+                          placeholder="Enter card name"
+                        />
+                        {cardName && (
+                          <button className="cursor-pointer mr-[25px]" onClick={handleClearClick}>
+                            <FontAwesomeIcon icon={faTimes} className="fa-lg" />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <main className="flex mt-[5vh] w-3/4 ">
+                    <img className="w-[15vw] object-contain mx-[5%] "
+                      src={selectedCardData.card_images[0].image_url}
+                      alt={selectedCardData.name}
+                    /> 
+                    <div className="flex flex-col w-[50%] pt-[1%] items-center">
+                      <div className="text-4xl text-goldenrod w-full text-center">{selectedCardData.name}</div>
+                      <div className="flex flex-col h-[79%] w-fit pt-[4%]">
+                        <div className="flex mb-[4%] w-full justify-center ">
+                          <div className="flex text-xl max-w-1/2 text-white">
+                            <div className="mr-5 text-gold">Card type:</div> 
+                            <div className="mr-10 text-gray-400"> {selectedCardData.type}</div>
+                          </div>
+                          {selectedCardData.archetype && (
+                            <div className="flex text-xl max-w-1/2 text-white">
+                              <div className="mr-5 text-gold">Archetype:</div>
+                              <div className="mr-10 text-gray-400">{selectedCardData.archetype}</div>
+                            </div>
+                          )}
+                          <div className="flex text-xl max-w-1/2 text-white">
+                            <div className="mr-5 text-gold">Race:</div>
+                            <div className="text-gray-400">{selectedCardData.race}</div>
+                          </div>
+                        </div>
+                        <div className="flex mb-[4%] w-full justify-left">
                           <div>
-                            {currentMainSuggestions.map((suggestion) => (
-                              <div
-                                key={suggestion}
-                                className={`${selectedSuggestion === suggestion ? 'selected' : ''}`}
-                                onClick={() => handleSuggestionClick(suggestion)}
-                              >
-                                <div className="flex max-h-[14vh] bg-[#1f1d1d]">
-                                  <img
-                                    src={cardData.find((card) => card.name === suggestion)?.card_images[0].image_url}
-                                    alt={suggestion}
-                                    className="w-[6.5%] min-w-[%]"
-                                  />
-                                  <div className="flex w-full min-h-full flex-col border-2 border-transparent hover:border-gray-500">
-                                    <div className="relative flex justify-between w-full">
-                                      <div className="flex text-center items-center pl-[3%] w-1/2 text-goldenrod font-black text-2xl">{suggestion}</div>
-                                      <div className="flex justify-evenly items-center font-bold w-[25vw]">
-                                        <div className="text-white text-xl">{cardData.find((card) => card.name === suggestion)?.type}</div>
-                                        <div className="text-white text-xl">{cardData.find((card) => card.name === suggestion)?.race}</div>
-                                        <div className="text-white text-xl">{cardData.find((card) => card.name === suggestion)?.attribute}</div>
-                                      </div>
-                                    </div>
-                                    <div className="w-full flex flex-col justify-between ">
-                                      <div className="w-full font-black text-gray-400 text-md max-h-[7vh] overflow-auto pl-[3%]">{cardData.find((card) => card.name === suggestion)?.desc}</div>
-                                      <div className="w-[30%] flex justify-between pl-[3%]">
-                                        {cardData.find((card) => card.name === suggestion)?.atk && (
-                                          <div className="flex text-gray-300 font-black text-lg">
-                                            <p className="mr-2">Atk:</p>{cardData.find((card) => card.name === suggestion)?.atk}
+                            <div className="text-gold text-2xl mb-2.5">Card Desc: </div>
+                            <div className="text-gray-400 text-xl">{selectedCardData.desc}</div>
+                          </div>
+                        </div>
+                        {(selectedCardData.scale || selectedCardData.linkval || selectedCardData.atk || selectedCardData.def)&& (
+                          <>
+                          <div className="flex mb-[4%] w-[90%] justify-left">
+                            {selectedCardData.scale && (
+                              <>
+                              <div className="flex text-xl text-white">
+                                <div className="mr-5">Pend-Scale:</div>
+                                <div className="mr-[50px]">{selectedCardData.scale}</div>
+                              </div>
+                              </>
+                            )}
+                            {selectedCardData.linkval && (
+                              <>
+                              <div className="flex text-xl text-white">
+                                <div className="mr-5">Link-value:</div>
+                                <div className="mr-[50px]">{selectedCardData.linkval}</div>
+                              </div>
+                              </>
+                            )}
+                            {selectedCardData.atk && (
+                              <>
+                              <div className="flex text-xl text-white">
+                                <div className="mr-5">Attack:</div>
+                                <div className="mr-[50px]">{selectedCardData.atk}</div>
+                              </div>
+                              </>
+                            )}
+                            {selectedCardData.def && (
+                              <>
+                              <div className="flex text-xl text-white">
+                                <div className="mr-5">Defense:</div>
+                                <div>{selectedCardData.def}</div>
+                              </div>
+                              </>
+                            )}
+                          </div>
+                          </>
+                        )}
+                        
+                      </div>
+                      {authenticated && (
+                        <div>
+                          <div className="flex justify-center">
+                          <ComponentCardSetPopup selectedCardData={selectedCardData} userId={userId} cardSets={cardSets} />
+                          </div>
+                        </div>
+                        )} 
+                    </div>    
+                  </main>        
+                </main>
+              ) : (
+                <>
+                    {listView && (
+                      <main className='flex justify-center'> 
+                        <div className="w-[80%] flex flex-col items-center ">
+                          {mainSuggestions.length > 0 && (
+                            <>
+                              <div className=''>
+                                {currentMainSuggestions.map((suggestion) => (
+                                  <div
+                                    key={suggestion}
+                                    className={`${selectedSuggestion === suggestion ? 'selected' : ''}`}
+                                    onClick={() => handleSuggestionClick(suggestion)}
+                                  >
+                                    <div className="flex max-h-[14vh] bg-[#1f1d1d]">
+                                      <img
+                                        src={cardData.find((card) => card.name === suggestion)?.card_images[0].image_url}
+                                        alt={suggestion}
+                                        className="w-[6.5%] min-w-[%]"
+                                      />
+                                      <div className="flex w-full min-h-full flex-col border-2 border-transparent hover:border-gray-500">
+                                        <div className="relative flex justify-between w-full">
+                                          <div className="flex text-center items-center pl-[3%] w-1/2 text-goldenrod font-black text-2xl">{suggestion}</div>
+                                          <div className="flex justify-evenly items-center font-bold w-[25vw]">
+                                            <div className="text-white text-xl">{cardData.find((card) => card.name === suggestion)?.type}</div>
+                                            <div className="text-white text-xl">{cardData.find((card) => card.name === suggestion)?.race}</div>
+                                            <div className="text-white text-xl">{cardData.find((card) => card.name === suggestion)?.attribute}</div>
                                           </div>
-                                        )}
-                                        {cardData.find((card) => card.name === suggestion)?.def && (
-                                          <div className="flex text-gray-300 font-black text-lg">
-                                            <p className="mr-2">Def:</p>{cardData.find((card) => card.name === suggestion)?.def}
+                                        </div>
+                                        <div className="w-full flex flex-col justify-between ">
+                                          <div className="w-full font-black text-gray-400 text-md max-h-[7vh] overflow-auto pl-[3%]">{cardData.find((card) => card.name === suggestion)?.desc}</div>
+                                          <div className="w-[30%] flex justify-between pl-[3%]">
+                                            {cardData.find((card) => card.name === suggestion)?.atk && (
+                                              <div className="flex text-gray-300 font-black text-lg">
+                                                <p className="mr-2">Atk:</p>{cardData.find((card) => card.name === suggestion)?.atk}
+                                              </div>
+                                            )}
+                                            {cardData.find((card) => card.name === suggestion)?.def && (
+                                              <div className="flex text-gray-300 font-black text-lg">
+                                                <p className="mr-2">Def:</p>{cardData.find((card) => card.name === suggestion)?.def}
+                                              </div>
+                                            )}
+                                            {cardData.find((card) => card.name === suggestion)?.level && (
+                                              <div className="flex text-gray-300 font-black text-lg">
+                                                <p className="mr-2">Level:</p>{cardData.find((card) => card.name === suggestion)?.level}
+                                              </div>
+                                            )}
+                                            {cardData.find((card) => card.name === suggestion)?.scale && (
+                                              <div className="flex text-gray-300 font-black text-lg">
+                                                <p className="mr-2">Pendulum Scale:</p>{cardData.find((card) => card.name === suggestion)?.scale}
+                                              </div>
+                                            )}
+                                            {cardData.find((card) => card.name === suggestion)?.linkval && (
+                                              <div className="flex text-gray-300 font-black text-lg">
+                                                <p className="mr-2">Link Value:</p>{cardData.find((card) => card.name === suggestion)?.linkval}
+                                              </div>
+                                            )}
                                           </div>
-                                        )}
-                                        {cardData.find((card) => card.name === suggestion)?.level && (
-                                          <div className="flex text-gray-300 font-black text-lg">
-                                            <p className="mr-2">Level:</p>{cardData.find((card) => card.name === suggestion)?.level}
-                                          </div>
-                                        )}
-                                        {cardData.find((card) => card.name === suggestion)?.scale && (
-                                          <div className="flex text-gray-300 font-black text-lg">
-                                            <p className="mr-2">Pendulum Scale:</p>{cardData.find((card) => card.name === suggestion)?.scale}
-                                          </div>
-                                        )}
-                                        {cardData.find((card) => card.name === suggestion)?.linkval && (
-                                          <div className="flex text-gray-300 font-black text-lg">
-                                            <p className="mr-2">Link Value:</p>{cardData.find((card) => card.name === suggestion)?.linkval}
-                                          </div>
-                                        )}
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
-                                </div>
+                                ))}
                               </div>
-                            ))}
-                          </div>
-                          {totalPages > 1 && (
-                            <>
-                              <div className="w-[20%] mt-[30px] p-1.25 flex justify-center  text-goldenrod text-center text-xl">
-                                <button className="bg-goldenrod text-white w-[30px] mr-[5%] rounded-lg hover:text-red-600" disabled={currentPage === 1} onClick={() => handlePageChange(currentPage - 1)}>
-                                  {'<'}
-                                </button>
-                                <span>{`Page ${currentPage} of ${totalPages}`}</span>
-                                <button className="bg-goldenrod text-white w-[30px] ml-[5%] rounded-lg hover:text-red-600" disabled={currentPage === totalPages} onClick={() => handlePageChange(currentPage + 1)}>
-                                  {'>'}
-                                </button>
-                              </div>
+                              {totalPages > 1 && (
+                                <>
+                                  <div className="w-[20%] mt-[30px] p-1.25 flex justify-center  text-goldenrod text-center text-xl">
+                                    <button className="bg-goldenrod text-white w-[30px] mr-[5%] rounded-lg hover:text-red-600" disabled={currentPage === 1} onClick={() => handlePageChange(currentPage - 1)}>
+                                      {'<'}
+                                    </button>
+                                    <span>{`Page ${currentPage} of ${totalPages}`}</span>
+                                    <button className="bg-goldenrod text-white w-[30px] ml-[5%] rounded-lg hover:text-red-600" disabled={currentPage === totalPages} onClick={() => handlePageChange(currentPage + 1)}>
+                                      {'>'}
+                                    </button>
+                                  </div>
+                                </>
+                              )}
                             </>
                           )}
+          
+                          {error && (
+                            <p className="errormessage">
+                              {error}
+                            </p>
+                          )}
+                        </div>
+                        
+                      </main> 
+                      
+                    )}
+                    {galleryView && (
+                    <div className="flex flex-col items-center w-full h-fit  px-[4vw]">
+                      {gallerySuggestions.length > 0 && (
+                        <div className="Searchbar-suggestion-grid">
+                          {currentGallerySuggestions.map((suggestion) => (
+                            <div key={suggestion}>
+                              <img
+                                src={cardData.find((card) => card.name === suggestion)?.card_images[0].image_url}
+                                alt={suggestion}
+                                onClick={() => handleSuggestionClick(suggestion)}
+                                className="w-[90%] max-w-[540px] border-2 border-transparent hover:border-cyan-400"
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      {totalGalleryPages > 1 && (
+                        <>
+                        <div className="w-[13.5%] mt-[35px] p-1.25 flex justify-between text-goldenrod text-xl">
+                          <button className="bg-goldenrod text-white w-[30px] mr-[1%] rounded-lg hover:text-orange-600" disabled={currentPage === 1} onClick={() => handlePageChange(currentPage - 1)}>
+                            {'<'}
+                          </button>
+                          <span>{`Page ${currentPage} of ${totalGalleryPages}`}</span>
+                          <button className="bg-goldenrod text-white w-[30px] mr-[1%] rounded-lg hover:text-orange-600" disabled={currentPage === totalPages} onClick={() => handlePageChange(currentPage + 1)}>
+                          {'>'}
+                          </button>
+                        </div>
                         </>
                       )}
-      
-                      {error && (
-                        <p className="errormessage">
-                          {error}
-                        </p>
-                      )}
                     </div>
-                  </main> 
-                )}
-                {galleryView && (
-                  <div className="flex flex-col items-center w-full h-fit  px-[4vw]">
-                    {gallerySuggestions.length > 0 && (
-                      <div className="Searchbar-suggestion-grid">
-                        {currentGallerySuggestions.map((suggestion) => (
-                          <div key={suggestion}>
-                            <img
-                              src={cardData.find((card) => card.name === suggestion)?.card_images[0].image_url}
-                              alt={suggestion}
-                              onClick={() => handleSuggestionClick(suggestion)}
-                              className="w-[90%] max-w-[540px] border-2 border-transparent hover:border-cyan-400"
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                    {totalGalleryPages > 1 && (
-                      <>
-                      <div className="w-[13.5%] mt-[35px] p-1.25 flex justify-between text-goldenrod text-xl">
-                        <button className="bg-goldenrod text-white w-[30px] mr-[1%] rounded-lg hover:text-orange-600" disabled={currentPage === 1} onClick={() => handlePageChange(currentPage - 1)}>
-                          {'<'}
-                        </button>
-                        <span>{`Page ${currentPage} of ${totalGalleryPages}`}</span>
-                        <button className="bg-goldenrod text-white w-[30px] mr-[1%] rounded-lg hover:text-orange-600" disabled={currentPage === totalPages} onClick={() => handlePageChange(currentPage + 1)}>
-                        {'>'}
-                        </button>
-                      </div>
-                      </>
-                    )}
-                  </div>
-                )}
-              </>   
+                  )}
+                  
+                </>   
+              )}           
+          </div>
+          <div className="fixed flex right-0 top-0 min-h-[100vh] w-[20%]">
+            {!clickedOnCard &&  (
+              <FilterResults/>
             )}
-
-      </div>
-      <Footer/>
+          </div>
+        </main>   
+        <Footer/>
+      </body>
     </main>
   );
 };
