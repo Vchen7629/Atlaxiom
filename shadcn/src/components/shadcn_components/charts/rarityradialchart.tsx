@@ -24,6 +24,17 @@ const chartData = [
   { month: "Super Rare", desktop: 209 },
   { month: "Secret Rare", desktop: 150 },
   { month: "Ultra Rare", desktop: 222 },
+  { month: "Ultimate Rare", desktop: 222 },
+  { month: "Collector's Rare", desktop: 222 },
+  { month: "Prismatic Secret Rare", desktop: 222 },
+  { month: "Quarter Century Secret Rare", desktop: 222 },
+  { month: "Ghost Rare", desktop: 222 },
+  { month: "Starlight Rare", desktop: 222 },
+  { month: "Pharaohs Rare", desktop: 222 },
+  { month: "Gold Rare", desktop: 222 },
+  { month: "Premium Gold Rare", desktop: 222 },
+  { month: "Platinum Rare", desktop: 222 },
+  { month: "Platinum Secret Rare", desktop: 222 },
 ]
 
 const chartConfig = {

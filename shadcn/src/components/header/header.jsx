@@ -60,7 +60,7 @@ const Header = () => {
                 <li><Profile/></li>
                 <li>
                     <button
-                        className="bg-transparent border-transparent xs:w-16 xl:w-32 h-16 items-center border-b-2 hover:border-b-white"
+                        className="flex bg-transparent border-transparent w-fit h-8 px-8 items-center border-b-2 hover:bg-footer rounded-lg"
                         title="Logout"
                         onClick={sendLogout}
                     >
@@ -85,8 +85,8 @@ const Header = () => {
         setShowDropdown(!showDropdown);
     };
 
-    const content = (
-        <header className={`flex justify-between  text-white bg-blackone relative p-2.5 border-b-2 border-gold ${profileClass}`}>
+    return (
+        <header className={`fixed z-50 top-0 left-0 w-full flex justify-between text-white bg-blackone bg-opacity-60 backdrop-blur-md backdrop-brightness-150 px-2.5 border-b-2 border-gray-500 ${profileClass}`}>
             <ul className={`flex xs:hidden lg:flex py-2.5 ml-2.5 ${showDropdown ? "hidden" : ''}`}>
                 <li><Banlist/> </li>
                 <li>{renderCardSearchButton()}</li>
@@ -122,8 +122,6 @@ const Header = () => {
             )}
         </header>
     )
-
-    return content
 }
 
 export default Header

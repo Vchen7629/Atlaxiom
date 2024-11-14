@@ -13,7 +13,7 @@ const Profile = () => {
   return (
     <div>
         <button 
-          className="bg-transparent border-transparent xs:w-16 xl:w-32 h-16 items-center border-b-2 hover:border-b-white" 
+          className="flex bg-transparent border-transparent w-fit h-8 px-8 items-center border-b-2 hover:bg-footer rounded-lg" 
           onClick={handleButtonClick}
         >
             <FontAwesomeIcon icon={faUser} />
