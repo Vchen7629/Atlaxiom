@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <div>
         <button 
-          className="bg-transparent border-transparent text-white cursor-pointer border-b-2 hover:border-b-goldenrod" 
+          className="bg-transparent border-transparent text-white px-2 cursor-pointer border-b-2 hover:border-b-goldenrod" 
           onClick={handleButtonClick}
         >
           Home
