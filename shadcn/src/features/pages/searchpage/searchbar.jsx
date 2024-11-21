@@ -23,7 +23,9 @@ const SearchBar = () => {
   const authenticated = useSelector((state) => state.auth.token !== null);
   const userId = useSelector((state) => state.auth.userId);
   const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState('');
+  const [expandStatus, setExpandStatus] = useState(true);
+
 
   const [listView, setListView] = useState(true);
 
@@ -88,8 +90,8 @@ const SearchBar = () => {
     [cardData]
   );
 
-  const suggestionsPerGalleryPage = 55;
-  const suggestionsPerPage = 50;
+  const suggestionsPerGalleryPage = 45;
+  const suggestionsPerPage = 20;
   const totalPages = Math.ceil(mainSuggestions.length / suggestionsPerPage);
   const totalGalleryPages = Math.ceil(gallerySuggestions.length / suggestionsPerGalleryPage);
   const [currentPage, setCurrentPage] = useState(1);
@@ -174,10 +176,10 @@ const SearchBar = () => {
 
   return (
     <main className="min-h-[100vh]">
-      <body className="flex flex-col min-h-[100vh] bg-[#1f1d1d] justify-between overflow-auto" >
+      <body className="flex flex-col min-h-[120vh] bg-[#1f1d1d] justify-between overflow-auto" >
         <Header/>
-        <main className="flex flex-grow py-[5%] items-center ">            
-          <div className="flex flex-col w-[80%]">
+        <main className="flex flex-grow py-[5%] items-start ">            
+          <div className={`flex flex-col ${expandStatus ? "w-[80%]" : "w-full"}`}>
             {!clickedOnCard &&  (
                 <main>
                   <div className="flex relative w-full justify-between items-center mb-[5vh] pr-[3%]">
@@ -328,10 +330,10 @@ const SearchBar = () => {
                 <>
                     {listView && (
                       <main className='flex justify-center'> 
-                        <div className="w-[80%] flex flex-col items-center ">
+                        <div className="w-[95%] flex flex-col items-center ">
                           {mainSuggestions.length > 0 && (
                             <>
-                              <div className=''>
+                              <div>
                                 {currentMainSuggestions.map((suggestion) => (
                                   <div
                                     key={suggestion}
@@ -449,9 +451,9 @@ const SearchBar = () => {
                 </>   
               )}           
           </div>
-          <div className="fixed flex right-0 top-0 min-h-[100vh] w-[20%]">
+          <div className={`fixed flex right-0 top-0 min-h-[100vh] ${expandStatus ? "w-[20%]" : "w-0 bg-white"}`}>
             {!clickedOnCard &&  (
-              <FilterResults/>
+              <FilterResults expandStatus={expandStatus} setExpandStatus={setExpandStatus}/>
             )}
           </div>
         </main>   
