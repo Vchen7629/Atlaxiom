@@ -9,7 +9,7 @@ import { RarityDropDownComponent} from "../../../components/shadcn_components/dr
 import { CaretDownIcon, CaretRightIcon } from '@radix-ui/react-icons';
 
 
-const FilterResults = ({ expandStatus, setExpandStatus}) => {
+const FilterResults = ({ expandStatus }) => {
     const [spellDropdown, setSpellDropdown] = useState(false);
     const [trapDropdown, setTrapDropdown] = useState(false);
     const [attributeDropdown, setAttributeDropdown] = useState(false);
@@ -43,13 +43,8 @@ const FilterResults = ({ expandStatus, setExpandStatus}) => {
 
     return (
         <div className="w-full flex justify-end items-center">
-            <button 
-              className="w-[40px] bg-goldenrod h-24 rounded-tl-3xl rounded-bl-3xl"
-              onClick={() => setExpandStatus(!expandStatus)}
-            >
-                <CaretRightIcon className="h-10 w-10 text-footer"/>
-              </button>
-            <div className={`flex h-full ${expandStatus ? "w-full bg-[#0e0d0d]" : "w-0"} flex-col rounded-2xl border-4 border-footer pt-[25%]`}>
+    
+            <div className={`flex h-full ${expandStatus ? "w-full bg-blackone" : "w-0"} flex-col rounded-2xl border-4 border-footer pt-[25%]`}>
               {expandStatus && (
                 <>
                 <div className="font-black text-2xl w-full text-center">Filter Search</div>

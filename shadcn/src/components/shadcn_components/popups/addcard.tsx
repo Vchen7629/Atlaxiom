@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { useState } from "react";
 import { Button } from "@/components/ui/button"
-import { useAddNewOwnedCardMutation } from '../../features/api-slices/ownedCardapislice';
+import { useAddNewOwnedCardMutation } from '../../../features/api-slices/ownedCardapislice';
 
 interface CardSet {
     set_name: string;
@@ -131,8 +131,8 @@ export const ComponentCardSetPopup: React.FC<ComponentCardSetPopupProps> = ({
                             {(!cardMessages[index]) && (
                                 <button
                                     onClick={() => handleAddOwnedCardClick(set, index)}
-                                    className="bg-black rounded-xl h-8 w-fit p-2 text-[12px]"
-                                >
+                                    className="bg-blue-500 rounded-xl flex items-center h-[30px] w-fit p-2 text-[12px]"
+                                >   
                                     Add to Collection
                                 </button>
                             )}

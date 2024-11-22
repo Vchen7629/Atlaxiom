@@ -1,12 +1,18 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 const Home = () => {
   const navigate = useNavigate();
+  const authenticated = useSelector((state) => state.auth.token !== null);
 
   const handleButtonClick = () => {
-    navigate('/');
+    if (authenticated) {
+      navigate('/loggedin');
+    } else {
+      navigate('/')
+    }
   };
 
   return (
