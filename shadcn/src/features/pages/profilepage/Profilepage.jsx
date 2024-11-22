@@ -86,9 +86,9 @@ const Profilepage = () => {
 
     const content = (
         <>
-        <main className="min-h-[100vh] flex flex-col  bg-metal bg-metal-size bg-metal-position justify-between">
+        <main className="min-h-[100vh] flex flex-col justify-center">
             <Header/>
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center bg-[#1f1d1d] min-h-[95vh]">
                 <div className="flex bg-[#1a1919] px-[1%] rounded-3xl w-[85%] h-[70vh]">
                     <div className="flex flex-col w-[15%] my-[3%] justify-between">
                         <div className="flex relative bottom-3 text-[1.5rem] overflow-y-auto  border-2 border-gray-800 shadow-custom w-[10vw] h-[5vh] justify-center items-center rounded-2xl">

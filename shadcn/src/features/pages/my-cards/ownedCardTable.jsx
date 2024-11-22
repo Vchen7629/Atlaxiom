@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './styling/ownedcards.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faChevronDown, faChevronUp, faCircleXmark, faGripHorizontal, faLeftLong, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { useIncreaseOwnedCardMutation, useDecreaseOwnedCardMutation, useDeleteOwnedCardMutation, useGetOwnedCardsQuery } from '../../api-slices/ownedCardapislice';
+import { faChevronDown, faChevronUp, faCircleXmark,  faLeftLong, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { useGetOwnedCardsQuery } from '../../api-slices/ownedCardapislice';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../../components/header/header';
 import Footer from '../../../components/footer/Footer';
@@ -11,6 +11,8 @@ import { ArchetypeDropDownComponent } from "../../../components/shadcn_component
 import { SubTypeDropDownComponent } from "../../../components/shadcn_components/dropdown_components/subtypedrowndown"
 import { CardSetDropDownComponent } from "../../../components/shadcn_components/dropdown_components/cardsetdropdown"
 import { RarityRadialChartComponent } from "../../../components/shadcn_components/charts/rarityradialchart"
+import { ComponentOwnedCardPopup } from "../../../components/shadcn_components/popups/ownedcarddetails"
+import GridListViewComponent from '../../../components/searchbar/grid_or_list_view';
 
 
 const UserOwnedCardTable = () => {
@@ -57,10 +59,6 @@ const UserOwnedCardTable = () => {
   
   const [selectedCard, setSelectedCard] = useState(null)
 
-  const [increaseOwnedCard] = useIncreaseOwnedCardMutation();
-  const [decreaseOwnedCard] = useDecreaseOwnedCardMutation();
-  const [deleteOwnedCard] = useDeleteOwnedCardMutation();
-
   const [listView, setListView] = useState(true);
 
   const [galleryView, setGalleryView] = useState(false);
@@ -101,16 +99,6 @@ const UserOwnedCardTable = () => {
   const handleAddtoCollection = () => {
     navigate('/searchloggedin')
   }
-  
-  const handleListView = () => {
-    setListView(true)
-    setGalleryView(false)
-  }
-
-  const handleGalleryView = () => {
-      setListView(false)
-      setGalleryView(true)
-  }
 
   const handleSearchTerm = (e) => {
     setSearchTerm(e.target.value);
@@ -128,257 +116,44 @@ const UserOwnedCardTable = () => {
     setSelectedCard(null)
   }
 
-  const handleIncreaseClick = async (cardName) => {
-    try {
-      await increaseOwnedCard({ 
-        id: userId, 
-        CardData: { 
-          card_name: cardName,
-          increaseOwnedAmount: 1 
-        } 
-      });
-      refetch();
-    } catch (err) {
-      console.error('Failed to increase card amount:', err);
-    }
-  };
-
-  const handleDecreaseClick = async (cardName) => {
-    try {
-      await decreaseOwnedCard({ 
-        id: userId, 
-        CardData: { 
-          card_name: cardName,
-          decreaseOwnedAmount: 1 
-        } 
-      });
-      refetch();
-    } catch (err) {
-      console.error('Failed to decrease card amount:', err);
-    }
-  };
-
-  const handleDeleteCardClick = async (cardName) => {
-    try {
-      await deleteOwnedCard({
-        id: userId,
-        CardData: { card_name: cardName }
-      });
-      refetch();
-    } catch (err) {
-      console.error('Failed to delete card:', err);
-    }
-  }
-
   return (
-    <main className="flex flex-col bg-radial-gray min-h-[100vh]">
+    <main className="flex flex-col min-h-[100vh] ">
         <Header/>
-        <div className="flex items-center justify-center">
-          <div className="bg-blackone text-white relative flex flex-col w-full min-h-[120vh] p-5">
-            <div className="relative items-center justify-between flex w-full mt-[1%] ">
+        <div className=" bg-[#1f1d1d] flex items-center justify-center ">
+          <div className="text-white relative flex flex-col w-full min-h-[120vh] p-5 pt-20">
+            <div className="relative items-center justify-between flex w-full mt-[1%]  ">
               <div className="text-[40px] ml-[5%] text-goldenrod"> 
                 <strong>My Card Collection</strong> 
               </div>
+             
               {!selectedCard && (
                 <div className="relative right-[3vw]">
                   <div className="flex w-20 justify-between">
-                    <button
-                      className="relative bg-transparent text-gray-500 border-transparent focus:text-gold hover:text-gold"
-                      onClick={handleListView}
-                    >
-                      <FontAwesomeIcon icon={faBars} className="fa-2xl"/>
-                    </button>
-                    <button
-                      className="relative bg-transparent text-gray-500 border-transparent focus:text-gold hover:text-gold"
-                      onClick={handleGalleryView}
-                    >
-                      <FontAwesomeIcon icon={faGripHorizontal} className="fa-2xl"/>
-                    </button>
+                    <GridListViewComponent 
+                      setListView={setListView}
+                      setGalleryView={setGalleryView}
+                      listView={listView}
+                      galleryView={galleryView}
+                    />
                   </div>
                 </div>
               )}
             </div>
+            <div className="flex w-3/4 h-8 bg-goldenrod items-center">
+              <div className="font-black text-xl w-[30%] pl-24"> Name</div>
+              <div className="font-black text-xl w-[10%]  text-center "> Set Code</div>
+              <div className="font-black text-xl w-[25%] text-center ">Set</div>
+              <div className="font-black text-xl w-[15%]  text-center ">Rarity</div>
+              <div className="font-black text-xl w-[7%] text-center ">Price</div>
+              <div className="font-black text-md w-[10%] text-center ml-[2%]">Owned Amount</div>
+            </div>
             <main className="flex justify-between">
-              <div className='w-full my-[1%]'>
+              <div className='w-full mb-[1%]'>
                   <div>
-                    {selectedCard ? (
-                      <main>
-                        <button 
-                          className="relative h-10 w-[100px] text-gold cursor-pointer left-[94%]"
-                          onClick={handleBackToGridClick}
-                        > 
-                          <FontAwesomeIcon icon={faLeftLong} className="fa-2x"/>
-                        </button>
-                        <div className="flex relative w-[80%] left-1/2 translate-x-[-50%] max-h-[620px]">
-                          <div className="flex flex-col items-center text-gold">
-                            <div className="text-center text-2xl font-black ">{selectedCard.card_name}</div>
-                            <img src={selectedCard.image_url} alt="Unavailable"className="max-h-[500px] my-[9%]"/>
-                            <div> Owned amount: {selectedCard.ownedamount}</div>
-                          </div>
-                          <div className="flex flex-col justify-evenly ml-[5%] pr-[5%] max-h-full overflow-auto">
-                            <>
-                            {( 
-                              selectedCard.type || 
-                              selectedCard.race || 
-                              selectedCard.attribute || 
-                              selectedCard.archetype ||
-                              selectedCard.level ||
-                              selectedCard.linkval ||
-                              selectedCard.scale ||
-                              selectedCard.atk ||
-                              selectedCard.def ||
-                              selectedCard.desc ||
-                              selectedCard.pend_desc ||
-                              selectedCard.monster_desc 
-                            ) && (
-                              <div>
-                                {selectedCard.type &&
-                                  <div className="flex items-center"> 
-                                    <div className="text-gold mr-[10px]">Card Type:</div> 
-                                    <div>{selectedCard.type}</div>
-                                  </div>
-                                }
-
-                                {selectedCard.race &&
-                                  <div className="flex items-center my-[5%]">
-                                    <div className="text-gold mr-[10px]">Race:</div>
-                                    <div>{selectedCard.race}</div>
-                                  </div>
-                                }
-
-                                {selectedCard.attribute &&
-                                  <div className="flex items-center my-[5%]">
-                                    <div className="text-gold mr-[10px]">Attribute: </div>
-                                    <div>{selectedCard.attribute}</div>
-                                  </div>
-                                }
-
-                                {selectedCard.archetype &&
-                                  <div className="flex items-center my-[5%]">
-                                    <div className="text-gold mr-[10px]">Archetype: </div>
-                                    <div>{selectedCard.archetype}</div>
-                                  </div>
-                                }
-
-                                {selectedCard.level &&
-                                  <div className="flex items-center my-[5%]">
-                                    <div className="text-gold mr-[10px]">Level: </div>
-                                    <div>{selectedCard.level}</div>
-                                  </div>
-                                }
-
-                                {selectedCard.linkval &&
-                                  <div className="flex items-center my-[5%]">
-                                    <div className="text-gold mr-[10px]">Link Value: </div>
-                                    <div>{selectedCard.linkval}</div>
-                                  </div>
-                                }
-
-                                {selectedCard.scale &&
-                                  <div className="flex items-center my-[5%]">
-                                    <div className="text-gold mr-[10px]">Pendulum Scale Value: </div>
-                                    <div>{selectedCard.scale}</div>
-                                  </div>
-                                }
-
-                                {selectedCard.atk !== undefined &&
-                                  <div className="flex items-center my-[5%]">
-                                    <div className="text-gold mr-[10px]">Attack: </div>
-                                    <div>{selectedCard.atk !== null ? selectedCard.atk : 0}</div>
-                                  </div>
-                                }
-
-                                {selectedCard.def !== undefined &&
-                                  <div className="flex items-center my-[5%]">
-                                    <div className="text-gold mr-[10px]">Defense: </div>
-                                    <div>{selectedCard.def !== null ? selectedCard.def : 0}</div>
-                                  </div>
-                                }
-
-                                {selectedCard.desc &&
-                                  <div className="flex items-center mt-[5%]">
-                                    <div className="text-gold mr-[10px]">Description: </div>
-                                    <div>{selectedCard.desc}</div>
-                                  </div>
-                                }
-
-                              </div>
-                            )}
-                            </>
-                          </div>
-                        </div>
-                      </main>
-                    ) : listView ? (
+                    {listView ? (
                       <main className="flex">
-                        <main className=" bg-blackthrees w-[75%] max-h-full border-r-2 border-footer">
-                        {filteredCards.length > 0 ? (
-                          <div>
-                            {filteredCards.map((card, index) => (
-                              <div 
-                                key={index} 
-                                className="flex bg-transparent h-32 items-center hover:bg-blacktwo"
-                              >
-                              <img 
-                                src={card.image_url} 
-                                alt={card.card_name} 
-                                className="w-[5%]" 
-                                onClick={() => handleCardClick(card)}
-                              />
-                              <div 
-                                className="w-[25%] overflow-y-auto h-full text-md font-bold px-[2%] flex items-center"
-                                onClick={() => handleCardClick(card)}
-                              >
-                                {card.card_name}
-                              </div>
-                              <div
-                                className="w-[10%] overflow-y-auto h-full text-md font-bold px-[2%] flex items-center"
-                                onClick={() => handleCardClick(card)}
-                              >
-                                {card.set_code}
-                              </div>
-                              <div
-                                className="w-[25%] overflow-y-auto h-full text-md font-bold px-[2%] flex items-center"
-                                onClick={() => handleCardClick(card)}
-                              >
-                                {card.set_name}
-                              </div>
-                              <div
-                                className="w-[15%] overflow-y-auto h-full text-md font-bold px-[2%] flex items-center"
-                                onClick={() => handleCardClick(card)}
-                              >
-                                {card.rarity}
-                              </div>
-                              <div
-                                className="w-[10%] overflow-y-auto h-full text-md font-bold px-[2%] flex items-center"
-                                onClick={() => handleCardClick(card)}
-                              >
-                                ${card.price}
-                              </div>
-                              <div className="flex w-[10%] h-[10%] items-center">
-                                <div className="text-goldenrod mr-[5px] text-sm md:w-1/4 lg:w-[30%">owned:</div>
-                                  <div className="mx-[5%]">{card.ownedamount}</div>
-                                  <div className="flex flex-col mr-[5%]">
-                                    <button className="h-5 text-gray-500 cursor-pointer" onClick={() => handleIncreaseClick((card.card_name))}>
-                                      <FontAwesomeIcon icon={faChevronUp}/>
-                                    </button>
-                                    <button className="h-5 text-gray-500 cursor-pointer" onClick={() => handleDecreaseClick((card.card_name))}>
-                                      <FontAwesomeIcon icon={faChevronDown}/>
-                                    </button>
-                                  </div>
-                                  <button className="text-red-600 cursor-pointer"onClick={() => handleDeleteCardClick((card.card_name))}>
-                                    <FontAwesomeIcon icon={faCircleXmark}/>
-                                  </button>
-                              </div>
-                              </div>
-                            ))}
-                          </div>
-                        ) : (
-                          <div className="flex h-full justify-center pt-[25%] text-3xl text-gray-400 font-black">
-                            <p>No cards available. Start adding to your <button className="text-cyan-400" onClick={handleAddtoCollection}>Collection</button></p>
-                          </div>
-                        )}
-                        
-                      
+                        <main className=" bg-[#1f1d1d] w-[75%] max-h-full border-r-2 border-footer">
+                          <ComponentOwnedCardPopup  filteredCards={filteredCards} onCardClick={handleCardClick}/>                                           
                         </main>
                         <div className="flex flex-col w-[25%] items-center py-[1%]">
                           <div className="relative w-[90%] flex h-11 items-center  rounded-2xl border-2 border-gray-500">

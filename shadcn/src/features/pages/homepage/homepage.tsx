@@ -1,4 +1,3 @@
-import { WordFadeInDemo } from "../../../components/magicui_components/text_anim/wordfadeinanim"
 import { ParticlesBackgroundAnimComponent } from "../../../components/magicui_components/background_anim/homepage_anim"
 
 const HomePage = () => {

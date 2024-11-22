@@ -4,6 +4,7 @@ import AccountCreationForm from './features/pages/sign-up-page/AccountCreationFo
 import LoginPage from './features/pages/loginpage/login.js';
 import Banlists from './features/pages/banlist.jsx';
 import SearchBar from './features/pages/searchpage/searchbar.jsx';
+import SearchResults from './features/pages/searchpage/searchresults.jsx';
 import StayLoggedIn from './features/auth/stayloggedin.jsx';
 import Prefetch from './features/auth/Prefetch.jsx';
 import UserOwnedCardTable from './features/pages/my-cards/ownedCardTable.jsx';
@@ -20,7 +21,9 @@ function App() {
       <Route path="signup" element={<AccountCreationForm/>}/>
       <Route path="login" element={<LoginPage/>}/>
       <Route path="banlist" element={<Banlists />} />
-      <Route path="search" element={<SearchBar/>} />
+      <Route path="search" element={<SearchBar/>}>
+        <Route path="/searchresult" element={<SearchResults/>}/>
+      </Route>
 
       <Route element={<StayLoggedIn/>}>
         <Route element={<Prefetch/>}>
