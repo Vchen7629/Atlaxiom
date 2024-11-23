@@ -94,7 +94,7 @@ const LoginPage = () => {
                 <div className="flex items-center justify-center">
                         <form className="relative py-16 max-h-[65vh] bg-blackone w-[25vw] flex flex-col items-center rounded-3xl" onSubmit={handleSubmit} noValidate>
                             <div className="flex justify-center">
-                                <FontAwesomeIcon className="text-gray-600 h-[6vh] w-[3vw] p-4 shadow-custom rounded-[24px] bg-blackone" icon={faUser}/>
+                                <FontAwesomeIcon className="text-blue-400 h-[6vh] w-[3vw] p-4 shadow-custom rounded-[24px] bg-blackone" icon={faUser}/>
                             </div>
                             <header className="mt-[1vh] mb-3 text-4xl text-white font-black">Welcome Back</header>
                             <div className="flex text-lg mb-[1vh] text-gray-500">

@@ -19,40 +19,40 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
  
-const frameworks = [
+const Attributes = [
   {
-    value: "Eart",
+    value: "Dark",
+    label: "Dark",
+  },
+  {
+    value: "Divine",
+    label: "Divine",
+  },
+  {
+    value: "Earth",
     label: "Earth",
   },
   {
-    value: "sveltekit",
-    label: "SvelteKit",
+    value: "Fire",
+    label: "Fire",
   },
   {
-    value: "nuxt.js",
-    label: "Nuxt.js",
+    value: "Light",
+    label: "Light",
   },
   {
-    value: "remix",
-    label: "Remix",
+    value: "Water",
+    label: "Water",
   },
   {
-    value: "astro",
-    label: "Astro",
-  },
-  {
-    value: "yes",
-    label: "test",
-  },
-  {
-    value: "yes",
-    label: "test",
+    value: "Wind",
+    label: "Wind",
   }
 ]
  
 export function AttributeDropDownComponent() {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("")
+  const [attributeValue, setAttributeValue] = React.useState("")
  
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -61,11 +61,17 @@ export function AttributeDropDownComponent() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[15vw] bg-transparent text-gold hover:text-gold hover:border-gold hover:bg-transparent justify-between"
+          className="w-[15vw] bg-transparent border-transparent hover:text-gold hover:bg-transparent justify-between"
         >
-          {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : "Select Card Attribute..."}
+          {attributeValue ? (
+            <span className={`flex relative items-center left-1/4 justify-between w-fit px-2 py-1 bg-blue-500 text-white rounded text-sm`}>
+              {Attributes.find((Attributes) => Attributes.value === attributeValue)?.label}
+            </span>
+          ) : (
+            <span className={`flex relative items-center left-1/5 justify-between w-fit px-2 py-1 bg-transparent text-white rounded text-sm`}>
+                Select Card Subtype...
+            </span>
+          )}
           <CaretSortIcon className="min-h-6 min-w-6 shrink-0 text-white" />
         </Button>
       </PopoverTrigger>
@@ -75,21 +81,21 @@ export function AttributeDropDownComponent() {
           <CommandList>
             <CommandEmpty>No Attribute found.</CommandEmpty>
             <CommandGroup>
-              {frameworks.map((framework) => (
+              {Attributes.map((Attributes) => (
                 <CommandItem
-                  key={framework.value}
-                  value={framework.value}
+                  key={Attributes.value}
+                  value={Attributes.value}
                   className="text-white"
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
+                    setAttributeValue(currentValue === attributeValue ? "" : currentValue)
                     setOpen(false)
                   }}
                 >
-                  {framework.label}
+                  {Attributes.label}
                   <CheckIcon
                     className={cn(
                       "ml-auto h-4 w-4 text-white",
-                      value === framework.value ? "opacity-100" : "opacity-0"
+                      attributeValue === Attributes.value ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>

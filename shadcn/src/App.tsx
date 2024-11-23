@@ -7,7 +7,7 @@ import SearchBar from './features/pages/searchpage/searchbar.jsx';
 import SearchResults from './features/pages/searchpage/searchresults.jsx';
 import StayLoggedIn from './features/auth/stayloggedin.jsx';
 import Prefetch from './features/auth/Prefetch.jsx';
-import UserOwnedCardTable from './features/pages/my-cards/ownedCardTable.jsx';
+import UserOwnedCardPage from './features/pages/my-cards/ownedCardPage.jsx';
 import MyDeck from './features/pages/mydeckpage/my-deck.jsx';
 import CreateNewDeckForm from './features/pages/mydeckpage/new-deck-creation-form.jsx';
 import Deckview from './features/pages/mydeckpage/My-deck-Display.jsx';
@@ -29,7 +29,7 @@ function App() {
         <Route element={<Prefetch/>}>
           <Route path="/loggedin" element={<HomePage/>}/>
           <Route path="searchloggedin" element={<SearchBar/>} />
-          <Route path="getcards" element={<UserOwnedCardTable/>}/>
+          <Route path="getcards" element={<UserOwnedCardPage/>}/>
           <Route path="mydeckhomepage" element={<MyDeck/>}/>
           <Route path="newDeck" element={<CreateNewDeckForm/>}/>
           <Route path="modifyDeck" element={<Deckview/>}/>         

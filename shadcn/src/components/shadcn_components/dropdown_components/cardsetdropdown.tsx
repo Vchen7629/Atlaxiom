@@ -19,36 +19,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
  
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-  {
-    value: "yes",
-    label: "test",
-  },
-]
- 
-export function CardSetDropDownComponent() {
+export function CardSetDropDownComponent({ sets, setFilter, setSetFilter }) {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("")
  
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -57,13 +29,22 @@ export function CardSetDropDownComponent() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[15vw] bg-transparent  text-gold hover:text-gold hover:border-gold hover:bg-transparent justify-between"
+          className="w-[15vw] bg-transparent border-transparent text-gold hover:text-gold hover:bg-transparent"
         >
-          {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : "Filter by Card Set..."}
+          {setFilter ? (
+            <div className="flex w-full items-center justify-center">
+              <span className={`flex items-center justify-between w-fit px-2 py-1 bg-blue-500 text-white rounded  text-[12px]`}>
+                  {sets.find((sets) => sets === setFilter) }
+              </span>
+            </div>
+          ) : (
+            <span className={`flex relative items-center justify-between w-[100%] px-2 py-1 bg-transparent text-white rounded text-sm`}>
+                Select Card Set...
+            </span>
+          )}
           <CaretSortIcon className="min-h-6 min-w-6 shrink-0 text-white" />
         </Button>
+        
       </PopoverTrigger>
       <PopoverContent className="w-[15vw] p-0">
         <Command className="bg-blackone text-white ">
@@ -71,21 +52,21 @@ export function CardSetDropDownComponent() {
           <CommandList>
             <CommandEmpty>No Card Sets found.</CommandEmpty>
             <CommandGroup>
-              {frameworks.map((framework) => (
+              {sets.map((sets) => (
                 <CommandItem
-                  key={framework.value}
-                  value={framework.value}
-                  className="text-white"
+                  key={sets}
+                  value={sets}
+                  className="text-cyan-500"
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
+                    setSetFilter(currentValue === setFilter ? "" : currentValue)
                     setOpen(false)
                   }}
-                >
-                  {framework.label}
+                > 
+                  {sets}
                   <CheckIcon
                     className={cn(
                       "ml-auto h-4 w-4 text-white",
-                      value === framework.value ? "opacity-100" : "opacity-0"
+                      setFilter === sets ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>
