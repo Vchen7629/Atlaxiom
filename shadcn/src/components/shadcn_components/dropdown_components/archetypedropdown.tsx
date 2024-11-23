@@ -19,36 +19,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
  
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-  {
-    value: "yes",
-    label: "test",
-  },
-]
- 
-export function ArchetypeDropDownComponent() {
+export function ArchetypeDropDownComponent({ archetypes, archeTypeFilter, setArcheTypeFilter }) {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("")
  
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -57,11 +29,17 @@ export function ArchetypeDropDownComponent() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[15vw] bg-transparent text-gold hover:text-gold hover:border-gold hover:bg-transparent justify-between"
+          className="w-[15vw] bg-transparent border-transparent hover:text-gold hover:bg-transparent justify-between"
         >
-          {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : "Select Card Archetype..."}
+          {archeTypeFilter ? (
+            <span className={`flex relative items-center left-1/4 justify-between w-fit px-2 py-1 bg-blue-500 text-white rounded text-sm`}>
+              {archetypes.find((archetype) => archetype == archeTypeFilter)}
+            </span>
+          ) : (
+            <span className={`flex relative items-center left-1/5 justify-between w-fit px-2 py-1 bg-transparent text-white rounded text-sm`}>
+                Select Card Archetype...
+            </span>
+          )}
           <CaretSortIcon className="min-h-6 min-w-6 shrink-0 text-white" />
         </Button>
       </PopoverTrigger>
@@ -71,21 +49,21 @@ export function ArchetypeDropDownComponent() {
           <CommandList>
             <CommandEmpty>No framework found.</CommandEmpty>
             <CommandGroup>
-              {frameworks.map((framework) => (
+              {archetypes.map((archetype) => (
                 <CommandItem
-                  key={framework.value}
-                  value={framework.value}
+                  key={archetype}
+                  value={archetype}
                   className="text-white"
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
+                    setArcheTypeFilter(currentValue === archeTypeFilter ? "" : currentValue)
                     setOpen(false)
                   }}
                 >
-                  {framework.label}
+                  {archetype}
                   <CheckIcon
                     className={cn(
                       "ml-auto h-4 w-4 text-white",
-                      value === framework.value ? "opacity-100" : "opacity-0"
+                      archeTypeFilter === archetype ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>
