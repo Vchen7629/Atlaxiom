@@ -75,10 +75,14 @@ export const ComponentOwnedCardPopup: React.FC<ComponentCardSetPopupProps> = ({ 
       }
       console.log("selected Card Data", selectedCard)
 
+      const handleAddtoCollection = () => {
+        navigate('/searchloggedin')
+      }
+
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <div className="border-x-2 border-b-2 pl-4 border-gray-500 ">
+                <div className="border-x-2 border-b-2 pl-4 min-h-[70vh] border-gray-500 text-[hsl(var(--text))] ">
                     {filteredCards.length > 0 ? (
                         filteredCards.map((card, index) => (
                             <div key={index} className="flex bg-transparent h-32 items-center hover:bg-blacktwo" onClick={() => setSelectedCard(card)}>
@@ -119,7 +123,9 @@ export const ComponentOwnedCardPopup: React.FC<ComponentCardSetPopupProps> = ({ 
                         </div>
                         ))
                     ) : (
-                        <div>No cards available</div>
+                        <div className="flex h-full justify-center pt-[25%] text-3xl text-gray-400 font-black">
+                        <p>No cards matching your Filters</p>
+                        </div>
                     )}
                 </div>
             </AlertDialogTrigger>

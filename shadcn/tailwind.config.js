@@ -11,12 +11,10 @@ export default {
   			'radial-gray': 'radial-gradient(circle, #2e2e2e, #000000)',
   			'radial-gold': 'radial-gradient(ellipse, #3C3105 20%, #000000 80%)',
   			'custom-radial': 'radial-gradient(circle, #d1d5db, #374151, #000000)',
-        'linear-radient': 'linear-gradient(to left, #0e0d0d79, #333333)',
-  			metal: '`linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black),\r\n                  linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black),\r\n                  linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32))`'
+        	'linear-radient': 'linear-gradient(to left, #0e0d0d79, #333333)',
   		},
   		backgroundSize: {
-  			'metal-size': '10px 10px, 10px 10px, 10px 5px',
-        'homepage-radial-gold':  '100px 150px',
+        	'homepage-radial-gold':  '100px 150px',
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
@@ -45,7 +43,8 @@ export default {
   		},
   		boxShadow: {
   			custom: '0 4px 30px rgba(0, 0, 0, 0.5)',
-  			mycards: '0px 0px 15px rgb(19, 18, 18)'
+  			mycards: '0px 0px 15px rgb(19, 18, 18)',
+			dropdow: '0 0px 4px 0px hsl(var(--shadow-color))'
   		},
   		keyframes: {
   			marquee: {

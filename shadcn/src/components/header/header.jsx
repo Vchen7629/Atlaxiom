@@ -10,7 +10,9 @@ import Login from '../buttons/login'
 import Signup from '../buttons/signup'
 import { useSendLogoutMutation } from '../../features/auth/authApiSlice'    
 import Mydecks from '../buttons/my-decks'
-import Profile from '../buttons/profile'
+import Accountsbutton from '../buttons/accountbuttons/account'
+import { ModeToggle } from "../shadcn_components/darklightmode/mode-toggle"
+
 
 const PROFILE_REGEX = /^\/profile(\/)?$/
 const OWNEDCARDS_REGEX = /^\/dash\/ownedcards(\/)?$/
@@ -54,20 +56,10 @@ const Header = () => {
 
         if (isAuthenticated) {
           return (
-            <ul className={`flex xs:hidden lg:flex py-2.5 mr-2.5 ${showDropdown ? "hidden" : ''}`}>
-                <li><Mydecks/></li>
-                <li><Mycards/></li>
-                <li><Profile/></li>
-                <li>
-                    <button
-                        className="flex bg-transparent border-transparent w-fit h-8 px-8 items-center border-b-2 hover:bg-footer rounded-lg"
-                        title="Logout"
-                        onClick={sendLogout}
-                    >
-                    <FontAwesomeIcon className="fatextmargin text-white"icon={faRightFromBracket} /> Logout
-                    </button>
-                </li>
-            </ul>
+            <div className={`flex w-[15%] justify-between items-center xs:hidden lg:flex py-2.5 mr-2.5 ${showDropdown ? "hidden" : ''}`}>
+                <div><ModeToggle/></div>
+                <div className='min-w-[40vw] ml-[10%]'><Accountsbutton/></div>
+            </div>
           );
         }
         
@@ -86,7 +78,7 @@ const Header = () => {
     };
 
     return (
-        <header className={`fixed z-50 top-0 left-0 w-full flex justify-between text-white bg-blackone bg-opacity-60 backdrop-blur-md backdrop-brightness-150 px-2.5 border-b-2 border-gray-500 ${profileClass}`}>
+        <header className={`fixed z-50 top-0 left-0 w-full flex justify-between text-white bg-[hsl(var(--header))] bg-opacity-60 backdrop-blur-md backdrop-brightness-150 px-2.5  ${profileClass}`}>
             <ul className={`flex xs:hidden lg:flex py-2.5 ml-2.5 ${showDropdown ? "hidden" : ''}`}>
                 <li><Banlist/> </li>
                 <li>{renderCardSearchButton()}</li>

@@ -146,7 +146,7 @@ const ProfileContent = ({ user }) => {
     <div className="flex flex-col min-h-full pb-[1vh] ">
       <header className="pb-[2vh] border-b-2 border-gray-500 text-goldenrod text-4xl">
           <FontAwesomeIcon icon={faUser} className="ml-7"/>
-          <span className="ml-5">Account Details</span>
+          <span className="ml-5">Profile</span>
       </header>
       <div className="flex flex-col h-[50vh] my-[3vh] overflow-y-auto">
         <div className="flex items-center mb-[2vh] text-2xl">

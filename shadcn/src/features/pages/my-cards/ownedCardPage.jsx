@@ -69,6 +69,10 @@ const UserOwnedCardPage = () => {
     uniqueSet,
     setFilter,
     setSetFilter,
+    setListView,
+    listView,
+    setGalleryView,
+    galleryView,
   };
 
   const {
@@ -139,11 +143,12 @@ const UserOwnedCardPage = () => {
     setFilterPage(false)
     setStatisticsPage(true)
   }
+  
 
   return (
     <main className="flex flex-col min-h-[100vh] ">
         <Header/>
-        <div className=" bg-[#1f1d1d] flex items-center justify-center ">
+        <div className=" bg-[hsl(var(--background1))]  flex items-center justify-center ">
           <div className="text-white relative flex flex-col w-full min-h-[120vh] p-5 pt-20">
             <div className="relative items-center justify-between flex w-full mt-[1%]  ">
               <div className="text-[40px] ml-[5%] text-goldenrod"> 
@@ -152,13 +157,8 @@ const UserOwnedCardPage = () => {
              
               {!selectedCard && (
                 <div className="relative right-[3vw]">
-                  <div className="flex w-20 justify-between">
-                    <GridListViewComponent 
-                      setListView={setListView}
-                      setGalleryView={setGalleryView}
-                      listView={listView}
-                      galleryView={galleryView}
-                    />
+                  <div className="flex w-20 bg-footer rounded-xl justify-between">
+                    <GridListViewComponent filterProps={filterProps}/>
                   </div>
                 </div>
               )}
@@ -169,8 +169,8 @@ const UserOwnedCardPage = () => {
                   <div>
                     {listView ? (
                       <main className="flex mt-8">
-                        <main className=" bg-[#1f1d1d] w-[75%] max-h-full">
-                          <div className="flex w-full h-8 bg-goldenrod rounded-tr-xl rounded-tl-xl items-center">
+                        <main className=" bg-[hsl(var(--background1))] w-[75%] max-h-full">
+                          <div className="flex w-full h-8 bg-[hsl(var(--background3))] rounded-tr-xl rounded-tl-xl items-center">
                             <div className="font-black text-xl w-[30%] pl-24"> Name</div>
                             <div className="font-black text-xl w-[10%]  text-center "> Set Code</div>
                             <div className="font-black text-xl w-[15%] text-center ">Set</div>
@@ -180,10 +180,10 @@ const UserOwnedCardPage = () => {
                           </div>
                           <ComponentOwnedCardPopup filteredCards={filteredCards} onCardClick={handleCardClick}/>                                           
                         </main>
-                        <div className="flex flex-col w-[25%] items-center">
-                          <div className="w-full h-12 flex mb-4 justify-around">
-                            <button className="px-4 rounded-2xl h-8 bg-goldenrod font-black" onClick={handleFilterClick}>Filter Cards</button>
-                            <button className="px-4 rounded-2xl h-8 bg-goldenrod font-black" onClick={handleStatisticsClick}>Collection Statistics</button>
+                        <div className="flex flex-col w-1/4 items-center">
+                          <div className="w-3/4 items-center h-8 flex mb-8 justify-between bg-gray-600 rounded-2xl">
+                            <button className={`px-4 rounded-2xl h-8 font-black ${filterpage ? "bg-[hsl(var(--background3))] text-white" : "bg-transparent text-gray-400"}`} onClick={handleFilterClick}>Filter Cards</button>
+                            <button className={`px-4 rounded-2xl h-8 font-black ${statisticspage ? "bg-[hsl(var(--background3))]" : "bg-transparent text-gray-400"}`} onClick={handleStatisticsClick}>Collection Statistics</button>
                           </div>
                             {filterpage && (
                               <FilterOwnedCards filterProps={filterProps}/>

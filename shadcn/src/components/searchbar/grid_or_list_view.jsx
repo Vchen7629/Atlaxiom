@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars,  faGripHorizontal } from '@fortawesome/free-solid-svg-icons';
+import { faBars,  faGripHorizontal, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 
-const GridListViewComponent= ({ setListView, setGalleryView, setClickedOnCard, setCurrentPage, listView, galleryView }) => {
+
+const GridListViewComponent= ({ filterProps  }) => {
+    const {
+        setListView,
+        setGalleryView,
+        setClickedOnCard,
+        setCurrentPage,
+        listView,
+        galleryView
+    } = filterProps
+
     const handleListView = () => {
         setListView(true)
         setGalleryView(false)
@@ -21,13 +31,13 @@ const GridListViewComponent= ({ setListView, setGalleryView, setClickedOnCard, s
     return (
         <>
             <button
-                className={`text-gray-400 p-2 rounded-xl hover:text-gold mr-2 ${listView ? "bg-goldenrod text-white" : "bg-transparent"}`}
+                className={`text-gray-400 p-2 rounded-xl hover:text-gold mr-2 ${listView ? "bg-[hsl(var(--background3))] text-white" : "bg-transparent"}`}
                 onClick={handleListView}
             >
                 <FontAwesomeIcon icon={faBars} className="fa-xl"/>
             </button>
             <button
-                className={`text-gray-400 p-2 rounded-xl hover:text-gold mr-2 ${galleryView ? "bg-goldenrod text-white" : "bg-transparent"}`}
+                className={`text-gray-400 p-2 rounded-xl hover:text-gold mr-2 ${galleryView ? "bg-[hsl(var(--background3))] text-white" : "bg-transparent"}`}
                 onClick={handleGalleryView}
             >
                 <FontAwesomeIcon icon={faGripHorizontal } className="fa-xl"/>
