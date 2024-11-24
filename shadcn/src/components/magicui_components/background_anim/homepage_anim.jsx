@@ -7,22 +7,16 @@ import Footer from '../../footer/Footer';
 import { MarqueeDemo } from "../general_anim/image_anim"
 import { MagicCardDemo } from "../general_anim/hover_card_anim"
 
-
  
 import Particles from "../../ui/particles";
  
 export function ParticlesBackgroundAnimComponent() {
-  //const { theme } = useTheme();
   const [color, setColor] = useState("#FFD700");
- 
-  /*useEffect(() => {
-    setColor(theme === "dark" ? "#ffffff" : "#000000");
-  }, [theme]);*/
- 
+  
   return (
     <>
     <Header/>
-    <div className="relative flex min-h-[92vh] h-fit w-full flex-col overflow-hidden rounded-lg bg-radial-gold justify-center md:shadow-xl items-centeroverflow-auto pt-[3%]">    
+    <div className="relative flex min-h-[92vh] h-fit w-full flex-col overflow-hidden rounded-lg justify-center md:shadow-xl items-centeroverflow-auto pt-[3%]">    
       <Particles
         className="absolute inset-0 "
         quantity={100}
@@ -30,7 +24,7 @@ export function ParticlesBackgroundAnimComponent() {
         color={color}
         refresh
       />
-      <div className="flex  bg-radial-gold  min-h-[70vh]">
+      <div className="flex bg-[hsl(var(--background2))] min-h-[70vh]">
         <div className="relative flex flex-col items-center justify-center w-full">
           <div className= "font-black xs:text-6xl lg:text-6xl 2xl:text-8xl text-gold">
             Atlaxiom
@@ -42,7 +36,7 @@ export function ParticlesBackgroundAnimComponent() {
         </div>
         
       </div>
-      <div className="bg-black flex flex-col items-center">
+      <div className="bg-[hsl(var(--background2))] flex flex-col items-center">
         <div className="flex w-full justify-center">
             <MagicCardDemo/>
         </div>

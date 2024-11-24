@@ -90,21 +90,21 @@ const FilterOwnedCards = ({ filterProps }) => {
             <button className="w-[30%] rounded-3xl h-8 bg-cyan-500 border-2 border-black my-8" onClick={clearFilter}>Clear</button>
             <div className="flex w-[92%] max-w-[100%] h-10">
                 <button
-                    className={`w-[37%] flex ${isMonsterFilterActive ? 'text-gold' : 'text-white'} focus:outline-none`}
+                    className={`w-[37%] flex ${isMonsterFilterActive ? 'text-gold' : 'text-[hsl(var(--text))]'} focus:outline-none`}
                     onClick={handleMonsterFilter}
                 >
                     <div className="bg-[url('../img/monstercardicon.png')] relative bg-contain bg-no-repeat h-full w-1/4 "/>
                     <div className='w-fit h-full text-[14px] flex items-center'>Monster Cards ({monsterCount})</div>
                 </button>
                 <button
-                    className={`w-[32%] flex ${isSpellFilterActive ? 'text-gold' : 'text-white'} focus:outline-none`}
+                    className={`w-[32%] flex ${isSpellFilterActive ? 'text-gold' : 'text-[hsl(var(--text))]'} focus:outline-none`}
                     onClick={handleSpellFilter}
                 >
                     <div className="bg-[url('../img/spellcardicon.png')] relative bg-contain bg-no-repeat h-full w-1/4 "/>
                     <div className='w-fit h-full text-[14px] flex items-center'>Spell Cards ({spellCount})</div>
                 </button>
                 <button
-                    className={`w-[31%] flex ${isTrapFilterActive ? 'text-gold' : 'text-white'} focus:outline-none`}
+                    className={`w-[31%] flex ${isTrapFilterActive ? 'text-gold' : 'text-[hsl(var(--text))]'} focus:outline-none`}
                     onClick={handleTrapFilter}
                 >
                     <div className="bg-[url('../img/trapcardicon.png')] relative bg-contain bg-no-repeat h-full w-1/4 "/>
@@ -112,24 +112,24 @@ const FilterOwnedCards = ({ filterProps }) => {
                 </button>
             </div>
             <div className="flex mt-[5%] w-[22vw] justify-between">
-                <div className="flex h-full w-[7vw] text-sm text-gold justify-center items-center">Card Subtype:</div>
+                <div className="flex h-full w-[7vw] text-sm justify-center font-black items-center text-[hsl(var(--text))] ">Card Subtype:</div>
                 <SubTypeDropDownComponent subtypes={uniqueSubtype} subTypeFilter={subTypeFilter}  setSubTypeFilter={setSubTypeFilter}/>
             </div>
-            <div className="flex mt-[5%] w-[22vw] justify-between">
-                <div className="flex h-full w-[7vw] text-sm text-gold justify-center items-center">Card Attribute:</div>
+            <div className="flex mt-[5%] w-[22vw] justify-between ">
+                <div className="flex h-full w-[7vw] text-sm justify-center items-center font-black text-[hsl(var(--text))] ">Card Attribute:</div>
                 <AttributeDropDownComponent/>
             </div>
             <div className="flex mt-[5%] w-[22vw] justify-between">
-                <div className="flex h-full w-[7vw] text-sm text-gold justify-center items-center ">Card Archetype:</div>
+                <div className="flex h-full w-[7vw] text-sm justify-center items-center font-black text-[hsl(var(--text))] ">Card Archetype:</div>
                 <ArchetypeDropDownComponent archetypes={uniqueArchtype} archeTypeFilter={archeTypeFilter}  setArcheTypeFilter={setArcheTypeFilter}/>
             </div>
             <div className="flex mt-[5%] w-[22vw] ">
-                <div className="flex h-full w-[7vw] text-sm text-gold justify-center items-center">Card Level:</div>
+                <div className="flex h-full w-[7vw] text-sm justify-center items-center font-black text-[hsl(var(--text))]">Card Level:</div>
                 <LevelSliderComponent className="w-[55%]"/>
                 <div className="ml-2">Text</div>
             </div>
             <div className="flex mt-[5%] w-[22vw]">
-                <div className="flex h-full w-[7vw] text-sm text-gold justify-center items-center ">Card Set:</div>
+                <div className="flex h-full w-[7vw] text-sm justify-center items-center font-black text-[hsl(var(--text))]">Card Set:</div>
                 <CardSetDropDownComponent sets={uniqueSet} setFilter={setFilter} setSetFilter={setSetFilter}/>
             </div>
         </>

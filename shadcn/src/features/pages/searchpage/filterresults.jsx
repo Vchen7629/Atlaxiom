@@ -44,7 +44,7 @@ const FilterResults = ({ expandStatus }) => {
     return (
         <div className="w-full flex justify-end items-center">
     
-            <div className={`flex h-full ${expandStatus ? "w-full bg-blackone" : "w-0"} flex-col rounded-2xl border-4 border-footer pt-[25%]`}>
+            <div className={`flex h-full ${expandStatus ? "w-full bg-blackone" : "w-0"} flex-col rounded-2xl pt-[25%]`}>
               {expandStatus && (
                 <>
                 <div className="font-black text-2xl w-full text-center">Filter Search</div>

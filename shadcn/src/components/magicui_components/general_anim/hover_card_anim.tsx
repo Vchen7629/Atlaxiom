@@ -13,13 +13,13 @@ export function MagicCardDemo() {
         }
         >  
         <MagicCard
-            className="cursor-pointer flex-col items-center  shadow-2xl whitespace-nowrap max-w-[20vw] h-[400px] bg-blackone border-goldenrod"
+            className="cursor-pointer flex-col items-center  shadow-2xl whitespace-nowrap max-w-[20vw] h-[400px] border-goldenrod"
             gradientColor={theme === "dark" ? "#3C3105" : "#3C3105"}
         >
             <div className="text-white">Decks</div>
         </MagicCard>
         <MagicCard
-            className="cursor-pointer flex-col items-center  shadow-2xl whitespace-nowrap max-w-[20vw] h-[400px] bg-blackone border-goldenrod"
+            className="cursor-pointer flex-col items-center  shadow-2xl whitespace-nowrap  max-w-[20vw] h-[400px] bg-blackone border-goldenrod"
             gradientColor={theme === "dark" ? "#3C3105" : "#3C3105"}
         >
             <div className="text-white">Collection</div>

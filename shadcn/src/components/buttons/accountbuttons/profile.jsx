@@ -13,13 +13,11 @@ const Profile = () => {
   return (
     <div>
         <button 
-          className="flex bg-transparent border-transparent w-fit h-8 px-8 items-center border-b-2 hover:bg-footer rounded-lg" 
+          className="flex items-center hover:bg-footer" 
           onClick={handleButtonClick}
         >
-            <FontAwesomeIcon icon={faUser} />
-            <span className="fatextmargin text-white">
-                Profile
-            </span>
+            <div className='mr-2 '><FontAwesomeIcon icon={faUser} /></div>
+            <div className="fatextmargin text-white">My Profile</div>
         </button>
     </div>
   );

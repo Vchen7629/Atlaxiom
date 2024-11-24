@@ -155,16 +155,27 @@ const SearchBar = () => {
     setClickedOnCard(false);
   };
 
+  const filterProps = {
+    setListView,
+    listView,
+    setGalleryView,
+    galleryView,
+    setClickedOnCard,
+    setCurrentPage,
+    setMainSuggestions,
+    setGallerySuggestions,
+  };
+
   return (
     <main className="min-h-[100vh]">
-      <body className="flex flex-col min-h-[120vh] bg-[#1f1d1d] justify-between overflow-auto" >
+      <body className="flex flex-col min-h-[120vh] bg-[hsl(var(--background1))] justify-between overflow-auto" >
         <Header/>
         <main className="flex flex-grow py-[5%] items-start ">            
           <div className={`flex flex-col ${expandStatus ? "w-[80%]" : "w-full"} ${selectedCardData ? "w-[100%]" : "w-[80%]"}`}>
               {!clickedOnCard &&  (
                 <main>
                   <div className="flex relative w-full items-center mb-[5vh] pr-[3%]">
-                    <div className="text-4xl text-white ml-[4%]">
+                    <div className="text-4xl text-goldenrod ml-[4%]">
                       <strong>Card Search</strong>
                     </div>
                     <div className="flex w-[40vw] h-[50px] ml-[10%] pl-5 relative border-2 border-gray-400 justify-start text-gold">                      
@@ -184,16 +195,9 @@ const SearchBar = () => {
                         )}
                       </div>
                     </div>
-                    <button className="h-[40px] ml-4 w-[5vw] bg-gray-700 rounded-xl " onClick={() => setExpandStatus(!expandStatus)}>Filter Card</button>
+                    <button className="h-[40px] ml-4 w-[5vw] bg-[hsl(var(--filterbutton))] rounded-xl " onClick={() => setExpandStatus(!expandStatus)}>Filter Card</button>
                     <div className="flex absolute w-20 bg-footer rounded-xl right-0 mr-20">
-                      <GridListViewComponent 
-                        setListView={setListView}
-                        setGalleryView={setGalleryView}
-                        setClickedOnCard={setClickedOnCard}
-                        setCurrentPage={setCurrentPage}
-                        listView={listView}
-                        galleryView={galleryView}
-                      />
+                      <GridListViewComponent filterProps={filterProps}/>
                     </div>
                   </div>
                 </main>
@@ -326,7 +330,7 @@ const SearchBar = () => {
                 </>   
               )}           
           </div>
-          <div className={`fixed flex right-0 top-0 min-h-[100vh] ${expandStatus ? "w-[20%]" : "w-0 bg-white"}`}>
+          <div className={`fixed flex right-0 top-0 min-h-[100vh] ${expandStatus ? "w-[20%]" : "w-0 "}`}>
             {!clickedOnCard &&  (
               <FilterResults expandStatus={expandStatus} setExpandStatus={setExpandStatus}/>
             )}
