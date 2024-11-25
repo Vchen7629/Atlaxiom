@@ -26,13 +26,13 @@ export function ArchetypeDropDownComponent({ archetypes, archeTypeFilter, setArc
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          variant="outline"
+          variant="cardcollection"
           role="combobox"
           aria-expanded={open}
-          className="w-[15vw] bg-transparent border-transparent hover:text-gold hover:bg-transparent justify-between"
+          className="w-[15vw] bg-transparent border-transparent text-[hsl(var(--text))] justify-between"
         >
           {archeTypeFilter ? (
-            <span className={`flex relative items-center left-1/4 justify-between w-fit px-2 py-1 bg-blue-500 text-white rounded text-sm`}>
+            <span className={`flex relative items-center left-1/4 justify-between w-fit px-2 py-1 bg-[hsl(var(--background3))] text-white rounded text-sm`}>
               {archetypes.find((archetype) => archetype == archeTypeFilter)}
             </span>
           ) : (
@@ -43,8 +43,8 @@ export function ArchetypeDropDownComponent({ archetypes, archeTypeFilter, setArc
           <CaretSortIcon className="min-h-6 min-w-6 shrink-0 text-white" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[15vw] p-0">
-        <Command className="bg-blackone text-white ">
+      <PopoverContent className="w-[15vw] p-0 relative top-[-42px]">
+        <Command className="text-white ">
           <CommandInput placeholder="Search framework..." className="h-9" />
           <CommandList>
             <CommandEmpty>No framework found.</CommandEmpty>
@@ -53,7 +53,7 @@ export function ArchetypeDropDownComponent({ archetypes, archeTypeFilter, setArc
                 <CommandItem
                   key={archetype}
                   value={archetype}
-                  className="text-white"
+                  className="text-[hsl(var(--text))] bg-transparent"
                   onSelect={(currentValue) => {
                     setArcheTypeFilter(currentValue === archeTypeFilter ? "" : currentValue)
                     setOpen(false)
@@ -62,7 +62,7 @@ export function ArchetypeDropDownComponent({ archetypes, archeTypeFilter, setArc
                   {archetype}
                   <CheckIcon
                     className={cn(
-                      "ml-auto h-4 w-4 text-white",
+                      "ml-auto h-4 w-4 text-[hsl(var(--text))]",
                       archeTypeFilter === archetype ? "opacity-100" : "opacity-0"
                     )}
                   />

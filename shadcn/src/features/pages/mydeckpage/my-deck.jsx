@@ -28,7 +28,7 @@ const MyDeck = () => {
     }
 
     return (
-        <main className="min-h-[100vh] flex flex-col  bg-metal bg-metal-size bg-metal-position justify-between">
+        <main className="min-h-[100vh] flex flex-col  bg-[hsl(var(--background1))] justify-between">
             <Header/>
             <div className="flex items-center justify-center">
                 <div className="flex flex-col items-center px-[15px] w-[29vw] h-[50vh] pt-[30px] rounded-3xl bg-[#1a1919]">

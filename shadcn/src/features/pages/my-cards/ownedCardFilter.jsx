@@ -87,7 +87,7 @@ const FilterOwnedCards = ({ filterProps }) => {
                 <FontAwesomeIcon icon={faTimes}/>
             </button>
             </div>
-            <button className="w-[30%] rounded-3xl h-8 bg-cyan-500 border-2 border-black my-8" onClick={clearFilter}>Clear</button>
+            <button className="w-[30%] rounded-3xl h-8 bg-[hsl(var(--background3))] border-2 border-black my-8" onClick={clearFilter}>Clear</button>
             <div className="flex w-[92%] max-w-[100%] h-10">
                 <button
                     className={`w-[37%] flex ${isMonsterFilterActive ? 'text-gold' : 'text-[hsl(var(--text))]'} focus:outline-none`}

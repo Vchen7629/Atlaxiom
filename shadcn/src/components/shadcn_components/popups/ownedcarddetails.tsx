@@ -82,7 +82,7 @@ export const ComponentOwnedCardPopup: React.FC<ComponentCardSetPopupProps> = ({ 
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <div className="border-x-2 border-b-2 pl-4 min-h-[70vh] border-gray-500 text-[hsl(var(--text))] ">
+                <div className="border-x-2 border-b-2 pl-4 pt-4 min-h-[70vh] border-gray-500 text-[hsl(var(--text))] ">
                     {filteredCards.length > 0 ? (
                         filteredCards.map((card, index) => (
                             <div key={index} className="flex bg-transparent h-32 items-center hover:bg-blacktwo" onClick={() => setSelectedCard(card)}>

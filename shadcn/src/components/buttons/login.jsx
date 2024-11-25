@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,13 +12,10 @@ const Login = () => {
   return (
     <div>
         <button 
-          className="flex bg-transparent border-transparent w-fit h-8 px-8 items-center border-b-2 hover:bg-footer rounded-lg" 
+          className="flex  bg-[hsl(var(--background3))] font-bold w-fit h-8 p-4 items-center rounded-lg text-[hsl(var(--text))]" 
           onClick={handleButtonClick}
         >
-          <FontAwesomeIcon icon={faRightToBracket}/>
-            <span className="fatextmargin text-white">
-                  Sign in
-            </span>
+          Login
         </button>
     </div>
   );

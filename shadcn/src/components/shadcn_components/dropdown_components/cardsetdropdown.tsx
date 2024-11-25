@@ -26,14 +26,14 @@ export function CardSetDropDownComponent({ sets, setFilter, setSetFilter }) {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          variant="outline"
+          variant="cardcollection"
           role="combobox"
           aria-expanded={open}
-          className="w-[15vw] bg-transparent border-transparent text-gold hover:text-gold hover:bg-transparent"
+          className="w-[15vw] bg-transparent border-transparent text-[hsl(var(--text))] justify-between"
         >
           {setFilter ? (
             <div className="flex w-full items-center justify-center">
-              <span className={`flex items-center justify-between w-fit px-2 py-1 bg-blue-500 text-white rounded  text-[12px]`}>
+              <span className={`flex items-center justify-between w-fit px-2 py-1 bg-[hsl(var(--background3))] text-white rounded  text-[12px]`}>
                   {sets.find((sets) => sets === setFilter) }
               </span>
             </div>
@@ -46,7 +46,7 @@ export function CardSetDropDownComponent({ sets, setFilter, setSetFilter }) {
         </Button>
         
       </PopoverTrigger>
-      <PopoverContent className="w-[15vw] p-0">
+      <PopoverContent className="w-[15vw] p-0 relative top-[-42px]">
         <Command className="bg-blackone text-white ">
           <CommandInput placeholder="Search framework..." className="h-9" />
           <CommandList>
