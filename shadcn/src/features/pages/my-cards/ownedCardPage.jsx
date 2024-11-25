@@ -181,9 +181,9 @@ const UserOwnedCardPage = () => {
                           <ComponentOwnedCardPopup filteredCards={filteredCards} onCardClick={handleCardClick}/>                                           
                         </main>
                         <div className="flex flex-col w-1/4 items-center">
-                          <div className="w-3/4 items-center h-8 flex mb-8 justify-between bg-gray-600 rounded-2xl">
-                            <button className={`px-4 rounded-2xl h-8 font-black ${filterpage ? "bg-[hsl(var(--background3))] text-white" : "bg-transparent text-gray-400"}`} onClick={handleFilterClick}>Filter Cards</button>
-                            <button className={`px-4 rounded-2xl h-8 font-black ${statisticspage ? "bg-[hsl(var(--background3))]" : "bg-transparent text-gray-400"}`} onClick={handleStatisticsClick}>Collection Statistics</button>
+                          <div className="items-center h-8 flex mb-8 justify-between bg-gray-600 rounded-2xl">
+                            <button className={`px-4 rounded-2xl w-fit h-8 font-black ${filterpage ? "bg-[hsl(var(--background3))] text-white" : "bg-transparent text-gray-400"}`} onClick={handleFilterClick}>Filter Cards</button>
+                            <button className={`px-4 rounded-2xl w-fit h-8 font-black ${statisticspage ? "bg-[hsl(var(--background3))]" : "bg-transparent text-gray-400"}`} onClick={handleStatisticsClick}>Collection Statistics</button>
                           </div>
                             {filterpage && (
                               <FilterOwnedCards filterProps={filterProps}/>

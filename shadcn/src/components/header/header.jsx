@@ -39,14 +39,6 @@ const Header = () => {
         if (isSuccess && !isError) navigate('/')
     }, [isSuccess, isError, navigate])
 
-    let profileClass = null
-    if (!PROFILE_REGEX.test(pathname) && !OWNEDCARDS_REGEX.test(pathname) && !USER_REGEX.test(pathname)) {
-        profileClass = "profile-page-container"
-    }
-
-    const renderCardSearchButton = () => {
-        return <Cardsearch />;
-    }
 
     const renderAuthButtons = () => {   
         if (isError) {
@@ -56,19 +48,18 @@ const Header = () => {
 
         if (isAuthenticated) {
           return (
-            <div className={`flex w-[15%] justify-between items-center xs:hidden lg:flex py-2.5 mr-2.5 ${showDropdown ? "hidden" : ''}`}>
-                <div><ModeToggle/></div>
-                <div className='min-w-[40vw] ml-[10%]'><Accountsbutton/></div>
+            <div className={`flex justify-between items-center xs:hidden lg:flex py-2.5 mr-2.5 ${showDropdown ? "hidden" : ''}`}>
+                <div className=''><Accountsbutton/></div>
             </div>
           );
         }
         
         return (
             <>
-                <ul className={`flex xs:hidden lg:flex py-2.5 mr-2.5 ${showDropdown ? "hidden" : ''}`}>
-                    <li><Login /></li>
-                    <li><Signup /></li>
-                </ul>
+                <div className={`flex xs:hidden lg:flex py-2.5 mr-2.5 ${showDropdown ? "hidden" : ''}`}>
+                    <div className='mr-4'><Signup /></div>
+                    <div><Login /></div>
+                </div>
             </>
         );
       };
@@ -78,19 +69,29 @@ const Header = () => {
     };
 
     return (
-        <header className={`fixed z-50 top-0 left-0 w-full flex justify-between text-white bg-[hsl(var(--header))] bg-opacity-60 backdrop-blur-md backdrop-brightness-150 px-2.5  ${profileClass}`}>
-            <ul className={`flex xs:hidden lg:flex py-2.5 ml-2.5 ${showDropdown ? "hidden" : ''}`}>
-                <li><Banlist/> </li>
-                <li>{renderCardSearchButton()}</li>
-            </ul>
+        <header className="fixed justify-between items-center z-50 top-0 left-0 w-full flex text-white bg-[hsl(var(--header))] bg-opacity-60 backdrop-blur-md backdrop-brightness-150 px-2.5">
+            <div className={`flex xs:hidden lg:flex py-2.5 ml-2.5 ${showDropdown ? "hidden" : ''}`}>
+                <div><Banlist/> </div>
+                <div><Cardsearch /></div>
+                {isAuthenticated && (
+                    <>
+                    <Mycards/>
+                    <Mydecks/>
+                    </>
+                )}
+            </div>
             <div>
                 <Link to="/">
-                <div className={`absolute text-goldenrod font-black left-1/2 top-1/2 translate-y-[-50%] translate-x-[-50%] bg-transparent text-4xl ${showDropdown ? "hidden" : ''}`}>
+                <div className={`text-goldenrod font-black bg-transparent text-4xl ${showDropdown ? "hidden" : ''}`}>
                     <h1>Atlaxiom</h1>
                 </div>
                 </Link>
             </div>
-            {renderAuthButtons()}
+            <div className='flex w-[15%] justify-between items-center'>
+                <ModeToggle/>
+                <div className='w-fit'>{renderAuthButtons()}</div>
+            </div>
+            
 
             <div className={`relative xs:flex lg:hidden text-3xl cursor-pointer ${showDropdown ? 'active' : ''}`} onClick={toggleDropdown}>
                 ☰

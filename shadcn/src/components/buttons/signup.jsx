@@ -13,13 +13,10 @@ const Signup = () => {
   return (
     <div>
         <button 
-          className="flex bg-transparent border-transparent w-fit h-8 px-8 items-center border-b-2 hover:bg-footer rounded-lg"  
+          className="flex bg-cyan-500 border-transparent text-white font-bold w-fit h-8 p-4 items-center rounded-lg"  
           onClick={handleButtonClick}
         >
-          <FontAwesomeIcon icon={faUserPlus}/>
-            <span className="fatextmargin text-white">
-                  Sign Up
-            </span>
+          Sign Up
         </button>
     </div>
   );
