@@ -41,11 +41,11 @@ const Accountsbutton = () => {
         <>
         <div>
             <button 
-            className="flex bg-[hsl(var(--profile))] w-[180px] h-10 px-8 items-center justify-between rounded-3xl text-gold border-2 border-[hsl(var(--background3))]" 
+            className="flex bg-[hsl(var(--profile))] w-[180px] h-10 px-8 items-center justify-between rounded-3xl  text-[hsl(var(--background3))]  border-2 border-[hsl(var(--background3))]" 
             onClick={toggleDropdown}
             >   
                 <FontAwesomeIcon icon={faUser}/>
-                <div className="fatextmargin text-gold ">
+                <div className="fatextmargin font-bold text-xl">
                     {username}
                 </div>
                 <FontAwesomeIcon icon={faCaretDown}/>

@@ -140,10 +140,13 @@ section {
     --background1: 100, 100%, 100%;
     --background2: 100, 100%, 100%;
     --background3: 200, 100%, 50%;
+    --background4: 200, 100%, 50%;
     --profile:  100, 100%, 100%;
     --shadow-color: 0, 0%, 5%;
     --filterbutton: 200, 100%, 50%;
     --text: 0, 0%, 5%;
+    --homepagegradient1: 232.2, 100%, 65.3%;
+    --homepagegradient2: 189.7, 92.4%, 78.2%; 
   }
  
   .dark {
@@ -157,9 +160,12 @@ section {
     --background1:  0, 2%, 13%;
     --background2: 0, 0%, 0%;
     --background3: 43, 77%, 49%;
+    --background4: 0,4%,10%;
     --profile: 0, 0%, 5%;
     --shadow-color: 0, 0%, 40%;
     --filterbutton: 217, 1%, 27%;
     --text: 100, 100%, 100%;
+    --homepagegradient1: 0, 0%, 0%;
+    --homepagegradient2: 0, 0%, 0%; 
   }
 }

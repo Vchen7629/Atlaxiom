@@ -44,19 +44,21 @@ const FilterResults = ({ expandStatus }) => {
     return (
         <div className="w-full flex justify-end items-center">
     
-            <div className={`flex h-full ${expandStatus ? "w-full bg-blackone" : "w-0"} flex-col rounded-2xl pt-[25%]`}>
+            <div className={`flex  text-sm h-full ${expandStatus ? "w-full bg-[hsl(var(--background4))]" : "w-0"} flex-col pt-[25%]`}>
               {expandStatus && (
                 <>
                 <div className="font-black text-2xl w-full text-center">Filter Search</div>
                 <div className="flex flex-col w-full items-center min-h-6 my-2">Monster Type</div>
                 <div className="flex justify-center w-full min-h-6 my-2">
-                  <MonsterTypeDropDownComponent/>
+                  <div className='flex h-full w-[6vw] font-black items-center text-white'>Monster Type: </div>
+                  <div><MonsterTypeDropDownComponent/></div>
                 </div>
                 <div className="flex justify-center w-full min-h-6 my-2">
-                  <RarityDropDownComponent/>
+                  <div className='flex h-full w-[5vw] font-black items-center text-white'>Rarity: </div>
+                  <div><RarityDropDownComponent/></div>
                 </div>
                 <div className="flex flex-col w-full items-center min-h-6 my-2">
-                  <button className="flex w-[85%] justify-between text-left " onClick={handleSpellFilter}>
+                  <button className="flex w-[85%] justify-between text-left font-black" onClick={handleSpellFilter}>
                     Spell:
                     {spellDropdown ? (<CaretDownIcon className="h-6 w-6 text-gold"/>): (<CaretRightIcon className="h-6 w-6"/>)}
                   </button> 
@@ -73,7 +75,7 @@ const FilterResults = ({ expandStatus }) => {
                   )}
                 </div>
                 <div className="flex flex-col w-full items-center min-h-6 my-2">
-                  <button className="flex w-[85%] justify-between text-left" onClick={handleTrapFilter}>
+                  <button className="flex w-[85%] justify-between text-left font-black" onClick={handleTrapFilter}>
                     Trap:
                     {trapDropdown ? (<CaretDownIcon className="h-6 w-6 text-gold"/>): (<CaretRightIcon className="h-6 w-6"/>)}
                   </button>
@@ -87,7 +89,7 @@ const FilterResults = ({ expandStatus }) => {
                   )} 
                 </div>
                 <div className="flex flex-col w-full items-center min-h-6 my-2">
-                  <button className="flex w-[85%] justify-between text-left" onClick={handleAttributeFilter}>
+                  <button className="flex w-[85%] justify-between text-left font-black" onClick={handleAttributeFilter}>
                     Attribute:
                     {attributeDropdown ? (<CaretDownIcon className="h-6 w-6 text-gold"/>): (<CaretRightIcon className="h-6 w-6"/>)}
                   </button> 
@@ -104,7 +106,7 @@ const FilterResults = ({ expandStatus }) => {
                   )}
                 </div>
                 <div  className="flex flex-col w-full items-center min-h-6 my-2">
-                  <button className="flex w-[85%] justify-between text-left" onClick={handleLevelFilter}>
+                  <button className="flex w-[85%] justify-between text-left font-black" onClick={handleLevelFilter}>
                     Level / Rank:
                     {levelDropdown ? (<CaretDownIcon className="h-6 w-6 text-gold"/>): (<CaretRightIcon className="h-6 w-6"/>)}
                   </button>
@@ -125,7 +127,7 @@ const FilterResults = ({ expandStatus }) => {
                   )}
                 </div>
                 <div className="flex flex-col w-full items-center min-h-6 my-2">
-                  <button className="flex w-[85%] justify-between text-left" onClick={handlePendFilter}>
+                  <button className="flex w-[85%] justify-between text-left font-black" onClick={handlePendFilter}>
                     Pendulum Value:
                     {pendDropdown ? (<CaretDownIcon className="h-6 w-6 text-gold"/>): (<CaretRightIcon className="h-6 w-6"/>)}
                   </button>
@@ -146,7 +148,7 @@ const FilterResults = ({ expandStatus }) => {
                   )}
                 </div>
                 <div className="flex flex-col w-full items-center min-h-6 my-2">
-                  <button className="flex w-[85%] justify-between text-left" onClick={handleLinkFilter}>
+                  <button className="flex w-[85%] justify-between text-left font-black" onClick={handleLinkFilter}>
                     Link Rating:
                     {linkDropdown ? (<CaretDownIcon className="h-6 w-6 text-gold"/>): (<CaretRightIcon className="h-6 w-6"/>)}
                   </button>

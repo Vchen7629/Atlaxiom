@@ -39,6 +39,14 @@ const Header = () => {
         if (isSuccess && !isError) navigate('/')
     }, [isSuccess, isError, navigate])
 
+    const handleHomeClick = () => {
+        if (isAuthenticated) {
+            navigate("/loggedin")
+        } else {
+            navigate("/")
+        }
+    };
+
 
     const renderAuthButtons = () => {   
         if (isError) {
@@ -48,7 +56,7 @@ const Header = () => {
 
         if (isAuthenticated) {
           return (
-            <div className={`flex justify-between items-center xs:hidden lg:flex py-2.5 mr-2.5 ${showDropdown ? "hidden" : ''}`}>
+            <div className={`flex justify-center items-center xs:hidden lg:flex py-2.5 mr-2.5 ${showDropdown ? "hidden" : ''}`}>
                 <div className=''><Accountsbutton/></div>
             </div>
           );
@@ -56,7 +64,7 @@ const Header = () => {
         
         return (
             <>
-                <div className={`flex xs:hidden lg:flex py-2.5 mr-2.5 ${showDropdown ? "hidden" : ''}`}>
+                <div className={`flex xs:hidden lg:flex py-2.5 mr-2.5 ${showDropdown ? "hidden" : ''} justify-around`}>
                     <div className='mr-4'><Signup /></div>
                     <div><Login /></div>
                 </div>
@@ -69,27 +77,27 @@ const Header = () => {
     };
 
     return (
-        <header className="fixed justify-between items-center z-50 top-0 left-0 w-full flex text-white bg-[hsl(var(--header))] bg-opacity-60 backdrop-blur-md backdrop-brightness-150 px-2.5">
-            <div className={`flex xs:hidden lg:flex py-2.5 ml-2.5 ${showDropdown ? "hidden" : ''}`}>
-                <div><Banlist/> </div>
-                <div><Cardsearch /></div>
+        <header className="fixed justify-between items-center z-50 top-0 left-0 w-full flex py-2 text-white bg-[hsl(var(--header))] bg-opacity-60 backdrop-blur-md backdrop-brightness-150 px-2.5">
+            <div className={`flex w-fit xs:hidden lg:flex py-2.5 ml-2.5 ${showDropdown ? "hidden" : ''}`}>
+                <div className='flex w-fit'>
+                    <div><Banlist/> </div>
+                    <div className="mx-[1vw]"><Cardsearch/></div>
+                </div>
                 {isAuthenticated && (
-                    <>
-                    <Mycards/>
-                    <Mydecks/>
-                    </>
+                    <div className="flex w-fit">
+                        <div><Mycards/></div>
+                        <div className="ml-[1vw]"><Mydecks/></div>
+                    </div>
                 )}
             </div>
-            <div>
-                <Link to="/">
-                <div className={`text-goldenrod font-black bg-transparent text-4xl ${showDropdown ? "hidden" : ''}`}>
-                    <h1>Atlaxiom</h1>
-                </div>
-                </Link>
+            <div className="absolute left-1/2 transform -translate-x-1/2">
+                <button className={`text-[hsl(var(--background3))] font-black text-4xl ${showDropdown ? "hidden" : ''}`} onClick={handleHomeClick}>
+                    Atlaxiom
+                </button>
             </div>
-            <div className='flex w-[15%] justify-between items-center'>
+            <div className='flex w-[15%] justify-around items-center'>
                 <ModeToggle/>
-                <div className='w-fit'>{renderAuthButtons()}</div>
+                <div className='w-[8vw] '>{renderAuthButtons()}</div>
             </div>
             
 

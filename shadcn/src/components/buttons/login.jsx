@@ -12,7 +12,7 @@ const Login = () => {
   return (
     <div>
         <button 
-          className="flex  bg-[hsl(var(--background3))] font-bold w-fit h-8 p-4 items-center rounded-lg text-[hsl(var(--text))]" 
+          className="flex font-bold w-fit h-8 py-4 items-center text-[hsl(var(--text))] border-b-2 border-transparent hover:border-[hsl(var(--background3))]" 
           onClick={handleButtonClick}
         >
           Login

@@ -1,4 +1,4 @@
-import { ParticlesBackgroundAnimComponent } from "../../../components/magicui_components/background_anim/homepage_anim"
+import { ParticlesBackgroundAnimComponent } from "./homepage_anim"
 
 const HomePage = () => {
     return (
