@@ -13,7 +13,7 @@ const Signup = () => {
   return (
     <div>
         <button 
-          className="flex bg-cyan-500 border-transparent text-white font-bold w-fit h-8 p-4 items-center rounded-lg"  
+          className="flex font-bold w-fit h-8 py-4 items-center text-[hsl(var(--text))] border-b-2 border-transparent hover:border-[hsl(var(--background3))]" 
           onClick={handleButtonClick}
         >
           Sign Up

@@ -127,10 +127,10 @@ export function RarityDropDownComponent() {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          variant="outline"
+          variant="cardcollection"
           role="combobox"
           aria-expanded={open}
-          className="w-[95%] h-8 bg-transparent border-transparent text-base hover:text-gold hover:bg-transparent justify-between"
+          className="w-[12vw] h-8 bg-transparent border-transparent text-base justify-between"
         >
             <div>Rarity:</div>
             {value && (
@@ -141,8 +141,8 @@ export function RarityDropDownComponent() {
           <CaretSortIcon className="min-h-6 min-w-6 shrink-0 text-white" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[15vw] p-0 border-tra">
-        <Command className="bg-blackone text-white ">
+      <PopoverContent className="w-[12vw] p-0 relative top-[-42px]">
+        <Command className="text-white ">
           <CommandInput placeholder="Search Card Subtypes..." className="h-9" />
           <CommandList className="max-h-[300px] overflow-y-auto">
             <CommandEmpty>No Card Rarity found.</CommandEmpty>
@@ -151,7 +151,7 @@ export function RarityDropDownComponent() {
                 <CommandItem
                   key={framework.value}
                   value={framework.value}
-                  className="text-white"
+                  className="text-[hsl(var(--text))]"
                   onSelect={(currentValue) => {
                     setValue(currentValue === value ? "" : currentValue)
                     setOpen(false)
@@ -161,7 +161,7 @@ export function RarityDropDownComponent() {
                   {framework.label}
                   <CheckIcon
                     className={cn(
-                      "ml-auto h-4 w-4 text-white",
+                      "ml-auto h-4 w-4 text-[hsl(var(--text))]",
                       value === framework.value ? "opacity-100" : "opacity-0"
                     )}
                   />

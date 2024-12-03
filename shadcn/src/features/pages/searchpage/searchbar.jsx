@@ -219,7 +219,7 @@ const SearchBar = () => {
                                     className={`${selectedSuggestion === suggestion ? 'selected' : ''}`}
                                     onClick={() => handleSuggestionClick(suggestion)}
                                   >
-                                    <div className="flex max-h-[14vh] bg-[#1f1d1d]">
+                                    <div className="flex max-h-[14vh] bg-transparentt">
                                       <img
                                         src={cardData.find((card) => card.name === suggestion)?.card_images[0].image_url}
                                         alt={suggestion}

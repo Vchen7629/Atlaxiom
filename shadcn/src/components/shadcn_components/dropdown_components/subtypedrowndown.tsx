@@ -19,8 +19,13 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
+type SubTypeDropDownProps = {
+  subtypes: string[];
+  subTypeFilter: string;
+  setSubTypeFilter: (filter: string) => void;
+}
  
-export function SubTypeDropDownComponent({ subtypes, subTypeFilter, setSubTypeFilter }) {
+export function SubTypeDropDownComponent({ subtypes, subTypeFilter, setSubTypeFilter }: SubTypeDropDownProps) {
   const [open, setOpen] = React.useState(false)
   
   return (

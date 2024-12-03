@@ -15,11 +15,11 @@ const Mycards = () => {
   return (
     <div>
         <button 
-          className="flex bg-transparent border-transparent w-fit h-8 px-8 items-center border-b-2  rounded-lg" 
+          className="flex w-fit h-8 px-2 py-4 text-[hsl(var(--text))] items-center border-b-2 border-transparent hover:border-[hsl(var(--background3))]" 
           onClick={handleButtonClick}
         >
             <FontAwesomeIcon icon={faBox} />
-            <span className="fatextmargin text-white">
+            <span className="fatextmargin">
                 Collection
             </span>
         </button>

@@ -18,8 +18,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+
+type ArchetypeDropDownProps = {
+  archetypes: string[];
+  archeTypeFilter: string;
+  setArcheTypeFilter: (filter: string) => void;
+}
  
-export function ArchetypeDropDownComponent({ archetypes, archeTypeFilter, setArcheTypeFilter }) {
+export function ArchetypeDropDownComponent({ archetypes, archeTypeFilter, setArcheTypeFilter }: ArchetypeDropDownProps) {
   const [open, setOpen] = React.useState(false)
  
   return (
