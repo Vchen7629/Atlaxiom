@@ -1,4 +1,4 @@
-const { OwnedCard, User } = require('../../login api/models/genmodels');
+const { User } = require('../../login api/models/genmodels');
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
 const mongoose = require('mongoose');

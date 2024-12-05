@@ -47,7 +47,7 @@ export function ComponentRadialChart() {
     return (
         <Card className="flex flex-col max-h-[20vh] bg-transparent border-transparent">
         <CardHeader className="items-center pb-0">
-            <CardTitle className="text-gold mb-[2vh]">Collection status</CardTitle>
+            <CardTitle className="text-[hsl(var(--background3)">Collection status</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-1 items-center pb-0">
             <ChartContainer
@@ -101,12 +101,12 @@ export function ComponentRadialChart() {
                 dataKey="total"
                 stackId="a"
                 cornerRadius={5}
-                fill="hsl(var(--chart-1))"
+                fill="hsl(var(--chart-5))"
                 className="stroke-transparent stroke-2"
                 />
                 <RadialBar
                 dataKey="owned"
-                fill="hsl(var(--chart-2))"
+                fill="hsl(var(--background3))"
                 stackId="a"
                 cornerRadius={5}
                 className="stroke-transparent stroke-2"

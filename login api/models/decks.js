@@ -2,6 +2,10 @@ const mongoose = require("mongoose")
 const ownedCardSchema = require("./OwnedCards")
 
 const ownedDeckSchema = new mongoose.Schema({
+    user_id: {
+        type: String,
+        require: true
+    },
     deck_name: {
         type: String,
         require: true

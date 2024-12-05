@@ -1,8 +1,9 @@
 "use client"
-import { useGetSpecificUserQuery } from "../../../features/api-slices/usersApiSlice"
+import { useGetAllOwnedDecksQuery } from "../../../features/api-slices/decksapislice"
+import { useGetOwnedCardsQuery } from "../../../features/api-slices/ownedCardapislice"
 import { useSelector } from "react-redux"
-import { useMemo } from "react"
 import { Bar, BarChart, XAxis } from "recharts"
+import { useMemo } from "react";
 import {
   Card,
   CardContent,
@@ -17,34 +18,10 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-//types
-interface OwnedDeck {
+type Deck = {
     createdOn: string;
-    deck: string; 
+    deckName?: string;
 }
-  
-interface OwnedCard {
-    addedOn: string;
-    card: string
-
-}
-  
-interface UserEntity {
-    ownedDecks: OwnedDeck[];
-    ownedCards: OwnedCard[];
-}
-  
-interface UserData {
-    entities: Record<string, UserEntity>;
-}
-  
-interface ChartData {
-    month: string;
-    decks: number;
-    cards: number;
-}
-  
-
 
 export const description = "A multiple bar chart"
 
@@ -61,61 +38,59 @@ const chartConfig = {
 
 export function ComponentBarChart(): JSX.Element {
     const userId = useSelector((state: { auth: { userId: string } }) => state.auth.userId);
-    const { data: userData, isLoading, isError } = useGetSpecificUserQuery<UserData>(userId);
-  
-    // Log to check if `userData` is being fetched correctly
-    console.log("Fetched userData:", userData);
-  
-    const chartData = useMemo<ChartData[]>(() => {
-      if (!userData || !userData.entities || !userData.entities[userId]) {
-      return [];
-    }
-  
-    const monthlyData = Array.from({ length: 12 }, () => ({
-        decks: 0,
-        cards: 0,
-    }));
+    const { data: cardData } = useGetOwnedCardsQuery(userId);
+    const { data: deckData } = useGetAllOwnedDecksQuery(userId);
     
-    const ownedDecks = userData.entities[userId].ownedDecks;
-    const ownedCards = userData.entities[userId].ownedCards;
+    const monthlyData = useMemo(() => {
+        // Initialize an array for monthly data (12 months)
+        const data = Array.from({ length: 12 }, () => ({
+          decks: 0,
+          cards: 0,
+        }));
+    
+        // Process owned decks
+        const ownedDeck = deckData?.entities?.undefined?.ownedDecks || [];
+        ownedDeck.forEach((deck: Deck) => {
+          if (deck.createdOn) {
+            const createdMonth = new Date(deck.createdOn).getMonth();
+            data[createdMonth].decks++;
+          }
+        });
+    
+        // Process owned cards
+        const ownedCards = cardData?.entities ? Object.values(cardData.entities).flat() : [];        
+        ownedCards.forEach((card) => {
+            const addedOn = card?.addedOn;
+            if (addedOn) {
+                const addedMonth = new Date(addedOn).getMonth();
+                data[addedMonth].cards += card?.ownedamount || 0;
+            }
+        });
+    
+        return data;
+      }, [cardData, deckData, userId]);
 
-    ownedDecks.forEach((deck) => {
-        const createdMonth = new Date(deck.createdOn).getMonth();
-        monthlyData[createdMonth].decks++;
-    });
-
-    ownedCards.forEach((card) => {
-        const createdMonth = new Date(card.addedOn).getMonth();
-        monthlyData[createdMonth].cards++;
-    });
-  
-    const data = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    ].map((month, index) => ({
-        month,
-        decks: monthlyData[index].decks,
-        cards: monthlyData[index].cards,
-    }));
-  
-    console.log("Chart data:", data);
-  
-    return data;
-}, [userData, userId]);
-  
-if (isLoading) return <div>Loading statistics...</div>;
-if (isError || !userData) return <div>Error loading statistics.</div>;
+    const data = useMemo(() => {
+        return [
+          "January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"
+        ].map((month, index) => ({
+          month,
+          decks: monthlyData[index].decks,
+          cards: monthlyData[index].cards,
+        }));
+      }, [monthlyData]);
 
     return (
     <div className="relative w-[30vw]">
         <Card className="bg-blackthree border-gray-500 border-4">
         <CardHeader>
             <CardTitle className="text-gold">Your Cards/Deck Statistics</CardTitle>
-            <CardDescription className="">Decks created January - December 2024</CardDescription>
+            <CardDescription className="">Decks/Cards created January - December 2024</CardDescription>
         </CardHeader>
         <CardContent>
             <ChartContainer config={chartConfig} className="max-h-200 ">
-            <BarChart accessibilityLayer data={chartData}>
+            <BarChart accessibilityLayer data={data}>
                 <XAxis
                     dataKey="month"
                     tickLine={false}

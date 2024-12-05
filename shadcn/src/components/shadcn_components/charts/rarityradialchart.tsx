@@ -61,7 +61,7 @@ export function RarityRadialChartComponent() {
             <PolarGrid  />
             <Radar
               dataKey="desktop"
-              fill="gold"
+              fill="hsl(var(--background3))"
               fillOpacity={0.6}
             />
           </RadarChart>

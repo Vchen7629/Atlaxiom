@@ -2,17 +2,21 @@ const mongoose = require('mongoose');
 
 
 const ownedCardSchema = new mongoose.Schema({
+    user_id: {
+        type: String,
+        required: false,
+    },
     card_name: {
         type: String,
-        required: true
+        required: false,
     },
     type: {
         type: String,
-        required: true
+        required: false
     },
     race: {
         type: String,
-        required: true
+        required: false
     },
     attribute: {
         type: String,
@@ -44,7 +48,7 @@ const ownedCardSchema = new mongoose.Schema({
     },
     desc: {
         type: String,
-        required: true
+        required: false,
     },
     pend_desc: {
         type: String,
@@ -56,7 +60,7 @@ const ownedCardSchema = new mongoose.Schema({
     },
     image_url: {
         type: String,
-        required: true
+        required: false
     },
     ownedamount: {
         type: Number,

@@ -1,12 +1,12 @@
 const asyncHandler = require("express-async-handler");
-const { User } = require("../models/genmodels");
+const { User, Deck } = require("../models/genmodels");
 
 // @desc Create a new owned Deck
 // @route POST /:id
 // @access Public
 const createNewDeck = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const { deck_name = req.body.deckname || '' } = req.body;
+    const { deck_name } = req.body;
 
     if (!id || !deck_name) {
         return res.status(400).json({ message: "User ID and deck name are required" });
@@ -34,17 +34,25 @@ const createNewDeck = asyncHandler(async (req, res) => {
 
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
 
-    const newDeck = {
+    const deckObject = {
+        user_id: id,
         deck_name: deck_name,
         deck_desc: "a new deck maybe its cool maybe its mysterious",
-        createdOn: `${formattedDate}`
+        createdOn: `${formattedDate}`,
+        main_deck_cards: [], 
+        extra_deck_cards: [], 
+        side_deck_cards: [], 
     };
 
-    user.ownedDecks.push(newDeck);
+    const deck = await Deck.create(deckObject)
 
     await user.save();
 
-    res.status(201).json({ message: `New deck named ${deck_name} created for user ${user.username}`});
+    if (deck) {
+        res.status(201).json({ message: `New deck named ${deck_name} created for user ${user.username}`});
+    } else {
+        res.status(400).json({ message: "Invalid deck data recieved"})
+    }
 
 });
 
@@ -58,17 +66,13 @@ const getAllDecksforUser = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: 'user id is required' });
     }
 
-    const user = await User.findById(id)
+    const alldecks = await Deck.find({ user_id: id})
 
-    if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-    }
-
-    if (!user.ownedDecks || user.ownedDecks.length === 0) {
+    if (!alldecks || alldecks.length === 0) {
         return res.status(404).json({ message: 'Owned Decks not found for the user' });
     }
     
-    res.json({ id, username: user.username, ownedDecks: user.ownedDecks});
+    res.json({ id , ownedDecks: alldecks});
 })
 
 // @desc Get a specific deck for a user
@@ -82,14 +86,14 @@ const getSpecificDeckforUser = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: "User ID and deck name are required" });
     }
 
-    const user = await User.findById(id);
+    const deck = await Deck.find({ user_id: id})
 
-    if (!user) {
+    if (!deck) {
         return res.status(404).json({ message: "User not found" });
     }
 
 
-    const specificDeck = user.ownedDecks.find(deck => deck.deck_name === deck_name);
+    const specificDeck = deck.ownedDecks.find(deck => deck.deck_name === deck_name);
 
     if (!specificDeck) {
         return res.status(404).json({ message: "Deck not found for the specified user and deck name" });
@@ -109,6 +113,10 @@ const addCardtoMainDeck = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: "no userid, card-data, and/or deck name provided" })
     }
 
+    if (!Array.isArray(main_deck_cards)) {
+        return res.status(400).json({ message: "main_deck_cards should be an array" });
+    }
+
     const invalidDeckCards = main_deck_cards.filter(deck => !deck.card_name || !deck.image_url || !deck.type || !deck.race || !deck.desc);
 
     if (invalidDeckCards.length > 0) {
@@ -116,18 +124,17 @@ const addCardtoMainDeck = asyncHandler(async (req, res) => {
     }
 
     const user = await User.findById(id)
+    const deck = await Deck.findOne({ user_id: id, deck_name})
 
-    if (!user) {
-        return res.status(404).json({ message: "user not found" })
+    if (!deck) {
+        return res.status(404).json({ message: "Deck name not found for this user" });
     }
 
-    const selectedDeck = user.ownedDecks.find(deck => deck.deck_name === deck_name);
-
-    if (!selectedDeck) {
-        return res.status(404).json({ message: "Deck name not found for this user" })
+    if (!Array.isArray(deck.main_deck_cards)) {
+        deck.main_deck_cards = [];
     }
 
-    const existingCard = selectedDeck.main_deck_cards.find(deck => deck.card_name === main_deck_cards[0].card_name);
+    const existingCard = deck.main_deck_cards.find(deck => deck.card_name === main_deck_cards[0].card_name);
 
     if (existingCard) {
         return res.status(409).json({ message: `Card with the name ${main_deck_cards[0].card_name} already exists in the deck`});
@@ -135,14 +142,14 @@ const addCardtoMainDeck = asyncHandler(async (req, res) => {
 
     const cardsToAdd = main_deck_cards.map(card => ({ ...card, ownedamount: 1 }));
 
-    if ((selectedDeck.total_cards_main_deck || 0) + main_deck_cards.length > 60) {
+    if ((deck.total_cards_main_deck || 0) + main_deck_cards.length > 60) {
         return res.status(400).json({ message: 'main deck limit of 60 cards will be exceeded if this card is added' });
     }
 
-    selectedDeck.main_deck_cards.push(...cardsToAdd);
+    deck.main_deck_cards.push(...cardsToAdd);
 
-    selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) + main_deck_cards.length;
-    selectedDeck.total_cards_main_deck = (selectedDeck.total_cards_main_deck || 0) + main_deck_cards.length;
+    deck.total_cards_deck = (deck.total_cards_deck || 0) + main_deck_cards.length;
+    deck.total_cards_main_deck = (deck.total_cards_main_deck || 0) + main_deck_cards.length;
 
 
     const now = new Date();
@@ -152,6 +159,7 @@ const addCardtoMainDeck = asyncHandler(async (req, res) => {
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
 
     await user.save();
+    await deck.save();
 
     res.status(200).json({ message: `Card with card name ${main_deck_cards[0].card_name} added to the main deck of deck with name${deck_name} for user called ${user.username}`})
 })
@@ -167,6 +175,10 @@ const addCardtoExtraDeck = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: "no userid, card-data, and/or deck name provided" })
     }
 
+    if (!Array.isArray(extra_deck_cards)) {
+        return res.status(400).json({ message: "extra_deck_cards should be an array" });
+    }
+
     const invalidDeckCards = extra_deck_cards.filter(deck => !deck.card_name || !deck.image_url || !deck.type || !deck.race || !deck.desc);
 
     if (invalidDeckCards.length > 0) {
@@ -174,18 +186,17 @@ const addCardtoExtraDeck = asyncHandler(async (req, res) => {
     }
 
     const user = await User.findById(id)
+    const deck = await Deck.findOne({ user_id: id, deck_name})
 
-    if (!user) {
-        return res.status(404).json({ message: "user not found" })
-    }
-
-    const selectedDeck = user.ownedDecks.find(deck => deck.deck_name === deck_name);
-
-    if (!selectedDeck) {
+    if (!deck) {
         return res.status(404).json({ message: "Deck name not found for this user" })
     }
 
-    const existingCard = selectedDeck.extra_deck_cards.find(deck => deck.card_name === extra_deck_cards[0].card_name);
+    if (!Array.isArray(deck.extra_deck_cards)) {
+        deck.extra_deck_cards = [];
+    }
+
+    const existingCard = deck.extra_deck_cards.find(deck => deck.card_name === extra_deck_cards[0].card_name);
 
     if (existingCard) {
         return res.status(409).json({ message: `Card with the name ${extra_deck_cards[0].card_name} already exists in the deck`});
@@ -193,20 +204,25 @@ const addCardtoExtraDeck = asyncHandler(async (req, res) => {
 
     const cardsToAdd = extra_deck_cards.map(card => ({ ...card, ownedamount: 1 }));
 
-    if ((selectedDeck.total_cards_extra_deck || 0) + extra_deck_cards.length > 15) {
+    if ((deck.total_cards_extra_deck || 0) + extra_deck_cards.length > 15) {
         return res.status(400).json({ message: 'extra deck limit of 15 cards will be exceeded if this card is added' });
     }
 
-    selectedDeck.extra_deck_cards.push(...cardsToAdd);
+    deck.extra_deck_cards.push(...cardsToAdd);
 
-    selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) + extra_deck_cards.length;
-    selectedDeck.total_cards_extra_deck = (selectedDeck.total_cards_extra_deck || 0) + extra_deck_cards.length;
+    deck.total_cards_deck = (deck.total_cards_deck || 0) + extra_deck_cards.length;
+    deck.total_cards_extra_deck = (deck.total_cards_extra_deck || 0) + extra_deck_cards.length;
+
+    const now = new Date();
+    const formattedDate = now.toISOString().split('T')[0];
+    const formattedTime = now.toTimeString().split(' ')[0];
 
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
 
     await user.save();
+    await deck.save();
 
-    res.status(200).json({ message: `Card with card name ${extra_deck_cards[0].card_name} added to the main deck of deck with name${deck_name} for user called ${user.username}`})
+    res.status(200).json({ message: `Card with card name ${extra_deck_cards[0].card_name} added to the extra deck of deck with name${deck_name} for user called ${user.username}`})
 })
 
 // @desc Add a card to the side deck
@@ -220,6 +236,10 @@ const addCardtoSideDeck = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: "no userid, card-data, and/or deck name provided" })
     }
 
+    if (!Array.isArray(side_deck_cards)) {
+        return res.status(400).json({ message: "side_deck_cards should be an array" });
+    }
+
     const invalidDeckCards = side_deck_cards.filter(deck => !deck.card_name || !deck.image_url || !deck.type || !deck.race || !deck.desc);
 
     if (invalidDeckCards.length > 0) {
@@ -227,18 +247,13 @@ const addCardtoSideDeck = asyncHandler(async (req, res) => {
     }
 
     const user = await User.findById(id)
+    const deck = await Deck.findOne({ user_id: id, deck_name})
 
-    if (!user) {
-        return res.status(404).json({ message: "user not found" })
-    }
-
-    const selectedDeck = user.ownedDecks.find(deck => deck.deck_name === deck_name);
-
-    if (!selectedDeck) {
+    if (!deck) {
         return res.status(404).json({ message: "Deck name not found for this user" })
     }
 
-    const existingCard = selectedDeck.side_deck_cards.find(deck => deck.card_name === side_deck_cards[0].card_name);
+    const existingCard = deck.side_deck_cards.find(deck => deck.card_name === side_deck_cards[0].card_name);
 
     if (existingCard) {
         return res.status(409).json({ message: `Card with the name ${side_deck_cards[0].card_name} already exists in the deck`});
@@ -246,14 +261,14 @@ const addCardtoSideDeck = asyncHandler(async (req, res) => {
 
     const cardsToAdd = side_deck_cards.map(card => ({ ...card, ownedamount: 1 }));
 
-    if ((selectedDeck.total_cards_side_deck || 0) + side_deck_cards.length > 15) {
+    if ((deck.total_cards_side_deck || 0) + side_deck_cards.length > 15) {
         return res.status(400).json({ message: 'side deck limit of 15 cards will be exceeded if this card is added' });
     }
 
-    selectedDeck.side_deck_cards.push(...cardsToAdd);
+    deck.side_deck_cards.push(...cardsToAdd);
 
-    selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) + side_deck_cards.length;
-    selectedDeck.total_cards_side_deck = (selectedDeck.total_cards_side_deck || 0) + side_deck_cards.length;
+    deck.total_cards_deck = (deck.total_cards_deck || 0) + side_deck_cards.length;
+    deck.total_cards_side_deck = (deck.total_cards_side_deck || 0) + side_deck_cards.length;
 
     const now = new Date();
     const formattedDate = now.toISOString().split('T')[0];
@@ -262,8 +277,9 @@ const addCardtoSideDeck = asyncHandler(async (req, res) => {
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
 
     await user.save();
+    await deck.save();
 
-    res.status(200).json({ message: `Card with card name ${side_deck_cards[0].card_name} added to the main deck of deck with name${deck_name} for user called ${user.username}`})
+    res.status(200).json({ message: `Card with card name ${side_deck_cards[0].card_name} added to the side deck of deck with name ${deck_name} for user called ${user.username}`})
 })
 
 
@@ -279,18 +295,13 @@ const increaseCardAmountinMainDeck = asyncHandler(async (req, res) => {
     }
 
     const user = await User.findById(id);
+    const deck = await Deck.findOne({ user_id: id, deck_name})
 
-    if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-    }
-
-    const selectedDeck = user.ownedDecks.find((deck) => deck.deck_name === deck_name);
-
-    if (!selectedDeck) {
+    if (!deck) {
         return res.status(404).json({ message: 'Deck not found for user' });
     }
 
-    const exist = selectedDeck.main_deck_cards.find(card => card.card_name === card_name);
+    const exist = deck.main_deck_cards.find(card => card.card_name === card_name);
 
     if (!exist) {
         return res.status(404).json({ message: 'Owned card not found in main deck' });
@@ -307,8 +318,8 @@ const increaseCardAmountinMainDeck = asyncHandler(async (req, res) => {
 
     exist.ownedamount += parseInt(increaseOwnedAmount, 10);
 
-    selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) + parseInt(increaseOwnedAmount, 10);
-    selectedDeck.total_cards_main_deck = (selectedDeck.total_cards_main_deck || 0) + parseInt(increaseOwnedAmount, 10);
+    deck.total_cards_deck = (deck.total_cards_deck || 0) + parseInt(increaseOwnedAmount, 10);
+    deck.total_cards_main_deck = (deck.total_cards_main_deck || 0) + parseInt(increaseOwnedAmount, 10);
 
     const now = new Date();
     const formattedDate = now.toISOString().split('T')[0];
@@ -317,8 +328,9 @@ const increaseCardAmountinMainDeck = asyncHandler(async (req, res) => {
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
 
     await user.save()
+    await deck.save()
 
-    res.json({ message: `Owned amount of card ${card_name} in deck ${deck_name} increased by ${increaseOwnedAmount} successfully`, ownedDeck: selectedDeck });
+    res.json({ message: `Owned amount of card ${card_name} in deck ${deck_name} increased by ${increaseOwnedAmount} successfully`, ownedDeck: deck });
 })
 
 // @desc Increase the amount of a specific card in the extra deck
@@ -333,18 +345,13 @@ const increaseCardAmountinExtraDeck = asyncHandler(async (req, res) => {
     }
 
     const user = await User.findById(id);
+    const deck = await Deck.findOne({ user_id: id, deck_name});
 
-    if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-    }
-
-    const selectedDeck = user.ownedDecks.find((deck) => deck.deck_name === deck_name);
-
-    if (!selectedDeck) {
+    if (!deck) {
         return res.status(404).json({ message: 'Deck not found for user' });
     }
 
-    const exist = selectedDeck.extra_deck_cards.find(card => card.card_name === card_name);
+    const exist = deck.extra_deck_cards.find(card => card.card_name === card_name);
 
     if (!exist) {
         return res.status(404).json({ message: 'Owned card not found in extra deck' });
@@ -360,8 +367,8 @@ const increaseCardAmountinExtraDeck = asyncHandler(async (req, res) => {
 
     exist.ownedamount += parseInt(increaseOwnedAmount, 10);
 
-    selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) + parseInt(increaseOwnedAmount, 10);
-    selectedDeck.total_cards_extra_deck = (selectedDeck.total_cards_extra_deck || 0) + parseInt(increaseOwnedAmount, 10);
+    deck.total_cards_deck = (deck.total_cards_deck || 0) + parseInt(increaseOwnedAmount, 10);
+    deck.total_cards_extra_deck = (deck.total_cards_extra_deck || 0) + parseInt(increaseOwnedAmount, 10);
 
     const now = new Date();
     const formattedDate = now.toISOString().split('T')[0];
@@ -370,8 +377,9 @@ const increaseCardAmountinExtraDeck = asyncHandler(async (req, res) => {
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
 
     await user.save()
+    await deck.save()
 
-    res.json({ message: `Owned amount of card ${card_name} in deck ${deck_name} increased by ${increaseOwnedAmount} successfully`, ownedDeck: selectedDeck });
+    res.json({ message: `Owned amount of card ${card_name} in deck ${deck_name} increased by ${increaseOwnedAmount} successfully`, ownedDeck: deck });
 })
 
 // @desc Increase the amount of a specific card in the side deck
@@ -386,18 +394,13 @@ const increaseCardAmountinSideDeck = asyncHandler(async (req, res) => {
     }
 
     const user = await User.findById(id);
+    const deck = await Deck.findOne({ user_id: id, deck_name})
 
-    if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-    }
-
-    const selectedDeck = user.ownedDecks.find((deck) => deck.deck_name === deck_name);
-
-    if (!selectedDeck) {
+    if (!deck) {
         return res.status(404).json({ message: 'Deck not found for user' });
     }
 
-    const exist = selectedDeck.side_deck_cards.find(card => card.card_name === card_name);
+    const exist = deck.side_deck_cards.find(card => card.card_name === card_name);
 
     if (!exist) {
         return res.status(404).json({ message: 'Owned card not found in side deck' });
@@ -413,8 +416,8 @@ const increaseCardAmountinSideDeck = asyncHandler(async (req, res) => {
 
     exist.ownedamount += parseInt(increaseOwnedAmount, 10);
 
-    selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) + parseInt(increaseOwnedAmount, 10);
-    selectedDeck.total_cards_side_deck = (selectedDeck.total_cards_side_deck || 0) + parseInt(increaseOwnedAmount, 10);
+    deck.total_cards_deck = (deck.total_cards_deck || 0) + parseInt(increaseOwnedAmount, 10);
+    deck.total_cards_side_deck = (deck.total_cards_side_deck || 0) + parseInt(increaseOwnedAmount, 10);
 
     const now = new Date();
     const formattedDate = now.toISOString().split('T')[0];
@@ -423,8 +426,9 @@ const increaseCardAmountinSideDeck = asyncHandler(async (req, res) => {
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
 
     await user.save()
+    await deck.save()
 
-    res.json({ message: `Owned amount of card ${card_name} in deck ${deck_name} increased by ${increaseOwnedAmount} successfully`, ownedDeck: selectedDeck });
+    res.json({ message: `Owned amount of card ${card_name} in deck ${deck_name} increased by ${increaseOwnedAmount} successfully`, ownedDeck: deck });
 })
 
 // @desc decrease the amount of a specific card in the main deck
@@ -435,22 +439,17 @@ const decreaseCardAmountinMainDeck = asyncHandler(async (req, res) => {
     const { card_name, deck_name, decreaseOwnedAmount } = req.body;
 
     if (!id || !card_name || !deck_name || isNaN(decreaseOwnedAmount)) {
-        return res.status(400).json({ message: 'User ID, card name, deck name, and valid increaseownedamount are required' });
+        return res.status(400).json({ message: 'User ID, card name, deck name, and valid decrease ownedamount are required' });
     }
 
     const user = await User.findById(id);
+    const deck = await Deck.findOne({ user_id: id, deck_name})
 
-    if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-    }
-
-    const selectedDeck = user.ownedDecks.find((deck) => deck.deck_name === deck_name);
-
-    if (!selectedDeck) {
+    if (!deck) {
         return res.status(404).json({ message: 'Deck not found for user' });
     }
 
-    const exist = selectedDeck.main_deck_cards.find(card => card.card_name === card_name);
+    const exist = deck.main_deck_cards.find(card => card.card_name === card_name);
 
     if (!exist) {
         return res.status(404).json({ message: 'Owned card not found in main deck' });
@@ -465,8 +464,8 @@ const decreaseCardAmountinMainDeck = asyncHandler(async (req, res) => {
 
     exist.ownedamount -= parseInt(decreaseOwnedAmount, 10);
 
-    selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) - parseInt(decreaseOwnedAmount, 10);
-    selectedDeck.total_cards_main_deck = (selectedDeck.total_cards_main_deck || 0) - parseInt(decreaseOwnedAmount, 10);
+    deck.total_cards_deck = (deck.total_cards_deck || 0) - parseInt(decreaseOwnedAmount, 10);
+    deck.total_cards_main_deck = (deck.total_cards_main_deck || 0) - parseInt(decreaseOwnedAmount, 10);
 
     const now = new Date();
     const formattedDate = now.toISOString().split('T')[0];
@@ -475,8 +474,9 @@ const decreaseCardAmountinMainDeck = asyncHandler(async (req, res) => {
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
 
     await user.save()
+    await deck.save()
 
-    res.json({ message: `Owned amount of card ${card_name} in deck ${deck_name} decreased by ${decreaseOwnedAmount} successfully`, ownedDeck: selectedDeck });
+    res.json({ message: `Owned amount of card ${card_name} in deck ${deck_name} decreased by ${decreaseOwnedAmount} successfully`, ownedDeck: deck });
 })
 
 // @desc decrease the amount of a specific card in the extra deck
@@ -491,18 +491,13 @@ const decreaseCardAmountinExtraDeck = asyncHandler(async (req, res) => {
     }
 
     const user = await User.findById(id);
+    const deck = await Deck.findOne({ user_id: id, deck_name})
 
-    if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-    }
-
-    const selectedDeck = user.ownedDecks.find((deck) => deck.deck_name === deck_name);
-
-    if (!selectedDeck) {
+    if (!deck) {
         return res.status(404).json({ message: 'Deck not found for user' });
     }
 
-    const exist = selectedDeck.extra_deck_cards.find(card => card.card_name === card_name);
+    const exist = deck.extra_deck_cards.find(card => card.card_name === card_name);
 
     if (!exist) {
         return res.status(404).json({ message: 'Owned card not found in extra deck' });
@@ -517,8 +512,8 @@ const decreaseCardAmountinExtraDeck = asyncHandler(async (req, res) => {
 
     exist.ownedamount -= parseInt(decreaseOwnedAmount, 10);
 
-    selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) - parseInt(decreaseOwnedAmount, 10);
-    selectedDeck.total_cards_extra_deck = (selectedDeck.total_cards_extra_deck || 0) - parseInt(decreaseOwnedAmount, 10);
+    deck.total_cards_deck = (deck.total_cards_deck || 0) - parseInt(decreaseOwnedAmount, 10);
+    deck.total_cards_extra_deck = (deck.total_cards_extra_deck || 0) - parseInt(decreaseOwnedAmount, 10);
 
     const now = new Date();
     const formattedDate = now.toISOString().split('T')[0];
@@ -527,8 +522,9 @@ const decreaseCardAmountinExtraDeck = asyncHandler(async (req, res) => {
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
 
     await user.save()
+    await deck.save()
 
-    res.json({ message: `Owned amount of card ${card_name} in deck ${deck_name} decreased by ${decreaseOwnedAmount} successfully`, ownedDeck: selectedDeck });
+    res.json({ message: `Owned amount of card ${card_name} in deck ${deck_name} decreased by ${decreaseOwnedAmount} successfully`, ownedDeck: deck });
 })
 
 // @desc decrease the amount of a specific card in the side deck
@@ -543,18 +539,13 @@ const decreaseCardAmountinSideDeck = asyncHandler(async (req, res) => {
     }
 
     const user = await User.findById(id);
+    const deck = await Deck.findOne({ user_id: id, deck_name})
 
-    if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-    }
-
-    const selectedDeck = user.ownedDecks.find((deck) => deck.deck_name === deck_name);
-
-    if (!selectedDeck) {
+    if (!deck) {
         return res.status(404).json({ message: 'Deck not found for user' });
     }
 
-    const exist = selectedDeck.side_deck_cards.find(card => card.card_name === card_name);
+    const exist = deck.side_deck_cards.find(card => card.card_name === card_name);
 
     if (!exist) {
         return res.status(404).json({ message: 'Owned card not found in side deck' });
@@ -569,8 +560,8 @@ const decreaseCardAmountinSideDeck = asyncHandler(async (req, res) => {
 
     exist.ownedamount -= parseInt(decreaseOwnedAmount, 10);
 
-    selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) - parseInt(decreaseOwnedAmount, 10);
-    selectedDeck.total_cards_side_deck = (selectedDeck.total_cards_side_deck || 0) - parseInt(decreaseOwnedAmount, 10);
+    deck.total_cards_deck = (deck.total_cards_deck || 0) - parseInt(decreaseOwnedAmount, 10);
+    deck.total_cards_side_deck = (deck.total_cards_side_deck || 0) - parseInt(decreaseOwnedAmount, 10);
 
     const now = new Date();
     const formattedDate = now.toISOString().split('T')[0];
@@ -579,8 +570,9 @@ const decreaseCardAmountinSideDeck = asyncHandler(async (req, res) => {
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
 
     await user.save()
+    await deck.save()
 
-    res.json({ message: `Owned amount of card ${card_name} in deck ${deck_name} decreased by ${decreaseOwnedAmount} successfully`, ownedDeck: selectedDeck });
+    res.json({ message: `Owned amount of card ${card_name} in deck ${deck_name} decreased by ${decreaseOwnedAmount} successfully`, ownedDeck: deck });
 })
 
 // @desc Delete a card from the main deck
@@ -595,27 +587,22 @@ const DeleteCardfromMainDeck = asyncHandler(async (req, res) => {
     }
 
     const user = await User.findById(id);
+    const deck = await Deck.findOne({ user_id: id, deck_name})
 
-    if (!user) {
-        return res.status(404).json({ message: 'User not found' });
+    if (!deck) {
+        return res.status(404).json({ message: 'Deck not found for user' });
     }
 
-    const selectedDeck = user.ownedDecks.find(deck => deck.deck_name === deck_name);
-
-    if (!selectedDeck) {
-        return res.status(404).json({ message: `main deck from deck ${deck_name} not found for this user` });
-    }
-
-    const cardIndex = selectedDeck.main_deck_cards.findIndex(deck => deck.card_name === card_name);
+    const cardIndex = deck.main_deck_cards.findIndex(deck => deck.card_name === card_name);
 
     if (cardIndex === -1) {
         return res.status(404).json({ message: 'Owned card not found in main deck' });
     }
 
-    selectedDeck.main_deck_cards.splice(cardIndex, 1);
+    deck.main_deck_cards.splice(cardIndex, 1);
 
-    selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) - 1;
-    selectedDeck.total_cards_main_deck = (selectedDeck.total_cards_main_deck || 0) - 1;
+    deck.total_cards_deck = (deck.total_cards_deck || 0) - 1;
+    deck.total_cards_main_deck = (deck.total_cards_main_deck || 0) - 1;
 
     const now = new Date();
     const formattedDate = now.toISOString().split('T')[0];
@@ -624,6 +611,7 @@ const DeleteCardfromMainDeck = asyncHandler(async (req, res) => {
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
 
     await user.save();
+    await deck.save();
 
     res.status(200).json({ message: `Card ${card_name} deleted from the main deck in deck ${deck_name} for user ${user.username} successfully` });
 
@@ -641,27 +629,22 @@ const DeleteCardfromExtraDeck = asyncHandler(async (req, res) => {
     }
 
     const user = await User.findById(id);
+    const deck = await Deck.findOne({ user_id: id, deck_name})
 
-    if (!user) {
-        return res.status(404).json({ message: 'User not found' });
+    if (!deck) {
+        return res.status(404).json({ message: 'Deck not found for user' });
     }
 
-    const selectedDeck = user.ownedDecks.find(deck => deck.deck_name === deck_name);
+    const cardIndex = deck.extra_deck_cards.findIndex(deck => deck.card_name === card_name);
 
-    if (!selectedDeck) {
-        return res.status(404).json({ message: `extra deck from deck ${deck_name} not found for this user` });
-    }
-
-    const exist = selectedDeck.extra_deck_cards.findIndex(deck => deck.card_name === card_name);
-
-    if (exist === -1) {
+    if (cardIndex === -1) {
         return res.status(404).json({ message: 'Owned card not found in extra deck' });
     }
 
-    selectedDeck.extra_deck_cards.splice(cardIndex, 1);
+    deck.extra_deck_cards.splice(cardIndex, 1);
 
-    selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) - 1;
-    selectedDeck.total_cards_extra_deck = (selectedDeck.total_cards_extra_deck || 0) - 1;
+    deck.total_cards_deck = (deck.total_cards_deck || 0) - 1;
+    deck.total_cards_extra_deck = (deck.total_cards_extra_deck || 0) - 1;
 
     const now = new Date();
     const formattedDate = now.toISOString().split('T')[0];
@@ -670,6 +653,7 @@ const DeleteCardfromExtraDeck = asyncHandler(async (req, res) => {
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
 
     await user.save();
+    await deck.save();
 
     res.status(200).json({ message: `Card ${card_name} deleted from the extra deck in deck ${deck_name} for user ${user.username} successfully` });
 
@@ -687,27 +671,26 @@ const DeleteCardfromSideDeck = asyncHandler(async (req, res) => {
     }
 
     const user = await User.findById(id);
+    const deck = await Deck.findOne({ user_id: id, deck_name})
 
-    if (!user) {
-        return res.status(404).json({ message: 'User not found' });
+    if (!deck) {
+        return res.status(404).json({ message: 'Deck not found for user' });
     }
 
-    const selectedDeck = user.ownedDecks.find(deck => deck.deck_name === deck_name);
+    const cardIndex = deck.side_deck_cards.findIndex(deck => deck.card_name === card_name);
 
-    if (!selectedDeck) {
-        return res.status(404).json({ message: `side deck from deck ${deck_name} not found for this user` });
-    }
-
-    const exist = selectedDeck.side_deck_cards.findIndex(deck => deck.card_name === card_name);
-
-    if (exist === -1) {
+    if (cardIndex === -1) {
         return res.status(404).json({ message: 'Owned card not found in the side deck' });
     }
 
-    selectedDeck.side_deck_cards.splice(cardIndex, 1);
+    deck.side_deck_cards.splice(cardIndex, 1);
 
-    selectedDeck.total_cards_deck = (selectedDeck.total_cards_deck || 0) - 1;
-    selectedDeck.total_cards_side_deck = (selectedDeck.total_cards_side_deck || 0) - 1;
+    deck.total_cards_deck = (deck.total_cards_deck || 0) - 1;
+    deck.total_cards_side_deck = (deck.total_cards_side_deck || 0) - 1;
+
+    if (deck.side_deck_cards.length === 0) {
+        deck.total_cards_side_deck = 0;
+    }
 
     const now = new Date();
     const formattedDate = now.toISOString().split('T')[0];
@@ -716,6 +699,7 @@ const DeleteCardfromSideDeck = asyncHandler(async (req, res) => {
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
 
     await user.save();
+    await deck.save();
 
     res.status(200).json({ message: `Card ${card_name} deleted from the side deck in deck ${deck_name} for user ${user.username} successfully` });
 
@@ -732,28 +716,31 @@ const DeleteDeck = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: "userid and/or deck_name are missing "})
     }
 
+    const deck = await Deck.find({ user_id: id, deck_name})
+
+    if (!deck) {
+        return res.status(404).json({ message: "Deck not found" });
+    }
+    
     const user = await User.findById(id)
 
     if (!user) {
         return res.status(404).json({ message: "User Not Found" })
     }
 
-    const DeckIndex = user.ownedDecks.findIndex(deck => deck.deck_name === deck_name);
-
-    if (DeckIndex === -1) {
-        return res.status(404).json({ message: 'Deck not found' });
+    const deleteResult = await Deck.deleteOne({ user_id: id });
+    if (deleteResult.deletedCount === 0) {
+        return res.status(500).json({ message: "Failed to delete deck from database" });
     }
 
-    user.ownedDecks.splice(DeckIndex, 1);
+    user.totalOwnedDecks = Math.max((user.totalOwnedDecks || 1) - 1, 0);
 
-    user.totalOwnedDecks = (user.totalOwnedDecks || 0) - 1;
-    
     const now = new Date();
     const formattedDate = now.toISOString().split('T')[0];
     const formattedTime = now.toTimeString().split(' ')[0];
 
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
-
+    
     await user.save();
 
     res.status(200).json({ message: `Deck ${deck_name} deleted for user ${user.username} successfully` });

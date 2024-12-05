@@ -99,7 +99,7 @@ const LoginPage = () => {
                             <header className="mt-[1vh] mb-3 text-4xl text-white font-black">Welcome Back</header>
                             <div className="flex text-lg mb-[1vh] text-gray-500">
                                 <div className="mr-2">Don't have an account yet? </div>
-                                <button className="text-white font-light"onClick={handleSignUpClick}>
+                                <button className="text-white font-light" onClick={handleSignUpClick}>
                                     Sign Up
                                 </button>
                             </div>

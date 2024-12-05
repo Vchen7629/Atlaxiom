@@ -1,4 +1,4 @@
-const { User } = require('../models/genmodels');
+const { User, OwnedCard } = require('../models/genmodels');
 const asyncHandler = require('express-async-handler')
 
 // @desc Create a new owned card
@@ -7,16 +7,10 @@ const asyncHandler = require('express-async-handler')
 const createOwnedCard = asyncHandler(async (req, res) => {
   
   const { id } = req.params
-  const { ownedCards } = req.body;
+  const { card_name, image_url, set_code, type, race, desc, ...optionalFields } = req.body;
 
-  if (!id || !ownedCards) {
-    return res.status(400).json({ message: 'user id and ownedCard are required' });
-  }
-
-  const invalidCards = ownedCards.filter(card => !card.card_name || !card.image_url || card.ownedprop === undefined || !card.type || !card.race || !card.desc);
-
-  if (invalidCards.length > 0) {
-    return res.status(400).json({ message: 'Missing either card_name, image_url, ownedprop, type, race, or desc params in input' });
+  if (!id || !card_name || !image_url || !type || !race || !desc || !set_code) {
+    return res.status(400).json({ message: 'User ID and all card fields are required' });
   }
 
   const user = await User.findById(id);
@@ -25,34 +19,45 @@ const createOwnedCard = asyncHandler(async (req, res) => {
     return res.status(404).json({ message: 'User not found' });
   }
 
-  // Initialize ownedCards array if it doesn't exist
-  user.ownedCards = user.ownedCards || [];
+  const userCards = await OwnedCard.find({ user_id: id });
 
-  const duplicateCard = user.ownedCards.find(card => card.card_name === ownedCards[0].card_name);
+  const duplicateCard = userCards.some(card => card.card_name === card_name && card.set_code === set_code);
 
   if (duplicateCard) {
-    return res.status(409).json({ message: 'Duplicate card for the user' });
+    return res.status(409).json({ message: `Card with name "${card_name}" already exists for this user` });
   }
-
-  user.totalOwnedCards = Number(user.totalOwnedCards) + ownedCards.length || 1;
-  user.lastAdded = ownedCards[0].card_name;
 
   const now = new Date();
   const formattedDate = now.toISOString().split('T')[0];
   const formattedTime = now.toTimeString().split(' ')[0];
 
-  user.lastUpdated = `${formattedDate} ${formattedTime}`;
+  const newCard = new OwnedCard({
+    user_id: id,
+    card_name,
+    image_url,
+    ownedamount: 1,
+    type,
+    race,
+    desc,
+    set_code,
+    addedOn: formattedDate,
+    ...optionalFields
+  });
   
-  const updatedOwnedCards = ownedCards.map(card => ({
-    ...card,
-    addedOn: `${formattedDate}`
-  }));
-  
-  user.ownedCards.push(...updatedOwnedCards);
+  try {
+    await newCard.save();
+    user.totalOwnedCards = (user.totalOwnedCards || 0) + 1;
+    user.lastAdded = card_name;
+    user.lastUpdated = `${formattedDate} ${now.toTimeString().split(' ')[0]}`;
+    await user.save();
 
-  await user.save();
-
-  res.status(201).json({ message: `New card named ${ownedCards[0].card_name} created for user ${user.username}` });
+    res.status(201).json({
+      message: `New card "${card_name}" added successfully for user ${user.username}`
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to create owned card' });
+  }
 
 });
 
@@ -68,18 +73,14 @@ const getAllOwnedCards = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: 'user id is required' });
   }
 
-  const user = await User.findById(id)
+  const allCards = await OwnedCard.find({ user_id: id })
 
-  if (!user) {
-    return res.status(404).json({ message: 'User not found' });
-  }
-
-  if (!user.ownedCards || user.ownedCards.length === 0) {
+  if (!allCards || allCards.length === 0) {
     return res.status(404).json({ message: 'Owned cards not found for the user' });
   }
 
   // If the user has owned cards, return them
-  res.json({ id, username: user.username, ownedCards: user.ownedCards});
+  res.json({ id, ownedCards: allCards});
 
 });
 
@@ -96,26 +97,20 @@ const IncreaseCard = asyncHandler(async (req, res) => {
   }
 
   const user = await User.findById(id);
+  const card = await OwnedCard.findOne({ user_id: id, card_name})
 
-  if (!user) {
-    return res.status(404).json({ message: 'User not found' });
+  if (!card) {
+    return res.status(404).json({ message: 'Card not found' });
   }
 
-  // Find the owned card by its properties within the user's ownedCards array
-  const ownedCard = user.ownedCards.find((card) => card.card_name === card_name);
-
-  // Check if the owned card exists for that user
-  if (!ownedCard) {
-    return res.status(404).json({ message: 'Owned card not found' });
-  }
-
-  ownedCard.ownedamount = Number(ownedCard.ownedamount) + Number(increaseOwnedAmount) || 1;
+  card.ownedamount = Number(card.ownedamount) + Number(increaseOwnedAmount) || 1;
 
   user.totalOwnedCards = Number(user.totalOwnedCards) + Number(increaseOwnedAmount) || 1;
 
   await user.save();
+  await card.save();
 
-  res.json({ ownedCard });
+  res.json( `Successfully increased owned amount for ${card_name} ` );
 });
 
 // @desc Update by decreasing the amount of an owned card
@@ -126,34 +121,25 @@ const DecreaseCard = asyncHandler(async (req, res) => {
   const { id } = req.params
   const { card_name, decreaseOwnedAmount } = req.body;
 
-  // Check if user ID and card details are provided
   if (!id || !card_name || isNaN(decreaseOwnedAmount)) {
     return res.status(400).json({ message: 'User ID, card name, and valid decreaseownedamount are required' });
   }
 
-  // Find the user by ID
   const user = await User.findById(id);
+  const card = await OwnedCard.findOne({ user_id: id, card_name})
 
-  // Check if the user exists in the database
-  if (!user) {
-    return res.status(404).json({ message: 'User not found' });
+  if (!card) {
+    return res.status(404).json({ message: 'Card not found' });
   }
 
-  // Find the owned card by its properties within the user's ownedCards array
-  const ownedCard = user.ownedCards.find((card) => card.card_name === card_name);
+  card.ownedamount =  Math.max(Number(card.ownedamount) - Number(decreaseOwnedAmount), 1);
 
-  // Check if the owned card exists for that user
-  if (!ownedCard) {
-    return res.status(404).json({ message: 'Owned card not found' });
-  }
+  user.totalOwnedCards = Number(user.totalOwnedCards) - Number(decreaseOwnedAmount) || 1;
 
-  ownedCard.ownedamount =  Math.max(Number(ownedCard.ownedamount) - Number(decreaseOwnedAmount), 1);
-
-  user.totalOwnedCards = user.ownedCards.reduce((sum, card) => sum + card.ownedamount, 0);
-  // Save the updated user
   await user.save();
+  await card.save();
 
-  res.json({ ownedCard });
+  res.json(`Successfully decreased owned amount for ${card_name} `);
 });
 
 
@@ -170,33 +156,26 @@ const deleteOwnedCardByUsername = asyncHandler(async (req, res) => {
   }
 
   const user = await User.findById(id);
+  const card = await OwnedCard.findOne({ user_id: id, card_name})
 
-  if (!user) {
-    return res.status(404).json({ message: 'User not found' });
+  if (!card) {
+    return res.status(404).json({ message: 'Card not found' });
   }
 
-  const cardIndex = user.ownedCards.findIndex(card => card.card_name === card_name);
-
-  if (cardIndex === -1) {
-    return res.status(404).json({ message: 'Owned card not found' });
-  }
-
-  const cardToDelete = user.ownedCards[cardIndex];
+  const cardToDelete = card;
   const cardAmount = cardToDelete.ownedamount;
 
-  user.ownedCards.splice(cardIndex, 1);
+  await OwnedCard.deleteOne({ _id: card._id });
 
-  user.totalOwnedCards = Number(user.totalOwnedCards) - Number(cardAmount);
+  user.totalOwnedCards = (Number(user.totalOwnedCards) || 0) - cardAmount;
   user.lastDeleted = card_name;
   
   await user.save();
 
  
-  if (user.ownedCards.length > 0) {
-    res.status(200).json({ message: `Owned card ${card_name} for user ${user.username} deleted successfully` });
-  } else {
-    res.status(200).json({ message: `Last owned card ${card_name} for user ${user.username} deleted successfully` });
-  }
+  res.status(200).json({
+    message: `Card "${card_name}" deleted successfully for user ${user.username}`
+  });
 
 });
 

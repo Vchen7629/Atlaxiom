@@ -1,5 +1,8 @@
 import * as React from "react"
 import { useGetSpecificUserQuery } from "../../../features/api-slices/usersApiSlice"
+import { useGetAllOwnedDecksQuery } from "../../../features/api-slices/decksapislice"
+import { useGetOwnedCardsQuery } from "../../../features/api-slices/ownedCardapislice"
+
 import { useSelector } from "react-redux"
 import { useMemo, useState } from "react"
 import { Bar, BarChart, XAxis } from "recharts"
@@ -58,7 +61,8 @@ const chartConfig = {
 
 export function ComponentBarMonthChart(): JSX.Element {
     const userId = useSelector((state: { auth: { userId: string } }) => state.auth.userId);
-    const { data: userData, isLoading, isError } = useGetSpecificUserQuery<UserData>(userId);
+    const { data: deckData } = useGetAllOwnedDecksQuery<UserData>(userId);
+    const { data: cardData } = useGetOwnedCardsQuery(userId)
     
     const months = [
         "January", "February", "March", "April", "May", "June",
@@ -72,14 +76,15 @@ export function ComponentBarMonthChart(): JSX.Element {
     const daysInMonth = (month: number, year: number) => new Date(year, month + 1, 0).getDate();
 
     const chartData = useMemo<ChartData[]>(() => {
-      if (!userData || !userData.entities || !userData.entities[userId]) {
-          return [];
+      if (!cardData || !cardData.entities) {
+            console.error("cardData.entities is undefined or empty.");
+            return [];
       }
 
       const currentYear = new Date().getFullYear();
       
-      const ownedDecks = userData.entities[userId].ownedDecks;
-      const ownedCards = userData.entities[userId].ownedCards;
+      const ownedDeck = deckData?.entities?.undefined?.ownedDecks || [];
+      const ownedCards = Object.values(cardData.entities).flat().filter(Boolean);
 
       if (selectedMonth === "All") return [];
 
@@ -92,7 +97,7 @@ export function ComponentBarMonthChart(): JSX.Element {
           cards: 0,
       }));
 
-      ownedDecks.forEach((deck) => {
+      ownedDeck.forEach((deck) => {
           const createdDate = new Date(deck.createdOn);
           if (createdDate.getMonth() === monthIndex && createdDate.getFullYear() === currentYear) {
               dailyData[createdDate.getDate() - 1].decks++;
@@ -101,19 +106,17 @@ export function ComponentBarMonthChart(): JSX.Element {
 
       ownedCards.forEach((card) => {
           const addedDate = new Date(card.addedOn);
+          const amount = card.ownedamount || 1
           if (addedDate.getMonth() === monthIndex && addedDate.getFullYear() === currentYear) {
-              dailyData[addedDate.getDate() - 1].cards++;
+              dailyData[addedDate.getDate() - 1].cards += amount;
           }
       });
 
       return dailyData;
-    }, [userData, userId, selectedMonth]);
+    }, [ userId, selectedMonth]);
 
     const totalCards = chartData.reduce((acc, curr) => acc + curr.cards, 0);
     const totalDecks = chartData.reduce((acc, curr) => acc + curr.decks, 0);
-
-    if (isLoading) return <div>Loading statistics...</div>;
-    if (isError || !userData) return <div>Error loading statistics.</div>;
 
     return (
       <div>
