@@ -50,9 +50,6 @@ const CreateNewDeckForm = () => {
         if (isSuccess) {
             setDeckname('')
             setErrMsg('')
-
-            
-
             navigate('/mydeckhomepage')
         }
     }, [isSuccess, navigate])
@@ -81,13 +78,13 @@ const CreateNewDeckForm = () => {
         setFormSubmitted(true)
 
         if (!deckname) {
-            setErrMsg('Please enter a deck name')
+            console.log('Please enter a deck name')
             return;
         }
         
         if (canSave && userId) {
             try {
-                const result = await addNewDeck({ id: userId, DeckData: { deckname, deckdesc } })
+                const result = await addNewDeck({ id: userId, DeckData: { deck_name: deckname, deckdesc } })
                 if (result) {
                     refetch()
                 } else {

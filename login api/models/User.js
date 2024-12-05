@@ -51,14 +51,6 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    ownedDecks: {
-        type: [ownedDeckSchema],
-        default: []
-    },
-    ownedCards: {
-        type: [ownedCardSchema],
-        default: []
-    }
 });
 
 module.exports = userSchema

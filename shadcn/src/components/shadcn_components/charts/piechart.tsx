@@ -13,7 +13,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { useGetSpecificUserQuery } from "../../../features/api-slices/usersApiSlice"
+import { useGetOwnedCardsQuery } from "../../../features/api-slices/ownedCardapislice"
 import { useSelector } from "react-redux"
 export const description = "A donut chart with text"
 
@@ -35,42 +35,47 @@ const chartConfig = {
 
 export function ComponentPieChart() {
   const userId = useSelector((state: { auth: { userId: string } }) => state.auth.userId);
-  const { data: userData, isLoading, isError } = useGetSpecificUserQuery(userId)
+  const { data: cardData } = useGetOwnedCardsQuery(userId)
 
   const chartData = React.useMemo(() => {
-    if (!userData || !userData.entities || !userData.entities[userId]) return []
+    if (!cardData || !cardData.entities) {
+      console.error("cardData.entities is undefined or empty.");
+      return [];
+    }
 
-    const ownedCards = userData.entities[userId].ownedCards
+    const ownedCards = Object.values(cardData.entities).flat().filter(Boolean);
+    console.log("Owned Cards:", ownedCards);
+        
 
     const cardCounts = {
       monster: 0,
       spell: 0,
       trap: 0,
     }
-
+    
     ownedCards.forEach((card) => {
-      const cardType = card.type ? card.type.toLowerCase() : ""
+      const cardType = card.type?.toLowerCase() || "";
+      const amount = card.ownedamount || 1
 
       if (cardType.includes("monster")) {
-        cardCounts.monster++
+        cardCounts.monster += amount;
       } else if (cardType.includes("spell")) {
-        cardCounts.spell++
+        cardCounts.spell += amount;
       } else if (cardType.includes("trap")) {
-        cardCounts.trap++
+        cardCounts.trap += amount;
       }
     })
 
-    console.log("Card Counts:", cardCounts)
+    console.log("Card Data:", cardData);
+
+
 
     return [
       { cardType: "Monster", count: cardCounts.monster, fill: chartConfig.monster.color },
       { cardType: "Spell", count: cardCounts.spell, fill: chartConfig.spell.color },
       { cardType: "Trap", count: cardCounts.trap, fill: chartConfig.trap.color },
     ]
-  }, [userData, userId])
-
-  if (isLoading) return <div>Loading chart data...</div>
-  if (isError) return <div>Error loading chart data.</div>
+  }, [cardData, userId])
 
   const totalCards = React.useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.count, 0)

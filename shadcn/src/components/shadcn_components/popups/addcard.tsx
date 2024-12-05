@@ -10,7 +10,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"
 import { useAddNewOwnedCardMutation } from '../../../features/api-slices/ownedCardapislice';
 
@@ -60,32 +60,27 @@ export const ComponentCardSetPopup: React.FC<ComponentCardSetPopupProps> = ({
     const handleAddOwnedCardClick = async (set: CardSet, index: number) => {
         if (selectedCardData) {
             const cardToPost = {
-                ownedCards: [
-                    {
-                        card_name: selectedCardData.name,
-                        image_url: selectedCardData.card_images?.[0]?.image_url || 'fallback-image-url',
-                        ownedprop: 'True',
-                        ownedamount: 1,
-                        type: selectedCardData.type,
-                        race: selectedCardData.race,
-                        attribute: selectedCardData.attribute,
-                        archetype: selectedCardData.archetype,
-                        level: selectedCardData.level,
-                        linkval: selectedCardData.linkval,
-                        scale: selectedCardData.scale,
-                        atk: selectedCardData.atk,
-                        def: selectedCardData.def,
-                        desc: selectedCardData.desc || selectedCardData.pend_desc || selectedCardData.monster_desc,
-                        set_name: set.set_name || 0,
-                        rarity: set.set_rarity || 0,
-                        set_code: set.set_code || 0,
-                        price: set.set_price || 0,
-                    },
-                ],
+                card_name: selectedCardData.name,
+                image_url: selectedCardData.card_images?.[0]?.image_url || 'fallback-image-url',
+                ownedprop: 'True',
+                ownedamount: 1,
+                type: selectedCardData.type,
+                race: selectedCardData.race,
+                attribute: selectedCardData.attribute,
+                archetype: selectedCardData.archetype,
+                level: selectedCardData.level,
+                linkval: selectedCardData.linkval,
+                scale: selectedCardData.scale,
+                atk: selectedCardData.atk,
+                def: selectedCardData.def,
+                desc: selectedCardData.desc || selectedCardData.pend_desc || selectedCardData.monster_desc,
+                set_name: set.set_name || 0,
+                rarity: set.set_rarity || 0,
+                set_code: set.set_code || 0,
+                price: set.set_price || 0,
             };
             try {
                 await addNewOwnedCard({ id: userId, CardData: cardToPost }).unwrap();
-                console.log("added", cardToPost)
                 setCardMessages(prev => ({...prev, [index]: "Card successfully added to Collection!"}));
             } catch (error) {
                 setCardMessages(prev => ({...prev, [index]: "Error adding Card to Collection."}));

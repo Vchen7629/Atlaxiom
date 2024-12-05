@@ -80,7 +80,6 @@ const UserOwnedCardPage = () => {
     refetch
   } = useGetOwnedCardsQuery(userId);
 
-
   const cardsToDisplay = Object.values(ownedCards?.entities || {}).flat();
 
   const filteredCards = cardsToDisplay.filter((card) => {
@@ -119,9 +118,20 @@ const UserOwnedCardPage = () => {
       console.log("all data", allCards)
       console.log("Card rarity data", uniqueRarity)
 
-      setMonsterCount(allCards.filter(card => card.type?.toLowerCase().includes('monster')).length);
-      setSpellCount(allCards.filter(card => card.type?.toLowerCase().includes('spell')).length);
-      setTrapCount(allCards.filter(card => card.type?.toLowerCase().includes('trap')).length);
+      const monsterCount = allCards
+        .filter(card => card.type?.toLowerCase().includes('monster'))
+        .reduce((total, card) => total + (card.ownedamount || 0), 0); 
+      setMonsterCount(monsterCount);
+      
+      const spellCount = allCards
+        .filter(card => card.type?.toLowerCase().includes('spell'))
+        .reduce((total, card) => total + (card.ownedamount || 0), 0); 
+      setSpellCount(spellCount);
+      
+      const trapCount = allCards
+        .filter(card => card.type?.toLowerCase().includes('trap'))
+        .reduce((total, card) => total + (card.ownedamount || 0), 0);
+      setTrapCount(trapCount);
 
     }
   }, [ownedCards]);
