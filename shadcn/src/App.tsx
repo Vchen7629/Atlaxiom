@@ -8,9 +8,9 @@ import SearchResults from './features/pages/searchpage/searchresults.jsx';
 import StayLoggedIn from './features/auth/stayloggedin.jsx';
 import Prefetch from './features/auth/Prefetch.jsx';
 import UserOwnedCardPage from './features/pages/my-cards/ownedCardPage.jsx';
-import MyDeck from './features/pages/mydeckpage/my-deck.jsx';
-import CreateNewDeckForm from './features/pages/mydeckpage/new-deck-creation-form.jsx';
-import Deckview from './features/pages/mydeckpage/My-deck-Display.jsx';
+import MyDeck from './features/pages/mydeckpage/deckmanagerhomepage.jsx';
+import DeckBuilderPage from './features/pages/mydeckpage/deckbuilderpage.jsx';
+import Deckview from './features/pages/mydeckpage/owneddeckdisplaycomponent.jsx';
 import Profilepage from './features/pages/profilepage/Profilepage.jsx';
 import { ThemeProvider } from "./components/shadcn_components/darklightmode/theme-provider.js"
 
@@ -33,9 +33,8 @@ function App() {
             <Route path="/loggedin" element={<HomePage/>}/>
             <Route path="searchloggedin" element={<SearchBar/>} />
             <Route path="getcards" element={<UserOwnedCardPage/>}/>
-            <Route path="mydeckhomepage" element={<MyDeck/>}/>
-            <Route path="newDeck" element={<CreateNewDeckForm/>}/>
-            <Route path="modifyDeck" element={<Deckview/>}/>         
+            <Route path="deckmanager" element={<MyDeck/>}/>
+            <Route path="modifyDeck" element={<DeckBuilderPage/>}/>         
             <Route path="profile" element={<Profilepage />}/>
           </Route>
         </Route>

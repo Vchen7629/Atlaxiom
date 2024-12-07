@@ -12,6 +12,7 @@ export default {
   			'radial-gold': 'radial-gradient(ellipse, #3C3105 20%, #000000 80%)',
   			'custom-radial': 'radial-gradient(circle, #d1d5db, #374151, #000000)',
         	'linear-radient': 'linear-gradient(to left, #0e0d0d79, #333333)',
+			'deckpage': "linear-gradient(45deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%)"
   		},
   		backgroundSize: {
         	'homepage-radial-gold':  '100px 150px',

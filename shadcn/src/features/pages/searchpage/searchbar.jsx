@@ -23,6 +23,7 @@ const SearchBar = () => {
   const [selectedCardData, setSelectedCardData] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [expandStatus, setExpandStatus] = useState(true);
+  const [filterActive, setFilterActive] = useState(false);
 
 
   const [listView, setListView] = useState(true);
@@ -155,6 +156,11 @@ const SearchBar = () => {
     setClickedOnCard(false);
   };
 
+  const handleFilterClick = () => {
+    setExpandStatus(!expandStatus)
+    setFilterActive(!filterActive)
+  }
+
   const filterProps = {
     setListView,
     listView,
@@ -195,7 +201,7 @@ const SearchBar = () => {
                         )}
                       </div>
                     </div>
-                    <button className="h-[40px] ml-4 w-[5vw] bg-[hsl(var(--filterbutton))] rounded-xl " onClick={() => setExpandStatus(!expandStatus)}>Filter Card</button>
+                    <button className={`h-[40px] ml-4 w-[5vw] rounded-xl ${filterActive ? "bg-[hsl(var(--filterbutton))]" : "bg-[hsl(var(--background3))]"}`}  onClick={handleFilterClick}>Filter Card</button>
                     <div className="flex absolute w-20 bg-footer rounded-xl right-0 mr-20">
                       <GridListViewComponent filterProps={filterProps}/>
                     </div>
