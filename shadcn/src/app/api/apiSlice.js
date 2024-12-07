@@ -24,6 +24,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
         // send refresh token to get new access token
         const refreshResult = await baseQuery('/auth/refresh', api, extraOptions)
 
+
         if (refreshResult?.data) {
             //store the new token
             api.dispatch(setCredentials({ ...refreshResult.data}))

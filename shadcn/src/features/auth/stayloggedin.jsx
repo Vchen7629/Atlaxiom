@@ -1,10 +1,11 @@
-import { Link, Outlet } from "react-router-dom"
+import { Link, Outlet, useNavigate } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
 import { useRefreshMutation } from "./authApiSlice"
 import { useSelector } from "react-redux"
 import { selectCurrentToken } from "./authSlice"
 
 const StayLoggedIn = () => {
+    const navigate = useNavigate()
 
     const token = useSelector(selectCurrentToken)
     const effectRan = useRef(false)
@@ -40,14 +41,9 @@ const StayLoggedIn = () => {
     }, [])
 
     let content 
-    if (isLoading) {
-        content = <p>Loading...</p>
-    } else if (isError) {
+    if (isError) {
         content = (
-            <p className="errmsg">
-                {error.data?.message}
-                <Link to="/login">Please Login agains</Link>
-            </p>
+            navigate("/login")
         )
     } else if (isSuccess && TrueSuccess) {
         content=<Outlet/>

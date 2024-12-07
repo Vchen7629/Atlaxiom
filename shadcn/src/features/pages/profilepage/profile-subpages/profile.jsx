@@ -4,6 +4,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 import { useUpdateUserMutation, useGetSpecificUserQuery } from '../../../api-slices/usersApiSlice';
 import { isEmailValid, isUsernameValid } from '../../../auth/UserDataValidation';
+import { useCreateNewDeckMutation } from '../../../api-slices/decksapislice';
 
 const ProfileContent = ({ user }) => {
   const userId = useSelector((state) => state.auth.userId);
@@ -82,6 +83,7 @@ const ProfileContent = ({ user }) => {
         id: user.id, 
         userData: { username: updateusername, email },
       });
+
 
       setUpdateUsername('');
       refetchUser();

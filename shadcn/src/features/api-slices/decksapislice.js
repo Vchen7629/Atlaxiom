@@ -8,15 +8,17 @@ const initialState = DeckAdapter.getInitialState()
 export const deckApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         createNewDeck: builder.mutation({
-            query: ({ id, DeckData }) => ({
-                url: `/deck/${id}`,
+            query: (data) => ({
+                url: '/deck',
                 method: 'POST',
-                body: DeckData,
+                body: data,
+                
             }),
             invalidatesTags: (result, error, arg) => [
                 { type: 'Deck', id: arg.id }
             ]
         }),
+        
 
         getAllOwnedDecks: builder.query({
             query: (id) => `/deck/${id}`,
@@ -37,9 +39,12 @@ export const deckApiSlice = apiSlice.injectEndpoints({
             }
         }),
 
-        getSpecificOwnedDeck: builder.query({
-            query: (id) => `/deck/specific/${id}`,
-            method: "GET",
+        getSpecificOwnedDeck: builder.mutation({
+            query: ({ id, DeckData }) => ({
+                url: `/deck/specific/${id}`,
+                method: "POST",
+                body: DeckData
+            }),
             validateStatus: (response, result) => {
                 return response.status === 200 && !result.isError
             },
@@ -205,7 +210,8 @@ export const deckApiSlice = apiSlice.injectEndpoints({
 export const {
     useGetAllOwnedDecksQuery,
     useCreateNewDeckMutation,
-    useGetSpecificOwnedDeckQuery,
+    sexualmutation,
+    useGetSpecificOwnedDeckMutation,
     useAddNewCardtoMainDeckMutation,
     useAddNewCardtoExtraDeckMutation,
     useAddNewCardtoSideDeckMutation,

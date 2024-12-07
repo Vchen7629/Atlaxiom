@@ -1,12 +1,15 @@
 const express = require("express")
 const router = express.Router()
 const deckController = require("../controllers/deckController")
-//const verifyJWT = require('../middleware/verifyJWT')
+/*const verifyJWT = require('../middleware/verifyJWT')
 
-//router.use(verifyJWT)
+router.use(verifyJWT)*/
+
+router.route("/")
+    .post(deckController.createNewDeck)
+
 
 router.route("/:id")
-    .post(deckController.createNewDeck)
     .get(deckController.getAllDecksforUser)
     .delete(deckController.DeleteDeck)
 
@@ -41,6 +44,6 @@ router.route("/sidedeck/decrease/:id")
     .patch(deckController.decreaseCardAmountinSideDeck)
     
 router.route("/specific/:id")
-    .get(deckController.getSpecificDeckforUser)
+    .post(deckController.getSpecificDeckforUser)
 
 module.exports = router;
