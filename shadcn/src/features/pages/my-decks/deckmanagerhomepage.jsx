@@ -6,10 +6,10 @@ import Header from "../../../components/header/header"
 import { useGetSpecificUserQuery } from '../../api-slices/usersApiSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
-import DeckDisplay from './owneddeckdisplaycomponent';
+import DeckDisplay from './components/owneddeckdisplaycomponent';
 import GridListViewComponent from '../../../components/searchbar/grid_or_list_view';
 import { useCreateNewDeckMutation } from '../../api-slices/decksapislice';
-import CreateNewDeckComponent from './CreateNewDeckButton';
+import CreateNewDeckComponent from './components/CreateNewDeckButton';
 
 
 const MyDeck = () => {

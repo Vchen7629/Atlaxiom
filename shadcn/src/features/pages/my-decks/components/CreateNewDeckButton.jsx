@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useCreateNewDeckMutation } from '../../api-slices/decksapislice';
-import "./styling/deck-creation.css"
+import { useCreateNewDeckMutation } from '../../../api-slices/decksapislice';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useAddNewUserMutation, useGetSpecificUserQuery } from '../../api-slices/usersApiSlice';
-
 
 const CreateNewDeckComponent = ({ userId }) => {
 

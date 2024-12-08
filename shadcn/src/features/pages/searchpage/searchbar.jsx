@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback} from 'react';
-import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars,  faGripHorizontal, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 import './styling/searchbar.css';

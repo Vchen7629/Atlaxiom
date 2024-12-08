@@ -1,19 +1,15 @@
 import React, { useEffect, useState} from 'react';
 import Header from '../../../components/header/header';
 import Footer from '../../../components/footer/Footer';
-import "./styling/deck-creation.css"
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useGetSpecificOwnedDeckMutation } from '../../api-slices/decksapislice';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import DeckBuilderPageSidebarComponent from './components/deckbuilderpagesidebar';
 import GridListViewComponent from '../../../components/searchbar/grid_or_list_view';
 
 const DeckBuilderPage = () => {
     const location = useLocation();
     const { userId, deckId } = location.state || {};
-    const navigate = useNavigate()
     const [getSpecificDeck, { data: deckData, error, isLoading }] = useGetSpecificOwnedDeckMutation();
-    const [cardName, setCardName] = useState('');
     const [listView, setListView] = useState(true);
     const [galleryView, setGalleryView] = useState(false);
 
@@ -26,30 +22,21 @@ const DeckBuilderPage = () => {
 
     const deck = deckData?.entities?.undefined?.[0];
 
-    const handleInputChange = (e) => {
-        const inputValue = e.target.value;
-        setCardName(inputValue);
-    };
-
-    const handleClearClick = () => {
-        setCardName('');
-    };
-
     const filterProps = {
         setListView,
         listView,
         setGalleryView,
         galleryView,
-      };
+    }
 
     return (
         <>  
         <Header/>
-            <main className="flex w-full min-h-[100vh] bg-[hsl(var(--background1))]">           
+            <main className="flex w-full min-h-[110vh] bg-[hsl(var(--background1))]">           
                 {!isLoading && deckData && (
                     <>
                     <section className="flex flex-col w-[80vw] pt-[76px]">
-                        <header className="flex justify-between items-center p-5 w-full h-[15vh] bg-gradient-to-t from-[hsl(var(--homepagegradient1))] to-[hsl(var(--homepagegradient3))]">
+                        <header className="flex justify-between items-center p-5 w-full h-[13vh] bg-gradient-to-t from-[hsl(var(--homepagegradient1))] to-[hsl(var(--homepagegradient3))]">
                             <section className="flex flex-col h-full justify-between">
                                 <div className='text-3xl font-black text-[hsl(var(--text))]'>{deck?.deck_name}</div>
                                 <div>Created On: {deck?.createdOn}</div>
@@ -61,11 +48,16 @@ const DeckBuilderPage = () => {
                                 </button>
                             </section>
                         </header>
-                        <body className="flex flex-col h-[85vh] bg-transparent">
+                        <main className="flex flex-col h-[87vh] bg-transparent">
                             <section className="flex flex-col justify-between h-1/2 w-full  p-4">
-                                <header className="flex w-full px-[3vw] justify-between text-[hsl(var(--text))]">
+                                <header className="flex w-full py-2 pl-[3vw] justify-between text-[hsl(var(--text))]">
                                     <div className="font-black">Main Deck</div>
-                                    <div className="font-bold">Total Main Deck Cards: {deck?.total_cards_main_deck}</div>
+                                    <div className="flex h-full items-center space-x-4">
+                                        <div className="font-bold">Total Main Deck Cards: {deck?.total_cards_main_deck}</div>
+                                        <div className='flex w-20 bg-footer rounded-xl'>
+                                            <GridListViewComponent filterProps={filterProps}/>
+                                        </div>
+                                    </div>
                                 </header>
                                 <div className="bg-deckpage w-full h-[90%] rounded-2xl"></div>
                             </section>
@@ -83,40 +75,10 @@ const DeckBuilderPage = () => {
                                 </header>
                                 <div className="bg-deckpage w-full h-[90%] rounded-2xl"></div>
                             </section>
-                        </body>
+                        </main>
                     </section>
-                    <section className="flex flex-col w-[20vw] pt-[76px] px-4 justify-between">
-                        <header className="flex flex-col w-full h-[15%] pt-4 space-y-2">
-                            <div className="flex justify-between items-center mb-2">
-                                <div className="space-x-2">
-                                    <button className="px-2 py-1 rounded bg-[hsl(var(--background3))]">All cards</button>
-                                    <button className="px-2 py-1 rounded bg-[hsl(var(--background3))]">Owned Cards</button>
-                                </div>
-                                <div className="flex w-20 bg-footer rounded-xl">
-                                    <GridListViewComponent filterProps={filterProps}/>
-                                </div>
-                            </div>
-                            <div className="flex w-[15vw] h-[40px] pl-2 relative bg-gray-600 justify-start text-gold rounded-lg">                      
-                                <div className="flex items-center w-full">
-                                    <FontAwesomeIcon icon={faSearch} className="mr-2" />
-                                    <input
-                                        className="bg-gray-600 rounded-lg w-full h-full text-xl text-white focus:outline-none"
-                                        type="text"
-                                        value={cardName}
-                                        onChange={handleInputChange}
-                                        placeholder="Enter Card Name"
-                                    />
-                                    {cardName && (
-                                        <button className="cursor-pointer mr-[25px]" onClick={handleClearClick}>
-                                            <FontAwesomeIcon icon={faTimes} className="fa-lg" />
-                                        </button>
-                                    )}
-                                </div>
-                            </div>
-                        </header>
-                        <body className="flex w-full h-[85%] bg-deckpage rounded-2xl mb-4">
-
-                        </body>
+                    <section className="flex flex-col max-h-[110vh] w-[20vw] pt-[76px] px-4 justify-between">
+                        <DeckBuilderPageSidebarComponent userId={userId}/>
                     </section>
                     </>
                 )}
