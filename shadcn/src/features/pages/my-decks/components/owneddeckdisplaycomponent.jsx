@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useGetAllOwnedDecksQuery, useGetSpecificOwnedDeckMutation, useDeleteDeckMutation } from '../../api-slices/decksapislice';
-
-import "./styling/view-decks.css"
+import { useGetAllOwnedDecksQuery, useGetSpecificOwnedDeckMutation, useDeleteDeckMutation } from '../../../api-slices/decksapislice';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy, faStar, faTrash } from '@fortawesome/free-solid-svg-icons';

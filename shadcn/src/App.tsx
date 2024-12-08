@@ -8,9 +8,9 @@ import SearchResults from './features/pages/searchpage/searchresults.jsx';
 import StayLoggedIn from './features/auth/stayloggedin.jsx';
 import Prefetch from './features/auth/Prefetch.jsx';
 import UserOwnedCardPage from './features/pages/my-cards/ownedCardPage.jsx';
-import MyDeck from './features/pages/mydeckpage/deckmanagerhomepage.jsx';
-import DeckBuilderPage from './features/pages/mydeckpage/deckbuilderpage.jsx';
-import Deckview from './features/pages/mydeckpage/owneddeckdisplaycomponent.jsx';
+import MyDeck from './features/pages/my-decks/deckmanagerhomepage.jsx';
+import DeckBuilderPage from './features/pages/my-decks/deckbuilderpage.jsx';
+import Deckview from './features/pages/my-decks/components/owneddeckdisplaycomponent.jsx';
 import Profilepage from './features/pages/profilepage/Profilepage.jsx';
 import { ThemeProvider } from "./components/shadcn_components/darklightmode/theme-provider.js"
 
