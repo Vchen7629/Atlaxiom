@@ -58,7 +58,7 @@ export function AttributeDropDownComponent() {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          variant="outline"
+          variant="cardcollection"
           role="combobox"
           aria-expanded={open}
           className="w-[15vw] bg-transparent border-transparent hover:text-gold hover:bg-transparent justify-between"

@@ -1,8 +1,8 @@
-import { ParticlesBackgroundAnimComponent } from "./homepage_anim"
+import { ParticlesBackgroundAnimComponent } from "./homepage_anim.tsx"
 
 const HomePage = () => {
     return (
-        <ParticlesBackgroundAnimComponent className="flex flex-col bg-radial-gray min-h-[100vh] justify-between"/>
+        <ParticlesBackgroundAnimComponent/>
     )
 }
 

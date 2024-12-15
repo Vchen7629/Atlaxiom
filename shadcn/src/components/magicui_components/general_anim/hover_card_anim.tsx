@@ -1,5 +1,4 @@
 import { useTheme } from "next-themes";
- 
 import { MagicCard } from "../../ui/magic-card";
 
  

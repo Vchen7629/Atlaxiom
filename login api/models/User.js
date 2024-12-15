@@ -15,6 +15,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    lastUsernameUpdated: {
+        type: String,
+        default: null
+    },
+    lastCardUpdated: {
+        type: String,
+        default: null
+    },
     lastUpdated: {
         type: String,
         default: null

@@ -1,34 +1,33 @@
-import Footer from "../../../components/footer/Footer"
-import Header from "../../../components/header/header"
+import Footer from "../../../components/footer/Footer.tsx"
+import Header from "../../../components/header/header.tsx"
 import { useRef, useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { setCredentials } from "../../auth/authSlice"
-import { useLoginMutation } from "../../auth/authApiSlice"
+import { setCredentials } from "../../auth/authSlice.ts"
+import { useLoginMutation } from "../../auth/authApiSlice.ts"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGear, faUser } from "@fortawesome/free-solid-svg-icons"
-
-
-
+import { LoginError } from "./logintypes.ts"
 
 const LoginPage = () => {
-    const userRef = useRef()
-    const errRef = useRef()
-    const [username, setUsername] = useState('')
-    const [usernameError, setUsernameError] = useState('');
-    const [password, setPassword] = useState('')
-    const [passwordError, setPasswordError] = useState('');
-    const [errMsg, setErrMsg] = useState('')
+    const userRef = useRef<HTMLInputElement>(null)
+    const [username, setUsername] = useState<string | null>('')
+    const [usernameError, setUsernameError] = useState<string | null>('');
+    const [password, setPassword] = useState<string | null>('')
+    const [passwordError, setPasswordError] = useState<string | null>('');
+    const [errMsg, setErrMsg] = useState<string | null>('')
     const [login] = useLoginMutation()
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const handleSignUpClick = () => {
+    /*const handleSignUpClick = () => {
         navigate('/signup')
-    }
+    }*/
 
     useEffect(() => { //code so that username field is focused on page init
-        userRef.current.focus()
+        if (userRef.current) {
+            userRef.current.focus()
+        }
     }, []) 
 
     useEffect(() => {
@@ -36,17 +35,17 @@ const LoginPage = () => {
     }, [username, password])
 
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         let hasError = false;
 
-        if (username.trim() === '') {
+        if (!username ||username.trim() === '') {
             setUsernameError('Please enter a username');
             hasError = true;
         }
 
-        if (password.trim() === '') {
+        if (!password || password.trim() === '') {
             setPasswordError('Please enter a password');
             hasError = true;
         }
@@ -57,32 +56,31 @@ const LoginPage = () => {
 
         try {
             const { accessToken, userId } = await login({ username, password }).unwrap();
-            dispatch(setCredentials({ accessToken, userId }));
+            dispatch(setCredentials({ accessToken, userId, username }));
             setUsername('');
             setPassword('');
             navigate("/profile");
-        } catch (err) {
-            console.error('Login Error:', err);
-            if (!err.status) {
+        } catch (err: unknown) {
+            const error = err as LoginError;
+            if (!error.status) {
                 setErrMsg("No Server Response")
-            } else if (err.status === 401) {
+            } else if (error.status === 401) {
                 setErrMsg("Invalid Username or Password")
             } else {
-                setErrMsg(err.data?.message);
-            }
-            if (errRef.current) {
-                errRef.current.focus();
+                setErrMsg(error.data?.message || "an error has occured");
             }
         }
     }
     
-    const handleUserInput = (e: React.FormEvent) => {
-        setUsername(e.target.value)
+    const handleUserInput = (e: React.FormEvent<HTMLInputElement>) => {
+        const target = e.target as HTMLInputElement
+        setUsername(target.value)
         setUsernameError('')
     }
 
-    const handlePwdInput = (e: React.FormEvent) => {
-        setPassword(e.target.value)
+    const handlePwdInput = (e: React.FormEvent<HTMLInputElement>) => {
+        const target = e.target as HTMLInputElement
+        setPassword(target.value)
         setPasswordError('')
     }
 
@@ -99,9 +97,9 @@ const LoginPage = () => {
                             <header className="mt-[1vh] mb-3 text-4xl text-white font-black">Welcome Back</header>
                             <div className="flex text-lg mb-[1vh] text-gray-500">
                                 <div className="mr-2">Don't have an account yet? </div>
-                                <button className="text-white font-light" onClick={handleSignUpClick}>
+                                {/*<button className="text-white font-light" onClick={handleSignUpClick}>
                                     Sign Up
-                                </button>
+                                </button>*/}
                             </div>
                             <div className="relative flex flex-col items-center w-[85%]">
                                 <div className="w-full h-20 flex flex-col items-center ">
@@ -110,7 +108,7 @@ const LoginPage = () => {
                                         placeholder="Username"
                                         id="username"
                                         ref={userRef}
-                                        value={username}
+                                        value={username ?? ''}
                                         onChange={handleUserInput}
                                         type="text"
                                         autoComplete="off"
@@ -125,7 +123,7 @@ const LoginPage = () => {
                                         className={`w-[93%] h-[50px] bg-blackone shadow-custom text-white px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-gold ${passwordError ? 'border-2 border-red-500' : 'border-none'}`}
                                         placeholder="password"
                                         id="password"
-                                        value={password}
+                                        value={password ?? ''}
                                         onChange={handlePwdInput}
                                         type="password"
                                         required
