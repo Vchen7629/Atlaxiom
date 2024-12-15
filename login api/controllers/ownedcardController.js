@@ -48,7 +48,7 @@ const createOwnedCard = asyncHandler(async (req, res) => {
     await newCard.save();
     user.totalOwnedCards = (user.totalOwnedCards || 0) + 1;
     user.lastAdded = card_name;
-    user.lastUpdated = `${formattedDate} ${now.toTimeString().split(' ')[0]}`;
+    user.lastCardUpdated = `${formattedDate} ${formattedTime}`;
     await user.save();
 
     res.status(201).json({
@@ -103,9 +103,14 @@ const IncreaseCard = asyncHandler(async (req, res) => {
     return res.status(404).json({ message: 'Card not found' });
   }
 
+  const now = new Date();
+  const formattedDate = now.toISOString().split('T')[0];
+  const formattedTime = now.toTimeString().split(' ')[0];
+
   card.ownedamount = Number(card.ownedamount) + Number(increaseOwnedAmount) || 1;
 
   user.totalOwnedCards = Number(user.totalOwnedCards) + Number(increaseOwnedAmount) || 1;
+  user.lastCardUpdated = `${formattedDate} ${formattedTime}`;
 
   await user.save();
   await card.save();
@@ -132,9 +137,14 @@ const DecreaseCard = asyncHandler(async (req, res) => {
     return res.status(404).json({ message: 'Card not found' });
   }
 
+  const now = new Date();
+  const formattedDate = now.toISOString().split('T')[0];
+  const formattedTime = now.toTimeString().split(' ')[0];
+
   card.ownedamount =  Math.max(Number(card.ownedamount) - Number(decreaseOwnedAmount), 1);
 
   user.totalOwnedCards = Number(user.totalOwnedCards) - Number(decreaseOwnedAmount) || 1;
+  user.lastCardUpdated = `${formattedDate} ${formattedTime}`;
 
   await user.save();
   await card.save();
@@ -162,6 +172,10 @@ const deleteOwnedCardByUsername = asyncHandler(async (req, res) => {
     return res.status(404).json({ message: 'Card not found' });
   }
 
+  const now = new Date();
+  const formattedDate = now.toISOString().split('T')[0];
+  const formattedTime = now.toTimeString().split(' ')[0];
+
   const cardToDelete = card;
   const cardAmount = cardToDelete.ownedamount;
 
@@ -169,6 +183,7 @@ const deleteOwnedCardByUsername = asyncHandler(async (req, res) => {
 
   user.totalOwnedCards = (Number(user.totalOwnedCards) || 0) - cardAmount;
   user.lastDeleted = card_name;
+  user.lastCardUpdated = `${formattedDate} ${formattedTime}`;
   
   await user.save();
 

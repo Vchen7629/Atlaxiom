@@ -132,11 +132,14 @@ export function RarityDropDownComponent() {
           aria-expanded={open}
           className="w-[12vw] h-8 bg-transparent border-transparent text-base justify-between"
         >
-            <div>Rarity:</div>
-            {value && (
+            {value ? (
                 <span className={`flex relative items-center left-2 justify-between w-fit px-2 py-1 bg-gold text-white rounded text-sm`}>
                     {frameworks.find((framework) => framework.value === value)?.label}
                 </span>
+            ): (
+              <span className={`flex relative items-center left-1/5 justify-between w-fit px-2 py-1 bg-transparent text-white rounded text-sm`}>
+                  Select Rarity...
+              </span>
             )}
           <CaretSortIcon className="min-h-6 min-w-6 shrink-0 text-white" />
         </Button>

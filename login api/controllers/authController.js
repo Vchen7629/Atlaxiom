@@ -51,7 +51,7 @@ const login = asyncHandler(async (req, res) => {
     })
 
     // Send accessToken containing username and roles 
-    res.json({ accessToken, userId: foundUser._id })
+    res.json({ accessToken, userId: foundUser._id, username: foundUser.username })
 })
 
 // @desc Refresh
@@ -88,7 +88,7 @@ const refresh = (req, res) => {
 
             console.log("Generated AccessToken with userId:", foundUser._id);
 
-            res.json({ accessToken, userId: foundUser._id })
+            res.json({ accessToken, userId: foundUser._id, username: foundUser.username })
         })
     )
 }

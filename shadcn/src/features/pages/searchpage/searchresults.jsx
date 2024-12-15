@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { ComponentCardSetPopup } from '../../../components/shadcn_components/popups/addcard';
-import { BreadcrumbSearchResult } from './breadcrumb';
+import { ComponentCardSetPopup } from './searchresultcomponents/addcard';
+import { BreadcrumbSearchResult } from './searchresultcomponents/breadcrumb';
 
 
 
