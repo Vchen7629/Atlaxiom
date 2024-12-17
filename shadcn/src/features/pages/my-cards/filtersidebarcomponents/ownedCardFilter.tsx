@@ -1,10 +1,11 @@
-import { AttributeDropDownComponent } from "../../../../components/shadcn_components/dropdown_components/attributedropdown"
-import { ArchetypeDropDownComponent } from "../../../../components/shadcn_components/dropdown_components/archetypedropdown"
-import { SubTypeDropDownComponent } from "../../../../components/shadcn_components/dropdown_components/subtypedrowndown"
-import { CardSetDropDownComponent } from "../../../../components/shadcn_components/dropdown_components/cardsetdropdown"
-import { LevelSliderComponent } from '../../../../components/shadcn_components/sliders/levelslider';
-import MyCardsSearchbarComponent from './searchbar.tsx';
-import { OwnedCardsFilterProps } from "../types/ownedcardfiltertypes";
+import { AttributeDropDownComponent } from "./filterdropdowncomponents/attributedropdown.tsx"
+import { ArchetypeDropDownComponent } from "../../../../components/shadcn_components/dropdown_components/archetypedropdown.tsx"
+import { SubTypeDropDownComponent } from "./filterdropdowncomponents/subtypedrowndown.tsx"
+import { CardSetDropDownComponent } from "./filterdropdowncomponents/cardsetdropdown.tsx"
+import { LevelSliderComponent } from '../../../../components/shadcn_components/sliders/levelslider.tsx';
+import MyCardsSearchbarComponent from '../components/searchbar.tsx';
+import { OwnedCardsFilterProps } from "../types/ownedcardfiltertypes.ts";
+import { RarityDropDownComponent } from "./filterdropdowncomponents/raritydropdown.tsx";
 
 const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
     const {
@@ -29,6 +30,9 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         uniqueSet,
         setFilter,
         setSetFilter,
+        uniqueRarity,
+        rarityFilter,
+        setRarityFilter,
         filterpage,
         setFilterPage,
         statisticspage,
@@ -141,6 +145,10 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
                     <div className="flex h-full w-[7vw] text-sm  items-center font-black text-[hsl(var(--text))]">Card Level:</div>
                     <LevelSliderComponent className="w-[55%]"/>
                     <div className="ml-2">Text</div>
+                </div>
+                <div className="flex mt-[5%] w-full ">
+                    <div className="flex h-full w-[7vw] text-sm items-center font-black text-[hsl(var(--text))]">Rarity:</div>
+                    <RarityDropDownComponent raritys={uniqueRarity} rarityFilter={rarityFilter} setRarityFilter={setRarityFilter}/>
                 </div>
                 <div className="flex mt-[5%] w-full ">
                     <div className="flex h-full w-[7vw] text-sm items-center font-black text-[hsl(var(--text))]">Card Set:</div>

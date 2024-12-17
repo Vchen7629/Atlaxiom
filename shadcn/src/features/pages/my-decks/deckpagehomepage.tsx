@@ -1,22 +1,20 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import Footer from "../../../components/footer/Footer"
-import Header from "../../../components/header/header"
-import { useGetSpecificUserQuery } from '../../api-slices/usersApiSlice';
+import Footer from "../../../components/footer/Footer.tsx"
+import Header from "../../../components/header/header.tsx"
+import { useGetSpecificUserQuery } from '../../api-slices/usersApiSlice.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
-import DeckDisplay from './decksidebarcomponents/owneddeckdisplaycomponent';
-import GridListViewComponent from '../../../components/searchbar/grid_or_list_view';
-import CreateNewDeckComponent from './button/CreateNewDeckButton';
+import DeckDisplay from './homepagecomponents/owneddeckdisplaycomponent.tsx';
+import GridListViewComponent from './homepagecomponents/grid_or_list_view.tsx';
+import CreateNewDeckComponent from './homepagecomponents/CreateNewDeckButton.tsx';
+import { UserIdState } from './types/deckpagetypes.ts';
 
 
-const MyDeck = () => {
-    const userId = useSelector((state) => state.auth.userId);
-    const navigate = useNavigate();
-
+const DeckPageHomepage = () => {
+    const userId = useSelector((state: UserIdState) => state.auth.userId);
     const [deckName, setDeckName] = useState('');
-    const [clickedOnDeck, setClickedOnCard] = useState(false);
+    const [, setClickedOnCard] = useState(false);
 
     const [listView, setListView] = useState(true);
     const [galleryView, setGalleryView] = useState(false);
@@ -27,15 +25,13 @@ const MyDeck = () => {
         refetchOnMountOrArgChange: true,
     });
     
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         setDeckName(inputValue);
     };
 
     const handleClearClick = () => {
         setDeckName('');
-        setError(null);
-        setErrorMessage(null);
         //setSelectedCardData(null);
         //setSelectedSuggestion(null);
         setClickedOnCard(false);
@@ -92,4 +88,4 @@ const MyDeck = () => {
 
 }
 
-export default MyDeck
+export default DeckPageHomepage

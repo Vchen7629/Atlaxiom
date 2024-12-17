@@ -10,64 +10,11 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { useState } from "react";
-import { useLocation } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMinus, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { useIncreaseOwnedCardMutation, useDecreaseOwnedCardMutation, useDeleteOwnedCardMutation, useGetOwnedCardsQuery } from '../../../api-slices/ownedCardapislice.tsx';
 import { Card, filteredCards, SelectedCard } from "../types/ownedcarddetailstypes.ts";
 
 export const GalleryViewCardDisplayComponent: React.FC<filteredCards> = ({ filteredCards }) => {
-    const [increaseOwnedCard] = useIncreaseOwnedCardMutation();
-    const [decreaseOwnedCard] = useDecreaseOwnedCardMutation();
-    const [deleteOwnedCard] = useDeleteOwnedCardMutation();
-    const location = useLocation();
-    const { userId } = location.state || {};
 
     const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null)
-
-    const {refetch} = useGetOwnedCardsQuery(userId);
-
-    const handleIncreaseClick = async (cardName: string) => {
-        try {
-          await increaseOwnedCard({ 
-            id: userId, 
-            CardData: { 
-              card_name: cardName,
-              increaseOwnedAmount: 1 
-            } 
-          });
-          refetch();
-        } catch (err) {
-          console.error('Failed to increase card amount:', err);
-        }
-      };
-    
-      const handleDecreaseClick = async (cardName: string) => {
-        try {
-          await decreaseOwnedCard({ 
-            id: userId, 
-            CardData: { 
-              card_name: cardName,
-              decreaseOwnedAmount: 1 
-            } 
-          });
-          refetch();
-        } catch (err) {
-          console.error('Failed to decrease card amount:', err);
-        }
-      };
-    
-      const handleDeleteCardClick = async (cardName: string) => {
-        try {
-          await deleteOwnedCard({
-            id: userId,
-            CardData: { card_name: cardName }
-          });
-          refetch();
-        } catch (err) {
-          console.error('Failed to delete card:', err);
-        }
-      }
       
     return (
         <AlertDialog>

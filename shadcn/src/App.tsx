@@ -8,8 +8,8 @@ import SearchResults from './features/pages/searchpage/searchresults.jsx';
 import StayLoggedIn from './features/auth/stayloggedin.jsx';
 import Prefetch from './features/auth/Prefetch.jsx';
 import UserOwnedCardPage from './features/pages/my-cards/ownedCardPage.js';
-import MyDeck from './features/pages/my-decks/deckmanagerhomepage.js';
-import DeckBuilderPage from './features/pages/my-decks/deckbuilderpage.js';
+import MyDeck from './features/pages/my-decks/deckpagehomepage.js';
+import DeckBuilderPage from './features/pages/my-decks/editdeckpage.js';
 import Profilepage from './features/pages/profilepage/Profilepage.js';
 import { ThemeProvider } from "./components/shadcn_components/darklightmode/theme-provider.js"
 

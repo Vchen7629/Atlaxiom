@@ -1,35 +1,28 @@
-const CollectionDisplayComponent = ({ CollectionDisplayCompProps }) => {
+import { CollectionDisplayCompProps } from "../types/sidebarcomponenttypes";
+
+const CollectionDisplayComponent = ({ CollectionDisplayCompProps }: CollectionDisplayCompProps) => {
     const {
-        userId,
         listView,
         galleryView,
         collectionListResults,
         collectionCurrentListResults,
         collectionGalleryResults,
         collectionCurrentGalleryResults,
-        collectionCardData,
-        collectionCardsName
     } = CollectionDisplayCompProps
-
-    const allOwnedCards = collectionCardData || [];
-    console.log("Fetched Cards:", collectionCardData);
-    console.log("collectionCurrentListResults:", collectionCurrentListResults);
-    console.log("collectionCardData:", collectionCardData);
-
 
     return (
         <>
         {listView && (
             <div className="flex w-full h-full">
-                    {collectionCardData.length > 0 ? (
+                    {collectionListResults.length > 0 ? (
                         <div>
                             {collectionCurrentListResults.map((result) => (
-                                <item key={result._id} className="flex h-[12.4%] w-full">
+                                <div key={result._id} className="flex h-[12.4%] w-full">
                                     <img src={result.image_url} className="h-full object-contain" />
                                     <div className="flex flex-col ml-2">
                                         <div className="font-black">{result.card_name}</div>
                                     </div>
-                                </item>
+                                </div>
                             ))}
                         </div>
                 ) : (
@@ -48,9 +41,9 @@ const CollectionDisplayComponent = ({ CollectionDisplayCompProps }) => {
                         style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                     >
                         {collectionCurrentGalleryResults.map((result) => (
-                            <item key={result._id} className="flex h-full w-full">
+                            <div key={result._id} className="flex h-full w-full">
                                 <img src={result.image_url} className='h-full object-contain'/>
-                            </item>
+                            </div>
                         ))}
                     </div>
                 ) : (

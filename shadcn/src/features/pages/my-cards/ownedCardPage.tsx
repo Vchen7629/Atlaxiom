@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faChevronUp, faCircleXmark, faEllipsisVertical, faFilter, faPlus, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { useGetOwnedCardsQuery } from '../../api-slices/ownedCardapislice';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { faEllipsisVertical, faFilter, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { useGetOwnedCardsQuery } from '../../api-slices/ownedCardapislice.tsx';
+import { useLocation } from 'react-router-dom';
 import Header from '../../../components/header/header';
 import Footer from '../../../components/footer/Footer';
 import { ListViewCardDisplayComponent } from "./carddisplaycomponents/listviewcarddisplaycomponent"
-import FilterOwnedCards from './components/ownedCardFilter';
-import CardCollectionStatistics from './components/ownedCardStatistics';
+import FilterOwnedCards from './filtersidebarcomponents/ownedCardFilter.tsx';
+import CardCollectionStatistics from './filtersidebarcomponents/ownedCardStatistics.tsx';
 import MyCardsSearchbarComponent from './components/searchbar';
 import { Card } from './types/ownedcardpagetypes';
 import GridListViewComponent from './components/grid_or_list_view';
@@ -16,9 +16,8 @@ import { GalleryViewCardDisplayComponent } from './carddisplaycomponents/gallery
 
 const UserOwnedCardPage = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const { userId } = location.state || {};
-  const [lastFetchedTimestamp, setLastFetchedTimestamp] = useState(null);
+  //const [lastFetchedTimestamp, setLastFetchedTimestamp] = useState(null);
   
   const [searchTerm, setSearchTerm] = useState<string>('');
 
@@ -46,12 +45,15 @@ const UserOwnedCardPage = () => {
   const [setFilter, setSetFilter] = useState<string>('');
 
   const [uniqueRarity, setUniqueRarity] = useState<string[]>([]);
+  const [rarityFilter, setRarityFilter] = useState<string>('');
 
   const [listView, setListView] = useState<boolean>(true);
 
   const [galleryView, setGalleryView] = useState<boolean>(false);
 
   const filterProps = {
+    searchTerm,
+    setSearchTerm,
     setCardTypeFilter,
     isMonsterFilterActive, 
     monsterCount, 
@@ -71,6 +73,9 @@ const UserOwnedCardPage = () => {
     uniqueSet,
     setFilter,
     setSetFilter,
+    uniqueRarity,
+    rarityFilter,
+    setRarityFilter,
     setListView,
     listView,
     setGalleryView,
@@ -81,6 +86,13 @@ const UserOwnedCardPage = () => {
     setStatisticsPage,
     expandStatus,
   };
+
+  const gridlistviewprops = {
+    setListView,
+    setGalleryView,
+    listView,
+    galleryView
+  }
 
   const searchbarprops = {
     searchTerm,
@@ -101,8 +113,9 @@ const UserOwnedCardPage = () => {
     const matchesSubTypeFilter = subTypeFilter ? card.race?.toLowerCase().trim() === subTypeFilter.toLowerCase().trim() : true
     const matchesArcheTypeFilter = archeTypeFilter ? card.archetype?.toLowerCase().trim() === archeTypeFilter.toLowerCase().trim() : true
     const matchesSetFilter = setFilter ? card.set_name?.toLowerCase().trim() === setFilter.toLowerCase().trim() : true
+    const matchesRarityFilter = rarityFilter ? card.rarity?.toLowerCase().trim() === rarityFilter.toLowerCase().trim() : true
 
-    return !!matchesSearchTerm && !!matchesTypeFilter && !!matchesSubTypeFilter && !!matchesArcheTypeFilter && !!matchesSetFilter;
+    return !!matchesSearchTerm && !!matchesTypeFilter && !!matchesSubTypeFilter && !!matchesArcheTypeFilter && !!matchesSetFilter && !!matchesRarityFilter;
   });
 
   useEffect(() => {
@@ -145,10 +158,6 @@ const UserOwnedCardPage = () => {
     }
   }, [ownedCards]);
 
-  const handleAddtoCollection = () => {
-    navigate('/searchloggedin')
-  }
-
   const handleClickFilter = () => {
     setExpandStatus(!expandStatus)
     setFilterActive(!filterActive)
@@ -179,7 +188,7 @@ const UserOwnedCardPage = () => {
                       <FontAwesomeIcon icon={faEllipsisVertical} className="mr-2 text-gray-400"/>More
                     </button>
                     <div className="flex w-20 h-11 bg-footer rounded-xl absolute right-0">
-                      <GridListViewComponent filterProps={filterProps}/>
+                      <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                     </div>
               </section>
               
@@ -203,7 +212,7 @@ const UserOwnedCardPage = () => {
                           <ListViewCardDisplayComponent filteredCards={filteredCards}/>                                           
                         </main>
                         
-                        <div className={`flex flex-col ${expandStatus ? "w-[24%] border-gray-600 border-2" : "w-0"} items-center bg-[hsl(var(--background4))] rounded-3xl pt-8`}>
+                        <div className={`flex flex-col ${expandStatus ? "w-[24%] border-gray-600 border-2" : "w-0"} items-center bg-[hsl(var(--background4))] rounded-xl pt-8`}>
                             {filterpage && (
                               <FilterOwnedCards filterProps={filterProps}/>
                             )}

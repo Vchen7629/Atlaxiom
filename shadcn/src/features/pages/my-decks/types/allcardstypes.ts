@@ -1,14 +1,6 @@
-export type AllCardsDisplayCompProps = {
-    AllCardsDisplayCompProps: {
-        listView: boolean;
-        galleryView: boolean;
-        allCardsListResults: string[];
-        allCardsGalleryResults: string[];
-        allCardsCurrentListResults: string[];
-        allCardsCurrentGalleryResults: string[];
-        allCardsData: string[];
-    }
-}
+import { Card } from "./sidebarcomponenttypes";
+
+
 
 export type AllCardsSearchbarCompProps = {
     AllCardsSearchBarCompProps: {
@@ -17,20 +9,17 @@ export type AllCardsSearchbarCompProps = {
         allCardsTotalGalleryPages: number;
         resultsPerListPage: number;
         resultsPerGalleryPage: number;
-        allCardsData: string[];
-        setAllCardsData: React.Dispatch<React.SetStateAction<string[]>>;
+        allCardsData: Card[];
+        setAllCardsData: React.Dispatch<React.SetStateAction<Card[]>>;
         allCardsName: string;
         setAllCardsName: React.Dispatch<React.SetStateAction<string>>;
-        allCardsListResults: string[];
-        setAllCardsListResults: React.Dispatch<React.SetStateAction<string[]>>;
-        allCardsGalleryResults: string[];
-        setAllCardsGalleryResults: React.Dispatch<React.SetStateAction<string[]>>;
-        error: string;
-        setError: React.Dispatch<React.SetStateAction<string>>;
-        allCardsCurrentListResults: string[];
-        setAllCardsCurrentListResults: React.Dispatch<React.SetStateAction<string[]>>;
-        allCardsCurrentGalleryResults: string[];
-        setAllCardsCurrentGalleryResults: React.Dispatch<React.SetStateAction<string[]>>;
+        allCardsListResults: Card[];
+        setAllCardsListResults: React.Dispatch<React.SetStateAction<Card[]>>;
+        allCardsGalleryResults: Card[];
+        setAllCardsGalleryResults: React.Dispatch<React.SetStateAction<Card[]>>;
+        setError: React.Dispatch<React.SetStateAction<string | null>>;
+        setAllCardsCurrentListResults: React.Dispatch<React.SetStateAction<Card[]>>;
+        setAllCardsCurrentGalleryResults: React.Dispatch<React.SetStateAction<Card[]>>;
         maxResults: number;
         listView: boolean;
         galleryView: boolean;
