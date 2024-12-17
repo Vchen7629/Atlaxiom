@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useGetAllOwnedDecksQuery, useGetSpecificOwnedDeckMutation, useDeleteDeckMutation } from '../../../api-slices/decksapislice';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy, faStar, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Deck, DeckDisplayComponent, DeckError, handleDeckClick } from '../types/homepagecomponentprops';
 
-const DeckDisplay= ({ listView, galleryView, userId, deckName }) => {
+const DeckDisplay= ({ listView, galleryView, userId, deckName }: DeckDisplayComponent) => {
     const navigate = useNavigate();
 
     const {
@@ -24,11 +25,11 @@ const DeckDisplay= ({ listView, galleryView, userId, deckName }) => {
         }
     }, [userId, refetch]);
 
-    const filteredDecks = decksToDisplay.filter(deck =>
+    const filteredDecks = decksToDisplay.filter((deck: Deck) =>
         deck?.deck_name?.toLowerCase().includes(deckName.toLowerCase())
     );
 
-    const handleDeckClick = async (deck) => {
+    const handleDeckClick = async (deck: handleDeckClick) => {
         try {
             const result = await getSpecificDeck({
                 id: userId,
@@ -47,7 +48,7 @@ const DeckDisplay= ({ listView, galleryView, userId, deckName }) => {
         }
     };
 
-    const handleDeleteDeckClick = async(deck) => {
+    const handleDeleteDeckClick = async(deck: handleDeckClick) => {
         try {
             const deldeck = await deleteDeck({
                 id: userId, 
@@ -59,7 +60,8 @@ const DeckDisplay= ({ listView, galleryView, userId, deckName }) => {
                 console.log("deleted deck error")
             }
         } catch (error) {
-            console.error("Error deleting deck:", error.message || error);
+            const err = error as DeckError
+            console.error("Error deleting deck:", err.message || error);
         }
     }
 
@@ -67,7 +69,7 @@ const DeckDisplay= ({ listView, galleryView, userId, deckName }) => {
         <>  
                 {listView && (
                     <main className='flex flex-col w-full'>
-                        {filteredDecks.map((deck) => (
+                        {filteredDecks.map((deck: Deck) => (
                         <>
                             <div 
                                 className="flex  h-[7vh] px-2 justify-between items-center mb-2 hover:bg-[hsl(var(--background5))]" 

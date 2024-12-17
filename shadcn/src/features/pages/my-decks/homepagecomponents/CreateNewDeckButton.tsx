@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
 import { useCreateNewDeckMutation } from '../../../api-slices/decksapislice';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { ErrorResponse, NewDeckButton } from '../types/homepagecomponentprops';
 
-const CreateNewDeckComponent = ({ userId }) => {
+const CreateNewDeckComponent: React.FC<NewDeckButton> = ({ userId }) => {
 
     const navigate = useNavigate()
 
@@ -19,8 +19,8 @@ const CreateNewDeckComponent = ({ userId }) => {
                 console.error("Error: Deck creation failed, missing deck ID.");
             }
         } catch (error) {
-            console.error("Error occurred during addNewDeck:", error);
-            if (error.status === 404 && error.data?.message === "Owned Decks not found for the user") {
+            const err = error as ErrorResponse
+            if (err.status === 404 && err.data?.message === "Owned Decks not found for the user") {
                 alert("No decks found for this user. Please create a new deck.");
             } else {
                 alert("An unexpected error occurred. Please try again.");

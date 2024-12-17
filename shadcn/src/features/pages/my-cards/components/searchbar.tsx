@@ -1,7 +1,7 @@
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTimes, faSearch } from "@fortawesome/free-solid-svg-icons"
-import { searchbarprops } from "../types/searchbartypes"
+import { searchbarprops } from "../types/componenttypes"
 
 const MyCardsSearchbarComponent = ({ searchbarprops }: searchbarprops) => {
     const {

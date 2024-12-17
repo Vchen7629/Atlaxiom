@@ -1,7 +1,6 @@
 import { useEffect, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
-import debounce from 'lodash/debounce';
 import { AllCardsSearchbarCompProps } from "../types/allcardstypes";
 
 
@@ -21,11 +20,8 @@ const AllCardsSearchBarComponent = ({ AllCardsSearchBarCompProps }: AllCardsSear
         setAllCardsListResults,
         allCardsGalleryResults,
         setAllCardsGalleryResults,
-        error,
         setError,
-        allCardsCurrentListResults,
         setAllCardsCurrentListResults,
-        allCardsCurrentGalleryResults,
         setAllCardsCurrentGalleryResults,
         maxResults,
         listView,
@@ -43,14 +39,12 @@ const AllCardsSearchBarComponent = ({ AllCardsSearchBarCompProps }: AllCardsSear
       
             if (response.ok) {
               setAllCardsData(data.data);
-              console.log("prefetch")
             } else {
               setError(`Error: ${data.message} card data`);
               setAllCardsData([]);
             }
         } catch (error) {
             console.error('Error fetching data:', error);
-            setError('Error fetching data. Please try again.');
             setAllCardsData([]);
         }
     };
@@ -60,24 +54,23 @@ const AllCardsSearchBarComponent = ({ AllCardsSearchBarCompProps }: AllCardsSear
     }, []);
 
 
-    const DelayAllCardsSearchResults = useCallback(
-        debounce((inputValue) => {
-            if (!inputValue.trim()) {
-                setAllCardsListResults([]);
-                return;
+    const DelayAllCardsSearchResults = useCallback((inputValue: string) => {
+        if (!inputValue.trim()) {
+            setAllCardsListResults([]);
+            setAllCardsGalleryResults([]);
+            return;
         }
-
-        const normalizedInput = inputValue.toLowerCase().replace(/[-\s]/g, ''); 
+    
+        const normalizedInput = inputValue.toLowerCase().replace(/[-\s]/g, '');
         const filteredSuggestions = allCardsData.filter((card) => {
-            const normalizedCardName = card.name.toLowerCase().replace(/[-\s]/g, ''); 
+            const normalizedCardName = card.name.toLowerCase().replace(/[-\s]/g, '');
             return normalizedCardName.includes(normalizedInput);
         });
-
-        setAllCardsListResults(filteredSuggestions.slice(0, maxResults).map((card) => card.name));
-        setAllCardsGalleryResults(filteredSuggestions.slice(0, maxResults).map((card) => card.name));
-        }, 500),
-        [allCardsData]
-    );
+    
+        setAllCardsListResults(filteredSuggestions.slice(0, maxResults));
+        setAllCardsGalleryResults(filteredSuggestions.slice(0, maxResults));
+    }, [allCardsData, maxResults]);
+    
 
     useEffect(() => {
         DelayAllCardsSearchResults(allCardsName);
@@ -97,7 +90,7 @@ const AllCardsSearchBarComponent = ({ AllCardsSearchBarCompProps }: AllCardsSear
         setAllCardsCurrentGalleryResults(newCurrentGalleryResults);
     }, [allCardsCurrentPage, allCardsGalleryResults, resultsPerGalleryPage])
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         setAllCardsName(inputValue);
         setAllCardsCurrentPage(1);
@@ -109,7 +102,7 @@ const AllCardsSearchBarComponent = ({ AllCardsSearchBarCompProps }: AllCardsSear
         setAllCardsListResults([])
     };
 
-    const handlePageChange = (page) => {
+    const handlePageChange = (page: number) => {
         setAllCardsCurrentPage(page);
     };
 

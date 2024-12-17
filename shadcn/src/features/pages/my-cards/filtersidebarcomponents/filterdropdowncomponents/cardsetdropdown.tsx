@@ -18,12 +18,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-
-type CardSetDropDownProps = {
-  sets: string[]; 
-  setFilter: string; 
-  setSetFilter: (filter: string) => void;
-};
+import { CardSetDropDownProps } from "../../types/dropdowntypes"
  
 export function CardSetDropDownComponent({ sets, setFilter, setSetFilter }: CardSetDropDownProps) {
   const [open, setOpen] = React.useState(false)

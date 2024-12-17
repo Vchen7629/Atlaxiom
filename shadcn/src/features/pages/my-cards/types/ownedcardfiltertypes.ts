@@ -15,12 +15,15 @@ export type OwnedCardsFilterProps = {
         uniqueSubtype: string[];
         uniqueArchtype: string[];
         uniqueSet: string[];
+        uniqueRarity: string[];
         subTypeFilter: string;
         setSubTypeFilter: React.Dispatch<React.SetStateAction<string>>;
         archeTypeFilter: string;
         setArcheTypeFilter: React.Dispatch<React.SetStateAction<string>>;
         setFilter: string;
         setSetFilter: React.Dispatch<React.SetStateAction<string>>;
+        rarityFilter: string;
+        setRarityFilter: React.Dispatch<React.SetStateAction<string>>;
         filterpage: boolean;
         setFilterPage: React.Dispatch<React.SetStateAction<boolean>>;
         statisticspage: boolean;

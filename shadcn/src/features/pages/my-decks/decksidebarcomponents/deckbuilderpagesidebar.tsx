@@ -1,26 +1,26 @@
 import { useState } from 'react';
-import GridListViewComponent from '../../../../components/searchbar/grid_or_list_view';
-import { useGetOwnedCardsQuery } from '../../../api-slices/ownedCardapislice';
+import GridListViewComponent from '../decksidebarcomponents/gridlistviewcomponent';
 import AllCardsSearchResultsDisplayComponent from './allcardsdisplaycomponent';
 import AllCardsSearchBarComponent from '../decksidebarsearchbarcomponents/allcardssearchbarcomponent';
 import CollectionDisplayComponent from './collectiondisplaycomponent';
 import CollectionSearchBarComponent from '../decksidebarsearchbarcomponents/collectionsearchbarcomponent';
+import { Card, UserId } from '../types/sidebarcomponenttypes';
 
 
-const DeckBuilderPageSidebarComponent = ({ userId }) => {
+const DeckBuilderPageSidebarComponent = ({ userId }: UserId) => {
     const maxResults = 99999;
     const [galleryView, setGalleryView] = useState(false);
     const [listView, setListView] = useState(true);
-    const [error, setError] = useState(null);
+    const [, setError] = useState<string | null>(null);
 
     const [allCardsCurrentPage, setAllCardsCurrentPage] = useState(1);
     const [allCardsName, setAllCardsName] = useState('');
-    const [allCardsData, setAllCardsData] = useState([]);
+    const [allCardsData, setAllCardsData] = useState<Card[]>([]);
     const [allCardsView, setAllCardsView] = useState(true);
-    const [allCardsListResults, setAllCardsListResults] = useState([]);
-    const [allCardsCurrentListResults, setAllCardsCurrentListResults] = useState([]);
-    const [allCardsGalleryResults, setAllCardsGalleryResults] = useState([]);
-    const [allCardsCurrentGalleryResults, setAllCardsCurrentGalleryResults] = useState([]);
+    const [allCardsListResults, setAllCardsListResults] = useState<Card[]>([]);
+    const [allCardsCurrentListResults, setAllCardsCurrentListResults] = useState<Card[]>([]);
+    const [allCardsGalleryResults, setAllCardsGalleryResults] = useState<Card[]>([]);
+    const [allCardsCurrentGalleryResults, setAllCardsCurrentGalleryResults] = useState<Card[]>([]);
 
     const [collectionCurrentPage, setCollectionCardsCurrentPage] = useState(1);
     const [collectionCardsName, setCollectionCardsName] = useState('');
@@ -40,9 +40,9 @@ const DeckBuilderPageSidebarComponent = ({ userId }) => {
     const collectionTotalGalleryPage = Math.ceil(collectionGalleryResults.length / resultsPerGalleryPage);
 
 
-    const handlePageChange = (page) => {
+    /*const handlePageChange = (page) => {
         setCurrentPage(page);
-    }
+    }*/
 
     const handleAllCardsView = () => {
         setAllCardsView(true);
@@ -72,15 +72,12 @@ const DeckBuilderPageSidebarComponent = ({ userId }) => {
     }
 
     const CollectionDisplayCompProps = {
-        userId,
         listView,
         galleryView,
         collectionListResults,
         collectionCurrentListResults,
         collectionGalleryResults,
         collectionCurrentGalleryResults,
-        collectionCardData,
-        collectionCardsName,
     }
 
     const AllCardsSearchBarCompProps = {
@@ -92,9 +89,7 @@ const DeckBuilderPageSidebarComponent = ({ userId }) => {
         resultsPerGalleryPage,
         allCardsData,
         setAllCardsData,
-        allCardsCurrentListResults,
         setAllCardsCurrentListResults,
-        allCardsCurrentGalleryResults,
         setAllCardsCurrentGalleryResults,
         allCardsName,
         setAllCardsName,
@@ -102,7 +97,6 @@ const DeckBuilderPageSidebarComponent = ({ userId }) => {
         setAllCardsListResults,
         allCardsGalleryResults,
         setAllCardsGalleryResults,
-        error,
         setError,
         maxResults,
         listView,

@@ -1,4 +1,4 @@
-import { AllCardsDisplayCompProps } from "../types/allcardstypes"
+import { AllCardsDisplayCompProps } from "../types/sidebarcomponenttypes"
 
 const AllCardsSearchResultsDisplayComponent = ({ AllCardsDisplayCompProps }: AllCardsDisplayCompProps) => {
     const {
@@ -17,15 +17,15 @@ const AllCardsSearchResultsDisplayComponent = ({ AllCardsDisplayCompProps }: All
             <main className="flex w-full h-full">
                 {allCardsListResults.length > 0 ? (
                     <div>
-                        {allCardsCurrentListResults.map((suggestion) => (
-                            <div key={suggestion} className="flex h-[12.4%] w-full">
+                        {allCardsCurrentListResults.map((card) => (
+                            <div key={card.id} className="flex h-[12.4%] w-full">
                                 <img 
-                                    src={allCardsData.find((card) => card.name == suggestion)?.card_images[0].image_url} 
+                                    src={card.card_images?.[0]?.image_url} 
                                     className='"h-full object-contain'
                                 />
                                 <div className="flex flex-col ml-2">
-                                    <div className="font-black">{suggestion}</div>
-                                    <div className="overflow-y-auto text-sm text-gray-300">{allCardsData.find((card) => card.name === suggestion)?.desc}</div>
+                                    <div className="font-black">{card.name}</div>
+                                    <div className="overflow-y-auto text-sm text-gray-300">{card.desc || "No description available"}</div>
                                 </div>
                             </div>
                         ))}
@@ -45,11 +45,11 @@ const AllCardsSearchResultsDisplayComponent = ({ AllCardsDisplayCompProps }: All
                     className="grid grid-cols-4 gap-2 w-full h-full p-4 justify-items-start items-start"  
                     style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                 >
-                     {allCardsCurrentGalleryResults.map((suggestion) => (
-                         <div key={suggestion} className="flex h-full w-full">
+                     {allCardsCurrentGalleryResults.map((card) => (
+                         <div key={card.id} className="flex h-full w-full">
                              <img 
-                                 src={allCardsData.find((card) => card.name == suggestion)?.card_images[0].image_url} 
-                                 className='"h-full object-contain'
+                                src={card.card_images?.[0]?.image_url} 
+                                className='"h-full object-contain'
                              />
                         
                          </div>
