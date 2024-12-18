@@ -101,7 +101,7 @@ export function ComponentPieChart() {
               dataKey="count"
               nameKey="cardType"
               innerRadius={60}
-              strokeWidth={5}
+              strokeWidth={10}
             >
               <Label
                 content={({ viewBox }) => {

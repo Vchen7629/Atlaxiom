@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useGetAllOwnedDecksQuery, useGetSpecificOwnedDeckMutation, useDeleteDeckMutation } from '../../../api-slices/decksapislice';
+import { useGetAllOwnedDecksQuery, useGetSpecificOwnedDeckMutation, useDeleteDeckMutation } from '../../../api-slices/decksapislice.ts';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy, faStar, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -37,7 +37,7 @@ const DeckDisplay= ({ listView, galleryView, userId, deckName }: DeckDisplayComp
             });
 
             if (result) {
-                const deckData = result.data.entities.undefined[0];
+                const deckData = (result as {data: any}).data.entities.undefined[0];
                 navigate('/modifyDeck', { state: { deckId: deckData._id, userId: userId }
                 });
             } else {

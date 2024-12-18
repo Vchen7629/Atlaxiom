@@ -1,12 +1,11 @@
-import { faChartColumn } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { ComponentBarChart } from "../../../../components/shadcn_components/charts/barchartyear"
 import { ComponentPieChart } from "../../../../components/shadcn_components/charts/piechart"
 import { ComponentRadialChart } from "../../../../components/shadcn_components/charts/radialchart"
 import { ComponentBarMonthChart } from "../../../../components/shadcn_components/charts/barchartmonth"
 import { useState } from "react";
 
-const UserStatistics = () => {
+const UserStatistics = ({ refetch, setSelectedNavItem }: any) => {
     const [yearView, setYearView] = useState(true);
 
     const handleYearClick = () => {
@@ -18,11 +17,7 @@ const UserStatistics = () => {
     }
 
     return (
-        <main className="flex flex-col min-h-full pb-[1vh]">
-            <div className="pb-[2vh] border-b-2 border-gray-500 text-goldenrod text-4xl">
-                <FontAwesomeIcon icon={faChartColumn} className="ml-7"/>
-                <span className="ml-5">User Statistics</span>
-            </div>
+        <main className="flex flex-col h-full pb-[1vh] pt-4">
             <div className="flex items-center justify-center h-full">
                 {yearView ? (
                    <>
@@ -31,7 +26,7 @@ const UserStatistics = () => {
                     onClick={handleYearClick}>
                         <ComponentBarChart/>
                     </div>
-                    <div className="flex flex-col h-[78%] justify-center items-center ml-[5vw] ">
+                    <div className="flex flex-col justify-center items-center ml-[5vw] ">
                         <div className="flex items-center">
                             <ComponentPieChart/>
                         </div>

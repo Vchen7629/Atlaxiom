@@ -1,17 +1,16 @@
 import { Routes, Route } from 'react-router-dom'
-import HomePage from './features/pages/homepage/homepage.js';
-import AccountCreationForm from './features/pages/sign-up-page/AccountCreationForm.jsx'
-import LoginPage from './features/pages/loginpage/login.js';
-import Banlists from './features/pages/banlist.jsx';
-import SearchBarPage from './features/pages/searchpage/searchbarpage.jsx';
-import SearchResults from './features/pages/searchpage/searchresults.jsx';
-import StayLoggedIn from './features/auth/stayloggedin.jsx';
-import Prefetch from './features/auth/Prefetch.jsx';
-import UserOwnedCardPage from './features/pages/my-cards/ownedCardPage.js';
-import MyDeck from './features/pages/my-decks/deckpagehomepage.js';
-import DeckBuilderPage from './features/pages/my-decks/editdeckpage.js';
-import Profilepage from './features/pages/profilepage/Profilepage.js';
+import AccountCreationForm from './features/pages/sign-up-page/AccountCreationForm.tsx'
+import LoginPage from './features/pages/loginpage/login.tsx';
+import Banlists from './features/pages/banlist.tsx';
+import SearchBarPage from './features/pages/searchpage/searchbarpage.tsx';
+import SearchResults from './features/pages/searchpage/searchresults.tsx';
+import StayLoggedIn from './features/auth/stayloggedin.tsx';
+import UserOwnedCardPage from './features/pages/my-cards/ownedCardPage.tsx';
+import MyDeck from './features/pages/my-decks/deckpagehomepage.tsx';
+import DeckBuilderPage from './features/pages/my-decks/editdeckpage.tsx';
+import Profilepage from './features/pages/profilepage/Profilepage.tsx';
 import { ThemeProvider } from "./components/shadcn_components/darklightmode/theme-provider.js"
+import { HomePage } from './features/pages/homepage/homepage.tsx';
 
 
 
@@ -28,14 +27,13 @@ function App() {
         </Route>
 
         <Route element={<StayLoggedIn/>}>
-          <Route element={<Prefetch/>}>
-            <Route path="/loggedin" element={<HomePage/>}/>
-            <Route path="searchloggedin" element={<SearchBarPage/>} />
-            <Route path="getcards" element={<UserOwnedCardPage/>}/>
-            <Route path="deckmanager" element={<MyDeck/>}/>
-            <Route path="modifyDeck" element={<DeckBuilderPage/>}/>         
-            <Route path="profile" element={<Profilepage />}/>
-          </Route>
+          <Route path="/loggedin" element={<HomePage/>}/>
+          <Route path="searchloggedin" element={<SearchBarPage/>} />
+          <Route path="getcards" element={<UserOwnedCardPage/>}/>
+          <Route path="deckmanager" element={<MyDeck/>}/>
+          <Route path="modifyDeck" element={<DeckBuilderPage/>}/>         
+          <Route path="profile" element={<Profilepage />}/>
+          <Route path="banlistloggedin" element={<Banlists />} />
         </Route>
       
       </Routes>

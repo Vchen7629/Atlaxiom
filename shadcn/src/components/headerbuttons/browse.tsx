@@ -1,12 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBan } from '@fortawesome/free-solid-svg-icons';
+import { AuthenticationState } from './types/searchbartypes';
+import { useSelector } from 'react-redux';
 
 const Banlist = () => {
   const navigate = useNavigate();
+  const authenticated = useSelector((state: AuthenticationState) => state.auth.token !== null);
 
   const handleButtonClick = () => {
-    navigate('/banlist');
+    if (authenticated) {
+      navigate('/banlistloggedin');
+    } else {
+      navigate('/banlist');
+    }
   };
 
   return (

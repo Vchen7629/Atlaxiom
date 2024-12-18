@@ -1,14 +1,15 @@
 import { faLock } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useSelector } from "react-redux";
-import { useUpdateUserMutation } from "../../../api-slices/usersApiSlice";
+import { useUpdateUserMutation } from "../../../api-slices/usersApiSlice.ts";
 import "../styling/security.css"
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserId } from "../types/subpagetypes";
 
 
-const Security = ({ user }) => {
-    const userId = useSelector((state) => state.auth.userId);
+const Security = ({ user }: any) => {
+    const userId = useSelector((state: UserId) => state.auth.userId);
     const [password, setPassword] = useState(user.password)
     const [errMsg, setErrMsg] = useState('')
 
@@ -17,7 +18,6 @@ const Security = ({ user }) => {
     const [updatePassword, {
         isSuccess,
         isError,
-        error
     }] = useUpdateUserMutation(userId)
 
     const handleSubmitPassword = async (e) => {

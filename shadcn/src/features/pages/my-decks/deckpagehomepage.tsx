@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Footer from "../../../components/footer/Footer.tsx"
 import Header from "../../../components/header/header.tsx"
-import { useGetSpecificUserQuery } from '../../api-slices/usersApiSlice.js';
+import { useGetSpecificUserQuery } from '../../api-slices/usersApiSlice.ts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import DeckDisplay from './homepagecomponents/owneddeckdisplaycomponent.tsx';

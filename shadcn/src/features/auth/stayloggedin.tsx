@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
 import { useRefreshMutation } from "./authApiSlice"
 import { useSelector } from "react-redux"
@@ -14,10 +14,8 @@ const StayLoggedIn = () => {
 
     const [refresh, {
         isUninitialized,
-        isLoading,
         isSuccess,
         isError,
-        error
     }] = useRefreshMutation()
 
     useEffect(() => {
@@ -36,23 +34,20 @@ const StayLoggedIn = () => {
             if (!token) verifyRefreshToken()
         }
         
-        return () => effectRan.current = true
+        effectRan.current = true
 
-    }, [])
+    }, [refresh, token])
 
-    let content 
     if (isError) {
-        content = (
-            navigate("/login")
-        )
+        navigate("/login")
+        return null;
     } else if (isSuccess && TrueSuccess) {
-        content=<Outlet/>
+        return <Outlet/>
     } else if (token && isUninitialized) {
-        console.log("Token exists but not initialized", isUninitialized)
-        content=<Outlet/>
+        return <Outlet/>
     }
 
-    return content
+    return null
 
 }
 

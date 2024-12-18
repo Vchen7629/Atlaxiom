@@ -1,17 +1,12 @@
 import { useSelector } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ComponentCardSetPopup } from './searchresultcomponents/addcard';
-import { BreadcrumbSearchResult } from './searchresultcomponents/breadcrumb';
+import { BreadcrumbSearchResult } from './searchresultcomponents/breadcrumb.tsx';
+import { SearchAuth, SearchResult, SearchUserId } from './types/searchbarpagestypes.ts';
 
-
-
-
-const SearchResults = ({selectedCardData, cardSets}) => { 
-    const authenticated = useSelector((state) => state.auth.token !== null);
-    const userId = useSelector((state) => state.auth.userId);
-
-
+const SearchResults = ({selectedCardData, cardSets}: SearchResult) => { 
+    const authenticated = useSelector((state: SearchAuth) => state.auth.token !== null);
+    const userId = useSelector((state: SearchUserId) => state.auth.userId);
+    
     return (
         <main className="flex flex-col w-full items-center">
             <div className="flex w-[80%] items-center">
@@ -85,7 +80,7 @@ const SearchResults = ({selectedCardData, cardSets}) => {
                       {authenticated && (
                         <div>
                           <div className="flex justify-center">
-                          <ComponentCardSetPopup selectedCardData={selectedCardData} userId={userId} cardSets={cardSets} />
+                            <ComponentCardSetPopup selectedCardData={selectedCardData} userId={userId} cardSets={cardSets} />
                           </div>
                         </div>
                         )} 

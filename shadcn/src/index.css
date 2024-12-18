@@ -143,6 +143,7 @@ section {
     --background4: 200, 100%, 50%;
     --background5: 0, 0%, 93%;;
     --profile:  100, 100%, 100%;
+    --profilebackground: 0, 0%, 80%;
     --shadow-color: 0, 0%, 5%;
     --filterbutton: 200, 100%, 50%;
     --text: 0, 0%, 5%;
@@ -165,6 +166,7 @@ section {
     --background4: 0,4%,10%;
     --background5: 0, 4%, 10%;
     --profile: 0, 0%, 5%;
+    --profilebackground: 0 7% 11%;
     --shadow-color: 0, 0%, 40%;
     --filterbutton: 217, 1%, 27%;
     --text: 100, 100%, 100%;

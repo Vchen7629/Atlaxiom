@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { AllCardsSearchbarCompProps } from "../types/allcardstypes";
+import { AllCardsSearchbarCompProps } from "../types/searchbartypes.ts";
 
 
 const AllCardsSearchBarComponent = ({ AllCardsSearchBarCompProps }: AllCardsSearchbarCompProps ) => {

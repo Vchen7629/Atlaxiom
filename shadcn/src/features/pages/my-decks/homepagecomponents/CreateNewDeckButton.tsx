@@ -1,4 +1,4 @@
-import { useCreateNewDeckMutation } from '../../../api-slices/decksapislice';
+import { useCreateNewDeckMutation } from '../../../api-slices/decksapislice.ts';
 import { useNavigate } from 'react-router-dom';
 import { ErrorResponse, NewDeckButton } from '../types/homepagecomponentprops';
 

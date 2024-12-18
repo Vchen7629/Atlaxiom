@@ -8,7 +8,7 @@ const AllCardsSearchResultsDisplayComponent = ({ AllCardsDisplayCompProps }: All
         galleryView,
         allCardsGalleryResults,
         allCardsCurrentGalleryResults,
-        allCardsData,
+        //allCardsData,
     } = AllCardsDisplayCompProps
 
     return (

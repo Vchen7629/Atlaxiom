@@ -1,6 +1,5 @@
 export type NewDeckButton = {
     userId: string;
-    error: string;
 }
 
 export type ErrorResponse = {
@@ -25,7 +24,7 @@ export type DeckDisplayComponent = {
     listView: boolean;
     galleryView: boolean;
     userId: string;
-    deckName?: string;
+    deckName: string;
 }
 
 export type handleDeckClick = {
@@ -35,7 +34,7 @@ export type handleDeckClick = {
 export type Deck = {
     _id: string;
     deck_name: string;
-    deckName?: string;
+    deckName: string;
     lastUpdated: string;
     deck_desc: string;
 }

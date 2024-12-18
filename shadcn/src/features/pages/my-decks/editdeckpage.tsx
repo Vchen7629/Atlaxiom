@@ -2,14 +2,14 @@ import { useEffect, useState} from 'react';
 import Header from '../../../components/header/header';
 import Footer from '../../../components/footer/Footer';
 import { useLocation } from 'react-router-dom';
-import { useGetSpecificOwnedDeckMutation } from '../../api-slices/decksapislice';
+import { useGetSpecificOwnedDeckMutation } from '../../api-slices/decksapislice.ts';
 import DeckBuilderPageSidebarComponent from './decksidebarcomponents/deckbuilderpagesidebar';
 import GridListViewComponent from '../../../components/searchbar/grid_or_list_view';
 
 const DeckBuilderPage = () => {
     const location = useLocation();
     const { userId, deckId } = location.state || {};
-    const [getSpecificDeck, { data: deckData, error, isLoading }] = useGetSpecificOwnedDeckMutation();
+    const [getSpecificDeck, { data: deckData, isLoading }] = useGetSpecificOwnedDeckMutation();
     const [listView, setListView] = useState(true);
     const [galleryView, setGalleryView] = useState(false);
 
@@ -26,7 +26,7 @@ const DeckBuilderPage = () => {
         setListView,
         listView,
         setGalleryView,
-        galleryView,
+        galleryView
     }
 
     return (
@@ -54,9 +54,9 @@ const DeckBuilderPage = () => {
                                     <div className="font-black">Main Deck</div>
                                     <div className="flex h-full items-center space-x-4">
                                         <div className="font-bold">Total Main Deck Cards: {deck?.total_cards_main_deck}</div>
-                                        <div className='flex w-20 bg-footer rounded-xl'>
+                                        {/*<div className='flex w-20 bg-footer rounded-xl'>
                                             <GridListViewComponent filterProps={filterProps}/>
-                                        </div>
+                                        </div>*/}
                                     </div>
                                 </header>
                                 <div className="bg-deckpage w-full h-[90%] rounded-2xl"></div>

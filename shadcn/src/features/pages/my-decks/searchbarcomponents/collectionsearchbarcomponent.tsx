@@ -2,9 +2,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useGetOwnedCardsQuery } from "../../../api-slices/ownedCardapislice";
 import { useEffect, useCallback } from "react";
-import { debounce } from "lodash";
+import { CollectionSearchbarCompProps } from "../types/searchbartypes";
+import { OwnedCard } from "../types/datatypes";
 
-const CollectionSearchBarComponent = ({ CollectionSearchBarCompProps }) => {
+const CollectionSearchBarComponent = ({ CollectionSearchBarCompProps }: CollectionSearchbarCompProps) => {
     const {
         userId,
         collectionCardData,
@@ -29,20 +30,21 @@ const CollectionSearchBarComponent = ({ CollectionSearchBarCompProps }) => {
         maxResults,
     } = CollectionSearchBarCompProps
 
-    const { data: ownedCards, refetch, error } = useGetOwnedCardsQuery(userId)
+    const { refetch } = useGetOwnedCardsQuery(userId)
 
     const prefetchCollection = async () => {
         try {
             const result = await refetch();
             if (result?.data) {
-                const cardsToDisplay = Object.values(result.data.entities || {}).flat().filter(card => card !== undefined);
+                const isValidCard = (card: any): card is OwnedCard => {
+                    return card !== undefined && card !== null && Object.keys(card).length > 0;
+                }
+                const cardsToDisplay = Object.values(result.data.entities || {}).flat().filter(isValidCard);
                 setCollectionCardData(cardsToDisplay);
-                console.log("Collection card data is", collectionCardData)
             } else {
                 throw new Error('No data returned from prefetch.');
             }
         } catch (error) {
-            setError('Error fetching data. Please try again.');
             setCollectionCardData([]);
         }
     };
@@ -51,8 +53,7 @@ const CollectionSearchBarComponent = ({ CollectionSearchBarCompProps }) => {
         prefetchCollection();
     }, []);
 
-    const DelayCollectionSearchResults = useCallback(
-        debounce((inputValue) => {
+    const DelayCollectionSearchResults = useCallback((inputValue: string) => {
 
         const normalizedInput = inputValue.toLowerCase().replace(/[-\s]/g, ''); 
         const filteredSuggestions = collectionCardData.filter((card) => {
@@ -74,7 +75,7 @@ const CollectionSearchBarComponent = ({ CollectionSearchBarCompProps }) => {
             card_name: card.card_name,
             image_url: card.image_url,
         })));
-    }, 500), [collectionCardData]);
+    }, [collectionCardData, maxResults]);
 
     useEffect(() => {
         DelayCollectionSearchResults(collectionCardsName);
@@ -108,7 +109,7 @@ const CollectionSearchBarComponent = ({ CollectionSearchBarCompProps }) => {
         }
     }, [collectionCurrentPage, collectionGalleryResults, collectionCardData, resultsPerGalleryPage])
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         setCollectionCardsName(inputValue);
         setCollectionCardsCurrentPage(1);
@@ -120,7 +121,7 @@ const CollectionSearchBarComponent = ({ CollectionSearchBarCompProps }) => {
         setCollectionListResults([])
     };
 
-    const handlePageChange = (page) => {
+    const handlePageChange = (page: number) => {
         setCollectionCardsCurrentPage(page);
     };
 

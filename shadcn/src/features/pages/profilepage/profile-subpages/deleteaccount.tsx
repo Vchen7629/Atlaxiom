@@ -1,20 +1,24 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSlash} from "@fortawesome/free-solid-svg-icons";
-import { useDeleteUserMutation } from "../../../api-slices/usersApiSlice";
-import { isPasswordValid } from "../../../auth/UserDataValidation";
-import { useSendLogoutMutation } from "../../../auth/authApiSlice";
+import { useDeleteUserMutation } from "../../../api-slices/usersApiSlice.ts";
+import { isPasswordValid } from "../../../auth/UserDataValidation.ts";
+import { useSendLogoutMutation } from "../../../auth/authApiSlice.ts";
 import "../styling/deleteaccount.css"
+import { UserId } from "../types/subpagetypes.ts";
 
-const DeleteAccount = ({ user }) => {
-    const userId = useSelector((state) => state.auth.userId);
+const DeleteAccount = ({ user }: any) => {
+    const userId = useSelector((state: UserId) => state.auth.userId);
     const [password, setPassword] = useState(user.password);
     const [validPassword, setValidPassword] = useState(false)
     const [showAccountDeleteform, setShowAccountDeleteForm] = useState(false);
 
-    const onPasswordChanged = e => setPassword(e.target.value)
+    const onPasswordChanged = (e: React.FormEvent<HTMLInputElement>) => {
+        const target = e.target as HTMLInputElement
+        setPassword(target.value)
+    }
 
     const navigate = useNavigate()
 
@@ -39,7 +43,7 @@ const DeleteAccount = ({ user }) => {
     };
 
 
-    const handleConfirmDeleteClick = async(e) => {
+    const handleConfirmDeleteClick = async(e: React.FormEvent) => {
         e.preventDefault();
 
         if (canSavePassword) {

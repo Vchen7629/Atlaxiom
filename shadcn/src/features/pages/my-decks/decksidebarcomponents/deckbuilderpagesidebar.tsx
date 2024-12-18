@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import GridListViewComponent from '../decksidebarcomponents/gridlistviewcomponent';
 import AllCardsSearchResultsDisplayComponent from './allcardsdisplaycomponent';
-import AllCardsSearchBarComponent from '../decksidebarsearchbarcomponents/allcardssearchbarcomponent';
+import AllCardsSearchBarComponent from '../searchbarcomponents/allcardssearchbarcomponent';
 import CollectionDisplayComponent from './collectiondisplaycomponent';
-import CollectionSearchBarComponent from '../decksidebarsearchbarcomponents/collectionsearchbarcomponent';
-import { Card, UserId } from '../types/sidebarcomponenttypes';
+import CollectionSearchBarComponent from '../searchbarcomponents/collectionsearchbarcomponent';
+import { Result, UserId } from '../types/sidebarcomponenttypes';
+import { Card, OwnedCard } from '../types/datatypes';
 
 
 const DeckBuilderPageSidebarComponent = ({ userId }: UserId) => {
@@ -24,12 +25,12 @@ const DeckBuilderPageSidebarComponent = ({ userId }: UserId) => {
 
     const [collectionCurrentPage, setCollectionCardsCurrentPage] = useState(1);
     const [collectionCardsName, setCollectionCardsName] = useState('');
-    const [collectionCardData, setCollectionCardData] = useState([]);
+    const [collectionCardData, setCollectionCardData] = useState<OwnedCard[]>([]);
     const [collectionCardsView, setCollectionCardsView] = useState(false);
-    const [collectionListResults, setCollectionListResults] = useState([]);
-    const [collectionCurrentListResults, setCollectionCurrentListResults] = useState([]);
-    const [collectionGalleryResults, setCollectionGalleryResults] = useState([]);
-    const [collectionCurrentGalleryResults, setCollectionCurrentGalleryResults] = useState([]);
+    const [collectionListResults, setCollectionListResults] = useState<Result[]>([]);
+    const [collectionCurrentListResults, setCollectionCurrentListResults] = useState<Result[]>([]);
+    const [collectionGalleryResults, setCollectionGalleryResults] = useState<Result[]>([]);
+    const [collectionCurrentGalleryResults, setCollectionCurrentGalleryResults] = useState<Result[]>([]);
 
 
     const resultsPerListPage = 8;

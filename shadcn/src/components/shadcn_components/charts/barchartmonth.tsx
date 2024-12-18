@@ -1,5 +1,3 @@
-import * as React from "react"
-import { useGetSpecificUserQuery } from "../../../features/api-slices/usersApiSlice"
 import { useGetAllOwnedDecksQuery } from "../../../features/api-slices/decksapislice"
 import { useGetOwnedCardsQuery } from "../../../features/api-slices/ownedCardapislice"
 
