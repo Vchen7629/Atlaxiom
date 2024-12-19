@@ -33,8 +33,7 @@ const createNewUser = asyncHandler(async (req, res) => {
         day: 'numeric'
     });
 
-    const formattedTime = now.toTimeString().split(' ')[0];
-    const creationDate = `${formattedDate} ${formattedTime}`
+    const creationDate = `${formattedDate}`
 
     // create and store new user object
     const userObject = { 
@@ -103,7 +102,7 @@ const updateUser = asyncHandler(async (req, res) => {
     const { username, email, password } = req.body
 
     // Confirm data 
-    if ( !username && !email ) {
+    if ( !username && !email && !password ) {
         return res.status(400).json({ message: 'All fields except password are required' })
     }
 
@@ -115,18 +114,16 @@ const updateUser = asyncHandler(async (req, res) => {
     }
 
     // check for duplicate
-    const duplicate = await User.findOne({ username }).lean().exec()
-
-    // allow updates to the original user
-    if (duplicate && duplicate?._id.toString() !== id) {
-        return res.status(409).json({ message: 'Duplicate username' })
+    if (username && username!== user.username) {
+        const duplicate = await User.findOne({ username }).lean().exec()
+        if (duplicate && duplicate?._id.toString() !== id) {
+            return res.status(409).json({ message: 'Duplicate username' })
+        }
+        user.username = username
     }
 
-    user.username = username
-    user.email = email
-
-    if (req.body.description) {
-        user.description = req.body.description;
+    if (email) {
+        user.email = email
     }
 
     if (password) {
@@ -143,16 +140,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
     const formattedTime = now.toTimeString().split(' ')[0];
 
-    // When only username is updated
-    if (username && username !== user.username) {
-        user.username = username;
-
-        // Update lastUsernameUpdated timestamp if username is changed
-        user.lastUsernameUpdated = `${formattedDate} ${formattedTime}`;
-    }
-
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
-
 
     const updatedUser = await user.save()
 
@@ -166,11 +154,11 @@ const updateUser = asyncHandler(async (req, res) => {
 const deleteUser = asyncHandler(async (req, res) => {
     
     const { id } = req.params
-    const { password } = req.body
+    //const { password } = req.body
 
-    if (!password) {
+    /*if (!password) {
         return res.status(400).json({ message: 'password is required' })
-    }
+    }*/
 
     if (!id) {
         return res.status(400).json({ message: 'Invalid user ID' });
@@ -183,11 +171,11 @@ const deleteUser = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: 'User not found' })
     }
 
-    const match = await bcrypt.compare(password, user.password)
+    /*const match = await bcrypt.compare(password, user.password)
 
     if (!match) {
         return res.status(401).json({ message: 'Incorrect password' })
-    }
+    }*/
 
     const result = await user.deleteOne()
 

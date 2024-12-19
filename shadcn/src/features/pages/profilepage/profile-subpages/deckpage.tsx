@@ -9,17 +9,17 @@ import { useEffect } from 'react';
 
 
 
-const ViewDecks = ({ deckprops }: DeckProps) => {
-    const userId = useSelector((state: UserId) => state.auth.userId);
-    const navigate = useNavigate();
-
+const ViewDecks = ({ deckprops, user }: DeckProps) => {
     const {
         deckName,
         listView,
         galleryView
     } = deckprops 
 
-    
+    const userId = useSelector((state: UserId) => state.auth.userId);
+    const navigate = useNavigate();
+    const { totalOwnedDecks } = user;
+
     const {
         data: modifyDecks,
         refetch
@@ -30,6 +30,7 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
     const [deleteDeck] = useDeleteDeckMutation();
     
     const decksToDisplay = modifyDecks?.entities?.undefined?.ownedDecks || [];
+
         
     useEffect(() => {
         if (userId) {
@@ -81,40 +82,66 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
             <>  
                 {listView && (
                     <main className='flex flex-col w-full'>
-                        {filteredDecks.map((deck: FilteredDecks) => (
+                        {totalOwnedDecks === 0 ? (
+                            <section className="flex w-full h-[50vh] justify-center items-center">
+                                <span className="text-[hsl(var(--text))] font-bold text-2xl">You don't have any owned Decks</span>
+                            </section>
+                        ) : filteredDecks.length > 0 ? (
                             <>
-                                    <div 
-                                        className="flex  h-[7vh] px-2 justify-between items-center mb-2 hover:bg-[hsl(var(--background5))]" 
-                                        key={deck._id} 
-                                        onClick={() => handleDeckClick(deck)}
-                                    >  
-                                        <section className="flex flex-col">
-                                            <div className="text-[hsl(var(--text))]"><strong>{deck.deck_name}</strong></div>
-                                            <div className="text-gray-400">Last Updated {deck.lastUpdated}</div>
-                                        </section>
-                                        <section className="flex flex-col text-[hsl(var(--text))]">{deck.deck_desc}</section>
-                                        <section className="flex w-fit space-x-1">
-                                            <button className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'><FontAwesomeIcon icon={faStar}/></button>
-                                            <button className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'><FontAwesomeIcon icon={faCopy}/></button>
-                                            <button 
-                                                className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'
-                                                onClick={(event) => {
-                                                    event.stopPropagation(); 
-                                                    handleDeleteDeckClick(deck);
-                                                }}
-                                            >
-                                                <FontAwesomeIcon icon={faTrash}/>
-                                            </button>
-                                        </section>
-                                        
-                                </div>
+                                {filteredDecks.map((deck: FilteredDecks) => (
+                                    <>
+                                            <div 
+                                                className="flex  h-[7vh] px-2 justify-between items-center mb-2 hover:bg-[hsl(var(--background5))]" 
+                                                key={deck._id} 
+                                                onClick={() => handleDeckClick(deck)}
+                                            >  
+                                                <section className="flex flex-col">
+                                                    <div className="text-[hsl(var(--text))]"><strong>{deck.deck_name}</strong></div>
+                                                    <div className="text-gray-400">Last Updated {deck.lastUpdated}</div>
+                                                </section>
+                                                <section className="flex flex-col text-[hsl(var(--text))]">{deck.deck_desc}</section>
+                                                <section className="flex w-fit space-x-1">
+                                                    <button className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'><FontAwesomeIcon icon={faStar}/></button>
+                                                    <button className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'><FontAwesomeIcon icon={faCopy}/></button>
+                                                    <button 
+                                                        className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'
+                                                        onClick={(event) => {
+                                                            event.stopPropagation(); 
+                                                            handleDeleteDeckClick(deck);
+                                                        }}
+                                                    >
+                                                        <FontAwesomeIcon icon={faTrash}/>
+                                                    </button>
+                                                </section>
+                                                
+                                        </div>
+                                    </>
+                                ))}        
                             </>
-                        ))}               
+                        ) : (
+                            <section className="flex w-full h-[50vh] justify-center items-center">
+                                <span className="text-[hsl(var(--text))] font-bold text-2xl">Deck of this search name doesn't exist</span>
+                            </section>
+                        )}
+                               
                     </main>
                 )}
+
                 {galleryView && (
-                    <>
-                    </>
+                    <main className='flex flex-col w-full'>
+                        {totalOwnedDecks === 0 ? (
+                            <section className="flex w-full h-[50vh] justify-center items-center">
+                                <span className="text-[hsl(var(--text))] font-bold text-2xl">You don't have any owned Decks</span>
+                            </section>
+                        ) : filteredDecks.length > 0 ? (
+                            <>
+                            </>
+                        ) : (
+                            <section className="flex w-full h-[50vh] justify-center items-center">
+                                <span className="text-[hsl(var(--text))] font-bold text-2xl">Deck of this search name doesn't exist</span>
+                            </section>
+                        )}
+                    </main>
                 )}
             </>
         );

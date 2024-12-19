@@ -15,6 +15,9 @@ export type Deck = {
 }
 
 export type DeckProps = {
+    user: {
+        totalOwnedDecks: number;
+    };
     deckprops: {
         deckName: string;
         listView: boolean;
@@ -35,4 +38,12 @@ export type FilteredDecks = {
     deck_name: string;
     lastUpdated: string;
     deck_desc: string
+}
+
+export type EditAccount = {
+    user: {
+        username: string;
+        email: string
+    };
+    refetch: any;
 }

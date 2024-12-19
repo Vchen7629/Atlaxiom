@@ -1,13 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faUser } from '@fortawesome/free-solid-svg-icons';
-import { useSelector } from 'react-redux';
-import { Username } from '../types/subpagetypes';
-//import { UserId } from '../types/subpagetypes';
+import {  faUser } from '@fortawesome/free-solid-svg-icons';
+import { ProfileHeader } from '../types/componenttypes';
 
-const ProfilePageHeader = ({ user }: any) => {
-    //const userId = useSelector((state: UserId) => state.auth.userId);
-    const username = useSelector((state: Username) => state.auth.username);
-    const { totalOwnedCards, totalOwnedDecks, creation } = user;
+const ProfilePageHeader = ({ user }: ProfileHeader) => {
+    const { username, totalOwnedCards, totalOwnedDecks, creation } = user;
 
     return (
         <>

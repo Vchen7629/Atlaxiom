@@ -1,17 +1,17 @@
-import { useEffect, useState} from 'react';
+import { useEffect } from 'react';
 import Header from '../../../components/header/header';
 import Footer from '../../../components/footer/Footer';
 import { useLocation } from 'react-router-dom';
 import { useGetSpecificOwnedDeckMutation } from '../../api-slices/decksapislice.ts';
 import DeckBuilderPageSidebarComponent from './decksidebarcomponents/deckbuilderpagesidebar';
-import GridListViewComponent from '../../../components/searchbar/grid_or_list_view';
+//import GridListViewComponent from '../../../components/searchbar/grid_or_list_view';
 
 const DeckBuilderPage = () => {
     const location = useLocation();
     const { userId, deckId } = location.state || {};
     const [getSpecificDeck, { data: deckData, isLoading }] = useGetSpecificOwnedDeckMutation();
-    const [listView, setListView] = useState(true);
-    const [galleryView, setGalleryView] = useState(false);
+    //const [listView, setListView] = useState(true);
+    //const [galleryView, setGalleryView] = useState(false);
 
     useEffect(() => {
         if (deckId && userId) {
@@ -22,12 +22,12 @@ const DeckBuilderPage = () => {
 
     const deck = deckData?.entities?.undefined?.[0];
 
-    const filterProps = {
+    /*const filterProps = {
         setListView,
         listView,
         setGalleryView,
         galleryView
-    }
+    }*/
 
     return (
         <>  
