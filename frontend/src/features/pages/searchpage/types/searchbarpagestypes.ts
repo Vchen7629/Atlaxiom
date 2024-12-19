@@ -28,3 +28,12 @@ export type SearchUserId = {
         userId: string
     }
 }
+
+export type ListViewSearchSuggestions = {
+    listView: {
+        cardData: any[];
+        setCardName: React.Dispatch<React.SetStateAction<string>>
+        setClickedOnCard: React.Dispatch<React.SetStateAction<boolean>>
+        
+    }
+}

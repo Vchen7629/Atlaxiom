@@ -1,9 +1,9 @@
 import { useCallback, useEffect } from "react"
-import { debounce } from "lodash"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons"
+import { SearchBar } from "../types/searchbartypes"
 
-const SearchBarComponent = ({ searchbarprops }) => {
+const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
     const {
         cardData,
         setCardData,
@@ -28,25 +28,19 @@ const SearchBarComponent = ({ searchbarprops }) => {
 
       if (response.ok) {
         setCardData(data.data);
-        setError(null);
       } else {
-        setError(`Error: ${data.message} card data`);
         setCardData([]);
       }
     } catch (error) {
       console.error('Error fetching data:', error);
-      setError('Error fetching data. Please try again.');
       setCardData([]);
     }
   };
 
-  const cardsToDisplay = Object.values(cardData?.entities || {}).flat();
-  console.log("cardstodisplay", cardData)
-
-  const debouncedSearchCard = useCallback(
-    debounce((inputValue) => {
+  const debouncedSearchCard = useCallback((inputValue: string) => {
       if (!inputValue.trim()) {
         setMainSuggestions([]);
+        setGallerySuggestions([]);
         return;
       }
 
@@ -58,9 +52,7 @@ const SearchBarComponent = ({ searchbarprops }) => {
 
       setMainSuggestions(filteredSuggestions.slice(0, maxMainSuggestions).map((card) => card.name));
       setGallerySuggestions(filteredSuggestions.slice(0, maxMainSuggestions).map((card) => card.name));
-    }, 500),
-    [cardData]
-  );
+    }, [cardData, maxMainSuggestions]);
 
   useEffect(() => {
     debouncedSearchCard(cardName);
@@ -70,20 +62,19 @@ const SearchBarComponent = ({ searchbarprops }) => {
     fetchAllCardData();
   }, []);
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         setCardName(inputValue);
         setClickedOnCard(false);
         setSelectedCardData(null);
         setCurrentPage(1);
-        setErrorMessage(null);
+        setErrorMessage('');
         debouncedSearchCard(inputValue);
     };
 
     const handleClearClick = () => {
         setCardName('');
-        setError(null);
-        setErrorMessage(null);
+        setErrorMessage('');
         setMainSuggestions([]);
         setGallerySuggestions([]);
         setSelectedCardData(null);
@@ -91,8 +82,6 @@ const SearchBarComponent = ({ searchbarprops }) => {
         setClickedOnCard(false);
       };
     
-
-
     return (
         <div className="flex w-[40vw] h-[50px] ml-[10%] pl-5 relative border-2 border-gray-400 justify-start text-[hsl(var(--text))]">                      
             <div className="flex items-center w-full">
