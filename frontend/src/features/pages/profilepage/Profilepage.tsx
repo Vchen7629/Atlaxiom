@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import Header from '../../../components/header/header';
-import Footer from '../../../components/footer/Footer';
+import Header from '../../../components/header/header.tsx';
+import Footer from '../../../components/footer/Footer.tsx';
 import { useGetSpecificUserQuery } from '../../api-slices/usersApiSlice.ts';
-import UserStatistics from './profile-subpages/statistics';
-import { UserId } from './types/subpagetypes';
+import UserStatistics from './profile-subpages/statistics.tsx';
+import { UserId } from './types/subpagetypes.ts';
 import NavBarComponent from './components/navbar.tsx';
 import ProfilePageHeader from './components/profilepageheader.tsx';
 import ViewDecks from './profile-subpages/deckpage.tsx';

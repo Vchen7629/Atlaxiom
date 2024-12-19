@@ -8,7 +8,7 @@ import Login from '../headerbuttons/login.tsx'
 import Signup from '../headerbuttons/signup.tsx'
 import Mydecks from '../headerbuttons/my-decks.tsx'
 import Accountsbutton from '../accountbuttons/account.js'
-import { ModeToggle } from "../shadcn_components/darklightmode/mode-toggle"
+import { ModeToggle } from "../shadcn_components/darklightmode/mode-toggle.tsx"
 import { AuthenticationState } from './headertypes.ts'
 
 const Header = () => {
