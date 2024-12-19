@@ -1,17 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Header from '../../../components/header/header';
 import Footer from '../../../components/footer/Footer';
 import { useGetSpecificUserQuery } from '../../api-slices/usersApiSlice.ts';
-import DeleteAccount from './profile-subpages/deleteaccount';
 import UserStatistics from './profile-subpages/statistics';
-import Security from './profile-subpages/security';
 import { UserId } from './types/subpagetypes';
 import NavBarComponent from './components/navbar.tsx';
 import ProfilePageHeader from './components/profilepageheader.tsx';
 import ViewDecks from './profile-subpages/deckpage.tsx';
 import DeckSearchBar from './components/decksearchbarcomp.tsx';
 import GridListViewComponent from './components/gridlistviewcomponent.tsx';
+import EditAccountPage from './profile-subpages/editaccountpage.tsx';
 
 
 const Profilepage = () => {
@@ -47,9 +46,6 @@ const Profilepage = () => {
         listView,
         galleryView
     }
-
-    useEffect(() => {
-    }, [userId]);
     
     const { 
         data: usersData, 
@@ -68,7 +64,6 @@ const Profilepage = () => {
 
         const defaultIdKey = ids[0];
         const user = entities[defaultIdKey];
-        console.log("profile user:", user?.username)
 
         if (isError) {
           return <p>Error loading user data</p>;
@@ -85,7 +80,7 @@ const Profilepage = () => {
             return <p>Err</p>
         }
 
-        const header = <ProfilePageHeader user={user} />
+        const header = <ProfilePageHeader user={user}/>
               
         switch (selectedNavItem) {
             case 'deck': 
@@ -95,11 +90,9 @@ const Profilepage = () => {
                         <div className="flex items-center">
                             <NavBarComponent navbarprops={navbarprops}/>
                             <DeckSearchBar deckName={deckName} setDeckName={setDeckName}/>
-                            <div className="ml-6 bg-footer flex  w-[75px] rounded-xl">
-                                <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
-                            </div>  
+                            <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                         </div>
-                        <ViewDecks deckprops={deckprops}/>
+                        <ViewDecks deckprops={deckprops} user={user}/>
                     </>
                 );
             case 'statistics':
@@ -107,7 +100,7 @@ const Profilepage = () => {
                     <>
                         {header}
                         <NavBarComponent navbarprops={navbarprops}/>
-                        <UserStatistics refetch={refetch}/>
+                        <UserStatistics/>
                     </>
                 );
             case 'edit':
@@ -115,16 +108,8 @@ const Profilepage = () => {
                     <>
                         {header}
                         <NavBarComponent navbarprops={navbarprops}/>
-                        <UserStatistics refetch={refetch}/>
+                        <EditAccountPage user={user} refetch={refetch}/>
                     </>
-                );
-            case 'security':
-                return (
-                    <Security user={user} />
-                    );
-            case 'delete':
-                return (
-                    <DeleteAccount user={user}/>
                 );
             default:
                 return (
@@ -133,11 +118,9 @@ const Profilepage = () => {
                         <div className="flex items-center">
                             <NavBarComponent navbarprops={navbarprops}/>
                             <DeckSearchBar deckName={deckName} setDeckName={setDeckName}/>
-                            <div className="ml-6 bg-footer flex w-20 rounded-xl">
-                                <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
-                            </div> 
+                            <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                         </div>
-                        <ViewDecks deckprops={deckprops}/>
+                        <ViewDecks deckprops={deckprops} user={user}/>
                     </>
                 );
             }

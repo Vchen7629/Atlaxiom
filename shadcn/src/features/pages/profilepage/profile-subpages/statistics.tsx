@@ -5,7 +5,7 @@ import { ComponentRadialChart } from "../../../../components/shadcn_components/c
 import { ComponentBarMonthChart } from "../../../../components/shadcn_components/charts/barchartmonth"
 import { useState } from "react";
 
-const UserStatistics = ({ refetch, setSelectedNavItem }: any) => {
+const UserStatistics = () => {
     const [yearView, setYearView] = useState(true);
 
     const handleYearClick = () => {
