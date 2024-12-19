@@ -1,7 +1,7 @@
 import { faEnvelope, faLock, faUser, faUserSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react"
-import { EditEmailInputComponent, EditPasswordInputComponent, EditUsernameInputComponent } from "../editaccountcomponents/inputcomponents";
+import { EditEmailInputComponent, EditPasswordInputComponent, EditUsernameInputComponent } from "../editaccountcomponents/inputcomponents.tsx";
 import UsernameUpdateButton from "../editaccountcomponents/usernameupdatebutton.tsx";
 import EmailUpdateButton from "../editaccountcomponents/emailupdatebutton.tsx";
 import PasswordUpdateButton from "../editaccountcomponents/passwordupdatebutton.tsx";

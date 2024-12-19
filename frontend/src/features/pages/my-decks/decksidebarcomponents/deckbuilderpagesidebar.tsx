@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import GridListViewComponent from '../decksidebarcomponents/gridlistviewcomponent';
+import GridListViewComponent from './gridlistviewcomponent';
 import AllCardsSearchResultsDisplayComponent from './allcardsdisplaycomponent';
 import AllCardsSearchBarComponent from '../searchbarcomponents/allcardssearchbarcomponent';
 import CollectionDisplayComponent from './collectiondisplaycomponent';

@@ -94,11 +94,11 @@ const SearchBarComponent = ({ searchbarprops }) => {
 
 
     return (
-        <div className="flex w-[40vw] h-[50px] ml-[10%] pl-5 relative border-2 border-gray-400 justify-start text-gold">                      
+        <div className="flex w-[40vw] h-[50px] ml-[10%] pl-5 relative border-2 border-gray-400 justify-start text-[hsl(var(--text))]">                      
             <div className="flex items-center w-full">
                 <FontAwesomeIcon icon={faSearch} className="mr-2" />
                 <input
-                    className="bg-transparent w-full h-full text-xl text-white focus:outline-none"
+                    className="bg-transparent w-full h-full text-xl focus:outline-none"
                     type="text"
                     value={cardName}
                     onChange={handleInputChange}
