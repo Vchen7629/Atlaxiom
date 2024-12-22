@@ -20,7 +20,7 @@ const createNewUser = asyncHandler(async (req, res) => {
     const duplicate = await User.findOne({ username }).lean().exec()
 
     if (duplicate) {
-        return res.status(409).json({ message: 'duplicate users' })
+        return res.status(409).json({ message: "Username Taken, please choose another" })
     }
 
     // hash password

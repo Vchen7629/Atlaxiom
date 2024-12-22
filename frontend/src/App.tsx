@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom'
-import AccountCreationForm from './features/pages/sign-up-page/AccountCreationForm.tsx'
 import LoginPage from './features/pages/loginpage/login.tsx';
 import Banlists from './features/pages/banlist.tsx';
 import SearchBarPage from './features/pages/searchpage/searchbarpage.tsx';
@@ -11,6 +10,7 @@ import DeckBuilderPage from './features/pages/my-decks/editdeckpage.tsx';
 import Profilepage from './features/pages/profilepage/Profilepage.tsx';
 import { ThemeProvider } from "./components/shadcn_components/darklightmode/theme-provider.js"
 import { HomePage } from './features/pages/homepage/homepage.tsx';
+import SignUpPageComponent from './features/pages/sign-up-page/signuppage.tsx';
 
 
 
@@ -19,7 +19,7 @@ function App() {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="signup" element={<AccountCreationForm/>}/>
+        <Route path="signup" element={<SignUpPageComponent/>}/>
         <Route path="login" element={<LoginPage/>}/>
         <Route path="banlist" element={<Banlists />} />
         <Route path="search" element={<SearchBarPage/>}>
