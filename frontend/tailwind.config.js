@@ -13,6 +13,8 @@ export default {
   			'custom-radial': 'radial-gradient(circle, #d1d5db, #374151, #000000)',
         	'linear-radient': 'linear-gradient(to left, #0e0d0d79, #333333)',
 			'deckpage': "linear-gradient(45deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%)",
+			'signpage': "linear-gradient(45deg, #ffd700 0%, #87ceeb 33%, #1e90ff 66%, #ffa500 100%)",
+			"signuppageimage": "url('./styling/background.png')",
 			'gradient-to-sides': 'linear-gradient(to right, rgba(14, 13, 13, 0.4), #0e0d0d79, rgba(14, 13, 13, 0.4))',
   		},
   		backgroundSize: {

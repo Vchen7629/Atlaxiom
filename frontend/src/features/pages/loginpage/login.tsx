@@ -20,9 +20,9 @@ const LoginPage = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    /*const handleSignUpClick = () => {
+    const handleSignUpClick = () => {
         navigate('/signup')
-    }*/
+    }
 
     useEffect(() => { //code so that username field is focused on page init
         if (userRef.current) {
@@ -97,9 +97,9 @@ const LoginPage = () => {
                             <header className="mt-[1vh] mb-3 text-4xl text-white font-black">Welcome Back</header>
                             <div className="flex text-lg mb-[1vh] text-gray-500">
                                 <div className="mr-2">Don't have an account yet? </div>
-                                {/*<button className="text-white font-light" onClick={handleSignUpClick}>
+                                <button type="button" className="text-goldenrod font-light" onClick={handleSignUpClick}>
                                     Sign Up
-                                </button>*/}
+                                </button>
                             </div>
                             <div className="relative flex flex-col items-center w-[85%]">
                                 <div className="w-full h-20 flex flex-col items-center ">

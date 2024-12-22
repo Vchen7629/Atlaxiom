@@ -1,9 +1,9 @@
-    import { useState, useEffect, useRef } from "react"
+    import { useState, useEffect } from "react"
     import { useAddNewUserMutation } from "../../api-slices/usersApiSlice"
     import { useNavigate } from "react-router-dom"
-    import "./styling/Signup.css"
-    import Footer from "../../../components/footer/Footer"
     import { isUsernameValid, isPasswordValid, isEmailValid } from "../../auth/UserDataValidation"
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query"
+import { ErrorRes } from "./types/creationformtypes"
 
     const AccountCreationForm = () => {
 
@@ -15,9 +15,6 @@
         }] = useAddNewUserMutation()
         
         const navigate = useNavigate()
-
-        const emailRef = useRef()
-        const errRef = useRef()
 
         const [username, setUsername] = useState('')
         const [validUsername, setValidUsername] = useState(false)
@@ -31,13 +28,7 @@
         const [validPassword, setValidPassword] = useState(false)
         const [passwordError, setPasswordError] = useState('')
 
-        const [errMsg, setErrMsg] = useState('')
         const [formSubmitted, setFormSubmitted] = useState(false);
-
-        useEffect(() => { //code so that username field is focused on page init
-            emailRef.current.focus()
-        }, []) 
-
 
         useEffect(() => {
             if (!email) {
@@ -81,44 +72,42 @@
         useEffect(() => {
             if (isSuccess) {
                 setUsername('')
-                setUsername('')
+                setEmail('')
                 setPassword('')
                 navigate('/Login')
             }
         }, [isSuccess, navigate])
 
         useEffect(() => {
-            if (isError && error?.status === 409) {
-                setErrMsg("Duplicate Username or Password")
-                console.log("Duplicate Username or Password")
+            if (isError && "status" in error && error.status === 409) {
+                const errData = (error as FetchBaseQueryError).data as ErrorRes
+                const errorMessage = errData?.message || "Duplicate Username or Password";
+                setUsernameError(errorMessage);
             }
-        }, [isError])
+        }, [isError, error]);
         
 
-        const onUsernameChanged = (e) => {
+        const onUsernameChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
             setUsername(e.target.value)
             setUsernameError('')
             setFormSubmitted(false)
-            setErrMsg('')
         }
 
-        const onEmailChanged = (e) => {
+        const onEmailChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
             setEmail(e.target.value)
             setEmailError('')
             setFormSubmitted(false)
-            setErrMsg('')
         }
 
-        const onPasswordChanged = (e) => {
+        const onPasswordChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
             setPassword(e.target.value)
             setPasswordError('')
             setFormSubmitted(false)
-            setErrMsg('')
         }
 
         const canSave = validUsername && validEmail && validPassword && !isLoading;
 
-        const onSaveUserClicked = async (e) => {
+        const onSaveUserClicked = async (e: React.FormEvent) => {
             e.preventDefault()
 
             setFormSubmitted(true)
@@ -133,102 +122,69 @@
         const validEmailClass = !validEmail ? 'form__input--incomplete' : ''
         const validPwdClass = !validPassword ? 'form__input--incomplete' : ''
 
-        const content = (
-            <>  
-                <div>
-                    <h1 className="signup-page-header">New Account Creation</h1>
-                </div>
-                <main className="signup-page-body-container">
-                    <p ref={errRef} aria-live="assertive">{errMsg}</p>
-
-                    <form className="form-container" onSubmit={onSaveUserClicked}>
-                        <header className="form-title">Create your free DeckDatabaseOnline Account</header>
-                        <div className="form-body">
-                            <div className="form-body-title">Enter Your Account details</div>
-
-                            <div className="form-email-container">
-                                <input
-                                    className={`form-email-input ${validEmailClass && emailError && formSubmitted ? 'error-border' : ''}`}
-                                    placeholder=" "
-                                    id="email"
-                                    name="email"
-                                    type="text"
-                                    autoComplete="off"
-                                    value={email}
-                                    ref={emailRef}
-                                    onChange={onEmailChanged}
-                                />
-                                <label className="form-email-label" htmlFor="email">
-                                    Enter Email
-                                </label>
-                                
+        return (
+            <form className="w-[65%] flex flex-col" onSubmit={onSaveUserClicked}>
+                    <div className="relative flex flex-col w-full space-y-1">
+                        <span className="text-gray-600">Username</span>
+                        <input
+                            className={`text-xl focus:outline-none text-black pl-4 w-full h-11 bg-transparent border-gray-400 border-2 focus:outline-none ${validUserClass && usernameError && formSubmitted ? 'border-red-400 border-2' : ''}`}
+                            id="username"
+                            name="username"
+                            type="text"
+                            autoComplete="off"
+                            value={username}
+                            onChange={onUsernameChanged}
+                        />
+                        {usernameError && formSubmitted &&  (
+                            <div className="absolute top-full text-red-400">
+                                {usernameError}
                             </div>
-                            {emailError && formSubmitted && (
-                                    <div className="sign-up-error-message">
-                                        {emailError}
-                                    </div>
-                                )}
+                        )}
+                    </div>
+                   
 
-                            <div className="form-username-container">
-                                <input
-                                    className={`form-username-input ${validUserClass && usernameError && formSubmitted ? 'error-border' : ''}`}
-                                    placeholder=" "
-                                    id="username"
-                                    name="username"
-                                    type="text"
-                                    autoComplete="off"
-                                    value={username}
-                                    onChange={onUsernameChanged}
-                                />
-                                <label className="form-username-label" htmlFor="username">
-                                    Enter Username
-                                </label>
+                    <div className="relative flex flex-col w-full space-y-1 my-8">
+                        <span className="text-gray-600">Email</span>
+                        <input
+                            className={`text-xl focus:outline-none text-black pl-4 w-full h-11 bg-transparent border-gray-400 border-2 focus:outline-none ${validEmailClass && emailError && formSubmitted ? 'border-red-400 border-2' : ''}`}
+                            id="email"
+                            name="email"
+                            type="text"
+                            value={email}
+                            onChange={onEmailChanged}
+                        />
+                        {emailError && formSubmitted && (
+                            <div className="absolute top-full text-red-400">
+                                {emailError}
                             </div>
-                            {usernameError && formSubmitted &&  (
-                                    <div className="sign-up-error-message">
-                                        {usernameError}
-                                    </div>
-                                )}
+                        )}     
+                    </div>
 
-                            <div className="form-password-container">
-                                <input 
-                                    className={`form-password-inputs ${validPwdClass && passwordError && formSubmitted ? 'error-border' : ''}`}
-                                    placeholder=" "
-                                    id="password"
-                                    name="password"
-                                    type="text"
-                                    value={password}
-                                    onChange={onPasswordChanged}
-                                />
-                                <label className="form-password-label" htmlFor="password">
-                                    Enter Password
-                                </label>
+                    <div className="relative flex flex-col w-full space-y-1 mb-12">
+                        <span className="text-gray-600">Password</span>
+                        <input 
+                            className={`text-xl focus:outline-none text-black pl-4 w-full h-11 bg-transparent border-gray-400 border-2 focus:outline-none ${validPwdClass && passwordError && formSubmitted ? 'border-red-400 border-2' : ''}`}
+                            id="password"
+                            name="password"
+                            type="text"
+                            value={password}
+                            onChange={onPasswordChanged}
+                        />
+                        <span className="text-gray-600">At least 2 characters</span>   
+                        {passwordError && formSubmitted && (
+                            <div className="absolute top-full text-red-400">
+                                {passwordError}
                             </div>
-                            {passwordError && formSubmitted && (
-                                    <div className="sign-up-error-message">
-                                        {passwordError}
-                                    </div>
-                                )}
-                            <div className="form-save-container">
-                                <button className="form-save-button">
-                                    <h1 className="save-button-text">Create Account</h1>
-                                </button>
-                                {errMsg && (
-                                    <div>
-                                        <div className="sign-up-error-message-footer">
-                                            {errMsg}
-                                        </div>
-                                    </div>
-                                )}  
-                            </div>
-                        </div>
-                    </form>
-                </main>
-                <Footer/>
-            </>
+                        )}
+                    </div>
+                    
+                    <div className="relative flex justify-center">
+                        <button className="flex justify-center items-center bg-goldenrod w-full h-[50px] rounded-2xl">
+                            <span>Create Account</span>
+                        </button>
+                    </div>
+                </form>
         )
-
-        return content
     }
 
     export default AccountCreationForm
