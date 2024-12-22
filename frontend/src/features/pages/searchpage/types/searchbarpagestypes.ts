@@ -1,19 +1,7 @@
-export type SearchResult = {
-    selectedCardData: {
-        name: string;
-        card_images: {
-            image_url: string
-        }[]
-        desc?: string;
-        type?: string;
-        archetype?: string;
-        race?: string;
-        scale?: number;
-        linkval?: number;
-        atk?: number;
-        def?: number;
+import { SearchResCardData } from "./datastructuretypes"
 
-    };
+export type SearchResult = {
+    selectedCardData: SearchResCardData;
     cardSets: any
 }
 

@@ -1,55 +1,21 @@
 
 import {
     AlertDialog,
-    AlertDialogAction,
+    //AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
-    AlertDialogFooter,
+    //AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button"
 import { useAddNewOwnedCardMutation } from '../../../api-slices/ownedCardapislice';
-
-interface CardSet {
-    set_name: string;
-    set_code: string;
-    set_rarity: string;
-    set_price: number;
-}
-
-interface SelectedCardData {
-    name: string;
-    type: string;
-    race: string;
-    attribute?: string;
-    archetype?: string;
-    level?: number;
-    linkval?: number;
-    scale?: number;
-    atk?: number;
-    def?: number;
-    desc?: string;
-    pend_desc?: string;
-    monster_desc?: string;
-    card_images?: { image_url: string }[];
-}
-
-interface ComponentCardSetPopupProps {
-    selectedCardData: SelectedCardData;
-    userId: string;
-    cardSets: CardSet[];
-}
-
+import { CardSet, ComponentCardSetPopupProps } from "../types/searchresultcomptypes";
    
-export const ComponentCardSetPopup: React.FC<ComponentCardSetPopupProps> = ({
-    selectedCardData,
-    userId,
-    cardSets
-}) => {
+export const ComponentCardSetPopup = ({ selectedCardData, userId, cardSets }: ComponentCardSetPopupProps) => {
     const [cardMessages, setCardMessages] = useState<{ [key: number]: string }>({});
     const [addNewOwnedCard] = useAddNewOwnedCardMutation();
 

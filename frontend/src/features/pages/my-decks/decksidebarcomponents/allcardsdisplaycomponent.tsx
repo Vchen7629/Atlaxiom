@@ -49,7 +49,7 @@ const AllCardsSearchResultsDisplayComponent = ({ AllCardsDisplayCompProps }: All
                          <div key={card.id} className="flex h-full w-full">
                              <img 
                                 src={card.card_images?.[0]?.image_url} 
-                                className='"h-full object-contain'
+                                className='h-full object-contain'
                              />
                         
                          </div>
