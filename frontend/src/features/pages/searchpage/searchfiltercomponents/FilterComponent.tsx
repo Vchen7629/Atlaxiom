@@ -1,37 +1,23 @@
-import React, { useState} from 'react';
+import { useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEquals, faGreaterThanEqual, faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
 import { LevelSliderComponent } from "../../../../components/shadcn_components/sliders/levelslider"
 import { PendSliderComponent } from "../../../../components/shadcn_components/sliders/pendslider"
 import { LinkSliderComponent } from "../../../../components/shadcn_components/sliders/linkslider"
-import { MonsterTypeDropDownComponent } from "./monstertypedropdown"
-import { SpellTypeDropDownComponent } from "./spelltypedropdown"
-import { TrapTypeDropDownComponent } from "./traptypedropdown" 
-import { AttributeDropDownComponent } from "./attributecomponent"
-import { RarityDropDownComponent } from "./raritycomponent"
-import { SetDropDownComponent } from "./setComponent"
+import { MonsterTypeDropDownComponent } from "./dropdowncomponents/monstertypedropdown"
+import { SpellTypeDropDownComponent } from "./dropdowncomponents/spelltypedropdown"
+import { TrapTypeDropDownComponent } from "./dropdowncomponents/traptypedropdown" 
+import { AttributeDropDownComponent } from "./dropdowncomponents/attributecomponent"
+import { RarityDropDownComponent } from "./dropdowncomponents/raritycomponent"
+import { SetDropDownComponent } from "./dropdowncomponents/setComponent"
 import { CaretDownIcon, CaretRightIcon } from '@radix-ui/react-icons';
+import { FilterSidebar } from '../types/searchfiltercomptypes';
 
 
-const FilterCardComponent = ({ expandStatus }) => {
-    const [spellDropdown, setSpellDropdown] = useState(false);
-    const [trapDropdown, setTrapDropdown] = useState(false);
-    const [attributeDropdown, setAttributeDropdown] = useState(false);
+const FilterCardComponent = ({ expandStatus }: FilterSidebar) => {
     const [levelDropdown, setLevelDropdown] = useState(false);
     const [pendDropdown, setPendDropdown] = useState(false);
     const [linkDropdown, setLinkDropdown] = useState(false);
-
-    const handleSpellFilter = () => {
-        setSpellDropdown(prevState => !prevState);
-    }
-    
-    const handleTrapFilter = () => {
-        setTrapDropdown(prevState => !prevState);
-    }
-    
-    const handleAttributeFilter = () => {
-        setAttributeDropdown(prevState => !prevState);
-    }
     
     const handleLevelFilter = () => {
         setLevelDropdown(prevState => !prevState);

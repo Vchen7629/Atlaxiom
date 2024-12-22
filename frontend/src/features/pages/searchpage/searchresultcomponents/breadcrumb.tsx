@@ -1,6 +1,6 @@
 import {
     Breadcrumb,
-    BreadcrumbEllipsis,
+    //BreadcrumbEllipsis,
     BreadcrumbItem,
     BreadcrumbLink,
     BreadcrumbList,
@@ -8,11 +8,10 @@ import {
     BreadcrumbSeparator,
   } from "@/components/ui/breadcrumb"
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { token } from "../types/searchresultcomptypes";
    
 export function BreadcrumbSearchResult() {
-    const navigate = useNavigate();
-    const isAuthenticated = useSelector((state) => state.auth.token !== null);
+    const isAuthenticated = useSelector((state: token) => state.auth.token !== null);
     
     return (
         <Breadcrumb>

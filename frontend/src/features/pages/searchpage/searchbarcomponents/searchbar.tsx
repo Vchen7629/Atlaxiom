@@ -11,12 +11,12 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
         setCardName,
         setClickedOnCard,
         setSelectedCardData,
-        setCurrentPage,
+        setListCurrentPage,
+        setGalleryCurrentPage,
         setErrorMessage,
-        setMainSuggestions,
+        setTotalListNamesArray,
         maxMainSuggestions,
-        setGallerySuggestions,
-        setSelectedSuggestion,
+        setTotalGalleryNamesArray,
     } = searchbarprops
 
     const apiUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
@@ -39,8 +39,8 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
 
   const debouncedSearchCard = useCallback((inputValue: string) => {
       if (!inputValue.trim()) {
-        setMainSuggestions([]);
-        setGallerySuggestions([]);
+        setTotalListNamesArray([]);
+        setTotalGalleryNamesArray([]);
         return;
       }
 
@@ -50,8 +50,9 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
         return normalizedCardName.includes(normalizedInput);
       });
 
-      setMainSuggestions(filteredSuggestions.slice(0, maxMainSuggestions).map((card) => card.name));
-      setGallerySuggestions(filteredSuggestions.slice(0, maxMainSuggestions).map((card) => card.name));
+      setTotalListNamesArray(filteredSuggestions.slice(0, maxMainSuggestions).map((card) => card.name));
+      setTotalGalleryNamesArray(filteredSuggestions.slice(0, maxMainSuggestions).map((card) => card.name));
+
     }, [cardData, maxMainSuggestions]);
 
   useEffect(() => {
@@ -67,7 +68,8 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
         setCardName(inputValue);
         setClickedOnCard(false);
         setSelectedCardData(null);
-        setCurrentPage(1);
+        setListCurrentPage(1);
+        setGalleryCurrentPage(1);
         setErrorMessage('');
         debouncedSearchCard(inputValue);
     };
@@ -75,10 +77,9 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
     const handleClearClick = () => {
         setCardName('');
         setErrorMessage('');
-        setMainSuggestions([]);
-        setGallerySuggestions([]);
+        setTotalListNamesArray([]);
+        setTotalGalleryNamesArray([]);
         setSelectedCardData(null);
-        setSelectedSuggestion(null);
         setClickedOnCard(false);
       };
     
