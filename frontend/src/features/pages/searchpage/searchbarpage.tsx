@@ -8,11 +8,12 @@ import SearchBarComponent from './searchbarcomponents/searchbar';
 import ListViewSearchSuggestionsComponent from './searchbarpagecomponents/listviewsearchsuggestions';
 import { ApiCardData, SearchResCardData } from './types/datastructuretypes';
 import GalleryViewSearchSuggestionsComponent from './searchbarpagecomponents/galleryviewsearchsuggestions';
+import { CardSet } from './types/searchresultcomptypes';
 
 const SearchBarPage= () => {
   const [cardName, setCardName] = useState<string>('');
   const [cardData, setCardData] = useState<ApiCardData[]>([]);
-  const [cardSets, setCardSets] = useState<string[]>([]);
+  const [cardSets, setCardSets] = useState<CardSet[]>([]);
 
   const [totalListNamesArray, setTotalListNamesArray] = useState<string[]>([]);
   const [currentPageListNamesArray, setCurrentPageListNamesArray] = useState<string[]>([]);
