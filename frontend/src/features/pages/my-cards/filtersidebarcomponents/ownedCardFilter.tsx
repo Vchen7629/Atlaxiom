@@ -2,7 +2,7 @@ import { AttributeDropDownComponent } from "./filterdropdowncomponents/attribute
 import { ArchetypeDropDownComponent } from "../../../../components/shadcn_components/dropdown_components/archetypedropdown.tsx"
 import { SubTypeDropDownComponent } from "./filterdropdowncomponents/subtypedrowndown.tsx"
 import { CardSetDropDownComponent } from "./filterdropdowncomponents/cardsetdropdown.tsx"
-import { LevelSliderComponent } from '../../../../components/shadcn_components/sliders/levelslider.tsx';
+import { LevelSliderComponent } from './slidercomponents/levelslider.tsx';
 import MyCardsSearchbarComponent from '../components/searchbar.tsx';
 import { OwnedCardsFilterProps } from "../types/ownedcardfiltertypes.ts";
 import { RarityDropDownComponent } from "./filterdropdowncomponents/raritydropdown.tsx";
@@ -24,6 +24,9 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         uniqueSubtype,
         subTypeFilter,
         setSubTypeFilter,
+        uniqueAttribute,
+        attributeFilter,
+        setAttributeFilter,
         uniqueArchtype,
         archeTypeFilter,
         setArcheTypeFilter,
@@ -46,30 +49,33 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         setIsMonsterFilterActive(true);
         setIsSpellFilterActive(false);
         setIsTrapFilterActive(false);
-      }
+    }
     
-      const handleSpellFilter = () => {
+    const handleSpellFilter = () => {
         setCardTypeFilter('spell');
         setIsMonsterFilterActive(false);
         setIsSpellFilterActive(true);
         setIsTrapFilterActive(false);
-      }
+    }
     
-      const handleTrapFilter = () => {
+    const handleTrapFilter = () => {
         setCardTypeFilter('trap');
         setIsMonsterFilterActive(false);
         setIsSpellFilterActive(false);
         setIsTrapFilterActive(true);
-      }
-      const clearFilter = () => {
+    }
+
+    const clearFilter = () => {
         setCardTypeFilter('');
         setIsMonsterFilterActive(false);
         setIsSpellFilterActive(false);
         setIsTrapFilterActive(false);
         setSubTypeFilter('');
+        setAttributeFilter('');
         setArcheTypeFilter('');
+        setRarityFilter('');
         setSetFilter('');
-      }
+    }
 
       const handleFilterClick = () => {
         setFilterPage(true)
@@ -135,16 +141,15 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
                 </div>
                 <div className="flex mt-[5%] w-full">
                     <div className="flex h-full w-[7vw] text-sm items-center font-black text-[hsl(var(--text))] ">Card Attribute:</div>
-                    <AttributeDropDownComponent/>
+                    <AttributeDropDownComponent attributes={uniqueAttribute} attributeFilter={attributeFilter} setAttributeFilter={setAttributeFilter}/>
                 </div>
                 <div className="flex mt-[5%] w-full">
                     <div className="flex h-full w-[7vw] text-sm  items-center font-black text-[hsl(var(--text))] ">Card Archetype:</div>
                     <ArchetypeDropDownComponent archetypes={uniqueArchtype} archeTypeFilter={archeTypeFilter}  setArcheTypeFilter={setArcheTypeFilter}/>
                 </div>
                 <div className="flex mt-[5%] w-full">
-                    <div className="flex h-full w-[7vw] text-sm  items-center font-black text-[hsl(var(--text))]">Card Level:</div>
-                    <LevelSliderComponent className="w-[55%]"/>
-                    <div className="ml-2">Text</div>
+                    <div className="flex h-full w-[10vw] text-sm  items-center font-black text-[hsl(var(--text))]">Card Level:</div>
+                    <LevelSliderComponent/>
                 </div>
                 <div className="flex mt-[5%] w-full ">
                     <div className="flex h-full w-[7vw] text-sm items-center font-black text-[hsl(var(--text))]">Rarity:</div>

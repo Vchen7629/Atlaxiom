@@ -38,11 +38,16 @@ const UserOwnedCardPage = () => {
   const [uniqueSubtype, setUniqueSubtype] = useState<string[]>([]);
   const [subTypeFilter, setSubTypeFilter] = useState<string>('');
 
+  const [uniqueAttribute, setUniqueAttribute] = useState<string[]>([]);
+  const [attributeFilter, setAttributeFilter] = useState<string>('');
+
   const [uniqueArchtype, setUniqueArchetype] = useState<string[]>([]);
   const [archeTypeFilter, setArcheTypeFilter] = useState<string>('');
 
   const [uniqueSet, setUniqueSet] = useState<string[]>([]);
   const [setFilter, setSetFilter] = useState<string>('');
+
+  const [levelFilter, setLevelFilter] = useState<number>(0);
 
   const [uniqueRarity, setUniqueRarity] = useState<string[]>([]);
   const [rarityFilter, setRarityFilter] = useState<string>('');
@@ -67,12 +72,17 @@ const UserOwnedCardPage = () => {
     uniqueSubtype,
     subTypeFilter,
     setSubTypeFilter,
+    uniqueAttribute,
+    attributeFilter,
+    setAttributeFilter,
     uniqueArchtype,
     archeTypeFilter,
     setArcheTypeFilter,
     uniqueSet,
     setFilter,
     setSetFilter,
+    levelFilter,
+    setLevelFilter,
     uniqueRarity,
     rarityFilter,
     setRarityFilter,
@@ -111,11 +121,13 @@ const UserOwnedCardPage = () => {
     const matchesSearchTerm = card.card_name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesTypeFilter = cardTypeFilter ? card.type?.toLowerCase().includes(cardTypeFilter) : true;
     const matchesSubTypeFilter = subTypeFilter ? card.race?.toLowerCase().trim() === subTypeFilter.toLowerCase().trim() : true
+    const matchesAttributeFilter = attributeFilter ? card.attribute?.toLowerCase().trim() === attributeFilter.toLowerCase().trim() : true
     const matchesArcheTypeFilter = archeTypeFilter ? card.archetype?.toLowerCase().trim() === archeTypeFilter.toLowerCase().trim() : true
+    const matchesLevelFilter = levelFilter ? card.level === levelFilter : true
     const matchesSetFilter = setFilter ? card.set_name?.toLowerCase().trim() === setFilter.toLowerCase().trim() : true
     const matchesRarityFilter = rarityFilter ? card.rarity?.toLowerCase().trim() === rarityFilter.toLowerCase().trim() : true
 
-    return !!matchesSearchTerm && !!matchesTypeFilter && !!matchesSubTypeFilter && !!matchesArcheTypeFilter && !!matchesSetFilter && !!matchesRarityFilter;
+    return !!matchesSearchTerm && !!matchesTypeFilter && !!matchesSubTypeFilter && !!matchesAttributeFilter && !!matchesArcheTypeFilter && !!matchesLevelFilter && !!matchesSetFilter && !!matchesRarityFilter;
   });
 
   useEffect(() => {
@@ -130,6 +142,9 @@ const UserOwnedCardPage = () => {
 
       const subtypeList = new Set(allCards.map((card: any) => card.race).filter(race => race));
       setUniqueSubtype([...subtypeList])
+
+      const attributeList = new Set(allCards.map((card: any) => card.attribute).filter(attribute => attribute));
+      setUniqueAttribute([...attributeList])
 
       const archetypeList = new Set(allCards.map((card: any) => card.archetype).filter(archetype => archetype));
       setUniqueArchetype([...archetypeList])

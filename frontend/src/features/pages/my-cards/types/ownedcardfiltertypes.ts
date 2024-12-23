@@ -13,11 +13,14 @@ export type OwnedCardsFilterProps = {
         spellCount: number;
         trapCount: number;
         uniqueSubtype: string[];
+        uniqueAttribute: string[];
         uniqueArchtype: string[];
         uniqueSet: string[];
         uniqueRarity: string[];
         subTypeFilter: string;
         setSubTypeFilter: React.Dispatch<React.SetStateAction<string>>;
+        attributeFilter: string;
+        setAttributeFilter: React.Dispatch<React.SetStateAction<string>>;
         archeTypeFilter: string;
         setArcheTypeFilter: React.Dispatch<React.SetStateAction<string>>;
         setFilter: string;

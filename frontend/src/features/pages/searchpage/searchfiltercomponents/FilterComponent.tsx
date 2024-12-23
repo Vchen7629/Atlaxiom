@@ -1,20 +1,27 @@
 import { useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEquals, faGreaterThanEqual, faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
-import { LevelSliderComponent } from "../../../../components/shadcn_components/sliders/levelslider"
+import { LevelSliderComponent } from "../../my-cards/filtersidebarcomponents/slidercomponents/levelslider"
 import { PendSliderComponent } from "../../../../components/shadcn_components/sliders/pendslider"
 import { LinkSliderComponent } from "../../../../components/shadcn_components/sliders/linkslider"
 import { MonsterTypeDropDownComponent } from "./dropdowncomponents/monstertypedropdown"
 import { SpellTypeDropDownComponent } from "./dropdowncomponents/spelltypedropdown"
 import { TrapTypeDropDownComponent } from "./dropdowncomponents/traptypedropdown" 
 import { AttributeDropDownComponent } from "./dropdowncomponents/attributecomponent"
-import { RarityDropDownComponent } from "./dropdowncomponents/raritycomponent"
 import { SetDropDownComponent } from "./dropdowncomponents/setComponent"
 import { CaretDownIcon, CaretRightIcon } from '@radix-ui/react-icons';
 import { FilterSidebar } from '../types/searchfiltercomptypes';
 
 
-const FilterCardComponent = ({ expandStatus }: FilterSidebar) => {
+const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
+    const {
+      expandStatus,
+      setMonsterType,
+      setSpellType,
+      setTrapType,
+      setAttributeType,
+    } = filterprops
+
     const [levelDropdown, setLevelDropdown] = useState(false);
     const [pendDropdown, setPendDropdown] = useState(false);
     const [linkDropdown, setLinkDropdown] = useState(false);
@@ -40,19 +47,19 @@ const FilterCardComponent = ({ expandStatus }: FilterSidebar) => {
                 <div className="font-black text-2xl w-full text-center mb-2">Filter Search</div>
                 <div className="flex justify-center w-full min-h-6 my-2">
                   <div className='flex h-full w-[6vw] font-black items-center text-white'>Monster Type: </div>
-                  <div><MonsterTypeDropDownComponent/></div>
+                  <div><MonsterTypeDropDownComponent setMonsterType={setMonsterType}/></div>
                 </div>
                 <div className="flex justify-center w-full min-h-6 my-2">
                   <div className='flex h-full w-[6vw] font-black items-center text-white'>Spell Type: </div>
-                  <div><SpellTypeDropDownComponent/></div>
+                  <div><SpellTypeDropDownComponent setSpellType={setSpellType}/></div>
                 </div>
                 <div className="flex justify-center w-full min-h-6 my-2">
                   <div className='flex h-full w-[6vw] font-black items-center text-white'>Trap Type: </div>
-                  <div><TrapTypeDropDownComponent/></div>
+                  <div><TrapTypeDropDownComponent setTrapType={setTrapType}/></div>
                 </div>
                 <div className="flex justify-center w-full min-h-6 my-2">
                   <div className='flex h-full w-[6vw] font-black items-center text-white'>Attribute: </div>
-                  <div><AttributeDropDownComponent/></div>
+                  <div><AttributeDropDownComponent setAttributeType={setAttributeType}/></div>
                 </div>
                   
                 <div  className="flex flex-col w-full items-center min-h-6 my-2">
@@ -140,10 +147,6 @@ const FilterCardComponent = ({ expandStatus }: FilterSidebar) => {
                           />
                     </div>
                 </div>
-                <div className="flex justify-center w-full min-h-6 my-2">
-                  <div className='flex h-full w-[5vw] font-black items-center text-white'>Rarity: </div>
-                  <div><RarityDropDownComponent/></div>
-                </div>     
                 <div className="flex w-full justify-center my-2">
                   Forbidden List Status
                 </div>

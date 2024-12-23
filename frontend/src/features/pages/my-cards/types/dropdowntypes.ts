@@ -4,6 +4,12 @@ export type SubTypeDropDownProps = {
     setSubTypeFilter: (filter: string) => void;
 }
 
+export type AttributeDropDownProps = {
+    attributes: string[];
+    attributeFilter: string;
+    setAttributeFilter: (filter: string) => void;
+}
+
 export type CardSetDropDownProps = {
     sets: string[]; 
     setFilter: string; 

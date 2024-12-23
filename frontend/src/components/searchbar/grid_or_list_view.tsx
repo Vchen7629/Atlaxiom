@@ -2,14 +2,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars,  faGripHorizontal } from '@fortawesome/free-solid-svg-icons';
 import { GridListViewComponentProps } from './gridorlistviewtypes';
 
-const GridListViewComponent= ({ filterProps }: GridListViewComponentProps) => {
+const GridListViewComponent= ({ gridlistviewprops }: GridListViewComponentProps) => {
     const {
         setListView,
         setGalleryView,
         setClickedOnCard,
         listView,
         galleryView
-    } = filterProps
+    } = gridlistviewprops
 
     const handleListView = () => {
         setListView(true)

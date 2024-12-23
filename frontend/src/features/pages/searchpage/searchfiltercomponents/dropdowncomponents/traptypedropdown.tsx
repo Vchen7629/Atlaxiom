@@ -18,24 +18,25 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { SetTrapProp } from "../../types/searchfiltercomptypes"
  
 const TrapTypes = [
   {
-    value: "normal trap",
-    label: "normal trap",
+    value: "normal",
+    label: "normal",
   },
   {
-    value: "continuous trap",
-    label: "continuous trap",
+    value: "continuous",
+    label: "continuous",
   },
   {
-    value: "counter trap",
-    label: "counter trap",
+    value: "counter",
+    label: "counter",
   },
 ];
 
  
-export function TrapTypeDropDownComponent() {
+export function TrapTypeDropDownComponent({ setTrapType }: SetTrapProp) {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
  
@@ -72,7 +73,9 @@ export function TrapTypeDropDownComponent() {
                   value={types.value}
                   className="text-[hsl(var(--text))] "
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
+                    const newValue = currentValue === value ? "" : currentValue;
+                    setValue(newValue)
+                    setTrapType(newValue)
                     setOpen(false)
                   }}
                 > 

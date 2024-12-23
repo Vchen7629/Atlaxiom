@@ -18,41 +18,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { AttributeDropDownProps } from "../../types/dropdowntypes"
  
-const Attributes = [
-  {
-    value: "Dark",
-    label: "Dark",
-  },
-  {
-    value: "Divine",
-    label: "Divine",
-  },
-  {
-    value: "Earth",
-    label: "Earth",
-  },
-  {
-    value: "Fire",
-    label: "Fire",
-  },
-  {
-    value: "Light",
-    label: "Light",
-  },
-  {
-    value: "Water",
-    label: "Water",
-  },
-  {
-    value: "Wind",
-    label: "Wind",
-  }
-]
- 
-export function AttributeDropDownComponent() {
+export function AttributeDropDownComponent({ attributes, attributeFilter, setAttributeFilter }: AttributeDropDownProps) {
   const [open, setOpen] = React.useState(false)
-  const [attributeValue, setAttributeValue] = React.useState("")
  
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -61,41 +30,41 @@ export function AttributeDropDownComponent() {
           variant="cardcollection"
           role="combobox"
           aria-expanded={open}
-          className="w-[15vw] bg-transparent border-transparent hover:text-gold hover:bg-transparent justify-between"
+          className="w-[15vw] bg-transparent border-transparent text-[hsl(var(--text))] justify-between"
         >
-          {attributeValue ? (
-            <span className={`flex relative items-center left-1/4 justify-between w-fit px-2 py-1 bg-blue-500 text-white rounded text-sm`}>
-              {Attributes.find((Attributes) => Attributes.value === attributeValue)?.label}
+          {attributeFilter ? (
+            <span className={`flex relative items-center left-1/4 justify-between w-fit px-2 py-1 bg-[hsl(var(--background3))] text-white rounded text-sm`}>
+              {attributes.find((attribute) => attribute === attributeFilter)}
             </span>
           ) : (
-            <span className={`flex relative items-center left-1/5 justify-between w-fit px-2 py-1 bg-transparent text-white rounded text-sm`}>
-                Select Card Subtype...
+            <span className={`fflex relative items-center left-1/5 justify-between w-fit px-2 py-1 bg-transparent rounded text-sm`}>
+                Select Card Attribute...
             </span>
           )}
           <CaretSortIcon className="min-h-6 min-w-6 shrink-0 text-white" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[15vw] p-0">
-        <Command className="bg-blackone text-white ">
-          <CommandInput placeholder="Search framework..." className="h-9" />
+      <PopoverContent className="w-[15vw] p-0 relative top-[-42px]">
+        <Command className="text-white ">
+          <CommandInput placeholder="Search Card Attributes..." className="h-9" />
           <CommandList>
             <CommandEmpty>No Attribute found.</CommandEmpty>
             <CommandGroup>
-              {Attributes.map((Attributes) => (
+              {attributes.map((attribute) => (
                 <CommandItem
-                  key={Attributes.value}
-                  value={Attributes.value}
-                  className="text-white"
+                  key={attribute}
+                  value={attribute}
+                  className="text-[hsl(var(--text))] bg-transparent"
                   onSelect={(currentValue) => {
-                    setAttributeValue(currentValue === attributeValue ? "" : currentValue)
+                    setAttributeFilter(currentValue === attributeFilter ? "" : currentValue)
                     setOpen(false)
                   }}
                 >
-                  {Attributes.label}
+                  {attribute}
                   <CheckIcon
                     className={cn(
                       "ml-auto h-4 w-4 text-white",
-                      attributeValue === Attributes.value ? "opacity-100" : "opacity-0"
+                      attributeFilter === attribute ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>

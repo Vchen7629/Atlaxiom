@@ -26,6 +26,10 @@ const SearchBarPage= () => {
   const [expandStatus, setExpandStatus] = useState<boolean>(true);
   const [filterActive, setFilterActive] = useState<boolean>(false);
 
+  const [monsterType, setMonsterType] = useState<string>("");
+  const [spellType, setSpellType] = useState<string>("");
+  const [trapType, setTrapType] = useState<string>("");
+  const [attributeType, setAttributeType] = useState<string>("");
 
   const [listView, setListView] = useState(true);
 
@@ -34,7 +38,7 @@ const SearchBarPage= () => {
   const maxMainSuggestions = 99999;
 
   const suggestionsPerGalleryPage = 45;
-  const suggestionsPerPage = 20;
+  const suggestionsPerPage = 15;
   const totalPages = Math.ceil(totalListNamesArray.length / suggestionsPerPage);
   const totalGalleryPages = Math.ceil(totalGalleryNamesArray.length / suggestionsPerGalleryPage);
   const [currentListPage, setListCurrentPage] = useState(1);  
@@ -59,7 +63,7 @@ const SearchBarPage= () => {
     setFilterActive(!filterActive)
   }
 
-  const filterProps = {
+  const gridlistviewprops = {
     setListView,
     listView,
     setGalleryView,
@@ -82,6 +86,10 @@ const SearchBarPage= () => {
     setTotalListNamesArray,
     setTotalGalleryNamesArray,
     maxMainSuggestions,
+    monsterType,
+    spellType,
+    trapType,
+    attributeType,
   }
 
   const listviewprops = {
@@ -114,6 +122,14 @@ const SearchBarPage= () => {
     cardSets
   } 
 
+  const filterprops = {
+    expandStatus,
+    setMonsterType,
+    setSpellType,
+    setTrapType,
+    setAttributeType
+  }
+
 
 
   return (
@@ -128,10 +144,10 @@ const SearchBarPage= () => {
                     <div className="text-4xl text-goldenrod ml-[4%]">
                       <strong>Card Search</strong>
                     </div>
-                    <SearchBarComponent searchbarprops={searchbarprops} />
+                    <SearchBarComponent searchbarprops={searchbarprops}/>
                     <button className={`h-[40px] ml-4 w-[5vw] rounded-xl ${filterActive ? "bg-[hsl(var(--filterbutton))]" : "bg-[hsl(var(--background3))]"}`}  onClick={handleFilterClick}>Filter Card</button>
                     <div className="flex absolute w-20 bg-footer rounded-xl right-0 mr-20">
-                      <GridListViewComponent filterProps={filterProps}/>
+                      <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                     </div>
                   </div>
                 </main>
@@ -157,7 +173,7 @@ const SearchBarPage= () => {
           </div>
           <div className={`fixed flex right-4 top-24 min-h-[80vh] ${expandStatus ? "w-[20%]" : "w-0 "}`}>
             {!clickedOnCard &&  (
-              <FilterCardComponent expandStatus={expandStatus}/>
+              <FilterCardComponent filterprops={filterprops}/>
             )}
           </div>
         </main>   

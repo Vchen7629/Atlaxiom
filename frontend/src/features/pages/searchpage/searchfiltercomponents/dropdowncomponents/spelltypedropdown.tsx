@@ -18,36 +18,37 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { SetSpellProp } from "../../types/searchfiltercomptypes"
  
 const SpellTypes = [
   {
-    value: "normal spell",
-    label: "normal spell",
+    value: "normal",
+    label: "normal",
   },
   {
-    value: "continuous spell",
-    label: "continuous spell",
+    value: "continuous",
+    label: "continuous",
   },
   {
-    value: "field spell",
-    label: "field spell",
+    value: "field",
+    label: "field",
   },
   {
-    value: "equip spell",
-    label: "equip spell",
+    value: "equip",
+    label: "equip",
   },
   {
-    value: "quick-play spell",
-    label: "quick-play spell",
+    value: "quick-play",
+    label: "quick-play",
   },
   {
-    value: "ritual spell",
-    label: "ritual spell",
+    value: "ritual",
+    label: "ritual",
   },
 ];
 
  
-export function SpellTypeDropDownComponent() {
+export function SpellTypeDropDownComponent({ setSpellType }: SetSpellProp) {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
  
@@ -61,7 +62,7 @@ export function SpellTypeDropDownComponent() {
           className="w-[11vw] h-8 bg-transparent border-transparent text-base  justify-between"
         >
             {value ? (
-                <span className={`flex relative items-center left-2 justify-between w-full px-2 py-1 bg-blue-500 text-white rounded text-sm`}>
+                <span className={`flex relative items-center left-2 justify-center w-full px-2 py-1 bg-blue-500 text-white rounded text-sm`}>
                     {SpellTypes.find((types) => types.value === value)?.label}
                 </span>
             ) : (
@@ -84,7 +85,9 @@ export function SpellTypeDropDownComponent() {
                   value={types.value}
                   className="text-[hsl(var(--text))] "
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
+                    const newValue = currentValue === value ? "" : currentValue;
+                    setValue(newValue)
+                    setSpellType(newValue)
                     setOpen(false)
                   }}
                 > 
