@@ -18,6 +18,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { SetMonsterProp } from "../../types/searchfiltercomptypes"
  
 const MonsterTypes = [
   {
@@ -83,10 +84,10 @@ const MonsterTypes = [
 ];
 
  
-export function MonsterTypeDropDownComponent() {
+export function MonsterTypeDropDownComponent({ setMonsterType }: SetMonsterProp) {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
- 
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -112,7 +113,7 @@ export function MonsterTypeDropDownComponent() {
         <Command className="text-white ">
           <CommandInput placeholder="Search Card Subtypes..." className="h-9" />
           <CommandList className="max-h-[300px] overflow-y-auto">
-            <CommandEmpty>No Card Subtype found.</CommandEmpty>
+            <CommandEmpty>No Monster Type found.</CommandEmpty>
             <CommandGroup>
               {MonsterTypes.map((types) => (
                 <CommandItem
@@ -120,7 +121,9 @@ export function MonsterTypeDropDownComponent() {
                   value={types.value}
                   className="text-[hsl(var(--text))] "
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
+                    const newValue = currentValue === value ? "" : currentValue;
+                    setValue(newValue)
+                    setMonsterType(newValue);
                     setOpen(false)
                   }}
                 > 

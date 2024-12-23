@@ -18,6 +18,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { SetAttributeProp } from "../../types/searchfiltercomptypes"
  
 const Attributes = [
   {
@@ -51,7 +52,7 @@ const Attributes = [
 ];
 
  
-export function AttributeDropDownComponent() {
+export function AttributeDropDownComponent({ setAttributeType }: SetAttributeProp) {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
  
@@ -88,7 +89,9 @@ export function AttributeDropDownComponent() {
                   value={types.value}
                   className="text-[hsl(var(--text))] "
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
+                    const newValue = currentValue === value ? "" : currentValue
+                    setValue(newValue)
+                    setAttributeType(newValue)
                     setOpen(false)
                   }}
                 > 

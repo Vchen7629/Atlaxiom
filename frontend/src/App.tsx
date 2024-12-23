@@ -8,7 +8,6 @@ import UserOwnedCardPage from './features/pages/my-cards/ownedCardPage.tsx';
 import MyDeck from './features/pages/my-decks/deckpagehomepage.tsx';
 import DeckBuilderPage from './features/pages/my-decks/editdeckpage.tsx';
 import Profilepage from './features/pages/profilepage/Profilepage.tsx';
-import { ThemeProvider } from "./components/shadcn_components/darklightmode/theme-provider.js"
 import { HomePage } from './features/pages/homepage/homepage.tsx';
 import SignUpPageComponent from './features/pages/sign-up-page/signuppage.tsx';
 
@@ -16,7 +15,6 @@ import SignUpPageComponent from './features/pages/sign-up-page/signuppage.tsx';
 
 function App() {
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="signup" element={<SignUpPageComponent/>}/>
@@ -37,7 +35,6 @@ function App() {
         </Route>
       
       </Routes>
-    </ThemeProvider>
   );
 } 
 

@@ -17,6 +17,10 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
         setTotalListNamesArray,
         maxMainSuggestions,
         setTotalGalleryNamesArray,
+        monsterType,
+        spellType,
+        trapType,
+        attributeType,
     } = searchbarprops
 
     const apiUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
@@ -47,13 +51,24 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
       const normalizedInput = inputValue.toLowerCase().replace(/[-\s]/g, ''); 
       const filteredSuggestions = cardData.filter((card) => {
         const normalizedCardName = card.name.toLowerCase().replace(/[-\s]/g, ''); 
-        return normalizedCardName.includes(normalizedInput);
+        const normalizedMonsterType = monsterType ? monsterType.toLowerCase() : "";
+        const normalizedSpellType = spellType ? spellType.toLowerCase() : "";
+        const normalizedTrapType = trapType ? trapType.toLowerCase() : "";
+        const normalizedAttributeType = attributeType ? attributeType.toLowerCase() : "";
+
+        const matchesname = normalizedInput ? normalizedCardName.includes(normalizedInput) : true;
+        const matchesMonsterType = monsterType? card.type?.toLowerCase() === normalizedMonsterType : true;
+        const matchesSpellType = spellType? card.race?.toLowerCase() === normalizedSpellType && card.frameType?.toLowerCase() === 'spell' : true;
+        const matchesTrapType = trapType? card.race?.toLowerCase() == normalizedTrapType && card.frameType?.toLowerCase() === "trap" : true;
+        const matchesAttributeType = attributeType? card.attribute?.toLowerCase() == normalizedAttributeType : true;
+
+        return matchesname && matchesMonsterType && matchesSpellType && matchesTrapType && matchesAttributeType
       });
 
       setTotalListNamesArray(filteredSuggestions.slice(0, maxMainSuggestions).map((card) => card.name));
       setTotalGalleryNamesArray(filteredSuggestions.slice(0, maxMainSuggestions).map((card) => card.name));
 
-    }, [cardData, maxMainSuggestions]);
+    }, [cardData, monsterType, spellType, trapType, attributeType, maxMainSuggestions]);
 
   useEffect(() => {
     debouncedSearchCard(cardName);
