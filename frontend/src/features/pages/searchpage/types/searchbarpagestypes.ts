@@ -1,8 +1,9 @@
 import { SearchResCardData } from "./datastructuretypes"
+import { CardSet } from "./searchresultcomptypes";
 
 export type SearchResult = {
     selectedCardData: SearchResCardData;
-    cardSets: any
+    cardSets: CardSet[]
 }
 
 export type SearchAuth = {

@@ -1,5 +1,6 @@
 import React from "react";
 import { ApiCardData, SearchResCardData } from "./datastructuretypes";
+import { CardSet } from "./searchresultcomptypes";
 
 export type ListViewComp = {
     listviewprops: {
@@ -13,8 +14,8 @@ export type ListViewComp = {
         totalPages: number;
         currentListPage: number;
         setListCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-        cardSets: string[];
-        setCardSets: React.Dispatch<React.SetStateAction<string[]>>;
+        cardSets: CardSet[];
+        setCardSets: React.Dispatch<React.SetStateAction<CardSet[]>>;
     }
 }
 
@@ -30,7 +31,7 @@ export type GalleryViewComp = {
         totalGalleryPages: number;
         currentGalleryPage: number;
         setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-        cardSets: string[];
-        setCardSets: React.Dispatch<React.SetStateAction<string[]>>;
+        cardSets: CardSet[];
+        setCardSets: React.Dispatch<React.SetStateAction<CardSet[]>>;
     }
 }
