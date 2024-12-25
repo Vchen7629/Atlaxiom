@@ -21,6 +21,12 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
         spellType,
         trapType,
         attributeType,
+        levelFilter,
+        lessThanEqual,
+        equal,
+        greaterThanEqual,
+        pendFilter,
+        linkFilter
     } = searchbarprops
 
     const apiUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
@@ -61,14 +67,23 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
         const matchesSpellType = spellType? card.race?.toLowerCase() === normalizedSpellType && card.frameType?.toLowerCase() === 'spell' : true;
         const matchesTrapType = trapType? card.race?.toLowerCase() == normalizedTrapType && card.frameType?.toLowerCase() === "trap" : true;
         const matchesAttributeType = attributeType? card.attribute?.toLowerCase() == normalizedAttributeType : true;
+        
+        const matchesLevelFilter = levelFilter
+          ? (equal && card.level !== undefined && card.level === levelFilter) ||
+          (greaterThanEqual && card.level !== undefined && card.level >= levelFilter) ||
+          (lessThanEqual && card.level !== undefined && card.level <= levelFilter)
+        : true;
 
-        return matchesname && matchesMonsterType && matchesSpellType && matchesTrapType && matchesAttributeType
+        const matchesPendFilter = pendFilter ? card.scale === pendFilter : true
+        const matchesLinkFilter = linkFilter ? card.linkval === linkFilter : true
+
+        return matchesname && matchesMonsterType && matchesSpellType && matchesTrapType && matchesAttributeType && matchesLevelFilter && matchesPendFilter && matchesLinkFilter
       });
 
       setTotalListNamesArray(filteredSuggestions.slice(0, maxMainSuggestions).map((card) => card.name));
       setTotalGalleryNamesArray(filteredSuggestions.slice(0, maxMainSuggestions).map((card) => card.name));
 
-    }, [cardData, monsterType, spellType, trapType, attributeType, maxMainSuggestions]);
+    }, [cardData, monsterType, spellType, trapType, attributeType, levelFilter, equal, greaterThanEqual, lessThanEqual, pendFilter, linkFilter, maxMainSuggestions]);
 
   useEffect(() => {
     debouncedSearchCard(cardName);

@@ -19,21 +19,21 @@ export const GalleryViewCardDisplayComponent: React.FC<filteredCards> = ({ filte
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <div className="flex w-full min-h-[100vh]">
+                <div className="flex">
                     {filteredCards.length > 0 ? (
                         <div 
-                            className="grid grid-cols-10 gap-4 w-full h-full p-4 justify-items-start items-start"  
+                            className="grid grid-cols-10 gap-4 p-4 justify-items-start items-start hover:border-10 hover-border-blacktwo"  
                             style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                         >
                             {filteredCards.map((card: Card, index: number) => (
-                                <div key={index} className="flex h-full w-full" onClick={() => setSelectedCard(card)}>
-                                    <img src={card.image_url} alt={card.card_name} className="h-[80%] object-contain"/>                
+                                <div key={index} className="flex w-fit" onClick={() => setSelectedCard(card)}>
+                                    <img src={card.image_url} alt={card.card_name} className="h-full object-contain"/>                
                                 </div>
                             ))}
                         </div>
                     ) : (
                         <div className="flex h-full justify-center pt-[25%] text-3xl text-gray-400 font-black">
-                            <p>No cards matching your Filters</p>
+                            <span>No cards matching your Filters</span>
                         </div>
                     )}
                 </div>

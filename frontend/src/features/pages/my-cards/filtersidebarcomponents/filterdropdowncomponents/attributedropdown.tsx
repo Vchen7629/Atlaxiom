@@ -37,15 +37,15 @@ export function AttributeDropDownComponent({ attributes, attributeFilter, setAtt
               {attributes.find((attribute) => attribute === attributeFilter)}
             </span>
           ) : (
-            <span className={`fflex relative items-center left-1/5 justify-between w-fit px-2 py-1 bg-transparent rounded text-sm`}>
+            <span className={`flex relative items-center left-1/5 justify-between w-fit px-2 py-1 bg-transparent rounded text-sm`}>
                 Select Card Attribute...
             </span>
           )}
-          <CaretSortIcon className="min-h-6 min-w-6 shrink-0 text-white" />
+          <CaretSortIcon className="min-h-6 min-w-6 shrink-0" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[15vw] p-0 relative top-[-42px]">
-        <Command className="text-white ">
+        <Command className="text-[hsl(var(--text))]">
           <CommandInput placeholder="Search Card Attributes..." className="h-9" />
           <CommandList>
             <CommandEmpty>No Attribute found.</CommandEmpty>

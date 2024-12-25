@@ -37,7 +37,7 @@ export function RarityDropDownComponent({ raritys, rarityFilter, setRarityFilter
                     {raritys.find((rarity) => rarity === rarityFilter) }
                 </span>
             ): (
-              <span className={`flex relative items-center left-1/5 justify-between w-fit px-2 py-1 bg-transparent text-white rounded text-sm`}>
+              <span className={`flex relative items-center left-1/5 justify-between w-fit px-2 py-1 bg-transparent rounded text-sm`}>
                   Select Rarity...
               </span>
             )}
@@ -45,9 +45,9 @@ export function RarityDropDownComponent({ raritys, rarityFilter, setRarityFilter
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[15vw] p-0 relative top-[-42px]">
-        <Command className="text-white ">
+        <Command className="text-[hsl(var(--text))]">
           <CommandInput placeholder="Search Card Rarities..." className="h-9" />
-          <CommandList className="max-h-[300px] overflow-y-auto">
+          <CommandList>
             <CommandEmpty>No Card Rarity found.</CommandEmpty>
             <CommandGroup>
               {raritys.map((rarity) => (

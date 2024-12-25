@@ -2,15 +2,17 @@ import { useState, useEffect } from 'react';
 import Header from '../../../components/header/header';
 import Footer from '../../../components/footer/Footer';
 import SearchResults from './searchresults';
-import GridListViewComponent from '../../../components/searchbar/grid_or_list_view';
+import GridListViewComponent from './searchbarcomponents/grid_or_list_view';
 import FilterCardComponent from './searchfiltercomponents/FilterComponent';
 import SearchBarComponent from './searchbarcomponents/searchbar';
 import ListViewSearchSuggestionsComponent from './searchbarpagecomponents/listviewsearchsuggestions';
 import { ApiCardData, SearchResCardData } from './types/datastructuretypes';
 import GalleryViewSearchSuggestionsComponent from './searchbarpagecomponents/galleryviewsearchsuggestions';
 import { CardSet } from './types/searchresultcomptypes';
+import ClearFilterButton from './buttonscomponents/clearfilterbutton';
+import FilterButton from './buttonscomponents/filterbutton';
 
-const SearchBarPage= () => {
+const SearchBarPage = () => {
   const [cardName, setCardName] = useState<string>('');
   const [cardData, setCardData] = useState<ApiCardData[]>([]);
   const [cardSets, setCardSets] = useState<CardSet[]>([]);
@@ -30,6 +32,14 @@ const SearchBarPage= () => {
   const [spellType, setSpellType] = useState<string>("");
   const [trapType, setTrapType] = useState<string>("");
   const [attributeType, setAttributeType] = useState<string>("");
+
+  const [levelFilter, setLevelFilter] = useState<number | null>(0);
+  const [lessThanEqual, setLessThanEqual] = useState<boolean>(false);
+  const [equal, setEqual] = useState<boolean>(true);
+  const [greaterThanEqual, setGreaterThanEqual] = useState<boolean>(false);
+
+  const [pendFilter, setPendFilter] = useState<number | null>(0);
+  const [linkFilter, setLinkFilter] = useState<number | null>(0);
 
   const [listView, setListView] = useState(true);
 
@@ -58,10 +68,6 @@ const SearchBarPage= () => {
     setCurrentPageGalleryNamesArray(currentGallerySuggestions);
   }, [currentGalleryPage, totalGalleryNamesArray, suggestionsPerGalleryPage]);
 
-  const handleFilterClick = () => {
-    setExpandStatus(!expandStatus)
-    setFilterActive(!filterActive)
-  }
 
   const gridlistviewprops = {
     setListView,
@@ -90,6 +96,29 @@ const SearchBarPage= () => {
     spellType,
     trapType,
     attributeType,
+    levelFilter,
+    lessThanEqual,
+    equal,
+    greaterThanEqual,
+    pendFilter,
+    linkFilter
+  }
+
+  const clearfilterprops = {
+    setMonsterType,
+    setSpellType,
+    setTrapType,
+    setAttributeType,
+    setLevelFilter,
+    setPendFilter,
+    setLinkFilter,
+  }
+
+  const filterbuttonprops = {
+    expandStatus,
+    setExpandStatus,
+    filterActive,
+    setFilterActive
   }
 
   const listviewprops = {
@@ -124,10 +153,23 @@ const SearchBarPage= () => {
 
   const filterprops = {
     expandStatus,
+    monsterType,
     setMonsterType,
+    spellType,
     setSpellType,
+    trapType,
     setTrapType,
-    setAttributeType
+    attributeType,
+    setAttributeType,
+    levelFilter,
+    setLevelFilter,
+    lessThanEqual,
+    setLessThanEqual,
+    equal,
+    setEqual,
+    greaterThanEqual,
+    setPendFilter,
+    setLinkFilter,
   }
 
 
@@ -145,7 +187,10 @@ const SearchBarPage= () => {
                       <strong>Card Search</strong>
                     </div>
                     <SearchBarComponent searchbarprops={searchbarprops}/>
-                    <button className={`h-[40px] ml-4 w-[5vw] rounded-xl ${filterActive ? "bg-[hsl(var(--filterbutton))]" : "bg-[hsl(var(--background3))]"}`}  onClick={handleFilterClick}>Filter Card</button>
+                    <div className="flex ml-2 items-center">
+                      <ClearFilterButton clearfilterprops={clearfilterprops}/>
+                      <FilterButton filterbuttonprops={filterbuttonprops}/>
+                    </div>
                     <div className="flex absolute w-20 bg-footer rounded-xl right-0 mr-20">
                       <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                     </div>

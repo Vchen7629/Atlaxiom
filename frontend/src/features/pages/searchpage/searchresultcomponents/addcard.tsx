@@ -14,14 +14,16 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button"
 import { useAddNewOwnedCardMutation } from '../../../api-slices/ownedCardapislice';
 import { CardSet, ComponentCardSetPopupProps } from "../types/searchresultcomptypes";
+import { useGlobalCardRefetchState } from "@/app/globalStates/refetchCardState";
    
 export const ComponentCardSetPopup = ({ selectedCardData, userId, cardSets }: ComponentCardSetPopupProps) => {
     const [cardMessages, setCardMessages] = useState<{ [key: number]: string }>({});
     const [addNewOwnedCard] = useAddNewOwnedCardMutation();
+    const { setCardRefetch }  = useGlobalCardRefetchState();
 
     const handleBackClick = () => {
         setCardMessages({});
-    }
+    };
 
     const handleAddOwnedCardClick = async (set: CardSet, index: number) => {
         if (selectedCardData) {
@@ -48,6 +50,7 @@ export const ComponentCardSetPopup = ({ selectedCardData, userId, cardSets }: Co
             try {
                 await addNewOwnedCard({ id: userId, CardData: cardToPost }).unwrap();
                 setCardMessages(prev => ({...prev, [index]: "Card successfully added to Collection!"}));
+                setCardRefetch(true);
             } catch (error) {
                 setCardMessages(prev => ({...prev, [index]: "Error adding Card to Collection."}));
             }
