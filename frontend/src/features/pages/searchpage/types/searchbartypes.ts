@@ -18,5 +18,21 @@ export type SearchBar = {
         spellType: string;
         trapType: string;
         attributeType: string;
+        levelFilter: number | null;
+        lessThanEqual: boolean
+        equal: boolean
+        greaterThanEqual: boolean;
+        pendFilter: number | null;
+        linkFilter: number | null;
+    }
+}
+
+export type GridListViewComponentProps = {
+    gridlistviewprops: {
+        setListView: React.Dispatch<React.SetStateAction<boolean>>;
+        setGalleryView: React.Dispatch<React.SetStateAction<boolean>>;
+        setClickedOnCard: React.Dispatch<React.SetStateAction<boolean>>;
+        listView: boolean;
+        galleryView: boolean;
     }
 }

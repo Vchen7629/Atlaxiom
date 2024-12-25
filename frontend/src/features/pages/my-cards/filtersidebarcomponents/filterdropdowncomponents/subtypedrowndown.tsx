@@ -46,7 +46,7 @@ export function SubTypeDropDownComponent({ subtypes, subTypeFilter, setSubTypeFi
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[15vw] p-0 relative top-[-42px]">
-        <Command className=" text-white ">
+        <Command className=" text-[hsl(var(--text))]">
           <CommandInput placeholder="Search Card Subtypes..." className="h-9" />
           <CommandList>
             <CommandEmpty>No subtypes found.</CommandEmpty>

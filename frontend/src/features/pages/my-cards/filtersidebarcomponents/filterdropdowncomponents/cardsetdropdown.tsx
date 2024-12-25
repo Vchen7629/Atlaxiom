@@ -34,21 +34,21 @@ export function CardSetDropDownComponent({ sets, setFilter, setSetFilter }: Card
         >
           {setFilter ? (
             <div className="flex w-full items-center justify-center">
-              <span className={`flex items-center justify-between w-fit px-2 py-1 bg-[hsl(var(--background3))] text-white rounded  text-[12px]`}>
+              <span className={`flex items-center justify-between w-fit px-2 py-1 bg-[hsl(var(--background3))] rounded text-[12px]`}>
                   {sets.find((sets) => sets === setFilter) }
               </span>
             </div>
           ) : (
-            <span className={`flex relative items-center justify-between w-[100%] px-2 py-1 bg-transparent text-white rounded text-sm`}>
+            <span className={`flex relative items-center justify-between w-[100%] px-2 py-1 bg-transparent rounded text-sm`}>
                 Select Card Set...
             </span>
           )}
-          <CaretSortIcon className="min-h-6 min-w-6 shrink-0 text-white" />
+          <CaretSortIcon className="min-h-6 min-w-6 shrink-0" />
         </Button>
         
       </PopoverTrigger>
       <PopoverContent className="w-[15vw] p-0 relative top-[-42px]">
-        <Command className="bg-blackone text-white ">
+        <Command className="text-[hsl(var(--text))]">
           <CommandInput placeholder="Search framework..." className="h-9" />
           <CommandList>
             <CommandEmpty>No Card Sets found.</CommandEmpty>
@@ -57,7 +57,7 @@ export function CardSetDropDownComponent({ sets, setFilter, setSetFilter }: Card
                 <CommandItem
                   key={sets}
                   value={sets}
-                  className="text-cyan-500"
+                  className="text-[hsl(var(--text))] bg-transparent"
                   onSelect={(currentValue) => {
                     setSetFilter(currentValue === setFilter ? "" : currentValue)
                     setOpen(false)

@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils"
 import { Slider } from "@/components/ui/slider"
 import { useState } from "react"
-import { LevelSliderProps } from "../../types/dropdowntypes"
+import { LevelSliderProps } from "../../types/searchfiltercomptypes"
 
 export function LevelSliderComponent({ setLevelFilter, className, ...props }: LevelSliderProps) {
   const [value, setValue] = useState([1])

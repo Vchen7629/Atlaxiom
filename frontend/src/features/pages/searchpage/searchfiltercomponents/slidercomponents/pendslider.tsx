@@ -1,14 +1,14 @@
 import { cn } from "@/lib/utils"
 import { Slider } from "@/components/ui/slider"
 import { useState } from "react"
-import { LevelSliderProps } from "../../types/dropdowntypes"
+import { PendSliderProps } from "@/features/pages/my-cards/types/dropdowntypes"
 
-export function LevelSliderComponent({ setLevelFilter, className, ...props }: LevelSliderProps) {
+export function PendSliderComponent({ setPendFilter, className, ...props }: PendSliderProps) {
   const [value, setValue] = useState([1])
 
   const handleSliderChange = (newValue: number[]) => {
     setValue(newValue)
-    setLevelFilter(newValue[0])
+    setPendFilter(newValue[0])
   }
 
   return (

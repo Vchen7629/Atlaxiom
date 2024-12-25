@@ -10,11 +10,15 @@ import DeckBuilderPage from './features/pages/my-decks/editdeckpage.tsx';
 import Profilepage from './features/pages/profilepage/Profilepage.tsx';
 import { HomePage } from './features/pages/homepage/homepage.tsx';
 import SignUpPageComponent from './features/pages/sign-up-page/signuppage.tsx';
+import { GlobalCardRefetchStateProvider } from './app/globalStates/refetchCardState.tsx';
+import { GlobalDeckRefetchStateProvider } from './app/globalStates/refetchDeckState.tsx';
 
 
 
 function App() {
   return (
+    <GlobalCardRefetchStateProvider>
+    <GlobalDeckRefetchStateProvider>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="signup" element={<SignUpPageComponent/>}/>
@@ -35,6 +39,8 @@ function App() {
         </Route>
       
       </Routes>
+    </GlobalDeckRefetchStateProvider>
+    </GlobalCardRefetchStateProvider>
   );
 } 
 

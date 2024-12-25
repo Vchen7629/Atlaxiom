@@ -9,12 +9,13 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useIncreaseOwnedCardMutation, useDecreaseOwnedCardMutation, useDeleteOwnedCardMutation, useGetOwnedCardsQuery } from '../../../api-slices/ownedCardapislice.tsx';
 import { Card, filteredCards, SelectedCard } from "../types/ownedcarddetailstypes.ts";
+import { useGlobalCardRefetchState } from "@/app/globalStates/refetchCardState.tsx";
 
 export const ListViewCardDisplayComponent: React.FC<filteredCards> = ({ filteredCards }) => {
     const [increaseOwnedCard] = useIncreaseOwnedCardMutation();
@@ -22,10 +23,18 @@ export const ListViewCardDisplayComponent: React.FC<filteredCards> = ({ filtered
     const [deleteOwnedCard] = useDeleteOwnedCardMutation();
     const location = useLocation();
     const { userId } = location.state || {};
+    const { cardRefetch, setCardRefetch } = useGlobalCardRefetchState()
 
     const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null)
 
     const {refetch} = useGetOwnedCardsQuery(userId);
+
+    useEffect(() => {
+      if (userId && cardRefetch) {
+        refetch();
+        setCardRefetch(false)
+      }
+    }, [userId, cardRefetch])
 
     const handleIncreaseClick = async (cardName: string) => {
         try {
@@ -36,7 +45,7 @@ export const ListViewCardDisplayComponent: React.FC<filteredCards> = ({ filtered
               increaseOwnedAmount: 1 
             } 
           });
-          refetch();
+          setCardRefetch(true);
         } catch (err) {
           console.error('Failed to increase card amount:', err);
         }
@@ -51,7 +60,7 @@ export const ListViewCardDisplayComponent: React.FC<filteredCards> = ({ filtered
               decreaseOwnedAmount: 1 
             } 
           });
-          refetch();
+          setCardRefetch(true);
         } catch (err) {
           console.error('Failed to decrease card amount:', err);
         }
@@ -63,7 +72,7 @@ export const ListViewCardDisplayComponent: React.FC<filteredCards> = ({ filtered
             id: userId,
             CardData: { card_name: cardName }
           });
-          refetch();
+          setCardRefetch(true);
         } catch (err) {
           console.error('Failed to delete card:', err);
         }
@@ -72,7 +81,7 @@ export const ListViewCardDisplayComponent: React.FC<filteredCards> = ({ filtered
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <div className="min-h-[70vh] text-[hsl(var(--text))] ">
+                <div className="text-[hsl(var(--text))] ">
                     {filteredCards.length > 0 ? (
                         filteredCards.map((card: Card, index: number) => (
                             <div key={index} className="flex bg-transparent h-24 text-sm font-bold items-center hover:bg-blacktwo" onClick={() => setSelectedCard(card)}>
@@ -97,7 +106,7 @@ export const ListViewCardDisplayComponent: React.FC<filteredCards> = ({ filtered
                                 <div className="w-[10%] overflow-y-auto h-fullpx-[2%] flex items-center">
                                     ${card.price}
                                 </div>
-                                <div className="flex w-[10%] space-x-1 h-[10%] items-center">
+                                <div className="flex w-[10%] space-x-1 h-[10%] items-center mr-6">
                                     <button 
                                       className="h-8 w-8 rounded bg-[hsl(var(--background3))] cursor-pointer" 
                                       onClick={(e) => { e.stopPropagation(); handleIncreaseClick(card.card_name); }}
@@ -121,7 +130,7 @@ export const ListViewCardDisplayComponent: React.FC<filteredCards> = ({ filtered
                         ))
                     ) : (
                         <div className="flex h-full justify-center pt-[25%] text-3xl text-gray-400 font-black">
-                        <p>No cards matching your Filters</p>
+                          <span>No cards matching your Filters</span>
                         </div>
                     )}
                 </div>

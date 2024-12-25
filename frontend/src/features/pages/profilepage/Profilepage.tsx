@@ -59,25 +59,25 @@ const Profilepage = () => {
         const { ids, entities } = usersData || {}
 
         if (!Array.isArray(ids) || ids.length === 0) {
-            return <p>No user data available</p>;
+            return <span>No user data available</span>;
         }
 
         const defaultIdKey = ids[0];
         const user = entities[defaultIdKey];
 
         if (isError) {
-          return <p>Error loading user data</p>;
+          return <span>Error loading user data</span>;
         }
         
         if (isLoading || usersData == null) {
-          return <p>Loading user data...</p>;
+          return <span>Loading user data...</span>;
         } 
         if (!userId) {
-          return <p>Please Login</p>;
+          return <span>Please Login</span>;
         }
 
         if (error) {
-            return <p>Err</p>
+            return <span>Err</span>
         }
 
         const header = <ProfilePageHeader user={user}/>

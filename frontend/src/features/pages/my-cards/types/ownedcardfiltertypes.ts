@@ -23,6 +23,7 @@ export type OwnedCardsFilterProps = {
         setAttributeFilter: React.Dispatch<React.SetStateAction<string>>;
         archeTypeFilter: string;
         setArcheTypeFilter: React.Dispatch<React.SetStateAction<string>>;
+        setLevelFilter: React.Dispatch<React.SetStateAction<number | null>>;
         setFilter: string;
         setSetFilter: React.Dispatch<React.SetStateAction<string>>;
         rarityFilter: string;

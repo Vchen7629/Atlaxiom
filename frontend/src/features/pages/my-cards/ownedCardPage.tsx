@@ -12,12 +12,15 @@ import MyCardsSearchbarComponent from './components/searchbar';
 import { Card } from './types/ownedcardpagetypes';
 import GridListViewComponent from './components/grid_or_list_view';
 import { GalleryViewCardDisplayComponent } from './carddisplaycomponents/galleryviewcarddisplaycomponent';
+import { useGetSpecificUserQuery } from '@/features/api-slices/usersApiSlice.ts';
+import { useGlobalCardRefetchState } from '@/app/globalStates/refetchCardState.tsx';
 
 
 const UserOwnedCardPage = () => {
   const location = useLocation();
   const { userId } = location.state || {};
   //const [lastFetchedTimestamp, setLastFetchedTimestamp] = useState(null);
+  const { cardRefetch, setCardRefetch } = useGlobalCardRefetchState();
   
   const [searchTerm, setSearchTerm] = useState<string>('');
 
@@ -47,7 +50,7 @@ const UserOwnedCardPage = () => {
   const [uniqueSet, setUniqueSet] = useState<string[]>([]);
   const [setFilter, setSetFilter] = useState<string>('');
 
-  const [levelFilter, setLevelFilter] = useState<number>(0);
+  const [levelFilter, setLevelFilter] = useState<number | null>(0);
 
   const [uniqueRarity, setUniqueRarity] = useState<string[]>([]);
   const [rarityFilter, setRarityFilter] = useState<string>('');
@@ -78,11 +81,10 @@ const UserOwnedCardPage = () => {
     uniqueArchtype,
     archeTypeFilter,
     setArcheTypeFilter,
+    setLevelFilter,
     uniqueSet,
     setFilter,
     setSetFilter,
-    levelFilter,
-    setLevelFilter,
     uniqueRarity,
     rarityFilter,
     setRarityFilter,
@@ -109,10 +111,9 @@ const UserOwnedCardPage = () => {
     setSearchTerm,
   }
 
-  const {
-    data: ownedCards,
-    refetch
-  } = useGetOwnedCardsQuery(userId);
+  const { data: ownedCards, refetch } = useGetOwnedCardsQuery(userId);
+
+  const {data: lastUpdated, refetch: refetchOnUpdate} = useGetSpecificUserQuery(userId)
 
   const cardsToDisplay = Object.values(ownedCards?.entities || {}).flat() as Card[];
 
@@ -131,10 +132,12 @@ const UserOwnedCardPage = () => {
   });
 
   useEffect(() => {
-    if (userId) {
+    if (userId && cardRefetch) {
       refetch();
+      refetchOnUpdate();
+      setCardRefetch(false)
     }
-  }, [userId])
+  }, [userId, cardRefetch])
 
   useEffect(() => {
     if (ownedCards) {
@@ -183,11 +186,11 @@ const UserOwnedCardPage = () => {
     <main className="flex flex-col min-h-[100vh]  ">
         <Header/>
         <div className=" bg-[hsl(var(--background1))] flex items-center justify-center ">
-          <div className="text-white relative flex flex-col w-full min-h-[120vh] p-5 pt-20">
+          <div className="text-white relative flex flex-col w-full min-h-[130vh] p-5 pt-20">
             <header className="relative items-center flex max-w-[100vw]  mt-[1%] mx-[3vw]">
               <section className="flex flex-col w-1/4">
                 <div className="text-[40px] text-goldenrod font-bold">My Collection</div>
-                <div className="text-lg text-gray-400">Last Edited: </div>
+                <div className="text-lg text-gray-400">Last Edited: {lastUpdated?.entities[userId]?.lastCardUpdated}</div>
               </section>
               <section className="relative flex items-center space-x-2 w-3/4 ">
                   <div className="flex w-1/2">
@@ -214,7 +217,7 @@ const UserOwnedCardPage = () => {
                   <div>
                     {listView ? (
                       <main className="flex mt-8 justify-between">
-                        <main className={`bg-[hsl(var(--background1))] ${expandStatus ? "w-3/4" : "w-full"} max-h-full`}>
+                        <main className={`bg-[hsl(var(--ownedcardcollection))] ${expandStatus ? "w-3/4" : "w-full"} max-h-full rounded-xl`}>
                           <div className="flex font-black w-full h-8 bg-[hsl(var(--background3))] text-lg rounded-lg items-center">
                             <div className="w-[5%] pl-4"> Qty </div>
                             <div className="w-[27%]"> Name</div>
@@ -227,7 +230,7 @@ const UserOwnedCardPage = () => {
                           <ListViewCardDisplayComponent filteredCards={filteredCards}/>                                           
                         </main>
                         
-                        <div className={`flex flex-col ${expandStatus ? "w-[24%] border-gray-600 border-2" : "w-0"} items-center bg-[hsl(var(--background4))] rounded-xl pt-8`}>
+                        <div className={`flex flex-col ${expandStatus ? "w-[24%] border-gray-600 border-2" : "w-0"} items-center bg-[hsl(var(--background4))] rounded-xl py-8`}>
                             {filterpage && (
                               <FilterOwnedCards filterProps={filterProps}/>
                             )}
@@ -240,10 +243,7 @@ const UserOwnedCardPage = () => {
                     ) : (
                       galleryView && (
                         <main className="flex mt-8 justify-between">
-                          <main className={`bg-[hsl(var(--background1))] ${expandStatus ? "w-3/4" : "w-full"} min-h-full`}>
-                            <div className="flex font-black w-full h-8 bg-[hsl(var(--background3))] text-lg rounded-lg items-center">
-                              
-                            </div>
+                          <main className={`bg-[hsl(var(--ownedcardcollection))] ${expandStatus ? "w-3/4" : "w-full"} min-h-full rounded-xl`}>
                             <GalleryViewCardDisplayComponent filteredCards={filteredCards}/>                                           
                           </main>
                           

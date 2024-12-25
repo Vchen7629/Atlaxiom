@@ -51,13 +51,6 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
         
       }
 
-    /*const filteredCards = currentListSuggestions.filter((card) => {
-        if (!card || !card.card_name) return false;
-        //const matchesSearchTerm = ();
-
-        return matchesSearchTerm
-    });*/
-
     return (
         <main className="w-[95%]">
             <div>

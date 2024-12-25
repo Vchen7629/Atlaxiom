@@ -1,4 +1,4 @@
-import { useState, useEffect }from 'react';
+import { useState }from 'react';
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown, faUser } from '@fortawesome/free-solid-svg-icons';
@@ -14,10 +14,6 @@ const Accountsbutton = () => {
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
     };
-
-    useEffect(() => {
-        console.log('Cached Username:', cachedUsername); // Check if username is set
-    }, [cachedUsername]);
 
     return (
         <>
