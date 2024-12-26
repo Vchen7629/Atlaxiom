@@ -1,20 +1,21 @@
 import { useCreateNewDeckMutation } from '../../../api-slices/decksapislice.ts';
 import { useNavigate } from 'react-router-dom';
 import { ErrorResponse, NewDeckButton } from '../types/homepagecomponentprops';
+import { useGlobalDeckRefetchState } from '@/app/globalStates/refetchDeckState.tsx';
 
 const CreateNewDeckComponent: React.FC<NewDeckButton> = ({ userId }) => {
-
     const navigate = useNavigate()
-
     const [addNewDeck] = useCreateNewDeckMutation()
+    const { setDeckRefetch } = useGlobalDeckRefetchState();
 
     const handleCreateDeckClick = async () => {
         try {
             const payload = { id: userId };
             const result = await addNewDeck(payload).unwrap();
     
-            if (result  && result.deck && result.deck._id) {
+            if (result && result.deck && result.deck._id) {
                 navigate('/modifyDeck', { state: { deckId: result.deck._id, userId: userId } });
+                setDeckRefetch(true);
             } else {
                 console.error("Error: Deck creation failed, missing deck ID.");
             }

@@ -4,11 +4,9 @@ import { GridListViewComponentProps } from '../types/sidebarcomponenttypes';
 
 const GridListViewComponent= ({ filterProps }: GridListViewComponentProps) => {
     const {
-        setListView,
-        setGalleryView,
         //setCurrentPage,
-        listView,
-        galleryView
+        listView, setListView,
+        galleryView, setGalleryView
     } = filterProps
 
     const handleListView = () => {

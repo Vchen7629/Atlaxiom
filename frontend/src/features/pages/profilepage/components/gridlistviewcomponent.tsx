@@ -5,10 +5,8 @@ import { GridListViewComp } from '../types/componenttypes';
 
 const GridListViewComponent= ({ gridlistviewprops }: GridListViewComp) => {
     const {
-        setListView,
-        setGalleryView,
-        listView,
-        galleryView
+        listView, setListView,
+        galleryView, setGalleryView
     } = gridlistviewprops
 
     const handleListView = () => {

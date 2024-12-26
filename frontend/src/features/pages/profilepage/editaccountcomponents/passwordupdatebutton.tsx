@@ -6,8 +6,7 @@ import { SavePasswordButton } from "../types/editcomponenttypes";
 const PasswordUpdateButton = ({ UpdatePasswordProps } : SavePasswordButton) => {
     const {
         refetch,
-        newPassword,
-        setNewPassword,
+        newPassword, setNewPassword,
         setPasswordErrMsg,
         setPasswordSuccessMsg
     } = UpdatePasswordProps

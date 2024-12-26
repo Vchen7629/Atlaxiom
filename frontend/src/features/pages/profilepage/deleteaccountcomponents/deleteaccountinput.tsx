@@ -2,8 +2,7 @@ import { DeleteInputProps } from "../types/deletecomponenttypes";
 
 const DeleteAccountInputComponent = ({ DeleteInputProps }: DeleteInputProps) => {
     const {
-        deleteInput,
-        setDeleteInput,
+        deleteInput, setDeleteInput,
         setDeleteErrMsg,
     } = DeleteInputProps
 

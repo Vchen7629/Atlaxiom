@@ -7,8 +7,7 @@ const EmailUpdateButton = ({ UpdateEmailProps } : SaveEmailButton) => {
     const {
         refetch,
         email,
-        newEmail,
-        setNewEmail,
+        newEmail, setNewEmail,
         setEmailErrMsg,
         setEmailSuccessMsg,
     } = UpdateEmailProps

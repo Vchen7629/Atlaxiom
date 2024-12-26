@@ -14,5 +14,39 @@ export type SearchBar = {
         setTotalListNamesArray: React.Dispatch<React.SetStateAction<string[]>>
         maxMainSuggestions: number
         setTotalGalleryNamesArray: React.Dispatch<React.SetStateAction<any[]>>
+        monsterType: string;
+        spellType: string;
+        trapType: string;
+        attributeType: string;
+        levelFilter: number | null;
+        lessThanEqual: boolean;
+        equal: boolean;
+        greaterThanEqual: boolean;
+        pendFilter: number | null;
+        pendLessThanEqual: boolean;
+        pendEqual: boolean;
+        pendGreaterThanEqual: boolean;
+        linkFilter: number | null;
+        linkLessThanEqual: boolean;
+        linkEqual: boolean;
+        linkGreaterThanEqual: boolean;
+        atkFilter: number | null;
+        atkLessThanEqual: boolean;
+        atkEqual: boolean;
+        atkGreaterThanEqual: boolean;
+        defFilter: number | null;
+        defLessThanEqual: boolean;
+        defEqual: boolean;
+        defGreaterThanEqual: boolean;
+    }
+}
+
+export type GridListViewComponentProps = {
+    gridlistviewprops: {
+        setListView: React.Dispatch<React.SetStateAction<boolean>>;
+        setGalleryView: React.Dispatch<React.SetStateAction<boolean>>;
+        setClickedOnCard: React.Dispatch<React.SetStateAction<boolean>>;
+        listView: boolean;
+        galleryView: boolean;
     }
 }

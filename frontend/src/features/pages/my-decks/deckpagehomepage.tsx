@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Footer from "../../../components/footer/Footer.tsx"
 import Header from "../../../components/header/header.tsx"
-import { useGetSpecificUserQuery } from '../../api-slices/usersApiSlice.ts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import DeckDisplay from './homepagecomponents/owneddeckdisplaycomponent.tsx';
@@ -18,12 +17,6 @@ const DeckPageHomepage = () => {
 
     const [listView, setListView] = useState(true);
     const [galleryView, setGalleryView] = useState(false);
-
-    const {} = useGetSpecificUserQuery(userId, {
-        pollingInterval: 15000,
-        refetchOnFocus: true,
-        refetchOnMountOrArgChange: true,
-    });
     
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
@@ -38,19 +31,17 @@ const DeckPageHomepage = () => {
     };
 
     const filterProps = {
-        setListView,
-        listView,
-        setGalleryView,
-        galleryView,
+        listView, setListView,
+        galleryView, setGalleryView,
         setClickedOnCard,
         //setCurrentPage,
     };
 
 
     return (
-        <main className="min-h-[110vh] flex flex-col pt-[15vh] bg-[hsl(var(--background1))] justify-between">
+        <main className="min-h-[110vh] flex flex-col bg-[hsl(var(--background1))] justify-between">
             <Header/>
-            <div className="flex flex-col">
+            <div className="flex flex-col py-[15vh]">
                 <div className="flex w-[45vw] ml-[15vw] items-center justify-between">
                     <div className="text-3xl font-black text-[hsl(var(--text))]">Deck Manager</div>
                     <CreateNewDeckComponent userId={userId}/>

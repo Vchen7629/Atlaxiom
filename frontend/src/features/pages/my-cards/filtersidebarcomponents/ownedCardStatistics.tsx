@@ -5,10 +5,8 @@ import { ownedcardstatsprops } from "../types/ownedcardstatisticstypes";
 
 const CardCollectionStatistics = ({filterProps}: ownedcardstatsprops) => {
     const {
-        filterpage,
-        setFilterPage,
-        statisticspage,
-        setStatisticsPage,
+        filterpage, setFilterPage,
+        statisticspage, setStatisticsPage,
         expandStatus
     } = filterProps;
 

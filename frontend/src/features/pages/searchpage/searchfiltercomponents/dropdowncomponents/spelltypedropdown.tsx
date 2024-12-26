@@ -18,38 +18,49 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { spellDropDown } from "../../types/searchfiltercomptypes"
  
 const SpellTypes = [
   {
-    value: "normal spell",
-    label: "normal spell",
+    spellType: "normal",
+    label: "normal",
   },
   {
-    value: "continuous spell",
-    label: "continuous spell",
+    spellType: "continuous",
+    label: "continuous",
   },
   {
-    value: "field spell",
-    label: "field spell",
+    spellType: "field",
+    label: "field",
   },
   {
-    value: "equip spell",
-    label: "equip spell",
+    spellType: "equip",
+    label: "equip",
   },
   {
-    value: "quick-play spell",
-    label: "quick-play spell",
+    spellType: "quick-play",
+    label: "quick-play",
   },
   {
-    value: "ritual spell",
-    label: "ritual spell",
+    spellType: "ritual",
+    label: "ritual",
   },
 ];
 
  
-export function SpellTypeDropDownComponent() {
+export function SpellTypeDropDownComponent({ spelldropdownprops }: spellDropDown ) {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("")
+  const {
+    setMonsterType,
+    spellType, setSpellType,
+    setTrapType,
+  } = spelldropdownprops
+
+  const handleClick = (newValue: string) => {
+    setMonsterType("");
+    setSpellType(newValue);
+    setTrapType("")
+  }
  
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -58,42 +69,43 @@ export function SpellTypeDropDownComponent() {
           variant="cardcollection"
           role="combobox"
           aria-expanded={open}
-          className="w-[11vw] h-8 bg-transparent border-transparent text-base  justify-between"
+          className="w-[11vw] h-8 bg-transparent border-transparent text-[hsl(var(--text))] justify-between"
         >
-            {value ? (
-                <span className={`flex relative items-center left-2 justify-between w-full px-2 py-1 bg-blue-500 text-white rounded text-sm`}>
-                    {SpellTypes.find((types) => types.value === value)?.label}
+            {spellType ? (
+                <span className={`flex relative items-center left-2 justify-center w-full px-2 py-1 bg-[hsl(var(--background3))] rounded text-sm`}>
+                    {SpellTypes.find((types) => types.spellType === spellType)?.label}
                 </span>
             ) : (
-              <span className={`flex relative items-center left-1/5 justify-between w-full px-2 py-1 bg-transparent text-white rounded text-sm`}>
+              <span className={`flex relative items-center left-1/5 justify-between w-full px-2 py-1 bg-transparent rounded text-sm`}>
                   Select Spell Type...
               </span>
             )}
-          <CaretSortIcon className="min-h-6 min-w-6 shrink-0 text-white" />
+          <CaretSortIcon className="min-h-6 min-w-6 shrink-0" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[11vw] p-0 relative top-[-42px]">
-        <Command className="text-white ">
+        <Command>
           <CommandInput placeholder="Search Card Subtypes..." className="h-9" />
           <CommandList className="max-h-[300px] overflow-y-auto">
-            <CommandEmpty>No Card Subtype found.</CommandEmpty>
+            <CommandEmpty>Inputed spell type doesn't exist.</CommandEmpty>
             <CommandGroup>
-              {SpellTypes.map((types) => (
+              {SpellTypes.map((type) => (
                 <CommandItem
-                  key={types.value}
-                  value={types.value}
+                  key={type.spellType}
+                  value={type.spellType}
                   className="text-[hsl(var(--text))] "
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
+                    const newValue = currentValue === spellType ? "" : currentValue;
+                    handleClick(newValue);
                     setOpen(false)
                   }}
                 > 
                  
-                  {types.label}
+                  {type.label}
                   <CheckIcon
                     className={cn(
                       "ml-auto h-4 w-4 text-[hsl(var(--text))] ",
-                      value === types.value ? "opacity-100" : "opacity-0"
+                      spellType === type.spellType ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>

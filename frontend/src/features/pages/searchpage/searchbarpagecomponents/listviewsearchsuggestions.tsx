@@ -12,8 +12,7 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
         totalPages,
         currentListPage,
         setListCurrentPage,
-        setCardSets,
-        cardSets
+        cardSets, setCardSets
     } = listviewprops   
 
     const apiUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
@@ -51,13 +50,6 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
         
       }
 
-    /*const filteredCards = currentListSuggestions.filter((card) => {
-        if (!card || !card.card_name) return false;
-        //const matchesSearchTerm = ();
-
-        return matchesSearchTerm
-    });*/
-
     return (
         <main className="w-[95%]">
             <div>
@@ -66,50 +58,60 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
                         key={card}
                         onClick={() => handleSuggestionClick(card)}
                     >
-                        <div className="flex max-h-[14vh] bg-transparentt">
+                        <div className="flex h-[20vh] mb-2 bg-transparentt">
                             <img
                                 src={cardData.find((cards) => cards.name === card)?.card_images[0].image_url}
                                 //alt={suggestion}
-                                className="w-[6.5%] min-w-[%]"
+                                className="w-auto"
                             />
-                            <div className="flex w-full min-h-full flex-col border-2 border-transparent hover:border-gray-500">
-                                <div className="relative flex justify-between w-full">
+                            <div className="flex h-[20vh] overflow-y-auto w-full min-h-full flex-col border-2 border-transparent hover:border-gray-500">
+                                <section className="relative flex justify-between w-full h-[20%]">
                                     <div className="flex text-center items-center pl-[3%] w-1/2 text-goldenrod font-black text-2xl">{card}</div>
                                     <div className="flex justify-evenly items-center font-bold w-[25vw]">
                                         <div className="text-white text-xl">{cardData.find((cards) => cards.name === card)?.type}</div>
                                         <div className="text-white text-xl">{cardData.find((cards) => cards.name === card)?.race}</div>
                                         <div className="text-white text-xl">{cardData.find((cards) => cards.name === card)?.attribute}</div>
                                     </div>
-                                </div>
-                                <div className="w-full flex flex-col justify-between ">
-                                    <div className="w-full font-black text-gray-400 text-md max-h-[7vh] overflow-auto pl-[3%]">{cardData.find((cards) => cards.name === card)?.desc}</div>
-                                        <div className="w-[30%] flex justify-between pl-[3%]">
-                                        {cardData.find((cards) => cards.name === card)?.atk && (
-                                            <div className="flex text-gray-300 font-black text-lg">
-                                                <p className="mr-2">Atk:</p>{cardData.find((cards) => cards.name === card)?.atk}
-                                            </div>
+                                </section>
+                                <div className="flex flex-col h-[80%]">
+                                    <section className={`flex-grow overflow-y-auto text-sm max-h-full text-ellipsis px-[3%] text-gray-400 font-black text-md pt-[5px]`}>
+                                        {cardData.find((cards) => cards.name === card)?.desc}
+                                    </section>
+
+
+                                    {(cardData.find((cards) => cards.name === card)?.atk ||
+                                        cardData.find((cards) => cards.name === card)?.def ||
+                                        cardData.find((cards) => cards.name === card)?.level ||
+                                        cardData.find((cards) => cards.name === card)?.scale ||
+                                        cardData.find((cards) => cards.name === card)?.linkval) && (     
+                                            <section className="w-full h-fit flex space-x-12 pl-[3%]">
+                                                    {cardData.find((cards) => cards.name === card)?.atk && (
+                                                        <div className="flex text-gray-300 font-black text-lg">
+                                                            <p className="mr-2">Atk:</p>{cardData.find((cards) => cards.name === card)?.atk}
+                                                        </div>
+                                                    )}
+                                                    {cardData.find((cards) => cards.name === card)?.def && (
+                                                        <div className="flex text-gray-300 font-black text-lg">
+                                                            <p className="mr-2">Def:</p>{cardData.find((cards) => cards.name === card)?.def}
+                                                        </div>
+                                                    )}
+                                                    {cardData.find((cards) => cards.name === card)?.level && (
+                                                        <div className="flex text-gray-300 font-black text-lg">
+                                                            <p className="mr-2">Level:</p>{cardData.find((cards) => cards.name === card)?.level}
+                                                        </div>
+                                                    )}
+                                                    {cardData.find((cards) => cards.name === card)?.scale && (
+                                                        <div className="flex text-gray-300 font-black text-lg">
+                                                            <p className="mr-2">Pendulum Scale:</p>{cardData.find((cards) => cards.name === card)?.scale}
+                                                        </div>
+                                                    )}
+                                                    {cardData.find((cards) => cards.name === card)?.linkval && (
+                                                        <div className="flex text-gray-300 font-black text-lg">
+                                                            <p className="mr-2">Link Value:</p>{cardData.find((cards) => cards.name === card)?.linkval}
+                                                        </div>
+                                                    )}
+                                            </section>
                                         )}
-                                        {cardData.find((cards) => cards.name === card)?.def && (
-                                            <div className="flex text-gray-300 font-black text-lg">
-                                                <p className="mr-2">Def:</p>{cardData.find((cards) => cards.name === card)?.def}
-                                            </div>
-                                        )}
-                                        {cardData.find((cards) => cards.name === card)?.level && (
-                                            <div className="flex text-gray-300 font-black text-lg">
-                                                <p className="mr-2">Level:</p>{cardData.find((cards) => cards.name === card)?.level}
-                                            </div>
-                                        )}
-                                        {cardData.find((cards) => cards.name === card)?.scale && (
-                                            <div className="flex text-gray-300 font-black text-lg">
-                                                <p className="mr-2">Pendulum Scale:</p>{cardData.find((cards) => cards.name === card)?.scale}
-                                            </div>
-                                        )}
-                                        {cardData.find((cards) => cards.name === card)?.linkval && (
-                                            <div className="flex text-gray-300 font-black text-lg">
-                                                <p className="mr-2">Link Value:</p>{cardData.find((cards) => cards.name === card)?.linkval}
-                                            </div>
-                                        )}
-                                    </div>
                                 </div>
                             </div>
                         </div>

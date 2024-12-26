@@ -4,10 +4,7 @@ import { faTimes, faSearch } from "@fortawesome/free-solid-svg-icons"
 import { searchbarprops } from "../types/componenttypes"
 
 const MyCardsSearchbarComponent = ({ searchbarprops }: searchbarprops) => {
-    const {
-        searchTerm,
-        setSearchTerm
-    } = searchbarprops
+    const { searchTerm, setSearchTerm } = searchbarprops
 
     const handleClearClick = () => {
         setSearchTerm('')

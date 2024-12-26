@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import tailwindcssAnimate from "tailwindcss-animate";
+
 export default {
     darkMode: ["class"],
     content: [
@@ -43,7 +45,10 @@ export default {
   			},
   			footer: {
   				DEFAULT: '#333333'
-  			}
+  			},
+			test: {
+				DEFAULT: '#222222'
+			}
   		},
   		boxShadow: {
   			custom: '0 4px 30px rgba(0, 0, 0, 0.5)',
@@ -74,6 +79,6 @@ export default {
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 }
 

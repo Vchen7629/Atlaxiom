@@ -7,8 +7,7 @@ const UsernameUpdateButton = ({ UpdateUsernameProps } : SaveUsernameButton) => {
     const {
         refetch,
         username,
-        newUsername,
-        setNewUsername,
+        newUsername, setNewUsername,
         setUserErrMsg,
         setUserSuccessMsg,
     } = UpdateUsernameProps

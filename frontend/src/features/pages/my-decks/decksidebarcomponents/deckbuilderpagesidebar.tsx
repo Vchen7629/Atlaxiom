@@ -56,10 +56,8 @@ const DeckBuilderPageSidebarComponent = ({ userId }: UserId) => {
     }
 
     const filterProps = {
-        setListView,
-        listView,
-        setGalleryView,
-        galleryView,
+        listView, setListView,
+        galleryView, setGalleryView
     }
 
     const AllCardsDisplayCompProps = {
@@ -82,22 +80,17 @@ const DeckBuilderPageSidebarComponent = ({ userId }: UserId) => {
     }
 
     const AllCardsSearchBarCompProps = {
-        allCardsCurrentPage,
-        setAllCardsCurrentPage,
+        allCardsData, setAllCardsData,
+        allCardsName, setAllCardsName,
+        allCardsCurrentPage, setAllCardsCurrentPage,
+        allCardsListResults, setAllCardsListResults,
+        allCardsGalleryResults, setAllCardsGalleryResults,
         allCardsTotalListPages,
         allCardsTotalGalleryPages,
         resultsPerListPage,
         resultsPerGalleryPage,
-        allCardsData,
-        setAllCardsData,
         setAllCardsCurrentListResults,
         setAllCardsCurrentGalleryResults,
-        allCardsName,
-        setAllCardsName,
-        allCardsListResults,
-        setAllCardsListResults,
-        allCardsGalleryResults,
-        setAllCardsGalleryResults,
         setError,
         maxResults,
         listView,
@@ -107,22 +100,18 @@ const DeckBuilderPageSidebarComponent = ({ userId }: UserId) => {
 
     const CollectionSearchBarCompProps = {
         userId,
-        collectionCardData,
-        setCollectionCardData,
         listView,
         galleryView,
-        collectionCardsName,
-        setCollectionCardsName,
+        collectionCardData, setCollectionCardData,
+        collectionCardsName, setCollectionCardsName,
+        collectionListResults, setCollectionListResults,
+        collectionGalleryResults, setCollectionGalleryResults,
         collectionCurrentPage,
         setCollectionCurrentListResults,
         setCollectionCardsCurrentPage,
         collectionTotalListPage,
         collectionTotalGalleryPage,
         collectionCardsView,
-        collectionListResults,
-        setCollectionListResults,
-        collectionGalleryResults,
-        setCollectionGalleryResults,
         setCollectionCurrentGalleryResults,
         resultsPerGalleryPage,
         resultsPerListPage,

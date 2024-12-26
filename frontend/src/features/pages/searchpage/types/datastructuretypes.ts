@@ -23,6 +23,7 @@ export type ApiCardData = {
     }[];
     frameType?: string;
     type?: string;
+    racehumanReadableCardType?: string;
     race?: string;
     attribute?: string;
     archetype?: string;

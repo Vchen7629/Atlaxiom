@@ -18,27 +18,38 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { trapDropDown } from "../../types/searchfiltercomptypes"
  
 const TrapTypes = [
   {
-    value: "normal trap",
-    label: "normal trap",
+    trapType: "normal",
+    label: "normal",
   },
   {
-    value: "continuous trap",
-    label: "continuous trap",
+    trapType: "continuous",
+    label: "continuous",
   },
   {
-    value: "counter trap",
-    label: "counter trap",
+    trapType: "counter",
+    label: "counter",
   },
 ];
 
  
-export function TrapTypeDropDownComponent() {
+export function TrapTypeDropDownComponent({ trapdropdownprops }: trapDropDown) {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("")
- 
+  const {
+    setMonsterType,
+    setSpellType,
+    trapType, setTrapType,
+  } = trapdropdownprops
+
+  const handleClick = (newValue: string) => {
+    setMonsterType("");
+    setSpellType("");
+    setTrapType(newValue)
+  }
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -46,42 +57,43 @@ export function TrapTypeDropDownComponent() {
           variant="cardcollection"
           role="combobox"
           aria-expanded={open}
-          className="w-[11vw] h-8 bg-transparent border-transparent text-base  justify-between"
+          className="w-[11vw] h-8 bg-transparent border-transparent text-[hsl(var(--text))] justify-between"
         >
-            {value ? (
-                <span className={`flex relative items-center left-2 justify-between w-fit px-2 py-1 bg-blue-500 text-white rounded text-sm`}>
-                    {TrapTypes.find((types) => types.value === value)?.label}
+            {trapType ? (
+                <span className={`flex relative items-center left-6 justify-between w-fit px-2 py-1 bg-[hsl(var(--background3))] rounded text-sm`}>
+                    {TrapTypes.find((type) => type.trapType === trapType)?.label}
                 </span>
             ) : (
-              <span className={`flex relative items-center left-1/5 justify-between w-full px-2 py-1 bg-transparent text-white rounded text-sm`}>
+              <span className={`flex relative items-center left-1/5 justify-between w-full px-2 py-1 bg-transparent rounded text-sm`}>
                   Select Trap Type...
               </span>
             )}
-          <CaretSortIcon className="min-h-6 min-w-6 shrink-0 text-white" />
+          <CaretSortIcon className="min-h-6 min-w-6 shrink-0" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[11vw] p-0 relative top-[-42px]">
-        <Command className="text-white ">
-          <CommandInput placeholder="Search Card Subtypes..." className="h-9" />
+        <Command>
+          <CommandInput placeholder="Search trap types..." className="h-9" />
           <CommandList className="max-h-[300px] overflow-y-auto">
-            <CommandEmpty>No Card Subtype found.</CommandEmpty>
+            <CommandEmpty>Inputed Trap Type doesn't exist.</CommandEmpty>
             <CommandGroup>
-              {TrapTypes.map((types) => (
+              {TrapTypes.map((type) => (
                 <CommandItem
-                  key={types.value}
-                  value={types.value}
+                  key={type.trapType}
+                  value={type.trapType}
                   className="text-[hsl(var(--text))] "
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
+                    const newValue = currentValue === trapType ? "" : currentValue;
+                    handleClick(newValue);
                     setOpen(false)
                   }}
                 > 
                  
-                  {types.label}
+                  {type.label}
                   <CheckIcon
                     className={cn(
                       "ml-auto h-4 w-4 text-[hsl(var(--text))] ",
-                      value === types.value ? "opacity-100" : "opacity-0"
+                      trapType === type.trapType ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>

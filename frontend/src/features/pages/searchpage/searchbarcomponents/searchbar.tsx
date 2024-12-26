@@ -5,10 +5,8 @@ import { SearchBar } from "../types/searchbartypes"
 
 const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
     const {
-        cardData,
-        setCardData,
-        cardName,
-        setCardName,
+        cardData, setCardData,
+        cardName, setCardName,
         setClickedOnCard,
         setSelectedCardData,
         setListCurrentPage,
@@ -17,6 +15,15 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
         setTotalListNamesArray,
         maxMainSuggestions,
         setTotalGalleryNamesArray,
+        monsterType,
+        spellType,
+        trapType,
+        attributeType,
+        levelFilter, lessThanEqual, equal, greaterThanEqual,
+        pendFilter, pendLessThanEqual, pendEqual, pendGreaterThanEqual,
+        linkFilter, linkLessThanEqual, linkEqual, linkGreaterThanEqual,
+        atkFilter, atkLessThanEqual, atkEqual, atkGreaterThanEqual,
+        defFilter, defLessThanEqual, defEqual, defGreaterThanEqual
     } = searchbarprops
 
     const apiUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
@@ -47,13 +54,77 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
       const normalizedInput = inputValue.toLowerCase().replace(/[-\s]/g, ''); 
       const filteredSuggestions = cardData.filter((card) => {
         const normalizedCardName = card.name.toLowerCase().replace(/[-\s]/g, ''); 
-        return normalizedCardName.includes(normalizedInput);
+        const normalizedMonsterType = monsterType ? monsterType.toLowerCase() : "";
+        const normalizedSpellType = spellType ? spellType.toLowerCase() : "";
+        const normalizedTrapType = trapType ? trapType.toLowerCase() : "";
+        const normalizedAttributeType = attributeType ? attributeType.toLowerCase() : "";
+
+        const matchesname = normalizedInput ? normalizedCardName.includes(normalizedInput) : true;
+        const matchesMonsterType = monsterType? card.type?.toLowerCase() === normalizedMonsterType : true;
+        const matchesSpellType = spellType? card.race?.toLowerCase() === normalizedSpellType && card.frameType?.toLowerCase() === 'spell' : true;
+        const matchesTrapType = trapType? card.race?.toLowerCase() == normalizedTrapType && card.frameType?.toLowerCase() === "trap" : true;
+        const matchesAttributeType = attributeType? card.attribute?.toLowerCase() == normalizedAttributeType : true;
+        
+        const matchesLevelFilter = levelFilter ?
+          (lessThanEqual && card.level !== undefined && card.level <= levelFilter) ||
+          (equal && card.level !== undefined && card.level === levelFilter) ||
+          (greaterThanEqual && card.level !== undefined && card.level >= levelFilter)
+        : true;
+
+        const matchesPendFilter = pendFilter ? 
+          (pendLessThanEqual && card.scale !== undefined && card.scale <= pendFilter) ||
+          (pendEqual && card.scale !== undefined && card.scale === pendFilter) || 
+          (pendGreaterThanEqual && card.scale !== undefined && card.scale >= pendFilter)
+        : true;
+
+        const matchesLinkFilter = linkFilter ? 
+          (linkLessThanEqual && card.linkval !== undefined && card.linkval <= linkFilter) ||
+          (linkEqual && card.linkval !== undefined && card.linkval === linkFilter) || 
+          (linkGreaterThanEqual && card.linkval !== undefined && card.linkval >= linkFilter)
+        : true;
+
+        const matchesAtkFilter = atkFilter ?
+          (atkLessThanEqual && card.atk !== undefined && card.atk <= atkFilter) ||
+          (atkEqual && card.atk !== undefined && card.atk === atkFilter) ||
+          (atkGreaterThanEqual && card.atk !== undefined && card.atk >= atkFilter) 
+        : true;
+
+        const matchesDefFilter = defFilter ?
+          (defLessThanEqual && card.def !== undefined && card.def <= defFilter) ||
+          (defEqual && card.def !== undefined && card.def === defFilter) ||
+          (defGreaterThanEqual && card.def !== undefined && card.def >= defFilter) 
+        : true;
+
+        return (
+          matchesname && 
+          matchesMonsterType && 
+          matchesSpellType && 
+          matchesTrapType && 
+          matchesAttributeType && 
+          matchesLevelFilter && 
+          matchesPendFilter && 
+          matchesLinkFilter && 
+          matchesAtkFilter &&
+          matchesDefFilter
+        ) 
       });
 
       setTotalListNamesArray(filteredSuggestions.slice(0, maxMainSuggestions).map((card) => card.name));
       setTotalGalleryNamesArray(filteredSuggestions.slice(0, maxMainSuggestions).map((card) => card.name));
 
-    }, [cardData, maxMainSuggestions]);
+    }, [
+      cardData, 
+      maxMainSuggestions,
+      monsterType, 
+      spellType, 
+      trapType, 
+      attributeType, 
+      levelFilter, equal, greaterThanEqual, lessThanEqual, 
+      pendFilter, pendLessThanEqual, pendEqual, pendGreaterThanEqual, 
+      linkFilter, linkLessThanEqual, linkEqual, linkGreaterThanEqual, 
+      atkFilter, atkLessThanEqual, atkEqual, atkGreaterThanEqual,
+      defFilter, defLessThanEqual, defEqual, defGreaterThanEqual,
+    ]);
 
   useEffect(() => {
     debouncedSearchCard(cardName);
