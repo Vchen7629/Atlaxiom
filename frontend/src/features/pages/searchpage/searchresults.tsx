@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
-import { ComponentCardSetPopup } from './searchresultcomponents/addcard';
-import { BreadcrumbSearchResult } from './searchresultcomponents/breadcrumb.tsx';
+import { ComponentCardSetPopup } from '../../../components/searchpagecomponents/searchresultpagecomponents/addcard.tsx';
+import { BreadcrumbSearchResult } from '../../../components/searchpagecomponents/searchresultpagecomponents/breadcrumb.tsx';
 import { SearchAuth, SearchResult, SearchUserId } from './types/searchbarpagestypes.ts';
 
 const SearchResults = ({selectedCardData, cardSets}: SearchResult) => { 

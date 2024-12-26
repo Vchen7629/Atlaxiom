@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import Cardsearch from '../headerbuttons/searchbar.js'
-import Banlist from '../headerbuttons/browse.tsx'
-import Mycards from '../headerbuttons/my-cards.tsx'
-import Login from '../headerbuttons/login.tsx'
-import Signup from '../headerbuttons/signup.tsx'
-import Mydecks from '../headerbuttons/my-decks.tsx'
+import Cardsearch from './headerbuttons/searchbar.tsx'
+import Banlist from './headerbuttons/browse.tsx'
+import Mycards from './headerbuttons/my-cards.tsx'
+import Login from './headerbuttons/login.tsx'
+import Signup from './headerbuttons/signup.tsx'
+import Mydecks from './headerbuttons/my-decks.tsx'
 import Accountsbutton from '../accountbuttons/account.js'
 import { ModeToggle } from "../shadcn_components/darklightmode/mode-toggle.tsx"
-import { AuthenticationState } from './headertypes.ts'
+import { AuthenticationState } from './types/headertypes.ts'
 
 const Header = () => {
     const navigate = useNavigate()

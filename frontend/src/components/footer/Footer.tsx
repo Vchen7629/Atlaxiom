@@ -1,7 +1,7 @@
-import Home from "../footerbuttons/home.tsx"
-import AboutUs from "../footerbuttons/Aboutus.tsx"
-import ContactUs from "../footerbuttons/Contactus.tsx"
-import FAQ from "../footerbuttons/FAQ.tsx"
+import Home from "./footerbuttons/home.tsx"
+import AboutUs from "./footerbuttons/Aboutus.tsx"
+import ContactUs from "./footerbuttons/Contactus.tsx"
+import FAQ from "./footerbuttons/FAQ.tsx"
 
 const Footer = () => {
 

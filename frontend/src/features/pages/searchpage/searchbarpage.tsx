@@ -2,15 +2,15 @@ import { useState, useEffect } from 'react';
 import Header from '../../../components/header/header';
 import Footer from '../../../components/footer/Footer';
 import SearchResults from './searchresults';
-import GridListViewComponent from './searchbarcomponents/grid_or_list_view';
-import FilterCardComponent from './searchfiltercomponents/FilterComponent';
-import SearchBarComponent from './searchbarcomponents/searchbar';
-import ListViewSearchSuggestionsComponent from './searchbarpagecomponents/listviewsearchsuggestions';
-import { ApiCardData, SearchResCardData } from './types/datastructuretypes';
-import GalleryViewSearchSuggestionsComponent from './searchbarpagecomponents/galleryviewsearchsuggestions';
-import { CardSet } from './types/searchresultcomptypes';
-import ClearFilterButton from './buttonscomponents/clearfilterbutton';
-import FilterButton from './buttonscomponents/filterbutton';
+import GridListViewComponent from '../../../components/searchpagecomponents/searchbar/grid_or_list_view';
+import FilterCardComponent from '../../../components/searchpagecomponents/searchresultfilter/FilterComponent';
+import SearchBarComponent from '../../../components/searchpagecomponents/searchbar/searchbar';
+import ListViewSearchSuggestionsComponent from '../../../components/searchpagecomponents/display/listviewsearchsuggestions';
+import { ApiCardData, SearchResCardData } from '../../../components/searchpagecomponents/types/datastructuretypes';
+import GalleryViewSearchSuggestionsComponent from '../../../components/searchpagecomponents/display/galleryviewsearchsuggestions';
+import { CardSet } from '../../../components/searchpagecomponents/types/searchresultcomptypes';
+import ClearFilterButton from '../../../components/searchpagecomponents/buttons/clearfilterbutton';
+import FilterButton from '../../../components/searchpagecomponents/buttons/filterbutton';
 
 const SearchBarPage = () => {
   const [cardName, setCardName] = useState<string>('');
