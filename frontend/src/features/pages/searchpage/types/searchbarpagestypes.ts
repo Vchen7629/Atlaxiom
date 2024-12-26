@@ -1,5 +1,5 @@
-import { SearchResCardData } from "./datastructuretypes"
-import { CardSet } from "./searchresultcomptypes";
+import { SearchResCardData } from "../../../../components/searchpagecomponents/types/datastructuretypes"
+import { CardSet } from "../../../../components/searchpagecomponents/types/searchresultcomptypes";
 
 export type SearchResult = {
     selectedCardData: SearchResCardData;

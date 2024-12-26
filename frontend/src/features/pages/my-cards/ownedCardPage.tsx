@@ -5,13 +5,13 @@ import { useGetOwnedCardsQuery } from '../../api-slices/ownedCardapislice.tsx';
 import { useLocation } from 'react-router-dom';
 import Header from '../../../components/header/header';
 import Footer from '../../../components/footer/Footer';
-import { ListViewCardDisplayComponent } from "./carddisplaycomponents/listviewcarddisplaycomponent"
-import FilterOwnedCards from './filtersidebarcomponents/ownedCardFilter.tsx';
-import CardCollectionStatistics from './filtersidebarcomponents/ownedCardStatistics.tsx';
-import MyCardsSearchbarComponent from './components/searchbar';
-import { Card } from './types/ownedcardpagetypes';
-import GridListViewComponent from './components/grid_or_list_view';
-import { GalleryViewCardDisplayComponent } from './carddisplaycomponents/galleryviewcarddisplaycomponent';
+import { ListViewCardDisplayComponent } from "../../../components/cardcollectioncomponents/carddisplaycomponents/listviewcarddisplaycomponent.tsx"
+import FilterOwnedCards from '../../../components/cardcollectioncomponents/filtersidebar/components/ownedCardFilter.tsx';
+import CardCollectionStatistics from '../../../components/cardcollectioncomponents/filtersidebar/components/ownedCardStatistics.tsx';
+import MyCardsSearchbarComponent from '../../../components/cardcollectioncomponents/components/searchbar.tsx';
+import { Card } from './ownedcardpagetypes.ts';
+import GridListViewComponent from '../../../components/cardcollectioncomponents/components/grid_or_list_view.tsx';
+import { GalleryViewCardDisplayComponent } from '../../../components/cardcollectioncomponents/carddisplaycomponents/galleryviewcarddisplaycomponent.tsx';
 import { useGetSpecificUserQuery } from '@/features/api-slices/usersApiSlice.ts';
 import { useGlobalCardRefetchState } from '@/app/globalStates/refetchCardState.tsx';
 

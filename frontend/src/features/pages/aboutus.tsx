@@ -6,7 +6,7 @@ const AboutUs = () => {
     return (
     <>
         <Header/>
-        <banner className="bannerone"></banner>
+        <div className="bannerone"></div>
         <h1>
         AboutUs  AboutUs AboutUs AboutUsAboutUs  AboutUs AboutUs AboutUsAboutUs  
         AboutUs AboutUs AboutUsAboutUs  AboutUs AboutUs AboutUsAboutUs  AboutUs 

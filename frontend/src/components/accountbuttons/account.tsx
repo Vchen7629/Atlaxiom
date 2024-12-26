@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown, faUser } from '@fortawesome/free-solid-svg-icons';
 import Profile from './profile.tsx';
-import Mycards from '../headerbuttons/my-cards.tsx';
+import Mycards from '../header/headerbuttons/my-cards.tsx';
 import Logout from './logout.tsx';
 import { UsernameState } from './accounttypes.ts';
 

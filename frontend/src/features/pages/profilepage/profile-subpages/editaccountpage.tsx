@@ -1,12 +1,12 @@
 import { faEnvelope, faLock, faUser, faUserSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react"
-import { EditEmailInputComponent, EditPasswordInputComponent, EditUsernameInputComponent } from "../editaccountcomponents/inputcomponents.tsx";
-import UsernameUpdateButton from "../editaccountcomponents/usernameupdatebutton.tsx";
-import EmailUpdateButton from "../editaccountcomponents/emailupdatebutton.tsx";
-import PasswordUpdateButton from "../editaccountcomponents/passwordupdatebutton.tsx";
-import DeleteAccountInputComponent from "../deleteaccountcomponents/deleteaccountinput.tsx";
-import DeleteAccountButton from "../deleteaccountcomponents/deleteaccountbutton.tsx";
+import { EditEmailInputComponent, EditPasswordInputComponent, EditUsernameInputComponent } from "../../../../components/profilepagecomponents/editaccountcomponents/inputcomponents.tsx";
+import UsernameUpdateButton from "../../../../components/profilepagecomponents/editaccountcomponents/usernameupdatebutton.tsx";
+import EmailUpdateButton from "../../../../components/profilepagecomponents/editaccountcomponents/emailupdatebutton.tsx";
+import PasswordUpdateButton from "../../../../components/profilepagecomponents/editaccountcomponents/passwordupdatebutton.tsx";
+import DeleteAccountInputComponent from "../../../../components/profilepagecomponents/deleteaccountcomponents/deleteaccountinput.tsx";
+import DeleteAccountButton from "../../../../components/profilepagecomponents/deleteaccountcomponents/deleteaccountbutton.tsx";
 import { EditAccount } from "../types/subpagetypes.ts";
 
 const EditAccountPage = ({ user, refetch }: EditAccount) => {
