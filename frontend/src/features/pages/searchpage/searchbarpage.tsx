@@ -39,7 +39,24 @@ const SearchBarPage = () => {
   const [greaterThanEqual, setGreaterThanEqual] = useState<boolean>(false);
 
   const [pendFilter, setPendFilter] = useState<number | null>(0);
+  const [pendLessThanEqual, setPendLessThanEqual] = useState<boolean>(false);
+  const [pendEqual, setPendEqual] = useState<boolean>(true);
+  const [pendGreaterThanEqual, setPendGreaterThanEqual] = useState<boolean>(false);
+
   const [linkFilter, setLinkFilter] = useState<number | null>(0);
+  const [linkLessThanEqual, setLinkLessThanEqual] = useState<boolean>(false);
+  const [linkEqual, setLinkEqual] = useState<boolean>(true);
+  const [linkGreaterThanEqual, setLinkGreaterThanEqual] = useState<boolean>(false);
+
+  const [atkFilter, setAtkFilter] = useState<number | null>(0);
+  const [atkLessThanEqual, setAtkLessThanEqual] = useState<boolean>(false);
+  const [atkEqual, setAtkEqual] = useState<boolean>(true);
+  const [atkGreaterThanEqual, setAtkGreaterThanEqual] = useState<boolean>(false);
+
+  const [defFilter, setDefFilter] = useState<number | null>(0);
+  const [defLessThanEqual, setDefLessThanEqual] = useState<boolean>(false);
+  const [defEqual, setDefEqual] = useState<boolean>(true);
+  const [defGreaterThanEqual, setDefGreaterThanEqual] = useState<boolean>(false);
 
   const [listView, setListView] = useState(true);
 
@@ -80,28 +97,25 @@ const SearchBarPage = () => {
   };
 
   const searchbarprops = {
-    cardData,
-    setCardData,
-    cardName,
-    setCardName,
+    cardData, setCardData,
+    cardName, setCardName,
     setClickedOnCard,
     setSelectedCardData,
-    setListCurrentPage,
+    setListCurrentPage, 
     setGalleryCurrentPage,
     setErrorMessage,
-    setTotalListNamesArray,
+    setTotalListNamesArray, 
     setTotalGalleryNamesArray,
     maxMainSuggestions,
-    monsterType,
-    spellType,
-    trapType,
+    monsterType, 
+    spellType, 
+    trapType, 
     attributeType,
-    levelFilter,
-    lessThanEqual,
-    equal,
-    greaterThanEqual,
-    pendFilter,
-    linkFilter
+    levelFilter, lessThanEqual, equal, greaterThanEqual,
+    pendFilter, pendLessThanEqual, pendEqual, pendGreaterThanEqual,
+    linkFilter, linkLessThanEqual, linkEqual, linkGreaterThanEqual,
+    atkFilter, atkLessThanEqual, atkEqual, atkGreaterThanEqual,
+    defFilter, defLessThanEqual, defEqual, defGreaterThanEqual
   }
 
   const clearfilterprops = {
@@ -109,9 +123,11 @@ const SearchBarPage = () => {
     setSpellType,
     setTrapType,
     setAttributeType,
-    setLevelFilter,
-    setPendFilter,
-    setLinkFilter,
+    setLevelFilter, setLessThanEqual, setEqual, setGreaterThanEqual,
+    setPendFilter, setPendLessThanEqual, setPendEqual, setPendGreaterThanEqual,
+    setLinkFilter, setLinkLessThanEqual, setLinkEqual, setLinkGreaterThanEqual,
+    setAtkFilter, setAtkLessThanEqual, setAtkEqual, setAtkGreaterThanEqual,
+    setDefFilter, setDefLessThanEqual, setDefEqual, setDefGreaterThanEqual,
   }
 
   const filterbuttonprops = {
@@ -153,23 +169,30 @@ const SearchBarPage = () => {
 
   const filterprops = {
     expandStatus,
-    monsterType,
-    setMonsterType,
-    spellType,
-    setSpellType,
-    trapType,
-    setTrapType,
-    attributeType,
-    setAttributeType,
-    levelFilter,
-    setLevelFilter,
-    lessThanEqual,
-    setLessThanEqual,
-    equal,
-    setEqual,
-    greaterThanEqual,
-    setPendFilter,
-    setLinkFilter,
+    monsterType, setMonsterType,
+    spellType, setSpellType,
+    trapType, setTrapType,
+    attributeType, setAttributeType,
+    levelFilter, setLevelFilter, 
+    lessThanEqual, setLessThanEqual, 
+    equal, setEqual, 
+    greaterThanEqual, setGreaterThanEqual,
+    pendFilter, setPendFilter,
+    pendLessThanEqual, setPendLessThanEqual,
+    pendEqual, setPendEqual,
+    pendGreaterThanEqual, setPendGreaterThanEqual,
+    linkFilter, setLinkFilter,
+    linkLessThanEqual, setLinkLessThanEqual,
+    linkEqual, setLinkEqual,
+    linkGreaterThanEqual, setLinkGreaterThanEqual,
+    atkFilter, setAtkFilter,
+    atkLessThanEqual, setAtkLessThanEqual,
+    atkEqual, setAtkEqual,
+    atkGreaterThanEqual, setAtkGreaterThanEqual,
+    defFilter, setDefFilter,
+    defLessThanEqual, setDefLessThanEqual,
+    defEqual, setDefEqual,
+    defGreaterThanEqual, setDefGreaterThanEqual
   }
 
 

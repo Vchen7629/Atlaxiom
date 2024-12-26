@@ -1,8 +1,4 @@
 import { useState} from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEquals, faGreaterThanEqual, faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
-import { PendSliderComponent } from "./slidercomponents/pendslider"
-import { LinkSliderComponent } from "./slidercomponents/linkslider"
 import { MonsterTypeDropDownComponent } from "./dropdowncomponents/monstertypedropdown"
 import { SpellTypeDropDownComponent } from "./dropdowncomponents/spelltypedropdown"
 import { TrapTypeDropDownComponent } from "./dropdowncomponents/traptypedropdown" 
@@ -11,29 +7,47 @@ import { SetDropDownComponent } from "./dropdowncomponents/setComponent"
 import { CaretDownIcon, CaretRightIcon } from '@radix-ui/react-icons';
 import { FilterSidebar } from '../types/searchfiltercomptypes';
 import LevelFilterComponent from './components/levelfiltercomponent';
+import AtkFilterComponent from './components/atkfiltercomponent';
+import DefFilterComponent from './components/deffiltercomponent';
+import PendFilterComponent from './components/pendfiltercomponent';
+import LinkFilterComponent from './components/linkfiltercomponent';
 
 
 const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
     const {
       expandStatus,
-      monsterType,
-      setMonsterType,
-      spellType,
-      setSpellType,
-      trapType,
-      setTrapType,
-      attributeType,
-      setAttributeType,
-      levelFilter,
-      setLevelFilter,
-      lessThanEqual,
-      setLessThanEqual,
-      equal,
-      setEqual,
-      greaterThanEqual,
-      setGreaterThanEqual,
-      setPendFilter,
-      setLinkFilter,
+      monsterType, setMonsterType,
+      spellType, setSpellType,
+      trapType, setTrapType,
+      attributeType, setAttributeType,
+      levelFilter, setLevelFilter,
+      lessThanEqual, setLessThanEqual,
+      equal, setEqual,
+      greaterThanEqual, setGreaterThanEqual,
+      pendFilter, setPendFilter,
+      pendLessThanEqual, setPendLessThanEqual,
+      pendEqual, setPendEqual,
+      pendGreaterThanEqual, setPendGreaterThanEqual,
+      linkFilter, setLinkFilter,
+      linkLessThanEqual, setLinkLessThanEqual,
+      linkEqual, setLinkEqual,
+      linkGreaterThanEqual, setLinkGreaterThanEqual,
+      atkFilter,
+      setAtkFilter,
+      atkLessThanEqual,
+      setAtkLessThanEqual,
+      atkEqual,
+      setAtkEqual,
+      atkGreaterThanEqual,
+      setAtkGreaterThanEqual,
+      defFilter,
+      setDefFilter,
+      defLessThanEqual,
+      setDefLessThanEqual,
+      defEqual,
+      setDefEqual,
+      defGreaterThanEqual,
+      setDefGreaterThanEqual
     } = filterprops
 
     const [levelDropdown, setLevelDropdown] = useState(false);
@@ -53,8 +67,7 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
     }
 
     const monsterdropdownprops = {
-      monsterType,
-      setMonsterType,
+      monsterType, setMonsterType,
       setSpellType,
       setTrapType,
       setAttributeType,
@@ -62,8 +75,7 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
 
     const spelldropdownprops = {
       setMonsterType,
-      spellType,
-      setSpellType,
+      spellType, setSpellType,
       setTrapType,
       setAttributeType,
     }
@@ -71,25 +83,47 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
     const trapdropdownprops = {
       setMonsterType,
       setSpellType,
-      trapType,
-      setTrapType,
+      trapType, setTrapType,
       setAttributeType,
     }
 
     const attributedropdownprops = {
-      attributeType,
-      setAttributeType,
+      attributeType, setAttributeType,
     }
 
     const levelfilterprops = {
-      levelFilter,
-      setLevelFilter,
-      lessThanEqual,
-      setLessThanEqual,
-      equal,
-      setEqual,
-      greaterThanEqual,
-      setGreaterThanEqual,
+      levelFilter, setLevelFilter,
+      lessThanEqual, setLessThanEqual,
+      equal, setEqual,
+      greaterThanEqual, setGreaterThanEqual,
+    }
+
+    const pendfilterprops = {
+      pendFilter, setPendFilter,
+      pendLessThanEqual, setPendLessThanEqual,
+      pendEqual, setPendEqual,
+      pendGreaterThanEqual, setPendGreaterThanEqual,
+    }
+
+    const linkfilterprops = {
+      linkFilter, setLinkFilter,
+      linkLessThanEqual, setLinkLessThanEqual,
+      linkEqual, setLinkEqual,
+      linkGreaterThanEqual, setLinkGreaterThanEqual,
+    }
+
+    const atkfilterprops = {
+      atkFilter, setAtkFilter,
+      atkLessThanEqual, setAtkLessThanEqual,
+      atkEqual, setAtkEqual,
+      atkGreaterThanEqual, setAtkGreaterThanEqual
+    }
+
+    const deffilterprops = {
+      defFilter, setDefFilter,
+      defLessThanEqual, setDefLessThanEqual,
+      defEqual, setDefEqual,
+      defGreaterThanEqual, setDefGreaterThanEqual
     }
 
     return (
@@ -131,19 +165,7 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
                     {pendDropdown ? (<CaretDownIcon className="h-6 w-6 text-gold"/>): (<CaretRightIcon className="h-6 w-6"/>)}
                   </button>
                   {pendDropdown && (
-                    <div className="flex flex-col space-y-2 w-[85%] items-center">
-                      <div className="flex w-full"><PendSliderComponent setPendFilter={setPendFilter}/></div>
-                      <div className="flex justify-between w-full mr-2">
-                        <div className="flex w-[30%]">
-                          <button className="bg-footer h-7 px-2"><FontAwesomeIcon icon={faGreaterThanEqual}/></button>
-                          <button className="bg-footer h-7 px-2"><FontAwesomeIcon icon={faEquals}/></button>
-                          <button className="bg-footer h-7 px-2"><FontAwesomeIcon icon={faLessThanEqual}/></button>
-                        </div>
-                        <input
-                          className="flex text-center bg-footer border-2 ml-2 w-[30%] border-transparent"
-                        />
-                      </div>
-                    </div>
+                    <PendFilterComponent pendfilterprops={pendfilterprops}/>
                   )}
                 </div>
                 <div className="flex flex-col w-full items-center min-h-6 my-2 space-y-2">
@@ -152,43 +174,11 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
                     {linkDropdown ? (<CaretDownIcon className="h-6 w-6 text-gold"/>): (<CaretRightIcon className="h-6 w-6"/>)}
                   </button>
                   {linkDropdown && (
-                    <div className="flex flex-col space-y-2 w-[85%] items-center">
-                      <div className="flex w-full"><LinkSliderComponent setLinkFilter={setLinkFilter}/></div>
-                      <div className="flex justify-between w-full mr-2">
-                        <div className="flex w-[30%]">
-                          <button className="bg-footer h-7 px-2"><FontAwesomeIcon icon={faGreaterThanEqual}/></button>
-                          <button className="bg-footer h-7 px-2"><FontAwesomeIcon icon={faEquals}/></button>
-                          <button className="bg-footer h-7 px-2"><FontAwesomeIcon icon={faLessThanEqual}/></button>
-                        </div>
-                        <input
-                          className="flex text-center bg-footer border-2 ml-2 w-[30%] border-transparent"
-                        />
-                      </div>
-                    </div>
+                    <LinkFilterComponent linkfilterprops={linkfilterprops}/>
                   )}
                 </div>
-                <div className="flex w-full justify-center my-2">   
-                    <div className="flex items-center max-w-[85%] justify-center">
-                        <div className="mr-2">Attack:</div>
-                        <button className="bg-footer h-7 w-[8%]"><FontAwesomeIcon icon={faGreaterThanEqual}/></button>
-                        <button className="bg-footer h-7 w-[8%]"><FontAwesomeIcon icon={faEquals}/></button>
-                        <button className="bg-footer h-7 w-[8%]"><FontAwesomeIcon icon={faLessThanEqual}/></button>
-                        <input
-                            className="flex text-center bg-footer border-2 ml-2 w-[50%] border-transparent"
-                          />
-                    </div>
-                </div>
-                <div className="flex w-full justify-center my-2">   
-                    <div className="flex items-center max-w-[85%] justify-center">
-                        <div className="mr-2">Defense:</div>
-                        <button className="bg-footer h-7 w-[8%]"><FontAwesomeIcon icon={faGreaterThanEqual}/></button>
-                        <button className="bg-footer h-7 w-[8%]"><FontAwesomeIcon icon={faEquals}/></button>
-                        <button className="bg-footer h-7 w-[8%]"><FontAwesomeIcon icon={faLessThanEqual}/></button>
-                        <input
-                            className="flex text-center bg-footer border-2 ml-2 w-[50%] border-transparent"
-                          />
-                    </div>
-                </div>
+                <AtkFilterComponent atkfilterprops={atkfilterprops}/>
+                <DefFilterComponent deffilterprops={deffilterprops}/>
                 <div className="flex w-full justify-center my-2">
                   Forbidden List Status
                 </div>

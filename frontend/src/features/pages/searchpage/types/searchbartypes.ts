@@ -19,11 +19,25 @@ export type SearchBar = {
         trapType: string;
         attributeType: string;
         levelFilter: number | null;
-        lessThanEqual: boolean
-        equal: boolean
+        lessThanEqual: boolean;
+        equal: boolean;
         greaterThanEqual: boolean;
         pendFilter: number | null;
+        pendLessThanEqual: boolean;
+        pendEqual: boolean;
+        pendGreaterThanEqual: boolean;
         linkFilter: number | null;
+        linkLessThanEqual: boolean;
+        linkEqual: boolean;
+        linkGreaterThanEqual: boolean;
+        atkFilter: number | null;
+        atkLessThanEqual: boolean;
+        atkEqual: boolean;
+        atkGreaterThanEqual: boolean;
+        defFilter: number | null;
+        defLessThanEqual: boolean;
+        defEqual: boolean;
+        defGreaterThanEqual: boolean;
     }
 }
 

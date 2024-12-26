@@ -5,14 +5,10 @@ import { levelprops } from "../../types/componenttypes"
 
 const LevelFilterComponent = ({ levelfilterprops }: levelprops) => {
     const {
-        levelFilter,
-        setLevelFilter,
-        lessThanEqual,
-        setLessThanEqual,
-        equal,
-        setEqual,
-        greaterThanEqual,
-        setGreaterThanEqual,
+        levelFilter, setLevelFilter,
+        lessThanEqual, setLessThanEqual,
+        equal, setEqual,
+        greaterThanEqual, setGreaterThanEqual,
     } = levelfilterprops
 
     const handleLessThanClick = () => {
