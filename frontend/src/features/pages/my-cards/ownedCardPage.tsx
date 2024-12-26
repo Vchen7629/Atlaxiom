@@ -60,56 +60,36 @@ const UserOwnedCardPage = () => {
   const [galleryView, setGalleryView] = useState<boolean>(false);
 
   const filterProps = {
-    searchTerm,
-    setSearchTerm,
+    expandStatus,
+    searchTerm, setSearchTerm,
     setCardTypeFilter,
-    isMonsterFilterActive, 
+    isMonsterFilterActive, setIsMonsterFilterActive,
     monsterCount, 
-    setIsMonsterFilterActive,
-    isSpellFilterActive,
+    setIsSpellFilterActive, isSpellFilterActive,
     spellCount,
-    setIsSpellFilterActive,
-    isTrapFilterActive,
+    isTrapFilterActive, setIsTrapFilterActive,
     trapCount,
-    setIsTrapFilterActive,
     uniqueSubtype,
-    subTypeFilter,
-    setSubTypeFilter,
+    subTypeFilter, setSubTypeFilter,
     uniqueAttribute,
-    attributeFilter,
-    setAttributeFilter,
+    attributeFilter, setAttributeFilter,
     uniqueArchtype,
-    archeTypeFilter,
-    setArcheTypeFilter,
+    archeTypeFilter, setArcheTypeFilter,
     setLevelFilter,
     uniqueSet,
-    setFilter,
-    setSetFilter,
+    setFilter, setSetFilter,
     uniqueRarity,
-    rarityFilter,
-    setRarityFilter,
-    setListView,
-    listView,
-    setGalleryView,
-    galleryView,
-    filterpage,
-    setFilterPage,
-    statisticspage,
-    setStatisticsPage,
-    expandStatus,
+    rarityFilter, setRarityFilter,
+    filterpage, setFilterPage,
+    statisticspage, setStatisticsPage,
   };
 
   const gridlistviewprops = {
-    setListView,
-    setGalleryView,
-    listView,
-    galleryView
+    listView, setListView,
+    galleryView, setGalleryView
   }
 
-  const searchbarprops = {
-    searchTerm,
-    setSearchTerm,
-  }
+  const searchbarprops = { searchTerm, setSearchTerm }
 
   const { data: ownedCards, refetch } = useGetOwnedCardsQuery(userId);
 

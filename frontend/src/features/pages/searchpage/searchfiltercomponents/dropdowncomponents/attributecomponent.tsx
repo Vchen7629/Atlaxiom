@@ -54,10 +54,7 @@ const Attributes = [
  
 export function AttributeDropDownComponent({ attributedropdownprops }: attributeDropDown) {
   const [open, setOpen] = React.useState(false)
-  const {
-    attributeType,
-    setAttributeType,
-  } = attributedropdownprops
+  const { attributeType, setAttributeType } = attributedropdownprops
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

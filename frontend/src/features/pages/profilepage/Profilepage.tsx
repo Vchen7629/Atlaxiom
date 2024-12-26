@@ -25,20 +25,15 @@ const Profilepage = () => {
     const [galleryView, setGalleryView] = useState(false);
 
     const navbarprops = {
-        deckActive,
-        setDeckActive,
-        statisticsActive,
-        setStatisticsActive,
-        editActive,
-        setEditActive,
+        deckActive, setDeckActive,
+        statisticsActive, setStatisticsActive,
+        editActive, setEditActive,
         setSelectedNavItem
     }
 
     const gridlistviewprops = {
-        setListView,
-        setGalleryView,
-        listView,
-        galleryView
+        listView, setListView,
+        galleryView, setGalleryView
     }
 
     const deckprops = {

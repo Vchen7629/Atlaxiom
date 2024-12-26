@@ -13,8 +13,7 @@ const GalleryViewSearchSuggestionsComponent = ({ galleryviewprops }: GalleryView
         totalGalleryPages,
         currentGalleryPage,
         setGalleryCurrentPage,
-        setCardSets,
-        cardSets
+        cardSets, setCardSets
     } = galleryviewprops
 
     const apiUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';

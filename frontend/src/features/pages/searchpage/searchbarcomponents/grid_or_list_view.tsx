@@ -4,11 +4,9 @@ import { GridListViewComponentProps } from '../types/searchbartypes';
 
 const GridListViewComponent= ({ gridlistviewprops }: GridListViewComponentProps) => {
     const {
-        setListView,
-        setGalleryView,
         setClickedOnCard,
-        listView,
-        galleryView
+        listView, setListView,
+        galleryView, setGalleryView
     } = gridlistviewprops
 
     const handleListView = () => {

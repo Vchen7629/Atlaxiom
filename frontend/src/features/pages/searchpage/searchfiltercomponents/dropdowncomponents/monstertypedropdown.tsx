@@ -86,8 +86,7 @@ const MonsterTypes = [
  
 export function MonsterTypeDropDownComponent({ monsterdropdownprops }: monsterDropDown) {
   const {
-    monsterType,
-    setMonsterType,
+    monsterType, setMonsterType,
     setSpellType,
     setTrapType,
   } = monsterdropdownprops

@@ -27,8 +27,6 @@ type ArchetypeDropDownProps = {
  
 export function ArchetypeDropDownComponent({ archetypes, archeTypeFilter, setArcheTypeFilter }: ArchetypeDropDownProps) {
   const [open, setOpen] = React.useState(false)
-
-  
  
   return (
     <Popover open={open} onOpenChange={setOpen}>

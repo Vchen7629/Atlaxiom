@@ -4,12 +4,9 @@ import { NavBarComp } from "../types/componenttypes";
 
 const NavBarComponent = ({ navbarprops }: NavBarComp) => {
     const {
-        deckActive,
-        setDeckActive,
-        statisticsActive,
-        setStatisticsActive,
-        editActive,
-        setEditActive,
+        deckActive, setDeckActive,
+        statisticsActive, setStatisticsActive,
+        editActive, setEditActive,
         setSelectedNavItem
     } = navbarprops
 

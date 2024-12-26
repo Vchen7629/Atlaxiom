@@ -4,8 +4,7 @@ import { EmailInput, PasswordInput, UsernameInput } from "../types/editcomponent
 
 export const EditUsernameInputComponent = ({ UsernameInputProps }: UsernameInput) => {
     const {
-        newUsername,
-        setNewUsername,
+        newUsername, setNewUsername,
         setUserErrMsg,
         setUserSuccessMsg,
     } = UsernameInputProps

@@ -31,10 +31,8 @@ const DeckPageHomepage = () => {
     };
 
     const filterProps = {
-        setListView,
-        listView,
-        setGalleryView,
-        galleryView,
+        listView, setListView,
+        galleryView, setGalleryView,
         setClickedOnCard,
         //setCurrentPage,
     };

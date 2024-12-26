@@ -9,39 +9,28 @@ import { RarityDropDownComponent } from "./filterdropdowncomponents/raritydropdo
 
 const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
     const {
-        searchTerm,
-        setSearchTerm,
+        expandStatus,
+        searchTerm, setSearchTerm,
         setCardTypeFilter,
-        isMonsterFilterActive, 
+        isMonsterFilterActive, setIsMonsterFilterActive,
         monsterCount, 
-        setIsMonsterFilterActive,
-        isSpellFilterActive,
+        setIsSpellFilterActive, isSpellFilterActive,
         spellCount,
-        setIsSpellFilterActive,
-        isTrapFilterActive,
+        isTrapFilterActive, setIsTrapFilterActive,
         trapCount,
-        setIsTrapFilterActive,
         uniqueSubtype,
-        subTypeFilter,
-        setSubTypeFilter,
+        subTypeFilter, setSubTypeFilter,
         uniqueAttribute,
-        attributeFilter,
-        setAttributeFilter,
+        attributeFilter, setAttributeFilter,
         uniqueArchtype,
-        archeTypeFilter,
-        setArcheTypeFilter,
+        archeTypeFilter, setArcheTypeFilter,
         setLevelFilter,
         uniqueSet,
-        setFilter,
-        setSetFilter,
+        setFilter, setSetFilter,
         uniqueRarity,
-        rarityFilter,
-        setRarityFilter,
-        filterpage,
-        setFilterPage,
-        statisticspage,
-        setStatisticsPage,
-        expandStatus,
+        rarityFilter, setRarityFilter,
+        filterpage, setFilterPage,
+        statisticspage, setStatisticsPage,
       } = filterProps;
     
 
@@ -79,22 +68,18 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         setSetFilter('');
     }
 
-      const handleFilterClick = () => {
+    const handleFilterClick = () => {
         setFilterPage(true)
         setStatisticsPage(false)
-      }
+    }
 
-      const handleStatisticsClick = () => {
+    const handleStatisticsClick = () => {
         setFilterPage(false)
         setStatisticsPage(true)
-      }
+    }
 
-      const searchbarprops = {
-        searchTerm,
-        setSearchTerm,
-      }
+    const searchbarprops = { searchTerm, setSearchTerm }
 
-    
     return (
         <>
         {expandStatus && (

@@ -4,12 +4,10 @@ import { GridListViewComponentProps } from '../types/homepagecomponentprops';
 
 const GridListViewComponent= ({ filterProps }: GridListViewComponentProps) => {
     const {
-        setListView,
-        setGalleryView,
         setClickedOnCard,
         //setCurrentPage,
-        listView,
-        galleryView
+        listView, setListView,
+        galleryView, setGalleryView
     } = filterProps
 
     const handleListView = () => {

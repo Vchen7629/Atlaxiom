@@ -52,8 +52,7 @@ export function SpellTypeDropDownComponent({ spelldropdownprops }: spellDropDown
   const [open, setOpen] = React.useState(false)
   const {
     setMonsterType,
-    spellType,
-    setSpellType,
+    spellType, setSpellType,
     setTrapType,
   } = spelldropdownprops
 

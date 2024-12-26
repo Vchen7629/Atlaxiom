@@ -41,8 +41,7 @@ export function TrapTypeDropDownComponent({ trapdropdownprops }: trapDropDown) {
   const {
     setMonsterType,
     setSpellType,
-    trapType,
-    setTrapType,
+    trapType, setTrapType,
   } = trapdropdownprops
 
   const handleClick = (newValue: string) => {

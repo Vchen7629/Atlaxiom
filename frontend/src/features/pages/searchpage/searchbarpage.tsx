@@ -131,10 +131,8 @@ const SearchBarPage = () => {
   }
 
   const filterbuttonprops = {
-    expandStatus,
-    setExpandStatus,
-    filterActive,
-    setFilterActive
+    expandStatus, setExpandStatus,
+    filterActive, setFilterActive
   }
 
   const listviewprops = {
@@ -148,8 +146,7 @@ const SearchBarPage = () => {
     totalPages,
     currentListPage,
     setListCurrentPage,
-    setCardSets,
-    cardSets
+    cardSets, setCardSets
   } 
 
   const galleryviewprops = {
@@ -163,8 +160,7 @@ const SearchBarPage = () => {
     totalGalleryPages,
     currentGalleryPage,
     setGalleryCurrentPage,
-    setCardSets,
-    cardSets
+    cardSets, setCardSets
   } 
 
   const filterprops = {

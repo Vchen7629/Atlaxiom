@@ -12,8 +12,7 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
         totalPages,
         currentListPage,
         setListCurrentPage,
-        setCardSets,
-        cardSets
+        cardSets, setCardSets
     } = listviewprops   
 
     const apiUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';

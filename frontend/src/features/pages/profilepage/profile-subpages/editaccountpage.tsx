@@ -30,8 +30,7 @@ const EditAccountPage = ({ user, refetch }: EditAccount) => {
     const [deleteErrMsg, setDeleteErrMsg] = useState('')
 
     const UsernameInputProps = {
-        newUsername,
-        setNewUsername,
+        newUsername, setNewUsername,
         setUserErrMsg,
         setUserSuccessMsg,
     }
@@ -39,15 +38,13 @@ const EditAccountPage = ({ user, refetch }: EditAccount) => {
     const UpdateUsernameProps = {
         refetch,
         username,
-        newUsername,
-        setNewUsername,
+        newUsername, setNewUsername,
         setUserErrMsg,
         setUserSuccessMsg,
     }
 
     const EmailInputProps = {
-        newEmail,
-        setNewEmail,
+        newEmail, setNewEmail,
         setEmailErrMsg,
         setEmailSuccessMsg,
     }
@@ -55,30 +52,26 @@ const EditAccountPage = ({ user, refetch }: EditAccount) => {
     const UpdateEmailProps = {
         refetch,
         email,
-        newEmail,
-        setNewEmail,
+        newEmail, setNewEmail,
         setEmailErrMsg,
         setEmailSuccessMsg,
     }
 
     const PasswordInputProps = {
-        newPassword,
-        setNewPassword,
+        newPassword, setNewPassword,
         setPasswordErrMsg,
         setPasswordSuccessMsg,
     }
 
     const UpdatePasswordProps = {
         refetch,
-        newPassword,
-        setNewPassword,
+        newPassword, setNewPassword,
         setPasswordErrMsg,
         setPasswordSuccessMsg
     }
 
     const DeleteInputProps = {
-        deleteInput,
-        setDeleteInput,
+        deleteInput, setDeleteInput,
         setDeleteErrMsg,
     } 
 
