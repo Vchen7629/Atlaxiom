@@ -9,12 +9,16 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
         cardName, setCardName,
         setClickedOnCard,
         setSelectedCardData,
-        setListCurrentPage,
-        setGalleryCurrentPage,
+        suggestionsPerPage, 
+        suggestionsPerGalleryPage,
+        currentListPage, setListCurrentPage,
+        currentGalleryPage, setGalleryCurrentPage,
+        setCurrentPageListNamesArray,
+        setCurrentPageGalleryNamesArray,
         setErrorMessage,
-        setTotalListNamesArray,
+        totalListNamesArray, setTotalListNamesArray,
+        totalGalleryNamesArray, setTotalGalleryNamesArray,
         maxMainSuggestions,
-        setTotalGalleryNamesArray,
         monsterType,
         spellType,
         trapType,
@@ -43,6 +47,20 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
       setCardData([]);
     }
   };
+
+  useEffect(() => {
+    const startIndex = (currentListPage - 1) * suggestionsPerPage;
+    const endIndex = startIndex + suggestionsPerPage;
+    const currentListSuggestions = totalListNamesArray.slice(startIndex, endIndex);
+    setCurrentPageListNamesArray(currentListSuggestions);
+  }, [currentListPage, totalListNamesArray, suggestionsPerPage]);
+
+  useEffect(() => {
+    const startIndex = (currentGalleryPage - 1) * suggestionsPerGalleryPage;
+    const endIndex = startIndex + suggestionsPerGalleryPage;
+    const currentGallerySuggestions = totalGalleryNamesArray.slice(startIndex, endIndex);
+    setCurrentPageGalleryNamesArray(currentGallerySuggestions);
+  }, [currentGalleryPage, totalGalleryNamesArray, suggestionsPerGalleryPage]);
 
   const debouncedSearchCard = useCallback((inputValue: string) => {
       if (!inputValue.trim()) {
@@ -125,10 +143,6 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
       atkFilter, atkLessThanEqual, atkEqual, atkGreaterThanEqual,
       defFilter, defLessThanEqual, defEqual, defGreaterThanEqual,
     ]);
-
-  useEffect(() => {
-    debouncedSearchCard(cardName);
-  }, [debouncedSearchCard, cardName]);
 
   useEffect(() => {
     fetchAllCardData();

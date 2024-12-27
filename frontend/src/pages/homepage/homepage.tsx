@@ -1,12 +1,12 @@
 "use client";
  
 import { useState } from "react";
-import Header from '../../../components/header/header.tsx';
-import Footer from '../../../components/footer/Footer.tsx';
-import { MarqueeDemo } from "../../../components/magicui_components/general_anim/image_anim.tsx"
+import Header from '../../components/header/header.tsx';
+import Footer from '../../components/footer/Footer.tsx';
+import { MarqueeDemo } from "../../components/magicui_components/general_anim/image_anim.tsx"
 
  
-import Particles from "../../../components/ui/particles.tsx";
+import Particles from "../../components/ui/particles.tsx";
  
 export function HomePage() {
   const [color] = useState<string>("#FFD700");

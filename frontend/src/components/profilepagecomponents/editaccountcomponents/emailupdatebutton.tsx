@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { UserId } from "../../../features/pages/profilepage/types/subpagetypes";
+import { UserId } from "../../../pages/profilepage/types/subpagetypes";
 import { useUpdateUserMutation } from "@/features/api-slices/usersApiSlice";
 import { SaveEmailButton } from "../types/editcomponenttypes";
 

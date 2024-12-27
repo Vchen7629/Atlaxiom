@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import Footer from "../../../components/footer/Footer.tsx"
-import Header from "../../../components/header/header.tsx"
+import Footer from "../../components/footer/Footer.tsx"
+import Header from "../../components/header/header.tsx"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
-import DeckDisplay from '../../../components/deckcomponents/homepage/owneddeckdisplaycomponent.tsx';
-import GridListViewComponent from '../../../components/deckcomponents/homepage/grid_or_list_view.tsx';
-import CreateNewDeckComponent from '../../../components/deckcomponents/homepage/CreateNewDeckButton.tsx';
+import DeckDisplay from '../../components/deckcomponents/homepage/owneddeckdisplaycomponent.tsx';
+import GridListViewComponent from '../../components/deckcomponents/homepage/grid_or_list_view.tsx';
+import CreateNewDeckComponent from '../../components/deckcomponents/homepage/CreateNewDeckButton.tsx';
 import { UserIdState } from './deckpagetypes.ts';
 
 

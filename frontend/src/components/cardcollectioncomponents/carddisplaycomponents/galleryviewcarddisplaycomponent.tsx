@@ -13,7 +13,6 @@ import { useState } from "react";
 import { Card, filteredCards, SelectedCard } from "../types/ownedcarddetailstypes.ts";
 
 export const GalleryViewCardDisplayComponent: React.FC<filteredCards> = ({ filteredCards }) => {
-
     const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null)
       
     return (
