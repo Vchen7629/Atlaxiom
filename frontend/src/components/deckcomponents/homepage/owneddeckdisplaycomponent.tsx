@@ -22,7 +22,6 @@ const DeckDisplay= ({ listView, galleryView, userId, deckName }: DeckDisplayComp
         if (userId && deckRefetch) {
             refetch();
             setDeckRefetch(false);
-            console.log("Refetching")
         }
     }, [userId, deckRefetch]);
 

@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { UserId } from "../../../features/pages/profilepage/types/subpagetypes";
+import { UserId } from "../../../pages/profilepage/types/subpagetypes";
 import { useDeleteUserMutation } from "@/features/api-slices/usersApiSlice";
 import { useNavigate } from "react-router-dom";
 import { useSendLogoutMutation } from "@/features/auth/authApiSlice";

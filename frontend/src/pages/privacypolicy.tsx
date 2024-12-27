@@ -1,5 +1,5 @@
 import DashHeader from "../../components/dash/dashheader"
-import Footer from "../../components/footer/Footer"
+import Footer from "../components/footer/Footer"
 
 
 const Privacypolicies = () => {

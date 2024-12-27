@@ -1,26 +1,22 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faFilter, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { useGetOwnedCardsQuery } from '../../api-slices/ownedCardapislice.tsx';
+import { useGetOwnedCardsQuery } from '../../features/api-slices/ownedCardapislice.tsx';
 import { useLocation } from 'react-router-dom';
-import Header from '../../../components/header/header';
-import Footer from '../../../components/footer/Footer';
-import { ListViewCardDisplayComponent } from "../../../components/cardcollectioncomponents/carddisplaycomponents/listviewcarddisplaycomponent.tsx"
-import FilterOwnedCards from '../../../components/cardcollectioncomponents/filtersidebar/components/ownedCardFilter.tsx';
-import CardCollectionStatistics from '../../../components/cardcollectioncomponents/filtersidebar/components/ownedCardStatistics.tsx';
-import MyCardsSearchbarComponent from '../../../components/cardcollectioncomponents/components/searchbar.tsx';
+import Header from '../../components/header/header.tsx';
+import Footer from '../../components/footer/Footer.tsx';
+import { ListViewCardDisplayComponent } from "../../components/cardcollectioncomponents/carddisplaycomponents/listviewcarddisplaycomponent.tsx"
+import FilterOwnedCards from '../../components/cardcollectioncomponents/filtersidebar/components/ownedCardFilter.tsx';
+import CardCollectionStatistics from '../../components/cardcollectioncomponents/filtersidebar/components/ownedCardStatistics.tsx';
+import MyCardsSearchbarComponent from '../../components/cardcollectioncomponents/components/searchbar.tsx';
 import { Card } from './ownedcardpagetypes.ts';
-import GridListViewComponent from '../../../components/cardcollectioncomponents/components/grid_or_list_view.tsx';
-import { GalleryViewCardDisplayComponent } from '../../../components/cardcollectioncomponents/carddisplaycomponents/galleryviewcarddisplaycomponent.tsx';
+import GridListViewComponent from '../../components/cardcollectioncomponents/components/grid_or_list_view.tsx';
+import { GalleryViewCardDisplayComponent } from '../../components/cardcollectioncomponents/carddisplaycomponents/galleryviewcarddisplaycomponent.tsx';
 import { useGetSpecificUserQuery } from '@/features/api-slices/usersApiSlice.ts';
-import { useGlobalCardRefetchState } from '@/app/globalStates/refetchCardState.tsx';
-
 
 const UserOwnedCardPage = () => {
   const location = useLocation();
   const { userId } = location.state || {};
-  //const [lastFetchedTimestamp, setLastFetchedTimestamp] = useState(null);
-  const { cardRefetch, setCardRefetch } = useGlobalCardRefetchState();
   
   const [searchTerm, setSearchTerm] = useState<string>('');
 
@@ -112,12 +108,11 @@ const UserOwnedCardPage = () => {
   });
 
   useEffect(() => {
-    if (userId && cardRefetch) {
+    if (userId) {
       refetch();
       refetchOnUpdate();
-      setCardRefetch(false)
     }
-  }, [userId, cardRefetch])
+  }, [userId])
 
   useEffect(() => {
     if (ownedCards) {

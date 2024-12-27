@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import Header from '../../../components/header/header.tsx';
-import Footer from '../../../components/footer/Footer.tsx';
+import Header from '../../components/header/header.tsx';
+import Footer from '../../components/footer/Footer.tsx';
 import { useLocation } from 'react-router-dom';
-import { useGetSpecificOwnedDeckMutation } from '../../api-slices/decksapislice.ts';
-import DeckBuilderPageSidebarComponent from '../../../components/deckcomponents/decksidebar/deckbuilderpagesidebar.tsx';
+import { useGetSpecificOwnedDeckMutation } from '../../features/api-slices/decksapislice.ts';
+import DeckBuilderPageSidebarComponent from '../../components/deckcomponents/decksidebar/deckbuilderpagesidebar.tsx';
 //import GridListViewComponent from '../../../components/searchbar/grid_or_list_view';
 
 const DeckBuilderPage = () => {

@@ -1,16 +1,16 @@
-import { useState, useEffect } from 'react';
-import Header from '../../../components/header/header';
-import Footer from '../../../components/footer/Footer';
+import { useState } from 'react';
+import Header from '../../components/header/header';
+import Footer from '../../components/footer/Footer';
 import SearchResults from './searchresults';
-import GridListViewComponent from '../../../components/searchpagecomponents/searchbar/grid_or_list_view';
-import FilterCardComponent from '../../../components/searchpagecomponents/searchresultfilter/FilterComponent';
-import SearchBarComponent from '../../../components/searchpagecomponents/searchbar/searchbar';
-import ListViewSearchSuggestionsComponent from '../../../components/searchpagecomponents/display/listviewsearchsuggestions';
-import { ApiCardData, SearchResCardData } from '../../../components/searchpagecomponents/types/datastructuretypes';
-import GalleryViewSearchSuggestionsComponent from '../../../components/searchpagecomponents/display/galleryviewsearchsuggestions';
-import { CardSet } from '../../../components/searchpagecomponents/types/searchresultcomptypes';
-import ClearFilterButton from '../../../components/searchpagecomponents/buttons/clearfilterbutton';
-import FilterButton from '../../../components/searchpagecomponents/buttons/filterbutton';
+import GridListViewComponent from '../../components/searchpagecomponents/searchbar/grid_or_list_view';
+import FilterCardComponent from '../../components/searchpagecomponents/searchresultfilter/FilterComponent';
+import SearchBarComponent from '../../components/searchpagecomponents/searchbar/searchbar';
+import ListViewSearchSuggestionsComponent from '../../components/searchpagecomponents/display/listviewsearchsuggestions';
+import { ApiCardData, SearchResCardData } from '../../components/searchpagecomponents/types/datastructuretypes';
+import GalleryViewSearchSuggestionsComponent from '../../components/searchpagecomponents/display/galleryviewsearchsuggestions';
+import { CardSet } from '../../components/searchpagecomponents/types/searchresultcomptypes';
+import ClearFilterButton from '../../components/searchpagecomponents/buttons/clearfilterbutton';
+import FilterButton from '../../components/searchpagecomponents/buttons/filterbutton';
 
 const SearchBarPage = () => {
   const [cardName, setCardName] = useState<string>('');
@@ -71,21 +71,6 @@ const SearchBarPage = () => {
   const [currentListPage, setListCurrentPage] = useState(1);  
   const [currentGalleryPage, setGalleryCurrentPage] = useState(1);  
 
-  useEffect(() => {
-    const startIndex = (currentListPage - 1) * suggestionsPerPage;
-    const endIndex = startIndex + suggestionsPerPage;
-    const currentListSuggestions = totalListNamesArray.slice(startIndex, endIndex);
-    setCurrentPageListNamesArray(currentListSuggestions);
-  }, [currentListPage, totalListNamesArray, suggestionsPerPage]);
-
-  useEffect(() => {
-    const startIndex = (currentGalleryPage - 1) * suggestionsPerGalleryPage;
-    const endIndex = startIndex + suggestionsPerGalleryPage;
-    const currentGallerySuggestions = totalGalleryNamesArray.slice(startIndex, endIndex);
-    setCurrentPageGalleryNamesArray(currentGallerySuggestions);
-  }, [currentGalleryPage, totalGalleryNamesArray, suggestionsPerGalleryPage]);
-
-
   const gridlistviewprops = {
     setListView,
     listView,
@@ -98,24 +83,28 @@ const SearchBarPage = () => {
 
   const searchbarprops = {
     cardData, setCardData,
-    cardName, setCardName,
-    setClickedOnCard,
-    setSelectedCardData,
-    setListCurrentPage, 
-    setGalleryCurrentPage,
-    setErrorMessage,
-    setTotalListNamesArray, 
-    setTotalGalleryNamesArray,
-    maxMainSuggestions,
-    monsterType, 
-    spellType, 
-    trapType, 
-    attributeType,
-    levelFilter, lessThanEqual, equal, greaterThanEqual,
-    pendFilter, pendLessThanEqual, pendEqual, pendGreaterThanEqual,
-    linkFilter, linkLessThanEqual, linkEqual, linkGreaterThanEqual,
-    atkFilter, atkLessThanEqual, atkEqual, atkGreaterThanEqual,
-    defFilter, defLessThanEqual, defEqual, defGreaterThanEqual
+        cardName, setCardName,
+        setClickedOnCard,
+        setSelectedCardData,
+        suggestionsPerPage, 
+        suggestionsPerGalleryPage,
+        currentListPage, setListCurrentPage,
+        currentGalleryPage, setGalleryCurrentPage,
+        setCurrentPageListNamesArray,
+        setCurrentPageGalleryNamesArray,
+        setErrorMessage,
+        totalListNamesArray, setTotalListNamesArray,
+        totalGalleryNamesArray, setTotalGalleryNamesArray,
+        maxMainSuggestions,
+        monsterType,
+        spellType,
+        trapType,
+        attributeType,
+        levelFilter, lessThanEqual, equal, greaterThanEqual,
+        pendFilter, pendLessThanEqual, pendEqual, pendGreaterThanEqual,
+        linkFilter, linkLessThanEqual, linkEqual, linkGreaterThanEqual,
+        atkFilter, atkLessThanEqual, atkEqual, atkGreaterThanEqual,
+        defFilter, defLessThanEqual, defEqual, defGreaterThanEqual
   }
 
   const clearfilterprops = {

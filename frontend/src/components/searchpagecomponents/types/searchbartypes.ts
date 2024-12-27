@@ -8,10 +8,18 @@ export type SearchBar = {
         setCardName: React.Dispatch<React.SetStateAction<string>>
         setClickedOnCard: React.Dispatch<React.SetStateAction<boolean>>
         setSelectedCardData: React.Dispatch<React.SetStateAction<SearchResCardData | null>>
+        suggestionsPerPage: number;
+        suggestionsPerGalleryPage: number;
+        currentListPage: number;
         setListCurrentPage: React.Dispatch<React.SetStateAction<number>>
+        setCurrentPageListNamesArray: React.Dispatch<React.SetStateAction<string[]>>
+        currentGalleryPage: number;
         setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>
         setErrorMessage: React.Dispatch<React.SetStateAction<string>>
+        totalListNamesArray: string[];
+        totalGalleryNamesArray: string[];
         setTotalListNamesArray: React.Dispatch<React.SetStateAction<string[]>>
+        setCurrentPageGalleryNamesArray: React.Dispatch<React.SetStateAction<string[]>>
         maxMainSuggestions: number
         setTotalGalleryNamesArray: React.Dispatch<React.SetStateAction<any[]>>
         monsterType: string;

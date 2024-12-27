@@ -1,8 +1,8 @@
 
-import { ComponentBarChart } from "../../../../components/shadcn_components/charts/barchartyear"
-import { ComponentPieChart } from "../../../../components/shadcn_components/charts/piechart"
-import { ComponentRadialChart } from "../../../../components/shadcn_components/charts/radialchart"
-import { ComponentBarMonthChart } from "../../../../components/shadcn_components/charts/barchartmonth"
+import { ComponentBarChart } from "../../../components/shadcn_components/charts/barchartyear"
+import { ComponentPieChart } from "../../../components/shadcn_components/charts/piechart"
+import { ComponentRadialChart } from "../../../components/shadcn_components/charts/radialchart"
+import { ComponentBarMonthChart } from "../../../components/shadcn_components/charts/barchartmonth"
 import { useState } from "react";
 
 const UserStatistics = () => {

@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import Header from '../../../components/header/header.tsx';
-import Footer from '../../../components/footer/Footer.tsx';
-import { useGetSpecificUserQuery } from '../../api-slices/usersApiSlice.ts';
+import Header from '../../components/header/header.tsx';
+import Footer from '../../components/footer/Footer.tsx';
+import { useGetSpecificUserQuery } from '../../features/api-slices/usersApiSlice.ts';
 import UserStatistics from './profile-subpages/statistics.tsx';
 import { UserId } from './types/subpagetypes.ts';
-import NavBarComponent from '../../../components/profilepagecomponents/components/navbar.tsx';
-import ProfilePageHeader from '../../../components/profilepagecomponents/components/profilepageheader.tsx';
+import NavBarComponent from '../../components/profilepagecomponents/components/navbar.tsx';
+import ProfilePageHeader from '../../components/profilepagecomponents/components/profilepageheader.tsx';
 import ViewDecks from './profile-subpages/deckpage.tsx';
-import DeckSearchBar from '../../../components/profilepagecomponents/components/decksearchbarcomp.tsx';
-import GridListViewComponent from '../../../components/profilepagecomponents/components/gridlistviewcomponent.tsx';
+import DeckSearchBar from '../../components/profilepagecomponents/components/decksearchbarcomp.tsx';
+import GridListViewComponent from '../../components/profilepagecomponents/components/gridlistviewcomponent.tsx';
 import EditAccountPage from './profile-subpages/editaccountpage.tsx';
 
 

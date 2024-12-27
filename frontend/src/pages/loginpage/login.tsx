@@ -1,10 +1,10 @@
-import Footer from "../../../components/footer/Footer.tsx"
-import Header from "../../../components/header/header.tsx"
-import { useRef, useState, useEffect } from "react"
+import Footer from "../../components/footer/Footer.tsx"
+import Header from "../../components/header/header.tsx"
+import { useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { setCredentials } from "../../auth/authSlice.ts"
-import { useLoginMutation } from "../../auth/authApiSlice.ts"
+import { setCredentials } from "../../features/auth/authSlice.ts"
+import { useLoginMutation } from "../../features/auth/authApiSlice.ts"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGear, faUser } from "@fortawesome/free-solid-svg-icons"
 import { LoginError } from "./logintypes.ts"
@@ -23,17 +23,6 @@ const LoginPage = () => {
     const handleSignUpClick = () => {
         navigate('/signup')
     }
-
-    useEffect(() => { //code so that username field is focused on page init
-        if (userRef.current) {
-            userRef.current.focus()
-        }
-    }, []) 
-
-    useEffect(() => {
-        setErrMsg('');
-    }, [username, password])
-
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

@@ -15,7 +15,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useIncreaseOwnedCardMutation, useDecreaseOwnedCardMutation, useDeleteOwnedCardMutation, useGetOwnedCardsQuery } from '../../../features/api-slices/ownedCardapislice.tsx';
 import { Card, filteredCards, SelectedCard } from "../types/ownedcarddetailstypes.ts";
-import { useGlobalCardRefetchState } from "@/app/globalStates/refetchCardState.tsx";
 
 export const ListViewCardDisplayComponent: React.FC<filteredCards> = ({ filteredCards }) => {
     const [increaseOwnedCard] = useIncreaseOwnedCardMutation();
@@ -23,20 +22,20 @@ export const ListViewCardDisplayComponent: React.FC<filteredCards> = ({ filtered
     const [deleteOwnedCard] = useDeleteOwnedCardMutation();
     const location = useLocation();
     const { userId } = location.state || {};
-    const { cardRefetch, setCardRefetch } = useGlobalCardRefetchState()
 
     const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null)
 
     const {refetch} = useGetOwnedCardsQuery(userId);
 
     useEffect(() => {
-      if (userId && cardRefetch) {
+      if (userId) {
         refetch();
-        setCardRefetch(false)
+        console.log("List View Use Effect ran once")
       }
-    }, [userId, cardRefetch])
+    }, [userId])
 
     const handleIncreaseClick = async (cardName: string) => {
+        const startTime = new Date().getTime();
         try {
           await increaseOwnedCard({ 
             id: userId, 
@@ -45,7 +44,11 @@ export const ListViewCardDisplayComponent: React.FC<filteredCards> = ({ filtered
               increaseOwnedAmount: 1 
             } 
           });
-          setCardRefetch(true);
+          const endTime = new Date().getTime();
+          const apiResponseTime = endTime - startTime; 
+          console.log("res:", apiResponseTime, "ms");
+          refetch();
+          
         } catch (err) {
           console.error('Failed to increase card amount:', err);
         }
@@ -60,7 +63,7 @@ export const ListViewCardDisplayComponent: React.FC<filteredCards> = ({ filtered
               decreaseOwnedAmount: 1 
             } 
           });
-          setCardRefetch(true);
+          refetch();
         } catch (err) {
           console.error('Failed to decrease card amount:', err);
         }
@@ -72,7 +75,7 @@ export const ListViewCardDisplayComponent: React.FC<filteredCards> = ({ filtered
             id: userId,
             CardData: { card_name: cardName }
           });
-          setCardRefetch(true);
+          refetch();
         } catch (err) {
           console.error('Failed to delete card:', err);
         }
