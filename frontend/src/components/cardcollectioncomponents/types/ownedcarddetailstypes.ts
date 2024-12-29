@@ -9,8 +9,16 @@ export type Card = {
     price?: number;
 }
 
-export interface filteredCards {
-    filteredCards: Card[];
+export type filteredListCards = {
+    displaylistprops: {
+        currentListPageResults: any;
+    }
+}
+
+export type filteredGalleryCards = {
+    displaygalleryprops: {
+        currentGalleryPageResults: any;
+    }
 }
 
 export type SelectedCard = {

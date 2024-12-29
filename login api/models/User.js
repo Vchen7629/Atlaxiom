@@ -35,10 +35,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: null
     },
-    description: {
-        type: String,
-        required: false
-    },
     password: {
         type: String,
         required: true
@@ -59,6 +55,10 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    uniqueCards: {
+        type: Number,
+        default: 0
+    }
 });
 
 module.exports = userSchema

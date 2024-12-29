@@ -33,5 +33,7 @@ export type OwnedCardsFilterProps = {
         statisticspage: boolean;
         setStatisticsPage: React.Dispatch<React.SetStateAction<boolean>>;
         expandStatus: boolean;
+        setListCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+        setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>;
     }
 }

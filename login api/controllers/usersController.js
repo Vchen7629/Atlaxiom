@@ -1,4 +1,4 @@
-const { User } = require('../../login api/models/genmodels');
+const { User, OwnedCard } = require('../../login api/models/genmodels');
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
 const mongoose = require('mongoose');
@@ -41,11 +41,11 @@ const createNewUser = asyncHandler(async (req, res) => {
         email, 
         "password": hashPassword, 
         roles: ["Member"], 
-        description: "", 
         creation: creationDate,
         lastUpdated: null,
         lastUsernameUpdated: creationDate,
         lastCardUpdated: creationDate,
+        uniqueCards: 0,
     }
 
     const user = await User.create(userObject)
@@ -154,11 +154,6 @@ const updateUser = asyncHandler(async (req, res) => {
 const deleteUser = asyncHandler(async (req, res) => {
     
     const { id } = req.params
-    //const { password } = req.body
-
-    /*if (!password) {
-        return res.status(400).json({ message: 'password is required' })
-    }*/
 
     if (!id) {
         return res.status(400).json({ message: 'Invalid user ID' });
@@ -171,11 +166,12 @@ const deleteUser = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: 'User not found' })
     }
 
-    /*const match = await bcrypt.compare(password, user.password)
+    // Delete all documents with the same user_id
+    const deleteRelatedDocuments = await OwnedCard.deleteMany({ user_id: user._id });
 
-    if (!match) {
-        return res.status(401).json({ message: 'Incorrect password' })
-    }*/
+    if (deleteRelatedDocuments.deletedCount === 0) {
+        return res.status(404).json({ message: 'No related documents found to delete' });
+    }
 
     const result = await user.deleteOne()
 

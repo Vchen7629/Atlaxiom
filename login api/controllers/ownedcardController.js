@@ -49,6 +49,7 @@ const createOwnedCard = asyncHandler(async (req, res) => {
     user.totalOwnedCards = (user.totalOwnedCards || 0) + 1;
     user.lastAdded = card_name;
     user.lastCardUpdated = `${formattedDate} ${formattedTime}`;
+    user.uniqueCards = user.uniqueCards + 1;
     await user.save();
 
     res.status(201).json({
@@ -184,6 +185,10 @@ const deleteOwnedCardByUsername = asyncHandler(async (req, res) => {
   user.totalOwnedCards = (Number(user.totalOwnedCards) || 0) - cardAmount;
   user.lastDeleted = card_name;
   user.lastCardUpdated = `${formattedDate} ${formattedTime}`;
+
+  if (user.uniqueCards != 0) {
+    user.uniqueCards = uniqueCards - 1;
+  }
   
   await user.save();
 

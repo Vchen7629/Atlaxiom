@@ -20,7 +20,13 @@ import {
 } from "@/components/ui/popover"
 import { SubTypeDropDownProps } from "../../types/dropdowntypes"
  
-export function SubTypeDropDownComponent({ subtypes, subTypeFilter, setSubTypeFilter }: SubTypeDropDownProps) {
+export function SubTypeDropDownComponent({ subtypeprops }: SubTypeDropDownProps) {
+  const {
+    uniqueSubtype,
+    subTypeFilter, setSubTypeFilter,
+    setListCurrentPage,
+    setGalleryCurrentPage,
+  } = subtypeprops 
   const [open, setOpen] = React.useState(false)
   
   return (
@@ -34,7 +40,7 @@ export function SubTypeDropDownComponent({ subtypes, subTypeFilter, setSubTypeFi
         >
           {subTypeFilter ? (
             <span className={`flex relative items-center left-1/4 justify-between w-fit px-2 py-1 bg-[hsl(var(--background3))] text-white rounded text-sm`}>
-                {subtypes.find((subtype) => subtype === subTypeFilter) }
+                {uniqueSubtype.find((subtype) => subtype === subTypeFilter) }
             </span>
           ) : (
             <span className={`flex relative items-center left-1/5 justify-between w-fit px-2 py-1 bg-transparent rounded text-sm`}>
@@ -51,7 +57,7 @@ export function SubTypeDropDownComponent({ subtypes, subTypeFilter, setSubTypeFi
           <CommandList>
             <CommandEmpty>No subtypes found.</CommandEmpty>
             <CommandGroup>
-              {subtypes.map((subtype) => (
+              {uniqueSubtype.map((subtype) => (
                 <CommandItem
                   key={subtype}
                   value={subtype}
@@ -59,6 +65,8 @@ export function SubTypeDropDownComponent({ subtypes, subTypeFilter, setSubTypeFi
                   onSelect={(currentValue) => {
                     setSubTypeFilter(currentValue === subTypeFilter ? '' : currentValue);
                     setOpen(false);
+                    setListCurrentPage(1);
+                    setGalleryCurrentPage(1);
                   }}
                 > 
                  

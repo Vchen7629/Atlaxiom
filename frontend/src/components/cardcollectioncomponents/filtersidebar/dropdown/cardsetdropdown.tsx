@@ -20,7 +20,13 @@ import {
 } from "@/components/ui/popover"
 import { CardSetDropDownProps } from "../../types/dropdowntypes"
  
-export function CardSetDropDownComponent({ sets, setFilter, setSetFilter }: CardSetDropDownProps) {
+export function CardSetDropDownComponent({ setprops }: CardSetDropDownProps) {
+  const {
+    uniqueSet,
+    setFilter, setSetFilter,
+    setListCurrentPage,
+    setGalleryCurrentPage,
+  } = setprops
   const [open, setOpen] = React.useState(false)
  
   return (
@@ -35,7 +41,7 @@ export function CardSetDropDownComponent({ sets, setFilter, setSetFilter }: Card
           {setFilter ? (
             <div className="flex w-full items-center justify-center">
               <span className={`flex items-center justify-between w-fit px-2 py-1 bg-[hsl(var(--background3))] rounded text-[12px]`}>
-                  {sets.find((sets) => sets === setFilter) }
+                  {uniqueSet.find((sets) => sets === setFilter) }
               </span>
             </div>
           ) : (
@@ -53,14 +59,16 @@ export function CardSetDropDownComponent({ sets, setFilter, setSetFilter }: Card
           <CommandList>
             <CommandEmpty>No Card Sets found.</CommandEmpty>
             <CommandGroup>
-              {sets.map((sets) => (
+              {uniqueSet.map((sets) => (
                 <CommandItem
                   key={sets}
                   value={sets}
                   className="text-[hsl(var(--text))] bg-transparent"
                   onSelect={(currentValue) => {
-                    setSetFilter(currentValue === setFilter ? "" : currentValue)
-                    setOpen(false)
+                    setSetFilter(currentValue === setFilter ? "" : currentValue);
+                    setOpen(false);
+                    setListCurrentPage(1);
+                    setGalleryCurrentPage(1);
                   }}
                 > 
                   {sets}

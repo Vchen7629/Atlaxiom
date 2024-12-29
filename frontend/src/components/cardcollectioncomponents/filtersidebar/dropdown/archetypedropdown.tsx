@@ -18,14 +18,16 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-
-type ArchetypeDropDownProps = {
-  archetypes: string[];
-  archeTypeFilter: string;
-  setArcheTypeFilter: (filter: string) => void;
-}
+import { ArchetypeDropDownProps } from "../../types/dropdowntypes"
  
-export function ArchetypeDropDownComponent({ archetypes, archeTypeFilter, setArcheTypeFilter }: ArchetypeDropDownProps) {
+export function ArchetypeDropDownComponent({ archetypeprops }: ArchetypeDropDownProps) {
+  const {
+    uniqueArchtype,
+    archeTypeFilter, setArcheTypeFilter,
+    setListCurrentPage,
+    setGalleryCurrentPage,
+  } = archetypeprops
+
   const [open, setOpen] = React.useState(false)
  
   return (
@@ -39,7 +41,7 @@ export function ArchetypeDropDownComponent({ archetypes, archeTypeFilter, setArc
         >
           {archeTypeFilter ? (
             <span className={`flex relative items-center left-1/4 justify-between w-fit px-2 py-1 bg-[hsl(var(--background3))] text-white rounded text-sm`}>
-              {archetypes.find((archetype) => archetype == archeTypeFilter)}
+              {uniqueArchtype.find((archetype) => archetype == archeTypeFilter)}
             </span>
           ) : (
             <span className={`flex relative items-center left-1/5 justify-between w-fit px-2 py-1 bg-transparent rounded text-sm`}>
@@ -55,7 +57,7 @@ export function ArchetypeDropDownComponent({ archetypes, archeTypeFilter, setArc
           <CommandList>
             <CommandEmpty>No Archetype found.</CommandEmpty>
             <CommandGroup>
-              {archetypes.map((archetype) => (
+              {uniqueArchtype.map((archetype) => (
                 <CommandItem
                   key={archetype}
                   value={archetype}
@@ -63,6 +65,8 @@ export function ArchetypeDropDownComponent({ archetypes, archeTypeFilter, setArc
                   onSelect={(currentValue) => {
                     setArcheTypeFilter(currentValue === archeTypeFilter ? "" : currentValue)
                     setOpen(false)
+                    setListCurrentPage(1);
+                    setGalleryCurrentPage(1);
                   }}
                 >
                   {archetype}

@@ -20,7 +20,14 @@ import {
 } from "@/components/ui/popover"
 import { RarityDropDownProps } from "../../types/dropdowntypes"
  
-export function RarityDropDownComponent({ raritys, rarityFilter, setRarityFilter }: RarityDropDownProps) {
+export function RarityDropDownComponent({ rarityprops }: RarityDropDownProps) {
+  const {
+    uniqueRarity,
+    rarityFilter, setRarityFilter,
+    setListCurrentPage,
+    setGalleryCurrentPage,
+  } = rarityprops
+
   const [open, setOpen] = React.useState(false)
  
   return (
@@ -34,7 +41,7 @@ export function RarityDropDownComponent({ raritys, rarityFilter, setRarityFilter
         >
             {rarityFilter ? (
                 <span className={`flex relative items-center left-1/4 justify-between w-fit px-2 py-1 bg-[hsl(var(--background3))] text-white rounded text-sm`}>
-                    {raritys.find((rarity) => rarity === rarityFilter) }
+                    {uniqueRarity.find((rarity) => rarity === rarityFilter) }
                 </span>
             ): (
               <span className={`flex relative items-center left-1/5 justify-between w-fit px-2 py-1 bg-transparent rounded text-sm`}>
@@ -50,14 +57,16 @@ export function RarityDropDownComponent({ raritys, rarityFilter, setRarityFilter
           <CommandList>
             <CommandEmpty>No Card Rarity found.</CommandEmpty>
             <CommandGroup>
-              {raritys.map((rarity) => (
+              {uniqueRarity.map((rarity) => (
                 <CommandItem
                   key={rarity}
                   value={rarity}
                   className="text-[hsl(var(--text))] bg-transparent"
                   onSelect={(currentValue) => {
-                    setRarityFilter(currentValue === rarityFilter ? "" : currentValue)
-                    setOpen(false)
+                    setRarityFilter(currentValue === rarityFilter ? "" : currentValue);
+                    setOpen(false);
+                    setListCurrentPage(1);
+                    setGalleryCurrentPage(1);
                   }}
                 > 
                  

@@ -39,7 +39,7 @@ export const ownedCardsApiSlice = apiSlice.injectEndpoints({
                 return response.status === 200 && !result.isError;
             },
             transformResponse: (responseData) => {
-                return ownedCardsAdapter.upsertMany(initialState, { ...responseData, id: responseData._id });
+                return ownedCardsAdapter.upsertOne(initialState, { ...responseData, id: responseData._id });
             },
             providesTags: (result, error, arg) => {
                 if (result?.ids) {

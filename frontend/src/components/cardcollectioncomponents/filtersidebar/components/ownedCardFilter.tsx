@@ -31,11 +31,15 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         rarityFilter, setRarityFilter,
         filterpage, setFilterPage,
         statisticspage, setStatisticsPage,
+        setListCurrentPage,
+        setGalleryCurrentPage,
       } = filterProps;
     
 
     const handleMonsterFilter = () => {
         setCardTypeFilter('monster');
+        setListCurrentPage(1);
+        setGalleryCurrentPage(1);
         setIsMonsterFilterActive(true);
         setIsSpellFilterActive(false);
         setIsTrapFilterActive(false);
@@ -79,6 +83,47 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
     }
 
     const searchbarprops = { searchTerm, setSearchTerm }
+
+    const subtypeprops = {
+        uniqueSubtype,
+        subTypeFilter, setSubTypeFilter,
+        setListCurrentPage,
+        setGalleryCurrentPage,
+    }
+
+    const attributeprops = {
+        uniqueAttribute,
+        attributeFilter, setAttributeFilter,
+        setListCurrentPage,
+        setGalleryCurrentPage,
+    }
+
+    const archetypeprops = {
+        uniqueArchtype,
+        archeTypeFilter, setArcheTypeFilter,
+        setListCurrentPage,
+        setGalleryCurrentPage,
+    }
+
+    const rarityprops = {
+        uniqueRarity,
+        rarityFilter, setRarityFilter,
+        setListCurrentPage,
+        setGalleryCurrentPage,
+    }
+
+    const levelprops = {
+        setLevelFilter,
+        setListCurrentPage,
+        setGalleryCurrentPage,
+    }
+
+    const setprops = {
+        uniqueSet,
+        setFilter, setSetFilter,
+        setListCurrentPage,
+        setGalleryCurrentPage,
+    }
 
     return (
         <>
@@ -125,27 +170,27 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
                 <section className="flex flex-col w-[92%] items-start">
                     <div className="flex mt-[5%] w-full">
                         <div className="flex h-full w-[7vw] text-sm font-black items-center text-[hsl(var(--text))] ">Card Subtype:</div>
-                        <SubTypeDropDownComponent subtypes={uniqueSubtype} subTypeFilter={subTypeFilter}  setSubTypeFilter={setSubTypeFilter}/>
+                        <SubTypeDropDownComponent subtypeprops={subtypeprops}/>
                     </div>
                     <div className="flex mt-[5%] w-full">
                         <div className="flex h-full w-[7vw] text-sm items-center font-black text-[hsl(var(--text))] ">Card Attribute:</div>
-                        <AttributeDropDownComponent attributes={uniqueAttribute} attributeFilter={attributeFilter} setAttributeFilter={setAttributeFilter}/>
+                        <AttributeDropDownComponent attributeprops={attributeprops}/>
                     </div>
                     <div className="flex mt-[5%] w-full">
                         <div className="flex h-full w-[7vw] text-sm  items-center font-black text-[hsl(var(--text))] ">Card Archetype:</div>
-                        <ArchetypeDropDownComponent archetypes={uniqueArchtype} archeTypeFilter={archeTypeFilter}  setArcheTypeFilter={setArcheTypeFilter}/>
+                        <ArchetypeDropDownComponent archetypeprops={archetypeprops}/>
                     </div>
                     <div className="flex mt-[5%] w-full">
                         <div className="flex h-full w-[10vw] text-sm  items-center font-black text-[hsl(var(--text))]">Card Level:</div>
-                        <LevelSliderComponent setLevelFilter={setLevelFilter}/>
+                        <LevelSliderComponent levelprops={levelprops}/>
                     </div>
                     <div className="flex mt-[5%] w-full ">
                         <div className="flex h-full w-[7vw] text-sm items-center font-black text-[hsl(var(--text))]">Rarity:</div>
-                        <RarityDropDownComponent raritys={uniqueRarity} rarityFilter={rarityFilter} setRarityFilter={setRarityFilter}/>
+                        <RarityDropDownComponent rarityprops={rarityprops}/>
                     </div>
                     <div className="flex mt-[5%] w-full ">
                         <div className="flex h-full w-[7vw] text-sm items-center font-black text-[hsl(var(--text))]">Card Set:</div>
-                        <CardSetDropDownComponent sets={uniqueSet} setFilter={setFilter} setSetFilter={setSetFilter}/>
+                        <CardSetDropDownComponent setprops={setprops}/>
                     </div>
                 </section>
             </>
