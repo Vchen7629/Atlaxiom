@@ -3,12 +3,19 @@ import { Slider } from "@/components/ui/slider"
 import { useState } from "react"
 import { LevelSliderProps } from "../../types/dropdowntypes"
 
-export function LevelSliderComponent({ setLevelFilter, className, ...props }: LevelSliderProps) {
+export function LevelSliderComponent({ levelprops, className, ...props }: LevelSliderProps) {
+  const {
+      setLevelFilter,
+      setListCurrentPage,
+      setGalleryCurrentPage,
+  } = levelprops 
   const [value, setValue] = useState([1])
 
   const handleSliderChange = (newValue: number[]) => {
     setValue(newValue)
     setLevelFilter(newValue[0])
+    setListCurrentPage(1);
+    setGalleryCurrentPage(1);
   }
 
   return (

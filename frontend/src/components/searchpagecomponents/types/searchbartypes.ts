@@ -20,7 +20,6 @@ export type SearchBar = {
         totalGalleryNamesArray: string[];
         setTotalListNamesArray: React.Dispatch<React.SetStateAction<string[]>>
         setCurrentPageGalleryNamesArray: React.Dispatch<React.SetStateAction<string[]>>
-        maxMainSuggestions: number
         setTotalGalleryNamesArray: React.Dispatch<React.SetStateAction<any[]>>
         monsterType: string;
         spellType: string;

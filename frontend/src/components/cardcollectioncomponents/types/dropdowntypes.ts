@@ -1,31 +1,61 @@
 import { SliderProps } from "@radix-ui/react-slider";
 
 export type SubTypeDropDownProps = {
-    subtypes: string[];
-    subTypeFilter: string;
-    setSubTypeFilter: (filter: string) => void;
+    subtypeprops: {
+        uniqueSubtype: string[];
+        subTypeFilter: string;
+        setSubTypeFilter: (filter: string) => void;
+        setListCurrentPage: React.Dispatch<React.SetStateAction<number>>
+        setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>
+    }
 }
 
 export type AttributeDropDownProps = {
-    attributes: string[];
-    attributeFilter: string;
-    setAttributeFilter: (filter: string) => void;
+    attributeprops: {
+        uniqueAttribute: string[];
+        attributeFilter: string;
+        setAttributeFilter: (filter: string) => void;
+        setListCurrentPage: React.Dispatch<React.SetStateAction<number>>
+        setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>
+    }
+}
+
+export type ArchetypeDropDownProps = {
+    archetypeprops: {
+        uniqueArchtype: string[];
+        archeTypeFilter: string;
+        setArcheTypeFilter: (filter: string) => void;
+        setListCurrentPage: React.Dispatch<React.SetStateAction<number>>
+        setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>
+    }
 }
 
 export type CardSetDropDownProps = {
-    sets: string[]; 
-    setFilter: string; 
-    setSetFilter: (filter: string) => void;
+    setprops: {
+        uniqueSet: string[]; 
+        setFilter: string; 
+        setSetFilter: (filter: string) => void;
+        setListCurrentPage: React.Dispatch<React.SetStateAction<number>>
+        setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>
+    }
 };
 
 export type RarityDropDownProps = {
-    raritys: string[];
-    rarityFilter: string;
-    setRarityFilter: (filter: string) => void;
+    rarityprops: {
+        uniqueRarity: string[];
+        rarityFilter: string;
+        setRarityFilter: (filter: string) => void;
+        setListCurrentPage: React.Dispatch<React.SetStateAction<number>>
+        setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>
+    }
 }
 
 export interface LevelSliderProps extends SliderProps {
-    setLevelFilter: React.Dispatch<React.SetStateAction<number | null>>
+    levelprops: {
+        setLevelFilter: React.Dispatch<React.SetStateAction<number | null>>
+        setListCurrentPage: React.Dispatch<React.SetStateAction<number>>
+        setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>
+    }
 }
 
 export interface PendSliderProps extends SliderProps {

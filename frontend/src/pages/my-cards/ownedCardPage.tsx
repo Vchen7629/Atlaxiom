@@ -13,6 +13,7 @@ import { Card } from './ownedcardpagetypes.ts';
 import GridListViewComponent from '../../components/cardcollectioncomponents/components/grid_or_list_view.tsx';
 import { GalleryViewCardDisplayComponent } from '../../components/cardcollectioncomponents/carddisplaycomponents/galleryviewcarddisplaycomponent.tsx';
 import { useGetSpecificUserQuery } from '@/features/api-slices/usersApiSlice.ts';
+import PaginationComponent from '@/components/cardcollectioncomponents/components/pagination.tsx';
 
 const UserOwnedCardPage = () => {
   const location = useLocation();
@@ -52,60 +53,23 @@ const UserOwnedCardPage = () => {
   const [rarityFilter, setRarityFilter] = useState<string>('');
 
   const [listView, setListView] = useState<boolean>(true);
-
   const [galleryView, setGalleryView] = useState<boolean>(false);
 
-  const filterProps = {
-    expandStatus,
-    searchTerm, setSearchTerm,
-    setCardTypeFilter,
-    isMonsterFilterActive, setIsMonsterFilterActive,
-    monsterCount, 
-    setIsSpellFilterActive, isSpellFilterActive,
-    spellCount,
-    isTrapFilterActive, setIsTrapFilterActive,
-    trapCount,
-    uniqueSubtype,
-    subTypeFilter, setSubTypeFilter,
-    uniqueAttribute,
-    attributeFilter, setAttributeFilter,
-    uniqueArchtype,
-    archeTypeFilter, setArcheTypeFilter,
-    setLevelFilter,
-    uniqueSet,
-    setFilter, setSetFilter,
-    uniqueRarity,
-    rarityFilter, setRarityFilter,
-    filterpage, setFilterPage,
-    statisticspage, setStatisticsPage,
-  };
-
-  const gridlistviewprops = {
-    listView, setListView,
-    galleryView, setGalleryView
-  }
-
-  const searchbarprops = { searchTerm, setSearchTerm }
-
   const { data: ownedCards, refetch } = useGetOwnedCardsQuery(userId);
+  const {data: userData, refetch: refetchOnUpdate} = useGetSpecificUserQuery(userId)
+  const suggestionsPerGalleryPage = 45;
+  const suggestionsPerListPage = 9;
+  const [totalListPages, setTotalListPages] = useState<number>(1);
+  const [totalGalleryPages, setTotalGalleryPages] = useState<number>(1);
+  const updateTotalPages = (filteredCardsLength: number) => {
+    setTotalListPages(Math.ceil(filteredCardsLength / suggestionsPerListPage));
+    setTotalGalleryPages(Math.ceil(filteredCardsLength / suggestionsPerGalleryPage));
+  }
+  const [currentListPage, setListCurrentPage] = useState<number>(1);  
+  const [currentGalleryPage, setGalleryCurrentPage] = useState<number>(1);
 
-  const {data: lastUpdated, refetch: refetchOnUpdate} = useGetSpecificUserQuery(userId)
-
-  const cardsToDisplay = Object.values(ownedCards?.entities || {}).flat() as Card[];
-
-  const filteredCards: Card[] = cardsToDisplay.filter((card): card is Card => {
-    if (!card || !card.card_name) return false;
-    const matchesSearchTerm = card.card_name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesTypeFilter = cardTypeFilter ? card.type?.toLowerCase().includes(cardTypeFilter) : true;
-    const matchesSubTypeFilter = subTypeFilter ? card.race?.toLowerCase().trim() === subTypeFilter.toLowerCase().trim() : true
-    const matchesAttributeFilter = attributeFilter ? card.attribute?.toLowerCase().trim() === attributeFilter.toLowerCase().trim() : true
-    const matchesArcheTypeFilter = archeTypeFilter ? card.archetype?.toLowerCase().trim() === archeTypeFilter.toLowerCase().trim() : true
-    const matchesLevelFilter = levelFilter ? card.level === levelFilter : true
-    const matchesSetFilter = setFilter ? card.set_name?.toLowerCase().trim() === setFilter.toLowerCase().trim() : true
-    const matchesRarityFilter = rarityFilter ? card.rarity?.toLowerCase().trim() === rarityFilter.toLowerCase().trim() : true
-
-    return !!matchesSearchTerm && !!matchesTypeFilter && !!matchesSubTypeFilter && !!matchesAttributeFilter && !!matchesArcheTypeFilter && !!matchesLevelFilter && !!matchesSetFilter && !!matchesRarityFilter;
-  });
+  const [currentListPageResults, setCurrentListPageResults] = useState([])
+  const [currentGalleryPageResults, setCurrentGalleryPageResults] = useState([])
 
   useEffect(() => {
     if (userId) {
@@ -116,7 +80,7 @@ const UserOwnedCardPage = () => {
 
   useEffect(() => {
     if (ownedCards) {
-      const allCards: Card[] = Object.values(ownedCards?.entities || {}).flat().filter(card => card) as Card[];
+      const allCards: Card[] = Object.values(ownedCards?.entities?.defaultId?.ownedCards || {}).flat().filter(card => card) as Card[];
 
       const subtypeList = new Set(allCards.map((card: any) => card.race).filter(race => race));
       setUniqueSubtype([...subtypeList])
@@ -155,19 +119,91 @@ const UserOwnedCardPage = () => {
     setExpandStatus(!expandStatus)
     setFilterActive(!filterActive)
   }
-  
+
+  const searchbarprops = { 
+    searchTerm, setSearchTerm,
+    ownedCards,
+    setCurrentListPageResults,
+    cardTypeFilter,
+    subTypeFilter,
+    attributeFilter,
+    archeTypeFilter,
+    levelFilter,
+    setFilter,
+    rarityFilter
+  }
+
+  const paginationprops = {
+    listView,
+    galleryView,
+    searchTerm,
+    ownedCards,
+    currentListPage, setListCurrentPage,
+    currentGalleryPage, setGalleryCurrentPage,
+    suggestionsPerListPage,
+    suggestionsPerGalleryPage,
+    setCurrentListPageResults,
+    setCurrentGalleryPageResults,
+    cardTypeFilter,
+    subTypeFilter,
+    attributeFilter,
+    archeTypeFilter,
+    levelFilter,
+    setFilter,
+    rarityFilter,
+    totalListPages,
+    totalGalleryPages,
+    updateTotalPages
+  }
+
+  const filterProps = {
+    expandStatus,
+    searchTerm, setSearchTerm,
+    setCardTypeFilter,
+    isMonsterFilterActive, setIsMonsterFilterActive,
+    monsterCount, 
+    setIsSpellFilterActive, isSpellFilterActive,
+    spellCount,
+    isTrapFilterActive, setIsTrapFilterActive,
+    trapCount,
+    uniqueSubtype,
+    subTypeFilter, setSubTypeFilter,
+    uniqueAttribute,
+    attributeFilter, setAttributeFilter,
+    uniqueArchtype,
+    archeTypeFilter, setArcheTypeFilter,
+    setLevelFilter,
+    uniqueSet,
+    setFilter, setSetFilter,
+    uniqueRarity,
+    rarityFilter, setRarityFilter,
+    filterpage, setFilterPage,
+    statisticspage, setStatisticsPage,
+    totalListPages,
+    totalGalleryPages,
+    currentListPage, setListCurrentPage,
+    currentGalleryPage, setGalleryCurrentPage
+  };
+
+  const gridlistviewprops = {
+    listView, setListView,
+    galleryView, setGalleryView
+  }
+
+  const displaylistprops = { currentListPageResults } 
+  const displaygalleryprops = { currentGalleryPageResults } 
 
   return (
     <main className="flex flex-col min-h-[100vh]  ">
         <Header/>
         <div className=" bg-[hsl(var(--background1))] flex items-center justify-center ">
           <div className="text-white relative flex flex-col w-full min-h-[130vh] p-5 pt-20">
-            <header className="relative items-center flex max-w-[100vw]  mt-[1%] mx-[3vw]">
+            <header className="relative items-center flex max-w-[100vw]  mt-[1%]">
               <section className="flex flex-col w-1/4">
                 <div className="text-[40px] text-goldenrod font-bold">My Collection</div>
-                <div className="text-lg text-gray-400">Last Edited: {lastUpdated?.entities[userId]?.lastCardUpdated}</div>
+                <div className="text-lg text-gray-400">Last Edited: {userData?.entities[userId]?.lastCardUpdated}</div>
               </section>
-              <section className="relative flex items-center space-x-2 w-3/4 ">
+              <section className="relative flex items-center space-x-2 w-full">
                   <div className="flex w-1/2">
                       <MyCardsSearchbarComponent searchbarprops={searchbarprops}/>
                     </div>
@@ -180,7 +216,8 @@ const UserOwnedCardPage = () => {
                     <button className="flex rounded-md px-4 items-center justify-center w-20 h-9 bg-footer">
                       <FontAwesomeIcon icon={faEllipsisVertical} className="mr-2 text-gray-400"/>More
                     </button>
-                    <div className="flex w-20 h-11 bg-footer rounded-xl absolute right-0">
+                    <div className=""><PaginationComponent paginationprops={paginationprops}/></div>
+                    <div className="flex w-20 h-11 bg-footer rounded-xl">
                       <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                     </div>
               </section>
@@ -202,7 +239,7 @@ const UserOwnedCardPage = () => {
                             <div className="w-[7%] text-center ">Price</div>
                             <div className="w-[10%] text-center ml-[2%]">Options</div>
                           </div>
-                          <ListViewCardDisplayComponent filteredCards={filteredCards}/>                                           
+                          <ListViewCardDisplayComponent displaylistprops={displaylistprops}/>                                           
                         </main>
                         
                         <div className={`flex flex-col ${expandStatus ? "w-[24%] border-gray-600 border-2" : "w-0"} items-center bg-[hsl(var(--background4))] rounded-xl py-8`}>
@@ -219,7 +256,7 @@ const UserOwnedCardPage = () => {
                       galleryView && (
                         <main className="flex mt-8 justify-between">
                           <main className={`bg-[hsl(var(--ownedcardcollection))] ${expandStatus ? "w-3/4" : "w-full"} min-h-full rounded-xl`}>
-                            <GalleryViewCardDisplayComponent filteredCards={filteredCards}/>                                           
+                            <GalleryViewCardDisplayComponent displaygalleryprops={displaygalleryprops}/>                                           
                           </main>
                           
                           <div className={`flex flex-col ${expandStatus ? "w-[24%] border-gray-600 border-2" : "w-0"} items-center bg-[hsl(var(--background4))] rounded-3xl pt-8`}>

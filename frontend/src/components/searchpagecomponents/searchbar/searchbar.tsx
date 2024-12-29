@@ -18,7 +18,6 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
         setErrorMessage,
         totalListNamesArray, setTotalListNamesArray,
         totalGalleryNamesArray, setTotalGalleryNamesArray,
-        maxMainSuggestions,
         monsterType,
         spellType,
         trapType,
@@ -49,27 +48,35 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
   };
 
   useEffect(() => {
-    const startIndex = (currentListPage - 1) * suggestionsPerPage;
-    const endIndex = startIndex + suggestionsPerPage;
-    const currentListSuggestions = totalListNamesArray.slice(startIndex, endIndex);
-    setCurrentPageListNamesArray(currentListSuggestions);
-  }, [currentListPage, totalListNamesArray, suggestionsPerPage]);
+    if (!cardName.trim()) {
+      setCurrentPageListNamesArray([]);
+    } else if (totalListNamesArray.length > 0) {
+      const startIndex = (currentListPage - 1) * suggestionsPerPage;
+      const endIndex = startIndex + suggestionsPerPage;
+      const currentListSuggestions = totalListNamesArray.slice(startIndex, endIndex);
+      setCurrentPageListNamesArray(currentListSuggestions);
+    }
+  }, [cardName, currentListPage, totalListNamesArray, suggestionsPerPage]);
 
   useEffect(() => {
-    const startIndex = (currentGalleryPage - 1) * suggestionsPerGalleryPage;
-    const endIndex = startIndex + suggestionsPerGalleryPage;
-    const currentGallerySuggestions = totalGalleryNamesArray.slice(startIndex, endIndex);
-    setCurrentPageGalleryNamesArray(currentGallerySuggestions);
-  }, [currentGalleryPage, totalGalleryNamesArray, suggestionsPerGalleryPage]);
+    if (!cardName.trim()) {
+      setCurrentPageGalleryNamesArray([]);
+    } else if (totalListNamesArray.length > 0) {
+      const startIndex = (currentGalleryPage - 1) * suggestionsPerGalleryPage;
+      const endIndex = startIndex + suggestionsPerGalleryPage;
+      const currentGallerySuggestions = totalGalleryNamesArray.slice(startIndex, endIndex);
+      setCurrentPageGalleryNamesArray(currentGallerySuggestions);
+    }
+  }, [cardName, currentGalleryPage, totalGalleryNamesArray, suggestionsPerGalleryPage]);
 
-  const debouncedSearchCard = useCallback((inputValue: string) => {
-      if (!inputValue.trim()) {
+  const debouncedSearchCard = useCallback((cardName: string) => {
+      if (!cardName.trim()) {
         setTotalListNamesArray([]);
         setTotalGalleryNamesArray([]);
         return;
       }
 
-      const normalizedInput = inputValue.toLowerCase().replace(/[-\s]/g, ''); 
+      const normalizedInput = cardName.toLowerCase().replace(/[-\s]/g, ''); 
       const filteredSuggestions = cardData.filter((card) => {
         const normalizedCardName = card.name.toLowerCase().replace(/[-\s]/g, ''); 
         const normalizedMonsterType = monsterType ? monsterType.toLowerCase() : "";
@@ -127,12 +134,11 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
         ) 
       });
 
-      setTotalListNamesArray(filteredSuggestions.slice(0, maxMainSuggestions).map((card) => card.name));
-      setTotalGalleryNamesArray(filteredSuggestions.slice(0, maxMainSuggestions).map((card) => card.name));
+      setTotalListNamesArray(filteredSuggestions.map((card) => card.name));
+      setTotalGalleryNamesArray(filteredSuggestions.map((card) => card.name));
 
     }, [
       cardData, 
-      maxMainSuggestions,
       monsterType, 
       spellType, 
       trapType, 
@@ -143,6 +149,10 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
       atkFilter, atkLessThanEqual, atkEqual, atkGreaterThanEqual,
       defFilter, defLessThanEqual, defEqual, defGreaterThanEqual,
     ]);
+
+  useEffect(() => {
+    debouncedSearchCard(cardName)
+  }, [debouncedSearchCard, cardName])
 
   useEffect(() => {
     fetchAllCardData();

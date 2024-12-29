@@ -62,14 +62,13 @@ const SearchBarPage = () => {
 
   const [galleryView, setGalleryView] = useState(false);
 
-  const maxMainSuggestions = 99999;
-
   const suggestionsPerGalleryPage = 45;
   const suggestionsPerPage = 15;
   const totalPages = Math.ceil(totalListNamesArray.length / suggestionsPerPage);
   const totalGalleryPages = Math.ceil(totalGalleryNamesArray.length / suggestionsPerGalleryPage);
   const [currentListPage, setListCurrentPage] = useState(1);  
   const [currentGalleryPage, setGalleryCurrentPage] = useState(1);  
+  
 
   const gridlistviewprops = {
     setListView,
@@ -95,7 +94,6 @@ const SearchBarPage = () => {
         setErrorMessage,
         totalListNamesArray, setTotalListNamesArray,
         totalGalleryNamesArray, setTotalGalleryNamesArray,
-        maxMainSuggestions,
         monsterType,
         spellType,
         trapType,

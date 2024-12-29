@@ -20,7 +20,14 @@ import {
 } from "@/components/ui/popover"
 import { AttributeDropDownProps } from "../../types/dropdowntypes"
  
-export function AttributeDropDownComponent({ attributes, attributeFilter, setAttributeFilter }: AttributeDropDownProps) {
+export function AttributeDropDownComponent({ attributeprops }: AttributeDropDownProps) {
+  const {
+      uniqueAttribute,
+      attributeFilter, setAttributeFilter,
+      setListCurrentPage,
+      setGalleryCurrentPage,
+  } = attributeprops
+
   const [open, setOpen] = React.useState(false)
  
   return (
@@ -34,7 +41,7 @@ export function AttributeDropDownComponent({ attributes, attributeFilter, setAtt
         >
           {attributeFilter ? (
             <span className={`flex relative items-center left-1/4 justify-between w-fit px-2 py-1 bg-[hsl(var(--background3))] text-white rounded text-sm`}>
-              {attributes.find((attribute) => attribute === attributeFilter)}
+              {uniqueAttribute.find((attribute) => attribute === attributeFilter)}
             </span>
           ) : (
             <span className={`flex relative items-center left-1/5 justify-between w-fit px-2 py-1 bg-transparent rounded text-sm`}>
@@ -50,7 +57,7 @@ export function AttributeDropDownComponent({ attributes, attributeFilter, setAtt
           <CommandList>
             <CommandEmpty>No Attribute found.</CommandEmpty>
             <CommandGroup>
-              {attributes.map((attribute) => (
+              {uniqueAttribute.map((attribute) => (
                 <CommandItem
                   key={attribute}
                   value={attribute}
@@ -58,6 +65,8 @@ export function AttributeDropDownComponent({ attributes, attributeFilter, setAtt
                   onSelect={(currentValue) => {
                     setAttributeFilter(currentValue === attributeFilter ? "" : currentValue)
                     setOpen(false)
+                    setListCurrentPage(1);
+                    setGalleryCurrentPage(1);
                   }}
                 >
                   {attribute}

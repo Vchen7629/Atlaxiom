@@ -14,9 +14,11 @@ import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useIncreaseOwnedCardMutation, useDecreaseOwnedCardMutation, useDeleteOwnedCardMutation, useGetOwnedCardsQuery } from '../../../features/api-slices/ownedCardapislice.tsx';
-import { Card, filteredCards, SelectedCard } from "../types/ownedcarddetailstypes.ts";
+import { Card, filteredListCards, SelectedCard } from "../types/ownedcarddetailstypes.ts";
 
-export const ListViewCardDisplayComponent: React.FC<filteredCards> = ({ filteredCards }) => {
+export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListCards) => {
+    const { currentListPageResults } = displaylistprops
+
     const [increaseOwnedCard] = useIncreaseOwnedCardMutation();
     const [decreaseOwnedCard] = useDecreaseOwnedCardMutation();
     const [deleteOwnedCard] = useDeleteOwnedCardMutation();
@@ -85,8 +87,9 @@ export const ListViewCardDisplayComponent: React.FC<filteredCards> = ({ filtered
         <AlertDialog>
             <AlertDialogTrigger asChild>
                 <div className="text-[hsl(var(--text))] ">
-                    {filteredCards.length > 0 ? (
-                        filteredCards.map((card: Card, index: number) => (
+                
+                    {currentListPageResults.length > 0 ? (
+                        currentListPageResults.map((card: Card, index: number) => (
                             <div key={index} className="flex bg-transparent h-24 text-sm font-bold items-center hover:bg-blacktwo" onClick={() => setSelectedCard(card)}>
                                 <div className="w-[5%] pl-6 ">{card.ownedamount}</div>
                                 <img 
