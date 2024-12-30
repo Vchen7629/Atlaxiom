@@ -16,6 +16,8 @@ export const GalleryViewCardDisplayComponent = ({ displaygalleryprops }: filtere
     const { currentGalleryPageResults } = displaygalleryprops
 
     const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null)
+
+    console.log(currentGalleryPageResults)
       
     return (
         <AlertDialog>

@@ -1,5 +1,7 @@
+import { OwnedCard } from "@/components/cardcollectioncomponents/types/paginationtypes";
+
 export type Card = {
-    filteredCards: string[];
+    filteredCards: OwnedCard[];
     card_name: string;
     type?: string;
     race?: string;
@@ -8,6 +10,6 @@ export type Card = {
     level?: number;
     set_name?: string;
     rarity?: string;
-    id?: string | number;
+    id?: string;
     ownedamount?: number;
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faFilter, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { useGetOwnedCardsQuery } from '../../features/api-slices/ownedCardapislice.tsx';
+import { useGetOwnedCardsQuery } from '../../features/api-slices/ownedCardapislice.ts';
 import { useLocation } from 'react-router-dom';
 import Header from '../../components/header/header.tsx';
 import Footer from '../../components/footer/Footer.tsx';
@@ -13,7 +13,8 @@ import { Card } from './ownedcardpagetypes.ts';
 import GridListViewComponent from '../../components/cardcollectioncomponents/components/grid_or_list_view.tsx';
 import { GalleryViewCardDisplayComponent } from '../../components/cardcollectioncomponents/carddisplaycomponents/galleryviewcarddisplaycomponent.tsx';
 import { useGetSpecificUserQuery } from '@/features/api-slices/usersApiSlice.ts';
-import PaginationComponent from '@/components/cardcollectioncomponents/components/pagination.tsx';
+import PaginationComponent from '@/components/cardcollectioncomponents/paginationcomponents/pagination.tsx';
+import { OwnedCard } from '@/components/cardcollectioncomponents/types/paginationtypes.ts';
 
 const UserOwnedCardPage = () => {
   const location = useLocation();
@@ -58,7 +59,7 @@ const UserOwnedCardPage = () => {
   const { data: ownedCards, refetch } = useGetOwnedCardsQuery(userId);
   const {data: userData, refetch: refetchOnUpdate} = useGetSpecificUserQuery(userId)
   const suggestionsPerGalleryPage = 45;
-  const suggestionsPerListPage = 9;
+  const suggestionsPerListPage = 7;
   const [totalListPages, setTotalListPages] = useState<number>(1);
   const [totalGalleryPages, setTotalGalleryPages] = useState<number>(1);
   const updateTotalPages = (filteredCardsLength: number) => {
@@ -68,8 +69,8 @@ const UserOwnedCardPage = () => {
   const [currentListPage, setListCurrentPage] = useState<number>(1);  
   const [currentGalleryPage, setGalleryCurrentPage] = useState<number>(1);
 
-  const [currentListPageResults, setCurrentListPageResults] = useState([])
-  const [currentGalleryPageResults, setCurrentGalleryPageResults] = useState([])
+  const [currentListPageResults, setCurrentListPageResults] = useState<OwnedCard[]>([])
+  const [currentGalleryPageResults, setCurrentGalleryPageResults] = useState<OwnedCard[]>([])
 
   useEffect(() => {
     if (userId) {
@@ -198,7 +199,7 @@ const UserOwnedCardPage = () => {
         <Header/>
         <div className=" bg-[hsl(var(--background1))] flex items-center justify-center ">
           <div className="text-white relative flex flex-col w-full min-h-[130vh] p-5 pt-20">
-            <header className="relative items-center flex max-w-[100vw]  mt-[1%]">
+            <header className="relative items-center flex w-full  mt-[1%]">
               <section className="flex flex-col w-1/4">
                 <div className="text-[40px] text-goldenrod font-bold">My Collection</div>
                 <div className="text-lg text-gray-400">Last Edited: {userData?.entities[userId]?.lastCardUpdated}</div>
@@ -216,20 +217,19 @@ const UserOwnedCardPage = () => {
                     <button className="flex rounded-md px-4 items-center justify-center w-20 h-9 bg-footer">
                       <FontAwesomeIcon icon={faEllipsisVertical} className="mr-2 text-gray-400"/>More
                     </button>
-                    <div className=""><PaginationComponent paginationprops={paginationprops}/></div>
-                    <div className="flex w-20 h-11 bg-footer rounded-xl">
+                    <div className="flex w-20 h-11 bg-footer rounded-xl absolute right-[2vw]">
                       <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                     </div>
               </section>
               
             </header>
            
-            <main className="flex justify-between">
-              <div className='w-full'>
-                  <div>
+            <main className="flex justify-between"> 
+                <div className='w-full'>
                     {listView ? (
-                      <main className="flex mt-8 justify-between">
-                        <main className={`bg-[hsl(var(--ownedcardcollection))] ${expandStatus ? "w-3/4" : "w-full"} max-h-full rounded-xl`}>
+                      <main className="flex justify-between">
+                        <main className={`bg-[hsl(var(--ownedcardcollection))] ${expandStatus ? "w-3/4" : "w-full"} h-full rounded-xl`}>
+                          <PaginationComponent paginationprops={paginationprops} />
                           <div className="flex font-black w-full h-8 bg-[hsl(var(--background3))] text-lg rounded-lg items-center">
                             <div className="w-[5%] pl-4"> Qty </div>
                             <div className="w-[27%]"> Name</div>
@@ -239,7 +239,8 @@ const UserOwnedCardPage = () => {
                             <div className="w-[7%] text-center ">Price</div>
                             <div className="w-[10%] text-center ml-[2%]">Options</div>
                           </div>
-                          <ListViewCardDisplayComponent displaylistprops={displaylistprops}/>                                           
+                          <ListViewCardDisplayComponent displaylistprops={displaylistprops}/>
+                          <PaginationComponent paginationprops={paginationprops} />                                           
                         </main>
                         
                         <div className={`flex flex-col ${expandStatus ? "w-[24%] border-gray-600 border-2" : "w-0"} items-center bg-[hsl(var(--background4))] rounded-xl py-8`}>
@@ -254,8 +255,9 @@ const UserOwnedCardPage = () => {
                       </main>
                     ) : (
                       galleryView && (
-                        <main className="flex mt-8 justify-between">
+                        <main className="flex justify-between">
                           <main className={`bg-[hsl(var(--ownedcardcollection))] ${expandStatus ? "w-3/4" : "w-full"} min-h-full rounded-xl`}>
+                            <PaginationComponent paginationprops={paginationprops} />
                             <GalleryViewCardDisplayComponent displaygalleryprops={displaygalleryprops}/>                                           
                           </main>
                           
@@ -272,9 +274,7 @@ const UserOwnedCardPage = () => {
                         
                       )
                     )}
-                  </div>
               </div>
-              
             </main>
           </div>
         </div>

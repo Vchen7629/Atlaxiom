@@ -1,7 +1,9 @@
 import { Card } from "@/pages/my-cards/ownedcardpagetypes";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { PageSelectorComponent } from "./pageselector";
+import { OwnedCard, Pagination } from "../types/paginationtypes";
 
-const PaginationComponent = ({ paginationprops }: any) => {
+const PaginationComponent = ({ paginationprops }: Pagination) => {
     const { 
         listView,
         galleryView,
@@ -24,6 +26,10 @@ const PaginationComponent = ({ paginationprops }: any) => {
         totalGalleryPages,
         updateTotalPages
     } = paginationprops
+    
+    const [listpage, setListPage] = useState(currentListPage);
+    const [listerr, setListErr] = useState<string>("")
+
 
     const cardsToDisplay = Object.values(ownedCards?.entities?.defaultId?.ownedCards || {}).flat() as Card[];
         
@@ -68,7 +74,7 @@ const PaginationComponent = ({ paginationprops }: any) => {
         if (filteredCards.length > 0) {
             const startIndex = (currentListPage - 1) * suggestionsPerListPage;
             const endIndex = startIndex + suggestionsPerListPage;
-            const currentListSuggestions = filteredCards.slice(startIndex, endIndex);
+            const currentListSuggestions = filteredCards.slice(startIndex, endIndex) as OwnedCard[];
             setCurrentListPageResults(currentListSuggestions);
         }
     };
@@ -77,17 +83,28 @@ const PaginationComponent = ({ paginationprops }: any) => {
         setListCurrentPage(page);        
     };
 
+    const handleListInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        // Allow only numeric input
+        if (/^\d*$/.test(value)) {
+            const page = parseInt(value, 10);
+            setListPage(page || 0);
+            if (page >= 1 && page <= totalListPages) {
+                handleListPageChange(page);
+                setListErr("")
+            } else {
+                setListErr(`Enter a page number between 1 and ${totalListPages}`)
+            }
+        }
+    };
+
     const updateCurrentPageGallery = () => {
         if (filteredCards.length > 0) {
             const startIndex = (currentListPage - 1) * suggestionsPerGalleryPage;
             const endIndex = startIndex + suggestionsPerGalleryPage;
-            const currentGallerySuggestions = filteredCards.slice(startIndex, endIndex);
+            const currentGallerySuggestions = filteredCards.slice(startIndex, endIndex) as OwnedCard[];
             setCurrentGalleryPageResults(currentGallerySuggestions);
         }
-    };
-
-    const handleGalleryPageChange = (page: number) => {
-        setGalleryCurrentPage(page);        
     };
 
     useEffect(() => {
@@ -95,45 +112,64 @@ const PaginationComponent = ({ paginationprops }: any) => {
         if (filteredCards.length > 0) {
             updateCurrentPageList();
             updateCurrentPageGallery();
-            console.log("1")
         } else if ((filteredCards.length === 0)) {
             setCurrentListPageResults([]);
             setCurrentGalleryPageResults([]);
-            console.log("2")
-
         }
     }, [filteredCards.length, suggestionsPerListPage, suggestionsPerGalleryPage, currentListPage, currentGalleryPage]);
 
+    const pageselectorprops = {
+        listView,
+        galleryView,
+        currentListPage, setListCurrentPage,
+        totalListPages,
+        currentGalleryPage, setGalleryCurrentPage,
+        totalGalleryPages,
+    }
+
     return (
-        <>
+        <div className="py-2 px-2 bg-[hsl(var(--background1))]">
             {listView && (
-                <div className="flex w-full justify-center ">
-                    <div className=" p-1.25 flex justify-center  text-goldenrod text-center">
-                        <button className="bg-goldenrod text-white w-[30px] mr-[5%] rounded-lg hover:text-red-600" disabled={currentListPage === 1} onClick={() => {handleListPageChange(currentListPage - 1)}}>
-                            {'<'}
-                        </button>
-                        <span className="text-sm">{`Page ${currentListPage} of ${totalListPages}`}</span>
-                        <button className="bg-goldenrod text-white w-[30px] mr-[5%] rounded-lg hover:text-red-600" disabled={currentListPage === totalListPages} onClick={() => {handleListPageChange(currentListPage + 1)}}>
-                            {'>'}
-                        </button>
-                    </div>
-                </div>
+                <>
+                    {totalListPages > 1 && (
+                        <div className="flex w-full justify-between ">
+                            <section className="flex items-center h-full space-x-2"> 
+                                <span className="text-lg">Page</span> 
+                                <input
+                                    className="bg-transparent focus:outline-none w-10 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]"
+                                    placeholder={String(currentListPage)}
+                                    value={listpage}
+                                    onChange={handleListInputChange}
+                                />
+                                <span className="text-lg">of {totalListPages}</span>
+                                {listerr && (
+                                    <span className="text-red-500">{listerr}</span>
+                                )}
+                            </section>
+                            <PageSelectorComponent pageselectorprops={pageselectorprops}/>
+                        </div>
+                    )}
+                </>
             )}
 
             {galleryView && (
-                <div className="flex w-full justify-center ">
-                    <div className=" p-1.25 flex justify-center  text-goldenrod text-cente">
-                        <button className="bg-goldenrod text-white w-[30px] mr-[5%] rounded-lg hover:text-red-600" disabled={currentGalleryPage === 1} onClick={() => {handleGalleryPageChange(currentGalleryPage - 1)}}>
-                            {'<'}
-                        </button>
-                        <span className="text-sm">{`Page ${currentGalleryPage} of ${totalGalleryPages}`}</span>
-                        <button className="bg-goldenrod text-white w-[30px] ml-[5%] rounded-lg hover:text-red-600" disabled={currentGalleryPage === totalGalleryPages} onClick={() => {handleGalleryPageChange(currentGalleryPage - 1)}}>
-                            {'>'}
-                        </button>
-                    </div>
-                </div>
+                <>
+                    {totalGalleryPages > 1 && (
+                        <div className="flex w-full justify-between">
+                            <section className="flex items-center h-full space-x-2"> 
+                                <span className="text-lg">Page</span> 
+                                <input
+                                    className="bg-transparent focus:outline-none w-10 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]"
+                                    placeholder={String(currentGalleryPage)}
+                                ></input>
+                                <span className="text-lg">of {totalGalleryPages}</span>
+                            </section>
+                            <PageSelectorComponent pageselectorprops={pageselectorprops}/>
+                        </div>
+                    )}
+                </>
             )}
-        </>
+        </div>
     )
 
     
