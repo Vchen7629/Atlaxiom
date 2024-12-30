@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { useIncreaseOwnedCardMutation, useDecreaseOwnedCardMutation, useDeleteOwnedCardMutation, useGetOwnedCardsQuery } from '../../../features/api-slices/ownedCardapislice.tsx';
+import { useIncreaseOwnedCardMutation, useDecreaseOwnedCardMutation, useDeleteOwnedCardMutation, useGetOwnedCardsQuery } from '../../../features/api-slices/ownedCardapislice.ts';
 import { Card, filteredListCards, SelectedCard } from "../types/ownedcarddetailstypes.ts";
 
 export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListCards) => {
