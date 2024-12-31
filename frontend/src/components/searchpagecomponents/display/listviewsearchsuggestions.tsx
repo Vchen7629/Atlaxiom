@@ -3,14 +3,12 @@ import { ListViewComp } from "../types/searchbarcomponentstypes";
 const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => {
     const {
         cardData,
-        setCardName,
+        setSearchTerm,
         setClickedOnCard,
         currentPageListNamesArray,
         setTotalListNamesArray,
         setSelectedCardData,
         setErrorMessage,
-        totalPages,
-        currentListPage,
         setListCurrentPage,
         cardSets, setCardSets
     } = listviewprops   
@@ -19,17 +17,13 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
 
 
     const handleSuggestionClick = (card: string) => {
-        setCardName(card);
+        setSearchTerm(card);
         setClickedOnCard(true);
         setErrorMessage("");
         setTotalListNamesArray([]);
         setSelectedCardData(null);
         fetchSelectedCardData(card);
     };
-
-    const handlePageChange = (page: number) => {
-        setListCurrentPage(page);
-      };
     
     const fetchSelectedCardData = async (card: string) => {
         try {
@@ -50,10 +44,10 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
         
       }
 
-    return (
-        <main className="w-[95%]">
+      return (
+        <main className="w-full">
             <div>
-                {currentPageListNamesArray.map((card) => (
+            {currentPageListNamesArray.map((card) => (
                     <div
                         key={card}
                         onClick={() => handleSuggestionClick(card)}
@@ -66,8 +60,8 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
                             />
                             <div className="flex h-[20vh] overflow-y-auto w-full min-h-full flex-col border-2 border-transparent hover:border-gray-500">
                                 <section className="relative flex justify-between w-full h-[20%]">
-                                    <div className="flex text-center items-center pl-[3%] w-1/2 text-goldenrod font-black text-2xl">{card}</div>
-                                    <div className="flex justify-evenly items-center font-bold w-[25vw]">
+                                    <div className="flex text-center items-center pl-[3%] w-[70%] text-goldenrod font-black text-2xl">{card}</div>
+                                    <div className="flex justify-evenly items-center font-bold w-[30%]">
                                         <div className="text-white text-xl">{cardData.find((cards) => cards.name === card)?.type}</div>
                                         <div className="text-white text-xl">{cardData.find((cards) => cards.name === card)?.race}</div>
                                         <div className="text-white text-xl">{cardData.find((cards) => cards.name === card)?.attribute}</div>
@@ -118,19 +112,6 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
                     </div>
                 ))}
             </div>
-            {totalPages > 1 && (
-                <div className="flex w-full justify-center ">
-                    <div className="w-[20%] mt-[30px] p-1.25 flex justify-center  text-goldenrod text-center text-xl">
-                        <button className="bg-goldenrod text-white w-[30px] mr-[5%] rounded-lg hover:text-red-600" disabled={currentListPage === 1} onClick={() => handlePageChange(currentListPage - 1)}>
-                            {'<'}
-                        </button>
-                        <span>{`Page ${currentListPage} of ${totalPages}`}</span>
-                        <button className="bg-goldenrod text-white w-[30px] ml-[5%] rounded-lg hover:text-red-600" disabled={currentListPage === totalPages} onClick={() => handlePageChange(currentListPage + 1)}>
-                            {'>'}
-                        </button>
-                    </div>
-                </div>
-            )}
         </main>
     )
 }

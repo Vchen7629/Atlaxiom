@@ -6,35 +6,77 @@ import { LevelSliderComponent } from '../sliders/levelslider.tsx';
 import MyCardsSearchbarComponent from '../../components/searchbar.tsx';
 import { OwnedCardsFilterProps } from "../../types/ownedcardfiltertypes.ts";
 import { RarityDropDownComponent } from "../dropdown/raritydropdown.tsx";
+import { useEffect, useState } from "react";
+import { Card } from "../../types/ownedcarddetailstypes.ts";
 
 const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
     const {
+        ownedCards,
         expandStatus,
         searchTerm, setSearchTerm,
         setCardTypeFilter,
         isMonsterFilterActive, setIsMonsterFilterActive,
-        monsterCount, 
         setIsSpellFilterActive, isSpellFilterActive,
-        spellCount,
         isTrapFilterActive, setIsTrapFilterActive,
-        trapCount,
-        uniqueSubtype,
         subTypeFilter, setSubTypeFilter,
-        uniqueAttribute,
         attributeFilter, setAttributeFilter,
-        uniqueArchtype,
         archeTypeFilter, setArcheTypeFilter,
         setLevelFilter,
-        uniqueSet,
         setFilter, setSetFilter,
-        uniqueRarity,
         rarityFilter, setRarityFilter,
         filterpage, setFilterPage,
         statisticspage, setStatisticsPage,
         setListCurrentPage,
         setGalleryCurrentPage,
-      } = filterProps;
+    } = filterProps;
+
+    const [monsterCount, setMonsterCount] = useState<number>(0);
+    const [spellCount, setSpellCount] = useState<number>(0);
+    const [trapCount, setTrapCount] = useState<number>(0);
     
+    const [uniqueSubtype, setUniqueSubtype] = useState<string[]>([]);
+    const [uniqueAttribute, setUniqueAttribute] = useState<string[]>([]);
+    const [uniqueArchtype, setUniqueArchetype] = useState<string[]>([]);
+    const [uniqueSet, setUniqueSet] = useState<string[]>([]);
+    const [uniqueRarity, setUniqueRarity] = useState<string[]>([]);
+
+
+    useEffect(() => {
+        if (ownedCards) {
+          const allCards: Card[] = Object.values(ownedCards?.entities?.defaultId?.ownedCards || {}).flat().filter(card => card) as Card[];
+    
+          const subtypeList = new Set(allCards.map((card: any) => card.race).filter(race => race));
+          setUniqueSubtype([...subtypeList])
+    
+          const attributeList = new Set(allCards.map((card: any) => card.attribute).filter(attribute => attribute));
+          setUniqueAttribute([...attributeList])
+    
+          const archetypeList = new Set(allCards.map((card: any) => card.archetype).filter(archetype => archetype));
+          setUniqueArchetype([...archetypeList])
+    
+          const setList = new Set(allCards.map((card: any) => card.set_name).filter(set_name => set_name));
+          setUniqueSet([...setList])
+    
+          const rarityList = new Set(allCards.map((card: any) => card.rarity).filter(rarity => rarity));
+          setUniqueRarity([...rarityList])
+    
+          const monsterCount = allCards
+            .filter((card: any): card is Card => card.type?.toLowerCase().includes('monster'))
+            .reduce((total, card) => total + (card.ownedamount || 0), 0); 
+          setMonsterCount(monsterCount);
+          
+          const spellCount = allCards
+            .filter((card: any) => card.type?.toLowerCase().includes('spell'))
+            .reduce((total, card) => total + (card.ownedamount || 0), 0); 
+          setSpellCount(spellCount);
+          
+          const trapCount = allCards
+            .filter((card: any) => card.type?.toLowerCase().includes('trap'))
+            .reduce((total, card) => total + (card.ownedamount || 0), 0);
+          setTrapCount(trapCount);
+    
+        }
+      }, [ownedCards]);
 
     const handleMonsterFilter = () => {
         setCardTypeFilter('monster');

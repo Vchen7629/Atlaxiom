@@ -11,9 +11,10 @@ import GalleryViewSearchSuggestionsComponent from '../../components/searchpageco
 import { CardSet } from '../../components/searchpagecomponents/types/searchresultcomptypes';
 import ClearFilterButton from '../../components/searchpagecomponents/buttons/clearfilterbutton';
 import FilterButton from '../../components/searchpagecomponents/buttons/filterbutton';
+import PaginationComponent from '@/components/searchpagecomponents/pagination/pagination';
 
 const SearchBarPage = () => {
-  const [cardName, setCardName] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const [cardData, setCardData] = useState<ApiCardData[]>([]);
   const [cardSets, setCardSets] = useState<CardSet[]>([]);
 
@@ -63,11 +64,17 @@ const SearchBarPage = () => {
   const [galleryView, setGalleryView] = useState(false);
 
   const suggestionsPerGalleryPage = 45;
-  const suggestionsPerPage = 15;
-  const totalPages = Math.ceil(totalListNamesArray.length / suggestionsPerPage);
-  const totalGalleryPages = Math.ceil(totalGalleryNamesArray.length / suggestionsPerGalleryPage);
-  const [currentListPage, setListCurrentPage] = useState(1);  
-  const [currentGalleryPage, setGalleryCurrentPage] = useState(1);  
+  const suggestionsPerListPage = 15;
+  const [totalListPages, setTotalListPages] = useState<number>(1);
+  const [totalGalleryPages, setTotalGalleryPages] = useState<number>(1);
+  const updateTotalListPages = (filteredCardsLength: number) => {
+    setTotalListPages(Math.ceil(filteredCardsLength / suggestionsPerListPage));
+  }
+  const updateTotalGalleryPages = (filteredCardsLength: number) => {
+    setTotalGalleryPages(Math.ceil(filteredCardsLength / suggestionsPerGalleryPage));
+  }
+  const [currentListPage, setListCurrentPage] = useState<number>(1);  
+  const [currentGalleryPage, setGalleryCurrentPage] = useState<number>(1);
   
 
   const gridlistviewprops = {
@@ -81,11 +88,11 @@ const SearchBarPage = () => {
   };
 
   const searchbarprops = {
-    cardData, setCardData,
-        cardName, setCardName,
+        cardData, setCardData,
+        searchTerm, setSearchTerm,
         setClickedOnCard,
         setSelectedCardData,
-        suggestionsPerPage, 
+        suggestionsPerListPage, 
         suggestionsPerGalleryPage,
         currentListPage, setListCurrentPage,
         currentGalleryPage, setGalleryCurrentPage,
@@ -124,21 +131,19 @@ const SearchBarPage = () => {
 
   const listviewprops = {
     cardData,
-    setCardName,
+    setSearchTerm,
     setClickedOnCard,
     currentPageListNamesArray,
     setTotalListNamesArray,
     setSelectedCardData,
     setErrorMessage,
-    totalPages,
-    currentListPage,
     setListCurrentPage,
     cardSets, setCardSets
   } 
 
   const galleryviewprops = {
     cardData,
-    setCardName,
+    setSearchTerm,
     setClickedOnCard,
     currentPageGalleryNamesArray,
     setTotalGalleryNamesArray,
@@ -178,6 +183,23 @@ const SearchBarPage = () => {
     defGreaterThanEqual, setDefGreaterThanEqual
   }
 
+  const paginationprops = {
+    listView,
+    galleryView,
+    currentListPage, setListCurrentPage,
+    currentGalleryPage, setGalleryCurrentPage,
+    suggestionsPerListPage,
+    suggestionsPerGalleryPage,
+    setCurrentPageListNamesArray,
+    setCurrentPageGalleryNamesArray,
+    totalListPages,
+    totalGalleryPages,
+    updateTotalListPages,
+    updateTotalGalleryPages,
+    searchTerm,
+    totalListNamesArray,
+    totalGalleryNamesArray,
+  }
 
 
   return (
@@ -185,7 +207,7 @@ const SearchBarPage = () => {
       <div className="flex flex-col min-h-[120vh] bg-[hsl(var(--background1))] justify-between overflow-auto" >
         <Header/>
         <main className="flex flex-grow py-[15vh] items-start ">            
-          <div className={`flex flex-col ${expandStatus ? "w-[80%]" : "w-full"} ${selectedCardData ? "w-[100%]" : "w-[80%]"}`}>
+          <div className={`flex flex-col ${expandStatus ? "w-[79%]" : "w-full"} ${selectedCardData ? "w-[100%]" : "w-[80%]"}`}>
               {!clickedOnCard &&  (
                 <main>
                   <div className="flex relative w-full items-center mb-[5vh] pr-[3%]">
@@ -209,20 +231,24 @@ const SearchBarPage = () => {
               ) : (
                 <>
                     {listView && (
-                      <main className='flex justify-center'>
+                      <main className='flex flex-col justify-center space-y-2'>
+                        <PaginationComponent paginationprops={paginationprops}/>
                         <ListViewSearchSuggestionsComponent listviewprops={listviewprops}/>
+                        <PaginationComponent paginationprops={paginationprops}/>
                       </main>
                     )}
                     {galleryView && (
-                      <main className="flex w-full h-full">
+                      <main className="flex flex-col w-full h-full space-y-2">
+                        <PaginationComponent paginationprops={paginationprops}/>
                         <GalleryViewSearchSuggestionsComponent galleryviewprops={galleryviewprops}/>
+                        <PaginationComponent paginationprops={paginationprops}/>
                       </main>
                   )}
                   
                 </>   
               )}           
           </div>
-          <div className={`fixed flex right-4 top-24 min-h-[80vh] ${expandStatus ? "w-[20%]" : "w-0 "}`}>
+          <div className={`fixed flex right-2 top-24 min-h-[80vh] ${expandStatus ? "w-[20%]" : "w-0 "}`}>
             {!clickedOnCard &&  (
               <FilterCardComponent filterprops={filterprops}/>
             )}

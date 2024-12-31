@@ -1,4 +1,4 @@
-import { pageselector } from "../types/paginationtypes";
+import { pageselector } from "../types/paginationtypes.ts";
 
 export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
     const {
@@ -14,7 +14,7 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
 
     const handleListPageChange = (page: number) => {
         setListCurrentPage(page);
-        setListPage(page);        
+        setListPage(page)
     };
 
     const handleGalleryPageChange = (page: number) => {
@@ -54,7 +54,7 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
                                     <button
                                         key={pageNumber}
                                         className={`px-3 py-1 rounded-lg border-[1px] ${
-                                            currentListPage === totalListPages ? 'text-[hsl(var(--background3))] border-[hsl(var(--background3))]' : 'text-white border-gray-400'
+                                            currentListPage === pageNumber ? 'text-[hsl(var(--background3))] border-[hsl(var(--background3))]' : 'text-white border-gray-400'
                                         } hover:border-[hsl(var(--background3))]`}
                                         onClick={() => handleListPageChange(pageNumber)}
                                     >
@@ -113,7 +113,7 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
                                     <button
                                         key={pageNumber}
                                         className={`px-3 py-1 rounded-lg border-[1px] ${
-                                            currentGalleryPage === totalGalleryPages ? 'text-[hsl(var(--background3))] border-[hsl(var(--background3))]' : 'text-white border-gray-400'
+                                            currentGalleryPage === pageNumber ? 'text-[hsl(var(--background3))] border-[hsl(var(--background3))]' : 'text-white border-gray-400'
                                         } hover:border-[hsl(var(--background3))]`}
                                         onClick={() => handleGalleryPageChange(pageNumber)}
                                     >

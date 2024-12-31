@@ -37,15 +37,15 @@ export function ComponentPieChart() {
   const userId = useSelector((state: { auth: { userId: string } }) => state.auth.userId);
   const { data: cardData } = useGetOwnedCardsQuery(userId)
 
+  console.log(cardData)
+
   const chartData = React.useMemo(() => {
     if (!cardData || !cardData.entities) {
       console.error("cardData.entities is undefined or empty.");
       return [];
     }
 
-    const ownedCards = Object.values(cardData.entities).flat().filter(Boolean);
-    console.log("Owned Cards:", ownedCards);
-        
+    const ownedCards = Object.values(cardData?.entities?.defaultId?.ownedCards || {}).flat();        
 
     const cardCounts = {
       monster: 0,
