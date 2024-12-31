@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisVertical, faFilter, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisVertical, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { useGetOwnedCardsQuery } from '../../features/api-slices/ownedCardapislice.ts';
 import { useLocation } from 'react-router-dom';
 import Header from '../../components/header/header.tsx';
@@ -14,7 +14,8 @@ import GridListViewComponent from '../../components/cardcollectioncomponents/com
 import { GalleryViewCardDisplayComponent } from '../../components/cardcollectioncomponents/carddisplaycomponents/galleryviewcarddisplaycomponent.tsx';
 import { useGetSpecificUserQuery } from '@/features/api-slices/usersApiSlice.ts';
 import PaginationComponent from '@/components/cardcollectioncomponents/paginationcomponents/pagination.tsx';
-import { OwnedCard } from '@/components/cardcollectioncomponents/types/paginationtypes.ts';
+import { AddCardButton } from '@/components/cardcollectioncomponents/components/addcardbutton.tsx';
+import { OwnedCard } from '@/components/cardcollectioncomponents/types/dataStructures.ts';
 
 const UserOwnedCardPage = () => {
   const location = useLocation();
@@ -31,26 +32,12 @@ const UserOwnedCardPage = () => {
   const [isMonsterFilterActive, setIsMonsterFilterActive] = useState<boolean>(false);
   const [isSpellFilterActive, setIsSpellFilterActive] = useState<boolean>(false);
   const [isTrapFilterActive, setIsTrapFilterActive] = useState<boolean>(false);
-  
-  const [monsterCount, setMonsterCount] = useState<number>(0);
-  const [spellCount, setSpellCount] = useState<number>(0);
-  const [trapCount, setTrapCount] = useState<number>(0);
 
-  const [uniqueSubtype, setUniqueSubtype] = useState<string[]>([]);
   const [subTypeFilter, setSubTypeFilter] = useState<string>('');
-
-  const [uniqueAttribute, setUniqueAttribute] = useState<string[]>([]);
   const [attributeFilter, setAttributeFilter] = useState<string>('');
-
-  const [uniqueArchtype, setUniqueArchetype] = useState<string[]>([]);
   const [archeTypeFilter, setArcheTypeFilter] = useState<string>('');
-
-  const [uniqueSet, setUniqueSet] = useState<string[]>([]);
   const [setFilter, setSetFilter] = useState<string>('');
-
   const [levelFilter, setLevelFilter] = useState<number | null>(0);
-
-  const [uniqueRarity, setUniqueRarity] = useState<string[]>([]);
   const [rarityFilter, setRarityFilter] = useState<string>('');
 
   const [listView, setListView] = useState<boolean>(true);
@@ -79,42 +66,43 @@ const UserOwnedCardPage = () => {
     }
   }, [userId])
 
-  useEffect(() => {
-    if (ownedCards) {
-      const allCards: Card[] = Object.values(ownedCards?.entities?.defaultId?.ownedCards || {}).flat().filter(card => card) as Card[];
-
-      const subtypeList = new Set(allCards.map((card: any) => card.race).filter(race => race));
-      setUniqueSubtype([...subtypeList])
-
-      const attributeList = new Set(allCards.map((card: any) => card.attribute).filter(attribute => attribute));
-      setUniqueAttribute([...attributeList])
-
-      const archetypeList = new Set(allCards.map((card: any) => card.archetype).filter(archetype => archetype));
-      setUniqueArchetype([...archetypeList])
-
-      const setList = new Set(allCards.map((card: any) => card.set_name).filter(set_name => set_name));
-      setUniqueSet([...setList])
-
-      const rarityList = new Set(allCards.map((card: any) => card.rarity).filter(rarity => rarity));
-      setUniqueRarity([...rarityList])
-
-      const monsterCount = allCards
-        .filter((card: any): card is Card => card.type?.toLowerCase().includes('monster'))
-        .reduce((total, card) => total + (card.ownedamount || 0), 0); 
-      setMonsterCount(monsterCount);
-      
-      const spellCount = allCards
-        .filter((card: any) => card.type?.toLowerCase().includes('spell'))
-        .reduce((total, card) => total + (card.ownedamount || 0), 0); 
-      setSpellCount(spellCount);
-      
-      const trapCount = allCards
-        .filter((card: any) => card.type?.toLowerCase().includes('trap'))
-        .reduce((total, card) => total + (card.ownedamount || 0), 0);
-      setTrapCount(trapCount);
-
-    }
-  }, [ownedCards]);
+  const cardsToDisplay = Object.values(ownedCards?.entities?.defaultId?.ownedCards || {}).flat() as Card[];
+            
+  const filteredCards = useMemo(() => {
+        return cardsToDisplay.filter((card): card is Card => {
+            if (!card || !card.card_name) return false;
+                const matchesSearchTerm = card.card_name.toLowerCase().includes(searchTerm.toLowerCase());
+                const matchesTypeFilter = cardTypeFilter ? card.type?.toLowerCase().includes(cardTypeFilter) : true;
+                const matchesSubTypeFilter = subTypeFilter ? card.race?.toLowerCase().trim() === subTypeFilter.toLowerCase().trim() : true;
+                const matchesAttributeFilter = attributeFilter ? card.attribute?.toLowerCase().trim() === attributeFilter.toLowerCase().trim() : true;
+                const matchesArcheTypeFilter = archeTypeFilter ? card.archetype?.toLowerCase().trim() === archeTypeFilter.toLowerCase().trim() : true;
+                const matchesLevelFilter = levelFilter ? card.level === levelFilter : true;
+                const matchesSetFilter = setFilter ? card.set_name?.toLowerCase().trim() === setFilter.toLowerCase().trim() : true;
+                const matchesRarityFilter = rarityFilter ? card.rarity?.toLowerCase().trim() === rarityFilter.toLowerCase().trim() : true;
+        
+            return (
+                !! matchesSearchTerm &&
+                !! matchesTypeFilter &&
+                !! matchesSubTypeFilter &&
+                !! matchesAttributeFilter &&
+                !! matchesArcheTypeFilter &&
+                !! matchesLevelFilter &&
+                !! matchesSetFilter &&
+                !! matchesRarityFilter
+            );
+                
+        });
+    }, [
+        cardsToDisplay,
+        searchTerm,
+        cardTypeFilter,
+        subTypeFilter,
+        attributeFilter,
+        archeTypeFilter,
+        levelFilter,
+        setFilter,
+        rarityFilter,
+    ]);
 
   const handleClickFilter = () => {
     setExpandStatus(!expandStatus)
@@ -135,48 +123,33 @@ const UserOwnedCardPage = () => {
   }
 
   const paginationprops = {
+    filteredCards,
     listView,
     galleryView,
-    searchTerm,
-    ownedCards,
     currentListPage, setListCurrentPage,
     currentGalleryPage, setGalleryCurrentPage,
     suggestionsPerListPage,
     suggestionsPerGalleryPage,
     setCurrentListPageResults,
     setCurrentGalleryPageResults,
-    cardTypeFilter,
-    subTypeFilter,
-    attributeFilter,
-    archeTypeFilter,
-    levelFilter,
-    setFilter,
-    rarityFilter,
     totalListPages,
     totalGalleryPages,
     updateTotalPages
   }
 
   const filterProps = {
+    ownedCards,
     expandStatus,
     searchTerm, setSearchTerm,
     setCardTypeFilter,
-    isMonsterFilterActive, setIsMonsterFilterActive,
-    monsterCount, 
+    isMonsterFilterActive, setIsMonsterFilterActive, 
     setIsSpellFilterActive, isSpellFilterActive,
-    spellCount,
     isTrapFilterActive, setIsTrapFilterActive,
-    trapCount,
-    uniqueSubtype,
     subTypeFilter, setSubTypeFilter,
-    uniqueAttribute,
     attributeFilter, setAttributeFilter,
-    uniqueArchtype,
     archeTypeFilter, setArcheTypeFilter,
     setLevelFilter,
-    uniqueSet,
     setFilter, setSetFilter,
-    uniqueRarity,
     rarityFilter, setRarityFilter,
     filterpage, setFilterPage,
     statisticspage, setStatisticsPage,
@@ -211,9 +184,7 @@ const UserOwnedCardPage = () => {
                     <button className={`flex justify-center items-center rounded-md h-9 w-24 ${expandStatus ? "bg-[hsl(var(--background3))]" : "bg-footer"}`} onClick={handleClickFilter}>
                       <FontAwesomeIcon className="mr-2" icon={faFilter}/>Filter
                     </button>
-                    <button className="flex items-center justify-center rounded-md w-28 h-9 bg-blue-500">
-                      <FontAwesomeIcon className="mr-2" icon={faPlusCircle}/>Add Card
-                    </button>
+                    <AddCardButton />
                     <button className="flex rounded-md px-4 items-center justify-center w-20 h-9 bg-footer">
                       <FontAwesomeIcon icon={faEllipsisVertical} className="mr-2 text-gray-400"/>More
                     </button>

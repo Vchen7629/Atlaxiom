@@ -1,9 +1,5 @@
-import { OwnedCard } from "./dataStructures";
-import { Card } from "./ownedcarddetailstypes";
-
 export type Pagination = {
     paginationprops: {
-        filteredCards: Card[];
         listView: boolean;
         galleryView: boolean;
         currentListPage: number;
@@ -12,11 +8,15 @@ export type Pagination = {
         setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>;
         suggestionsPerListPage: number;
         suggestionsPerGalleryPage: number;
-        setCurrentListPageResults: React.Dispatch<React.SetStateAction<OwnedCard[]>>;
-        setCurrentGalleryPageResults: React.Dispatch<React.SetStateAction<OwnedCard[]>>;
+        setCurrentPageListNamesArray: React.Dispatch<React.SetStateAction<string[]>>;
+        setCurrentPageGalleryNamesArray: React.Dispatch<React.SetStateAction<string[]>>;
         totalListPages: number;
         totalGalleryPages: number;
-        updateTotalPages: (filteredCardsLength: number) => void;
+        updateTotalListPages: (filteredCardsLength: number) => void;
+        updateTotalGalleryPages: (filteredCardsLength: number) => void;
+        searchTerm: string;
+        totalListNamesArray: string[];
+        totalGalleryNamesArray: string[]
     }
 }
 

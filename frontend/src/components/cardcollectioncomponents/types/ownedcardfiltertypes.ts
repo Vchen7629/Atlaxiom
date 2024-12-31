@@ -1,5 +1,6 @@
 export type OwnedCardsFilterProps = {
     filterProps: {
+        ownedCards: any;
         searchTerm: string;
         setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
         setCardTypeFilter: React.Dispatch<React.SetStateAction<string>>;
@@ -9,14 +10,6 @@ export type OwnedCardsFilterProps = {
         setIsSpellFilterActive: React.Dispatch<React.SetStateAction<boolean>>;
         isTrapFilterActive: boolean;
         setIsTrapFilterActive: React.Dispatch<React.SetStateAction<boolean>>;
-        monsterCount: number;
-        spellCount: number;
-        trapCount: number;
-        uniqueSubtype: string[];
-        uniqueAttribute: string[];
-        uniqueArchtype: string[];
-        uniqueSet: string[];
-        uniqueRarity: string[];
         subTypeFilter: string;
         setSubTypeFilter: React.Dispatch<React.SetStateAction<string>>;
         attributeFilter: string;

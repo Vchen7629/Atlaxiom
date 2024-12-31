@@ -32,7 +32,6 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
     useEffect(() => {
       if (userId) {
         refetch();
-        console.log("List View Use Effect ran once")
       }
     }, [userId])
 

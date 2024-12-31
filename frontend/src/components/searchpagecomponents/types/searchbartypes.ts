@@ -4,11 +4,11 @@ export type SearchBar = {
     searchbarprops: {
         cardData: ApiCardData[];
         setCardData: React.Dispatch<React.SetStateAction<ApiCardData[]>>
-        cardName: string;
-        setCardName: React.Dispatch<React.SetStateAction<string>>
+        searchTerm: string;
+        setSearchTerm: React.Dispatch<React.SetStateAction<string>>
         setClickedOnCard: React.Dispatch<React.SetStateAction<boolean>>
         setSelectedCardData: React.Dispatch<React.SetStateAction<SearchResCardData | null>>
-        suggestionsPerPage: number;
+        suggestionsPerListPage: number;
         suggestionsPerGalleryPage: number;
         currentListPage: number;
         setListCurrentPage: React.Dispatch<React.SetStateAction<number>>

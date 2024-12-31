@@ -4,31 +4,24 @@ import { GalleryViewComp } from "../types/searchbarcomponentstypes";
 const GalleryViewSearchSuggestionsComponent = ({ galleryviewprops }: GalleryViewComp) => {
     const {
         cardData,
-        setCardName,
+        setSearchTerm,
         setClickedOnCard,
         currentPageGalleryNamesArray,
         setTotalGalleryNamesArray,
         setSelectedCardData,
         setErrorMessage,
-        totalGalleryPages,
-        currentGalleryPage,
-        setGalleryCurrentPage,
         cardSets, setCardSets
     } = galleryviewprops
 
     const apiUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
 
     const handleSuggestionClick = (card: string) => {
-        setCardName(card);
+        setSearchTerm(card);
         setClickedOnCard(true);
         setErrorMessage("");
         setTotalGalleryNamesArray([]);
         setSelectedCardData(null);
         fetchSelectedCardData(card);
-    };
-
-    const handlePageChange = (page: number) => {
-        setGalleryCurrentPage(page);
     };
 
     const fetchSelectedCardData = async (card: string) => {
@@ -65,19 +58,6 @@ const GalleryViewSearchSuggestionsComponent = ({ galleryviewprops }: GalleryView
                     </div>
                 ))}         
             </div>
-            {totalGalleryPages > 1 && (
-                <div className="flex w-full justify-center ">
-                    <div className="w-[20%] mt-[30px] p-1.25 flex justify-center  text-goldenrod text-center text-xl">
-                        <button className="bg-goldenrod text-white w-[30px] mr-[5%] rounded-lg hover:text-red-600" disabled={currentGalleryPage === 1} onClick={() => handlePageChange(currentGalleryPage - 1)}>
-                            {'<'}
-                        </button>
-                        <span>{`Page ${currentGalleryPage} of ${totalGalleryPages}`}</span>
-                        <button className="bg-goldenrod text-white w-[30px] ml-[5%] rounded-lg hover:text-red-600" disabled={currentGalleryPage === totalGalleryPages} onClick={() => handlePageChange(currentGalleryPage + 1)}>
-                            {'>'}
-                        </button>
-                    </div>
-                </div>
-            )}
         </main>
     )
 }   

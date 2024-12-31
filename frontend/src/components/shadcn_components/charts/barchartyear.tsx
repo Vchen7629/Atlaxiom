@@ -42,7 +42,6 @@ export function ComponentBarChart(): JSX.Element {
     const { data: deckData } = useGetAllOwnedDecksQuery(userId);
     
     const monthlyData = useMemo(() => {
-        // Initialize an array for monthly data (12 months)
         const data = Array.from({ length: 12 }, () => ({
           decks: 0,
           cards: 0,
@@ -50,6 +49,7 @@ export function ComponentBarChart(): JSX.Element {
     
         // Process owned decks
         const ownedDeck = deckData?.entities?.undefined?.ownedDecks || [];
+        console.log(deckData)
         ownedDeck.forEach((deck: Deck) => {
           if (deck.createdOn) {
             const createdMonth = new Date(deck.createdOn).getMonth();
@@ -58,7 +58,7 @@ export function ComponentBarChart(): JSX.Element {
         });
     
         // Process owned cards
-        const ownedCards = cardData?.entities ? Object.values(cardData.entities).flat() : [];        
+        const ownedCards = Object.values(cardData?.entities?.defaultId?.ownedCards || {}).flat();        
         ownedCards.forEach((card) => {
             const addedOn = card?.addedOn;
             if (addedOn) {

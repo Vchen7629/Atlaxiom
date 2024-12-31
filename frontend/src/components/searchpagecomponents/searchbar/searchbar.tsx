@@ -6,10 +6,10 @@ import { SearchBar } from "../types/searchbartypes"
 const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
     const {
         cardData, setCardData,
-        cardName, setCardName,
+        searchTerm, setSearchTerm,
         setClickedOnCard,
         setSelectedCardData,
-        suggestionsPerPage, 
+        suggestionsPerListPage, 
         suggestionsPerGalleryPage,
         currentListPage, setListCurrentPage,
         currentGalleryPage, setGalleryCurrentPage,
@@ -48,18 +48,18 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
   };
 
   useEffect(() => {
-    if (!cardName.trim()) {
+    if (!searchTerm.trim()) {
       setCurrentPageListNamesArray([]);
     } else if (totalListNamesArray.length > 0) {
-      const startIndex = (currentListPage - 1) * suggestionsPerPage;
-      const endIndex = startIndex + suggestionsPerPage;
+      const startIndex = (currentListPage - 1) * suggestionsPerListPage;
+      const endIndex = startIndex + suggestionsPerListPage;
       const currentListSuggestions = totalListNamesArray.slice(startIndex, endIndex);
       setCurrentPageListNamesArray(currentListSuggestions);
     }
-  }, [cardName, currentListPage, totalListNamesArray, suggestionsPerPage]);
+  }, [searchTerm, currentListPage, totalListNamesArray, suggestionsPerListPage]);
 
   useEffect(() => {
-    if (!cardName.trim()) {
+    if (!searchTerm.trim()) {
       setCurrentPageGalleryNamesArray([]);
     } else if (totalListNamesArray.length > 0) {
       const startIndex = (currentGalleryPage - 1) * suggestionsPerGalleryPage;
@@ -67,7 +67,7 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
       const currentGallerySuggestions = totalGalleryNamesArray.slice(startIndex, endIndex);
       setCurrentPageGalleryNamesArray(currentGallerySuggestions);
     }
-  }, [cardName, currentGalleryPage, totalGalleryNamesArray, suggestionsPerGalleryPage]);
+  }, [searchTerm, currentGalleryPage, totalGalleryNamesArray, suggestionsPerGalleryPage]);
 
   const debouncedSearchCard = useCallback((cardName: string) => {
       if (!cardName.trim()) {
@@ -151,8 +151,8 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
     ]);
 
   useEffect(() => {
-    debouncedSearchCard(cardName)
-  }, [debouncedSearchCard, cardName])
+    debouncedSearchCard(searchTerm)
+  }, [debouncedSearchCard, searchTerm])
 
   useEffect(() => {
     fetchAllCardData();
@@ -160,7 +160,7 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
-        setCardName(inputValue);
+        setSearchTerm(inputValue);
         setClickedOnCard(false);
         setSelectedCardData(null);
         setListCurrentPage(1);
@@ -170,7 +170,7 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
     };
 
     const handleClearClick = () => {
-        setCardName('');
+        setSearchTerm('');
         setErrorMessage('');
         setTotalListNamesArray([]);
         setTotalGalleryNamesArray([]);
@@ -185,11 +185,11 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
                 <input
                     className="bg-transparent w-full h-full text-xl focus:outline-none"
                     type="text"
-                    value={cardName}
+                    value={searchTerm}
                     onChange={handleInputChange}
                     placeholder="Enter card name"
                 />
-                {cardName && (
+                {searchTerm && (
                     <button className="cursor-pointer mr-[25px]" onClick={handleClearClick}>
                         <FontAwesomeIcon icon={faTimes} className="fa-lg" />
                     </button>

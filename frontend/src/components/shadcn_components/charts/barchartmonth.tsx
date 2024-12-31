@@ -82,7 +82,7 @@ export function ComponentBarMonthChart(): JSX.Element {
       const currentYear = new Date().getFullYear();
       
       const ownedDeck = deckData?.entities?.undefined?.ownedDecks || [];
-      const ownedCards = Object.values(cardData.entities).flat().filter(Boolean);
+      const ownedCards = Object.values(cardData?.entities?.defaultId?.ownedCards || {}).flat();
 
       if (selectedMonth === "All") return [];
 
