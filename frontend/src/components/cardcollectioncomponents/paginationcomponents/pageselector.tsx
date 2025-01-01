@@ -10,16 +10,20 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
         totalListPages,
         currentGalleryPage, setGalleryCurrentPage,
         totalGalleryPages,
+        setListErr,
+        setGalleryErr,
     } = pageselectorprops
 
     const handleListPageChange = (page: number) => {
         setListCurrentPage(page);
-        setListPage(page);        
+        setListPage(page); 
+        setListErr("")       
     };
 
     const handleGalleryPageChange = (page: number) => {
         setGalleryCurrentPage(page);
-        setGalleryPage(page);        
+        setGalleryPage(page);  
+        setGalleryErr("");      
     };
 
     return (

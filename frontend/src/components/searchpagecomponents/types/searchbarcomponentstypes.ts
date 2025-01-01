@@ -11,7 +11,6 @@ export type ListViewComp = {
         setTotalListNamesArray: React.Dispatch<React.SetStateAction<string[]>>;
         setSelectedCardData: React.Dispatch<React.SetStateAction<SearchResCardData | null>>;
         setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
-        setListCurrentPage: React.Dispatch<React.SetStateAction<number>>;
         cardSets: CardSet[];
         setCardSets: React.Dispatch<React.SetStateAction<CardSet[]>>;
     }

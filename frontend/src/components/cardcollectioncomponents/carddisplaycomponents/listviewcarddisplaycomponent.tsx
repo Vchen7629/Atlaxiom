@@ -27,7 +27,7 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
 
     const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null)
 
-    const {refetch} = useGetOwnedCardsQuery(userId);
+    const { refetch} = useGetOwnedCardsQuery(userId);
 
     useEffect(() => {
       if (userId) {

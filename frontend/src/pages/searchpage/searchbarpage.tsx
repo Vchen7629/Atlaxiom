@@ -137,7 +137,6 @@ const SearchBarPage = () => {
     setTotalListNamesArray,
     setSelectedCardData,
     setErrorMessage,
-    setListCurrentPage,
     cardSets, setCardSets
   } 
 
@@ -149,9 +148,6 @@ const SearchBarPage = () => {
     setTotalGalleryNamesArray,
     setSelectedCardData,
     setErrorMessage,
-    totalGalleryPages,
-    currentGalleryPage,
-    setGalleryCurrentPage,
     cardSets, setCardSets
   } 
 
@@ -210,16 +206,16 @@ const SearchBarPage = () => {
           <div className={`flex flex-col ${expandStatus ? "w-[79%]" : "w-full"} ${selectedCardData ? "w-[100%]" : "w-[80%]"}`}>
               {!clickedOnCard &&  (
                 <main>
-                  <div className="flex relative w-full items-center mb-[5vh] pr-[3%]">
+                  <div className="flex w-full items-center mb-[5vh]">
                     <div className="text-4xl text-goldenrod ml-[4%]">
                       <strong>Card Search</strong>
                     </div>
-                    <SearchBarComponent searchbarprops={searchbarprops}/>
+                    <div className="w-[40vw]"><SearchBarComponent searchbarprops={searchbarprops}/></div>
                     <div className="flex ml-2 items-center">
                       <ClearFilterButton clearfilterprops={clearfilterprops}/>
                       <FilterButton filterbuttonprops={filterbuttonprops}/>
                     </div>
-                    <div className="flex absolute w-20 bg-footer rounded-xl right-0 mr-20">
+                    <div className="flex w-20 bg-footer rounded-xl ml-4">
                       <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                     </div>
                   </div>
@@ -231,14 +227,14 @@ const SearchBarPage = () => {
               ) : (
                 <>
                     {listView && (
-                      <main className='flex flex-col justify-center space-y-2'>
+                      <main className='flex flex-col justify-center space-y-2 px-6'>
                         <PaginationComponent paginationprops={paginationprops}/>
                         <ListViewSearchSuggestionsComponent listviewprops={listviewprops}/>
                         <PaginationComponent paginationprops={paginationprops}/>
                       </main>
                     )}
                     {galleryView && (
-                      <main className="flex flex-col w-full h-full space-y-2">
+                      <main className="flex flex-col w-full h-full space-y-2 px-6">
                         <PaginationComponent paginationprops={paginationprops}/>
                         <GalleryViewSearchSuggestionsComponent galleryviewprops={galleryviewprops}/>
                         <PaginationComponent paginationprops={paginationprops}/>
