@@ -210,7 +210,6 @@ export const deckApiSlice = apiSlice.injectEndpoints({
 export const {
     useGetAllOwnedDecksQuery,
     useCreateNewDeckMutation,
-    sexualmutation,
     useGetSpecificOwnedDeckMutation,
     useAddNewCardtoMainDeckMutation,
     useAddNewCardtoExtraDeckMutation,

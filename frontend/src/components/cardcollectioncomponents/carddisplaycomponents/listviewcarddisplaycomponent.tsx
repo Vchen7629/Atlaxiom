@@ -27,16 +27,9 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
 
     const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null)
 
-    const { refetch} = useGetOwnedCardsQuery(userId);
-
-    useEffect(() => {
-      if (userId) {
-        refetch();
-      }
-    }, [userId])
+    const { refetch } = useGetOwnedCardsQuery(userId);
 
     const handleIncreaseClick = async (cardName: string) => {
-        const startTime = new Date().getTime();
         try {
           await increaseOwnedCard({ 
             id: userId, 
@@ -45,11 +38,7 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
               increaseOwnedAmount: 1 
             } 
           });
-          const endTime = new Date().getTime();
-          const apiResponseTime = endTime - startTime; 
-          console.log("res:", apiResponseTime, "ms");
           refetch();
-          
         } catch (err) {
           console.error('Failed to increase card amount:', err);
         }

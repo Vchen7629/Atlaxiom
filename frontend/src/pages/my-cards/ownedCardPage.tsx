@@ -44,7 +44,7 @@ const UserOwnedCardPage = () => {
   const [galleryView, setGalleryView] = useState<boolean>(false);
 
   const { data: ownedCards, refetch } = useGetOwnedCardsQuery(userId);
-  const {data: userData, refetch: refetchOnUpdate} = useGetSpecificUserQuery(userId)
+  const { data: userData, refetch: refetchOnUpdate} = useGetSpecificUserQuery(userId)
   const suggestionsPerGalleryPage = 45;
   const suggestionsPerListPage = 7;
   const [totalListPages, setTotalListPages] = useState<number>(1);
@@ -64,21 +64,23 @@ const UserOwnedCardPage = () => {
       refetch();
       refetchOnUpdate();
     }
-  }, [userId])
+  }, [userId, ownedCards, userData])
 
-  const cardsToDisplay = Object.values(ownedCards?.entities?.defaultId?.ownedCards || {}).flat() as Card[];
+  const cardsToDisplay = useMemo(() => {
+    return Object.values(ownedCards?.entities?.defaultId?.ownedCards || {}).flat() as Card[];
+  }, [ownedCards]);
             
   const filteredCards = useMemo(() => {
         return cardsToDisplay.filter((card): card is Card => {
             if (!card || !card.card_name) return false;
-                const matchesSearchTerm = card.card_name.toLowerCase().includes(searchTerm.toLowerCase());
-                const matchesTypeFilter = cardTypeFilter ? card.type?.toLowerCase().includes(cardTypeFilter) : true;
-                const matchesSubTypeFilter = subTypeFilter ? card.race?.toLowerCase().trim() === subTypeFilter.toLowerCase().trim() : true;
-                const matchesAttributeFilter = attributeFilter ? card.attribute?.toLowerCase().trim() === attributeFilter.toLowerCase().trim() : true;
-                const matchesArcheTypeFilter = archeTypeFilter ? card.archetype?.toLowerCase().trim() === archeTypeFilter.toLowerCase().trim() : true;
-                const matchesLevelFilter = levelFilter ? card.level === levelFilter : true;
-                const matchesSetFilter = setFilter ? card.set_name?.toLowerCase().trim() === setFilter.toLowerCase().trim() : true;
-                const matchesRarityFilter = rarityFilter ? card.rarity?.toLowerCase().trim() === rarityFilter.toLowerCase().trim() : true;
+            const matchesSearchTerm = card.card_name.toLowerCase().includes(searchTerm.toLowerCase());
+            const matchesTypeFilter = cardTypeFilter ? card.type?.toLowerCase().includes(cardTypeFilter) : true;
+            const matchesSubTypeFilter = subTypeFilter ? card.race?.toLowerCase().trim() === subTypeFilter.toLowerCase().trim() : true;
+            const matchesAttributeFilter = attributeFilter ? card.attribute?.toLowerCase().trim() === attributeFilter.toLowerCase().trim() : true;
+            const matchesArcheTypeFilter = archeTypeFilter ? card.archetype?.toLowerCase().trim() === archeTypeFilter.toLowerCase().trim() : true;
+            const matchesLevelFilter = levelFilter ? card.level === levelFilter : true;
+            const matchesSetFilter = setFilter ? card.set_name?.toLowerCase().trim() === setFilter.toLowerCase().trim() : true;
+            const matchesRarityFilter = rarityFilter ? card.rarity?.toLowerCase().trim() === rarityFilter.toLowerCase().trim() : true;
         
             return (
                 !! matchesSearchTerm &&
@@ -93,6 +95,7 @@ const UserOwnedCardPage = () => {
                 
         });
     }, [
+        ownedCards,
         cardsToDisplay,
         searchTerm,
         cardTypeFilter,
@@ -111,15 +114,6 @@ const UserOwnedCardPage = () => {
 
   const searchbarprops = { 
     searchTerm, setSearchTerm,
-    ownedCards,
-    setCurrentListPageResults,
-    cardTypeFilter,
-    subTypeFilter,
-    attributeFilter,
-    archeTypeFilter,
-    levelFilter,
-    setFilter,
-    rarityFilter
   }
 
   const paginationprops = {
@@ -214,7 +208,7 @@ const UserOwnedCardPage = () => {
                           <PaginationComponent paginationprops={paginationprops} />                                           
                         </main>
                         
-                        <div className={`flex flex-col ${expandStatus ? "w-[24%] border-gray-600 border-2" : "w-0"} items-center bg-[hsl(var(--background4))] rounded-xl py-8`}>
+                        <div className={`flex flex-col h-fit ${expandStatus ? "w-[24%] border-gray-600 border-2" : "w-0"} items-center bg-[hsl(var(--background4))] rounded-xl py-8`}>
                             {filterpage && (
                               <FilterOwnedCards filterProps={filterProps}/>
                             )}

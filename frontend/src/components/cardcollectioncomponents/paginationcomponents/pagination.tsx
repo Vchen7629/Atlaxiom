@@ -25,7 +25,6 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
     const [gallerypage, setGalleryPage] = useState(currentGalleryPage);
     const [galleryerr, setGalleryErr] = useState<string>("")
 
-
     const updateCurrentPageList = () => {
         if (filteredCards.length > 0) {
             const startIndex = (currentListPage - 1) * suggestionsPerListPage;
@@ -84,14 +83,16 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
 
     useEffect(() => {
         updateTotalPages(filteredCards.length);
+        console.log("no")
         if (filteredCards.length > 0) {
             updateCurrentPageList();
             updateCurrentPageGallery();
+            console.log("Hi")
         } else if ((filteredCards.length === 0)) {
             setCurrentListPageResults([]);
             setCurrentGalleryPageResults([]);
         }
-    }, [filteredCards.length, suggestionsPerListPage, suggestionsPerGalleryPage, currentListPage, currentGalleryPage]);
+    }, [filteredCards, suggestionsPerListPage, suggestionsPerGalleryPage, currentListPage, currentGalleryPage]);
 
     const pageselectorprops = {
         listView,

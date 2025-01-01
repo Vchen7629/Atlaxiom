@@ -49,7 +49,6 @@ export function ComponentBarChart(): JSX.Element {
     
         // Process owned decks
         const ownedDeck = deckData?.entities?.undefined?.ownedDecks || [];
-        console.log(deckData)
         ownedDeck.forEach((deck: Deck) => {
           if (deck.createdOn) {
             const createdMonth = new Date(deck.createdOn).getMonth();
@@ -82,40 +81,40 @@ export function ComponentBarChart(): JSX.Element {
       }, [monthlyData]);
 
     return (
-    <div className="relative w-[30vw]">
-        <Card className="bg-blackthree border-gray-500 border-4">
-        <CardHeader>
-            <CardTitle className="text-gold">Your Cards/Deck Statistics</CardTitle>
-            <CardDescription className="">Decks/Cards created January - December 2024</CardDescription>
-        </CardHeader>
-        <CardContent>
-            <ChartContainer config={chartConfig} className="max-h-200 ">
-            <BarChart accessibilityLayer data={data}>
-                <XAxis
-                    dataKey="month"
-                    tickLine={false}
-                    tickMargin={10}
-                    axisLine={false}
-                    tickFormatter={(value) => value.slice(0, 3)}
-                />
-                <ChartTooltip
-                    cursor={false}
-                    content={<ChartTooltipContent indicator="dashed" className="bg-white"/>}
-                />
-                <Bar 
-                    dataKey="decks" 
-                    fill="goldenrod" 
-                    minPointSize={5}
-                />
-                <Bar 
-                    dataKey="cards" 
-                    fill="gold" 
-                    minPointSize={5}
-                />
-            </BarChart>
-            </ChartContainer>
-        </CardContent>
-        </Card>
-    </div>
+      <div className="relative w-[50vw] bg-[hsl(var(--profilebackground))] rounded-xl">
+          <Card>
+            <CardHeader>
+                <CardTitle className="text-[hsl(var(--text))]">Your Cards/Deck Statistics</CardTitle>
+                <CardDescription className="">Decks/Cards created January - December 2024</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <ChartContainer config={chartConfig} className="max-h-200 ">
+                <BarChart accessibilityLayer data={data}>
+                    <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        tickMargin={10}
+                        axisLine={false}
+                        tickFormatter={(value) => value.slice(0, 3)}
+                    />
+                    <ChartTooltip
+                        cursor={false}
+                        content={<ChartTooltipContent indicator="dashed" className="bg-white"/>}
+                    />
+                    <Bar 
+                        dataKey="decks" 
+                        fill="goldenrod" 
+                        minPointSize={5}
+                    />
+                    <Bar 
+                        dataKey="cards" 
+                        fill="gold" 
+                        minPointSize={5}
+                    />
+                </BarChart>
+                </ChartContainer>
+            </CardContent>
+          </Card>
+      </div>
     )
 }
