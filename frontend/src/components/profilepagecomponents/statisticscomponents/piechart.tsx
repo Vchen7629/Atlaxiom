@@ -82,14 +82,14 @@ export function ComponentPieChart() {
   }, [chartData])
 
   return (
-    <Card className="flex flex-col  bg-transparent border-transparent">
+    <Card className="flex flex-col bg-[hsl(var(--profilebackground))] border-transparent">
       <CardHeader className="items-center pb-0">
         <CardTitle className="text-gold">Card Type Make-up</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[22vh]"
+          className="mx-auto aspect-square"
         >
           <PieChart>
             <ChartTooltip

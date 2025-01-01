@@ -8,8 +8,8 @@ import { UserId } from './types/subpagetypes.ts';
 import NavBarComponent from '../../components/profilepagecomponents/components/navbar.tsx';
 import ProfilePageHeader from '../../components/profilepagecomponents/components/profilepageheader.tsx';
 import ViewDecks from './profile-subpages/deckpage.tsx';
-import DeckSearchBar from '../../components/profilepagecomponents/components/decksearchbarcomp.tsx';
-import GridListViewComponent from '../../components/profilepagecomponents/components/gridlistviewcomponent.tsx';
+import DeckSearchBar from '../../components/profilepagecomponents/viewdeckcomponents/decksearchbarcomp.tsx';
+import GridListViewComponent from '../../components/profilepagecomponents/viewdeckcomponents/gridlistviewcomponent.tsx';
 import EditAccountPage from './profile-subpages/editaccountpage.tsx';
 
 

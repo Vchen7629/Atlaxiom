@@ -44,15 +44,17 @@ export function ComponentRadialChart() {
         ]
     }, [userData, userId])
 
+    console.log(chartData[0].owned)
+
     return (
-        <Card className="flex flex-col max-h-[20vh] bg-transparent border-transparent">
-        <CardHeader className="items-center pb-0">
+        <Card className="flex flex-col bg-[hsl(var(--profilebackground))] border-transparent">
+        <CardHeader>
             <CardTitle className="text-[hsl(var(--background3)">Collection status</CardTitle>
         </CardHeader>
-        <CardContent className="flex flex-1 items-center pb-0">
+        <CardContent className="flex pb-0 h-[22vh]">
             <ChartContainer
-            config={chartConfig}
-            className="mx-auto aspect-square w-full max-w-[250px]"
+                config={chartConfig}
+                className="mx-auto aspect-square"
             >
             <RadialBarChart
                 data={chartData}
@@ -98,18 +100,18 @@ export function ComponentRadialChart() {
                 />
                 </PolarRadiusAxis>
                 <RadialBar
-                dataKey="total"
-                stackId="a"
-                cornerRadius={5}
-                fill="hsl(var(--chart-5))"
-                className="stroke-transparent stroke-2"
+                    dataKey="total"
+                    stackId="a"
+                    cornerRadius={5}
+                    fill="hsl(var(--background1))"
+                    className="stroke-transparent stroke-2"
                 />
                 <RadialBar
-                dataKey="owned"
-                fill="hsl(var(--background3))"
-                stackId="a"
-                cornerRadius={5}
-                className="stroke-transparent stroke-2"
+                    dataKey="owned"
+                    fill="hsl(var(--background3))"
+                    stackId="a"
+                    cornerRadius={5}
+                    className="stroke-transparent stroke-2"
                 />
             </RadialBarChart>
             </ChartContainer>
