@@ -29,7 +29,8 @@ export const ownedCardsApiSlice = apiSlice.injectEndpoints({
             }),
             invalidatesTags: (result, error, arg) => [
                 { type: 'OwnedCards', id: arg.id }
-            ]
+            ],
+            
         }),
 
         getOwnedCards: builder.query({

@@ -32,5 +32,7 @@ export type pageselector = {
         setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>;
         totalListPages: number;
         totalGalleryPages: number;
+        setListErr: React.Dispatch<React.SetStateAction<string>>;
+        setGalleryErr: React.Dispatch<React.SetStateAction<string>>;
     }
 }

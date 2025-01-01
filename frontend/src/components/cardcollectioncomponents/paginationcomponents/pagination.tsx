@@ -102,6 +102,8 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         totalListPages,
         currentGalleryPage, setGalleryCurrentPage,
         totalGalleryPages,
+        setListErr,
+        setGalleryErr,
     }
 
     return (

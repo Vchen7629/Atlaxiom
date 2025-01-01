@@ -9,7 +9,6 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
         setTotalListNamesArray,
         setSelectedCardData,
         setErrorMessage,
-        setListCurrentPage,
         cardSets, setCardSets
     } = listviewprops   
 

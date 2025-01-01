@@ -67,5 +67,7 @@ export type SelectedCardData = {
     desc?: string;
     pend_desc?: string;
     monster_desc?: string;
-    card_images?: { image_url: string }[];
+    card_images?: { 
+        image_url: string 
+    }[];
 }
