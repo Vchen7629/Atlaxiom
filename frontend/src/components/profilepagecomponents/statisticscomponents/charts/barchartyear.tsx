@@ -1,6 +1,6 @@
 "use client"
-import { useGetAllOwnedDecksQuery } from "../../../features/api-slices/decksapislice"
-import { useGetOwnedCardsQuery } from "../../../features/api-slices/ownedCardapislice"
+import { useGetAllOwnedDecksQuery } from "../../../../features/api-slices/decksapislice"
+import { useGetOwnedCardsQuery } from "../../../../features/api-slices/ownedCardapislice"
 import { useSelector } from "react-redux"
 import { Bar, BarChart, XAxis } from "recharts"
 import { useMemo } from "react";

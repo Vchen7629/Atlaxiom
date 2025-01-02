@@ -1,6 +1,6 @@
 import { RarityRadialChartComponent } from "../../../shadcn_components/charts/rarityradialchart"
-import { ComponentPieChart } from '../../../profilepagecomponents/statisticscomponents/piechart';
-import { ComponentRadialChart } from '../../../profilepagecomponents/statisticscomponents/radialchart';
+import { ComponentPieChart } from '../../../profilepagecomponents/statisticscomponents/charts/piechart';
+import { ComponentRadialChart } from "@/components/profilepagecomponents/statisticscomponents/charts/radialchart";
 import { ownedcardstatsprops } from "../../types/ownedcardstatisticstypes";
 
 const CardCollectionStatistics = ({filterProps}: ownedcardstatsprops) => {

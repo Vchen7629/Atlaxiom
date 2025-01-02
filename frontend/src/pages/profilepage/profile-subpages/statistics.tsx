@@ -1,8 +1,8 @@
 
-import { ComponentBarChart } from "../../../components/profilepagecomponents/statisticscomponents/barchartyear"
-import { ComponentPieChart } from "../../../components/profilepagecomponents/statisticscomponents/piechart"
-import { ComponentRadialChart } from "../../../components/profilepagecomponents/statisticscomponents/radialchart"
-import { ComponentBarMonthChart } from "../../../components/profilepagecomponents/statisticscomponents/barchartmonth"
+import { ComponentBarChart } from "../../../components/profilepagecomponents/statisticscomponents/charts/barchartyear"
+import { ComponentPieChart } from "../../../components/profilepagecomponents/statisticscomponents/charts/piechart"
+import { ComponentRadialChart } from "../../../components/profilepagecomponents/statisticscomponents/charts/radialchart"
+import { ComponentBarMonthChart } from "../../../components/profilepagecomponents/statisticscomponents/charts/barchartmonth"
 import { useState } from "react";
 
 const UserStatistics = () => {

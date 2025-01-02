@@ -13,7 +13,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { useGetOwnedCardsQuery } from "../../../features/api-slices/ownedCardapislice"
+import { useGetOwnedCardsQuery } from "../../../../features/api-slices/ownedCardapislice"
 import { useSelector } from "react-redux"
 export const description = "A donut chart with text"
 

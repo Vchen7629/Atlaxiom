@@ -1,3 +1,5 @@
+import { OwnedDecksApiRes } from "./datastructuretypes"
+
 export type UserId = {
     auth: {
         userId: string
@@ -10,18 +12,25 @@ export type Username = {
     }
 }
 
-export type Deck = {
-    deck_name: string
-}
-
 export type DeckProps = {
     user: {
         totalOwnedDecks: number;
     };
     deckprops: {
-        deckName: string;
         listView: boolean;
         galleryView: boolean;
+        refetchdecks: any;
+        filteredDecks: any;
+        currentListPageResults: {
+            currentListPageResults: OwnedDecksApiRes[];
+            length: number
+            map: any;
+        }, 
+        currentGalleryPageResults: {
+            currentListPageResults: OwnedDecksApiRes[];
+            length: number
+            map: any;
+        };
     }
 }
 

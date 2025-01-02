@@ -11,6 +11,9 @@ import ViewDecks from './profile-subpages/deckpage.tsx';
 import DeckSearchBar from '../../components/profilepagecomponents/viewdeckcomponents/decksearchbarcomp.tsx';
 import GridListViewComponent from '../../components/profilepagecomponents/viewdeckcomponents/gridlistviewcomponent.tsx';
 import EditAccountPage from './profile-subpages/editaccountpage.tsx';
+import { useGetAllOwnedDecksQuery } from '@/features/api-slices/decksapislice.ts';
+import PaginationComponent from '@/components/profilepagecomponents/statisticscomponents/pagination/pagination.tsx';
+import { Deck } from '@/components/profilepagecomponents/statisticscomponents/types/paginationtypes.ts';
 
 
 const Profilepage = () => {
@@ -23,6 +26,24 @@ const Profilepage = () => {
 
     const [listView, setListView] = useState(true);
     const [galleryView, setGalleryView] = useState(false);
+
+    const { data: modifyDecks, refetch: refetchdecks } = useGetAllOwnedDecksQuery(userId);
+    const decksToDisplay = modifyDecks?.entities?.undefined?.ownedDecks || [];
+    const filteredDecks = decksToDisplay.filter((deck: Deck) => deck?.deck_name?.toLowerCase().includes(deckName.toLowerCase()));
+    const suggestionsPerGalleryPage = 45;
+    const suggestionsPerListPage = 7;
+    const [totalListPages, setTotalListPages] = useState<number>(1);
+    const [totalGalleryPages, setTotalGalleryPages] = useState<number>(1);
+    const updateTotalListPages = (filteredDecksLength: number) => {
+        setTotalListPages(Math.ceil(filteredDecksLength / suggestionsPerListPage));
+    }
+    const updateTotalGalleryPages = (filteredDecksLength: number) => {
+        setTotalGalleryPages(Math.ceil(filteredDecksLength / suggestionsPerGalleryPage));
+    }
+    const [currentListPage, setListCurrentPage] = useState<number>(1);  
+    const [currentGalleryPage, setGalleryCurrentPage] = useState<number>(1);
+    const [currentListPageResults, setCurrentListPageResults] = useState({ currentListPageResults: [], length: 0, map: () => {} })
+    const [currentGalleryPageResults, setCurrentGalleryPageResults] = useState({ currentListPageResults: [], length: 0, map: () => {} })
 
     const navbarprops = {
         deckActive, setDeckActive,
@@ -39,7 +60,27 @@ const Profilepage = () => {
     const deckprops = {
         deckName,
         listView,
-        galleryView
+        galleryView,
+        refetchdecks,
+        filteredDecks,
+        currentListPageResults,
+        currentGalleryPageResults
+    }
+
+    const paginationprops = {
+        filteredDecks,
+        listView,
+        galleryView,
+        currentListPage, setListCurrentPage,
+        currentGalleryPage, setGalleryCurrentPage,
+        suggestionsPerListPage,
+        suggestionsPerGalleryPage,
+        setCurrentListPageResults,
+        setCurrentGalleryPageResults,
+        totalListPages,
+        totalGalleryPages,
+        updateTotalListPages,
+        updateTotalGalleryPages,
     }
     
     const { 
@@ -84,6 +125,7 @@ const Profilepage = () => {
                         {header}
                         <div className="flex items-center">
                             <NavBarComponent navbarprops={navbarprops}/>
+                            <PaginationComponent paginationprops={paginationprops}/>
                             <DeckSearchBar deckName={deckName} setDeckName={setDeckName}/>
                             <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                         </div>
@@ -112,6 +154,7 @@ const Profilepage = () => {
                         {header}
                         <div className="flex items-center">
                             <NavBarComponent navbarprops={navbarprops}/>
+                            <PaginationComponent paginationprops={paginationprops}/>
                             <DeckSearchBar deckName={deckName} setDeckName={setDeckName}/>
                             <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                         </div>
@@ -126,10 +169,10 @@ const Profilepage = () => {
         <main className="min-h-[100vh] flex flex-col justify-center">
             <Header/>
             <div className="flex justify-center pt-[10vh] bg-[hsl(var(--background1))] min-h-[120vh]">
-                    <div className="flex flex-col w-full px-[10%] my-[3%]">
-                        <div className="flex flex-col align-center w-full px-[20px]">
-                            {renderProfileContent()}
-                        </div>
+                <div className="flex flex-col w-full px-[10%] my-[3%]">
+                    <div className="flex flex-col align-center w-full">
+                        {renderProfileContent()}
+                    </div>
                 </div>
             </div>
             <Footer/>

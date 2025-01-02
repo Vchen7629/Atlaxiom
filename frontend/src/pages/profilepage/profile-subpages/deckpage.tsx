@@ -1,74 +1,46 @@
 
-import { useDeleteDeckMutation, useGetAllOwnedDecksQuery, useGetSpecificOwnedDeckMutation } from '@/features/api-slices/decksapislice.ts';
+import { useDeleteDeckMutation, useGetSpecificOwnedDeckMutation } from '@/features/api-slices/decksapislice.ts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faCopy, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Deck, DeckError, DeckProps, FilteredDecks, handleDeckClick, UserId } from '../types/subpagetypes';
-import { useEffect } from 'react';
-
-
+import { DeckError, DeckProps, FilteredDecks, handleDeckClick, UserId } from '../types/subpagetypes';
 
 const ViewDecks = ({ deckprops, user }: DeckProps) => {
     const {
-        deckName,
         listView,
-        galleryView
+        galleryView,
+        refetchdecks,
+        currentListPageResults,
+        currentGalleryPageResults,
     } = deckprops 
 
     const userId = useSelector((state: UserId) => state.auth.userId);
     const navigate = useNavigate();
     const { totalOwnedDecks } = user;
-
-    const {
-        data: modifyDecks,
-        refetch
-    } = useGetAllOwnedDecksQuery(userId);
     
     const [getSpecificDeck] = useGetSpecificOwnedDeckMutation();
-    
     const [deleteDeck] = useDeleteDeckMutation();
     
-    const decksToDisplay = modifyDecks?.entities?.undefined?.ownedDecks || [];
 
-        
-    useEffect(() => {
-        if (userId) {
-            refetch();
-        }
-    }, [userId, refetch]);
+    const handleDeckClick = async (deck: handleDeckClick) => {
+        try {
+            const result = await getSpecificDeck({ id: userId, DeckData: { deckId: deck._id }});
+
+            if (result) {
+                const deckData = (result as {data: any}).data.entities.undefined[0];
+                navigate('/modifyDeck', { state: { deckId: deckData._id, userId: userId }
+            });
+
+            } else { console.log("Deck data not found in the response.") }
+        } catch (error) { console.error("Failed to fetch the deck data:", error) }
+    };
     
-        const filteredDecks = decksToDisplay.filter((deck: Deck) =>
-            deck?.deck_name?.toLowerCase().includes(deckName.toLowerCase()
-        ));
-    
-        const handleDeckClick = async (deck: handleDeckClick) => {
-            try {
-                const result = await getSpecificDeck({
-                    id: userId,
-                    DeckData: { deckId: deck._id }
-                });
-    
-                if (result) {
-                    const deckData = (result as {data: any}).data.entities.undefined[0];
-                    navigate('/modifyDeck', { state: { deckId: deckData._id, userId: userId }
-                    });
-                } else {
-                    console.log("Deck data not found in the response.");
-                }
-            } catch (error) {
-                console.error("Failed to fetch the deck data:", error);
-            }
-        };
-    
-        const handleDeleteDeckClick = async(deck: handleDeckClick) => {
-            try {
-                const deldeck = await deleteDeck({
-                    id: userId, 
-                    DeckData: { deckId: deck._id }
-                });
+    const handleDeleteDeckClick = async(deck: handleDeckClick) => {
+        try {
+            const deldeck = await deleteDeck({ id: userId, DeckData: { deckId: deck._id } });
                 if (deldeck) {
-                    refetch();
+                    refetchdecks();
                 } else {
                     console.log("deleted deck error")
                 }
@@ -77,7 +49,8 @@ const ViewDecks = ({ deckprops, user }: DeckProps) => {
                 console.error("Error deleting deck:", err.message || error);
             }
         }
-    
+        
+        console.log (currentListPageResults)
         return (
             <div className="bg-[hsl(var(--profilebackground))] p-4 rounded-xl min-h-[60vh]">  
                 {listView && (
@@ -86,34 +59,30 @@ const ViewDecks = ({ deckprops, user }: DeckProps) => {
                             <section className="flex w-full h-[50vh] justify-center items-center">
                                 <span className="text-[hsl(var(--text))] font-bold text-2xl">You don't have any owned Decks</span>
                             </section>
-                        ) : filteredDecks.length > 0 ? (
+                        ) : currentListPageResults.length > 0 ? (
                             <>
-                                {filteredDecks.map((deck: FilteredDecks) => (
+                                {currentListPageResults.map((deck: FilteredDecks) => (
                                     <>
-                                            <div 
-                                                className="flex  h-[7vh] px-2 justify-between items-center mb-2 hover:bg-[hsl(var(--background5))]" 
-                                                key={deck._id} 
-                                                onClick={() => handleDeckClick(deck)}
-                                            >  
-                                                <section className="flex flex-col">
-                                                    <div className="text-[hsl(var(--text))]"><strong>{deck.deck_name}</strong></div>
-                                                    <div className="text-gray-400">Last Updated {deck.lastUpdated}</div>
-                                                </section>
-                                                <section className="flex flex-col text-[hsl(var(--text))]">{deck.deck_desc}</section>
-                                                <section className="flex w-fit space-x-1">
-                                                    <button className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'><FontAwesomeIcon icon={faStar}/></button>
-                                                    <button className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'><FontAwesomeIcon icon={faCopy}/></button>
-                                                    <button 
-                                                        className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'
-                                                        onClick={(event) => {
-                                                            event.stopPropagation(); 
-                                                            handleDeleteDeckClick(deck);
-                                                        }}
-                                                    >
-                                                        <FontAwesomeIcon icon={faTrash}/>
-                                                    </button>
-                                                </section>
-                                                
+                                        <div 
+                                            className="flex  h-[7vh] px-2 justify-between items-center mb-2 hover:bg-[hsl(var(--background5))]" 
+                                            key={deck._id} 
+                                            onClick={() => handleDeckClick(deck)}
+                                        >  
+                                            <section className="flex flex-col">
+                                                <div className="text-[hsl(var(--text))]"><strong>{deck.deck_name}</strong></div>
+                                                <div className="text-gray-400">Last Updated {deck.lastUpdated}</div>
+                                            </section>
+                                            <section className="flex flex-col text-[hsl(var(--text))]">{deck.deck_desc}</section>
+                                            <section className="flex w-fit space-x-1">
+                                                <button className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'><FontAwesomeIcon icon={faStar}/></button>
+                                                <button className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'><FontAwesomeIcon icon={faCopy}/></button>
+                                                <button 
+                                                    className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'
+                                                    onClick={(event) => {event.stopPropagation(); handleDeleteDeckClick(deck)}}
+                                                >
+                                                    <FontAwesomeIcon icon={faTrash}/>
+                                                </button>
+                                            </section>      
                                         </div>
                                     </>
                                 ))}        
@@ -133,7 +102,7 @@ const ViewDecks = ({ deckprops, user }: DeckProps) => {
                             <section className="flex w-full h-[50vh] justify-center items-center">
                                 <span className="text-[hsl(var(--text))] font-bold text-2xl">You don't have any owned Decks</span>
                             </section>
-                        ) : filteredDecks.length > 0 ? (
+                        ) : currentGalleryPageResults.length > 0 ? (
                             <>
                             </>
                         ) : (
