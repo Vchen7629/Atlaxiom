@@ -186,8 +186,8 @@ const deleteOwnedCardByUsername = asyncHandler(async (req, res) => {
   user.lastDeleted = card_name;
   user.lastCardUpdated = `${formattedDate} ${formattedTime}`;
 
-  if (user.uniqueCards != 0) {
-    user.uniqueCards = uniqueCards - 1;
+  if (user.uniqueCards != -1) {
+    user.uniqueCards = user.uniqueCards - 1;
   }
   
   await user.save();

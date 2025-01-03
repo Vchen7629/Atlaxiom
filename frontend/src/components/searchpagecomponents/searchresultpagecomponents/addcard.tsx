@@ -10,14 +10,26 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"
 import { useAddNewOwnedCardMutation } from '../../../features/api-slices/ownedCardapislice';
 import { CardSet, ComponentCardSetPopupProps } from "../types/searchresultcomptypes";
    
-export const ComponentCardSetPopup = ({ selectedCardData, userId, cardSets }: ComponentCardSetPopupProps) => {
+export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupProps) => {
+    const {
+        selectedCardData,
+        userId, 
+        cardSets, setCardSets
+    } = addcardprops 
+    
     const [cardMessages, setCardMessages] = useState<{ [key: number]: string }>({});
     const [addNewOwnedCard] = useAddNewOwnedCardMutation();
+
+    useEffect(() => {
+        setCardSets(selectedCardData?.card_sets || []);
+    }, [cardSets])
+
+    console.log(cardSets)
 
     const handleBackClick = () => {
         setCardMessages({});

@@ -4,13 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy, faStar, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Deck, DeckDisplayComponent, DeckError, handleDeckClick } from '../types/homepagecomponentprops.ts';
-import { useGlobalDeckRefetchState } from '@/app/globalStates/refetchDeckState.tsx';
 
 const DeckDisplay= ({ listView, galleryView, userId, deckName }: DeckDisplayComponent) => {
     const navigate = useNavigate();
 
     const { data: modifyDecks, refetch } = useGetAllOwnedDecksQuery(userId);
-    const { deckRefetch, setDeckRefetch } = useGlobalDeckRefetchState(); 
 
     const [getSpecificDeck] = useGetSpecificOwnedDeckMutation();
 
@@ -19,11 +17,10 @@ const DeckDisplay= ({ listView, galleryView, userId, deckName }: DeckDisplayComp
     const decksToDisplay = modifyDecks?.entities?.undefined?.ownedDecks || [];
     
     useEffect(() => {
-        if (userId && deckRefetch) {
+        if (userId) {
             refetch();
-            setDeckRefetch(false);
         }
-    }, [userId, deckRefetch]);
+    }, [userId]);
 
     const filteredDecks = decksToDisplay.filter((deck: Deck) =>
         deck?.deck_name?.toLowerCase().includes(deckName.toLowerCase())

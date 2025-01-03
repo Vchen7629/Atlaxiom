@@ -8,9 +8,12 @@ export type CardSet = {
 }
 
 export type ComponentCardSetPopupProps = {
-    selectedCardData: SelectedCardData;
-    userId: string;
-    cardSets: CardSet[];
+    addcardprops: {
+        selectedCardData: SelectedCardData | null;
+        userId: string;
+        cardSets: CardSet[];
+        setCardSets: React.Dispatch<React.SetStateAction<CardSet[]>>
+    }
 }
 
 export type token = {

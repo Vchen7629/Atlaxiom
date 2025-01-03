@@ -56,6 +56,20 @@ export default {
 			dropdow: '0 0px 4px 0px hsl(var(--shadow-color))'
   		},
   		keyframes: {
+			skFoldCube: {
+				'0%, 10%': {
+					transform: 'perspective(140px) rotateX(-180deg)',
+					opacity: '0',
+				},
+				'25%, 75%': {
+					transform: 'perspective(140px) rotateX(0deg)',
+					opacity: '1',
+				},
+				'90%, 100%': {
+					transform: 'perspective(140px) rotateY(180deg)',
+					opacity: '0',
+				},
+			},
   			marquee: {
   				from: {
   					transform: 'translateX(0)'
@@ -75,7 +89,8 @@ export default {
   		},
   		animation: {
   			marquee: 'marquee var(--duration) infinite linear',
-  			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite'
+  			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
+			skFoldCube: "skFoldCube 2.4s infinite linear both",
   		}
   	}
   },

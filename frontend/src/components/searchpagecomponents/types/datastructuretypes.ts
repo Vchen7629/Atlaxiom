@@ -70,4 +70,11 @@ export type SelectedCardData = {
     card_images?: { 
         image_url: string 
     }[];
+    card_sets?: {
+        set_code: string;
+        set_name: string;
+        set_price: number;
+        set_rarity: string; 
+        set_rarity_code: string
+    }[];
 }

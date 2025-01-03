@@ -35,7 +35,7 @@ const CollectionSearchBarComponent = ({ CollectionSearchBarCompProps }: Collecti
                 const isValidCard = (card: any): card is OwnedCard => {
                     return card !== undefined && card !== null && Object.keys(card).length > 0;
                 }
-                const cardsToDisplay = Object.values(result.data.entities || {}).flat().filter(isValidCard);
+                const cardsToDisplay = Object.values(result.data.entities.defaultId.ownedCards || {}).flat().filter(isValidCard);
                 setCollectionCardData(cardsToDisplay);
             } else {
                 throw new Error('No data returned from prefetch.');
@@ -54,7 +54,7 @@ const CollectionSearchBarComponent = ({ CollectionSearchBarCompProps }: Collecti
         const normalizedInput = inputValue.toLowerCase().replace(/[-\s]/g, ''); 
         const filteredSuggestions = collectionCardData.filter((card) => {
             const normalizedCardName = card?.card_name?.toLowerCase().replace(/[-\s]/g, ''); 
-            return normalizedCardName.includes(normalizedInput);
+            return normalizedCardName?.includes(normalizedInput);
         });
 
         console.log("Filtered Cards:", filteredSuggestions);

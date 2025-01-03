@@ -69,6 +69,8 @@ const UserOwnedCardPage = () => {
   const cardsToDisplay = useMemo(() => {
     return Object.values(ownedCards?.entities?.defaultId?.ownedCards || {}).flat() as Card[];
   }, [ownedCards]);
+
+  console.log(cardsToDisplay)
             
   const filteredCards = useMemo(() => {
         return cardsToDisplay.filter((card): card is Card => {
