@@ -1,5 +1,6 @@
 export type Pagination = {
     paginationprops: {
+        filteredCards: any;
         listView: boolean;
         galleryView: boolean;
         currentListPage: number;
@@ -14,9 +15,6 @@ export type Pagination = {
         totalGalleryPages: number;
         updateTotalListPages: (filteredCardsLength: number) => void;
         updateTotalGalleryPages: (filteredCardsLength: number) => void;
-        searchTerm: string;
-        totalListNamesArray: string[];
-        totalGalleryNamesArray: string[]
     }
 }
 

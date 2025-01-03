@@ -1,7 +1,6 @@
-import { useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/Footer';
-import SearchResults from './searchresults';
 import GridListViewComponent from '../../components/searchpagecomponents/searchbar/grid_or_list_view';
 import FilterCardComponent from '../../components/searchpagecomponents/searchresultfilter/FilterComponent';
 import SearchBarComponent from '../../components/searchpagecomponents/searchbar/searchbar';
@@ -12,15 +11,22 @@ import { CardSet } from '../../components/searchpagecomponents/types/searchresul
 import ClearFilterButton from '../../components/searchpagecomponents/buttons/clearfilterbutton';
 import FilterButton from '../../components/searchpagecomponents/buttons/filterbutton';
 import PaginationComponent from '@/components/searchpagecomponents/pagination/pagination';
+import FoldingCube from '@/components/loadingcomponents/foldingcube';
+
+const SearchResultComponent = lazy(() => delayLoadTimer(import('./searchresults')))
+
+async function delayLoadTimer (promise: any) {
+  return new Promise(resolve => {
+    setTimeout(resolve, 1500);
+  }).then(() => promise);
+}
 
 const SearchBarPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [cardData, setCardData] = useState<ApiCardData[]>([]);
   const [cardSets, setCardSets] = useState<CardSet[]>([]);
 
-  const [totalListNamesArray, setTotalListNamesArray] = useState<string[]>([]);
   const [currentPageListNamesArray, setCurrentPageListNamesArray] = useState<string[]>([]);
-  const [totalGalleryNamesArray, setTotalGalleryNamesArray] = useState<string[]>([]);
   const [currentPageGalleryNamesArray, setCurrentPageGalleryNamesArray] = useState<string[]>([]);
 
   const [clickedOnCard, setClickedOnCard] = useState<boolean>(false);
@@ -75,7 +81,101 @@ const SearchBarPage = () => {
   }
   const [currentListPage, setListCurrentPage] = useState<number>(1);  
   const [currentGalleryPage, setGalleryCurrentPage] = useState<number>(1);
+
+  const apiUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
+
+  const fetchAllCardData = async () => {
+    try {
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+
+      if (response.ok) {
+        setCardData(data.data);
+        console.log("card", data.data)
+      } else {
+        setCardData([]);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setCardData([]);
+    }
+  };
+
+  useEffect(() => {
+      fetchAllCardData();
+    }, []);
+
+  const filteredCards = useMemo(() => { 
+        return cardData.filter((card) => {
+          if (!searchTerm) return false;
+          const normalizedInput = searchTerm.toString().toLowerCase().replace(/[-\s]/g, '');
+          const normalizedCardName = card.name.toString().toLowerCase().replace(/[-\s]/g, ''); 
+          const normalizedSpellType = spellType ? spellType.toLowerCase() : "";
+          const normalizedTrapType = trapType ? trapType.toLowerCase() : "";
+          const normalizedAttributeType = attributeType ? attributeType.toLowerCase() : "";
   
+          const matchesname = normalizedCardName.includes(normalizedInput);
+          const matchesMonsterType = monsterType ? card.type?.toLowerCase() === monsterType.toLowerCase() : true ;
+          const matchesSpellType = spellType? card.race?.toLowerCase() === normalizedSpellType && card.frameType?.toLowerCase() === 'spell' : true;
+          const matchesTrapType = trapType ? card.race?.toLowerCase() == normalizedTrapType && card.frameType?.toLowerCase() === "trap" : true;
+          const matchesAttributeType = attributeType? card.attribute?.toLowerCase() == normalizedAttributeType : true;
+          
+          const matchesLevelFilter = levelFilter ?
+            (lessThanEqual && card.level !== undefined && card.level <= levelFilter) ||
+            (equal && card.level !== undefined && card.level === levelFilter) ||
+            (greaterThanEqual && card.level !== undefined && card.level >= levelFilter)
+          : true;
+  
+          const matchesPendFilter = pendFilter ? 
+            (pendLessThanEqual && card.scale !== undefined && card.scale <= pendFilter) ||
+            (pendEqual && card.scale !== undefined && card.scale === pendFilter) || 
+            (pendGreaterThanEqual && card.scale !== undefined && card.scale >= pendFilter)
+          : true;
+  
+          const matchesLinkFilter = linkFilter ? 
+            (linkLessThanEqual && card.linkval !== undefined && card.linkval <= linkFilter) ||
+            (linkEqual && card.linkval !== undefined && card.linkval === linkFilter) || 
+            (linkGreaterThanEqual && card.linkval !== undefined && card.linkval >= linkFilter)
+          : true;
+  
+          const matchesAtkFilter = atkFilter ?
+            (atkLessThanEqual && card.atk !== undefined && card.atk <= atkFilter) ||
+            (atkEqual && card.atk !== undefined && card.atk === atkFilter) ||
+            (atkGreaterThanEqual && card.atk !== undefined && card.atk >= atkFilter) 
+          : true;
+  
+          const matchesDefFilter = defFilter ?
+            (defLessThanEqual && card.def !== undefined && card.def <= defFilter) ||
+            (defEqual && card.def !== undefined && card.def === defFilter) ||
+            (defGreaterThanEqual && card.def !== undefined && card.def >= defFilter) 
+          : true;
+  
+          return (
+            !! matchesname &&
+            matchesMonsterType &&
+            matchesSpellType && 
+            matchesTrapType && 
+            matchesAttributeType && 
+            matchesLevelFilter && 
+            matchesPendFilter && 
+            matchesLinkFilter && 
+            matchesAtkFilter &&
+            matchesDefFilter
+          ) 
+        });
+      }, [
+        searchTerm,
+        cardData, 
+        monsterType, 
+        spellType, 
+        trapType, 
+        attributeType, 
+        levelFilter, equal, greaterThanEqual, lessThanEqual, 
+        pendFilter, pendLessThanEqual, pendEqual, pendGreaterThanEqual, 
+        linkFilter, linkLessThanEqual, linkEqual, linkGreaterThanEqual, 
+        atkFilter, atkLessThanEqual, atkEqual, atkGreaterThanEqual,
+        defFilter, defLessThanEqual, defEqual, defGreaterThanEqual,
+      ]);
 
   const gridlistviewprops = {
     setListView,
@@ -83,33 +183,15 @@ const SearchBarPage = () => {
     setGalleryView,
     galleryView,
     setClickedOnCard,
-    setTotalListNamesArray,
-    setTotalGalleryNamesArray,
   };
 
   const searchbarprops = {
-        cardData, setCardData,
-        searchTerm, setSearchTerm,
-        setClickedOnCard,
-        setSelectedCardData,
-        suggestionsPerListPage, 
-        suggestionsPerGalleryPage,
-        currentListPage, setListCurrentPage,
-        currentGalleryPage, setGalleryCurrentPage,
-        setCurrentPageListNamesArray,
-        setCurrentPageGalleryNamesArray,
-        setErrorMessage,
-        totalListNamesArray, setTotalListNamesArray,
-        totalGalleryNamesArray, setTotalGalleryNamesArray,
-        monsterType,
-        spellType,
-        trapType,
-        attributeType,
-        levelFilter, lessThanEqual, equal, greaterThanEqual,
-        pendFilter, pendLessThanEqual, pendEqual, pendGreaterThanEqual,
-        linkFilter, linkLessThanEqual, linkEqual, linkGreaterThanEqual,
-        atkFilter, atkLessThanEqual, atkEqual, atkGreaterThanEqual,
-        defFilter, defLessThanEqual, defEqual, defGreaterThanEqual
+    searchTerm, setSearchTerm,
+    setClickedOnCard,
+    setSelectedCardData,
+    setListCurrentPage,
+    setGalleryCurrentPage,
+    setErrorMessage,
   }
 
   const clearfilterprops = {
@@ -130,22 +212,19 @@ const SearchBarPage = () => {
   }
 
   const listviewprops = {
-    cardData,
-    setSearchTerm,
+    searchTerm,
+    setSelectedCardData,
     setClickedOnCard,
     currentPageListNamesArray,
-    setTotalListNamesArray,
-    setSelectedCardData,
     setErrorMessage,
-    cardSets, setCardSets
   } 
 
   const galleryviewprops = {
+    searchTerm,
     cardData,
     setSearchTerm,
     setClickedOnCard,
     currentPageGalleryNamesArray,
-    setTotalGalleryNamesArray,
     setSelectedCardData,
     setErrorMessage,
     cardSets, setCardSets
@@ -180,6 +259,7 @@ const SearchBarPage = () => {
   }
 
   const paginationprops = {
+    filteredCards,
     listView,
     galleryView,
     currentListPage, setListCurrentPage,
@@ -193,9 +273,9 @@ const SearchBarPage = () => {
     updateTotalListPages,
     updateTotalGalleryPages,
     searchTerm,
-    totalListNamesArray,
-    totalGalleryNamesArray,
   }
+
+  const searchresultprops = { selectedCardData, cardSets, setCardSets }
 
 
   return (
@@ -222,8 +302,10 @@ const SearchBarPage = () => {
                 </main>
               )}
             
-              {clickedOnCard && selectedCardData ? (
-                <SearchResults selectedCardData={selectedCardData} cardSets={cardSets}/>
+              {clickedOnCard ? (
+                <Suspense fallback={<FoldingCube/>}>
+                  <SearchResultComponent searchresultprops={searchresultprops}/>
+                </Suspense>
               ) : (
                 <>
                     {listView && (

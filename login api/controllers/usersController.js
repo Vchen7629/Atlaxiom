@@ -167,11 +167,7 @@ const deleteUser = asyncHandler(async (req, res) => {
     }
 
     // Delete all documents with the same user_id
-    const deleteRelatedDocuments = await OwnedCard.deleteMany({ user_id: user._id });
-
-    if (deleteRelatedDocuments.deletedCount === 0) {
-        return res.status(404).json({ message: 'No related documents found to delete' });
-    }
+    await OwnedCard.deleteMany({ user_id: user._id });
 
     const result = await user.deleteOne()
 

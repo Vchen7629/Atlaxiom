@@ -4,6 +4,7 @@ import { Pagination } from "../types/paginationtypes.ts";
 
 const PaginationComponent = ({ paginationprops }: Pagination) => {
     const { 
+        filteredCards,
         listView,
         galleryView,
         currentListPage, setListCurrentPage,
@@ -16,9 +17,6 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         totalGalleryPages,
         updateTotalListPages,
         updateTotalGalleryPages,
-        searchTerm,
-        totalListNamesArray,
-        totalGalleryNamesArray,
     } = paginationprops
     
     const [listpage, setListPage] = useState<number>(currentListPage);
@@ -29,12 +27,10 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
 
 
     const updateCurrentPageList = () => {
-        if (!searchTerm.trim()) {
-            setCurrentPageListNamesArray([]);
-        } else if (totalListNamesArray.length > 0) {
+        if (filteredCards.length > 0) {
             const startIndex = (currentListPage - 1) * suggestionsPerListPage;
             const endIndex = startIndex + suggestionsPerListPage;
-            const currentListSuggestions = totalListNamesArray.slice(startIndex, endIndex) as string[];
+            const currentListSuggestions = filteredCards.slice(startIndex, endIndex) as string[];
             setCurrentPageListNamesArray(currentListSuggestions);
         }
     };
@@ -59,12 +55,10 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
     };
 
     const updateCurrentPageGallery = () => {
-        if (!searchTerm.trim()) {
-            setCurrentPageGalleryNamesArray([]);
-        } else if (totalGalleryNamesArray.length > 0) {
+        if (filteredCards.length > 0) {
             const startIndex = (currentListPage - 1) * suggestionsPerGalleryPage;
             const endIndex = startIndex + suggestionsPerGalleryPage;
-            const currentGallerySuggestions = totalGalleryNamesArray.slice(startIndex, endIndex) as string[];
+            const currentGallerySuggestions = filteredCards.slice(startIndex, endIndex) as string[];
             setCurrentPageGalleryNamesArray(currentGallerySuggestions);
         }
     };
@@ -89,25 +83,16 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
     };
 
     useEffect(() => {
-        updateTotalListPages(totalListNamesArray.length);
-        updateTotalGalleryPages(totalGalleryNamesArray.length);
-        updateCurrentPageList();
-        updateCurrentPageGallery();
-        if (totalListNamesArray.length > 0) {
+        updateTotalListPages(filteredCards.length);
+        updateTotalGalleryPages(filteredCards.length);
+        if (filteredCards.length > 0) {
             updateCurrentPageList();
             updateCurrentPageGallery();
+        } else if (filteredCards.length === 0) {
+            setCurrentPageListNamesArray([]);
+            setCurrentPageGalleryNamesArray([]);
         }
-    }, [
-        totalListNamesArray.length, 
-        totalGalleryNamesArray.length,
-        searchTerm,
-        suggestionsPerListPage, 
-        suggestionsPerGalleryPage, 
-        currentListPage, 
-        currentGalleryPage,
-        totalListNamesArray,
-        totalGalleryNamesArray,
-    ]);
+    }, [filteredCards, suggestionsPerListPage, suggestionsPerGalleryPage, currentListPage, currentGalleryPage]);
 
     const pageselectorprops = {
         listView,

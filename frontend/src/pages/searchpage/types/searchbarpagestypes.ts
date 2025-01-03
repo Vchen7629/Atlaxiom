@@ -2,8 +2,11 @@ import { SearchResCardData } from "../../../components/searchpagecomponents/type
 import { CardSet } from "../../../components/searchpagecomponents/types/searchresultcomptypes";
 
 export type SearchResult = {
-    selectedCardData: SearchResCardData;
-    cardSets: CardSet[]
+    searchresultprops: {
+        selectedCardData: SearchResCardData | null;
+        cardSets: CardSet[]
+        setCardSets: React.Dispatch<React.SetStateAction<CardSet[]>>
+    }
 }
 
 export type SearchAuth = {

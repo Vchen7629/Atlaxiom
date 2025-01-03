@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useIncreaseOwnedCardMutation, useDecreaseOwnedCardMutation, useDeleteOwnedCardMutation, useGetOwnedCardsQuery } from '../../../features/api-slices/ownedCardapislice.ts';
 import { Card, filteredListCards, SelectedCard } from "../types/ownedcarddetailstypes.ts";
+import { useGetSpecificUserQuery } from "@/features/api-slices/usersApiSlice.ts";
 
 export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListCards) => {
     const { currentListPageResults } = displaylistprops
@@ -28,6 +29,7 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
     const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null)
 
     const { refetch } = useGetOwnedCardsQuery(userId);
+    const { data: ownedCardCount, refetch: refetchOwnedCards } = useGetSpecificUserQuery(userId);
 
     const handleIncreaseClick = async (cardName: string) => {
         try {
@@ -66,6 +68,7 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
             CardData: { card_name: cardName }
           });
           refetch();
+          refetchOwnedCards();
         } catch (err) {
           console.error('Failed to delete card:', err);
         }
@@ -74,8 +77,7 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <div className="text-[hsl(var(--text))] ">
-                
+                <div className="text-[hsl(var(--text))]">
                     {currentListPageResults.length > 0 ? (
                         currentListPageResults.map((card: Card, index: number) => (
                             <div key={index} className="flex bg-transparent h-24 text-sm font-bold items-center hover:bg-blacktwo" onClick={() => setSelectedCard(card)}>
@@ -122,8 +124,12 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
                                 </div>
                         </div>
                         ))
+                    ) : ownedCardCount?.entities[userId].totalOwnedCards === 0 ? (
+                      <div className="flex h-[80vh] justify-center pt-[25%] text-3xl text-gray-400 font-black">
+                        <span>You have no owned Cards</span>
+                      </div>
                     ) : (
-                        <div className="flex h-full justify-center pt-[25%] text-3xl text-gray-400 font-black">
+                        <div className="flex h-[80vh] justify-center pt-[25%] text-3xl text-gray-400 font-black">
                           <span>No cards matching your Filters</span>
                         </div>
                     )}
