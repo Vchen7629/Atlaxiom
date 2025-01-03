@@ -50,7 +50,6 @@ const ViewDecks = ({ deckprops, user }: DeckProps) => {
             }
         }
         
-        console.log (currentListPageResults)
         return (
             <div className="bg-[hsl(var(--profilebackground))] p-4 rounded-xl min-h-[60vh]">  
                 {listView && (

@@ -23,11 +23,11 @@ const SearchResults = ({ searchresultprops }: SearchResult) => {
             <div className="flex w-[80%] items-center">
                 <BreadcrumbSearchResult/>
             </div>
-            <main className="flex mt-[5vh] w-[90%] ">
+            <main className="flex mt-[5vh] w-[90%]">
                 <img className="w-[15vw] object-contain mx-[5%] "
                     src={selectedCardData?.card_images[0].image_url}
                 /> 
-                <div className="flex flex-col w-[30%] pt-[1%]">
+                <div className="flex flex-col w-[30vw] pt-[1%]">
                     <div className="text-4xl text-goldenrod w-full">{selectedCardData?.name}</div>
                     <div className="flex my-[4%] text-xl text-gray-300 w-full">{selectedCardData?.desc}</div>
                       <div className="flex flex-col h-[79%] w-[80%] pt-[4%]">

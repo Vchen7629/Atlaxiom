@@ -10,13 +10,11 @@ import DeckBuilderPage from './pages/my-decks/editdeckpage.tsx';
 import Profilepage from './pages/profilepage/Profilepage.tsx';
 import { HomePage } from './pages/homepage/homepage.tsx';
 import SignUpPageComponent from './pages/sign-up-page/signuppage.tsx';
-import { GlobalDeckRefetchStateProvider } from './app/globalStates/refetchDeckState.tsx';
 
 
 
 function App() {
   return (
-    <GlobalDeckRefetchStateProvider>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="signup" element={<SignUpPageComponent/>}/>
@@ -37,7 +35,6 @@ function App() {
         </Route>
       
       </Routes>
-    </GlobalDeckRefetchStateProvider>
   );
 } 
 
