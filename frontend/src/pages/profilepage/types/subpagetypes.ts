@@ -56,3 +56,10 @@ export type EditAccount = {
     };
     refetch: any;
 }
+
+export type Statistics = {
+    statisticsprops: {
+        yearView: boolean;
+        monthView: boolean
+    }
+}

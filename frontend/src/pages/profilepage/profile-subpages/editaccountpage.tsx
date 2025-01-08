@@ -109,7 +109,7 @@ const EditAccountPage = ({ user, refetch }: EditAccount) => {
     }
 
     return (
-        <div className="flex pl-4 pt-4 bg-[hsl(var(--profilebackground))] rounded-xl">
+        <div className="flex pl-8 pt-8 bg-[hsl(var(--profilebackground))] rounded-xl">
             <section className="flex flex-col h-full w-1/4 space-y-6 text-xl text-[hsl(var(--text))]">
                 <button className="w-full flex items-center space-x-6" onClick={handleChangeUserNameClick}>
                     <div className={`flex items-center justify-center w-10 h-10 ${changeUsername ? "bg-[hsl(var(--background3))]" : "bg-footer text-white"} rounded-xl`}>

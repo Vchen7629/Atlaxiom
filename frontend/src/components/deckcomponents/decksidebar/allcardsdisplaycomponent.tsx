@@ -24,7 +24,7 @@ const AllCardsSearchResultsDisplayComponent = ({ AllCardsDisplayCompProps }: All
                                     className='"h-full object-contain'
                                 />
                                 <div className="flex flex-col ml-2">
-                                    <div className="font-black">{card.name}</div>
+                                    <div className="font-black text-xs">{card.name}</div>
                                     <div className="overflow-y-auto text-sm text-gray-300">{card.desc || "No description available"}</div>
                                 </div>
                             </div>

@@ -14,6 +14,7 @@ import EditAccountPage from './profile-subpages/editaccountpage.tsx';
 import { useGetAllOwnedDecksQuery } from '@/features/api-slices/decksapislice.ts';
 import PaginationComponent from '@/components/profilepagecomponents/statisticscomponents/pagination/pagination.tsx';
 import { Deck } from '@/components/profilepagecomponents/statisticscomponents/types/paginationtypes.ts';
+import BarChartViewButton from '@/components/profilepagecomponents/statisticscomponents/buttons/barchartbutton.tsx';
 
 
 const Profilepage = () => {
@@ -44,6 +45,9 @@ const Profilepage = () => {
     const [currentGalleryPage, setGalleryCurrentPage] = useState<number>(1);
     const [currentListPageResults, setCurrentListPageResults] = useState({ currentListPageResults: [], length: 0, map: () => {} })
     const [currentGalleryPageResults, setCurrentGalleryPageResults] = useState({ currentListPageResults: [], length: 0, map: () => {} })
+
+    const [yearView, setYearView] = useState<boolean>(true);
+    const [monthView, setMonthView] = useState<boolean>(false);
 
     const navbarprops = {
         deckActive, setDeckActive,
@@ -81,6 +85,16 @@ const Profilepage = () => {
         totalGalleryPages,
         updateTotalListPages,
         updateTotalGalleryPages,
+    }
+
+    const statisticsprops = {
+        yearView,
+        monthView
+    }
+
+    const barchartbuttonprops = {
+        yearView, setYearView,
+        monthView, setMonthView
     }
     
     const { 
@@ -136,8 +150,11 @@ const Profilepage = () => {
                 return (
                     <>
                         {header}
-                        <NavBarComponent navbarprops={navbarprops}/>
-                        <UserStatistics/>
+                        <div className="flex items-center w-full justify-between">
+                            <NavBarComponent navbarprops={navbarprops}/>
+                            <BarChartViewButton barchartbuttonprops={barchartbuttonprops}/>
+                        </div>
+                        <UserStatistics statisticsprops={statisticsprops}/>
                     </>
                 );
             case 'edit':

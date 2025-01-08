@@ -209,30 +209,30 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
                     </button>
                 </section>
                 
-                <section className="flex flex-col w-[92%] items-start">
-                    <div className="flex mt-[5%] w-full">
+                <section className="flex flex-col w-[92%] items-start space-y-[5%]">
+                    <div className="flex w-full items-center mt-[5%]">
                         <div className="flex h-full w-[7vw] text-sm font-black items-center text-[hsl(var(--text))] ">Card Subtype:</div>
-                        <SubTypeDropDownComponent subtypeprops={subtypeprops}/>
+                        <div><SubTypeDropDownComponent subtypeprops={subtypeprops}/></div>
                     </div>
-                    <div className="flex mt-[5%] w-full">
+                    <div className="flex w-full items-center">
                         <div className="flex h-full w-[7vw] text-sm items-center font-black text-[hsl(var(--text))] ">Card Attribute:</div>
-                        <AttributeDropDownComponent attributeprops={attributeprops}/>
+                        <div><AttributeDropDownComponent attributeprops={attributeprops}/></div>
                     </div>
-                    <div className="flex mt-[5%] w-full">
+                    <div className="flex w-full items-center">
                         <div className="flex h-full w-[7vw] text-sm  items-center font-black text-[hsl(var(--text))] ">Card Archetype:</div>
                         <ArchetypeDropDownComponent archetypeprops={archetypeprops}/>
                     </div>
-                    <div className="flex mt-[5%] w-full">
+                    <div className="flex w-full items-center">
                         <div className="flex h-full w-[10vw] text-sm  items-center font-black text-[hsl(var(--text))]">Card Level:</div>
-                        <LevelSliderComponent levelprops={levelprops}/>
+                        <div className="w-[80%]"><LevelSliderComponent levelprops={levelprops}/></div>
                     </div>
-                    <div className="flex mt-[5%] w-full ">
+                    <div className="flex w-full items-center">
                         <div className="flex h-full w-[7vw] text-sm items-center font-black text-[hsl(var(--text))]">Rarity:</div>
-                        <RarityDropDownComponent rarityprops={rarityprops}/>
+                        <div><RarityDropDownComponent rarityprops={rarityprops}/></div>
                     </div>
-                    <div className="flex mt-[5%] w-full ">
+                    <div className="flex w-full items-center">
                         <div className="flex h-full w-[7vw] text-sm items-center font-black text-[hsl(var(--text))]">Card Set:</div>
-                        <CardSetDropDownComponent setprops={setprops}/>
+                        <div><CardSetDropDownComponent setprops={setprops}/></div>
                     </div>
                 </section>
             </>

@@ -299,38 +299,34 @@ const SearchBarPage = () => {
                       <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                     </div>
                   </div>
-                </main>
-              )}
-            
-              {clickedOnCard ? (
-                <Suspense fallback={<FoldingCube/>}>
-                  <SearchResultComponent searchresultprops={searchresultprops}/>
-                </Suspense>
-              ) : (
-                <>
-                    {listView && (
-                      <main className='flex flex-col justify-center space-y-2 px-6'>
-                        <PaginationComponent paginationprops={paginationprops}/>
-                        <ListViewSearchSuggestionsComponent listviewprops={listviewprops}/>
-                        <PaginationComponent paginationprops={paginationprops}/>
-                      </main>
-                    )}
-                    {galleryView && (
-                      <main className="flex flex-col w-full h-full space-y-2 px-6">
-                        <PaginationComponent paginationprops={paginationprops}/>
-                        <GalleryViewSearchSuggestionsComponent galleryviewprops={galleryviewprops}/>
-                        <PaginationComponent paginationprops={paginationprops}/>
-                      </main>
+                  {listView && (
+                    <main className='flex flex-col justify-center space-y-2 px-6'>
+                      <PaginationComponent paginationprops={paginationprops}/>
+                      <ListViewSearchSuggestionsComponent listviewprops={listviewprops}/>
+                      <PaginationComponent paginationprops={paginationprops}/>
+                    </main>
                   )}
-                  
-                </>   
-              )}           
+
+                  {galleryView && (
+                    <main className="flex flex-col w-full h-full space-y-2 px-6">
+                      <PaginationComponent paginationprops={paginationprops}/>
+                      <GalleryViewSearchSuggestionsComponent galleryviewprops={galleryviewprops}/>
+                      <PaginationComponent paginationprops={paginationprops}/>
+                    </main>
+                  )}
+                </main>       
+              )}
           </div>
           <div className={`fixed flex right-2 top-24 min-h-[80vh] ${expandStatus ? "w-[20%]" : "w-0 "}`}>
             {!clickedOnCard &&  (
               <FilterCardComponent filterprops={filterprops}/>
             )}
           </div>
+          {clickedOnCard && (
+            <Suspense fallback={<FoldingCube/>}>
+              <SearchResultComponent searchresultprops={searchresultprops}/>
+            </Suspense>
+          )}        
         </main>   
         <Footer/>
       </div>

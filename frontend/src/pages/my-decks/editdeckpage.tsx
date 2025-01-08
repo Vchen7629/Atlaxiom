@@ -36,7 +36,7 @@ const DeckBuilderPage = () => {
                 {!isLoading && deckData && (
                     <>
                     <section className="flex flex-col w-[80vw] pt-[76px]">
-                        <header className="flex justify-between items-center p-5 w-full h-[13vh] bg-gradient-to-t from-[hsl(var(--homepagegradient1))] to-[hsl(var(--homepagegradient3))]">
+                        <header className="flex justify-between items-center p-5 w-full h-[17vh] bg-gradient-to-t from-[hsl(var(--homepagegradient1))] to-[hsl(var(--homepagegradient3))]">
                             <section className="flex flex-col h-full justify-between">
                                 <div className='text-3xl font-black text-[hsl(var(--text))]'>{deck?.deck_name}</div>
                                 <div>Created On: {deck?.createdOn}</div>
