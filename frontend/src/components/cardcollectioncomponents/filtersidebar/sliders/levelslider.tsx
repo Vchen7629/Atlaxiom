@@ -26,7 +26,7 @@ export function LevelSliderComponent({ levelprops, className, ...props }: LevelS
         defaultValue={[1]}
         max={13}
         step={1}
-        className={cn("w-full mr-2", className)}
+        className={cn("w-3/4 mr-2", className)}
         {...props}
       />
       <span className="px-2 flex items-center justify-center rounded-lg bg-footer text-goldenrod">{value[0]}</span>

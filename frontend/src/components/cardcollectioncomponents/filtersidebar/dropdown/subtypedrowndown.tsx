@@ -36,14 +36,14 @@ export function SubTypeDropDownComponent({ subtypeprops }: SubTypeDropDownProps)
           variant="cardcollection"
           role="combobox"
           aria-expanded={open}
-          className="w-[15vw] bg-transparent border-transparent text-[hsl(var(--text))] justify-between"
+          className="w-[15vw] border-transparent text-[hsl(var(--text))] justify-between"
         >
           {subTypeFilter ? (
             <span className={`flex relative items-center left-1/4 justify-between w-fit px-2 py-1 bg-[hsl(var(--background3))] text-white rounded text-sm`}>
                 {uniqueSubtype.find((subtype) => subtype === subTypeFilter) }
             </span>
           ) : (
-            <span className={`flex relative items-center left-1/5 justify-between w-fit px-2 py-1 bg-transparent rounded text-sm`}>
+            <span className={`w-[10vw] text-sm`}>
                 Select Card Subtype...
             </span>
           )}

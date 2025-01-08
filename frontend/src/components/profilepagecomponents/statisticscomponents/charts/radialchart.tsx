@@ -15,7 +15,8 @@ import {
 } from "@/components/ui/chart"
 import { useGetSpecificUserQuery } from "../../../../features/api-slices/usersApiSlice"
 import { useSelector } from "react-redux"
-export const description = "A radial chart with stacked sections"
+import { userId } from "../types/charttypes"
+export const description = "A radial chart displaying the user's unique cards compared to the total unique cards"
 
 const chartConfig = {
   ownedCards: {
@@ -30,7 +31,7 @@ const chartConfig = {
 
 export function ComponentRadialChart() {
 
-    const userId = useSelector((state) => state.auth.userId)
+    const userId = useSelector((state: userId) => state.auth.userId)
     const { data: userData } = useGetSpecificUserQuery(userId)
 
     const chartData = React.useMemo(() => {
@@ -47,7 +48,7 @@ export function ComponentRadialChart() {
     console.log(chartData[0].owned)
 
     return (
-        <Card className="flex flex-col bg-[hsl(var(--profilebackground))] border-transparent">
+        <Card className="flex flex-col bg-[hsl(var(--profilebackground))] border-transparent rounded-xl">
         <CardHeader>
             <CardTitle className="text-[hsl(var(--background3)">Collection status</CardTitle>
         </CardHeader>

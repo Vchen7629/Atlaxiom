@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/chart"
 import { useGetOwnedCardsQuery } from "../../../../features/api-slices/ownedCardapislice"
 import { useSelector } from "react-redux"
-export const description = "A donut chart with text"
+export const description = "A Pie Chart displaying the user's card collection makeup by the number of monster/spell/trap cards"
 
 
 const chartConfig = {
@@ -37,8 +37,6 @@ export function ComponentPieChart() {
   const userId = useSelector((state: { auth: { userId: string } }) => state.auth.userId);
   const { data: cardData } = useGetOwnedCardsQuery(userId)
 
-  console.log(cardData)
-
   const chartData = React.useMemo(() => {
     if (!cardData || !cardData.entities) {
       console.error("cardData.entities is undefined or empty.");
@@ -53,7 +51,7 @@ export function ComponentPieChart() {
       trap: 0,
     }
     
-    ownedCards.forEach((card) => {
+    ownedCards.forEach((card: any) => {
       const cardType = card.type?.toLowerCase() || "";
       const amount = card.ownedamount || 1
 
@@ -82,7 +80,7 @@ export function ComponentPieChart() {
   }, [chartData])
 
   return (
-    <Card className="flex flex-col bg-[hsl(var(--profilebackground))] border-transparent">
+    <Card className="flex flex-col bg-[hsl(var(--profilebackground))] border-transparent rounded-xl">
       <CardHeader className="items-center pb-0">
         <CardTitle className="text-gold">Card Type Make-up</CardTitle>
       </CardHeader>

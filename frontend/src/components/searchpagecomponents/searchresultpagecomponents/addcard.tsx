@@ -73,7 +73,7 @@ export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupPro
         <AlertDialogTrigger asChild>
           <Button className="bg-footer shadow-custom hover:text-gold hover:bg-footer">Add Card to Collection</Button>
         </AlertDialogTrigger>
-        <AlertDialogContent className="bg-blackone min-w-[35vw] border-transparent ">
+        <AlertDialogContent className="bg-blackone min-w-[40vw] border-transparent ">
           <AlertDialogHeader>
             <div className="flex justify-between">
                 <AlertDialogTitle>All printings</AlertDialogTitle>
@@ -87,7 +87,7 @@ export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupPro
             <AlertDialogDescription className="flex flex-col">
                 <div className="flex text-white p-2 ">
                     <div className="w-[20%] max-w-[25%] mr-4">Set Name</div>
-                    <div className="w-[17%]">Set Code</div>
+                    <div className="w-[20%]">Set Code</div>
                     <div className="w-[20%]">Rarity</div>
                     <div className="w-[10%] mr-3">Price</div>
                     <div className="w-[25%]">Action</div>
@@ -96,26 +96,27 @@ export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupPro
                     <>
                     {cardSets.map((set, index) => (
                         <div key={index} className="flex p-2 mb-2 items-center text-gold">
-                            <div className="w-[20%] max-w-[25%] mr-4">{set.set_name}</div>
-                            <div className="w-[17%]">{set.set_code}</div>
-                            <div className="w-[20%]">{set.set_rarity}</div>
-                            <div className="w-[10%]">${set.set_price}</div>
-                            <div className="w-[20%] ">
-                            {(!cardMessages[index]) && (
-                                <button
-                                    onClick={() => handleAddOwnedCardClick(set, index)}
-                                    className="bg-blue-500 rounded-xl flex items-center h-[30px] w-fit p-2 text-[12px]"
-                                >   
-                                    Add to Collection
-                                </button>
-                            )}
-                            {cardMessages[index] && (
-                                <div className={`h-12 w-fit p-2 text-[12px] ${cardMessages[index].includes("successfully") ? 'text-green-500' : 'text-red-600'}`}>
+                            {(!cardMessages[index]) ? (
+                                <>
+                                    <div className="w-[20%] max-w-[25%] mr-4">{set.set_name}</div>
+                                    <div className="w-[20%]">{set.set_code}</div>
+                                    <div className="w-[20%]">{set.set_rarity}</div>
+                                    <div className="w-[10%]">${set.set_price}</div>
+                                    <div className="w-[20%] ">
+                                        <button
+                                            onClick={() => handleAddOwnedCardClick(set, index)}
+                                            className="bg-[hsl(var(--background3))] text-[hsl(var(--text))] rounded-md flex items-center h-[30px] w-fit p-2 text-[12px]"
+                                        >   
+                                            Add to Collection
+                                        </button>
+                                    </div>
+                                </>
+                            ) : (
+                                <div className={`flex h-full w-full text-md justify-center ${cardMessages[index].includes("successfully") ? 'text-green-500' : 'text-red-600'}`}>
                                     {cardMessages[index]}
                                 </div>
                             )}
                         </div>
-                    </div>
                     ))}
                     </>
                 ) : (

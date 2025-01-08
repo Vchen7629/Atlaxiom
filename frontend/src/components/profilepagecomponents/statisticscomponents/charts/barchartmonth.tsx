@@ -17,34 +17,11 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
+import { ChartData, deckData } from "../types/charttypes"
 
 // Types
-interface OwnedDeck {
-    createdOn: string;
-    deck: string; 
-}
 
-interface OwnedCard {
-    addedOn: string;
-    card: string;
-}
-
-interface UserEntity {
-    ownedDecks: OwnedDeck[];
-    ownedCards: OwnedCard[];
-}
-
-interface UserData {
-    entities: Record<string, UserEntity>;
-}
-
-interface ChartData {
-    day: string;
-    decks: number;
-    cards: number;
-}
-
-export const description = "A multiple bar chart";
+export const description = "Bar Chart Displaying Information for decks/cards added by Month";
 
 const chartConfig = {
   desktop: {
@@ -59,7 +36,7 @@ const chartConfig = {
 
 export function ComponentBarMonthChart(): JSX.Element {
     const userId = useSelector((state: { auth: { userId: string } }) => state.auth.userId);
-    const { data: deckData } = useGetAllOwnedDecksQuery<UserData>(userId);
+    const { data: deckData } = useGetAllOwnedDecksQuery(userId);
     const { data: cardData } = useGetOwnedCardsQuery(userId)
     
     const months = [
@@ -95,14 +72,14 @@ export function ComponentBarMonthChart(): JSX.Element {
           cards: 0,
       }));
 
-      ownedDeck.forEach((deck) => {
+      ownedDeck.forEach((deck: deckData) => {
           const createdDate = new Date(deck.createdOn);
           if (createdDate.getMonth() === monthIndex && createdDate.getFullYear() === currentYear) {
               dailyData[createdDate.getDate() - 1].decks++;
           }
       });
 
-      ownedCards.forEach((card) => {
+      ownedCards.forEach((card: any) => {
           const addedDate = new Date(card.addedOn);
           const amount = card.ownedamount || 1
           if (addedDate.getMonth() === monthIndex && addedDate.getFullYear() === currentYear) {
@@ -118,50 +95,50 @@ export function ComponentBarMonthChart(): JSX.Element {
 
     return (
       <div>
-          <Card className="bg-blackthree w-[70vw] border-gray-500 border-4">
+          <Card className="relative w-[60vw] bg-[hsl(var(--profilebackground))] rounded-xl">
               <CardHeader>
                 <div className="flex w-full  justify-between">
-                    <div>
-                        <CardTitle className="text-gold mb-5">Your Cards/Deck Statistics</CardTitle>
+                    <div className="flex flex-col space-y-2">
+                        <CardTitle className="text-gold">Your Cards/Deck Statistics</CardTitle>
                         <CardDescription className="">
-                            {`Daily statistics for ${selectedMonth} 2024`}
+                            {`Card Statistics for ${selectedMonth} of 2024`}
                         </CardDescription>
                     </div>
-                    <div className="flex">
-                        <div className="">
+                    <div className="flex items-center space-x-[2vw]">
+                        <div>
                             <label htmlFor="monthSelect" className="sr-only">Select Month</label>
                             <select
                                 value={selectedMonth}
                                 onChange={(e) => setSelectedMonth(e.target.value)}
-                                className="p-2 border rounded border-2 max-h-[40px] border-goldenrod text-white"
+                                className="p-2 rounded max-h-[40px] bg-[hsl(var(--background1))] text-white"
                             >
                                 {months.map((month) => (
                                     <option key={month} value={month}>{month}</option>
                                 ))}
                             </select>
                         </div>  
-                        <div className="flex relative top-[-20px] right-[-25px]">
+                        <div className="flex space-x-8">
                             <button
                                 onClick={() => setStatisticType("cards")}
-                                className={`flex flex-col items-center px-4 py-2 w-[120px]  ${statisticType === "cards" ? "border-b-2 border-goldenrod" : "bg-transparent border-b-2 border-transparent"} text-white`}
+                                className={`flex flex-col items-center w-fit py-1 ${statisticType === "cards" ? "border-b-2 border-goldenrod" : "bg-transparent border-b-2 border-transparent"} text-white`}
                             >
                                 
                                 <div className="text-xs text-muted-foreground">Total Cards</div>
-                                <span className="text-md text-gold font-bold leading-none sm:text-3xl">{totalCards}</span>
+                                <span className="text-sm text-gold font-bold leading-none sm:text-3xl">{totalCards}</span>
                             </button>
                             <button
                                 onClick={() => setStatisticType("decks")}
-                                className={`flex flex-col items-center p-2 w-[120px]  ${statisticType === "decks" ? "border-b-2 border-goldenrod" : "bg-transparent border-b-2 border-transparent"} text-white`}
+                                className={`flex flex-col items-center w-fit py-1  ${statisticType === "decks" ? "border-b-2 border-goldenrod" : "bg-transparent border-b-2 border-transparent"} text-white`}
                             >
                                 <div className="text-xs text-muted-foreground">Total Decks</div>
-                                <span className="text-md text-gold font-bold leading-none sm:text-3xl">{totalDecks}</span>
+                                <span className="text-sm text-gold font-bold leading-none sm:text-3xl">{totalDecks}</span>
                             </button>
                         </div>
                     </div>
                 </div>
               </CardHeader>
               <CardContent>
-                <ChartContainer config={chartConfig} className="max-h-[35vh] w-full">
+                <ChartContainer config={chartConfig} className="max-h-[55vh] w-full">
                     <BarChart accessibilityLayer data={chartData}>
                         <XAxis
                             dataKey="day"
