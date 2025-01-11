@@ -88,10 +88,14 @@ const SearchBarPage = () => {
     try {
       const response = await fetch(apiUrl);
       const data = await response.json();
+      const startTime = new Date()
 
       if (response.ok) {
         setCardData(data.data);
         console.log("card", data.data)
+        const endTime = new Date();
+        const timeRendered = endTime.getMilliseconds() - startTime.getMilliseconds();
+        console.log(timeRendered);
       } else {
         setCardData([]);
       }

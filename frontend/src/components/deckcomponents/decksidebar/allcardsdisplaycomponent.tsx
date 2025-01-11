@@ -1,3 +1,5 @@
+import SearchCardGalleryViewItem from "../draganddropitems/SearchCardGalleryViewItem"
+import SearchCardListViewItem from "../draganddropitems/SearchCardListViewItem"
 import { AllCardsDisplayCompProps } from "../types/sidebarcomponenttypes"
 
 const AllCardsSearchResultsDisplayComponent = ({ AllCardsDisplayCompProps }: AllCardsDisplayCompProps) => {
@@ -16,18 +18,9 @@ const AllCardsSearchResultsDisplayComponent = ({ AllCardsDisplayCompProps }: All
         {listView && (
             <main className="flex w-full h-full">
                 {allCardsListResults.length > 0 ? (
-                    <div>
+                    <div className="flex flex-col space-y-2 ">
                         {allCardsCurrentListResults.map((card) => (
-                            <div key={card.id} className="flex h-[12.4%] w-full">
-                                <img 
-                                    src={card.card_images?.[0]?.image_url} 
-                                    className='"h-full object-contain'
-                                />
-                                <div className="flex flex-col ml-2">
-                                    <div className="font-black text-xs">{card.name}</div>
-                                    <div className="overflow-y-auto text-sm text-gray-300">{card.desc || "No description available"}</div>
-                                </div>
-                            </div>
+                            <SearchCardListViewItem card={card} />
                         ))}
                     </div>
                 ) : (
@@ -46,13 +39,7 @@ const AllCardsSearchResultsDisplayComponent = ({ AllCardsDisplayCompProps }: All
                     style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                 >
                      {allCardsCurrentGalleryResults.map((card) => (
-                         <div key={card.id} className="flex h-full w-full">
-                             <img 
-                                src={card.card_images?.[0]?.image_url} 
-                                className='h-full object-contain'
-                             />
-                        
-                         </div>
+                        <SearchCardGalleryViewItem card={card} />
                      ))}
                  </div>
             ) : (

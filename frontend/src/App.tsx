@@ -10,6 +10,8 @@ import DeckBuilderPage from './pages/my-decks/editdeckpage.tsx';
 import Profilepage from './pages/profilepage/Profilepage.tsx';
 import { HomePage } from './pages/homepage/homepage.tsx';
 import SignUpPageComponent from './pages/sign-up-page/signuppage.tsx';
+import {DndContext} from '@dnd-kit/core';
+
 
 
 
@@ -28,7 +30,7 @@ function App() {
           <Route path="/loggedin" element={<HomePage/>}/>
           <Route path="searchloggedin" element={<SearchBarPage/>} />
           <Route path="getcards" element={<UserOwnedCardPage/>}/>
-          <Route path="deckmanager" element={<MyDeck/>}/>
+            <Route path="deckmanager" element={<MyDeck/>}/>
           <Route path="modifyDeck" element={<DeckBuilderPage/>}/>         
           <Route path="profile" element={<Profilepage />}/>
           <Route path="banlistloggedin" element={<Banlists />} />
