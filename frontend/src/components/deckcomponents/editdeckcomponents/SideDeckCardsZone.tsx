@@ -5,15 +5,18 @@ import { useState } from "react"
 const SideDeckCardZone = ({ sidedeckprops }: any) => {
   const {
     deck,
-    sideDeckCards
+    sideDeckCards,
+    hoveredCard
   } = sidedeckprops
 
   const [listView, setListView] = useState(true);
   const [galleryView, setGalleryView] = useState(false);
 
-  const { setNodeRef } = useDroppable({
+  const { setNodeRef, isOver } = useDroppable({
     id: "sidedeckcard"
   })
+
+  const shouldSideDeckBlur = isOver && hoveredCard;
 
   const filterProps = {
     listView, setListView,
@@ -35,7 +38,9 @@ const SideDeckCardZone = ({ sidedeckprops }: any) => {
           <div className="flex flex-grow bg-[hsl(var(--editdeckdraganddropbackground))] w-full min-h-[90%] rounded-lg">
             <section
               ref={setNodeRef}
-              className="flex flex-col w-full pt-[1.5vh] pl-[0.4vw] relative group transition-all duration-300 hover:border-2 hover:border-goldenrod hover:backdrop-blur-md hover:rounded-md"
+              className={`flex flex-col w-full pt-[1.5vh] pl-[0.4vw] relative group transition-all duration-300 ${
+                shouldSideDeckBlur ? "blur-sm border-2 border-goldenrod rounded-tl-lg rounded-bl-lg" : ""
+              }`}
             >
               {sideDeckCards.length > 0 && (
                 <div className="w-full h-full flex flex-col space-y-2 pl-2 group-hover:blur-sm transition-all duration-300">
