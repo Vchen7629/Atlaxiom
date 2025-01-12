@@ -53,7 +53,8 @@ export default {
   		boxShadow: {
   			custom: '0 4px 30px rgba(0, 0, 0, 0.5)',
   			mycards: '0px 0px 15px rgb(19, 18, 18)',
-			dropdow: '0 0px 4px 0px hsl(var(--shadow-color))'
+			dropdow: '0 0px 4px 0px hsl(var(--shadow-color))',
+			'inner-border': 'inset 0 0 0 4px rgba(55, 65, 81, 1)'
   		},
   		keyframes: {
 			skFoldCube: {

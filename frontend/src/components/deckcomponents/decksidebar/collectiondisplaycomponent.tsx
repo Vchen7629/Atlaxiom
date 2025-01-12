@@ -15,9 +15,9 @@ const CollectionDisplayComponent = ({ CollectionDisplayCompProps }: CollectionDi
     return (
         <>
             {listView && (
-                <div className="flex w-full h-full py-2">
+                <div className="flex w-full h-full">
                         {collectionListResults.length > 0 ? (
-                            <div className="flex flex-col space-y-3">
+                            <div className="flex flex-col space-y-2">
                                 {collectionCurrentListResults.map((result) => (
                                     <CollectionListViewItem result={result} />
                                 ))}

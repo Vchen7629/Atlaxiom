@@ -8,6 +8,8 @@ import MainDeckCardZone from '@/components/deckcomponents/editdeckcomponents/Mai
 import { DndContext } from '@dnd-kit/core';
 import { Card, OwnedCard } from '../../components/deckcomponents/types/datatypes.ts';
 import { restrictToWindowEdges } from "@dnd-kit/modifiers"
+import ExtraDeckCardZone from '@/components/deckcomponents/editdeckcomponents/ExtraDeckCardsZone.tsx';
+import SideDeckCardZone from '@/components/deckcomponents/editdeckcomponents/SideDeckCardsZone.tsx';
 //import GridListViewComponent from '../../../components/searchbar/grid_or_list_view';
 
 const DeckBuilderPage = () => {
@@ -19,8 +21,6 @@ const DeckBuilderPage = () => {
     const [allCardsListResults, setAllCardsListResults] = useState<Card[]>([]);
     const [collectionCardsView, setCollectionCardsView] = useState(false);
     const [collectionCardData, setCollectionCardData] = useState<OwnedCard[]>([]);    
-    const [listView, setListView] = useState(true);
-    const [galleryView, setGalleryView] = useState(false);
 
     useEffect(() => {
         if (deckId && userId) {
@@ -33,6 +33,8 @@ const DeckBuilderPage = () => {
 
     const [isDropped, setIsDropped] = useState(false);
     const [mainDeckCards, setMainDeckCards] = useState<any[]>([]);
+    const [extraDeckCards, setExtraDeckCards] = useState<any[]>([]);
+    const [sideDeckCards, setSideDeckCards] = useState<any[]>([]);
     const [monsterCards, setMonsterCards] = useState<any[]>([]);
     const [spellCards, setSpellCards] = useState<any[]>([]);
     const [trapCards, setTrapCards] = useState<any[]>([]);
@@ -46,7 +48,6 @@ const DeckBuilderPage = () => {
         }
 
         if (over) {
-            console.log("snday")
             setIsDropped(true);
 
             const draggedCard = 
@@ -55,7 +56,7 @@ const DeckBuilderPage = () => {
 
             switch (over.id) {
                 case "monstercard":
-                    if (draggedCard.type?.includes("Monster")) {
+                    if (["Fusion", "Synchro", "XYZ", "Spell", "Trap"].every(type => !draggedCard.type?.includes(type))) {
                         setMainDeckCards((prev) => [...prev, draggedCard]);
                         setMonsterCards((prev) => [...prev, draggedCard]);
                     } else return;
@@ -70,6 +71,16 @@ const DeckBuilderPage = () => {
                     if (draggedCard.type?.includes("Trap")) {
                         setMainDeckCards((prev) => [...prev, draggedCard]);
                         setTrapCards((prev) => [...prev, draggedCard]);
+                    } else return;
+                    break;
+                case "extradeckcard":
+                    if (["Synchro Monster", "Fusion Monster", "XYZ Monster"].some(type => draggedCard.type?.includes(type))) {
+                        setExtraDeckCards((prev) => [...prev, draggedCard]);
+                    } else return;
+                    break;
+                case "sidedeckcard":
+                    if (draggedCard) {
+                        setSideDeckCards((prev) => [...prev, draggedCard]);
                     } else return;
                     break;
                 default:
@@ -97,8 +108,16 @@ const DeckBuilderPage = () => {
         monsterCards,
         spellCards,
         trapCards,
-        listView, setListView,
-        galleryView, setGalleryView
+    }
+
+    const extradeckprops = {
+        deck,
+        extraDeckCards
+    }
+
+    const sidedeckprops = {
+        deck,
+        sideDeckCards
     }
 
     /*const filterProps = {
@@ -128,20 +147,16 @@ const DeckBuilderPage = () => {
                                 </section>
                             </header>
                             <main className="flex flex-col flex-grow min-h-[87vh] bg-transparent">
-                                    <MainDeckCardZone maindeckprops={maindeckprops}/>
-                                    <section className="min-h-[25vh] w-full p-4 justify-between flex flex-col">
-                                        < header className="flex w-full px-[3vw] justify-between text-[hsl(var(--text))]">
-                                            <div className="font-black">Extra Deck</div>
-                                            <div className="font-bold">Total Extra Deck Cards: {deck?.total_cards_extra_deck}</div>
-                                        </header>
-                                        <div className="bg-deckpage w-full h-[80%] rounded-2xl"></div>
+                                    <section className="flex mb-[10vh]">
+                                        <MainDeckCardZone maindeckprops={maindeckprops}/>
                                     </section>
-                                    <section className="min-h-[25vh] w-full p-4 justify-between">
-                                        <header className="flex w-full px-[3vw] justify-between text-[hsl(var(--text))]">
-                                            <div className="font-black">Side Deck</div>
-                                            <div className="font-bold">Total Side Cards: {deck?.total_cards_side_deck}</div>
-                                        </header>
-                                        <div className="bg-deckpage w-full h-[90%] rounded-2xl"></div>
+                                    <section className="flex w-full mb-[10vh]">
+                                        <div className="flex w-1/2">
+                                            <ExtraDeckCardZone extradeckprops={extradeckprops}/>
+                                        </div>
+                                        <div className="flex w-1/2">
+                                            <SideDeckCardZone sidedeckprops={sidedeckprops}/>
+                                        </div>
                                     </section>
                             </main>
                         </section>
