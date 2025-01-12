@@ -1,5 +1,6 @@
 import { useDroppable } from "@dnd-kit/core"
 import GridListViewComponent from "../decksidebar/gridlistviewcomponent"
+import { useState } from "react";
 
 const MainDeckCardZone = ({ maindeckprops }: any) => {
   const {
@@ -7,9 +8,10 @@ const MainDeckCardZone = ({ maindeckprops }: any) => {
     monsterCards,
     spellCards,
     trapCards,
-    listView, setListView,
-    galleryView, setGalleryView
   } = maindeckprops
+
+  const [listView, setListView] = useState(true);
+  const [galleryView, setGalleryView] = useState(false);
 
   const { setNodeRef: MonsterCardRef } = useDroppable({
     id: "monstercard"
@@ -29,10 +31,10 @@ const MainDeckCardZone = ({ maindeckprops }: any) => {
   }
 
   return (
-    <section className="flex flex-grow flex-col justify-between min-h-1/2 w-full p-4">
-        <header className="flex w-full py-2 pl-[3vw] justify-between text-[hsl(var(--text))]">
-            <div className="font-black">Main Deck</div>
-            <div className="flex h-full items-center space-x-4">
+    <section className="flex flex-grow flex-col justify-between min-h-[35vh] w-full px-4">
+        <header className="flex w-full py-[2vh] pl-[3vw] justify-between text-[hsl(var(--text))]">
+            <span className="flex font-black items-center">Main Deck</span>
+            <div className="flex h-fit items-center space-x-4">
                 <div className="font-bold">Total Main Deck Cards: {deck?.total_cards_main_deck}</div>
                 <div className='flex w-20 bg-footer rounded-xl'>
                     <GridListViewComponent filterProps={filterProps}/>
@@ -40,28 +42,42 @@ const MainDeckCardZone = ({ maindeckprops }: any) => {
             </div>
         </header>
         {listView && (
-          <div className="flex bg-[hsl(var(--editdeckdraganddropbackground))] w-full min-h-[90%] rounded-2xl">
-            <section ref={MonsterCardRef} className="flex flex-col w-1/3 bg-gray-400">
-              <span className="text-lg pl-[2vw] font-black text-[hsl(var(--text))]">monster: </span>
+          <div className="flex bg-[hsl(var(--editdeckdraganddropbackground))] w-full min-h-[90%] rounded-lg">
+            <section
+              ref={MonsterCardRef}
+              className="flex flex-col w-1/3 relative group transition-all duration-300 hover:border-2 hover:border-goldenrod hover:backdrop-blur-md hover:rounded-tl-lg hover:rounded-bl-lg"
+            >
+              <span className="text-lg pl-[2vw] py-[1vh] font-black text-[hsl(var(--text))] group-hover:blur-sm transition-all duration-300">
+                monster:
+              </span>
               {monsterCards.length > 0 && (
-                <div className="w-full h-full flex flex-col pl-2">
+                <div className="w-full h-full pl-[1vw] flex flex-col space-y-2 group-hover:blur-sm transition-all duration-300">
                   {monsterCards.map((card: any) => (
-                    <div key={card?.id || card?._id} className="flex h-[5vh] items-center space-x-2">
+                    <div
+                      key={card?.id || card?._id}
+                      className="flex h-[5vh] items-center space-x-2"
+                    >
                       <img
-                          src={card?.card_images?.[0]?.image_url || card?.image_url}
-                          className="h-full object-contain"
-                          //alt={card.card_name}
+                        src={card?.card_images?.[0]?.image_url || card?.image_url}
+                        className="h-full object-contain"
                       />
-                      <div className="font-black text-md">{card?.name || card?.card_name}</div>
+                      <div className="font-black text-md">
+                        {card?.name || card?.card_name}
+                      </div>
                     </div>
                   ))}
                 </div>
               )}
             </section>
-            <section ref={SpellCardRef} className="flex flex-col w-1/3 bg-red-200 h-full">
-              <span className="text-lg pl-[2vw] font-black text-[hsl(var(--text))]">Spell: </span>
+            <section 
+              ref={SpellCardRef} 
+              className="flex flex-col w-1/3 relative group transition-all duration-300 hover:border-2 hover:border-goldenrod hover:backdrop-blur-md"
+            >
+              <span className="text-lg pl-[2vw] py-[1vh] font-black text-[hsl(var(--text))] group-hover:blur-sm transition-all duration-300">
+                Spell: 
+              </span>
               {spellCards.length > 0 && (
-                <div className="w-full h-full flex flex-col pl-2">
+                <div className="w-full h-full pl-[1vw] flex flex-col space-y-2 group-hover:blur-sm transition-all duration-300">
                   {spellCards.map((card: any) => (
                     <div key={card?.id || card?._id} className="flex h-[5vh] items-center space-x-2">
                       <img
@@ -75,10 +91,12 @@ const MainDeckCardZone = ({ maindeckprops }: any) => {
                 </div>
               )}
             </section>
-            <section ref={TrapCardRef} className="w-1/3 bg-green-200 h-full">
-              <span className="text-lg pl-[2vw] font-black text-[hsl(var(--text))]">Trap: </span>
+            <section ref={TrapCardRef} className="flex flex-col w-1/3 relative group transition-all duration-300 hover:border-2 hover:border-goldenrod hover:backdrop-blur-md hover:rounded-tr-lg hover:rounded-br-lg">
+              <span className="text-lg pl-[2vw] py-[1vh] font-black text-[hsl(var(--text))] group-hover:blur-sm transition-all duration-300">
+                Trap: 
+              </span>
               {trapCards.length > 0 && (
-                <div className="w-full h-full flex flex-col pl-2">
+                <div className="w-full h-full pl-[1vw] flex flex-col space-y-2 group-hover:blur-sm transition-all duration-300">
                   {trapCards.map((card: any) => (
                     <div key={card.id} className="flex h-[5vh] items-center space-x-2">
                       <img
