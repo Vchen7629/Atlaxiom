@@ -1,11 +1,13 @@
 import { useDroppable } from "@dnd-kit/core"
 import GridListViewComponent from "../decksidebar/gridlistviewcomponent"
 import { useState } from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
 
 const ExtraDeckCardZone = ({ extradeckprops }: any) => {
   const {
     //deck,
-    extraDeckCards,
+    extraDeckCards, setExtraDeckCards,
     hoveredCard
   } = extradeckprops
 
@@ -19,6 +21,16 @@ const ExtraDeckCardZone = ({ extradeckprops }: any) => {
   const shouldExtraDeckBlur = isOver && hoveredCard && ["Synchro Monster", "Fusion Monster", "XYZ Monster"].some(
     (type) => hoveredCard.type?.includes(type)
   );
+
+  const handleDeleteCardClick = (cardToDelete: any) => {
+    setExtraDeckCards((prevCards: any) => 
+      prevCards.filter((card: any) => {
+        const cardId = card?.id || card?._id;
+        const deleteCardId = cardToDelete?.id || cardToDelete?._id;
+        return cardId !== deleteCardId;
+      })
+    );
+  };
 
   const filterProps = {
     listView, setListView,
@@ -52,12 +64,24 @@ const ExtraDeckCardZone = ({ extradeckprops }: any) => {
                       key={card?.id || card?._id}
                       className="flex h-[5vh] items-center space-x-2"
                     >
+                      <span className="text-gray-500">x1</span>
                       <img
                         src={card?.card_images?.[0]?.image_url || card?.image_url}
                         className="h-full object-contain"
                       />
-                      <div className="font-black text-md">
-                        {card?.name || card?.card_name}
+                      <div className="font-black text-sm w-[70%]">{card?.name || card?.card_name}</div>
+                      <div className="flex space-x-1">
+                        <button className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))]'><FontAwesomeIcon icon={faPlus}/></button>
+                        <button className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))]'><FontAwesomeIcon icon={faMinus}/></button>
+                        <button 
+                          className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))] hover:text-red-500'
+                          onClick={(event) => {
+                            event.stopPropagation(); 
+                            handleDeleteCardClick(card);
+                          }}
+                        >
+                          <FontAwesomeIcon icon={faTrash}/>
+                        </button>
                       </div>
                     </div>
                   ))}
