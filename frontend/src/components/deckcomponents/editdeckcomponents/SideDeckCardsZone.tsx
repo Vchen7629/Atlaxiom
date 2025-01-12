@@ -26,7 +26,7 @@ const SideDeckCardZone = ({ sidedeckprops }: any) => {
   return (
     <section className="flex flex-grow flex-col min-h-[30vh] w-full px-4">
         <header className="flex w-full py-[2vh] pl-[3vw] justify-between text-[hsl(var(--text))]">
-            <span className="flex font-black items-center">Side Deck</span>
+            <span className="flex font-black items-center">Side Decks</span>
             <div className="flex h-fit items-center space-x-4">
                 <div className="font-bold">Total Side Deck Cards: {deck?.total_cards_side_deck}</div>
                 <div className='flex w-20 bg-footer rounded-xl'>
