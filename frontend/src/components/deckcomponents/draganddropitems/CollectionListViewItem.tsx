@@ -1,6 +1,5 @@
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
-import { useEffect } from 'react';
 
 const CollectionListViewItem = ({ result }: { result: any }) => {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
@@ -9,10 +8,6 @@ const CollectionListViewItem = ({ result }: { result: any }) => {
     const style = {
         transform: CSS.Translate.toString(transform),
     };
-
-    /*useEffect(() => {
-            console.log("2", result._id)
-    })*/
 
     return (
         <div

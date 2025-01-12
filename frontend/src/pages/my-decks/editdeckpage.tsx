@@ -10,7 +10,6 @@ import { Card, OwnedCard } from '../../components/deckcomponents/types/datatypes
 import { restrictToWindowEdges } from "@dnd-kit/modifiers"
 import ExtraDeckCardZone from '@/components/deckcomponents/editdeckcomponents/ExtraDeckCardsZone.tsx';
 import SideDeckCardZone from '@/components/deckcomponents/editdeckcomponents/SideDeckCardsZone.tsx';
-//import GridListViewComponent from '../../../components/searchbar/grid_or_list_view';
 
 const DeckBuilderPage = () => {
     const location = useLocation();
@@ -32,12 +31,32 @@ const DeckBuilderPage = () => {
     const deck = deckData?.entities?.undefined?.[0];
 
     const [isDropped, setIsDropped] = useState(false);
+    const [hoveredCard, setHoveredCard] = useState<any>(null);
     const [mainDeckCards, setMainDeckCards] = useState<any[]>([]);
     const [extraDeckCards, setExtraDeckCards] = useState<any[]>([]);
     const [sideDeckCards, setSideDeckCards] = useState<any[]>([]);
     const [monsterCards, setMonsterCards] = useState<any[]>([]);
     const [spellCards, setSpellCards] = useState<any[]>([]);
     const [trapCards, setTrapCards] = useState<any[]>([]);
+
+    const handleDragMove = (event: any) => {
+        const { active } = event;
+    
+        if (!active?.id) {
+            setHoveredCard(null);
+            return;
+        }
+    
+        const draggedCard: any =
+            allCardsListResults.find((card) => card.id === active.id) ||
+            collectionCardData.find((card) => card._id === active.id);
+    
+        setHoveredCard(draggedCard);
+    };
+
+    const handleDragLeave = () => {
+        setHoveredCard(null);
+    };
 
     const handleDragEnd = (event: any) => {
         const { active, over } = event;
@@ -50,7 +69,7 @@ const DeckBuilderPage = () => {
         if (over) {
             setIsDropped(true);
 
-            const draggedCard = 
+            const draggedCard: any = 
                 allCardsListResults.find((card) => card.id === active.id) || 
                 collectionCardData.find((card) => card._id === active.id);
 
@@ -59,7 +78,7 @@ const DeckBuilderPage = () => {
                     if (["Fusion", "Synchro", "XYZ", "Spell", "Trap"].every(type => !draggedCard.type?.includes(type))) {
                         setMainDeckCards((prev) => [...prev, draggedCard]);
                         setMonsterCards((prev) => [...prev, draggedCard]);
-                    } else return;
+                    } else return
                     break;
                 case "spellcard":
                     if (draggedCard.type?.includes("Spell")) {
@@ -108,16 +127,19 @@ const DeckBuilderPage = () => {
         monsterCards,
         spellCards,
         trapCards,
+        hoveredCard
     }
 
     const extradeckprops = {
         deck,
-        extraDeckCards
+        extraDeckCards,
+        hoveredCard
     }
 
     const sidedeckprops = {
         deck,
-        sideDeckCards
+        sideDeckCards,
+        hoveredCard
     }
 
     /*const filterProps = {
@@ -132,7 +154,7 @@ const DeckBuilderPage = () => {
         <Header/>
             <main className="flex w-full min-h-[110vh] bg-[hsl(var(--background1))]">           
                 {!isLoading && deckData && (
-                    <DndContext onDragEnd={handleDragEnd} modifiers={[restrictToWindowEdges]}>
+                    <DndContext onDragCancel={handleDragLeave} onDragMove={handleDragMove} onDragEnd={handleDragEnd} modifiers={[restrictToWindowEdges]}>
                         <section className="flex flex-col w-[80vw] pt-[76px]">
                             <header className="flex justify-between items-center p-5 w-full h-[17vh] bg-gradient-to-t from-[hsl(var(--homepagegradient1))] to-[hsl(var(--homepagegradient3))]">
                                 <section className="flex flex-col h-full justify-between">

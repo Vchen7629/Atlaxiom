@@ -1,6 +1,5 @@
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
-import { useEffect } from 'react';
 
 const SearchCardListViewItem = ({ card }: { card: any }) => {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
@@ -9,10 +8,6 @@ const SearchCardListViewItem = ({ card }: { card: any }) => {
     const style = {
         transform: CSS.Translate.toString(transform),
     };
-
-    /*useEffect(() => {
-        console.log("1", card.id)
-    })*/
 
     return (
         <div

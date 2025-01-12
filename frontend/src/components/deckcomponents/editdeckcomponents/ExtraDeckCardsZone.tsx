@@ -4,16 +4,21 @@ import { useState } from "react"
 
 const ExtraDeckCardZone = ({ extradeckprops }: any) => {
   const {
-    deck,
-    extraDeckCards
+    //deck,
+    extraDeckCards,
+    hoveredCard
   } = extradeckprops
 
   const [listView, setListView] = useState(true);
   const [galleryView, setGalleryView] = useState(false);
 
-  const { setNodeRef } = useDroppable({
+  const { setNodeRef, isOver } = useDroppable({
     id: "extradeckcard"
   })
+
+  const shouldExtraDeckBlur = isOver && hoveredCard && ["Synchro Monster", "Fusion Monster", "XYZ Monster"].some(
+    (type) => hoveredCard.type?.includes(type)
+  );
 
   const filterProps = {
     listView, setListView,
@@ -36,10 +41,12 @@ const ExtraDeckCardZone = ({ extradeckprops }: any) => {
           <div className="flex bg-[hsl(var(--editdeckdraganddropbackground))] w-full min-h-[90%] rounded-xl">
             <section
               ref={setNodeRef}
-              className="flex flex-col w-full pt-[1.5vh] pl-[0.4vw] relative group transition-all duration-300 hover:border-2 hover:border-goldenrod hover:backdrop-blur-md hover:rounded-md"
+              className={`flex flex-col w-full pt-[1.5vh] pl-[0.4vw] relative group transition-all duration-300 ${
+                shouldExtraDeckBlur ? "blur-sm border-2 border-goldenrod rounded-tl-lg rounded-bl-lg" : ""
+              }`}
             >
               {extraDeckCards.length > 0 && (
-                <div className="w-full h-full flex flex-col space-y-2 pl-2 group-hover:blur-sm transition-all duration-300">
+                <div className="w-full h-full flex flex-col space-y-2 pl-2">
                   {extraDeckCards.map((card: any) => (
                     <div
                       key={card?.id || card?._id}
