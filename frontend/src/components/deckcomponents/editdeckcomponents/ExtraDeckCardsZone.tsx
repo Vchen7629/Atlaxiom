@@ -68,16 +68,21 @@ const ExtraDeckCardZone = ({ extradeckprops }: any) => {
         )}
 
         {galleryView && (
-          <div className="flex bg-deckpage w-full h-[90%] rounded-lg">
-            <section ref={setNodeRef} className="flex flex-col w-full">
+          <div className="flex bg-[hsl(var(--editdeckdraganddropbackground))] w-full min-h-[90%] rounded-xl">
+            <section 
+              ref={setNodeRef} 
+              className={`flex flex-col w-full pt-[1.5vh] pl-[0.4vw] relative group transition-all duration-300 ${
+                shouldExtraDeckBlur ? "blur-sm border-2 border-goldenrod rounded-tl-lg rounded-bl-lg" : ""
+              }`}
+            >
               {extraDeckCards.length > 0 && ( 
                   <div 
-                    className="grid grid-cols-8 gap-2 w-full h-full p-4 justify-items-start items-start"  
+                    className="grid grid-cols-8 gap-4 w-full h-full p-4 justify-items-start items-start"  
                     style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                   >
                     {extraDeckCards.map((card: any) => (
                       <div className="flex h-full">
-                          <div key={card.id} className="flex h-[25%] space-x-2 bg-gray-200">
+                          <div key={card.id} className="flex">
                             <img
                               src={card?.image_url || card?.card_images?.[0]?.image_url}
                               className="h-full object-contain"

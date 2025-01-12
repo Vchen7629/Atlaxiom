@@ -16,7 +16,7 @@ const SideDeckCardZone = ({ sidedeckprops }: any) => {
     id: "sidedeckcard"
   })
 
-  const shouldSideDeckBlur = isOver && hoveredCard;
+  const shouldSideDeckBlur = isOver && hoveredCard ;
 
   const filterProps = {
     listView, setListView,
@@ -43,7 +43,7 @@ const SideDeckCardZone = ({ sidedeckprops }: any) => {
               }`}
             >
               {sideDeckCards.length > 0 && (
-                <div className="w-full h-full flex flex-col space-y-2 pl-2 group-hover:blur-sm transition-all duration-300">
+                <div className="w-full h-full flex flex-col space-y-2 pl-2">
                   {sideDeckCards.map((card: any) => (
                     <div
                       key={card?.id || card?._id}
@@ -65,16 +65,21 @@ const SideDeckCardZone = ({ sidedeckprops }: any) => {
         )}
 
         {galleryView && (
-          <div className="flex bg-deckpage w-full h-[90%] rounded-lg">
-            <section ref={setNodeRef} className="pt-[1.5vh] pl-[0.4vw] flex flex-col w-full">
+          <div className="flex flex-grow bg-[hsl(var(--editdeckdraganddropbackground))] w-full min-h-[90%] rounded-lg">
+            <section 
+              ref={setNodeRef} 
+              className={`flex flex-col w-full pt-[1.5vh] pl-[0.4vw] relative group transition-all duration-300 ${
+                shouldSideDeckBlur ? "blur-sm border-2 border-goldenrod rounded-tl-lg rounded-bl-lg" : ""
+              }`}
+            >
               {sideDeckCards.length > 0 && ( 
                   <div 
-                    className="grid grid-cols-8 gap-2 w-full h-full p-4 justify-items-start items-start"  
+                    className="grid grid-cols-8 gap-4 w-full h-full p-4 justify-items-start items-start"  
                     style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                   >
                     {sideDeckCards.map((card: any) => (
                       <div className="flex h-full">
-                          <div key={card.id} className="flex h-[25%] space-x-2 bg-gray-200">
+                          <div key={card.id} className="flex">
                             <img
                               src={card?.image_url || card?.card_images?.[0]?.image_url}
                               className="h-full object-contain"
