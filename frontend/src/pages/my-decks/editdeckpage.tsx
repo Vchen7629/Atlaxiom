@@ -124,21 +124,21 @@ const DeckBuilderPage = () => {
 
     const maindeckprops = {
         deck,
-        monsterCards,
-        spellCards,
-        trapCards,
+        monsterCards, setMonsterCards,
+        spellCards, setSpellCards,
+        trapCards, setTrapCards,
         hoveredCard
     }
 
     const extradeckprops = {
         deck,
-        extraDeckCards,
+        extraDeckCards, setExtraDeckCards,
         hoveredCard
     }
 
     const sidedeckprops = {
         deck,
-        sideDeckCards,
+        sideDeckCards, setSideDeckCards,
         hoveredCard
     }
 
