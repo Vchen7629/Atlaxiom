@@ -30,7 +30,6 @@ const DeckBuilderPage = () => {
 
     const deck = deckData?.entities?.undefined?.[0];
 
-    const [isDropped, setIsDropped] = useState(false);
     const [hoveredCard, setHoveredCard] = useState<any>(null);
     const [mainDeckCards, setMainDeckCards] = useState<any[]>([]);
     const [extraDeckCards, setExtraDeckCards] = useState<any[]>([]);
@@ -67,39 +66,60 @@ const DeckBuilderPage = () => {
         }
 
         if (over) {
-            setIsDropped(true);
-
-            const draggedCard: any = 
+            const originalDraggedCard: any = 
                 allCardsListResults.find((card) => card.id === active.id) || 
                 collectionCardData.find((card) => card._id === active.id);
+
+            if (!originalDraggedCard) return;
+
+            const draggedCard = { ...originalDraggedCard };
+
+            const addOrUpdateCard = (setDeckFunction: React.Dispatch<React.SetStateAction<any[]>>) => {
+                setDeckFunction((prevDeck) => {
+                    const existingCardIndex = prevDeck.findIndex(
+                        (card) => (card.name || card.card_name) === (draggedCard.name || draggedCard.card_name)
+                    );
+    
+                    if (existingCardIndex !== -1) {
+                        const updatedDeck = [...prevDeck];
+                        updatedDeck[existingCardIndex] = {
+                            ...updatedDeck[existingCardIndex],
+                            cardInDeckOwnedAmount: (updatedDeck[existingCardIndex].cardInDeckOwnedAmount || 1) + 1,
+                        };
+                        return updatedDeck;
+                    } else {
+                        return [...prevDeck, { ...draggedCard, cardInDeckOwnedAmount: 1 }];
+                    }
+                });
+            };
 
             switch (over.id) {
                 case "monstercard":
                     if (["Fusion", "Synchro", "XYZ", "Spell", "Trap"].every(type => !draggedCard.type?.includes(type))) {
-                        setMainDeckCards((prev) => [...prev, draggedCard]);
-                        setMonsterCards((prev) => [...prev, draggedCard]);
+                        addOrUpdateCard(setMainDeckCards);
+                        addOrUpdateCard(setMonsterCards);
                     } else return
                     break;
                 case "spellcard":
                     if (draggedCard.type?.includes("Spell")) {
-                        setMainDeckCards((prev) => [...prev, draggedCard]);
-                        setSpellCards((prev) => [...prev, draggedCard]);
+                        addOrUpdateCard(setMainDeckCards);
+                        addOrUpdateCard(setSpellCards);
                     } else return;
                     break;
                 case "trapcard":
                     if (draggedCard.type?.includes("Trap")) {
-                        setMainDeckCards((prev) => [...prev, draggedCard]);
-                        setTrapCards((prev) => [...prev, draggedCard]);
+                        addOrUpdateCard(setMainDeckCards);
+                        addOrUpdateCard(setTrapCards);
                     } else return;
                     break;
                 case "extradeckcard":
                     if (["Synchro Monster", "Fusion Monster", "XYZ Monster"].some(type => draggedCard.type?.includes(type))) {
-                        setExtraDeckCards((prev) => [...prev, draggedCard]);
+                        addOrUpdateCard(setExtraDeckCards);
                     } else return;
                     break;
                 case "sidedeckcard":
                     if (draggedCard) {
-                        setSideDeckCards((prev) => [...prev, draggedCard]);
+                        addOrUpdateCard(setSideDeckCards);
                     } else return;
                     break;
                 default:

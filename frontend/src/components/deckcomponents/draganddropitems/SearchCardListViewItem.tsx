@@ -15,7 +15,7 @@ const SearchCardListViewItem = ({ card }: { card: any }) => {
             style={style}
             {...listeners}
             {...attributes}
-            className="flex h-[15%] space-x-2 w-full bg-[hsl(var(--background1))]"
+            className="flex h-[15%] z-30 space-x-2 w-full bg-[hsl(var(--background1))]"
         >
             <img
                 src={card.card_images?.[0]?.image_url}
