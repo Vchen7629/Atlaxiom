@@ -39,11 +39,10 @@ export const deckApiSlice = apiSlice.injectEndpoints({
             }
         }),
 
-        getSpecificOwnedDeck: builder.mutation({
-            query: ({ id, DeckData }) => ({
-                url: `/deck/specific/${id}`,
-                method: "POST",
-                body: DeckData
+        getSpecificOwnedDeck: builder.query({
+            query: ({ id, DeckId }) => ({
+                url: `/deck/specific/${id}/${DeckId}`,
+                method: "GET",
             }),
             validateStatus: (response, result) => {
                 return response.status === 200 && !result.isError
@@ -61,20 +60,23 @@ export const deckApiSlice = apiSlice.injectEndpoints({
             }
         }),
 
-        addNewCardtoMainDeck: builder.mutation({
-            query: ({ id, DeckData }) => ({
+        addCardsMainDeck: builder.mutation({
+            query: ({ id, deckId, main_deck_cards }) => ({
                 url: `/deck/maindeck/${id}`,
                 method: 'PATCH',
-                body: DeckData
+                body: {
+                    deckId,
+                    main_deck_cards
+                }
             }),
             invalidatesTags: (result, error, arg) => [
                 { type: 'Deck', id: arg.id }
             ]
         }),
 
-        increaseCardAmountinMainDeck: builder.mutation({
+        modifyCardAmountinMainDeck: builder.mutation({
             query: ({ id, DeckData }) => ({
-                url: `/deck/maindeck/increase/${id}`,
+                url: `/deck/maindeck/update/${id}`,
                 method: 'PATCH',
                 body: DeckData
             }),
@@ -210,11 +212,11 @@ export const deckApiSlice = apiSlice.injectEndpoints({
 export const {
     useGetAllOwnedDecksQuery,
     useCreateNewDeckMutation,
-    useGetSpecificOwnedDeckMutation,
-    useAddNewCardtoMainDeckMutation,
+    useGetSpecificOwnedDeckQuery,
+    useAddCardsMainDeckMutation,
     useAddNewCardtoExtraDeckMutation,
     useAddNewCardtoSideDeckMutation,
-    useIncreaseCardAmountinMainDeckMutation,
+    useModifyCardAmountinMainDeckMutation,
     useIncreaseCardAmountinExtraDeckMutation,
     useIncreaseCardAmountinSideDeckMutation,
     useDecreaseCardAmountinMainDeckMutation,

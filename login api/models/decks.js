@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
-const ownedCardSchema = require("./OwnedCards")
+const deckCardSchema = require('./deckCardModel.js')
+
 
 const ownedDeckSchema = new mongoose.Schema({
     user_id: {
@@ -22,10 +23,6 @@ const ownedDeckSchema = new mongoose.Schema({
         type: String,
         default: null
     },
-    total_cards_deck: {
-        type: Number,
-        default: 0
-    },
     total_cards_main_deck: {
         type: Number,
         default: 0
@@ -39,15 +36,15 @@ const ownedDeckSchema = new mongoose.Schema({
         default: 0
     },
     main_deck_cards: {
-        type: [ownedCardSchema],
+        type: [deckCardSchema],
         default: []
     },
     extra_deck_cards: {
-        type: [ownedCardSchema],
+        type: [deckCardSchema],
         default: []
     },
     side_deck_cards: {
-        type: [ownedCardSchema],
+        type: [deckCardSchema],
         default: []
     }
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Header from '../../components/header/header.tsx';
 import Footer from '../../components/footer/Footer.tsx';
 import { useLocation } from 'react-router-dom';
-import { useGetSpecificOwnedDeckMutation } from '../../features/api-slices/decksapislice.ts';
+import { useGetSpecificOwnedDeckMutation, useGetSpecificOwnedDeckQuery } from '../../features/api-slices/decksapislice.ts';
 import DeckBuilderPageSidebarComponent from '../../components/deckcomponents/decksidebar/deckbuilderpagesidebar.tsx';
 import MainDeckCardZone from '@/components/deckcomponents/editdeckcomponents/MainDeckCardsZone.tsx';
 import { DndContext } from '@dnd-kit/core';
@@ -10,12 +10,16 @@ import { Card, OwnedCard } from '../../components/deckcomponents/types/datatypes
 import { restrictToWindowEdges } from "@dnd-kit/modifiers"
 import ExtraDeckCardZone from '@/components/deckcomponents/editdeckcomponents/ExtraDeckCardsZone.tsx';
 import SideDeckCardZone from '@/components/deckcomponents/editdeckcomponents/SideDeckCardsZone.tsx';
+import SaveDeckCardsButton from '@/components/deckcomponents/editdeckcomponents/SaveDeckCardsButton.tsx';
 
 const DeckBuilderPage = () => {
     const location = useLocation();
     const { userId, deckId } = location.state || {};
-    const [getSpecificDeck, { data: deckData, isLoading }] = useGetSpecificOwnedDeckMutation(); 
-    
+    const { refetch, data: deckData, isLoading } = useGetSpecificOwnedDeckQuery({
+        id: userId,
+        DeckId: deckId
+    })
+
     const [allCardsView, setAllCardsView] = useState(true);
     const [allCardsListResults, setAllCardsListResults] = useState<Card[]>([]);
     const [collectionCardsView, setCollectionCardsView] = useState(false);
@@ -23,20 +27,42 @@ const DeckBuilderPage = () => {
 
     useEffect(() => {
         if (deckId && userId) {
-            getSpecificDeck({ id: userId, DeckData: { deckId } });
+            refetch()
             console.log("deck data", deckData)
         }
-    }, [deckId, userId, getSpecificDeck]);
+    }, [deckId, userId]);
 
     const deck = deckData?.entities?.undefined?.[0];
 
     const [hoveredCard, setHoveredCard] = useState<any>(null);
-    const [mainDeckCards, setMainDeckCards] = useState<any[]>([]);
+    const [cardsToAddMainDeckPlaceHolder, setCardsToAddMainDeckPlaceHolder] = useState<any[]>([]);
+    const [modifyMainDeckCardAmountPlaceHolder, setModifyMainDeckCardAmountPlaceHolder] = useState<any[]>([]);
     const [extraDeckCards, setExtraDeckCards] = useState<any[]>([]);
     const [sideDeckCards, setSideDeckCards] = useState<any[]>([]);
     const [monsterCards, setMonsterCards] = useState<any[]>([]);
     const [spellCards, setSpellCards] = useState<any[]>([]);
     const [trapCards, setTrapCards] = useState<any[]>([]);
+
+    const [mainDeckCardCount, setMainDeckCardCount] = useState<number>(0);
+    const [extraDeckCardCount, setExtraDeckCardCount] = useState<number>(0);
+    const [sideDeckCardCount, setSideDeckCardCount] = useState<number>(0);
+
+    useEffect(() => {
+        if (deckData) {  
+            if (deck?.main_deck_cards) {
+                const mainCards = deck?.main_deck_cards;
+                console.log("no", mainCards)
+    
+                const monsters = mainCards.filter(card => card.type && !["Spell Card", "Trap Card"].includes(card.type));
+                const spells = mainCards.filter(card => card.type?.includes("Spell"));
+                const traps = mainCards.filter(card => card.type?.includes("Trap"));
+    
+                setMonsterCards(monsters);
+                setSpellCards(spells);
+                setTrapCards(traps);
+            }
+        }
+    }, [deckData]);
 
     const handleDragMove = (event: any) => {
         const { active } = event;
@@ -91,24 +117,25 @@ const DeckBuilderPage = () => {
                         return [...prevDeck, { ...draggedCard, cardInDeckOwnedAmount: 1 }];
                     }
                 });
+
             };
 
             switch (over.id) {
                 case "monstercard":
                     if (["Fusion", "Synchro", "XYZ", "Spell", "Trap"].every(type => !draggedCard.type?.includes(type))) {
-                        addOrUpdateCard(setMainDeckCards);
+                        addOrUpdateCard(setCardsToAddMainDeckPlaceHolder);
                         addOrUpdateCard(setMonsterCards);
                     } else return
                     break;
                 case "spellcard":
                     if (draggedCard.type?.includes("Spell")) {
-                        addOrUpdateCard(setMainDeckCards);
+                        addOrUpdateCard(setCardsToAddMainDeckPlaceHolder);
                         addOrUpdateCard(setSpellCards);
                     } else return;
                     break;
                 case "trapcard":
                     if (draggedCard.type?.includes("Trap")) {
-                        addOrUpdateCard(setMainDeckCards);
+                        addOrUpdateCard(setCardsToAddMainDeckPlaceHolder);
                         addOrUpdateCard(setTrapCards);
                     } else return;
                     break;
@@ -129,10 +156,12 @@ const DeckBuilderPage = () => {
     }
 
     useEffect(() => {
-        console.log("new array", monsterCards)
+        console.log("add card", cardsToAddMainDeckPlaceHolder)
+        console.log("hey", modifyMainDeckCardAmountPlaceHolder)
+        console.log("new", monsterCards)
         console.log("new array", spellCards)
         console.log("new array", trapCards)
-    }, [monsterCards, spellCards, trapCards])
+    }, [cardsToAddMainDeckPlaceHolder, modifyMainDeckCardAmountPlaceHolder, monsterCards, spellCards, trapCards])
 
     const sidebarprops = {
         userId,
@@ -144,6 +173,7 @@ const DeckBuilderPage = () => {
 
     const maindeckprops = {
         deck,
+        setModifyMainDeckCardAmountPlaceHolder,
         monsterCards, setMonsterCards,
         spellCards, setSpellCards,
         trapCards, setTrapCards,
@@ -160,6 +190,14 @@ const DeckBuilderPage = () => {
         deck,
         sideDeckCards, setSideDeckCards,
         hoveredCard
+    }
+
+    const savebuttonprops = {
+        userId,
+        refetch,
+        deck,
+        cardsToAddMainDeckPlaceHolder,
+        modifyMainDeckCardAmountPlaceHolder
     }
 
     /*const filterProps = {
@@ -181,12 +219,7 @@ const DeckBuilderPage = () => {
                                     <div className='text-3xl font-black text-[hsl(var(--text))]'>{deck?.deck_name}</div>
                                     <div>Created On: {deck?.createdOn}</div>
                                 </section>
-                                <section>
-                                    <button className="flex text-sm flex-col px-8 py-2 items-center rounded-2xl bg-blue-400">
-                                        <div>Save</div>
-                                        <div>{deck?.lastUpdated}</div>
-                                    </button>
-                                </section>
+                                <SaveDeckCardsButton savebuttonprops={savebuttonprops}/>
                             </header>
                             <main className="flex flex-col flex-grow min-h-[87vh] bg-transparent">
                                     <section className="flex mb-[10vh]">

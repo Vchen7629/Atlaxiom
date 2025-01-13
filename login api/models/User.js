@@ -1,6 +1,4 @@
 const mongoose = require('mongoose')
-const ownedCardSchema = require('./OwnedCards');
-const ownedDeckSchema = require('./decks');
 
 const userSchema = new mongoose.Schema({
     username: {

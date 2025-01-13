@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useGetAllOwnedDecksQuery, useGetSpecificOwnedDeckMutation, useDeleteDeckMutation } from '../../../features/api-slices/decksapislice.ts';
+import { useEffect, useState } from 'react';
+import { useGetAllOwnedDecksQuery, useDeleteDeckMutation } from '../../../features/api-slices/decksapislice.ts';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy, faStar, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -7,11 +7,9 @@ import { Deck, DeckDisplayComponent, DeckError, handleDeckClick } from '../types
 
 const DeckDisplay= ({ listView, galleryView, userId, deckName }: DeckDisplayComponent) => {
     const navigate = useNavigate();
+    const [selectedDeckId, setSelectedDeckId] = useState<string | null>(null)
 
     const { data: modifyDecks, refetch } = useGetAllOwnedDecksQuery(userId);
-
-    const [getSpecificDeck] = useGetSpecificOwnedDeckMutation();
-
     const [deleteDeck] = useDeleteDeckMutation();
     
     const decksToDisplay = modifyDecks?.entities?.undefined?.ownedDecks || [];
@@ -27,23 +25,13 @@ const DeckDisplay= ({ listView, galleryView, userId, deckName }: DeckDisplayComp
     );
 
     const handleDeckClick = async (deck: handleDeckClick) => {
-        try {
-            const result = await getSpecificDeck({
-                id: userId,
-                DeckData: { deckId: deck._id }
-            });
-
-            if (result) {
-                const deckData = (result as {data: any}).data.entities.undefined[0];
-                navigate('/modifyDeck', { state: { deckId: deckData._id, userId: userId }
-                });
-            } else {
-                console.log("Deck data not found in the response.");
-            }
-        } catch (error) {
-            console.error("Failed to fetch the deck data:", error);
-        }
+        setSelectedDeckId(deck._id);
+        navigate('/modifyDeck', { state: { deckId: selectedDeckId, userId: userId } });   
     };
+
+    useEffect(() => {
+        console.log(selectedDeckId)
+    })
 
     const handleDeleteDeckClick = async(deck: handleDeckClick) => {
         try {

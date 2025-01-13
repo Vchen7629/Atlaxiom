@@ -17,8 +17,8 @@ router.route("/maindeck/:id")
     .patch(deckController.addCardtoMainDeck)
     .delete(deckController.DeleteCardfromMainDeck)
 
-router.route("/maindeck/increase/:id")
-    .patch(deckController.increaseCardAmountinMainDeck)
+router.route("/maindeck/update/:id")
+    .patch(deckController.modifyCardAmountinMainDeck)
 
 router.route("/maindeck/decrease/:id")
     .patch(deckController.decreaseCardAmountinMainDeck)
@@ -43,7 +43,7 @@ router.route("/sidedeck/increase/:id")
 router.route("/sidedeck/decrease/:id")
     .patch(deckController.decreaseCardAmountinSideDeck)
     
-router.route("/specific/:id")
-    .post(deckController.getSpecificDeckforUser)
+router.route("/specific/:id/:deckId")
+    .get(deckController.getSpecificDeckforUser)
 
 module.exports = router;

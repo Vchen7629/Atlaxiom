@@ -1,10 +1,11 @@
 
-import { useDeleteDeckMutation, useGetSpecificOwnedDeckMutation } from '@/features/api-slices/decksapislice.ts';
+import { useDeleteDeckMutation } from '@/features/api-slices/decksapislice.ts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faCopy, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { DeckError, DeckProps, FilteredDecks, handleDeckClick, UserId } from '../types/subpagetypes';
+import { useState } from 'react';
 
 const ViewDecks = ({ deckprops, user }: DeckProps) => {
     const {
@@ -15,30 +16,22 @@ const ViewDecks = ({ deckprops, user }: DeckProps) => {
         currentGalleryPageResults,
     } = deckprops 
 
+    const [selectedDeckId, setSelectedDeckId] = useState<string | null>(null)
     const userId = useSelector((state: UserId) => state.auth.userId);
     const navigate = useNavigate();
     const { totalOwnedDecks } = user;
     
-    const [getSpecificDeck] = useGetSpecificOwnedDeckMutation();
     const [deleteDeck] = useDeleteDeckMutation();
     
-
     const handleDeckClick = async (deck: handleDeckClick) => {
-        try {
-            const result = await getSpecificDeck({ id: userId, DeckData: { deckId: deck._id }});
-
-            if (result) {
-                const deckData = (result as {data: any}).data.entities.undefined[0];
-                navigate('/modifyDeck', { state: { deckId: deckData._id, userId: userId }
-            });
-
-            } else { console.log("Deck data not found in the response.") }
-        } catch (error) { console.error("Failed to fetch the deck data:", error) }
+        setSelectedDeckId(deck._id);
+        navigate('/modifyDeck', { state: { deckId: selectedDeckId, userId: userId } });   
     };
     
     const handleDeleteDeckClick = async(deck: handleDeckClick) => {
+        setSelectedDeckId(deck._id);
         try {
-            const deldeck = await deleteDeck({ id: userId, DeckData: { deckId: deck._id } });
+            const deldeck = await deleteDeck({ id: userId, DeckData: { deckId: selectedDeckId } });
                 if (deldeck) {
                     refetchdecks();
                 } else {
