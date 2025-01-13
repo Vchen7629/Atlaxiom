@@ -7,7 +7,8 @@ Welcome to Atlaxiom! This is a wip full-stack web applicationproject that is aim
     <li>Searchbar feature that uses a 3rd party api to allow for users to search for desired yugioh cards from their database.</li>
     <li>Card Collection feature to display user's card collections.</li>
     <li>Charts to display user collection statistics.</li>
-    <li>WIP: Deck creation feature that allows users to create decks using their card collection or delete existing decks.</li>
+    <li>Deck Creation Page that allows users to create/delete decks </li>
+    <li>WIP: Deck Edit feature that allows users to add their owned cards or search up cards to add to their deck and save to their db/account.</li>
 </ul>
 
 <h1> <strong> Getting started with this project </strong> </h1>
