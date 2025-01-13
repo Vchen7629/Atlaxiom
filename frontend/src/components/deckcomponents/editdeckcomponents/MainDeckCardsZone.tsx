@@ -3,10 +3,12 @@ import GridListViewComponent from "../decksidebar/gridlistviewcomponent"
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { handleDecreaseCardOwnedAmount, handleDeleteMonsterCardClick, handleDeleteSpellCardClick, handleDeleteTrapCardClick, handleIncreaseCardOwnedAmount } from "./EditDeckCardButtons";
 
 const MainDeckCardZone = ({ maindeckprops }: any) => {
   const {
     deck,
+    setModifyMainDeckCardAmountPlaceHolder,
     monsterCards, setMonsterCards,
     spellCards, setSpellCards,
     trapCards, setTrapCards,
@@ -36,70 +38,6 @@ const MainDeckCardZone = ({ maindeckprops }: any) => {
 
   const shouldTrapBlur = isTrapOver && hoveredCard && hoveredCard?.type?.includes("Trap");
 
-  const handleIncreaseCardOwnedAmount = (cardToIncrease: any, setCard: React.Dispatch<React.SetStateAction<any[]>>) => {
-    console.log("Increasing card:", cardToIncrease);
-    setCard((prevCard: any) => {
-      const updatedCard = prevCard.map((card: any) => {
-        if ((card._id || card.id) === (cardToIncrease._id || cardToIncrease.id)) {
-          console.log(`Increasing card ${card.id || card._id} amount to ${card.cardInDeckOwnedAmount + 1}`); 
-          return { 
-            ...card, 
-            cardInDeckOwnedAmount: Math.min((card.cardInDeckOwnedAmount || 0) + 1, 3)
-          } 
-        } else {
-          return card;
-        } 
-      });
-      return updatedCard;
-    })
-  }
-
-  const handleDecreaseCardOwnedAmount = (cardToDecrease: any, setCard: React.Dispatch<React.SetStateAction<any[]>>) => {
-    setCard((prevCard: any) => {
-      const updatedCard = prevCard.map((card: any) => {
-        if ((card._id || card.id) === (cardToDecrease._id || cardToDecrease.id)) {
-          return { 
-            ...card, 
-            cardInDeckOwnedAmount: Math.max((card.cardInDeckOwnedAmount || 0) - 1, 0)
-          } 
-        } else {
-          return card;
-        } 
-      }).filter((card: any) => card.cardInDeckOwnedAmount > 0);
-      return updatedCard;
-    })
-  }
-
-  const handleDeleteMonsterCardClick = (cardToDelete: any) => {
-    setMonsterCards((prevCards: any) => 
-      prevCards.filter((card: any) => {
-        const cardId = card?.id || card?._id;
-        const deleteCardId = cardToDelete?.id || cardToDelete?._id;
-        return cardId !== deleteCardId;
-      })
-    );
-  };
-
-  const handleDeleteSpellCardClick = (cardToDelete: any) => {
-    setSpellCards((prevCards: any) => 
-      prevCards.filter((card: any) => {
-        const cardId = card?.id || card?._id;
-        const deleteCardId = cardToDelete?.id || cardToDelete?._id;
-        return cardId !== deleteCardId;
-      })
-    );
-  };
-
-  const handleDeleteTrapCardClick = (cardToDelete: any) => {
-    setTrapCards((prevCards: any) => 
-      prevCards.filter((card: any) => {
-        const cardId = card?.id || card?._id;
-        const deleteCardId = cardToDelete?.id || cardToDelete?._id;
-        return cardId !== deleteCardId;
-      })
-    );
-  };
-
   const filterProps = {
     listView, setListView,
     galleryView, setGalleryView
@@ -120,7 +58,7 @@ const MainDeckCardZone = ({ maindeckprops }: any) => {
           <div className="flex bg-[hsl(var(--editdeckdraganddropbackground))] w-full min-h-[90%] rounded-lg">
             <section 
               ref={MonsterCardRef} 
-              className={`flex flex-col w-1/3 relative ${shouldMonsterBlur ? "border-2 border-goldenrod rounded-tl-lg rounded-bl-lg" : ""}`}
+              className={`flex flex-col w-1/3 relative ${shouldMonsterBlur ? "border-2 border-goldenrod rounded-lg" : ""}`}
             >
               {shouldMonsterBlur && (
                   <div className="absolute inset-0 flex items-center justify-center bg-transparent">
@@ -145,13 +83,13 @@ const MainDeckCardZone = ({ maindeckprops }: any) => {
                         <div className="flex space-x-1">
                           <button 
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))]'
-                            onClick={() => {handleIncreaseCardOwnedAmount(card, setMonsterCards)}}
+                            onClick={() => {handleIncreaseCardOwnedAmount(card, setMonsterCards, setModifyMainDeckCardAmountPlaceHolder)}}
                           >
                             <FontAwesomeIcon icon={faPlus}/>
                           </button>
                           <button 
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))]'
-                            onClick={() => {handleDecreaseCardOwnedAmount(card, setMonsterCards)}}
+                            onClick={() => {handleDecreaseCardOwnedAmount(card, setMonsterCards, setModifyMainDeckCardAmountPlaceHolder)}}
                           >
                             <FontAwesomeIcon icon={faMinus}/>
                           </button>
@@ -159,7 +97,7 @@ const MainDeckCardZone = ({ maindeckprops }: any) => {
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))] hover:text-red-500'
                             onClick={(event) => {
                               event.stopPropagation(); 
-                              handleDeleteMonsterCardClick(card);
+                              handleDeleteMonsterCardClick(card, setMonsterCards);
                             }}
                           >
                             <FontAwesomeIcon icon={faTrash}/>
@@ -173,7 +111,7 @@ const MainDeckCardZone = ({ maindeckprops }: any) => {
             </section>
             <section 
               ref={SpellCardRef} 
-              className={`flex flex-col w-1/3 relative ${shouldSpellBlur ? "border-2 border-goldenrod" : ""}`}
+              className={`flex flex-col w-1/3 relative ${shouldSpellBlur ? "border-2 border-goldenrod rounded-lg" : ""}`}
             >
               {shouldSpellBlur && (
                   <div className="absolute inset-0 flex items-center justify-center bg-transparent">
@@ -196,13 +134,13 @@ const MainDeckCardZone = ({ maindeckprops }: any) => {
                         <div className="flex space-x-1">
                           <button 
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))]'
-                            onClick={() => {handleIncreaseCardOwnedAmount(card, setSpellCards)}}
+                            onClick={() => {handleIncreaseCardOwnedAmount(card, setSpellCards, setModifyMainDeckCardAmountPlaceHolder)}}
                           >
                             <FontAwesomeIcon icon={faPlus}/>
                           </button>
                           <button 
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))]'
-                            onClick={() => {handleDecreaseCardOwnedAmount(card, setSpellCards)}}
+                            onClick={() => {handleDecreaseCardOwnedAmount(card, setSpellCards, setModifyMainDeckCardAmountPlaceHolder)}}
                           >
                             <FontAwesomeIcon icon={faMinus}/>
                           </button>
@@ -210,7 +148,7 @@ const MainDeckCardZone = ({ maindeckprops }: any) => {
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))] hover:text-red-500'
                             onClick={(event) => {
                               event.stopPropagation(); 
-                              handleDeleteSpellCardClick(card);
+                              handleDeleteSpellCardClick(card, setSpellCards);
                             }}
                           >
                             <FontAwesomeIcon icon={faTrash}/>
@@ -224,7 +162,7 @@ const MainDeckCardZone = ({ maindeckprops }: any) => {
             </section>
             <section 
               ref={TrapCardRef} 
-              className={`flex flex-col w-1/3 relative ${shouldTrapBlur ? "border-2 border-goldenrod rounded-tr-lg rounded-br-lg" : "" }`}
+              className={`flex flex-col w-1/3 relative ${shouldTrapBlur ? "border-2 border-goldenrod rounded-lg" : "" }`}
             >
               {shouldTrapBlur && (
                   <div className="absolute inset-0 flex items-center justify-center bg-transparent">
@@ -247,13 +185,13 @@ const MainDeckCardZone = ({ maindeckprops }: any) => {
                         <div className="flex space-x-1">
                           <button 
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))]'
-                            onClick={() => {handleIncreaseCardOwnedAmount(card, setTrapCards)}}
+                            onClick={() => {handleIncreaseCardOwnedAmount(card, setTrapCards, setModifyMainDeckCardAmountPlaceHolder)}}
                           >
                             <FontAwesomeIcon icon={faPlus}/>
                           </button>
                           <button 
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))]'
-                            onClick={() => {handleDecreaseCardOwnedAmount(card, setTrapCards)}}
+                            onClick={() => {handleDecreaseCardOwnedAmount(card, setTrapCards, setModifyMainDeckCardAmountPlaceHolder)}}
                           >
                             <FontAwesomeIcon icon={faMinus}/>
                           </button>
@@ -261,7 +199,7 @@ const MainDeckCardZone = ({ maindeckprops }: any) => {
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))] hover:text-red-500'
                             onClick={(event) => {
                               event.stopPropagation(); 
-                              handleDeleteTrapCardClick(card);
+                              handleDeleteTrapCardClick(card, setTrapCards);
                             }}
                           >
                             <FontAwesomeIcon icon={faTrash}/>

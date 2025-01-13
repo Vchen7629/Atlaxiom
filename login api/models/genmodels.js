@@ -10,5 +10,5 @@ const Deck = mongoose.model('Deck', ownedDeckSchema)
 module.exports = {
     User,
     OwnedCard,
-    Deck
+    Deck,
 };
