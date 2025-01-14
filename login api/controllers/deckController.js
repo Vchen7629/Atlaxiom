@@ -137,14 +137,15 @@ const addCardtoMainDeck = asyncHandler(async (req, res) => {
         return res.status(409).json({ message: 'All cards in the input already exist in the deck' });
     }
 
-    if ((deck.total_cards_main_deck || 0) + cardsToAdd.length > 60) {
+    const totalCardsToAdd = cardsToAdd.reduce((sum, card) => sum + (card.cardInDeckOwnedAmount || 0), 0);
+
+    if ((deck.total_cards_main_deck || 0) + totalCardsToAdd > 60) {
         return res.status(400).json({ message: 'main deck limit of 60 cards will be exceeded if this card is added' });
     }
 
     deck.main_deck_cards.push(...cardsToAdd);
 
-    deck.total_cards_main_deck = (deck.total_cards_main_deck || 0) + cardsToAdd.length;
-
+    deck.total_cards_main_deck = (deck.total_cards_main_deck || 0) + totalCardsToAdd;
 
     const now = new Date();
     const formattedDate = now.toISOString().split('T')[0];
@@ -200,13 +201,15 @@ const addCardtoExtraDeck = asyncHandler(async (req, res) => {
         return res.status(409).json({ message: 'All cards in the input already exist in the deck' });
     }
 
-    if ((deck.extra_cards_deck || 0) + cardsToAdd.length > 15) {
+    const totalCardsToAdd = cardsToAdd.reduce((sum, card) => sum + (card.cardInDeckOwnedAmount || 0), 0);
+
+    if ((deck.total_cards_extra_deck || 0) + totalCardsToAdd > 15) {
         return res.status(400).json({ message: 'extra deck limit of 15 cards will be exceeded if this card is added' });
     }
 
     deck.extra_deck_cards.push(...cardsToAdd);
+    deck.total_cards_extra_deck = (deck.total_cards_extra_deck || 0) + totalCardsToAdd;
 
-    deck.total_cards_extra_deck = (deck.total_cards_extra_deck || 0) + extra_deck_cards.length;
 
     const now = new Date();
     const formattedDate = now.toISOString().split('T')[0];
@@ -255,12 +258,15 @@ const addCardtoSideDeck = asyncHandler(async (req, res) => {
         return res.status(409).json({ message: 'All cards in the input already exist in the deck' });
     }
 
-    if ((deck.total_cards_side_deck || 0) + side_deck_cards.length > 15) {
+    const totalCardsToAdd = cardsToAdd.reduce((sum, card) => sum + (card.cardInDeckOwnedAmount || 0), 0);
+
+    if ((deck.total_cards_side_deck || 0) + totalCardsToAdd > 15) {
         return res.status(400).json({ message: 'side deck limit of 15 cards will be exceeded if this card is added' });
     }
 
     deck.side_deck_cards.push(...cardsToAdd);
-    deck.total_cards_side_deck = (deck.total_cards_side_deck || 0) + side_deck_cards.length;
+    deck.total_cards_side_deck = (deck.total_cards_side_deck || 0) + totalCardsToAdd;
+
 
     const now = new Date();
     const formattedDate = now.toISOString().split('T')[0];

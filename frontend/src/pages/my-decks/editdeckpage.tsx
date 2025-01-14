@@ -164,11 +164,11 @@ const DeckBuilderPage = () => {
     }
 
     useEffect(() => {
-        console.log("display", sideDeckCards)
-        console.log("add card", cardsToAddSideDeckPlaceHolder)
-        console.log("hey", modifySideDeckCardAmountPlaceHolder)
-        console.log("delete", cardsToDeleteSideDeckPlaceHolder)
-    }, [sideDeckCards, cardsToAddSideDeckPlaceHolder, cardsToDeleteSideDeckPlaceHolder, modifySideDeckCardAmountPlaceHolder])
+        console.log("display", monsterCards)
+        console.log("add card", cardsToAddMainDeckPlaceHolder)
+        //console.log("hey", modifySideDeckCardAmountPlaceHolder)
+        //console.log("delete", cardsToDeleteSideDeckPlaceHolder)
+    }, [monsterCards, cardsToAddMainDeckPlaceHolder, /*cardsToDeleteSideDeckPlaceHolder, modifySideDeckCardAmountPlaceHolder*/])
 
 
     const sidebarprops = {
