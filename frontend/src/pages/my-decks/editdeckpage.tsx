@@ -28,7 +28,6 @@ const DeckBuilderPage = () => {
     useEffect(() => {
         if (deckId && userId) {
             refetch()
-            console.log("deck data", deckData)
         }
     }, [deckId, userId]);
 
@@ -93,7 +92,6 @@ const DeckBuilderPage = () => {
         const { active, over } = event;
 
         if (!active.id) {
-            console.log("Dragged item does not have a valid ID");
             return;
         }
 
@@ -219,13 +217,6 @@ const DeckBuilderPage = () => {
         cardsToDeleteSideDeckPlaceHolder, setCardsToDeleteSideDeckPlaceHolder,
         modifySideDeckCardAmountPlaceHolder, setModifySideDeckCardAmountPlaceHolder
     }
-
-    /*const filterProps = {
-        setListView,
-        listView,
-        setGalleryView,
-        galleryView
-    }*/
 
     return (
         <>  
