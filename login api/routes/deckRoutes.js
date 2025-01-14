@@ -30,6 +30,9 @@ router.route("/extradeck/update/:id")
 router.route("/sidedeck/:id")
     .patch(deckController.addCardtoSideDeck)
     .delete(deckController.DeleteCardfromSideDeck)
+
+router.route("/sidedeck/update/:id")
+    .patch(deckController.modifyCardAmountinSideDeck)
     
 router.route("/specific/:id/:deckId")
     .get(deckController.getSpecificDeckforUser)

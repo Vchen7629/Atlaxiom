@@ -3,12 +3,15 @@ import GridListViewComponent from "../decksidebar/gridlistviewcomponent"
 import { useState } from "react"
 import { faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { handleDecreaseCardOwnedAmount, handleDeleteCardClick, handleIncreaseCardOwnedAmount } from "./EditDeckCardButtons"
 
 const SideDeckCardZone = ({ sidedeckprops }: any) => {
   const {
     deck,
     sideDeckCards, setSideDeckCards,
-    hoveredCard
+    hoveredCard,
+    setModifySideDeckCardAmountPlaceHolder,
+    setCardsToDeleteSideDeckPlaceHolder,
   } = sidedeckprops
 
   const [listView, setListView] = useState(true);
@@ -19,48 +22,6 @@ const SideDeckCardZone = ({ sidedeckprops }: any) => {
   })
 
   const shouldSideDeckBlur = isOver && hoveredCard ;
-
-  const handleIncreaseCardOwnedAmount = (cardToIncrease: any, setCard: React.Dispatch<React.SetStateAction<any[]>>) => {
-    setCard((prevCard: any) => {
-      const updatedCard = prevCard.map((card: any) => {
-        if ((card._id || card.id) === (cardToIncrease._id || cardToIncrease.id)) {
-          return { 
-            ...card, 
-            cardInDeckOwnedAmount: Math.min((card.cardInDeckOwnedAmount || 0) + 1, 3)
-          } 
-        } else {
-          return card;
-        } 
-      });
-      return updatedCard;
-    })
-  }
-
-  const handleDecreaseCardOwnedAmount = (cardToDecrease: any, setCard: React.Dispatch<React.SetStateAction<any[]>>) => {
-    setCard((prevCard: any) => {
-      const updatedCard = prevCard.map((card: any) => {
-        if ((card._id || card.id) === (cardToDecrease._id || cardToDecrease.id)) {
-          return { 
-            ...card, 
-            cardInDeckOwnedAmount: Math.max((card.cardInDeckOwnedAmount || 0) - 1, 0)
-          } 
-        } else {
-          return card;
-        } 
-      }).filter((card: any) => card.cardInDeckOwnedAmount > 0);
-      return updatedCard;
-    })
-  }
-
-  const handleDeleteCardClick = (cardToDelete: any) => {
-    setSideDeckCards((prevCards: any) => 
-      prevCards.filter((card: any) => {
-        const cardId = card?.id || card?._id;
-        const deleteCardId = cardToDelete?.id || cardToDelete?._id;
-        return cardId !== deleteCardId;
-      })
-    );
-  };
 
   const filterProps = {
     listView, setListView,
@@ -108,13 +69,13 @@ const SideDeckCardZone = ({ sidedeckprops }: any) => {
                         <div className="flex space-x-1">
                           <button 
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))]'
-                            onClick={() => {handleIncreaseCardOwnedAmount(card, setSideDeckCards)}}
+                            onClick={() => {handleIncreaseCardOwnedAmount(card, setSideDeckCards, setModifySideDeckCardAmountPlaceHolder)}}
                           >
                             <FontAwesomeIcon icon={faPlus}/>
                           </button>
                           <button 
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))]'
-                            onClick={() => {handleDecreaseCardOwnedAmount(card, setSideDeckCards)}}
+                            onClick={() => {handleDecreaseCardOwnedAmount(card, setSideDeckCards, setModifySideDeckCardAmountPlaceHolder)}}
                           >
                             <FontAwesomeIcon icon={faMinus}/>
                           </button>
@@ -122,7 +83,7 @@ const SideDeckCardZone = ({ sidedeckprops }: any) => {
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))] hover:text-red-500'
                             onClick={(event) => {
                               event.stopPropagation(); 
-                              handleDeleteCardClick(card);
+                              handleDeleteCardClick(card, setSideDeckCards, setModifySideDeckCardAmountPlaceHolder, setCardsToDeleteSideDeckPlaceHolder);
                             }}
                           >
                             <FontAwesomeIcon icon={faTrash}/>

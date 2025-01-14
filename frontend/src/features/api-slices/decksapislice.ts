@@ -113,8 +113,22 @@ export const deckApiSlice = apiSlice.injectEndpoints({
 
 
         addNewCardtoSideDeck: builder.mutation({
-            query: ({ id, DeckData }) => ({
+            query: ({ id, deckId, side_deck_cards }) => ({
                 url: `/deck/sidedeck/${id}`,
+                method: 'PATCH',
+                body: {
+                    deckId,
+                    side_deck_cards
+                }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Deck', id: arg.id }
+            ]
+        }),
+
+        modifyCardAmountinSideDeck: builder.mutation({
+            query: ({ id, DeckData }) => ({
+                url: `/deck/sidedeck/update/${id}`,
                 method: 'PATCH',
                 body: DeckData
             }),
@@ -179,6 +193,7 @@ export const {
     useAddNewCardtoSideDeckMutation,
     useModifyCardAmountinMainDeckMutation,
     useModifyCardAmountinExtraDeckMutation,
+    useModifyCardAmountinSideDeckMutation,
     useDeleteCardfromMainDeckMutation,
     useDeleteCardfromExtraDeckMutation,
     useDeleteCardfromSideDeckMutation,
