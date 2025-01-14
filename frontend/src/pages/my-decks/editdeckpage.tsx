@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Header from '../../components/header/header.tsx';
 import Footer from '../../components/footer/Footer.tsx';
 import { useLocation } from 'react-router-dom';
-import { useGetSpecificOwnedDeckMutation, useGetSpecificOwnedDeckQuery } from '../../features/api-slices/decksapislice.ts';
+import { useGetSpecificOwnedDeckQuery } from '../../features/api-slices/decksapislice.ts';
 import DeckBuilderPageSidebarComponent from '../../components/deckcomponents/decksidebar/deckbuilderpagesidebar.tsx';
 import MainDeckCardZone from '@/components/deckcomponents/editdeckcomponents/MainDeckCardsZone.tsx';
 import { DndContext } from '@dnd-kit/core';
@@ -36,22 +36,22 @@ const DeckBuilderPage = () => {
 
     const [hoveredCard, setHoveredCard] = useState<any>(null);
     const [cardsToAddMainDeckPlaceHolder, setCardsToAddMainDeckPlaceHolder] = useState<any[]>([]);
+    const [cardsToDeleteMainDeckPlaceHolder, setCardsToDeleteMainDeckPlaceHolder] = useState<any[]>([]);
     const [modifyMainDeckCardAmountPlaceHolder, setModifyMainDeckCardAmountPlaceHolder] = useState<any[]>([]);
     const [extraDeckCards, setExtraDeckCards] = useState<any[]>([]);
+    const [cardsToAddExtraDeckPlaceHolder, setCardsToAddExtraDeckPlaceHolder] = useState<any[]>([]);
+    const [cardsToDeleteExtraDeckPlaceHolder, setCardsToDeleteExtraDeckPlaceHolder] = useState<any[]>([]);
+    const [modifyExtraDeckCardAmountPlaceHolder, setModifyExtraDeckCardAmountPlaceHolder] = useState<any[]>([]);
     const [sideDeckCards, setSideDeckCards] = useState<any[]>([]);
     const [monsterCards, setMonsterCards] = useState<any[]>([]);
     const [spellCards, setSpellCards] = useState<any[]>([]);
     const [trapCards, setTrapCards] = useState<any[]>([]);
 
-    const [mainDeckCardCount, setMainDeckCardCount] = useState<number>(0);
-    const [extraDeckCardCount, setExtraDeckCardCount] = useState<number>(0);
-    const [sideDeckCardCount, setSideDeckCardCount] = useState<number>(0);
-
     useEffect(() => {
         if (deckData) {  
-            if (deck?.main_deck_cards) {
+            if (deck?.main_deck_cards || deck?.extra_deck_cards) {
                 const mainCards = deck?.main_deck_cards;
-                console.log("no", mainCards)
+                const extraDeckCards = deck?.extra_deck_cards;
     
                 const monsters = mainCards.filter(card => card.type && !["Spell Card", "Trap Card"].includes(card.type));
                 const spells = mainCards.filter(card => card.type?.includes("Spell"));
@@ -60,6 +60,7 @@ const DeckBuilderPage = () => {
                 setMonsterCards(monsters);
                 setSpellCards(spells);
                 setTrapCards(traps);
+                setExtraDeckCards(extraDeckCards);
             }
         }
     }, [deckData]);
@@ -142,6 +143,7 @@ const DeckBuilderPage = () => {
                 case "extradeckcard":
                     if (["Synchro Monster", "Fusion Monster", "XYZ Monster"].some(type => draggedCard.type?.includes(type))) {
                         addOrUpdateCard(setExtraDeckCards);
+                        addOrUpdateCard(setCardsToAddExtraDeckPlaceHolder);
                     } else return;
                     break;
                 case "sidedeckcard":
@@ -156,12 +158,12 @@ const DeckBuilderPage = () => {
     }
 
     useEffect(() => {
-        console.log("add card", cardsToAddMainDeckPlaceHolder)
-        console.log("hey", modifyMainDeckCardAmountPlaceHolder)
-        console.log("new", monsterCards)
-        console.log("new array", spellCards)
-        console.log("new array", trapCards)
-    }, [cardsToAddMainDeckPlaceHolder, modifyMainDeckCardAmountPlaceHolder, monsterCards, spellCards, trapCards])
+        console.log("display", extraDeckCards)
+        console.log("add card", cardsToAddExtraDeckPlaceHolder)
+        console.log("hey", modifyExtraDeckCardAmountPlaceHolder)
+        console.log("delete", cardsToDeleteExtraDeckPlaceHolder)
+    }, [extraDeckCards, cardsToAddExtraDeckPlaceHolder, cardsToDeleteExtraDeckPlaceHolder, modifyExtraDeckCardAmountPlaceHolder])
+
 
     const sidebarprops = {
         userId,
@@ -174,6 +176,7 @@ const DeckBuilderPage = () => {
     const maindeckprops = {
         deck,
         setModifyMainDeckCardAmountPlaceHolder,
+        setCardsToDeleteMainDeckPlaceHolder,
         monsterCards, setMonsterCards,
         spellCards, setSpellCards,
         trapCards, setTrapCards,
@@ -183,21 +186,28 @@ const DeckBuilderPage = () => {
     const extradeckprops = {
         deck,
         extraDeckCards, setExtraDeckCards,
-        hoveredCard
+        hoveredCard,
+        setModifyExtraDeckCardAmountPlaceHolder,
+        setCardsToDeleteExtraDeckPlaceHolder,
     }
 
     const sidedeckprops = {
         deck,
         sideDeckCards, setSideDeckCards,
-        hoveredCard
+        hoveredCard,
+        
     }
 
     const savebuttonprops = {
         userId,
         refetch,
         deck,
-        cardsToAddMainDeckPlaceHolder,
-        modifyMainDeckCardAmountPlaceHolder
+        cardsToAddMainDeckPlaceHolder, setCardsToAddMainDeckPlaceHolder,
+        cardsToDeleteMainDeckPlaceHolder, setCardsToDeleteMainDeckPlaceHolder,
+        modifyMainDeckCardAmountPlaceHolder, setModifyMainDeckCardAmountPlaceHolder,
+        cardsToAddExtraDeckPlaceHolder, setCardsToAddExtraDeckPlaceHolder,
+        cardsToDeleteExtraDeckPlaceHolder, setCardsToDeleteExtraDeckPlaceHolder,
+        modifyExtraDeckCardAmountPlaceHolder, setModifyExtraDeckCardAmountPlaceHolder
     }
 
     /*const filterProps = {

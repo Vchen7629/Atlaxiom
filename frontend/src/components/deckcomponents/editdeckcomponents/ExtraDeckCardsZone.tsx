@@ -3,12 +3,15 @@ import GridListViewComponent from "../decksidebar/gridlistviewcomponent"
 import { useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { handleDecreaseCardOwnedAmount, handleDeleteCardClick, handleIncreaseCardOwnedAmount } from "./EditDeckCardButtons"
 
 const ExtraDeckCardZone = ({ extradeckprops }: any) => {
   const {
-    //deck,
+    deck,
     extraDeckCards, setExtraDeckCards,
-    hoveredCard
+    hoveredCard,
+    setModifyExtraDeckCardAmountPlaceHolder,
+    setCardsToDeleteExtraDeckPlaceHolder,
   } = extradeckprops
 
   const [listView, setListView] = useState(true);
@@ -22,48 +25,6 @@ const ExtraDeckCardZone = ({ extradeckprops }: any) => {
     (type) => hoveredCard.type?.includes(type)
   );
 
-  const handleIncreaseCardOwnedAmount = (cardToIncrease: any, setCard: React.Dispatch<React.SetStateAction<any[]>>) => {
-    setCard((prevCard: any) => {
-      const updatedCard = prevCard.map((card: any) => {
-        if ((card._id || card.id) === (cardToIncrease._id || cardToIncrease.id)) {
-          return { 
-            ...card, 
-            cardInDeckOwnedAmount: Math.min((card.cardInDeckOwnedAmount || 0) + 1, 3)
-          } 
-        } else {
-          return card;
-        } 
-      });
-      return updatedCard;
-    })
-  }
-
-  const handleDecreaseCardOwnedAmount = (cardToDecrease: any, setCard: React.Dispatch<React.SetStateAction<any[]>>) => {
-    setCard((prevCard: any) => {
-      const updatedCard = prevCard.map((card: any) => {
-        if ((card._id || card.id) === (cardToDecrease._id || cardToDecrease.id)) {
-          return { 
-            ...card, 
-            cardInDeckOwnedAmount: Math.max((card.cardInDeckOwnedAmount || 0) - 1, 0)
-          } 
-        } else {
-          return card;
-        } 
-      }).filter((card: any) => card.cardInDeckOwnedAmount > 0);
-      return updatedCard;
-    })
-  }
-
-  const handleDeleteCardClick = (cardToDelete: any) => {
-    setExtraDeckCards((prevCards: any) => 
-      prevCards.filter((card: any) => {
-        const cardId = card?.id || card?._id;
-        const deleteCardId = cardToDelete?.id || cardToDelete?._id;
-        return cardId !== deleteCardId;
-      })
-    );
-  };
-
   const filterProps = {
     listView, setListView,
     galleryView, setGalleryView
@@ -74,8 +35,7 @@ const ExtraDeckCardZone = ({ extradeckprops }: any) => {
         <header className="flex w-full py-[2vh] pl-[3vw] justify-between text-[hsl(var(--text))]">
             <span className="flex font-black items-center">Extra Deck</span>
             <div className="flex h-fit items-center space-x-4">
-                {/*<div className="font-bold">Total Extra Deck Cards: {deck?.total_cards_extra_deck}</div>*/}
-                <div className="font-bold">Total Extra Deck Cards: {extraDeckCards.length}</div>
+                <div className="font-bold">Total Extra Deck Cards: {deck?.total_cards_extra_deck}</div>
                 <div className='flex w-20 bg-footer rounded-xl'>
                     <GridListViewComponent filterProps={filterProps}/>
                 </div>
@@ -109,13 +69,13 @@ const ExtraDeckCardZone = ({ extradeckprops }: any) => {
                         <div className="flex space-x-1">
                           <button 
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))]'
-                            onClick={() => {handleIncreaseCardOwnedAmount(card, setExtraDeckCards)}}
+                            onClick={() => {handleIncreaseCardOwnedAmount(card, setExtraDeckCards, setModifyExtraDeckCardAmountPlaceHolder)}}
                           >
                             <FontAwesomeIcon icon={faPlus}/>
                           </button>
                           <button 
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))]'
-                            onClick={() => {handleDecreaseCardOwnedAmount(card, setExtraDeckCards)}}
+                            onClick={() => {handleDecreaseCardOwnedAmount(card, setExtraDeckCards, setModifyExtraDeckCardAmountPlaceHolder)}}
                           >
                             <FontAwesomeIcon icon={faMinus}/>
                           </button>
@@ -123,7 +83,7 @@ const ExtraDeckCardZone = ({ extradeckprops }: any) => {
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))] hover:text-red-500'
                             onClick={(event) => {
                               event.stopPropagation(); 
-                              handleDeleteCardClick(card);
+                              handleDeleteCardClick(card, setExtraDeckCards, setModifyExtraDeckCardAmountPlaceHolder, setCardsToDeleteExtraDeckPlaceHolder);
                             }}
                           >
                             <FontAwesomeIcon icon={faTrash}/>

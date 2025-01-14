@@ -3,12 +3,13 @@ import GridListViewComponent from "../decksidebar/gridlistviewcomponent"
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { handleDecreaseCardOwnedAmount, handleDeleteMonsterCardClick, handleDeleteSpellCardClick, handleDeleteTrapCardClick, handleIncreaseCardOwnedAmount } from "./EditDeckCardButtons";
+import { handleDecreaseCardOwnedAmount, handleDeleteCardClick, handleIncreaseCardOwnedAmount } from "./EditDeckCardButtons";
 
 const MainDeckCardZone = ({ maindeckprops }: any) => {
   const {
     deck,
     setModifyMainDeckCardAmountPlaceHolder,
+    setCardsToDeleteMainDeckPlaceHolder,
     monsterCards, setMonsterCards,
     spellCards, setSpellCards,
     trapCards, setTrapCards,
@@ -97,7 +98,7 @@ const MainDeckCardZone = ({ maindeckprops }: any) => {
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))] hover:text-red-500'
                             onClick={(event) => {
                               event.stopPropagation(); 
-                              handleDeleteMonsterCardClick(card, setMonsterCards);
+                              handleDeleteCardClick(card, setMonsterCards, setModifyMainDeckCardAmountPlaceHolder, setCardsToDeleteMainDeckPlaceHolder);
                             }}
                           >
                             <FontAwesomeIcon icon={faTrash}/>
@@ -148,7 +149,7 @@ const MainDeckCardZone = ({ maindeckprops }: any) => {
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))] hover:text-red-500'
                             onClick={(event) => {
                               event.stopPropagation(); 
-                              handleDeleteSpellCardClick(card, setSpellCards);
+                              handleDeleteCardClick(card, setSpellCards, setModifyMainDeckCardAmountPlaceHolder, setCardsToDeleteMainDeckPlaceHolder);
                             }}
                           >
                             <FontAwesomeIcon icon={faTrash}/>
@@ -199,7 +200,7 @@ const MainDeckCardZone = ({ maindeckprops }: any) => {
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))] hover:text-red-500'
                             onClick={(event) => {
                               event.stopPropagation(); 
-                              handleDeleteTrapCardClick(card, setTrapCards);
+                              handleDeleteCardClick(card, setTrapCards, setModifyMainDeckCardAmountPlaceHolder, setCardsToDeleteMainDeckPlaceHolder);
                             }}
                           >
                             <FontAwesomeIcon icon={faTrash}/>
