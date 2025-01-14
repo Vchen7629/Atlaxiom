@@ -1,16 +1,24 @@
-import { useAddCardsMainDeckMutation, useModifyCardAmountinMainDeckMutation } from "@/features/api-slices/decksapislice"
+import { useAddCardsMainDeckMutation, useAddNewCardtoExtraDeckMutation, useDeleteCardfromExtraDeckMutation, useDeleteCardfromMainDeckMutation, useModifyCardAmountinExtraDeckMutation, useModifyCardAmountinMainDeckMutation } from "@/features/api-slices/decksapislice"
 
 const SaveDeckCardsButton = ({ savebuttonprops }) => {
     const {
         userId,
         refetch,
         deck,
-        cardsToAddMainDeckPlaceHolder,
-        modifyMainDeckCardAmountPlaceHolder
+        cardsToAddMainDeckPlaceHolder, setCardsToAddMainDeckPlaceHolder,
+        cardsToDeleteMainDeckPlaceHolder, setCardsToDeleteMainDeckPlaceHolder,
+        modifyMainDeckCardAmountPlaceHolder, setModifyMainDeckCardAmountPlaceHolder,
+        cardsToAddExtraDeckPlaceHolder, setCardsToAddExtraDeckPlaceHolder,
+        cardsToDeleteExtraDeckPlaceHolder, setCardsToDeleteExtraDeckPlaceHolder,
+        modifyExtraDeckCardAmountPlaceHolder, setModifyExtraDeckCardAmountPlaceHolder
     } = savebuttonprops
 
     const [addCardsToMainDeck] = useAddCardsMainDeckMutation();
-    const [modifyOwnedAmount] = useModifyCardAmountinMainDeckMutation();
+    const [addCardsToExtraDeck] = useAddNewCardtoExtraDeckMutation();
+    const [deleteCardsFromMainDeck] = useDeleteCardfromMainDeckMutation();
+    const [deleteCardsFromExtraDeck] = useDeleteCardfromExtraDeckMutation();
+    const [modifyMainDeckOwnedAmount] = useModifyCardAmountinMainDeckMutation();
+    const [modifyExtraDeckOwnedAmount] = useModifyCardAmountinExtraDeckMutation();
 
     const normalizeCard = (card) => ({
         addedOn: new Date().toISOString().split('T')[0],
@@ -31,20 +39,74 @@ const SaveDeckCardsButton = ({ savebuttonprops }) => {
     const handleSaveClick = async() => {
         try {
             const deckId = deck?._id;
-            const normalizedCards = cardsToAddMainDeckPlaceHolder.map(normalizeCard);
-            const normalizedModifyCard = modifyMainDeckCardAmountPlaceHolder.map(normalizeCard);
-            console.log(normalizedModifyCard)
-            if (normalizedCards.length > 0) {
-                await addCardsToMainDeck({ id: userId, deckId, main_deck_cards: normalizedCards});
-            } else if (normalizedModifyCard.length > 0) {
-                await modifyOwnedAmount({ 
+            const normalizedMainCards = cardsToAddMainDeckPlaceHolder.map(normalizeCard);
+            const normalizedDeleteMainCards = cardsToDeleteMainDeckPlaceHolder.map(normalizeCard);
+            const normalizedModifyMainCards = modifyMainDeckCardAmountPlaceHolder.map(normalizeCard);
+            const normalizedExtraDeckCards = cardsToAddExtraDeckPlaceHolder.map(normalizeCard);
+            const normalizedDeleteExtraDeckCards = cardsToDeleteExtraDeckPlaceHolder.map(normalizeCard);
+            const normalizedModifyExtraDeckCards = modifyExtraDeckCardAmountPlaceHolder.map(normalizeCard);
+            if (normalizedMainCards.length > 0) {
+                await addCardsToMainDeck({ id: userId, deckId, main_deck_cards: normalizedMainCards});
+                setCardsToAddMainDeckPlaceHolder([])
+            } 
+
+            if (normalizedExtraDeckCards.length > 0) {
+                await addCardsToExtraDeck({ id: userId, deckId, extra_deck_cards: normalizedExtraDeckCards})
+                setCardsToAddExtraDeckPlaceHolder([])
+            }
+
+            if (normalizedDeleteMainCards.length > 0) {
+                await deleteCardsFromMainDeck({
+                    id: userId,
+                    DeckData: {
+                        deckId,
+                        cardUpdates: normalizedDeleteMainCards.map(card => ({
+                            card_name: card.card_name
+                        }))
+                    }
+                })
+                setCardsToDeleteMainDeckPlaceHolder([])
+            }
+
+            if (normalizedDeleteExtraDeckCards.length > 0) {
+                await deleteCardsFromExtraDeck({
+                    id: userId,
+                    DeckData: {
+                        deckId,
+                        cardUpdates: normalizedDeleteExtraDeckCards.map(card => ({
+                            card_name: card.card_name
+                        }))
+                    }
+                })
+                setCardsToDeleteExtraDeckPlaceHolder([])
+            }
+
+            if (normalizedModifyMainCards.length > 0) {
+                await modifyMainDeckOwnedAmount({ 
                     id: userId, 
                     DeckData: {
                         deckId, 
-                        card_name: normalizedModifyCard[0].card_name, 
-                        modifyAmount: normalizedModifyCard[0].cardInDeckOwnedAmount
+                        cardUpdates: normalizedModifyMainCards.map(card => ({
+                            card_name: card.card_name,
+                            modifyAmount: card.cardInDeckOwnedAmount
+                        }))
                     }
                 })
+                setModifyMainDeckCardAmountPlaceHolder([])
+            }
+
+            if (normalizedModifyExtraDeckCards.length > 0) {
+                await modifyExtraDeckOwnedAmount({ 
+                    id: userId, 
+                    DeckData: {
+                        deckId, 
+                        cardUpdates: normalizedModifyExtraDeckCards.map(card => ({
+                            card_name: card.card_name,
+                            modifyAmount: card.cardInDeckOwnedAmount
+                        }))
+                    }
+                })
+                setModifyExtraDeckCardAmountPlaceHolder([])
             }
             refetch()
         } catch  {

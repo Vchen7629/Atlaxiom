@@ -85,31 +85,24 @@ export const deckApiSlice = apiSlice.injectEndpoints({
             ]
         }),
 
-        decreaseCardAmountinMainDeck: builder.mutation({
-            query: ({ id, DeckData }) => ({
-                url: `/deck/maindeck/decrease/${id}`,
-                method: 'PATCH',
-                body: DeckData
-            }),
-            invalidatesTags: (result, error, arg) => [
-                { type: 'Deck', id: arg.id }
-            ]
-        }),
 
         addNewCardtoExtraDeck: builder.mutation({
-            query: ({ id, DeckData }) => ({
+            query: ({ id, deckId, extra_deck_cards }) => ({
                 url: `/deck/extradeck/${id}`,
                 method: 'PATCH',
-                body: DeckData
+                body: {
+                    deckId,
+                    extra_deck_cards
+                }
             }),
             invalidatesTags: (result, error, arg) => [
                 { type: 'Deck', id: arg.id }
             ]
         }),
 
-        increaseCardAmountinExtraDeck: builder.mutation({
+        modifyCardAmountinExtraDeck: builder.mutation({
             query: ({ id, DeckData }) => ({
-                url: `/deck/extradeck/increase/${id}`,
+                url: `/deck/extradeck/update/${id}`,
                 method: 'PATCH',
                 body: DeckData
             }),
@@ -118,42 +111,10 @@ export const deckApiSlice = apiSlice.injectEndpoints({
             ]
         }),
 
-        decreaseCardAmountinExtraDeck: builder.mutation({
-            query: ({ id, DeckData }) => ({
-                url: `/deck/extradeck/decrease/${id}`,
-                method: 'PATCH',
-                body: DeckData
-            }),
-            invalidatesTags: (result, error, arg) => [
-                { type: 'Deck', id: arg.id }
-            ]
-        }),
 
         addNewCardtoSideDeck: builder.mutation({
             query: ({ id, DeckData }) => ({
                 url: `/deck/sidedeck/${id}`,
-                method: 'PATCH',
-                body: DeckData
-            }),
-            invalidatesTags: (result, error, arg) => [
-                { type: 'Deck', id: arg.id }
-            ]
-        }),
-
-        increaseCardAmountinSideDeck: builder.mutation({
-            query: ({ id, DeckData }) => ({
-                url: `/deck/sidedeck/increase/${id}`,
-                method: 'PATCH',
-                body: DeckData
-            }),
-            invalidatesTags: (result, error, arg) => [
-                { type: 'Deck', id: arg.id }
-            ]
-        }),
-
-        decreaseCardAmountinSideDeck: builder.mutation({
-            query: ({ id, DeckData }) => ({
-                url: `/deck/sidedeck/decrease/${id}`,
                 method: 'PATCH',
                 body: DeckData
             }),
@@ -217,11 +178,7 @@ export const {
     useAddNewCardtoExtraDeckMutation,
     useAddNewCardtoSideDeckMutation,
     useModifyCardAmountinMainDeckMutation,
-    useIncreaseCardAmountinExtraDeckMutation,
-    useIncreaseCardAmountinSideDeckMutation,
-    useDecreaseCardAmountinMainDeckMutation,
-    useDecreaseCardAmountinExtraDeckMutation,
-    useDecreaseCardAmountinSideDeckMutation,
+    useModifyCardAmountinExtraDeckMutation,
     useDeleteCardfromMainDeckMutation,
     useDeleteCardfromExtraDeckMutation,
     useDeleteCardfromSideDeckMutation,
