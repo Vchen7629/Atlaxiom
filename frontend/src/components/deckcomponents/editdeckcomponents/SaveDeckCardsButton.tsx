@@ -1,6 +1,8 @@
 import { useAddCardsMainDeckMutation, useAddNewCardtoExtraDeckMutation, useAddNewCardtoSideDeckMutation, useDeleteCardfromExtraDeckMutation, useDeleteCardfromMainDeckMutation, useDeleteCardfromSideDeckMutation, useModifyCardAmountinExtraDeckMutation, useModifyCardAmountinMainDeckMutation, useModifyCardAmountinSideDeckMutation } from "@/features/api-slices/decksapislice"
+import { SaveDeckButton } from "../types/editdeckcomptypes";
+import { Card, NormalizedCard } from "../types/datatypes";
 
-const SaveDeckCardsButton = ({ savebuttonprops }) => {
+const SaveDeckCardsButton = ({ savebuttonprops }: SaveDeckButton) => {
     const {
         userId,
         refetch,
@@ -26,14 +28,14 @@ const SaveDeckCardsButton = ({ savebuttonprops }) => {
     const [modifyExtraDeckOwnedAmount] = useModifyCardAmountinExtraDeckMutation();
     const [modifySideDeckOwnedAmount] = useModifyCardAmountinSideDeckMutation();
 
-    const normalizeCard = (card) => ({
+    const normalizeCard = (card: Card): NormalizedCard => ({
         addedOn: new Date().toISOString().split('T')[0],
         archetype: card.archetype || null,
-        cardInDeckOwnedAmount: card.cardInDeckOwnedAmount,
-        card_name: card.name || card.card_name,
+        cardInDeckOwnedAmount: (card as NormalizedCard).cardInDeckOwnedAmount,
+        card_name: card.name || (card as NormalizedCard).card_name,
         desc: card.desc || "",
-        image_url: card.card_images?.[0]?.image_url || card?.image_url,
-        price: card.card_prices?.[0]?.price || card.price,
+        image_url: card.card_images?.[0]?.image_url || (card as NormalizedCard)?.image_url,
+        price: (card as NormalizedCard).card_prices?.[0]?.price || (card as NormalizedCard).price,
         race: card.race || "",
         rarity: card.card_sets?.[0]?.set_rarity || card.rarity,
         set_code: card.card_sets?.[0]?.set_code || card.rarity,

@@ -12,11 +12,11 @@ import { UserIdState } from './deckpagetypes.ts';
 
 const DeckPageHomepage = () => {
     const userId = useSelector((state: UserIdState) => state.auth.userId);
-    const [deckName, setDeckName] = useState('');
-    const [, setClickedOnCard] = useState(false);
+    const [deckName, setDeckName] = useState<string>('');
+    const [, setClickedOnCard] = useState<boolean>(false);
 
-    const [listView, setListView] = useState(true);
-    const [galleryView, setGalleryView] = useState(false);
+    const [listView, setListView] = useState<boolean>(true);
+    const [galleryView, setGalleryView] = useState<boolean>(false);
     
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;

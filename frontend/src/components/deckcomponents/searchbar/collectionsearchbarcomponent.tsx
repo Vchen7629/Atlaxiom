@@ -183,10 +183,10 @@ const CollectionSearchBarComponent = ({ CollectionSearchBarCompProps }: Collecti
                 
             </div>
             <div className="flex w-full justify-center text-gray-500 mt-1">
-                {listView && collectionCardsView && (
+                {listView && collectionCardsView && collectionTotalListPage > 0 && (
                     <span>{`Page ${collectionCurrentPage} of ${collectionTotalListPage}`}</span>
                 )}
-                {galleryView && collectionCardsView && (
+                {galleryView && collectionCardsView && collectionTotalGalleryPage > 0 && (
                     <span>{`Page ${collectionCurrentPage} of ${collectionTotalGalleryPage}`}</span>
                 )}
             </div>

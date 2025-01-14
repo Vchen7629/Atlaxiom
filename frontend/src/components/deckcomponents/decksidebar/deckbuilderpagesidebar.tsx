@@ -65,7 +65,9 @@ const DeckBuilderPageSidebarComponent = ({ sidebarprops }: Sidebar) => {
 
     const filterProps = {
         listView, setListView,
-        galleryView, setGalleryView
+        galleryView, setGalleryView,
+        setAllCardsCurrentPage,
+        setCollectionCardsCurrentPage
     }
 
     const AllCardsDisplayCompProps = {
@@ -75,7 +77,6 @@ const DeckBuilderPageSidebarComponent = ({ sidebarprops }: Sidebar) => {
         galleryView,
         allCardsGalleryResults, 
         allCardsCurrentGalleryResults,       
-        allCardsData,
     }
 
     const CollectionDisplayCompProps = {

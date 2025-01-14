@@ -30,7 +30,6 @@ export type AllCardsDisplayCompProps = {
         allCardsGalleryResults: Card[];
         allCardsCurrentListResults: Card[];
         allCardsCurrentGalleryResults: Card[];
-        allCardsData: Card[];
     }
 }
 
@@ -49,8 +48,9 @@ export type GridListViewComponentProps = {
     filterProps: {
         setListView: React.Dispatch<React.SetStateAction<boolean>>;
         setGalleryView: React.Dispatch<React.SetStateAction<boolean>>;
-        //setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
         listView: boolean;
         galleryView: boolean;
+        setAllCardsCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+        setCollectionCardsCurrentPage: React.Dispatch<React.SetStateAction<number>>;
     }
 }

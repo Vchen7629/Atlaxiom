@@ -6,7 +6,6 @@ export const handleIncreaseCardOwnedAmount = (
     setCard((prevCard: any) => {
       const updatedCard = prevCard.map((card: any) => {
         if ((card._id || card.id) === (cardToIncrease._id || cardToIncrease.id)) {
-          //console.log(`Increasing card ${card.id || card._id} amount to ${card.cardInDeckOwnedAmount + 1}`); 
           return { 
             ...card, 
             cardInDeckOwnedAmount: Math.min((card.cardInDeckOwnedAmount || 0) + 1, 3)
@@ -21,7 +20,6 @@ export const handleIncreaseCardOwnedAmount = (
       const cardExists = prevPlaceholder.some((card: any) => (card.name || card.card_name) === (cardToIncrease.name || cardToIncrease.card_name));
 
       if (!cardExists) {
-        console.log(`Adding card ${cardToIncrease.card_name} to the main deck placeholder.`);
         return [
           ...prevPlaceholder,
           { ...cardToIncrease, cardInDeckOwnedAmount: Math.min((cardToIncrease.cardInDeckOwnedAmount || 0) + 1, 3 ) }
@@ -30,7 +28,6 @@ export const handleIncreaseCardOwnedAmount = (
 
       return prevPlaceholder.map((card: any) => {
         if ((card._id || card.id) === (cardToIncrease._id || cardToIncrease.id)) {
-          console.log(`Updating card ${card.card_name || cardToIncrease.card_name} amount to ${Math.min((card.cardInDeckOwnedAmount || 0) + 1, 3)}.`);
           return {
             ...card,
             cardInDeckOwnedAmount: Math.min((card.cardInDeckOwnedAmount || 0) + 1, 3),
@@ -103,7 +100,6 @@ export const handleDeleteCardClick = (
         const cardExists = prevPlaceholder.some((card: any) => (card.name || card.card_name) === (cardToDelete.name || cardToDelete.card_name));
   
         if (!cardExists) {
-          console.log(`Adding card ${cardToDelete.card_name} to the main deck placeholder.`);
           return [
             ...prevPlaceholder,
             cardToDelete, 
