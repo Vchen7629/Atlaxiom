@@ -235,12 +235,36 @@ const MainDeckCardZone = ({ maindeckprops }: any) => {
                     >
                       {monsterCards.map((card: any) => (
                         <div className="flex h-full">
-                            <div key={card.id} className="flex">
+                            <div key={card.id} className="flex flex-col items-center space-y-2">
+                              <label className="bg-[hsl(var(--background3))] font-bold text-[hsl(var(--text))] px-2 text-xs rounded-2xl">{card?.cardInDeckOwnedAmount}x</label>
                               <img
                                 src={card?.image_url || card?.card_images?.[0]?.image_url}
                                 className="h-full object-contain"
                                 //alt={card.card_name}
                               />
+                              <div className="flex space-x-1">
+                                <button 
+                                  className='flex text-white h-4 w-4 justify-center items-center rounded bg-[hsl(var(--background3))] hover:text-green-400'
+                                  onClick={() => {handleIncreaseCardOwnedAmount(card, setMonsterCards, setModifyMainDeckCardAmountPlaceHolder)}}
+                                >
+                                  <FontAwesomeIcon className="fa-xs" icon={faPlus}/>
+                                </button>
+                                <button 
+                                  className='flex text-white h-4 w-4 justify-center items-center rounded bg-[hsl(var(--background3))] hover:text-green-400'
+                                  onClick={() => {handleDecreaseCardOwnedAmount(card, setMonsterCards, setModifyMainDeckCardAmountPlaceHolder)}}
+                                >
+                                  <FontAwesomeIcon className="fa-xs" icon={faMinus}/>
+                                </button>
+                                <button 
+                                  className='flex text-white h-4 w-4 justify-center items-center rounded bg-[hsl(var(--background3))] hover:text-red-400'
+                                  onClick={(event) => {
+                                    event.stopPropagation(); 
+                                    handleDeleteCardClick(card, setMonsterCards, setModifyMainDeckCardAmountPlaceHolder, setCardsToDeleteMainDeckPlaceHolder);
+                                  }}
+                                >
+                                  <FontAwesomeIcon className="fa-xs" icon={faTrash}/>
+                                </button>
+                              </div>
                             </div>
                         </div>
                       ))}
@@ -260,19 +284,43 @@ const MainDeckCardZone = ({ maindeckprops }: any) => {
               )}
               <div className={`relative flex flex-col w-full h-full transition-all duration-300 ${ shouldSpellBlur ? "blur-sm" : "" }`}>
                 <span className="text-lg pl-[2vw] pt-[2vh] font-black text-[hsl(var(--text))]">Spell: </span>
-                {spellCards.length > 0 && (
+                {spellCards.length > 0 && ( 
                     <div 
                       className="grid grid-cols-6 gap-4 w-full h-full p-4 justify-items-start items-start"  
                       style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                     >
                       {spellCards.map((card: any) => (
                         <div className="flex h-full">
-                            <div key={card.id} className="flex">
+                            <div key={card.id} className="flex flex-col items-center space-y-2">
+                              <label className="bg-[hsl(var(--background3))] font-bold text-[hsl(var(--text))] px-2 text-xs rounded-2xl">{card?.cardInDeckOwnedAmount}x</label>
                               <img
                                 src={card?.image_url || card?.card_images?.[0]?.image_url}
                                 className="h-full object-contain"
                                 //alt={card.card_name}
                               />
+                              <div className="flex space-x-1">
+                                <button 
+                                  className='flex text-white h-4 w-4 justify-center items-center rounded bg-[hsl(var(--background3))] hover:text-green-400'
+                                  onClick={() => {handleIncreaseCardOwnedAmount(card, setSpellCards, setModifyMainDeckCardAmountPlaceHolder)}}
+                                >
+                                  <FontAwesomeIcon className="fa-xs" icon={faPlus}/>
+                                </button>
+                                <button 
+                                  className='flex text-white h-4 w-4 justify-center items-center rounded bg-[hsl(var(--background3))] hover:text-green-400'
+                                  onClick={() => {handleDecreaseCardOwnedAmount(card, setSpellCards, setModifyMainDeckCardAmountPlaceHolder)}}
+                                >
+                                  <FontAwesomeIcon className="fa-xs" icon={faMinus}/>
+                                </button>
+                                <button 
+                                  className='flex text-white h-4 w-4 justify-center items-center rounded bg-[hsl(var(--background3))] hover:text-red-400'
+                                  onClick={(event) => {
+                                    event.stopPropagation(); 
+                                    handleDeleteCardClick(card, setSpellCards, setModifyMainDeckCardAmountPlaceHolder, setCardsToDeleteMainDeckPlaceHolder);
+                                  }}
+                                >
+                                  <FontAwesomeIcon className="fa-xs" icon={faTrash}/>
+                                </button>
+                              </div>
                             </div>
                         </div>
                       ))}
@@ -292,24 +340,48 @@ const MainDeckCardZone = ({ maindeckprops }: any) => {
               )}
               <div className={`relative flex flex-col w-full h-full transition-all duration-300 ${ shouldTrapBlur ? "blur-sm" : "" }`}>
                 <span className="text-lg pl-[2vw] pt-[2vh] font-black text-[hsl(var(--text))]">Trap: </span>
-                {trapCards.length > 0 && ( 
-                    <div 
-                      className="grid grid-cols-6 gap-4 w-full h-full p-4 justify-items-start items-start"  
-                      style={{ gridAutoRows: 'auto', alignContent: 'start' }}
-                    >
-                      {trapCards.map((card: any) => (
-                        <div className="flex h-full">
-                            <div key={card.id} className="flex">
-                              <img
-                                src={card?.image_url || card?.card_images?.[0]?.image_url}
-                                className="h-full object-contain"
-                                //alt={card.card_name}
-                              />
-                            </div>
-                        </div>
-                      ))}
-                    </div>
-                )}
+                  {trapCards.length > 0 && ( 
+                      <div 
+                        className="grid grid-cols-6 gap-4 w-full h-full p-4 justify-items-start items-start"  
+                        style={{ gridAutoRows: 'auto', alignContent: 'start' }}
+                      >
+                        {trapCards.map((card: any) => (
+                          <div className="flex h-full">
+                              <div key={card.id} className="flex flex-col items-center space-y-2">
+                              <label className="bg-[hsl(var(--background3))] font-bold text-[hsl(var(--text))] px-2 text-xs rounded-2xl">{card?.cardInDeckOwnedAmount}x</label>
+                                <img
+                                  src={card?.image_url || card?.card_images?.[0]?.image_url}
+                                  className="h-full object-contain"
+                                  //alt={card.card_name}
+                                />
+                                <div className="flex space-x-1">
+                                  <button 
+                                    className='flex text-white h-4 w-4 justify-center items-center rounded bg-[hsl(var(--background3))] hover:text-green-400'
+                                    onClick={() => {handleIncreaseCardOwnedAmount(card, setTrapCards, setModifyMainDeckCardAmountPlaceHolder)}}
+                                  >
+                                    <FontAwesomeIcon className="fa-xs" icon={faPlus}/>
+                                  </button>
+                                  <button 
+                                    className='flex text-white h-4 w-4 justify-center items-center rounded bg-[hsl(var(--background3))] hover:text-green-400'
+                                    onClick={() => {handleDecreaseCardOwnedAmount(card, setTrapCards, setModifyMainDeckCardAmountPlaceHolder)}}
+                                  >
+                                    <FontAwesomeIcon className="fa-xs" icon={faMinus}/>
+                                  </button>
+                                  <button 
+                                    className='flex text-white h-4 w-4 justify-center items-center rounded bg-[hsl(var(--background3))] hover:text-red-400'
+                                    onClick={(event) => {
+                                      event.stopPropagation(); 
+                                      handleDeleteCardClick(card, setTrapCards, setModifyMainDeckCardAmountPlaceHolder, setCardsToDeleteMainDeckPlaceHolder);
+                                    }}
+                                  >
+                                    <FontAwesomeIcon className="fa-xs" icon={faTrash}/>
+                                  </button>
+                                </div>
+                              </div>
+                          </div>
+                        ))}
+                      </div>
+                  )}
               </div>
             </section>
           </div>

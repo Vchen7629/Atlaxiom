@@ -3,12 +3,15 @@ import GridListViewComponent from "../decksidebar/gridlistviewcomponent"
 import { useState } from "react"
 import { faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { handleDecreaseCardOwnedAmount, handleDeleteCardClick, handleIncreaseCardOwnedAmount } from "./EditDeckCardButtons"
 
 const SideDeckCardZone = ({ sidedeckprops }: any) => {
   const {
     deck,
     sideDeckCards, setSideDeckCards,
-    hoveredCard
+    hoveredCard,
+    setModifySideDeckCardAmountPlaceHolder,
+    setCardsToDeleteSideDeckPlaceHolder,
   } = sidedeckprops
 
   const [listView, setListView] = useState(true);
@@ -19,48 +22,6 @@ const SideDeckCardZone = ({ sidedeckprops }: any) => {
   })
 
   const shouldSideDeckBlur = isOver && hoveredCard ;
-
-  const handleIncreaseCardOwnedAmount = (cardToIncrease: any, setCard: React.Dispatch<React.SetStateAction<any[]>>) => {
-    setCard((prevCard: any) => {
-      const updatedCard = prevCard.map((card: any) => {
-        if ((card._id || card.id) === (cardToIncrease._id || cardToIncrease.id)) {
-          return { 
-            ...card, 
-            cardInDeckOwnedAmount: Math.min((card.cardInDeckOwnedAmount || 0) + 1, 3)
-          } 
-        } else {
-          return card;
-        } 
-      });
-      return updatedCard;
-    })
-  }
-
-  const handleDecreaseCardOwnedAmount = (cardToDecrease: any, setCard: React.Dispatch<React.SetStateAction<any[]>>) => {
-    setCard((prevCard: any) => {
-      const updatedCard = prevCard.map((card: any) => {
-        if ((card._id || card.id) === (cardToDecrease._id || cardToDecrease.id)) {
-          return { 
-            ...card, 
-            cardInDeckOwnedAmount: Math.max((card.cardInDeckOwnedAmount || 0) - 1, 0)
-          } 
-        } else {
-          return card;
-        } 
-      }).filter((card: any) => card.cardInDeckOwnedAmount > 0);
-      return updatedCard;
-    })
-  }
-
-  const handleDeleteCardClick = (cardToDelete: any) => {
-    setSideDeckCards((prevCards: any) => 
-      prevCards.filter((card: any) => {
-        const cardId = card?.id || card?._id;
-        const deleteCardId = cardToDelete?.id || cardToDelete?._id;
-        return cardId !== deleteCardId;
-      })
-    );
-  };
 
   const filterProps = {
     listView, setListView,
@@ -108,13 +69,13 @@ const SideDeckCardZone = ({ sidedeckprops }: any) => {
                         <div className="flex space-x-1">
                           <button 
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))]'
-                            onClick={() => {handleIncreaseCardOwnedAmount(card, setSideDeckCards)}}
+                            onClick={() => {handleIncreaseCardOwnedAmount(card, setSideDeckCards, setModifySideDeckCardAmountPlaceHolder)}}
                           >
                             <FontAwesomeIcon icon={faPlus}/>
                           </button>
                           <button 
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))]'
-                            onClick={() => {handleDecreaseCardOwnedAmount(card, setSideDeckCards)}}
+                            onClick={() => {handleDecreaseCardOwnedAmount(card, setSideDeckCards, setModifySideDeckCardAmountPlaceHolder)}}
                           >
                             <FontAwesomeIcon icon={faMinus}/>
                           </button>
@@ -122,7 +83,7 @@ const SideDeckCardZone = ({ sidedeckprops }: any) => {
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))] hover:text-red-500'
                             onClick={(event) => {
                               event.stopPropagation(); 
-                              handleDeleteCardClick(card);
+                              handleDeleteCardClick(card, setSideDeckCards, setModifySideDeckCardAmountPlaceHolder, setCardsToDeleteSideDeckPlaceHolder);
                             }}
                           >
                             <FontAwesomeIcon icon={faTrash}/>
@@ -144,30 +105,54 @@ const SideDeckCardZone = ({ sidedeckprops }: any) => {
               className={`flex flex-col w-full pt-[2vh] pl-[0.5vw] relative ${shouldSideDeckBlur ? "border-2 border-goldenrod rounded-lg" : ""}`}
             >
               {shouldSideDeckBlur && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-transparent">
-                    <span className="text-[hsl(var(--text))] font-bold text-lg z-10">Drop To Add Card To Side Deck</span>
-                  </div>
+                <div className="absolute inset-0 flex items-center justify-center bg-transparent">
+                  <span className="text-[hsl(var(--text))] font-bold text-lg z-10">Drop To Add Card To Side Deck</span>
+                </div>
               )}
-              <div className={`relative flex flex-col w-full h-full transition-all duration-300 ${ shouldSideDeckBlur ? "blur-sm" : "" }`}>
-                {sideDeckCards.length > 0 && ( 
+                <div className={`relative flex flex-col w-full h-full transition-all duration-300 ${ shouldSideDeckBlur ? "blur-sm" : "" }`}>
+                  {sideDeckCards.length > 0 && ( 
                     <div 
-                      className="grid grid-cols-8 gap-4 w-full h-full p-4 justify-items-start items-start"  
+                      className="grid grid-cols-6 gap-4 w-full h-full p-4 justify-items-start items-start"  
                       style={{ gridAutoRows: 'auto', alignContent: 'start' }}
-                    >
+                    >  
                       {sideDeckCards.map((card: any) => (
                         <div className="flex h-full">
-                            <div key={card.id} className="flex">
-                              <img
-                                src={card?.image_url || card?.card_images?.[0]?.image_url}
-                                className="h-full object-contain"
-                                //alt={card.card_name}
-                              />
+                          <div key={card.id} className="flex flex-col items-center space-y-2">
+                            <label className="bg-[hsl(var(--background3))] font-bold text-[hsl(var(--text))] px-2 text-xs rounded-2xl">{card?.cardInDeckOwnedAmount}x</label>
+                            <img
+                              src={card?.image_url || card?.card_images?.[0]?.image_url}
+                              className="h-full object-contain"
+                              //alt={card.card_name}
+                            />
+                            <div className="flex space-x-1">
+                              <button 
+                                className='flex text-white h-4 w-4 justify-center items-center rounded bg-[hsl(var(--background3))] hover:text-green-400'
+                                onClick={() => {handleIncreaseCardOwnedAmount(card, setSideDeckCards, setModifySideDeckCardAmountPlaceHolder)}}
+                              >
+                                <FontAwesomeIcon className="fa-xs" icon={faPlus}/>
+                              </button>
+                              <button 
+                                className='flex text-white h-4 w-4 justify-center items-center rounded bg-[hsl(var(--background3))] hover:text-green-400'
+                                onClick={() => {handleDecreaseCardOwnedAmount(card, setSideDeckCards, setModifySideDeckCardAmountPlaceHolder)}}
+                              >
+                                <FontAwesomeIcon className="fa-xs" icon={faMinus}/>
+                              </button>
+                              <button 
+                                className='flex text-white h-4 w-4 justify-center items-center rounded bg-[hsl(var(--background3))] hover:text-red-400'
+                                onClick={(event) => {
+                                  event.stopPropagation(); 
+                                  handleDeleteCardClick(card, setSideDeckCards, setModifySideDeckCardAmountPlaceHolder, setCardsToDeleteSideDeckPlaceHolder);
+                                }}
+                              >
+                                <FontAwesomeIcon className="fa-xs" icon={faTrash}/>
+                              </button>
                             </div>
+                          </div>
                         </div>
                       ))}
                     </div>
-                )}
-              </div>
+                  )}
+                </div>
             </section>
           </div>
         )}

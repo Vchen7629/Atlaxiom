@@ -1,4 +1,4 @@
-import { useAddCardsMainDeckMutation, useAddNewCardtoExtraDeckMutation, useDeleteCardfromExtraDeckMutation, useDeleteCardfromMainDeckMutation, useModifyCardAmountinExtraDeckMutation, useModifyCardAmountinMainDeckMutation } from "@/features/api-slices/decksapislice"
+import { useAddCardsMainDeckMutation, useAddNewCardtoExtraDeckMutation, useAddNewCardtoSideDeckMutation, useDeleteCardfromExtraDeckMutation, useDeleteCardfromMainDeckMutation, useDeleteCardfromSideDeckMutation, useModifyCardAmountinExtraDeckMutation, useModifyCardAmountinMainDeckMutation, useModifyCardAmountinSideDeckMutation } from "@/features/api-slices/decksapislice"
 
 const SaveDeckCardsButton = ({ savebuttonprops }) => {
     const {
@@ -10,15 +10,21 @@ const SaveDeckCardsButton = ({ savebuttonprops }) => {
         modifyMainDeckCardAmountPlaceHolder, setModifyMainDeckCardAmountPlaceHolder,
         cardsToAddExtraDeckPlaceHolder, setCardsToAddExtraDeckPlaceHolder,
         cardsToDeleteExtraDeckPlaceHolder, setCardsToDeleteExtraDeckPlaceHolder,
-        modifyExtraDeckCardAmountPlaceHolder, setModifyExtraDeckCardAmountPlaceHolder
+        modifyExtraDeckCardAmountPlaceHolder, setModifyExtraDeckCardAmountPlaceHolder,
+        cardsToAddSideDeckPlaceHolder, setCardsToAddSideDeckPlaceHolder,
+        cardsToDeleteSideDeckPlaceHolder, setCardsToDeleteSideDeckPlaceHolder,
+        modifySideDeckCardAmountPlaceHolder, setModifySideDeckCardAmountPlaceHolder
     } = savebuttonprops
 
     const [addCardsToMainDeck] = useAddCardsMainDeckMutation();
     const [addCardsToExtraDeck] = useAddNewCardtoExtraDeckMutation();
+    const [addCardsToSideDeck] = useAddNewCardtoSideDeckMutation();
     const [deleteCardsFromMainDeck] = useDeleteCardfromMainDeckMutation();
     const [deleteCardsFromExtraDeck] = useDeleteCardfromExtraDeckMutation();
+    const [deleteCardsFromSideDeck] = useDeleteCardfromSideDeckMutation();
     const [modifyMainDeckOwnedAmount] = useModifyCardAmountinMainDeckMutation();
     const [modifyExtraDeckOwnedAmount] = useModifyCardAmountinExtraDeckMutation();
+    const [modifySideDeckOwnedAmount] = useModifyCardAmountinSideDeckMutation();
 
     const normalizeCard = (card) => ({
         addedOn: new Date().toISOString().split('T')[0],
@@ -45,6 +51,10 @@ const SaveDeckCardsButton = ({ savebuttonprops }) => {
             const normalizedExtraDeckCards = cardsToAddExtraDeckPlaceHolder.map(normalizeCard);
             const normalizedDeleteExtraDeckCards = cardsToDeleteExtraDeckPlaceHolder.map(normalizeCard);
             const normalizedModifyExtraDeckCards = modifyExtraDeckCardAmountPlaceHolder.map(normalizeCard);
+            const normalizedSideDeckCards = cardsToAddSideDeckPlaceHolder.map(normalizeCard);
+            const normalizedDeleteSideDeckCards = cardsToDeleteSideDeckPlaceHolder.map(normalizeCard);
+            const normalizedModifySideDeckCards = modifySideDeckCardAmountPlaceHolder.map(normalizeCard);
+
             if (normalizedMainCards.length > 0) {
                 await addCardsToMainDeck({ id: userId, deckId, main_deck_cards: normalizedMainCards});
                 setCardsToAddMainDeckPlaceHolder([])
@@ -53,6 +63,11 @@ const SaveDeckCardsButton = ({ savebuttonprops }) => {
             if (normalizedExtraDeckCards.length > 0) {
                 await addCardsToExtraDeck({ id: userId, deckId, extra_deck_cards: normalizedExtraDeckCards})
                 setCardsToAddExtraDeckPlaceHolder([])
+            }
+
+            if (normalizedSideDeckCards.length > 0) {
+                await addCardsToSideDeck({ id: userId, deckId, side_deck_cards: normalizedSideDeckCards})
+                setCardsToAddSideDeckPlaceHolder([])
             }
 
             if (normalizedDeleteMainCards.length > 0) {
@@ -81,6 +96,20 @@ const SaveDeckCardsButton = ({ savebuttonprops }) => {
                 setCardsToDeleteExtraDeckPlaceHolder([])
             }
 
+            
+            if (normalizedDeleteSideDeckCards.length > 0) {
+                await deleteCardsFromSideDeck({
+                    id: userId,
+                    DeckData: {
+                        deckId,
+                        cardUpdates: normalizedDeleteSideDeckCards.map(card => ({
+                            card_name: card.card_name
+                        }))
+                    }
+                })
+                setCardsToDeleteSideDeckPlaceHolder([])
+            }
+
             if (normalizedModifyMainCards.length > 0) {
                 await modifyMainDeckOwnedAmount({ 
                     id: userId, 
@@ -107,6 +136,21 @@ const SaveDeckCardsButton = ({ savebuttonprops }) => {
                     }
                 })
                 setModifyExtraDeckCardAmountPlaceHolder([])
+            }
+
+            
+            if (normalizedModifySideDeckCards.length > 0) {
+                await modifySideDeckOwnedAmount({ 
+                    id: userId, 
+                    DeckData: {
+                        deckId, 
+                        cardUpdates: normalizedModifySideDeckCards.map(card => ({
+                            card_name: card.card_name,
+                            modifyAmount: card.cardInDeckOwnedAmount
+                        }))
+                    }
+                })
+                setModifySideDeckCardAmountPlaceHolder([])
             }
             refetch()
         } catch  {
