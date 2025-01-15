@@ -33,7 +33,7 @@ const DeckBuilderPage = () => {
 
     const deck = deckData?.entities?.undefined?.[0];
 
-    const [hoveredCard, setHoveredCard] = useState<any>(null);
+    const [hoveredCard, setHoveredCard] = useState<any | null>(null);
     const [monsterCards, setMonsterCards] = useState<Card[]>([]);
     const [spellCards, setSpellCards] = useState<Card[]>([]);
     const [trapCards, setTrapCards] = useState<Card[]>([]);
@@ -56,9 +56,9 @@ const DeckBuilderPage = () => {
                 const extraDeckCards = deck?.extra_deck_cards;
                 const sideDeckCards = deck?.side_deck_cards;
     
-                const monsters = mainCards.filter(card => card.type && !["Spell Card", "Trap Card"].includes(card.type));
-                const spells = mainCards.filter(card => card.type?.includes("Spell"));
-                const traps = mainCards.filter(card => card.type?.includes("Trap"));
+                const monsters = mainCards.filter((card: any) => card.type && !["Spell Card", "Trap Card"].includes(card.type));
+                const spells = mainCards.filter((card: any) => card.type?.includes("Spell"));
+                const traps = mainCards.filter((card: any) => card.type?.includes("Trap"));
     
                 setMonsterCards(monsters);
                 setSpellCards(spells);

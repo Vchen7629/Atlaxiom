@@ -62,3 +62,11 @@ export type defprops = {
         setDefGreaterThanEqual: React.Dispatch<React.SetStateAction<boolean>>
     }
 }
+
+export type SetDropDown = {
+    setfilterprops: {
+        setName: string;
+        setSetName: React.Dispatch<React.SetStateAction<string>>;
+        uniqueSetNames: string[];
+    }
+}

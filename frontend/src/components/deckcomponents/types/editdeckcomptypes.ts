@@ -22,7 +22,7 @@ export type MainDeckProps = {
         setSpellCards: React.Dispatch<React.SetStateAction<Card[]>>
         trapCards: Card[];
         setTrapCards: React.Dispatch<React.SetStateAction<Card[]>>
-        hoveredCard: any;
+        hoveredCard: any | null;
         setModifyMainDeckCardAmountPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>;
         setCardsToDeleteMainDeckPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>;
     }

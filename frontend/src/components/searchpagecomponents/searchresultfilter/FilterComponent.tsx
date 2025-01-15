@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useEffect, useState} from 'react';
 import { MonsterTypeDropDownComponent } from "./dropdowncomponents/monstertypedropdown"
 import { SpellTypeDropDownComponent } from "./dropdowncomponents/spelltypedropdown"
 import { TrapTypeDropDownComponent } from "./dropdowncomponents/traptypedropdown" 
@@ -15,11 +15,13 @@ import LinkFilterComponent from './components/linkfiltercomponent';
 
 const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
     const {
+      cardData,
       expandStatus,
       monsterType, setMonsterType,
       spellType, setSpellType,
       trapType, setTrapType,
       attributeType, setAttributeType,
+      setName, setSetName,
       levelFilter, setLevelFilter,
       lessThanEqual, setLessThanEqual,
       equal, setEqual,
@@ -32,23 +34,26 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
       linkLessThanEqual, setLinkLessThanEqual,
       linkEqual, setLinkEqual,
       linkGreaterThanEqual, setLinkGreaterThanEqual,
-      atkFilter,
-      setAtkFilter,
-      atkLessThanEqual,
-      setAtkLessThanEqual,
-      atkEqual,
-      setAtkEqual,
-      atkGreaterThanEqual,
-      setAtkGreaterThanEqual,
-      defFilter,
-      setDefFilter,
-      defLessThanEqual,
-      setDefLessThanEqual,
-      defEqual,
-      setDefEqual,
-      defGreaterThanEqual,
-      setDefGreaterThanEqual
+      atkFilter, setAtkFilter,
+      atkLessThanEqual, setAtkLessThanEqual,
+      atkEqual, setAtkEqual,
+      atkGreaterThanEqual, setAtkGreaterThanEqual,
+      defFilter, setDefFilter,
+      defLessThanEqual, setDefLessThanEqual,
+      defEqual, setDefEqual,
+      defGreaterThanEqual, setDefGreaterThanEqual
     } = filterprops
+
+    const uniqueSetNames = Array.isArray(cardData) ? Array.from(
+      cardData.reduce((set, card) => {
+        card.card_sets?.forEach(setData => {
+          if (setData.set_name) set.add(setData.set_name);
+        });
+        return set;
+      }, new Set<string>())
+    ): [];
+
+    //console.log(uniqueSetNames);
 
     const [levelDropdown, setLevelDropdown] = useState(false);
     const [pendDropdown, setPendDropdown] = useState(false);
@@ -126,26 +131,31 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
       defGreaterThanEqual, setDefGreaterThanEqual
     }
 
+    const setfilterprops = {
+      setName,
+      setSetName,
+      uniqueSetNames
+    }
+
     return (
         <div className="w-full flex">
-    
-            <div className={`flex text-[hsl(var(--text))] text-sm h-full pt-[3vh] ${expandStatus ? "w-full bg-[hsl(var(--ownedcardcollection))] border-gray-600 border-2 rounded-3xl" : "w-0"} flex-col`}>
+            <div className={`flex text-[hsl(var(--text))] text-sm h-fit py-[3vh] ${expandStatus ? "w-full bg-[hsl(var(--ownedcardcollection))] border-gray-600 border-2 rounded-3xl" : "w-0"} flex-col`}>
               {expandStatus && (
                 <>
                 <div className="font-black text-2xl w-full text-center mb-2">Filter Search</div>
                 <div className="flex justify-center w-full min-h-6 my-2">
-                  <div className='flex h-full w-[6vw] font-black items-center'>Monster Type: </div>
+                  <div className='flex h-full w-[6vw] items-center font-black items-center'>Monster Type: </div>
                   <div><MonsterTypeDropDownComponent monsterdropdownprops={monsterdropdownprops}/></div>
                 </div>
-                <div className="flex justify-center w-full min-h-6 my-2">
+                <div className="flex justify-center items-center w-full min-h-6 my-2">
                   <div className='flex h-full w-[6vw] font-black items-center'>Spell Type: </div>
                   <div><SpellTypeDropDownComponent spelldropdownprops={spelldropdownprops}/></div>
                 </div>
-                <div className="flex justify-center w-full min-h-6 my-2">
+                <div className="flex justify-center items-center w-full min-h-6 my-2">
                   <div className='flex h-full w-[6vw] font-black items-center'>Trap Type: </div>
                   <div><TrapTypeDropDownComponent trapdropdownprops={trapdropdownprops}/></div>
                 </div>
-                <div className="flex justify-center w-full min-h-6 my-2">
+                <div className="flex justify-center items-center w-full min-h-6 my-2">
                   <div className='flex h-full w-[6vw] font-black items-center'>Attribute: </div>
                   <div><AttributeDropDownComponent attributedropdownprops={attributedropdownprops}/></div>
                 </div>
@@ -179,12 +189,9 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
                 </div>
                 <AtkFilterComponent atkfilterprops={atkfilterprops}/>
                 <DefFilterComponent deffilterprops={deffilterprops}/>
-                <div className="flex w-full justify-center my-2">
-                  Forbidden List Status
-                </div>
-                <div className="flex justify-center w-full min-h-6 my-2">
-                  <div className='flex h-full w-[5vw] font-black items-center text-white'>Set: </div>
-                  <div><SetDropDownComponent/></div>
+                <div className="flex justify-center w-full items-center min-h-6 my-2">
+                  <div className='flex h-full w-[6vw] font-black items-center text-white'>Set: </div>
+                  <div><SetDropDownComponent setfilterprops={setfilterprops}/></div>
                 </div>
                 </>
               )}   
