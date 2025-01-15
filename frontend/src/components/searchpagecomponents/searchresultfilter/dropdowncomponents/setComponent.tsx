@@ -18,74 +18,16 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
- 
-const Sets = [
-  {
-    value: "normal monster",
-    label: "normal monster",
-  },
-  {
-    value: "effect monster",
-    label: "effect monster",
-  },
-  {
-    value: "ritual monster",
-    label: "ritual monster",
-  },
-  {
-    value: "fusion monster",
-    label: "fusion monster",
-  },
-  {
-    value: "synchro monster",
-    label: "synchro monster",
-  },
-  {
-    value: "xyz monster",
-    label: "xyz monster",
-  },
-  {
-    value: "pendulum monster",
-    label: "pendulum monster",
-  },
-  {
-    value: "link monster",
-    label: "link monster",
-  },
-  {
-    value: "tuner monster",
-    label: "tuner monster",
-  },
-  {
-    value: "flip monster",
-    label: "flip monster",
-  },
-  {
-    value: "toon monster",
-    label: "toon monster",
-  },
-  {
-    value: "spirit monster",
-    label: "spirit monster",
-  },
-  {
-    value: "union monster",
-    label: "union monster",
-  },
-  {
-    value: "gemini monster",
-    label: "gemini monster",
-  },
-  {
-    value: "token monster",
-    label: "token monster",
-  },
-];
+import { SetDropDown } from "../../types/componenttypes"
 
- 
-export function SetDropDownComponent() {
+export function SetDropDownComponent({ setfilterprops }: SetDropDown) {
+  const {
+    setName,
+    setSetName,
+    uniqueSetNames
+  } = setfilterprops
+
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("")
  
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -96,40 +38,43 @@ export function SetDropDownComponent() {
           aria-expanded={open}
           className="w-[11vw] h-8 bg-transparent border-transparent text-base  justify-between"
         >
-            {value ? (
-                <span className={`flex relative items-center left-2 justify-between w-full px-2 py-1 bg-blue-500 text-white rounded text-sm`}>
-                    {Sets.find((types) => types.value === value)?.label}
+          <div className="flex w-[11vw] items-center justify-center text-sm hover:text-[hsl(var(--background3))]">
+            {setName ? (
+              <div className="flex w-[8.5vw] justify-center">
+                <span className="max-w-[8vw] h-fit text-wrap px-2 py-1 bg-[hsl(var(--background3))] rounded text-[10px] text-[hsl(var(--text))]">
+                    {uniqueSetNames.find((setNames) => setNames === setName)}
                 </span>
+              </div>
             ) : (
-              <span className={`flex relative items-center left-1/5 justify-between w-full px-2 py-1 bg-transparent text-white rounded text-sm`}>
+              <span className="flex items-center text-xs w-[8.5vw] px-2 py-1 bg-transparent">
                   Select Set...
               </span>
             )}
-          <CaretSortIcon className="min-h-6 min-w-6 shrink-0 text-white" />
+            <CaretSortIcon className="min-h-6 min-w-6 shrink-0" />
+          </div>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[11vw] p-0 relative top-[-42px]">
         <Command className="text-white ">
           <CommandInput placeholder="Search Card Subtypes..." className="h-9" />
           <CommandList className="max-h-[300px] overflow-y-auto">
-            <CommandEmpty>No Card Subtype found.</CommandEmpty>
+            <CommandEmpty>No Card Set found.</CommandEmpty>
             <CommandGroup>
-              {Sets.map((types) => (
+              {uniqueSetNames.map((setNames) => (
                 <CommandItem
-                  key={types.value}
-                  value={types.value}
+                  key={setNames}
+                  value={setNames}
                   className="text-[hsl(var(--text))] "
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
+                    setSetName(currentValue === setName ? "" : currentValue)
                     setOpen(false)
                   }}
                 > 
-                 
-                  {types.label}
+                  {setNames}
                   <CheckIcon
                     className={cn(
                       "ml-auto h-4 w-4 text-[hsl(var(--text))] ",
-                      value === types.value ? "opacity-100" : "opacity-0"
+                      setName === setNames ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>

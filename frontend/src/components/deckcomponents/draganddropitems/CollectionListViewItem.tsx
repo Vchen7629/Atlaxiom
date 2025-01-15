@@ -1,7 +1,8 @@
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
+import { CollectionListResult } from '../types/draganddropitemtypes';
 
-const CollectionListViewItem = ({ result }: { result: any }) => {
+const CollectionListViewItem = ({ result }: { result: CollectionListResult }) => {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
         id: result._id, 
     });

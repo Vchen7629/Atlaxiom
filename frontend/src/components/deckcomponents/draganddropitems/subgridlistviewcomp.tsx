@@ -1,11 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars,  faGripHorizontal } from '@fortawesome/free-solid-svg-icons';
-import { GridListViewComponentProps } from '../types/sidebarcomponenttypes';
+import { SubGridListViewComponentProps } from '../types/draganddropitemtypes';
 
-const GridListViewComponent= ({ filterProps }: GridListViewComponentProps) => {
+const SubGridListViewComponent= ({ filterProps }: SubGridListViewComponentProps) => {
     const {
-        setAllCardsCurrentPage,
-        setCollectionCardsCurrentPage,
         listView, setListView,
         galleryView, setGalleryView
     } = filterProps
@@ -13,15 +11,11 @@ const GridListViewComponent= ({ filterProps }: GridListViewComponentProps) => {
     const handleListView = () => {
         setListView(true)
         setGalleryView(false)
-        setAllCardsCurrentPage(1)
-        setCollectionCardsCurrentPage(1)
     }
 
     const handleGalleryView = () => {
         setListView(false)
         setGalleryView(true)
-        setAllCardsCurrentPage(1)
-        setCollectionCardsCurrentPage(1)
     }
 
     return (
@@ -42,4 +36,4 @@ const GridListViewComponent= ({ filterProps }: GridListViewComponentProps) => {
     )
 }
 
-export default GridListViewComponent
+export default SubGridListViewComponent

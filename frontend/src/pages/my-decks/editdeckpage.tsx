@@ -33,21 +33,21 @@ const DeckBuilderPage = () => {
 
     const deck = deckData?.entities?.undefined?.[0];
 
-    const [hoveredCard, setHoveredCard] = useState<any>(null);
-    const [monsterCards, setMonsterCards] = useState<any[]>([]);
-    const [spellCards, setSpellCards] = useState<any[]>([]);
-    const [trapCards, setTrapCards] = useState<any[]>([]);
-    const [cardsToAddMainDeckPlaceHolder, setCardsToAddMainDeckPlaceHolder] = useState<any[]>([]);
-    const [cardsToDeleteMainDeckPlaceHolder, setCardsToDeleteMainDeckPlaceHolder] = useState<any[]>([]);
-    const [modifyMainDeckCardAmountPlaceHolder, setModifyMainDeckCardAmountPlaceHolder] = useState<any[]>([]);
-    const [extraDeckCards, setExtraDeckCards] = useState<any[]>([]);
-    const [cardsToAddExtraDeckPlaceHolder, setCardsToAddExtraDeckPlaceHolder] = useState<any[]>([]);
-    const [cardsToDeleteExtraDeckPlaceHolder, setCardsToDeleteExtraDeckPlaceHolder] = useState<any[]>([]);
-    const [modifyExtraDeckCardAmountPlaceHolder, setModifyExtraDeckCardAmountPlaceHolder] = useState<any[]>([]);
-    const [sideDeckCards, setSideDeckCards] = useState<any[]>([]);
-    const [cardsToAddSideDeckPlaceHolder, setCardsToAddSideDeckPlaceHolder] = useState<any[]>([]);
-    const [cardsToDeleteSideDeckPlaceHolder, setCardsToDeleteSideDeckPlaceHolder] = useState<any[]>([]);
-    const [modifySideDeckCardAmountPlaceHolder, setModifySideDeckCardAmountPlaceHolder] = useState<any[]>([]);
+    const [hoveredCard, setHoveredCard] = useState<any | null>(null);
+    const [monsterCards, setMonsterCards] = useState<Card[]>([]);
+    const [spellCards, setSpellCards] = useState<Card[]>([]);
+    const [trapCards, setTrapCards] = useState<Card[]>([]);
+    const [cardsToAddMainDeckPlaceHolder, setCardsToAddMainDeckPlaceHolder] = useState<Card[]>([]);
+    const [cardsToDeleteMainDeckPlaceHolder, setCardsToDeleteMainDeckPlaceHolder] = useState<Card[]>([]);
+    const [modifyMainDeckCardAmountPlaceHolder, setModifyMainDeckCardAmountPlaceHolder] = useState<Card[]>([]);
+    const [extraDeckCards, setExtraDeckCards] = useState<Card[]>([]);
+    const [cardsToAddExtraDeckPlaceHolder, setCardsToAddExtraDeckPlaceHolder] = useState<Card[]>([]);
+    const [cardsToDeleteExtraDeckPlaceHolder, setCardsToDeleteExtraDeckPlaceHolder] = useState<Card[]>([]);
+    const [modifyExtraDeckCardAmountPlaceHolder, setModifyExtraDeckCardAmountPlaceHolder] = useState<Card[]>([]);
+    const [sideDeckCards, setSideDeckCards] = useState<Card[]>([]);
+    const [cardsToAddSideDeckPlaceHolder, setCardsToAddSideDeckPlaceHolder] = useState<Card[]>([]);
+    const [cardsToDeleteSideDeckPlaceHolder, setCardsToDeleteSideDeckPlaceHolder] = useState<Card[]>([]);
+    const [modifySideDeckCardAmountPlaceHolder, setModifySideDeckCardAmountPlaceHolder] = useState<Card[]>([]);
 
     useEffect(() => {
         if (deckData) {  
@@ -56,9 +56,9 @@ const DeckBuilderPage = () => {
                 const extraDeckCards = deck?.extra_deck_cards;
                 const sideDeckCards = deck?.side_deck_cards;
     
-                const monsters = mainCards.filter(card => card.type && !["Spell Card", "Trap Card"].includes(card.type));
-                const spells = mainCards.filter(card => card.type?.includes("Spell"));
-                const traps = mainCards.filter(card => card.type?.includes("Trap"));
+                const monsters = mainCards.filter((card: any) => card.type && !["Spell Card", "Trap Card"].includes(card.type));
+                const spells = mainCards.filter((card: any) => card.type?.includes("Spell"));
+                const traps = mainCards.filter((card: any) => card.type?.includes("Trap"));
     
                 setMonsterCards(monsters);
                 setSpellCards(spells);
@@ -161,13 +161,7 @@ const DeckBuilderPage = () => {
         } 
     }
 
-    useEffect(() => {
-        console.log("display", monsterCards)
-        console.log("add card", cardsToAddMainDeckPlaceHolder)
-        //console.log("hey", modifySideDeckCardAmountPlaceHolder)
-        //console.log("delete", cardsToDeleteSideDeckPlaceHolder)
-    }, [monsterCards, cardsToAddMainDeckPlaceHolder, /*cardsToDeleteSideDeckPlaceHolder, modifySideDeckCardAmountPlaceHolder*/])
-
+    console.log(monsterCards)
 
     const sidebarprops = {
         userId,

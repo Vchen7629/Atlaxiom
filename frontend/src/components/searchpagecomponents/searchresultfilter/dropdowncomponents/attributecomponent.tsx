@@ -65,16 +65,20 @@ export function AttributeDropDownComponent({ attributedropdownprops }: attribute
           aria-expanded={open}
           className="w-[11vw] h-8 bg-transparent border-transparent text-[hsl(var(--text))] justify-between"
         >
+          <div className="flex w-[11vw] items-center justify-center text-sm hover:text-[hsl(var(--background3))]">
             {attributeType ? (
-                <span className={`flex relative items-center left-8 w-fit px-2 py-1 bg-[hsl(var(--background3))] rounded text-sm`}>
+              <div className="flex w-[8.5vw] justify-center">
+                <span className="w-fit px-2 py-1 bg-[hsl(var(--background3))] rounded text-[hsl(var(--text))]">
                     {Attributes.find((type) => type.attributeType === attributeType)?.label}
                 </span>
+              </div>
             ) : (
-              <span className={`flex relative items-center left-1/5 justify-between w-full px-2 py-1 bg-transparent rounded text-sm`}>
+              <span className="flex items-center text-xs w-[8.5vw] px-2 py-1 bg-transparent">
                   Select Attribute...
               </span>
             )}
-          <CaretSortIcon className="min-h-6 min-w-6 shrink-0 ml-[1vw]" />
+            <CaretSortIcon className="min-h-6 min-w-6 shrink-0"/>
+          </div>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[11vw] p-0 relative top-[-42px]">

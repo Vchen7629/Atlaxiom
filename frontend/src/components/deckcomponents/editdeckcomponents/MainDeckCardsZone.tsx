@@ -1,11 +1,12 @@
 import { useDroppable } from "@dnd-kit/core"
-import GridListViewComponent from "../decksidebar/gridlistviewcomponent"
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { handleDecreaseCardOwnedAmount, handleDeleteCardClick, handleIncreaseCardOwnedAmount } from "./EditDeckCardButtons";
+import { MainDeckProps } from "../types/editdeckcomptypes";
+import SubGridListViewComponent from "../draganddropitems/subgridlistviewcomp";
 
-const MainDeckCardZone = ({ maindeckprops }: any) => {
+const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
   const {
     deck,
     setModifyMainDeckCardAmountPlaceHolder,
@@ -51,7 +52,7 @@ const MainDeckCardZone = ({ maindeckprops }: any) => {
             <div className="flex h-fit items-center space-x-4">
                 <div className="font-bold">Total Main Deck Cards: {deck?.total_cards_main_deck}</div>
                 <div className='flex w-20 bg-footer rounded-xl'>
-                    <GridListViewComponent filterProps={filterProps}/>
+                    <SubGridListViewComponent filterProps={filterProps}/>
                 </div>
             </div>
         </header>

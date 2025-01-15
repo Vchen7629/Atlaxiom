@@ -1,7 +1,9 @@
 import { SliderProps } from "@radix-ui/react-slider";
+import { ApiCardData } from "./datastructuretypes";
 
 export type FilterSidebar = {
     filterprops: {
+        cardData: ApiCardData[];
         expandStatus: boolean;
         monsterType: string;
         setMonsterType: React.Dispatch<React.SetStateAction<string>>
@@ -10,6 +12,8 @@ export type FilterSidebar = {
         trapType: string;
         setTrapType: React.Dispatch<React.SetStateAction<string>>
         attributeType: string;
+        setName: string;
+        setSetName: React.Dispatch<React.SetStateAction<string>>;
         setAttributeType: React.Dispatch<React.SetStateAction<string>>
         levelFilter: number | null
         setLevelFilter: React.Dispatch<React.SetStateAction<number | null>>

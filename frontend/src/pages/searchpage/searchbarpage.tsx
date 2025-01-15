@@ -39,6 +39,7 @@ const SearchBarPage = () => {
   const [spellType, setSpellType] = useState<string>("");
   const [trapType, setTrapType] = useState<string>("");
   const [attributeType, setAttributeType] = useState<string>("");
+  const [setName, setSetName] = useState<string>("");
 
   const [levelFilter, setLevelFilter] = useState<number | null>(0);
   const [lessThanEqual, setLessThanEqual] = useState<boolean>(false);
@@ -88,19 +89,13 @@ const SearchBarPage = () => {
     try {
       const response = await fetch(apiUrl);
       const data = await response.json();
-      const startTime = new Date()
 
       if (response.ok) {
         setCardData(data.data);
-        console.log("card", data.data)
-        const endTime = new Date();
-        const timeRendered = endTime.getMilliseconds() - startTime.getMilliseconds();
-        console.log(timeRendered);
       } else {
         setCardData([]);
       }
     } catch (error) {
-      console.error('Error fetching data:', error);
       setCardData([]);
     }
   };
@@ -123,6 +118,8 @@ const SearchBarPage = () => {
           const matchesSpellType = spellType? card.race?.toLowerCase() === normalizedSpellType && card.frameType?.toLowerCase() === 'spell' : true;
           const matchesTrapType = trapType ? card.race?.toLowerCase() == normalizedTrapType && card.frameType?.toLowerCase() === "trap" : true;
           const matchesAttributeType = attributeType? card.attribute?.toLowerCase() == normalizedAttributeType : true;
+          const matchesSetName = setName ? card.card_sets?.some(set => set.set_name?.toLowerCase() === setName.toLowerCase()) : true;
+          console.log("no", matchesSetName)
           
           const matchesLevelFilter = levelFilter ?
             (lessThanEqual && card.level !== undefined && card.level <= levelFilter) ||
@@ -164,7 +161,8 @@ const SearchBarPage = () => {
             matchesPendFilter && 
             matchesLinkFilter && 
             matchesAtkFilter &&
-            matchesDefFilter
+            matchesDefFilter && 
+            matchesSetName
           ) 
         });
       }, [
@@ -173,7 +171,8 @@ const SearchBarPage = () => {
         monsterType, 
         spellType, 
         trapType, 
-        attributeType, 
+        attributeType,
+        setName, 
         levelFilter, equal, greaterThanEqual, lessThanEqual, 
         pendFilter, pendLessThanEqual, pendEqual, pendGreaterThanEqual, 
         linkFilter, linkLessThanEqual, linkEqual, linkGreaterThanEqual, 
@@ -235,11 +234,13 @@ const SearchBarPage = () => {
   } 
 
   const filterprops = {
+    cardData,
     expandStatus,
     monsterType, setMonsterType,
     spellType, setSpellType,
     trapType, setTrapType,
     attributeType, setAttributeType,
+    setName, setSetName,
     levelFilter, setLevelFilter, 
     lessThanEqual, setLessThanEqual, 
     equal, setEqual, 
@@ -321,7 +322,7 @@ const SearchBarPage = () => {
                 </main>       
               )}
           </div>
-          <div className={`fixed flex right-2 top-24 min-h-[80vh] ${expandStatus ? "w-[20%]" : "w-0 "}`}>
+          <div className={`fixed flex right-2 top-24 min-h-[80vh] ${expandStatus ? "w-[20.5%]" : "w-0 "}`}>
             {!clickedOnCard &&  (
               <FilterCardComponent filterprops={filterprops}/>
             )}
