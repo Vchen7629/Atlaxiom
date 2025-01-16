@@ -24,7 +24,7 @@ export function LinkSliderComponent({ linkSliderProps, className, ...props }: Li
           className={cn("w-full mr-2", className)}
           {...props}
         />
-        <span className="px-2 flex items-center justify-center rounded-lg bg-footer text-goldenrod">{linkFilter ?? 1}</span>
+        <span className="px-2 flex items-center justify-center rounded-lg bg-[hsl(var(--atkdefcomponent))] text-[hsl(var(--text))]">{linkFilter ?? 1}</span>
       </div>
     )
 }

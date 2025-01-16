@@ -53,12 +53,12 @@ const PendFilterComponent = ({ pendfilterprops }: pendprops) => {
             <div className="flex w-full"><PendSliderComponent pendSliderProps={pendSliderProps}/></div>
             <div className="flex justify-between w-full mr-2">
                 <div className="flex w-[30%]">
-                    <button className={`${pendLessThanEqual ? "bg-[hsl(var(--background3))]" : "bg-footer"} h-7 px-2`} onClick={handleLessThanClick}><FontAwesomeIcon icon={faGreaterThanEqual}/></button>
-                    <button className={`${pendEqual ? "bg-[hsl(var(--background3))]" : "bg-footer"} h-7 px-2`} onClick={handleEqualClick}><FontAwesomeIcon icon={faEquals}/></button>
-                    <button className={`${pendGreaterThanEqual ? "bg-[hsl(var(--background3))]" : "bg-footer"} h-7 px-2`} onClick={handleGreaterThanClick}><FontAwesomeIcon icon={faLessThanEqual}/></button>
+                    <button className={`${pendLessThanEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))]"} h-7 px-2 rounded-tl-lg rounded-bl-lg`} onClick={handleLessThanClick}><FontAwesomeIcon icon={faGreaterThanEqual}/></button>
+                    <button className={`${pendEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))]"} h-7 px-2`} onClick={handleEqualClick}><FontAwesomeIcon icon={faEquals}/></button>
+                    <button className={`${pendGreaterThanEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))]"} h-7 px-2 rounded-tr-lg rounded-br-lg`} onClick={handleGreaterThanClick}><FontAwesomeIcon icon={faLessThanEqual}/></button>
                 </div>
                 <input
-                    className="flex text-center bg-footer border-2 ml-2 w-[30%] border-transparent"
+                    className="flex text-center bg-[hsl(var(--atkdefcomponent))] border-2 ml-2 w-[20%] border-transparent rounded-lg"
                     value={pendFilter ?? ""}
                     onChange={handleInputChange}
                 />
