@@ -35,11 +35,13 @@ const GalleryViewSearchSuggestionsComponent = ({ galleryviewprops }: GalleryView
                     ))}         
                 </div>
             ) : searchTerm === "" ? (
-                <>
-                </>
+                <main className="w-full h-[70vh] flex justify-center items-center">
+                    <span className="text-3xl font-bold">Enter a Card name to begin searching</span>
+                </main>
             ) : (
-                <>
-                </>
+                <main className="w-full h-[70vh] flex justify-center items-center">
+                    <span className="text-3xl font-bold">No cards matching your Filters</span>
+                </main>
             )}
         </main>
     )
