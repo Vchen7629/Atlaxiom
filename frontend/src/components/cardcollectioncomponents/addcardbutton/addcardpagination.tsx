@@ -66,14 +66,14 @@ const AddCardPaginationComponent = ({ paginationprops }: Pagination) => {
             {totalPages > 1 && (
                 <div className="flex w-full justify-between ">
                     <section className="flex items-center h-full space-x-2"> 
-                        <span className="text-lg">Page</span> 
+                        <span className="text-lg text-[hsl(var(--text))]">Page</span> 
                         <input
                             className="bg-transparent focus:outline-none w-10 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]"
                             placeholder={String(currentPage)}
                             value={page}
                             onChange={handleListInputChange}
                         />
-                        <span className="text-lg">of {totalPages}</span>
+                        <span className="text-lg text-[hsl(var(--text))]">of {totalPages}</span>
                         {err && (
                             <span className="text-red-500 text-xs">{err}</span>
                         )}
