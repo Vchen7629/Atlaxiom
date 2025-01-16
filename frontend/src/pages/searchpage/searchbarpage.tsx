@@ -293,7 +293,7 @@ const SearchBarPage = () => {
       <div className="flex flex-col min-h-[120vh] bg-[hsl(var(--background1))] justify-between overflow-auto" >
         <Header/>
         <main className="flex flex-grow py-[15vh] items-start ">            
-          <div className={`flex flex-col ${expandStatus ? "w-[78.5%]" : "w-full"} ${selectedCardData ? "w-[100%]" : "w-[80%]"}`}>
+          <div className={`flex flex-col ${expandStatus ? "w-[77.5%]" : "w-full"} ${selectedCardData ? "w-[100%]" : "w-[80%]"}`}>
               {!clickedOnCard &&  (
                 <main>
                   <div className="flex w-full items-center justify-between mb-[5vh]">
