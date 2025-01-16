@@ -22,7 +22,7 @@ const SearchResults = ({ searchresultprops }: SearchResult) => {
     
     return (
         <main className="flex flex-col w-[100vw] items-center">
-            <div className="flex w-[80%] items-center">
+            <div className="flex w-[84%] items-center">
                 <BreadcrumbSearchResult/>
             </div>
             <main className="flex w-[100vw]">
