@@ -1,5 +1,12 @@
 import { filterbutton } from "../types/buttontypes"
 
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
+
 const FilterButton = ({ filterbuttonprops }: filterbutton) => {
     const {
         expandStatus,
@@ -14,12 +21,21 @@ const FilterButton = ({ filterbuttonprops }: filterbutton) => {
     }
 
     return (
-        <button 
-            className={`h-[40px] ml-2 px-4 rounded-xl ${filterActive ? "bg-[hsl(var(--filterbutton))]" : "bg-[hsl(var(--background3))]"}`}  
-            onClick={handleFilterClick}
-        >
-            Filter Card
-        </button>
+        <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger>
+                    <button 
+                        className={`h-[40px] ml-2 px-4 rounded-xl ${filterActive ? "bg-[hsl(var(--filterbutton))]" : "bg-[hsl(var(--background3))]"}`}  
+                        onClick={handleFilterClick}
+                    >
+                        Filter Card
+                    </button>
+                </TooltipTrigger>
+                <TooltipContent className="bg-[hsl(var(--ownedcardcollection))] border-transparent" side="bottom">
+                    <span className="text-[hsl(var(--text))]">Click to Hide Filter Sidebar</span>
+                </TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
     )
 }
 

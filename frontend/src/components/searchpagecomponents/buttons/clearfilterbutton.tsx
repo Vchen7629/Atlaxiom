@@ -7,7 +7,7 @@ import {
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
-  } from "@/components/ui/tooltip"
+} from "@/components/ui/tooltip"
 
 const ClearFilterButton = ({ clearfilterprops }: clearfilter) => {
     const {
@@ -57,7 +57,7 @@ const ClearFilterButton = ({ clearfilterprops }: clearfilter) => {
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger>
-                    <button className={`${canClearFilters ? "bg-[hsl(var(--background3))]" : "bg-gray-400"} py-[12px] px-[14px] rounded-xl`} onClick={handleClearFilter}>
+                    <button className={`${canClearFilters ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--filterbutton))]"} py-[12px] px-[14px] rounded-xl`} onClick={handleClearFilter}>
                         <FontAwesomeIcon icon={faArrowRotateRight}/>
                     </button>
                 </TooltipTrigger>
