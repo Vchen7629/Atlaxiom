@@ -70,10 +70,12 @@ export const AddCardButton = ({ userId }: any) => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         setSearchTerm(inputValue);
+        setCurrentPage(1);
     };
 
     const handleClearClick = () => {
         setSearchTerm('');
+        setCurrentPage(1);
     };
 
     const handleCardClick = (name: string) => {
@@ -162,7 +164,7 @@ export const AddCardButton = ({ userId }: any) => {
                                     </div>
                                 ))
                             ) : loading ? (
-                                <div className="flex min-h-[40vh] justify-center items-center text-3xl text-gray-400 font-black">
+                                <div className="flex h-[100%] justify-center items-center text-3xl text-gray-400 font-black">
                                     <span>Loading Card Data...</span>
                                 </div>
                             ) : loadErr ? (

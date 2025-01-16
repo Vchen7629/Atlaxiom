@@ -70,7 +70,7 @@ const AddCardPaginationComponent = ({ paginationprops }: Pagination) => {
                         <input
                             className="bg-transparent focus:outline-none w-10 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]"
                             placeholder={String(currentPage)}
-                            value={page}
+                            value={currentPage}
                             onChange={handleListInputChange}
                         />
                         <span className="text-lg text-[hsl(var(--text))]">of {totalPages}</span>
