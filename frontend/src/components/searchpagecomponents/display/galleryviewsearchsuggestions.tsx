@@ -12,10 +12,12 @@ const GalleryViewSearchSuggestionsComponent = ({ galleryviewprops }: GalleryView
     } = galleryviewprops
 
     const handleSuggestionClick = (card: SearchResCardData) => {
-            setSelectedCardData(card);
-            setClickedOnCard(true);
-            setErrorMessage("");
+        setSelectedCardData(card);
+        setClickedOnCard(true);
+        setErrorMessage("");
     };
+
+    console.log(currentPageGalleryNamesArray)
 
     return (
         <main className="w-full h-full">
@@ -25,12 +27,13 @@ const GalleryViewSearchSuggestionsComponent = ({ galleryviewprops }: GalleryView
                     style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                 >
                     {currentPageGalleryNamesArray.map((card: any, index) => (
-                        <div key={index} className="flex h-full w-full" onClick={() => handleSuggestionClick(card)}>
-                            <img
-                                src={card?.card_images[0].image_url}
-                                //alt={suggestion}
-                                className="h-full object-contain"
-                            />
+                        <div key={index} className="relative flex h-full w-full group" onClick={() => handleSuggestionClick(card)}>
+                            <img src={card?.card_images[0].image_url} className="h-full object-contain group-hover:blur-xs"/>
+                            <div 
+                                className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white text-center text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                            >
+                                {card.name}
+                            </div>
                         </div>
                     ))}         
                 </div>
