@@ -2,6 +2,8 @@ import { RarityRadialChartComponent } from "../../../shadcn_components/charts/ra
 import { ComponentPieChart } from '../../../profilepagecomponents/statisticscomponents/charts/piechart';
 import { ComponentRadialChart } from "@/components/profilepagecomponents/statisticscomponents/charts/radialchart";
 import { ownedcardstatsprops } from "../../types/ownedcardstatisticstypes";
+import FilterCardViewButton from "./filtercardbutton";
+import StatisticsViewButton from "./statisticsbutton";
 
 const CardCollectionStatistics = ({filterProps}: ownedcardstatsprops) => {
     const {
@@ -10,14 +12,14 @@ const CardCollectionStatistics = ({filterProps}: ownedcardstatsprops) => {
         expandStatus
     } = filterProps;
 
-    const handleFilterClick = () => {
-        setFilterPage(true)
-        setStatisticsPage(false)
+    const filterprops = { 
+        filterpage, setFilterPage,
+        setStatisticsPage
     }
 
-    const handleStatisticsClick = () => {
-        setFilterPage(false)
-        setStatisticsPage(true)
+    const statisticsprops = {
+        statisticspage, setStatisticsPage,
+        setFilterPage
     }
     
 
@@ -25,9 +27,12 @@ const CardCollectionStatistics = ({filterProps}: ownedcardstatsprops) => {
         <>
         {expandStatus && (
             <> 
-                <section className="items-center h-8 flex mb-8 justify-between bg-gray-600 rounded-2xl">
-                    <button className={`px-4 rounded-2xl w-fit h-8 font-black ${filterpage ? "bg-[hsl(var(--background3))] text-white" : "bg-transparent text-gray-400"}`} onClick={handleFilterClick}>Filter Cards</button>
-                    <button className={`px-4 rounded-2xl w-fit h-8 font-black ${statisticspage ? "bg-[hsl(var(--background3))]" : "bg-transparent text-gray-400"}`} onClick={handleStatisticsClick}>Collection Statistics</button>
+                <section className="flex w-[92%] justify-between items-center mb-2 pl-4">
+                    <span className="text-2xl text-[hsl(var(--text))] font-bold">Card Statistics </span>
+                    <div className="flex w-fit justify-between h-11 bg-footer rounded-xl">
+                        <FilterCardViewButton filterprops={filterprops}/>
+                        <StatisticsViewButton statisticsprops={statisticsprops}/>
+                    </div>
                 </section>
                 <div className="flex flex-col">
                     <ComponentRadialChart/>

@@ -3,17 +3,17 @@ import { ArchetypeDropDownComponent } from "../dropdown/archetypedropdown.tsx"
 import { SubTypeDropDownComponent } from "../dropdown/subtypedrowndown.tsx"
 import { CardSetDropDownComponent } from "../dropdown/cardsetdropdown.tsx"
 import { LevelSliderComponent } from '../sliders/levelslider.tsx';
-import MyCardsSearchbarComponent from '../../components/searchbar.tsx';
 import { OwnedCardsFilterProps } from "../../types/ownedcardfiltertypes.ts";
 import { RarityDropDownComponent } from "../dropdown/raritydropdown.tsx";
 import { useEffect, useState } from "react";
 import { Card } from "../../types/ownedcarddetailstypes.ts";
+import FilterCardViewButton from "./filtercardbutton.tsx";
+import StatisticsViewButton from "./statisticsbutton.tsx";
 
 const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
     const {
         ownedCards,
         expandStatus,
-        searchTerm, setSearchTerm,
         setCardTypeFilter,
         isMonsterFilterActive, setIsMonsterFilterActive,
         setIsSpellFilterActive, isSpellFilterActive,
@@ -114,17 +114,16 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         setSetFilter('');
     }
 
-    const handleFilterClick = () => {
-        setFilterPage(true)
-        setStatisticsPage(false)
+
+    const filterprops = { 
+        filterpage, setFilterPage,
+        setStatisticsPage
     }
 
-    const handleStatisticsClick = () => {
-        setFilterPage(false)
-        setStatisticsPage(true)
+    const statisticsprops = {
+        statisticspage, setStatisticsPage,
+        setFilterPage
     }
-
-    const searchbarprops = { searchTerm, setSearchTerm }
 
     const subtypeprops = {
         uniqueSubtype,
@@ -171,20 +170,16 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         <>
         {expandStatus && (
             <>
-                <section className="items-center h-8 flex mb-8 justify-between bg-gray-600 rounded-2xl">
-                    <button className={`px-4 rounded-2xl w-fit h-8 font-black ${filterpage ? "bg-[hsl(var(--background3))] text-white" : "bg-transparent text-gray-400"}`} onClick={handleFilterClick}>Filter Cards</button>
-                    <button className={`px-4 rounded-2xl w-fit h-8 font-black ${statisticspage ? "bg-[hsl(var(--background3))]" : "bg-transparent text-gray-400"}`} onClick={handleStatisticsClick}>Collection Statistics</button>
+                <section className="flex w-[92%] justify-between items-center mb-6 pl-4">
+                    <span className="text-2xl text-[hsl(var(--text))] font-bold">Card Filter </span>
+                    <div className="flex w-fit space-x-2">
+                        <button className="flex items-center px-4 py-4 rounded-xl h-11 bg-[hsl(var(--background3))]" onClick={clearFilter}> Clear </button>
+                        <div className="flex justify-center w-fit h-11 bg-footer rounded-xl">
+                            <FilterCardViewButton filterprops={filterprops}/>
+                            <StatisticsViewButton statisticsprops={statisticsprops}/>
+                        </div>
+                        </div>
                 </section>
-                <section className="flex w-[90%] items-center mb-6 justify-between">
-                    <MyCardsSearchbarComponent searchbarprops={searchbarprops} />   
-                    <button 
-                        className="w-[20%] rounded-xl h-8 bg-[hsl(var(--background3))] " 
-                        onClick={clearFilter}
-                    >
-                        Clear 
-                    </button>
-                </section>
-
                 <section className="flex w-[92%] h-10 ">
                     <button
                         className={`w-[37%] flex ${isMonsterFilterActive ? 'text-gold' : 'text-[hsl(var(--text))]'} focus:outline-none`}

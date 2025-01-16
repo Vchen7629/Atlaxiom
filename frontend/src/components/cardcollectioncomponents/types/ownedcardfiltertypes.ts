@@ -1,8 +1,6 @@
 export type OwnedCardsFilterProps = {
     filterProps: {
         ownedCards: any;
-        searchTerm: string;
-        setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
         setCardTypeFilter: React.Dispatch<React.SetStateAction<string>>;
         isMonsterFilterActive: boolean;
         setIsMonsterFilterActive: React.Dispatch<React.SetStateAction<boolean>>;

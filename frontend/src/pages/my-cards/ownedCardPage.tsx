@@ -136,7 +136,6 @@ const UserOwnedCardPage = () => {
   const filterProps = {
     ownedCards,
     expandStatus,
-    searchTerm, setSearchTerm,
     setCardTypeFilter,
     isMonsterFilterActive, setIsMonsterFilterActive, 
     setIsSpellFilterActive, isSpellFilterActive,
@@ -210,7 +209,7 @@ const UserOwnedCardPage = () => {
                           <PaginationComponent paginationprops={paginationprops} />                                           
                         </main>
                         
-                        <div className={`flex flex-col h-fit ${expandStatus ? "w-[24%] border-gray-600 border-2" : "w-0"} items-center bg-[hsl(var(--background4))] rounded-xl py-8`}>
+                        <div className={`flex flex-col h-fit ${expandStatus ? "w-[24%] border-gray-600 border-2" : "w-0"} items-center bg-[hsl(var(--ownedcardcollection))] rounded-xl py-8`}>
                             {filterpage && (
                               <FilterOwnedCards filterProps={filterProps}/>
                             )}

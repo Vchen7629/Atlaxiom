@@ -15,3 +15,19 @@ export type searchbarprops = {
         setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
     }
 }
+
+export type FilterButtonProps = {
+    filterprops: {
+        filterpage: boolean;
+        setFilterPage: React.Dispatch<React.SetStateAction<boolean>>
+        setStatisticsPage: React.Dispatch<React.SetStateAction<boolean>>
+    }
+}
+
+export type StatisticsButtonProps = {
+    statisticsprops: {
+        setFilterPage: React.Dispatch<React.SetStateAction<boolean>>
+        statisticspage: boolean
+        setStatisticsPage: React.Dispatch<React.SetStateAction<boolean>>
+    }
+}
