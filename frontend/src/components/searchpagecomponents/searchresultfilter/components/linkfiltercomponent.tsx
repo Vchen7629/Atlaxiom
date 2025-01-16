@@ -5,6 +5,7 @@ import { LinkSliderComponent } from "../slidercomponents/linkslider"
 
 const LinkFilterComponent = ({ linkfilterprops }: linkprops) => {
     const {
+        setCanClearFilters,
         linkFilter, setLinkFilter,
         linkLessThanEqual, setLinkLessThanEqual,
         linkEqual, setLinkEqual,
@@ -31,13 +32,25 @@ const LinkFilterComponent = ({ linkfilterprops }: linkprops) => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
-        const numericValue = inputValue.trim() === '' ? null : parseFloat(inputValue);
+        let numericValue = inputValue.trim() === '' ? null : parseFloat(inputValue);
+
+        if (numericValue !== null) {
+            if (numericValue < 1) numericValue = 1;
+            if (numericValue > 6) numericValue = 6;
+        }
+        
         setLinkFilter(numericValue)
+        setCanClearFilters(numericValue !== null)
+    }
+
+    const linkSliderProps = {
+        linkFilter, setLinkFilter,
+        setCanClearFilters
     }
 
     return (
         <div className="flex flex-col space-y-2 w-[85%] items-center">
-            <div className="flex w-full"><LinkSliderComponent setLinkFilter={setLinkFilter}/></div>
+            <div className="flex w-full"><LinkSliderComponent linkSliderProps={linkSliderProps}/></div>
             <div className="flex justify-between w-full mr-2">
                 <div className="flex w-[30%]">
                     <button className={`${linkLessThanEqual ? "bg-[hsl(var(--background3))]" : "bg-footer"} h-7 px-2`} onClick={handleLessThanClick}><FontAwesomeIcon icon={faGreaterThanEqual}/></button>

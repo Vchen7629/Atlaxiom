@@ -4,6 +4,7 @@ import { defprops } from "../../types/componenttypes"
 
 const DefFilterComponent = ({ deffilterprops }: defprops) => {
     const {
+        setCanClearFilters,
         defFilter, setDefFilter,
         defLessThanEqual, setDefLessThanEqual,
         defEqual, setDefEqual,
@@ -32,6 +33,7 @@ const DefFilterComponent = ({ deffilterprops }: defprops) => {
         const inputValue = e.target.value;
         const numericValue = inputValue.trim() === '' ? null : parseFloat(inputValue);
         setDefFilter(numericValue)
+        setCanClearFilters(numericValue !== null)
     }
 
     return (

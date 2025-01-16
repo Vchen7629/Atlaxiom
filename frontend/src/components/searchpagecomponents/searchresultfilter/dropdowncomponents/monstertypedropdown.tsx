@@ -86,6 +86,7 @@ const MonsterTypes = [
  
 export function MonsterTypeDropDownComponent({ monsterdropdownprops }: monsterDropDown) {
   const {
+    setCanClearFilters,
     monsterType, setMonsterType,
     setSpellType,
     setTrapType,
@@ -94,9 +95,14 @@ export function MonsterTypeDropDownComponent({ monsterdropdownprops }: monsterDr
   const [open, setOpen] = React.useState(false)
 
   const handleClick = (newValue: string) => {
-    setMonsterType(newValue);
+    setMonsterType(newValue)
     setSpellType("")
     setTrapType("")
+    if (newValue) {
+      setCanClearFilters(true)
+    } else {
+      setCanClearFilters(false)
+    }
   }
 
   return (

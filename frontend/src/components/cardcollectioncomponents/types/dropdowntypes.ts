@@ -57,11 +57,3 @@ export interface LevelSliderProps extends SliderProps {
         setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>
     }
 }
-
-export interface PendSliderProps extends SliderProps {
-    setPendFilter: React.Dispatch<React.SetStateAction<number | null>>
-}
-
-export interface LinkSliderProps extends SliderProps {
-    setLinkFilter: React.Dispatch<React.SetStateAction<number | null>>
-}

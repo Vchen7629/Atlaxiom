@@ -5,6 +5,7 @@ import { PendSliderComponent } from "../slidercomponents/pendslider"
 
 const PendFilterComponent = ({ pendfilterprops }: pendprops) => {
     const {
+        setCanClearFilters,
         pendFilter, setPendFilter,
         pendLessThanEqual, setPendLessThanEqual,
         pendEqual, setPendEqual,
@@ -31,13 +32,25 @@ const PendFilterComponent = ({ pendfilterprops }: pendprops) => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
-        const numericValue = inputValue.trim() === '' ? null : parseFloat(inputValue);
+        let numericValue = inputValue.trim() === '' ? null : parseFloat(inputValue);
+
+        if (numericValue !== null) {
+            if (numericValue < 1) numericValue = 1;
+            if (numericValue > 13) numericValue = 13;
+        }
+        
         setPendFilter(numericValue)
+        setCanClearFilters(numericValue !== null)
+    }
+
+    const pendSliderProps = {
+        pendFilter, setPendFilter,
+        setCanClearFilters
     }
 
     return (
         <div className="flex flex-col space-y-2 w-[85%] items-center">
-            <div className="flex w-full"><PendSliderComponent setPendFilter={setPendFilter}/></div>
+            <div className="flex w-full"><PendSliderComponent pendSliderProps={pendSliderProps}/></div>
             <div className="flex justify-between w-full mr-2">
                 <div className="flex w-[30%]">
                     <button className={`${pendLessThanEqual ? "bg-[hsl(var(--background3))]" : "bg-footer"} h-7 px-2`} onClick={handleLessThanClick}><FontAwesomeIcon icon={faGreaterThanEqual}/></button>

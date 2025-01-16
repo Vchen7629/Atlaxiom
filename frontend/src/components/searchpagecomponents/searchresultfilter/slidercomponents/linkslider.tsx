@@ -1,20 +1,22 @@
 import { cn } from "@/lib/utils"
 import { Slider } from "@/components/ui/slider"
-import { LinkSliderProps } from "@/components/cardcollectioncomponents/types/dropdowntypes"
-import { useState } from "react"
+import { LinkSliderProps } from "../../types/searchfiltercomptypes"
 
-export function LinkSliderComponent({ setLinkFilter, className, ...props }: LinkSliderProps) {
-    const [value, setValue] = useState([1])
+export function LinkSliderComponent({ linkSliderProps, className, ...props }: LinkSliderProps) {
+  const {
+    linkFilter, setLinkFilter,
+    setCanClearFilters
+  } = linkSliderProps
   
     const handleSliderChange = (newValue: number[]) => {
-      setValue(newValue)
       setLinkFilter(newValue[0])
+      setCanClearFilters(newValue[0] !== null);
     }
   
     return (
       <div className="flex w-full">
         <Slider
-          value={value}
+          value={[linkFilter ?? 1]}
           onValueChange={handleSliderChange}
           defaultValue={[1]}
           max={6}
@@ -22,7 +24,7 @@ export function LinkSliderComponent({ setLinkFilter, className, ...props }: Link
           className={cn("w-full mr-2", className)}
           {...props}
         />
-        <span className="px-2 flex items-center justify-center rounded-lg bg-footer text-goldenrod">{value[0]}</span>
+        <span className="px-2 flex items-center justify-center rounded-lg bg-footer text-goldenrod">{linkFilter ?? 1}</span>
       </div>
     )
 }

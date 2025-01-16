@@ -1,6 +1,6 @@
 import { filterbutton } from "../types/buttontypes"
 
-const FilterButton = ({ filterbuttonprops }: filterbutton   ) => {
+const FilterButton = ({ filterbuttonprops }: filterbutton) => {
     const {
         expandStatus,
         setExpandStatus,
@@ -15,7 +15,7 @@ const FilterButton = ({ filterbuttonprops }: filterbutton   ) => {
 
     return (
         <button 
-            className={`h-[40px] ml-4 px-4 rounded-xl ${filterActive ? "bg-[hsl(var(--filterbutton))]" : "bg-[hsl(var(--background3))]"}`}  
+            className={`h-[40px] ml-2 px-4 rounded-xl ${filterActive ? "bg-[hsl(var(--filterbutton))]" : "bg-[hsl(var(--background3))]"}`}  
             onClick={handleFilterClick}
         >
             Filter Card

@@ -1,6 +1,7 @@
 import { SearchResCardData } from "../types/datastructuretypes";
 import { ListViewComp } from "../types/searchbarcomponentstypes";
 
+
 const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => {
     const {
         searchTerm,
@@ -30,8 +31,8 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
                                 />
                                 <div className="flex h-[20vh] overflow-y-auto w-full min-h-full flex-col border-2 border-transparent hover:border-gray-500">
                                     <section className="relative flex justify-between w-full h-[20%]">
-                                        <div className="flex text-center items-center pl-[3%] w-[70%] text-goldenrod font-black text-2xl">{card.name}</div>
-                                        <div className="flex justify-evenly items-center font-bold w-[30%]">
+                                        <div className="flex text-center items-center pl-[3%] w-[60%] text-goldenrod font-black text-2xl">{card.name}</div>
+                                        <div className="flex justify-evenly items-center font-bold w-[40%]">
                                             <div className="text-white text-xl">{card?.type}</div>
                                             <div className="text-white text-xl">{card?.race}</div>
                                             <div className="text-white text-xl">{card?.attribute}</div>

@@ -12,6 +12,7 @@ const SearchResults = ({ searchresultprops }: SearchResult) => {
   
     const authenticated = useSelector((state: SearchAuth) => state.auth.token !== null);
     const userId = useSelector((state: SearchUserId) => state.auth.userId);
+    console.log(selectedCardData)
 
     const addcardprops = {
       selectedCardData,
@@ -53,7 +54,13 @@ const SearchResults = ({ searchresultprops }: SearchResult) => {
                             </div>
                           )}
                           <div className="flex flex-col max-w-1/3 text-white">
-                            <div className="text-gold mb-1">Race:</div>
+                            {selectedCardData?.type?.includes("Spell") ? (
+                              <div className="text-gold mb-1">Spell Type:</div>
+                            ) : selectedCardData?.type?.includes("Trap") ? (
+                              <div className="text-gold mb-1">Trap Type:</div>
+                            ) : (
+                              <div className="text-gold mb-1">Race:</div>
+                            )}
                             <div className="text-gray-200 text-xl">{selectedCardData?.race}</div>
                           </div>
                         </div>

@@ -39,6 +39,7 @@ const TrapTypes = [
 export function TrapTypeDropDownComponent({ trapdropdownprops }: trapDropDown) {
   const [open, setOpen] = React.useState(false)
   const {
+    setCanClearFilters,
     setMonsterType,
     setSpellType,
     trapType, setTrapType,
@@ -48,6 +49,11 @@ export function TrapTypeDropDownComponent({ trapdropdownprops }: trapDropDown) {
     setMonsterType("");
     setSpellType("");
     setTrapType(newValue)
+    if (newValue) {
+      setCanClearFilters(true)
+    } else {
+      setCanClearFilters(false);
+    }
   }
 
   return (
