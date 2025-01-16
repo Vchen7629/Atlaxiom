@@ -91,77 +91,69 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
             {loading ? (
                 <span className="h-[50vh] w-full flex items-center justify-center text-3xl font-bold">Loading...</span>
             ) : (
-                <main className="flex w-full max-h-[55vh]">
+                <main className="flex w-full  h-full">
                     <img className="w-[15vw] object-contain"
                         src={selectedCardData?.card_images?.[0]?.image_url}
                         alt={selectedCardData?.name}
                     /> 
-                    <div className="flex flex-col h-[55vh] w-[25vw] mx-[5%]">
-                        <div className="text-xl text-goldenrod h-[5vh] w-full">{selectedCardData?.name}</div>
-                        <div className="flex my-[3%] text-sm text-gray-300 w-full max-h-[30vh]">{selectedCardData?.desc}</div>
-                        <div className="flex flex-col h-[20vh] pt-[4%] text-md">
+                    <div className="flex flex-col h-full max-h-[40vh] justify-between w-[25vw] mx-[5%]">
+                        <section className="flex flex-col h-fit w-full ">
+                            <span className="text-2xl font-bold text-[hsl(var(--background3))]">{selectedCardData?.name}</span>
+                            <span className="flex my-[3%] w-full max-h-[30vh] text-sm text-[hsl(var(--text))]">{selectedCardData?.desc}</span>
+                        </section>
+                        <section className="flex flex-col h-[20vh] justify-evenly">
                             <div className="flex mb-[4%] w-full space-x-4">
-                                <div className="flex flex-col w-full text-white">
-                                    <div className="text-gold mb-1">Card Type</div> 
-                                    <div className="text-gray-200"> {selectedCardData?.type}</div>
+                                <div className="flex flex-col w-full">
+                                    <div className="font-bold text-[hsl(var(--background3))] mb-1">Card Type</div> 
+                                    <div className="text-[hsl(var(--text))]"> {selectedCardData?.type}</div>
                                 </div>
                                 {selectedCardData?.archetype && (
-                                    <div className="flex flex-col w-full text-white">
-                                    <div className="text-gold mb-1">Archetype</div>
-                                    <div className="text-gray-200">{selectedCardData.archetype}</div>
+                                    <div className="flex flex-col w-full">
+                                        <span className="font-bold text-[hsl(var(--background3))] mb-1">Archetype</span>
+                                        <span className="text-[hsl(var(--text))]">{selectedCardData.archetype}</span>
                                     </div>
                                 )}
-                                <div className="flex flex-col w-full text-white">
-                                    <div className="text-gold mb-1">Race:</div>
-                                    <div className="text-gray-200">{selectedCardData?.race}</div>
+                                <div className="flex flex-col w-full">
+                                    <span className="text-[hsl(var(--background3))] font-bold mb-1">Race:</span>
+                                    <div className="text-[hsl(var(--text))]">{selectedCardData?.race}</div>
                                 </div>
                             </div>
-                            {(selectedCardData?.scale || selectedCardData?.linkval || selectedCardData?.atk || selectedCardData?.def)&& (
-                                <>
-                                    <div className="flex flex-col mb-[4%] w-[90%]">
-                                        <div className="flex space-x-2">
-                                            {selectedCardData.scale && (
-                                                <>
-                                                    <div className="flex text-white">
-                                                        <div className="mr-2 text-gold">Pend-Scale:</div>
-                                                        <div>{selectedCardData.scale}</div>
-                                                    </div>
-                                                </>
-                                            )}
-                                            {selectedCardData.linkval && (
-                                                <>
-                                                    <div className="flex text-white">
-                                                        <div className="mr-2 text-gold">Link-value:</div>
-                                                        <div>{selectedCardData.linkval}</div>
-                                                    </div>
-                                                </>
-                                            )}
-                                        </div>
-                                        <div className="flex space-x-2">
-                                            {(selectedCardData.atk || selectedCardData.atk === 0)&& (
-                                                <>
-                                                    <div className="flex text-white">
-                                                        <div className="mr-2 text-gold">Attack:</div>
-                                                        <div>{selectedCardData.atk}</div>
-                                                    </div>
-                                                </>
-                                            )}
-                                            {(selectedCardData.def || selectedCardData.def === 0)&& (
-                                                <>
-                                                    <div className="flex text-white">
-                                                        <div className="mr-2 text-gold">Defense:</div>
-                                                        <div>{selectedCardData.def}</div>
-                                                    </div>
-                                                </>
-                                            )}
-                                        </div>
+                            {(selectedCardData?.scale || selectedCardData?.linkval || selectedCardData?.atk || selectedCardData?.atk === 0 || selectedCardData?.def || selectedCardData?.def === 0 )&& (
+                                <div className="flex flex-col space-y-4">
+                                    <div className="flex  w-1/2 justify-between">
+                                        {selectedCardData.scale && (
+                                            <div className="flex">
+                                                <span className="mr-2 font-bold text-[hsl(var(--background3))]">Pend-Scale:</span>
+                                                <span className="text-[hsl(var(--text))]">{selectedCardData.scale}</span>
+                                            </div>
+                                        )}
+                                        {selectedCardData.linkval && (
+                                            <div className="flex">
+                                                <span className="mr-2 font-bold text-[hsl(var(--background3))]">Link-value:</span>
+                                                <span className="text-[hsl(var(--text))]">{selectedCardData.linkval}</span>
+                                            </div>
+                                        )}
                                     </div>
-                                </>
-                                )}
-                        </div>
+                                    <div className="flex w-1/2 justify-between">
+                                        {(selectedCardData.atk || selectedCardData.atk === 0) && (
+                                            <div className="flex">
+                                                <span className="mr-2 font-bold text-[hsl(var(--background3))]">Attack:</span>
+                                                <span className="text-[hsl(var(--text))]">{selectedCardData.atk}</span>
+                                            </div>
+                                        )}
+                                        {(selectedCardData.def || selectedCardData.def === 0)&& (
+                                            <div className="flex">
+                                                <span className="mr-2 font-bold text-[hsl(var(--background3))]">Defense:</span>
+                                                <span className="text-[hsl(var(--text))]">{selectedCardData.def}</span>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                        </section>
                     </div>
                     <div className="flex flex-col w-[25vw] object-contain items-center">
-                        <button onClick={handleClick} className="bg-[hsl(var(--background3))] py-1 px-2 rounded-md text-[hsl(var(--text))] mb-4">
+                        <button onClick={handleClick} className="border-2 border-[hsl(var(--background3))] hover:bg-[hsl(var(--background3))] py-2 px-2 rounded-md text-[hsl(var(--text))] mb-4">
                             Back to Card Search
                         </button>
                         {cardSets.length > 0 ? (
@@ -169,7 +161,7 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
                                 {cardSets.map((set, index) => (
                                     <div
                                         key={index}
-                                        className="flex p-2 mb-2 text-xs items-center space-x-[5%] text-gold bg-[hsl(var(--background4))] rounded-xl"
+                                        className="flex p-1 mb-2 text-xs items-center space-x-[5%] text-[hsl(var(--text))] border-2 border-[hsl(var(--background4))] rounded-xl"
                                     >
                                         {!cardMessages[index] ? (
                                             <>
@@ -180,7 +172,7 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
                                                 <div className="w-[8%]">
                                                     <button
                                                         onClick={() => handleAddOwnedCardClick(set, index)}
-                                                        className="bg-blue-500 rounded-lg flex items-center p-2"
+                                                        className="bg-[hsl(var(--background3))] rounded-lg flex items-center p-2"
                                                     >
                                                         <FontAwesomeIcon icon={faPlus} />
                                                     </button>

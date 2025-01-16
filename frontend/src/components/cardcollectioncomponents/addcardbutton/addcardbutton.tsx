@@ -106,20 +106,22 @@ export const AddCardButton = ({ userId }: any) => {
                 <FontAwesomeIcon className="mr-1" icon={faPlusCircle}/>Add Card
             </Button>
         </AlertDialogTrigger>
-        <AlertDialogContent className="bg-[hsl(var(--background1))] min-w-[65vw] h-[70vh] border-transparent ">
+        <AlertDialogContent className="bg-[hsl(var(--background1))] min-w-[65vw] h-[55vh] max-h-[70vh] flex-grow border-transparent ">
           <AlertDialogHeader>
             <div className="flex justify-between items-center w-full">
                 <AlertDialogTitle className="text-[hsl(var(--text))]">Add Card to collection</AlertDialogTitle>
                 <AlertDialogCancel 
-                    className="bg-footer shadow-custom border-transparent hover:bg-footer hover:text-gold"
+                    className="bg-transparent shadow-custom border-transparent text-[hsl(var(--text))] hover:text-[hsl(var(--background3))]"
                     onClick={handleBackClick}
                 >
                     Back
                 </AlertDialogCancel>
             </div>
-                <AlertDialogDescription className="flex flex-col items-center pt-4">
+                <AlertDialogDescription className="flex flex-col  items-center justify-center pt-4">
                 {selectedcard ? (
-                    <SelectedCardComponent selectedcardprops={selectedcardprops}/>
+                    <div className="flex">
+                        <SelectedCardComponent selectedcardprops={selectedcardprops}/>
+                    </div>
                 ) : (
                     <>
                         <section className="flex w-[90%] h-[50px] pl-5 relative border-[1px] border-gray-400 justify-start text-[hsl(var(--text))]">                      
