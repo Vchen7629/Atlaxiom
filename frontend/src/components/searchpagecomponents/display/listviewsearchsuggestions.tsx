@@ -31,45 +31,50 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
                                 />
                                 <div className="flex h-[20vh] overflow-y-auto w-full min-h-full flex-col border-2 border-transparent hover:border-gray-500">
                                     <section className="relative flex justify-between w-full h-[20%]">
-                                        <div className="flex text-center items-center pl-[3%] w-[60%] text-goldenrod font-black text-2xl">{card.name}</div>
+                                        <span className="flex text-center items-center pl-[3%] w-[60%] text-[hsl(var(--background3))] font-black text-2xl">{card.name}</span>
                                         <div className="flex justify-evenly items-center font-bold w-[40%]">
-                                            <div className="text-white text-xl">{card?.type}</div>
-                                            <div className="text-white text-xl">{card?.race}</div>
-                                            <div className="text-white text-xl">{card?.attribute}</div>
+                                            <span className="text-[hsl(var(--text))] text-xl">{card?.type}</span>
+                                            <span className="text-[hsl(var(--text))] text-xl">{card?.race}</span>
+                                            <span className="text-[hsl(var(--text))] text-xl">{card?.attribute}</span>
                                         </div>
                                     </section>
                                     <div className="flex flex-col h-[80%]">
-                                        <section className={`flex-grow overflow-y-auto text-sm max-h-full text-ellipsis px-[3%] text-gray-400 font-black text-md pt-[5px]`}>
-                                            {card?.desc}
+                                        <section className={`flex-grow overflow-y-auto max-h-full px-[3%] pt-[5px]`}>
+                                            <span className="text-sm text-ellipsis text-[hsl(var(--text))] font-black">{card?.desc}</span>
                                         </section>
-                                        {(card?.atk || card?.def || card?.level || card?.scale || card?.linkval) && (     
-                                                <section className="w-full h-fit flex space-x-12 pl-[3%]">
-                                                        {card?.atk && (
-                                                            <div className="flex text-gray-300 font-black text-lg">
-                                                                <p className="mr-2">Atk:</p>{card?.atk}
-                                                            </div>
-                                                        )}
-                                                        {card?.def && (
-                                                            <div className="flex text-gray-300 font-black text-lg">
-                                                                <p className="mr-2">Def:</p>{card?.def}
-                                                            </div>
-                                                        )}
-                                                        {card?.level && (
-                                                            <div className="flex text-gray-300 font-black text-lg">
-                                                                <p className="mr-2">Level:</p>{card?.level}
-                                                            </div>
-                                                        )}
-                                                        {card?.scale && (
-                                                            <div className="flex text-gray-300 font-black text-lg">
-                                                                <p className="mr-2">Pendulum Scale:</p>{card?.scale}
-                                                            </div>
-                                                        )}
-                                                        {card?.linkval && (
-                                                            <div className="flex text-gray-300 font-black text-lg">
-                                                                <p className="mr-2">Link Value:</p>{card?.linkval}
-                                                            </div>
-                                                        )}
-                                                </section>
+                                        {(card?.atk || card?.atk === 0 || card?.def || card?.def === 0 || card?.level || card?.scale || card?.linkval) && (     
+                                            <section className="w-full h-fit flex space-x-12 pl-[3%]">
+                                                {(card?.atk || card?.atk === 0)&& (
+                                                    <div className="flex font-bold text-lg">
+                                                        <span className="mr-2 text-[hsl(var(--background3))]">Atk:</span>
+                                                        <span className="text-[hsl(var(--text))]">{card?.atk}</span>
+                                                    </div>
+                                                )}
+                                                {(card?.def || card?.def === 0) && (
+                                                    <div className="flex font-bold text-lg">
+                                                        <span className="mr-2 text-[hsl(var(--background3))]">Def:</span>
+                                                        <span className="text-[hsl(var(--text))]">{card?.def}</span>
+                                                    </div>
+                                                )}
+                                                {card?.level && (
+                                                    <div className="flex font-bold text-lg">
+                                                        <span className="mr-2 text-[hsl(var(--background3))]">Level:</span>
+                                                        <span className="text-[hsl(var(--text))]">{card?.level}</span>
+                                                    </div>
+                                                )}
+                                                {card?.scale && (
+                                                    <div className="flex font-bold text-lg">
+                                                        <span className="mr-2 text-[hsl(var(--background3))]">Pendulum Scale:</span>
+                                                        <span className="text-[hsl(var(--text))]">{card?.scale}</span>
+                                                    </div>
+                                                )}
+                                                {card?.linkval && (
+                                                    <div className="flex font-bold text-lg">
+                                                        <span className="mr-2 text-[hsl(var(--background3))]">Link Value:</span>
+                                                        <span className="text-[hsl(var(--text))]">{card?.linkval}</span>
+                                                    </div>
+                                                )}
+                                            </section>
                                             )}
                                     </div>
                                 </div>
@@ -78,11 +83,11 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
                     ))
                 ) : searchTerm === "" ? (
                     <main className="w-full h-[70vh] flex justify-center items-center">
-                        <span className="text-3xl font-bold">Enter a Card name to begin searching</span>
+                        <span className="text-3xl text-[hsl(var(--text))] font-bold">Enter a Card name to begin searching</span>
                     </main>
                 ) : (
                     <main className="w-full h-[70vh] flex justify-center items-center">
-                        <span className="text-3xl font-bold">No cards matching your Filters</span>
+                        <span className="text-3xl text-[hsl(var(--text))] font-bold">No cards matching your Filters</span>
                     </main>
                 )}
             </div>
