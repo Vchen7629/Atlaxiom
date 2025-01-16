@@ -111,10 +111,10 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
                 <>
                     {totalListPages > 1 && (
                         <div className="flex w-full justify-between ">
-                            <section className="flex items-center h-full space-x-2"> 
+                            <section className="flex items-center h-full space-x-2 text-[hsl(var(--text))]"> 
                                 <span className="text-lg">Page</span> 
                                 <input
-                                    className="bg-transparent focus:outline-none w-10 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]"
+                                    className="bg-transparent focus:outline-none w-10 text-center text-lg border-b-2 border-[hsl(var(--background3))]"
                                     placeholder={String(currentListPage)}
                                     value={listpage}
                                     onChange={handleListInputChange}
@@ -134,10 +134,10 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
                 <>
                     {totalGalleryPages > 1 && (
                         <div className="flex w-full justify-between">
-                            <section className="flex items-center h-full space-x-2"> 
+                            <section className="flex items-center h-full space-x-2 text-[hsl(var(--text))]"> 
                                 <span className="text-lg">Page</span> 
                                 <input
-                                    className="bg-transparent focus:outline-none w-10 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]"
+                                    className="bg-transparent focus:outline-none w-10 text-center text-lg border-b-2 border-[hsl(var(--background3))]"
                                     placeholder={String(currentGalleryPage)}
                                     value={galleryPage}
                                     onChange={handleGalleryInputChange}

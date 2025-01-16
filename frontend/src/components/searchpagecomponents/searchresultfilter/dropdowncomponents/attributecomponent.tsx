@@ -54,7 +54,20 @@ const Attributes = [
  
 export function AttributeDropDownComponent({ attributedropdownprops }: attributeDropDown) {
   const [open, setOpen] = React.useState(false)
-  const { attributeType, setAttributeType } = attributedropdownprops
+  const { 
+    setCanClearFilters,
+    attributeType, setAttributeType 
+  } = attributedropdownprops
+
+  const handleClick = (newValue: string) => {
+    setAttributeType(newValue)
+    if (newValue) {
+      setCanClearFilters(true)
+    } else {
+      setCanClearFilters(false);
+    }
+  }
+
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -94,7 +107,7 @@ export function AttributeDropDownComponent({ attributedropdownprops }: attribute
                   className="text-[hsl(var(--text))] "
                   onSelect={(currentValue) => {
                     const newValue = currentValue === attributeType ? "" : currentValue
-                    setAttributeType(newValue)
+                    handleClick(newValue)
                     setOpen(false)
                   }}
                 > 

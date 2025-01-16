@@ -4,6 +4,7 @@ import { atkprops } from "../../types/componenttypes"
 
 const AtkFilterComponent = ({ atkfilterprops }: atkprops) => {
     const {
+        setCanClearFilters,
         atkFilter, setAtkFilter,
         atkLessThanEqual, setAtkLessThanEqual,
         atkEqual, setAtkEqual,
@@ -32,6 +33,7 @@ const AtkFilterComponent = ({ atkfilterprops }: atkprops) => {
         const inputValue = e.target.value;
         const numericValue = inputValue.trim() === '' ? null : parseFloat(inputValue);
         setAtkFilter(numericValue)
+        setCanClearFilters(numericValue !== null)
     }
 
     return (

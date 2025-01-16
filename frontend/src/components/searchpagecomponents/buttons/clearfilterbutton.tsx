@@ -2,12 +2,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowRotateRight } from "@fortawesome/free-solid-svg-icons"
 import { clearfilter } from "../types/buttontypes";
 
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
+
 const ClearFilterButton = ({ clearfilterprops }: clearfilter) => {
     const {
+        canClearFilters, setCanClearFilters,
         setMonsterType,
         setSpellType,
         setTrapType,
         setAttributeType,
+        setSetName,
         setLevelFilter, setLessThanEqual, setEqual, setGreaterThanEqual,
         setPendFilter, setPendLessThanEqual, setPendEqual, setPendGreaterThanEqual,
         setLinkFilter, setLinkLessThanEqual, setLinkEqual, setLinkGreaterThanEqual,
@@ -16,6 +25,7 @@ const ClearFilterButton = ({ clearfilterprops }: clearfilter) => {
     } = clearfilterprops
 
     const handleClearFilter = () => {
+        setCanClearFilters(false);
         setMonsterType("");
         setSpellType("");
         setTrapType("");
@@ -40,12 +50,22 @@ const ClearFilterButton = ({ clearfilterprops }: clearfilter) => {
         setDefLessThanEqual(false);
         setDefEqual(true);
         setDefGreaterThanEqual(false);
+        setSetName("")
     }
       
     return (
-        <button className="bg-[hsl(var(--background3))] py-[12px] px-[14px] rounded-xl" onClick={handleClearFilter}>
-            <FontAwesomeIcon icon={faArrowRotateRight}/>
-        </button>
+        <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger>
+                    <button className={`${canClearFilters ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--filterbutton))]"} py-[12px] px-[14px] rounded-xl`} onClick={handleClearFilter}>
+                        <FontAwesomeIcon icon={faArrowRotateRight}/>
+                    </button>
+                </TooltipTrigger>
+                <TooltipContent className="bg-[hsl(var(--ownedcardcollection))] border-transparent" side="bottom">
+                    <span className="text-[hsl(var(--text))]">Click to clear filters</span>
+                </TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
     )
 }
 

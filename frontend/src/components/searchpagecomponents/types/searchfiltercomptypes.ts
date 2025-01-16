@@ -5,6 +5,7 @@ export type FilterSidebar = {
     filterprops: {
         cardData: ApiCardData[];
         expandStatus: boolean;
+        setCanClearFilters: React.Dispatch<React.SetStateAction<boolean>>
         monsterType: string;
         setMonsterType: React.Dispatch<React.SetStateAction<string>>
         spellType: string;
@@ -60,6 +61,7 @@ export type FilterSidebar = {
 
 export type monsterDropDown = {
     monsterdropdownprops: {
+        setCanClearFilters: React.Dispatch<React.SetStateAction<boolean>>
         monsterType: string;
         setMonsterType: React.Dispatch<React.SetStateAction<string>>
         setSpellType: React.Dispatch<React.SetStateAction<string>>
@@ -69,6 +71,7 @@ export type monsterDropDown = {
 
 export type spellDropDown = {
     spelldropdownprops: {
+        setCanClearFilters: React.Dispatch<React.SetStateAction<boolean>>
         setMonsterType: React.Dispatch<React.SetStateAction<string>>
         spellType: string;
         setSpellType: React.Dispatch<React.SetStateAction<string>>
@@ -78,6 +81,7 @@ export type spellDropDown = {
 
 export type trapDropDown = {
     trapdropdownprops: {
+        setCanClearFilters: React.Dispatch<React.SetStateAction<boolean>>
         setMonsterType: React.Dispatch<React.SetStateAction<string>>
         setSpellType: React.Dispatch<React.SetStateAction<string>>
         trapType: string;
@@ -87,13 +91,36 @@ export type trapDropDown = {
 
 export type attributeDropDown = {
     attributedropdownprops: {
+        setCanClearFilters: React.Dispatch<React.SetStateAction<boolean>>
         attributeType: string
         setAttributeType: React.Dispatch<React.SetStateAction<string>>
     }
 }
 
 export interface LevelSliderProps extends SliderProps {
-    setLevelFilter: React.Dispatch<React.SetStateAction<number | null>>
+    levelSliderProps: {
+        levelFilter: number | null;
+        setCanClearFilters: React.Dispatch<React.SetStateAction<boolean>>;
+        setLevelFilter: React.Dispatch<React.SetStateAction<number | null>>
+    }
+}
+
+
+export interface PendSliderProps extends SliderProps {
+    pendSliderProps: {
+        pendFilter: number | null;
+        setCanClearFilters: React.Dispatch<React.SetStateAction<boolean>>;
+        setPendFilter: React.Dispatch<React.SetStateAction<number | null>>
+    }
+}
+
+
+export interface LinkSliderProps extends SliderProps {
+    linkSliderProps: {
+        linkFilter: number | null;
+        setCanClearFilters: React.Dispatch<React.SetStateAction<boolean>>;
+        setLinkFilter: React.Dispatch<React.SetStateAction<number | null>>
+    }
 }
 
 

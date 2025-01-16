@@ -51,6 +51,7 @@ const SpellTypes = [
 export function SpellTypeDropDownComponent({ spelldropdownprops }: spellDropDown ) {
   const [open, setOpen] = React.useState(false)
   const {
+    setCanClearFilters,
     setMonsterType,
     spellType, setSpellType,
     setTrapType,
@@ -60,6 +61,11 @@ export function SpellTypeDropDownComponent({ spelldropdownprops }: spellDropDown
     setMonsterType("");
     setSpellType(newValue);
     setTrapType("")
+    if (newValue) {
+      setCanClearFilters(true);
+    } else {
+      setCanClearFilters(false);
+    }
   }
  
   return (

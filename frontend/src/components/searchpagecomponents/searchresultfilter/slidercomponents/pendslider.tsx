@@ -1,20 +1,22 @@
 import { cn } from "@/lib/utils"
 import { Slider } from "@/components/ui/slider"
-import { useState } from "react"
-import { PendSliderProps } from "@/components/cardcollectioncomponents/types/dropdowntypes"
+import { PendSliderProps } from "../../types/searchfiltercomptypes"
 
-export function PendSliderComponent({ setPendFilter, className, ...props }: PendSliderProps) {
-  const [value, setValue] = useState([1])
+export function PendSliderComponent({ pendSliderProps, className, ...props }: PendSliderProps) {
+  const {
+    pendFilter, setPendFilter,
+    setCanClearFilters
+  } = pendSliderProps
 
   const handleSliderChange = (newValue: number[]) => {
-    setValue(newValue)
     setPendFilter(newValue[0])
+    setCanClearFilters(newValue[0] !== null);
   }
 
   return (
     <div className="flex w-full">
       <Slider
-        value={value}
+        value={[pendFilter ?? 1]}
         onValueChange={handleSliderChange}
         defaultValue={[1]}
         max={13}
@@ -22,7 +24,7 @@ export function PendSliderComponent({ setPendFilter, className, ...props }: Pend
         className={cn("w-full mr-2", className)}
         {...props}
       />
-      <span className="px-2 flex items-center justify-center rounded-lg bg-footer text-goldenrod">{value[0]}</span>
+      <span className="px-2 flex items-center justify-center rounded-lg bg-footer text-goldenrod">{pendFilter ?? 1}</span>
     </div>
   )
 }

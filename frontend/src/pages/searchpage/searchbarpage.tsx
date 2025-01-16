@@ -34,6 +34,7 @@ const SearchBarPage = () => {
   const [/*errorMessage*/, setErrorMessage] = useState<string>('');
   const [expandStatus, setExpandStatus] = useState<boolean>(true);
   const [filterActive, setFilterActive] = useState<boolean>(false);
+  const [canClearFilters, setCanClearFilters] = useState<boolean>(false);
 
   const [monsterType, setMonsterType] = useState<string>("");
   const [spellType, setSpellType] = useState<string>("");
@@ -105,80 +106,81 @@ const SearchBarPage = () => {
     }, []);
 
   const filteredCards = useMemo(() => { 
-        return cardData.filter((card) => {
-          if (!searchTerm) return false;
-          const normalizedInput = searchTerm.toString().toLowerCase().replace(/[-\s]/g, '');
-          const normalizedCardName = card.name.toString().toLowerCase().replace(/[-\s]/g, ''); 
-          const normalizedSpellType = spellType ? spellType.toLowerCase() : "";
-          const normalizedTrapType = trapType ? trapType.toLowerCase() : "";
-          const normalizedAttributeType = attributeType ? attributeType.toLowerCase() : "";
-  
-          const matchesname = normalizedCardName.includes(normalizedInput);
-          const matchesMonsterType = monsterType ? card.type?.toLowerCase() === monsterType.toLowerCase() : true ;
-          const matchesSpellType = spellType? card.race?.toLowerCase() === normalizedSpellType && card.frameType?.toLowerCase() === 'spell' : true;
-          const matchesTrapType = trapType ? card.race?.toLowerCase() == normalizedTrapType && card.frameType?.toLowerCase() === "trap" : true;
-          const matchesAttributeType = attributeType? card.attribute?.toLowerCase() == normalizedAttributeType : true;
-          const matchesSetName = setName ? card.card_sets?.some(set => set.set_name?.toLowerCase() === setName.toLowerCase()) : true;
-          console.log("no", matchesSetName)
+    const normalizedInput = searchTerm.toString().toLowerCase().replace(/[-\s]/g, '');
+    const normalizedSpellType = spellType ? spellType.toLowerCase() : "";
+    const normalizedTrapType = trapType ? trapType.toLowerCase() : "";
+    const normalizedAttributeType = attributeType ? attributeType.toLowerCase() : "";
+
+    return cardData.filter((card) => {
+      if (!searchTerm) return false;
           
-          const matchesLevelFilter = levelFilter ?
-            (lessThanEqual && card.level !== undefined && card.level <= levelFilter) ||
-            (equal && card.level !== undefined && card.level === levelFilter) ||
-            (greaterThanEqual && card.level !== undefined && card.level >= levelFilter)
-          : true;
+      const normalizedCardName = card.name.toString().toLowerCase().replace(/[-\s]/g, ''); 
+
+      const matchesname = normalizedCardName.includes(normalizedInput);
+      const matchesMonsterType = monsterType ? card.type?.toLowerCase() === monsterType.toLowerCase() : true ;
+      const matchesSpellType = spellType? card.race?.toLowerCase() === normalizedSpellType && card.frameType?.toLowerCase() === 'spell' : true;
+      const matchesTrapType = trapType ? card.race?.toLowerCase() == normalizedTrapType && card.frameType?.toLowerCase() === "trap" : true;
+      const matchesAttributeType = attributeType? card.attribute?.toLowerCase() == normalizedAttributeType : true;
+      const matchesSetName = setName ? card.card_sets?.some(set => set.set_name?.toLowerCase() === setName.toLowerCase()) : true;
+          
+      const matchesLevelFilter = levelFilter ?
+        (lessThanEqual && card.level !== undefined && card.level <= levelFilter) ||
+        (equal && card.level !== undefined && card.level === levelFilter) ||
+        (greaterThanEqual && card.level !== undefined && card.level >= levelFilter)
+      : true;
   
-          const matchesPendFilter = pendFilter ? 
-            (pendLessThanEqual && card.scale !== undefined && card.scale <= pendFilter) ||
-            (pendEqual && card.scale !== undefined && card.scale === pendFilter) || 
-            (pendGreaterThanEqual && card.scale !== undefined && card.scale >= pendFilter)
-          : true;
+      const matchesPendFilter = pendFilter ? 
+        (pendLessThanEqual && card.scale !== undefined && card.scale <= pendFilter) ||
+        (pendEqual && card.scale !== undefined && card.scale === pendFilter) || 
+        (pendGreaterThanEqual && card.scale !== undefined && card.scale >= pendFilter)
+      : true;
   
-          const matchesLinkFilter = linkFilter ? 
-            (linkLessThanEqual && card.linkval !== undefined && card.linkval <= linkFilter) ||
-            (linkEqual && card.linkval !== undefined && card.linkval === linkFilter) || 
-            (linkGreaterThanEqual && card.linkval !== undefined && card.linkval >= linkFilter)
-          : true;
+      const matchesLinkFilter = linkFilter ? 
+        (linkLessThanEqual && card.linkval !== undefined && card.linkval <= linkFilter) ||
+        (linkEqual && card.linkval !== undefined && card.linkval === linkFilter) || 
+        (linkGreaterThanEqual && card.linkval !== undefined && card.linkval >= linkFilter)
+      : true;
   
-          const matchesAtkFilter = atkFilter ?
-            (atkLessThanEqual && card.atk !== undefined && card.atk <= atkFilter) ||
-            (atkEqual && card.atk !== undefined && card.atk === atkFilter) ||
-            (atkGreaterThanEqual && card.atk !== undefined && card.atk >= atkFilter) 
-          : true;
+      const matchesAtkFilter = atkFilter ?
+        (atkLessThanEqual && card.atk !== undefined && card.atk <= atkFilter) ||
+        (atkEqual && card.atk !== undefined && card.atk === atkFilter) ||
+        (atkGreaterThanEqual && card.atk !== undefined && card.atk >= atkFilter) 
+      : true;
   
-          const matchesDefFilter = defFilter ?
-            (defLessThanEqual && card.def !== undefined && card.def <= defFilter) ||
-            (defEqual && card.def !== undefined && card.def === defFilter) ||
-            (defGreaterThanEqual && card.def !== undefined && card.def >= defFilter) 
-          : true;
+      const matchesDefFilter = defFilter ?
+        (defLessThanEqual && card.def !== undefined && card.def <= defFilter) ||
+        (defEqual && card.def !== undefined && card.def === defFilter) ||
+        (defGreaterThanEqual && card.def !== undefined && card.def >= defFilter) 
+      : true;
   
-          return (
-            !! matchesname &&
-            matchesMonsterType &&
-            matchesSpellType && 
-            matchesTrapType && 
-            matchesAttributeType && 
-            matchesLevelFilter && 
-            matchesPendFilter && 
-            matchesLinkFilter && 
-            matchesAtkFilter &&
-            matchesDefFilter && 
-            matchesSetName
-          ) 
-        });
-      }, [
-        searchTerm,
-        cardData, 
-        monsterType, 
-        spellType, 
-        trapType, 
-        attributeType,
-        setName, 
-        levelFilter, equal, greaterThanEqual, lessThanEqual, 
-        pendFilter, pendLessThanEqual, pendEqual, pendGreaterThanEqual, 
-        linkFilter, linkLessThanEqual, linkEqual, linkGreaterThanEqual, 
-        atkFilter, atkLessThanEqual, atkEqual, atkGreaterThanEqual,
-        defFilter, defLessThanEqual, defEqual, defGreaterThanEqual,
-      ]);
+      return (
+        !! matchesname &&
+        matchesMonsterType &&
+        matchesSpellType && 
+        matchesTrapType && 
+        matchesAttributeType && 
+        matchesLevelFilter && 
+        matchesPendFilter && 
+        matchesLinkFilter && 
+        matchesAtkFilter &&
+        matchesDefFilter && 
+        matchesSetName
+      ) 
+    });
+  }, [
+    searchTerm,
+    cardData, 
+    monsterType, 
+    spellType, 
+    trapType, 
+    attributeType,
+    setName, 
+    levelFilter, equal, greaterThanEqual, lessThanEqual, 
+    pendFilter, pendLessThanEqual, pendEqual, pendGreaterThanEqual, 
+    linkFilter, linkLessThanEqual, linkEqual, linkGreaterThanEqual, 
+    atkFilter, atkLessThanEqual, atkEqual, atkGreaterThanEqual,
+    defFilter, defLessThanEqual, defEqual, defGreaterThanEqual,
+  ]);
 
   const gridlistviewprops = {
     setListView,
@@ -198,6 +200,7 @@ const SearchBarPage = () => {
   }
 
   const clearfilterprops = {
+    canClearFilters, setCanClearFilters,
     setMonsterType,
     setSpellType,
     setTrapType,
@@ -207,6 +210,7 @@ const SearchBarPage = () => {
     setLinkFilter, setLinkLessThanEqual, setLinkEqual, setLinkGreaterThanEqual,
     setAtkFilter, setAtkLessThanEqual, setAtkEqual, setAtkGreaterThanEqual,
     setDefFilter, setDefLessThanEqual, setDefEqual, setDefGreaterThanEqual,
+    setSetName
   }
 
   const filterbuttonprops = {
@@ -235,6 +239,7 @@ const SearchBarPage = () => {
 
   const filterprops = {
     cardData,
+    setCanClearFilters,
     expandStatus,
     monsterType, setMonsterType,
     spellType, setSpellType,
@@ -288,18 +293,20 @@ const SearchBarPage = () => {
       <div className="flex flex-col min-h-[120vh] bg-[hsl(var(--background1))] justify-between overflow-auto" >
         <Header/>
         <main className="flex flex-grow py-[15vh] items-start ">            
-          <div className={`flex flex-col ${expandStatus ? "w-[79%]" : "w-full"} ${selectedCardData ? "w-[100%]" : "w-[80%]"}`}>
+          <div className={`flex flex-col ${expandStatus ? "w-[78.5%]" : "w-full"} ${selectedCardData ? "w-[100%]" : "w-[80%]"}`}>
               {!clickedOnCard &&  (
                 <main>
-                  <div className="flex w-full items-center mb-[5vh]">
+                  <div className="flex w-full items-center justify-between mb-[5vh]">
                     <div className="text-4xl text-goldenrod ml-[4%]">
                       <strong>Card Search</strong>
                     </div>
-                    <div className="w-[40vw]"><SearchBarComponent searchbarprops={searchbarprops}/></div>
-                    <div className="flex ml-2 items-center">
-                      <ClearFilterButton clearfilterprops={clearfilterprops}/>
-                      <FilterButton filterbuttonprops={filterbuttonprops}/>
-                    </div>
+                    <section className="flex">
+                      <div className="w-[30vw]"><SearchBarComponent searchbarprops={searchbarprops}/></div>
+                      <div className="flex ml-2 items-center">
+                        <ClearFilterButton clearfilterprops={clearfilterprops}/>
+                        <FilterButton filterbuttonprops={filterbuttonprops}/>
+                      </div>
+                    </section>
                     <div className="flex w-20 bg-footer rounded-xl ml-4">
                       <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                     </div>

@@ -2,6 +2,8 @@ import React from "react"
 
 export type clearfilter = {
     clearfilterprops: {
+        canClearFilters: boolean
+        setCanClearFilters: React.Dispatch<React.SetStateAction<boolean>>
         setMonsterType: React.Dispatch<React.SetStateAction<string>>
         setSpellType: React.Dispatch<React.SetStateAction<string>>
         setTrapType: React.Dispatch<React.SetStateAction<string>>
@@ -26,6 +28,7 @@ export type clearfilter = {
         setDefLessThanEqual: React.Dispatch<React.SetStateAction<boolean>>
         setDefEqual: React.Dispatch<React.SetStateAction<boolean>>
         setDefGreaterThanEqual: React.Dispatch<React.SetStateAction<boolean>>
+        setSetName: React.Dispatch<React.SetStateAction<string>>
     }
 }
 

@@ -1,5 +1,6 @@
 export type levelprops = {
     levelfilterprops: {
+        setCanClearFilters: React.Dispatch<React.SetStateAction<boolean>>
         levelFilter: number | null;
         setLevelFilter: React.Dispatch<React.SetStateAction<number | null>>
         lessThanEqual: boolean;
@@ -13,6 +14,7 @@ export type levelprops = {
 
 export type pendprops = {
     pendfilterprops: {
+        setCanClearFilters: React.Dispatch<React.SetStateAction<boolean>>
         pendFilter: number | null;
         setPendFilter: React.Dispatch<React.SetStateAction<number | null>>
         pendLessThanEqual: boolean;
@@ -26,6 +28,7 @@ export type pendprops = {
 
 export type linkprops = {
     linkfilterprops: {
+        setCanClearFilters: React.Dispatch<React.SetStateAction<boolean>>
         linkFilter: number | null;
         setLinkFilter: React.Dispatch<React.SetStateAction<number | null>>
         linkLessThanEqual: boolean;
@@ -39,6 +42,7 @@ export type linkprops = {
 
 export type atkprops = {
     atkfilterprops: {
+        setCanClearFilters: React.Dispatch<React.SetStateAction<boolean>>
         atkFilter: number | null;
         setAtkFilter: React.Dispatch<React.SetStateAction<number | null>>
         atkLessThanEqual: boolean;
@@ -52,6 +56,7 @@ export type atkprops = {
 
 export type defprops = {
     deffilterprops: {
+        setCanClearFilters: React.Dispatch<React.SetStateAction<boolean>>
         defFilter: number | null;
         setDefFilter: React.Dispatch<React.SetStateAction<number | null>>
         defLessThanEqual: boolean;
@@ -65,6 +70,7 @@ export type defprops = {
 
 export type SetDropDown = {
     setfilterprops: {
+        setCanClearFilters: React.Dispatch<React.SetStateAction<boolean>>
         setName: string;
         setSetName: React.Dispatch<React.SetStateAction<string>>;
         uniqueSetNames: string[];

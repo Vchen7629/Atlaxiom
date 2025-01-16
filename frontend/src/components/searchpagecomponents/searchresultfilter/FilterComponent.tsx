@@ -1,4 +1,4 @@
-import { useEffect, useState} from 'react';
+import { useState} from 'react';
 import { MonsterTypeDropDownComponent } from "./dropdowncomponents/monstertypedropdown"
 import { SpellTypeDropDownComponent } from "./dropdowncomponents/spelltypedropdown"
 import { TrapTypeDropDownComponent } from "./dropdowncomponents/traptypedropdown" 
@@ -16,6 +16,7 @@ import LinkFilterComponent from './components/linkfiltercomponent';
 const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
     const {
       cardData,
+      setCanClearFilters,
       expandStatus,
       monsterType, setMonsterType,
       spellType, setSpellType,
@@ -72,6 +73,7 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
     }
 
     const monsterdropdownprops = {
+      setCanClearFilters,
       monsterType, setMonsterType,
       setSpellType,
       setTrapType,
@@ -79,6 +81,7 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
     }
 
     const spelldropdownprops = {
+      setCanClearFilters,
       setMonsterType,
       spellType, setSpellType,
       setTrapType,
@@ -86,6 +89,7 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
     }
 
     const trapdropdownprops = {
+      setCanClearFilters,
       setMonsterType,
       setSpellType,
       trapType, setTrapType,
@@ -93,10 +97,12 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
     }
 
     const attributedropdownprops = {
+      setCanClearFilters,
       attributeType, setAttributeType,
     }
 
     const levelfilterprops = {
+      setCanClearFilters,
       levelFilter, setLevelFilter,
       lessThanEqual, setLessThanEqual,
       equal, setEqual,
@@ -104,6 +110,7 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
     }
 
     const pendfilterprops = {
+      setCanClearFilters,
       pendFilter, setPendFilter,
       pendLessThanEqual, setPendLessThanEqual,
       pendEqual, setPendEqual,
@@ -111,6 +118,7 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
     }
 
     const linkfilterprops = {
+      setCanClearFilters,
       linkFilter, setLinkFilter,
       linkLessThanEqual, setLinkLessThanEqual,
       linkEqual, setLinkEqual,
@@ -118,6 +126,7 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
     }
 
     const atkfilterprops = {
+      setCanClearFilters,
       atkFilter, setAtkFilter,
       atkLessThanEqual, setAtkLessThanEqual,
       atkEqual, setAtkEqual,
@@ -125,6 +134,7 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
     }
 
     const deffilterprops = {
+      setCanClearFilters,
       defFilter, setDefFilter,
       defLessThanEqual, setDefLessThanEqual,
       defEqual, setDefEqual,
@@ -132,6 +142,7 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
     }
 
     const setfilterprops = {
+      setCanClearFilters,
       setName,
       setSetName,
       uniqueSetNames
@@ -143,8 +154,8 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
               {expandStatus && (
                 <>
                 <div className="font-black text-2xl w-full text-center mb-2">Filter Search</div>
-                <div className="flex justify-center w-full min-h-6 my-2">
-                  <div className='flex h-full w-[6vw] items-center font-black items-center'>Monster Type: </div>
+                <div className="flex justify-center items-center w-full min-h-6 my-2">
+                  <div className='flex h-full w-[6vw] font-black items-center'>Monster Type: </div>
                   <div><MonsterTypeDropDownComponent monsterdropdownprops={monsterdropdownprops}/></div>
                 </div>
                 <div className="flex justify-center items-center w-full min-h-6 my-2">
@@ -190,7 +201,7 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
                 <AtkFilterComponent atkfilterprops={atkfilterprops}/>
                 <DefFilterComponent deffilterprops={deffilterprops}/>
                 <div className="flex justify-center w-full items-center min-h-6 my-2">
-                  <div className='flex h-full w-[6vw] font-black items-center text-white'>Set: </div>
+                  <div className='flex h-full w-[6vw] font-black items-center'>Set: </div>
                   <div><SetDropDownComponent setfilterprops={setfilterprops}/></div>
                 </div>
                 </>

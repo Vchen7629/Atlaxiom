@@ -22,12 +22,22 @@ import { SetDropDown } from "../../types/componenttypes"
 
 export function SetDropDownComponent({ setfilterprops }: SetDropDown) {
   const {
+    setCanClearFilters,
     setName,
     setSetName,
     uniqueSetNames
   } = setfilterprops
 
   const [open, setOpen] = React.useState(false)
+
+  const handleClick = (newValue: string) => {
+    setSetName(newValue)
+    if (newValue) {
+      setCanClearFilters(true)
+    } else {
+      setCanClearFilters(false);
+    }
+  }
  
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -66,7 +76,8 @@ export function SetDropDownComponent({ setfilterprops }: SetDropDown) {
                   value={setNames}
                   className="text-[hsl(var(--text))] "
                   onSelect={(currentValue) => {
-                    setSetName(currentValue === setName ? "" : currentValue)
+                    const newSet = (currentValue === setName ? "" : currentValue)
+                    handleClick(newSet)
                     setOpen(false)
                   }}
                 > 
