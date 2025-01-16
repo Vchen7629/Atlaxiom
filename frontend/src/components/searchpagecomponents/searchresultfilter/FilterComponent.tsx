@@ -201,7 +201,7 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
                 <AtkFilterComponent atkfilterprops={atkfilterprops}/>
                 <DefFilterComponent deffilterprops={deffilterprops}/>
                 <div className="flex justify-center w-full items-center min-h-6 my-2">
-                  <div className='flex h-full w-[6vw] font-black items-center text-white'>Set: </div>
+                  <div className='flex h-full w-[6vw] font-black items-center'>Set: </div>
                   <div><SetDropDownComponent setfilterprops={setfilterprops}/></div>
                 </div>
                 </>
