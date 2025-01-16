@@ -25,7 +25,7 @@ export function LevelSliderComponent({ levelSliderProps, className, ...props }: 
         className={cn("w-full mr-2", className)}
         {...props}
       />
-      <span className="px-2 flex items-center justify-center rounded-lg bg-footer text-goldenrod">
+      <span className="px-2 flex items-center justify-center rounded-lg bg-[hsl(var(--atkdefcomponent))] text-[hsl(var(--text))]">
         {levelFilter ?? 1}
       </span>
     </div>

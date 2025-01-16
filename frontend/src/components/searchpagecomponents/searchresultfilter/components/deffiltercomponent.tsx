@@ -42,26 +42,26 @@ const DefFilterComponent = ({ deffilterprops }: defprops) => {
                 <div className="mr-2 font-black">Attack:</div>
                 <div className="flex w-[30%]">
                     <button 
-                        className={`${defGreaterThanEqual ? "bg-[hsl(var(--background3))]" : "bg-footer"} h-7 px-2 rounded-tl-lg rounded-bl-lg`} 
+                        className={`${defGreaterThanEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))]"} h-7 px-2 rounded-tl-lg rounded-bl-lg`} 
                         onClick={handleGreaterThanClick}
                     >
                         <FontAwesomeIcon icon={faGreaterThanEqual}/>
                     </button>
                     <button 
-                        className={`${defEqual ? "bg-[hsl(var(--background3))]" : "bg-footer"} h-7 px-2`} 
+                        className={`${defEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))]"} h-7 px-2`} 
                         onClick={handleEqualClick}
                     >
                         <FontAwesomeIcon icon={faEquals}/>
                     </button>
                     <button 
-                        className={`${defLessThanEqual ? "bg-[hsl(var(--background3))]" : "bg-footer"} h-7 px-2 rounded-tr-lg rounded-br-lg`} 
+                        className={`${defLessThanEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))]"} h-7 px-2 rounded-tr-lg rounded-br-lg`} 
                         onClick={handleLessThanClick}
                     >
                         <FontAwesomeIcon icon={faLessThanEqual}/>
                     </button>
                 </div>
                 <input
-                    className="flex text-center bg-footer border-2 ml-2 w-1/4 border-transparent"
+                    className="flex text-center bg-[hsl(var(--atkdefcomponent))] border-2 ml-2 w-1/4 border-transparent"
                     value={defFilter ?? ""}
                     onChange={handleInputChange}
                 />

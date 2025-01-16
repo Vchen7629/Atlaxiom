@@ -71,38 +71,38 @@ export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupPro
     return (
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button className="bg-footer shadow-custom hover:text-gold hover:bg-footer">Add Card to Collection</Button>
+          <Button className="bg-[hsl(var(--atkdefcomponent))] text-[hsl(var(--text))] shadow-custom hover:text-gold">Add Card to Collection</Button>
         </AlertDialogTrigger>
-        <AlertDialogContent className="bg-blackone min-w-[40vw] border-transparent ">
+        <AlertDialogContent className="bg-[hsl(var(--atkdefcomponent))] min-w-[40vw] border-transparent ">
           <AlertDialogHeader>
-            <div className="flex justify-between">
+            <div className="flex justify-between text-[hsl(var(--text))]">
                 <AlertDialogTitle>All printings</AlertDialogTitle>
                 <AlertDialogCancel 
-                    className="bg-footer shadow-custom border-transparent hover:bg-footer hover:text-gold"
+                    className="bg-transparent shadow-custom border-transparent hover:bg-footer hover:text-gold"
                     onClick={handleBackClick}
                 >
                     Back
                 </AlertDialogCancel>
             </div>
             <AlertDialogDescription className="flex flex-col">
-                <div className="flex text-white p-2 ">
-                    <div className="w-[20%] max-w-[25%] mr-4">Set Name</div>
+                <div className="flex text-[hsl(var(--text))] p-2 border-b-[1px] border-black">
+                    <div className="w-[20%]">Set Name</div>
                     <div className="w-[20%]">Set Code</div>
                     <div className="w-[20%]">Rarity</div>
-                    <div className="w-[10%] mr-3">Price</div>
-                    <div className="w-[25%]">Action</div>
+                    <div className="w-[20%]">Price</div>
+                    <div className="w-[20%]">Action</div>
                 </div>
                 {cardSets.length > 0 ? (
                     <>
                     {cardSets.map((set, index) => (
-                        <div key={index} className="flex p-2 mb-2 items-center text-gold">
+                        <div key={index} className="flex p-2 mb-2 items-center text-[hsl(var(--background3))]">
                             {(!cardMessages[index]) ? (
                                 <>
-                                    <div className="w-[20%] max-w-[25%] mr-4">{set.set_name}</div>
+                                    <div className="flex w-[20%] pr-8 h-fit flex-grow">{set.set_name}</div>
                                     <div className="w-[20%]">{set.set_code}</div>
                                     <div className="w-[20%]">{set.set_rarity}</div>
-                                    <div className="w-[10%]">${set.set_price}</div>
-                                    <div className="w-[20%] ">
+                                    <div className="w-[20%]">${set.set_price}</div>
+                                    <div className="w-[20%]">
                                         <button
                                             onClick={() => handleAddOwnedCardClick(set, index)}
                                             className="bg-[hsl(var(--background3))] text-[hsl(var(--text))] rounded-md flex items-center h-[30px] w-fit p-2 text-[12px]"

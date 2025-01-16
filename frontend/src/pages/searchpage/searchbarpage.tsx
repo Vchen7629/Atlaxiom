@@ -293,11 +293,11 @@ const SearchBarPage = () => {
       <div className="flex flex-col min-h-[120vh] bg-[hsl(var(--background1))] justify-between overflow-auto" >
         <Header/>
         <main className="flex flex-grow py-[15vh] items-start ">            
-          <div className={`flex flex-col ${expandStatus ? "w-[78.5%]" : "w-full"} ${selectedCardData ? "w-[100%]" : "w-[80%]"}`}>
+          <div className={`flex flex-col ${expandStatus ? "w-[77.5%]" : "w-full"} ${selectedCardData ? "w-[100%]" : "w-[80%]"}`}>
               {!clickedOnCard &&  (
                 <main>
                   <div className="flex w-full items-center justify-between mb-[5vh]">
-                    <div className="text-4xl text-goldenrod ml-[4%]">
+                    <div className="text-4xl text-goldenrod pl-8">
                       <strong>Card Search</strong>
                     </div>
                     <section className="flex">
@@ -312,7 +312,7 @@ const SearchBarPage = () => {
                     </div>
                   </div>
                   {listView && (
-                    <main className='flex flex-col justify-center space-y-2 px-6'>
+                    <main className='flex flex-col w-full justify-center space-y-2 pl-8'>
                       <PaginationComponent paginationprops={paginationprops}/>
                       <ListViewSearchSuggestionsComponent listviewprops={listviewprops}/>
                       <PaginationComponent paginationprops={paginationprops}/>
@@ -320,7 +320,7 @@ const SearchBarPage = () => {
                   )}
 
                   {galleryView && (
-                    <main className="flex flex-col w-full h-full space-y-2 px-6">
+                    <main className="flex flex-col w-full h-full space-y-2 pl-8">
                       <PaginationComponent paginationprops={paginationprops}/>
                       <GalleryViewSearchSuggestionsComponent galleryviewprops={galleryviewprops}/>
                       <PaginationComponent paginationprops={paginationprops}/>

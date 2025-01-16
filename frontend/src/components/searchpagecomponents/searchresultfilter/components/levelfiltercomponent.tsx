@@ -54,12 +54,12 @@ const LevelFilterComponent = ({ levelfilterprops }: levelprops) => {
             <div className="flex w-full"><LevelSliderComponent levelSliderProps={levelSliderProps}/></div>
             <div className="flex justify-between w-full mr-2">
                 <div className="flex w-[30%]">
-                    <button className={`${lessThanEqual ? "bg-[hsl(var(--background3))]" : "bg-footer"} h-7 px-2`} onClick={handleLessThanClick}><FontAwesomeIcon icon={faGreaterThanEqual}/></button>
-                    <button className={`${equal ? "bg-[hsl(var(--background3))]" : "bg-footer"} h-7 px-2`} onClick={handleEqualClick}><FontAwesomeIcon icon={faEquals}/></button>
-                    <button className={`${greaterThanEqual ? "bg-[hsl(var(--background3))]" : "bg-footer"} h-7 px-2`} onClick={handleGreaterThanClick}><FontAwesomeIcon icon={faLessThanEqual}/></button>
+                    <button className={`${lessThanEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))]"} h-7 px-2 rounded-tl-lg rounded-bl-lg`} onClick={handleLessThanClick}><FontAwesomeIcon icon={faGreaterThanEqual}/></button>
+                    <button className={`${equal ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))]"} h-7 px-2`} onClick={handleEqualClick}><FontAwesomeIcon icon={faEquals}/></button>
+                    <button className={`${greaterThanEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))]"} h-7 px-2 rounded-tr-lg rounded-br-lg`} onClick={handleGreaterThanClick}><FontAwesomeIcon icon={faLessThanEqual}/></button>
                 </div>
                 <input
-                    className="flex text-center bg-footer border-2 ml-2 w-[30%] border-transparent"
+                    className="flex text-center bg-[hsl(var(--atkdefcomponent))] rounded-lg border-2 ml-2 w-[20%] border-transparent"
                     value={levelFilter ?? ""}
                     onChange={handleInputChange}
                 />
