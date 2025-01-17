@@ -1,4 +1,4 @@
-import { Result } from "./sidebarcomponenttypes";
+import { GalleryResult, Result } from "./sidebarcomponenttypes";
 import { Card, OwnedCard } from "./datatypes";
 
 export type AllCardsSearchbarCompProps = {
@@ -41,10 +41,10 @@ export type CollectionSearchbarCompProps = {
         setCollectionCardsName: React.Dispatch<React.SetStateAction<string>>;
         collectionListResults: Result[];
         setCollectionListResults: React.Dispatch<React.SetStateAction<Result[]>>;
-        collectionGalleryResults: Result[];
-        setCollectionGalleryResults: React.Dispatch<React.SetStateAction<Result[]>>;
+        collectionGalleryResults: GalleryResult[];
+        setCollectionGalleryResults: React.Dispatch<React.SetStateAction<GalleryResult[]>>;
         setCollectionCurrentListResults: React.Dispatch<React.SetStateAction<Result[]>>;
-        setCollectionCurrentGalleryResults: React.Dispatch<React.SetStateAction<Result[]>>;
+        setCollectionCurrentGalleryResults: React.Dispatch<React.SetStateAction<GalleryResult[]>>;
         maxResults: number;
         listView: boolean;
         galleryView: boolean;

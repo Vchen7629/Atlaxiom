@@ -4,7 +4,7 @@ import AllCardsSearchResultsDisplayComponent from './allcardsdisplaycomponent';
 import AllCardsSearchBarComponent from '../searchbar/allcardssearchbarcomponent';
 import CollectionDisplayComponent from './collectiondisplaycomponent';
 import CollectionSearchBarComponent from '../searchbar/collectionsearchbarcomponent';
-import { Result, Sidebar } from '../types/sidebarcomponenttypes';
+import { GalleryResult, Result, Sidebar } from '../types/sidebarcomponenttypes';
 import { Card } from '../types/datatypes';
 
 
@@ -25,20 +25,16 @@ const DeckBuilderPageSidebarComponent = ({ sidebarprops }: Sidebar) => {
     const [allCardsCurrentPage, setAllCardsCurrentPage] = useState(1);
     const [allCardsName, setAllCardsName] = useState('');
     const [allCardsData, setAllCardsData] = useState<Card[]>([]);
-    //const [allCardsView, setAllCardsView] = useState(true);
-    //const [allCardsListResults, setAllCardsListResults] = useState<Card[]>([]);
     const [allCardsCurrentListResults, setAllCardsCurrentListResults] = useState<Card[]>([]);
     const [allCardsGalleryResults, setAllCardsGalleryResults] = useState<Card[]>([]);
     const [allCardsCurrentGalleryResults, setAllCardsCurrentGalleryResults] = useState<Card[]>([]);
 
     const [collectionCurrentPage, setCollectionCardsCurrentPage] = useState(1);
     const [collectionCardsName, setCollectionCardsName] = useState('');
-    //const [collectionCardData, setCollectionCardData] = useState<OwnedCard[]>([]);
-    //const [collectionCardsView, setCollectionCardsView] = useState(false);
     const [collectionListResults, setCollectionListResults] = useState<Result[]>([]);
     const [collectionCurrentListResults, setCollectionCurrentListResults] = useState<Result[]>([]);
-    const [collectionGalleryResults, setCollectionGalleryResults] = useState<Result[]>([]);
-    const [collectionCurrentGalleryResults, setCollectionCurrentGalleryResults] = useState<Result[]>([]);
+    const [collectionGalleryResults, setCollectionGalleryResults] = useState<GalleryResult[]>([]);
+    const [collectionCurrentGalleryResults, setCollectionCurrentGalleryResults] = useState<GalleryResult[]>([]);
 
 
     const resultsPerListPage = 6;
@@ -48,10 +44,6 @@ const DeckBuilderPageSidebarComponent = ({ sidebarprops }: Sidebar) => {
     const allCardsTotalGalleryPages = Math.ceil(allCardsGalleryResults.length / resultsPerGalleryPage);
     const collectionTotalGalleryPage = Math.ceil(collectionGalleryResults.length / resultsPerGalleryPage);
 
-
-    /*const handlePageChange = (page) => {
-        setCurrentPage(page);
-    }*/
 
     const handleAllCardsView = () => {
         setAllCardsView(true);
