@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCopy, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { Deck, DeckDisplayComponent, handleDeckClick } from '../types/homepagecomponentprops.ts';
 import DeleteDeckButtonComponent from '../buttons/deletedeckbutton.tsx';
 import DuplicateDeckButtonComponent from '../buttons/duplicatedeckbutton.tsx';
@@ -73,7 +73,7 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                                     </div>
                                     <section className="flex w-full mt-2 justify-center space-x-1">
                                         <button className='text-white h-7 w-7 rounded bg-[hsl(var(--background3))]'><FontAwesomeIcon icon={faStar}/></button>
-                                        <button className='text-white h-7 w-7 rounded bg-[hsl(var(--background3))]'><FontAwesomeIcon icon={faCopy}/></button>
+                                        <DuplicateDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                         <DeleteDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                     </section>
                                 </div>   
