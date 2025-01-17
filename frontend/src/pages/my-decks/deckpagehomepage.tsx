@@ -4,13 +4,13 @@ import Footer from "../../components/footer/Footer.tsx"
 import Header from "../../components/header/header.tsx"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
-import DeckDisplay from '../../components/deckcomponents/homepage/owneddeckdisplaycomponent.tsx';
-import GridListViewComponent from '../../components/deckcomponents/homepage/grid_or_list_view.tsx';
-import CreateNewDeckComponent from '../../components/deckcomponents/homepage/CreateNewDeckButton.tsx';
+import DeckDisplay from '../../components/deckmanagerpagecomponents/display/owneddeckdisplaycomponent.tsx';
+import GridListViewComponent from '../../components/deckmanagerpagecomponents/buttons/grid_or_list_view.tsx';
+import CreateNewDeckComponent from '../../components/deckmanagerpagecomponents/buttons/CreateNewDeckButton.tsx';
 import { UserIdState } from './deckpagetypes.ts';
-import PaginationComponent from '@/components/deckcomponents/homepagepagination/pagination.tsx';
+import PaginationComponent from '@/components/deckmanagerpagecomponents/pagination/pagination.tsx';
 import { useGetAllOwnedDecksQuery } from '@/features/api-slices/decksapislice.ts';
-import { Deck } from '@/components/deckcomponents/types/homepagecomponentprops.ts';
+import { Deck } from '@/components/deckmanagerpagecomponents/types/homepagecomponentprops.ts';
 
 
 const DeckPageHomepage = () => {

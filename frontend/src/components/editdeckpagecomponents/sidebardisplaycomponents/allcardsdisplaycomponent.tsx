@@ -1,6 +1,6 @@
 import SearchCardGalleryViewItem from "../draganddropitems/SearchCardGalleryViewItem"
 import SearchCardListViewItem from "../draganddropitems/SearchCardListViewItem"
-import { AllCardsDisplayCompProps } from "../types/sidebarcomponenttypes"
+import { AllCardsDisplayCompProps } from "../types/sidebardisplaytypes"
 
 const AllCardsSearchResultsDisplayComponent = ({ AllCardsDisplayCompProps }: AllCardsDisplayCompProps) => {
     const {

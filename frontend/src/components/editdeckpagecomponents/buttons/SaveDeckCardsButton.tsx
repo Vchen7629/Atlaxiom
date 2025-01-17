@@ -1,5 +1,5 @@
 import { useAddCardsMainDeckMutation, useAddNewCardtoExtraDeckMutation, useAddNewCardtoSideDeckMutation, useDeleteCardfromExtraDeckMutation, useDeleteCardfromMainDeckMutation, useDeleteCardfromSideDeckMutation, useModifyCardAmountinExtraDeckMutation, useModifyCardAmountinMainDeckMutation, useModifyCardAmountinSideDeckMutation } from "@/features/api-slices/decksapislice"
-import { SaveDeckButton } from "../types/editdeckcomptypes";
+import { SaveDeckButton } from "../types/buttontypes";
 
 const SaveDeckCardsButton = ({ savebuttonprops }: SaveDeckButton) => {
     const {

@@ -1,6 +1,6 @@
 import CollectionGalleryViewItem from "../draganddropitems/CollectionGalleryViewItem";
 import CollectionListViewItem from "../draganddropitems/CollectionListViewItem";
-import { CollectionDisplayCompProps } from "../types/sidebarcomponenttypes";
+import { CollectionDisplayCompProps } from "../types/sidebardisplaytypes";
 
 const CollectionDisplayComponent = ({ CollectionDisplayCompProps }: CollectionDisplayCompProps) => {
     const {

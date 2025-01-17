@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars,  faGripHorizontal } from '@fortawesome/free-solid-svg-icons';
-import { GridListViewComponentProps } from '../types/sidebarcomponenttypes';
+import { GridListViewComponentProps } from '../types/buttontypes';
 
 const GridListViewComponent= ({ filterProps }: GridListViewComponentProps) => {
     const {

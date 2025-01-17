@@ -2,8 +2,8 @@ import { useDroppable } from "@dnd-kit/core"
 import { useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
-import { handleDecreaseCardOwnedAmount, handleDeleteCardClick, handleIncreaseCardOwnedAmount } from "./EditDeckCardButtons"
-import { ExtraDeckProps } from "../types/editdeckcomptypes"
+import { handleDecreaseCardOwnedAmount, handleDeleteCardClick, handleIncreaseCardOwnedAmount } from "../buttons/EditDeckCardButtons"
+import { ExtraDeckProps } from "../types/carddropzonetypes"
 import SubGridListViewComponent from "../draganddropitems/subgridlistviewcomp"
 
 const ExtraDeckCardZone = ({ extradeckprops }: ExtraDeckProps) => {

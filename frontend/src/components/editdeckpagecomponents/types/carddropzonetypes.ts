@@ -38,29 +38,3 @@ export type SideDeckProps = {
         setCardsToDeleteSideDeckPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>;
     }
 }
-
-export type SaveDeckButton = {
-    savebuttonprops: {
-        userId: string;
-        refetch: any;
-        deck: any;
-        cardsToAddMainDeckPlaceHolder: Card[];
-        setCardsToAddMainDeckPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>
-        cardsToDeleteMainDeckPlaceHolder: Card[];
-        setCardsToDeleteMainDeckPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>;
-        modifyMainDeckCardAmountPlaceHolder: Card[];
-        setModifyMainDeckCardAmountPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>;
-        cardsToAddExtraDeckPlaceHolder: Card[];
-        setCardsToAddExtraDeckPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>;
-        cardsToDeleteExtraDeckPlaceHolder: Card[];
-        setCardsToDeleteExtraDeckPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>;
-        modifyExtraDeckCardAmountPlaceHolder: Card[];
-        setModifyExtraDeckCardAmountPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>;
-        cardsToAddSideDeckPlaceHolder: Card[];
-        setCardsToAddSideDeckPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>;
-        cardsToDeleteSideDeckPlaceHolder: Card[];
-        setCardsToDeleteSideDeckPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>;
-        modifySideDeckCardAmountPlaceHolder: Card[];
-        setModifySideDeckCardAmountPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>;
-    }
-}

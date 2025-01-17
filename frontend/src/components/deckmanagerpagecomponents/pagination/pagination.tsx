@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Pagination } from "../types/paginationtypes.ts";
-import { PageSelectorComponent } from "./pageselector";
+import { PageSelectorComponent } from "./pageselector.tsx";
 
 const PaginationComponent = ({ paginationprops }: Pagination) => {
     const {
