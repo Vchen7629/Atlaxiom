@@ -22,6 +22,7 @@ import { RarityDropDownProps } from "../../types/dropdowntypes"
  
 export function RarityDropDownComponent({ rarityprops }: RarityDropDownProps) {
   const {
+    setCanClearFilter,
     uniqueRarity,
     rarityFilter, setRarityFilter,
     setListCurrentPage,
@@ -29,6 +30,18 @@ export function RarityDropDownComponent({ rarityprops }: RarityDropDownProps) {
   } = rarityprops
 
   const [open, setOpen] = React.useState(false)
+
+  const handleClick = (newValue: string) => {
+    setRarityFilter(newValue)
+    setListCurrentPage(1);
+    setGalleryCurrentPage(1);
+    setOpen(false);
+    if (newValue) {
+      setCanClearFilter(true)
+    } else {
+      setCanClearFilter(false);
+    }
+  }
  
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -39,16 +52,20 @@ export function RarityDropDownComponent({ rarityprops }: RarityDropDownProps) {
           aria-expanded={open}
           className="w-[15vw] bg-transparent border-transparent text-[hsl(var(--text))] justify-between"
         >
+          <div className="flex w-[15vw] items-center justify-center text-sm hover:text-[hsl(var(--background3))]">
             {rarityFilter ? (
-                <span className={`flex relative items-center left-1/4 justify-between w-fit px-2 py-1 bg-[hsl(var(--background3))] text-white rounded text-sm`}>
+              <div className="flex w-[12vw] justify-center">
+                <span className="w-fit px-2 py-1 bg-[hsl(var(--background3))] rounded text-[hsl(var(--text))]">
                     {uniqueRarity.find((rarity) => rarity === rarityFilter) }
                 </span>
+              </div>
             ): (
-              <span className={`flex relative items-center left-1/5 justify-between w-fit px-2 py-1 bg-transparent rounded text-sm`}>
+              <span className="flex items-center w-full px-2 py-1 bg-transparent">
                   Select Rarity...
               </span>
             )}
-         <CaretSortIcon className="min-h-6 min-w-6 shrink-0 text-[hsl(var(--text))]" />
+            <CaretSortIcon className="min-h-6 min-w-6 shrink-0" />
+          </div>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[15vw] p-0 relative top-[-42px]">
@@ -62,14 +79,8 @@ export function RarityDropDownComponent({ rarityprops }: RarityDropDownProps) {
                   key={rarity}
                   value={rarity}
                   className="text-[hsl(var(--text))] bg-transparent"
-                  onSelect={(currentValue) => {
-                    setRarityFilter(currentValue === rarityFilter ? "" : currentValue);
-                    setOpen(false);
-                    setListCurrentPage(1);
-                    setGalleryCurrentPage(1);
-                  }}
+                  onSelect={(currentValue) => {handleClick(currentValue === rarityFilter ? "" : currentValue)}}
                 > 
-                 
                   {rarity}
                   <CheckIcon
                     className={cn(

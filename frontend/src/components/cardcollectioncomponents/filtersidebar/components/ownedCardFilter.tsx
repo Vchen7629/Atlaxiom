@@ -40,6 +40,8 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
     const [uniqueSet, setUniqueSet] = useState<string[]>([]);
     const [uniqueRarity, setUniqueRarity] = useState<string[]>([]);
 
+    const [canClearFilter, setCanClearFilter] = useState<boolean>(false);
+
 
     useEffect(() => {
         if (ownedCards) {
@@ -85,6 +87,7 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         setIsMonsterFilterActive(true);
         setIsSpellFilterActive(false);
         setIsTrapFilterActive(false);
+        setCanClearFilter(true);
     }
     
     const handleSpellFilter = () => {
@@ -92,6 +95,7 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         setIsMonsterFilterActive(false);
         setIsSpellFilterActive(true);
         setIsTrapFilterActive(false);
+        setCanClearFilter(true);
     }
     
     const handleTrapFilter = () => {
@@ -99,6 +103,7 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         setIsMonsterFilterActive(false);
         setIsSpellFilterActive(false);
         setIsTrapFilterActive(true);
+        setCanClearFilter(true);
     }
 
     const clearFilter = () => {
@@ -112,6 +117,7 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         setLevelFilter(0);
         setRarityFilter('');
         setSetFilter('');
+        setCanClearFilter(false);
     }
 
 
@@ -130,6 +136,7 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         subTypeFilter, setSubTypeFilter,
         setListCurrentPage,
         setGalleryCurrentPage,
+        setCanClearFilter
     }
 
     const attributeprops = {
@@ -137,6 +144,7 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         attributeFilter, setAttributeFilter,
         setListCurrentPage,
         setGalleryCurrentPage,
+        setCanClearFilter
     }
 
     const archetypeprops = {
@@ -144,6 +152,7 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         archeTypeFilter, setArcheTypeFilter,
         setListCurrentPage,
         setGalleryCurrentPage,
+        setCanClearFilter
     }
 
     const rarityprops = {
@@ -151,12 +160,14 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         rarityFilter, setRarityFilter,
         setListCurrentPage,
         setGalleryCurrentPage,
+        setCanClearFilter
     }
 
     const levelprops = {
         setLevelFilter,
         setListCurrentPage,
         setGalleryCurrentPage,
+        setCanClearFilter
     }
 
     const setprops = {
@@ -164,6 +175,7 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         setFilter, setSetFilter,
         setListCurrentPage,
         setGalleryCurrentPage,
+        setCanClearFilter
     }
 
     return (
@@ -173,7 +185,7 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
                 <section className="flex w-[92%] justify-between items-center mb-6 pl-4">
                     <span className="text-2xl text-[hsl(var(--text))] font-bold">Card Filter </span>
                     <div className="flex w-fit space-x-2">
-                        <button className="flex items-center px-4 py-4 rounded-xl h-11 bg-[hsl(var(--background3))]" onClick={clearFilter}> Clear </button>
+                        <button className={`flex items-center px-4 py-4 rounded-xl h-11 ${canClearFilter ? "bg-[hsl(var(--background3))]" : "bg-gray-600"}`} onClick={clearFilter}> Clear </button>
                         <div className="flex w-19 h-11 bg-footer rounded-xl">
                             <FilterCardViewButton filterprops={filterprops}/>
                             <StatisticsViewButton statisticsprops={statisticsprops}/>

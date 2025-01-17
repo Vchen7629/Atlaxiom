@@ -7,6 +7,7 @@ export type SubTypeDropDownProps = {
         setSubTypeFilter: (filter: string) => void;
         setListCurrentPage: React.Dispatch<React.SetStateAction<number>>
         setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>
+        setCanClearFilter: React.Dispatch<React.SetStateAction<boolean>>
     }
 }
 
@@ -17,6 +18,7 @@ export type AttributeDropDownProps = {
         setAttributeFilter: (filter: string) => void;
         setListCurrentPage: React.Dispatch<React.SetStateAction<number>>
         setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>
+        setCanClearFilter: React.Dispatch<React.SetStateAction<boolean>>
     }
 }
 
@@ -27,6 +29,7 @@ export type ArchetypeDropDownProps = {
         setArcheTypeFilter: (filter: string) => void;
         setListCurrentPage: React.Dispatch<React.SetStateAction<number>>
         setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>
+        setCanClearFilter: React.Dispatch<React.SetStateAction<boolean>>
     }
 }
 
@@ -37,6 +40,7 @@ export type CardSetDropDownProps = {
         setSetFilter: (filter: string) => void;
         setListCurrentPage: React.Dispatch<React.SetStateAction<number>>
         setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>
+        setCanClearFilter: React.Dispatch<React.SetStateAction<boolean>>
     }
 };
 
@@ -47,11 +51,13 @@ export type RarityDropDownProps = {
         setRarityFilter: (filter: string) => void;
         setListCurrentPage: React.Dispatch<React.SetStateAction<number>>
         setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>
+        setCanClearFilter: React.Dispatch<React.SetStateAction<boolean>>
     }
 }
 
 export interface LevelSliderProps extends SliderProps {
     levelprops: {
+        setCanClearFilter: React.Dispatch<React.SetStateAction<boolean>>
         setLevelFilter: React.Dispatch<React.SetStateAction<number | null>>
         setListCurrentPage: React.Dispatch<React.SetStateAction<number>>
         setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>

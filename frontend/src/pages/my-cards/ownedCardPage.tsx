@@ -227,7 +227,7 @@ const UserOwnedCardPage = () => {
                             <GalleryViewCardDisplayComponent displaygalleryprops={displaygalleryprops}/>                                           
                           </main>
                           
-                          <div className={`flex flex-col ${expandStatus ? "w-[24%] border-gray-600 border-2" : "w-0"} items-center bg-[hsl(var(--background4))] rounded-3xl pt-8`}>
+                          <div className={`flex flex-col h-fit ${expandStatus ? "w-[24%] border-gray-600 border-2" : "w-0"} items-center bg-[hsl(var(--ownedcardcollection))] rounded-3xl py-8`}>
                               {filterpage && (
                                 <FilterOwnedCards filterProps={filterProps}/>
                               )}

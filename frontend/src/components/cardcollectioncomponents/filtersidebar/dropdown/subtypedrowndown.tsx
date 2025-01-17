@@ -26,8 +26,21 @@ export function SubTypeDropDownComponent({ subtypeprops }: SubTypeDropDownProps)
     subTypeFilter, setSubTypeFilter,
     setListCurrentPage,
     setGalleryCurrentPage,
+    setCanClearFilter
   } = subtypeprops 
   const [open, setOpen] = React.useState(false)
+
+  const handleClick = (newValue: string) => {
+    setSubTypeFilter(newValue)
+    setListCurrentPage(1);
+    setGalleryCurrentPage(1);
+    setOpen(false);
+    if (newValue) {
+      setCanClearFilter(true)
+    } else {
+      setCanClearFilter(false);
+    }
+  }
   
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -38,17 +51,20 @@ export function SubTypeDropDownComponent({ subtypeprops }: SubTypeDropDownProps)
           aria-expanded={open}
           className="w-[15vw] border-transparent text-[hsl(var(--text))] justify-between"
         >
-          {subTypeFilter ? (
-            <span className={`flex relative items-center left-1/4 justify-between w-fit px-2 py-1 bg-[hsl(var(--background3))] text-white rounded text-sm`}>
-                {uniqueSubtype.find((subtype) => subtype === subTypeFilter) }
-            </span>
-          ) : (
-            <span className={`w-[10vw] text-sm`}>
-                Select Card Subtype...
-            </span>
-          )}
-          
-          <CaretSortIcon className="min-h-6 min-w-6 shrink-0 text-[hsl(var(--text))]" />
+          <div className="flex w-[15vw] items-center justify-center text-sm hover:text-[hsl(var(--background3))]">
+            {subTypeFilter ? (
+              <div className="flex w-[12vw] justify-center">
+                <span className="w-fit px-2 py-1 bg-[hsl(var(--background3))] rounded text-[hsl(var(--text))]">
+                    {uniqueSubtype.find((subtype) => subtype === subTypeFilter) }
+                </span>
+              </div>
+            ) : (
+              <span className="flex items-center w-full px-2 py-1 bg-transparent">
+                  Select Card Subtype...
+              </span>
+            )}
+            <CaretSortIcon className="min-h-6 min-w-6 shrink-0" />
+          </div>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[15vw] p-0 relative top-[-42px]">
@@ -62,12 +78,7 @@ export function SubTypeDropDownComponent({ subtypeprops }: SubTypeDropDownProps)
                   key={subtype}
                   value={subtype}
                   className="text-[hsl(var(--text))] bg-transparent"
-                  onSelect={(currentValue) => {
-                    setSubTypeFilter(currentValue === subTypeFilter ? '' : currentValue);
-                    setOpen(false);
-                    setListCurrentPage(1);
-                    setGalleryCurrentPage(1);
-                  }}
+                  onSelect={(currentValue) => {handleClick(currentValue === subTypeFilter ? '' : currentValue)}}
                 > 
                  
                   {subtype}
