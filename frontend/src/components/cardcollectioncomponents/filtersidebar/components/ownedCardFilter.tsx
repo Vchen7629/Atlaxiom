@@ -246,7 +246,7 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         {expandStatus && (
             <>
                 <section className="flex w-[92%] justify-between items-center mb-6 pl-4">
-                    <span className="text-2xl text-[hsl(var(--text))] font-bold">Card Filter </span>
+                    <span className="text-2xl text-[hsl(var(--background3))] font-bold">Card Filter </span>
                     <div className="flex w-fit space-x-2">
                         <button className={`flex items-center px-4 py-4 rounded-xl h-11 ${canClearFilter ? "bg-[hsl(var(--background3))]" : "bg-gray-600"}`} onClick={clearFilter}> Clear </button>
                         <div className="flex w-19 h-11 bg-footer rounded-xl">
