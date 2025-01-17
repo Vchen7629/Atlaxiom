@@ -69,7 +69,6 @@ const AllCardsSearchBarComponent = ({ AllCardsSearchBarCompProps }: AllCardsSear
 
     useEffect(() => {
         DelayAllCardsSearchResults(allCardsName);
-        console.log("testing")
     }, [DelayAllCardsSearchResults, allCardsName]);
 
     useEffect(() => {

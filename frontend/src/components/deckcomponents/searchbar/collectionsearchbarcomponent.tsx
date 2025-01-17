@@ -57,9 +57,6 @@ const CollectionSearchBarComponent = ({ CollectionSearchBarCompProps }: Collecti
             return normalizedCardName?.includes(normalizedInput);
         });
 
-        console.log("Filtered Cards:", filteredSuggestions);
-
-
         setCollectionListResults(filteredSuggestions.slice(0, maxResults).map((card) => ({
             _id: card._id,
             card_name: card.card_name,

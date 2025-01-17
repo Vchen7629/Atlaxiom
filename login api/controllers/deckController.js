@@ -72,7 +72,6 @@ const getAllDecksforUser = asyncHandler(async (req, res) => {
 // @route GET /specific/:id/:DeckId
 // @access Public
 const getSpecificDeckforUser = asyncHandler(async (req, res) => {
-    console.log("Request Params:", req.params);
     const { id, deckId } = req.params
 
     if (!id || !deckId) {
@@ -80,7 +79,6 @@ const getSpecificDeckforUser = asyncHandler(async (req, res) => {
     }
 
     const deck = await Deck.find({ user_id: id, _id: deckId })
-    console.log("Found Deck:", deck);
 
     if (!deck) {
         return res.status(404).json({ message: "User not found" });

@@ -45,8 +45,6 @@ export function ComponentRadialChart() {
         ]
     }, [userData, userId])
 
-    console.log(chartData[0].owned)
-
     return (
         <Card className="flex flex-col bg-[hsl(var(--profilebackground))] border-transparent rounded-xl">
         <CardHeader>

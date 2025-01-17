@@ -35,9 +35,7 @@ const DeckDisplay= ({ listView, galleryView, userId, deckName }: DeckDisplayComp
             });
             if (deldeck) {
                 refetch();
-            } else {
-                console.log("deleted deck error")
-            }
+            } 
         } catch (error) {
             const err = error as DeckError
             console.error("Error deleting deck:", err.message || error);

@@ -161,8 +161,6 @@ const DeckBuilderPage = () => {
         } 
     }
 
-    console.log(monsterCards)
-
     const sidebarprops = {
         userId,
         allCardsView, setAllCardsView,

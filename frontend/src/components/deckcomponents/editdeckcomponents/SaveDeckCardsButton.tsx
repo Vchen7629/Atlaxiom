@@ -156,7 +156,7 @@ const SaveDeckCardsButton = ({ savebuttonprops }: SaveDeckButton) => {
             }
             refetch()
         } catch  {
-            console.log("error")
+            console.error("error")
         }
     }
 
