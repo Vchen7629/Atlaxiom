@@ -1,20 +1,30 @@
 import { GalleryViewComp } from "../types/searchbarcomponentstypes";
 import { SearchResCardData } from "../types/datastructuretypes";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { SearchAuth } from "@/pages/searchpage/types/searchbarpagestypes";
 
 
 const GalleryViewSearchSuggestionsComponent = ({ galleryviewprops }: GalleryViewComp) => {
     const {
         searchTerm,
         currentPageGalleryNamesArray,
-        setClickedOnCard,
-        setSelectedCardData,
         setErrorMessage,
     } = galleryviewprops
 
+    const navigate = useNavigate();
+    const [, setSelectedCardData] = useState<SearchResCardData | null>(null);
+    const authenticated = useSelector((state: SearchAuth) => state.auth.token !== null);
+    
     const handleSuggestionClick = (card: SearchResCardData) => {
         setSelectedCardData(card);
-        setClickedOnCard(true);
         setErrorMessage("");
+        if (authenticated) {
+            navigate('/searchresultloggedin', { state: { selectedCardData: card }})
+        } else {
+            navigate('/searchresult', { state: { selectedCardData: card }})
+        }   
     };
 
     console.log(currentPageGalleryNamesArray)

@@ -5,8 +5,6 @@ import { SearchBar } from "../types/searchbartypes"
 const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
     const {
         searchTerm, setSearchTerm,
-        setClickedOnCard,
-        setSelectedCardData,
         setListCurrentPage,
         setGalleryCurrentPage,
         setErrorMessage,
@@ -15,8 +13,6 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         setSearchTerm(inputValue);
-        setClickedOnCard(false);
-        setSelectedCardData(null);
         setListCurrentPage(1);
         setGalleryCurrentPage(1);
         setErrorMessage('');
@@ -25,8 +21,6 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
     const handleClearClick = () => {
         setSearchTerm('');
         setErrorMessage('');
-        setSelectedCardData(null);
-        setClickedOnCard(false);
       };
     
     return (

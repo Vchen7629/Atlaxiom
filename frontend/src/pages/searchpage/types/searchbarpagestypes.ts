@@ -1,9 +1,7 @@
-import { SearchResCardData } from "../../../components/searchpagecomponents/types/datastructuretypes"
 import { CardSet } from "../../../components/searchpagecomponents/types/searchresultcomptypes";
 
 export type SearchResult = {
     searchresultprops: {
-        selectedCardData: SearchResCardData | null;
         cardSets: CardSet[]
         setCardSets: React.Dispatch<React.SetStateAction<CardSet[]>>
     }

@@ -5,7 +5,6 @@ import { faStar, faCopy, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { DeckError, DeckProps, FilteredDecks, handleDeckClick, UserId } from '../types/subpagetypes';
-import { useState } from 'react';
 
 const ViewDecks = ({ deckprops, user }: DeckProps) => {
     const {
