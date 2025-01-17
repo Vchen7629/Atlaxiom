@@ -28,8 +28,6 @@ const DeckPageHomepage = () => {
     const filteredDecks = decksToDisplay.filter((deck: Deck) =>
         deck?.deck_name?.toLowerCase().includes(deckName.toLowerCase())
     );
-
-    console.log(decksToDisplay)
     
     const [, setClickedOnCard] = useState<boolean>(false);
 
@@ -88,6 +86,7 @@ const DeckPageHomepage = () => {
     }
 
     const deckdisplayprops = {
+        decksToDisplay,
         listView,
         galleryView,
         userId,
@@ -105,12 +104,12 @@ const DeckPageHomepage = () => {
                     <div className="text-3xl font-black text-[hsl(var(--text))]">Deck Manager</div>
                     <CreateNewDeckComponent userId={userId}/>
                 </div>
-                <div className="flex w-[50vw] ml-[15vw] my-[2.5vh] justify-between">
-                    <div className="flex w-[15vw] h-[40px] pl-5 relative border-2 border-gray-400 justify-start text-gold">                      
+                <div className="flex w-[50vw] ml-[15vw] mt-[2.5vh] mb-[1.5vh] justify-between">
+                    <div className="flex w-[15vw] h-[40px] pl-5 relative border-2 border-gray-400 justify-start text-[hsl(var(--text))]">                      
                       <div className="flex items-center w-full">
                         <FontAwesomeIcon icon={faSearch} className="mr-2" />
                         <input
-                          className="bg-transparent w-full h-full text-xl text-white focus:outline-none"
+                          className="bg-transparent w-full h-full text-xl text-[hsl(var(--text))] focus:outline-none"
                           type="text"
                           value={deckName}
                           onChange={handleInputChange}
@@ -126,7 +125,7 @@ const DeckPageHomepage = () => {
                     <section className="flex">
                         <PaginationComponent paginationprops={paginationprops}/>
                     </section>
-                    <div className="flex w-20 bg-footer rounded-xl">
+                    <div className="flex w-20 h-11 bg-footer rounded-xl">
                         <GridListViewComponent filterProps={filterProps}/>  
                     </div>
                 </div>

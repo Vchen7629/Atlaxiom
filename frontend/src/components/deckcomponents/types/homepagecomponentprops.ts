@@ -22,6 +22,7 @@ export type GridListViewComponentProps = {
 
 export type DeckDisplayComponent = {
     deckdisplayprops:{ 
+        decksToDisplay: string[]
         listView: boolean;
         galleryView: boolean;
         userId: string;
