@@ -7,7 +7,6 @@ import { Deck, DeckDisplayComponent, DeckError, handleDeckClick } from '../types
 
 const DeckDisplay= ({ listView, galleryView, userId, deckName }: DeckDisplayComponent) => {
     const navigate = useNavigate();
-    const [selectedDeckId, setSelectedDeckId] = useState<string | null>(null)
 
     const { data: modifyDecks, refetch } = useGetAllOwnedDecksQuery(userId);
     const [deleteDeck] = useDeleteDeckMutation();
@@ -25,13 +24,8 @@ const DeckDisplay= ({ listView, galleryView, userId, deckName }: DeckDisplayComp
     );
 
     const handleDeckClick = async (deck: handleDeckClick) => {
-        setSelectedDeckId(deck._id);
-        navigate('/modifyDeck', { state: { deckId: selectedDeckId, userId: userId } });   
+        navigate('/modifyDeck', { state: { deckId: deck._id, userId: userId } });   
     };
-
-    useEffect(() => {
-        console.log(selectedDeckId)
-    })
 
     const handleDeleteDeckClick = async(deck: handleDeckClick) => {
         try {
@@ -52,9 +46,9 @@ const DeckDisplay= ({ listView, galleryView, userId, deckName }: DeckDisplayComp
 
     return (
         <>  
-                {listView && (
-                    <main className='flex flex-col w-full'>
-                        {filteredDecks.map((deck: Deck) => (
+            {listView && (
+                <main className='flex flex-col w-full'>
+                    {filteredDecks.map((deck: Deck) => (
                         <>
                             <div 
                                 className="flex  h-[7vh] px-2 justify-between items-center mb-2 hover:bg-[hsl(var(--background5))]" 
@@ -78,14 +72,13 @@ const DeckDisplay= ({ listView, galleryView, userId, deckName }: DeckDisplayComp
                                     >
                                         <FontAwesomeIcon icon={faTrash}/>
                                     </button>
-                                </section>
-                                
+                                </section>    
                             </div>
                         </>
                     ))}               
-                    </main>
-                )}        
-                {galleryView && (
+                </main>
+            )}        
+            {galleryView && (
                         <>
                             <div className="My-Decks-Gallery-List">
                                 Gallery View
