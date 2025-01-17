@@ -51,6 +51,16 @@ const UserOwnedCardPage = () => {
   const [linkEqual, setLinkEqual] = useState<boolean>(true);
   const [linkGreaterThanEqual, setLinkGreaterThanEqual] = useState<boolean>(false);
 
+  const [atkFilter, setAtkFilter] = useState<number | null>(0);
+  const [atkLessThanEqual, setAtkLessThanEqual] = useState<boolean>(false);
+  const [atkEqual, setAtkEqual] = useState<boolean>(true);
+  const [atkGreaterThanEqual, setAtkGreaterThanEqual] = useState<boolean>(false);
+
+  const [defFilter, setDefFilter] = useState<number | null>(0);
+  const [defLessThanEqual, setDefLessThanEqual] = useState<boolean>(false);
+  const [defEqual, setDefEqual] = useState<boolean>(true);
+  const [defGreaterThanEqual, setDefGreaterThanEqual] = useState<boolean>(false);
+
   const [listView, setListView] = useState<boolean>(true);
   const [galleryView, setGalleryView] = useState<boolean>(false);
 
@@ -111,6 +121,18 @@ const UserOwnedCardPage = () => {
         (linkGreaterThanEqual && card.linkval !== undefined && card.linkval >= linkFilter)
       : true;
 
+      const matchesAtkFilter = atkFilter ?
+        (atkLessThanEqual && card.atk !== undefined && card.atk <= atkFilter) ||
+        (atkEqual && card.atk !== undefined && card.atk === atkFilter) ||
+        (atkGreaterThanEqual && card.atk !== undefined && card.atk >= atkFilter) 
+      : true;
+  
+      const matchesDefFilter = defFilter ?
+        (defLessThanEqual && card.def !== undefined && card.def <= defFilter) ||
+        (defEqual && card.def !== undefined && card.def === defFilter) ||
+        (defGreaterThanEqual && card.def !== undefined && card.def >= defFilter) 
+      : true;
+
       const matchesSetFilter = setFilter ? card.set_name?.toLowerCase().trim() === setFilter.toLowerCase().trim() : true;
       const matchesRarityFilter = rarityFilter ? card.rarity?.toLowerCase().trim() === rarityFilter.toLowerCase().trim() : true;
         
@@ -124,6 +146,8 @@ const UserOwnedCardPage = () => {
         !! matchesLevelFilter &&
         !! matchesPendFilter &&
         !! matchesLinkFilter &&
+        !! matchesAtkFilter && 
+        !! matchesDefFilter &&
         !! matchesSetFilter &&
         !! matchesRarityFilter
       );
@@ -140,6 +164,8 @@ const UserOwnedCardPage = () => {
     levelFilter, levelLessThanEqual, levelEqual, levelGreaterThanEqual,
     pendFilter, pendLessThanEqual, pendEqual, pendGreaterThanEqual,
     linkFilter, linkLessThanEqual, linkEqual, linkGreaterThanEqual,
+    atkFilter, atkLessThanEqual, atkEqual, atkGreaterThanEqual,
+    defFilter, defLessThanEqual, defEqual, defGreaterThanEqual,
     setFilter,
     rarityFilter,
   ]);
@@ -188,6 +214,14 @@ const UserOwnedCardPage = () => {
     linkLessThanEqual, setLinkLessThanEqual, 
     linkEqual, setLinkEqual, 
     linkGreaterThanEqual, setLinkGreaterThanEqual,
+    atkFilter, setAtkFilter,
+    atkLessThanEqual, setAtkLessThanEqual,
+    atkEqual, setAtkEqual,
+    atkGreaterThanEqual, setAtkGreaterThanEqual,
+    defFilter, setDefFilter,
+    defLessThanEqual, setDefLessThanEqual,
+    defEqual, setDefEqual,
+    defGreaterThanEqual, setDefGreaterThanEqual,
     setFilter, setSetFilter,
     rarityFilter, setRarityFilter,
     filterpage, setFilterPage,

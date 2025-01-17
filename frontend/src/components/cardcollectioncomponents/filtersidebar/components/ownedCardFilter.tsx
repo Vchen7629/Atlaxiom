@@ -13,6 +13,8 @@ import { SpellTypeDropDownComponent } from "../dropdown/spelltypedropdown.tsx";
 import { TrapTypeDropDownComponent } from "../dropdown/traptypedropdown.tsx";
 import { PendScaleSliderComponent } from "../sliders/pendscaleslider.tsx";
 import { LinkScaleSliderComponent } from "../sliders/linkvalueslider.tsx";
+import AtkFilterComponent from "./atkfiltercomponent.tsx";
+import DefFilterComponent from "./deffiltercomponent.tsx";
 
 const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
     const {
@@ -35,6 +37,14 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         linkLessThanEqual, setLinkLessThanEqual, 
         linkEqual, setLinkEqual, 
         linkGreaterThanEqual, setLinkGreaterThanEqual,
+        atkFilter, setAtkFilter,
+        atkLessThanEqual, setAtkLessThanEqual,
+        atkEqual, setAtkEqual,
+        atkGreaterThanEqual, setAtkGreaterThanEqual,
+        defFilter, setDefFilter,
+        defLessThanEqual, setDefLessThanEqual,
+        defEqual, setDefEqual,
+        defGreaterThanEqual, setDefGreaterThanEqual,
         setFilter, setSetFilter,
         rarityFilter, setRarityFilter,
         filterpage, setFilterPage,
@@ -101,6 +111,14 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         setLinkEqual(true);
         setLinkLessThanEqual(false);
         setLinkGreaterThanEqual(false);
+        setAtkFilter(null);
+        setAtkEqual(true);
+        setAtkLessThanEqual(false);
+        setAtkGreaterThanEqual(false);
+        setDefFilter(null);
+        setDefEqual(true);
+        setDefLessThanEqual(false);
+        setDefGreaterThanEqual(false);
         setRarityFilter('');
         setSetFilter('');
         setCanClearFilter(false);
@@ -195,6 +213,26 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         linkGreaterThanEqual, setLinkGreaterThanEqual,
     }
 
+    const atkfilterprops = {
+        atkFilter, setAtkFilter,
+        setListCurrentPage,
+        setGalleryCurrentPage,
+        setCanClearFilter,
+        atkLessThanEqual, setAtkLessThanEqual,
+        atkEqual, setAtkEqual,
+        atkGreaterThanEqual, setAtkGreaterThanEqual,
+    }
+
+    const deffilterprops = {
+        defFilter, setDefFilter,
+        setListCurrentPage,
+        setGalleryCurrentPage,
+        setCanClearFilter,
+        defLessThanEqual, setDefLessThanEqual,
+        defEqual, setDefEqual,
+        defGreaterThanEqual, setDefGreaterThanEqual,
+    }
+
     const setprops = {
         uniqueSet,
         setFilter, setSetFilter,
@@ -217,7 +255,7 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
                         </div>
                     </div>
                 </section>
-                <section className="flex flex-col w-[92%] pl-2 items-center  space-y-[3%]">
+                <section className="flex flex-col w-[92%] pl-2 items-center  space-y-[2%]">
                     <div className="flex w-full items-center">
                         <div className="flex h-full w-[7vw] text-sm font-black items-center text-[hsl(var(--text))] ">Monster Type:</div>
                         <div><MonsterTypeDropDownComponent monstertypeprops={monstertypeprops}/></div>
@@ -247,8 +285,16 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
                         <div className="w-[80%]"><PendScaleSliderComponent pendprops={pendprops}/></div>
                     </div>
                     <div className="flex w-full items-center">
-                        <div className="flex h-full w-[7vw] text-sm  items-center font-black text-[hsl(var(--text))]">Pend Scale:</div>
+                        <div className="flex h-full w-[7vw] text-sm  items-center font-black text-[hsl(var(--text))]">Link Value:</div>
                         <div className="w-[80%]"><LinkScaleSliderComponent linkprops={linkprops}/></div>
+                    </div>
+                    <div className="flex w-full items-center">
+                        <span className="flex h-full w-[7vw] text-sm  items-center font-black text-[hsl(var(--text))]">Attack</span>
+                        <div><AtkFilterComponent atkfilterprops={atkfilterprops}/></div>
+                    </div>
+                    <div className="flex w-full items-center">
+                        <span className="flex h-full w-[7vw] text-sm  items-center font-black text-[hsl(var(--text))]">Defense</span>
+                        <div><DefFilterComponent deffilterprops={deffilterprops}/></div>
                     </div>
                     <div className="flex w-full items-center">
                         <div className="flex h-full w-[7vw] text-sm items-center font-black text-[hsl(var(--text))]">Rarity:</div>

@@ -10,6 +10,8 @@ export type Card = {
     level?: number;
     scale?: number;
     linkval?: number;
+    atk?: number;
+    def?: number;
     set_name?: string;
     rarity?: string;
     id?: string;

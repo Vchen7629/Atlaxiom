@@ -35,6 +35,22 @@ export type OwnedCardsFilterProps = {
         setLinkEqual: React.Dispatch<React.SetStateAction<boolean>>;
         linkGreaterThanEqual: boolean;
         setLinkGreaterThanEqual: React.Dispatch<React.SetStateAction<boolean>>
+        atkFilter: number | null
+        setAtkFilter: React.Dispatch<React.SetStateAction<number | null>>
+        atkLessThanEqual: boolean;
+        setAtkLessThanEqual: React.Dispatch<React.SetStateAction<boolean>>
+        atkEqual: boolean;
+        setAtkEqual: React.Dispatch<React.SetStateAction<boolean>>
+        atkGreaterThanEqual: boolean;
+        setAtkGreaterThanEqual: React.Dispatch<React.SetStateAction<boolean>>
+        defFilter: number | null
+        setDefFilter: React.Dispatch<React.SetStateAction<number | null>>
+        defLessThanEqual: boolean;
+        setDefLessThanEqual: React.Dispatch<React.SetStateAction<boolean>>
+        defEqual: boolean;
+        setDefEqual: React.Dispatch<React.SetStateAction<boolean>>
+        defGreaterThanEqual: boolean;
+        setDefGreaterThanEqual: React.Dispatch<React.SetStateAction<boolean>>
         setFilter: string;
         setSetFilter: React.Dispatch<React.SetStateAction<string>>;
         rarityFilter: string;
