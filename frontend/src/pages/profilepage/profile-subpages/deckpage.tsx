@@ -5,7 +5,6 @@ import { faStar, faCopy, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { DeckError, DeckProps, FilteredDecks, handleDeckClick, UserId } from '../types/subpagetypes';
-import { useState } from 'react';
 
 const ViewDecks = ({ deckprops, user }: DeckProps) => {
     const {
@@ -16,7 +15,6 @@ const ViewDecks = ({ deckprops, user }: DeckProps) => {
         currentGalleryPageResults,
     } = deckprops 
 
-    const [selectedDeckId, setSelectedDeckId] = useState<string | null>(null)
     const userId = useSelector((state: UserId) => state.auth.userId);
     const navigate = useNavigate();
     const { totalOwnedDecks } = user;
@@ -24,14 +22,12 @@ const ViewDecks = ({ deckprops, user }: DeckProps) => {
     const [deleteDeck] = useDeleteDeckMutation();
     
     const handleDeckClick = async (deck: handleDeckClick) => {
-        setSelectedDeckId(deck._id);
-        navigate('/modifyDeck', { state: { deckId: selectedDeckId, userId: userId } });   
+        navigate('/modifyDeck', { state: { deckId: deck._id, userId: userId } });   
     };
     
     const handleDeleteDeckClick = async(deck: handleDeckClick) => {
-        setSelectedDeckId(deck._id);
         try {
-            const deldeck = await deleteDeck({ id: userId, DeckData: { deckId: selectedDeckId } });
+            const deldeck = await deleteDeck({ id: userId, DeckData: { deckId: deck._id } });
                 if (deldeck) {
                     refetchdecks();
                 } else {

@@ -34,8 +34,6 @@ export function SetDropDownComponent({ setfilterprops }: SetDropDown) {
     setSetName(newValue)
     if (newValue) {
       setCanClearFilters(true)
-    } else {
-      setCanClearFilters(false);
     }
   }
  

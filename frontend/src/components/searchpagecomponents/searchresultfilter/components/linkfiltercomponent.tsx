@@ -16,18 +16,21 @@ const LinkFilterComponent = ({ linkfilterprops }: linkprops) => {
         setLinkLessThanEqual(true);
         setLinkEqual(false);
         setLinkGreaterThanEqual(false);
+        setCanClearFilters(true)
     }
 
     const handleEqualClick = () => {
         setLinkLessThanEqual(false);
         setLinkEqual(true);
         setLinkGreaterThanEqual(false);
+        setCanClearFilters(true)
     }
 
     const handleGreaterThanClick = () => {
         setLinkLessThanEqual(false);
         setLinkEqual(false);
         setLinkGreaterThanEqual(true);
+        setCanClearFilters(true)
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +43,7 @@ const LinkFilterComponent = ({ linkfilterprops }: linkprops) => {
         }
         
         setLinkFilter(numericValue)
-        setCanClearFilters(numericValue !== null)
+        setCanClearFilters(true)
     }
 
     const linkSliderProps = {

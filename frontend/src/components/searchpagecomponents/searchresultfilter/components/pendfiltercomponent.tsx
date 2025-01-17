@@ -16,18 +16,21 @@ const PendFilterComponent = ({ pendfilterprops }: pendprops) => {
         setPendLessThanEqual(true);
         setPendEqual(false);
         setPendGreaterThanEqual(false);
+        setCanClearFilters(true)
     }
 
     const handleEqualClick = () => {
         setPendLessThanEqual(false);
         setPendEqual(true);
         setPendGreaterThanEqual(false);
+        setCanClearFilters(true)
     }
 
     const handleGreaterThanClick = () => {
         setPendLessThanEqual(false);
         setPendEqual(false);
         setPendGreaterThanEqual(true);
+        setCanClearFilters(true)
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +43,7 @@ const PendFilterComponent = ({ pendfilterprops }: pendprops) => {
         }
         
         setPendFilter(numericValue)
-        setCanClearFilters(numericValue !== null)
+        setCanClearFilters(true)
     }
 
     const pendSliderProps = {

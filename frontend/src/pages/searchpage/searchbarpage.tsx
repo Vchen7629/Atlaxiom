@@ -1,36 +1,23 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/Footer';
 import GridListViewComponent from '../../components/searchpagecomponents/searchbar/grid_or_list_view';
 import FilterCardComponent from '../../components/searchpagecomponents/searchresultfilter/FilterComponent';
 import SearchBarComponent from '../../components/searchpagecomponents/searchbar/searchbar';
 import ListViewSearchSuggestionsComponent from '../../components/searchpagecomponents/display/listviewsearchsuggestions';
-import { ApiCardData, SearchResCardData } from '../../components/searchpagecomponents/types/datastructuretypes';
+import { ApiCardData } from '../../components/searchpagecomponents/types/datastructuretypes';
 import GalleryViewSearchSuggestionsComponent from '../../components/searchpagecomponents/display/galleryviewsearchsuggestions';
-import { CardSet } from '../../components/searchpagecomponents/types/searchresultcomptypes';
 import ClearFilterButton from '../../components/searchpagecomponents/buttons/clearfilterbutton';
 import FilterButton from '../../components/searchpagecomponents/buttons/filterbutton';
 import PaginationComponent from '@/components/searchpagecomponents/pagination/pagination';
-import FoldingCube from '@/components/loadingcomponents/foldingcube';
-
-const SearchResultComponent = lazy(() => delayLoadTimer(import('./searchresults')))
-
-async function delayLoadTimer (promise: any) {
-  return new Promise(resolve => {
-    setTimeout(resolve, 1500);
-  }).then(() => promise);
-}
 
 const SearchBarPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [cardData, setCardData] = useState<ApiCardData[]>([]);
-  const [cardSets, setCardSets] = useState<CardSet[]>([]);
 
   const [currentPageListNamesArray, setCurrentPageListNamesArray] = useState<string[]>([]);
   const [currentPageGalleryNamesArray, setCurrentPageGalleryNamesArray] = useState<string[]>([]);
 
-  const [clickedOnCard, setClickedOnCard] = useState<boolean>(false);
-  const [selectedCardData, setSelectedCardData] = useState<SearchResCardData | null>(null);
   const [/*errorMessage*/, setErrorMessage] = useState<string>('');
   const [expandStatus, setExpandStatus] = useState<boolean>(true);
   const [filterActive, setFilterActive] = useState<boolean>(false);
@@ -183,17 +170,13 @@ const SearchBarPage = () => {
   ]);
 
   const gridlistviewprops = {
-    setListView,
-    listView,
-    setGalleryView,
-    galleryView,
-    setClickedOnCard,
+    listView, setListView,
+    galleryView, setGalleryView,
+
   };
 
   const searchbarprops = {
     searchTerm, setSearchTerm,
-    setClickedOnCard,
-    setSelectedCardData,
     setListCurrentPage,
     setGalleryCurrentPage,
     setErrorMessage,
@@ -220,21 +203,14 @@ const SearchBarPage = () => {
 
   const listviewprops = {
     searchTerm,
-    setSelectedCardData,
-    setClickedOnCard,
     currentPageListNamesArray,
     setErrorMessage,
   } 
 
   const galleryviewprops = {
     searchTerm,
-    cardData,
-    setSearchTerm,
-    setClickedOnCard,
     currentPageGalleryNamesArray,
-    setSelectedCardData,
     setErrorMessage,
-    cardSets, setCardSets
   } 
 
   const filterprops = {
@@ -285,16 +261,13 @@ const SearchBarPage = () => {
     searchTerm,
   }
 
-  const searchresultprops = { selectedCardData, cardSets, setCardSets }
-
 
   return (
     <main className="min-h-[100vh]">
       <div className="flex flex-col min-h-[120vh] bg-[hsl(var(--background1))] justify-between overflow-auto" >
         <Header/>
         <main className="flex flex-grow py-[15vh] items-start ">            
-          <div className={`flex flex-col ${expandStatus ? "w-[77.5%]" : "w-full"} ${selectedCardData ? "w-[100%]" : "w-[80%]"}`}>
-              {!clickedOnCard &&  (
+          <div className={`flex flex-col ${expandStatus ? "w-[77.5%]" : "w-full"}`}>
                 <main>
                   <div className="flex w-full items-center justify-between mb-[5vh]">
                     <div className="text-4xl text-goldenrod pl-8">
@@ -327,18 +300,10 @@ const SearchBarPage = () => {
                     </main>
                   )}
                 </main>       
-              )}
           </div>
           <div className={`fixed flex right-2 top-24 min-h-[80vh] ${expandStatus ? "w-[20.5%]" : "w-0 "}`}>
-            {!clickedOnCard &&  (
-              <FilterCardComponent filterprops={filterprops}/>
-            )}
-          </div>
-          {clickedOnCard && (
-            <Suspense fallback={<FoldingCube/>}>
-              <SearchResultComponent searchresultprops={searchresultprops}/>
-            </Suspense>
-          )}        
+            <FilterCardComponent filterprops={filterprops}/>
+          </div>      
         </main>   
         <Footer/>
       </div>

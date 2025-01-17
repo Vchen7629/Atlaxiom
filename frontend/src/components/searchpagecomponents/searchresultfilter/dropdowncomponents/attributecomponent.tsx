@@ -64,8 +64,6 @@ export function AttributeDropDownComponent({ attributedropdownprops }: attribute
     setAttributeType(newValue)
     if (newValue) {
       setCanClearFilters(true)
-    } else {
-      setCanClearFilters(false);
     }
   }
 

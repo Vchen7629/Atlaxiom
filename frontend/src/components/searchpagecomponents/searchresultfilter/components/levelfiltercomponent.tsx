@@ -16,18 +16,21 @@ const LevelFilterComponent = ({ levelfilterprops }: levelprops) => {
         setLessThanEqual(true);
         setEqual(false);
         setGreaterThanEqual(false);
+        setCanClearFilters(true);
     }
 
     const handleEqualClick = () => {
         setLessThanEqual(false);
         setEqual(true);
         setGreaterThanEqual(false);
+        setCanClearFilters(true);
     }
 
     const handleGreaterThanClick = () => {
         setLessThanEqual(false);
         setEqual(false);
         setGreaterThanEqual(true);
+        setCanClearFilters(true);
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +43,7 @@ const LevelFilterComponent = ({ levelfilterprops }: levelprops) => {
         }
         
         setLevelFilter(numericValue)
-        setCanClearFilters(numericValue !== null)
+        setCanClearFilters(true)
     }
 
     const levelSliderProps = {

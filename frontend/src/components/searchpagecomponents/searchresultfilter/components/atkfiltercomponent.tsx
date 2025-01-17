@@ -15,25 +15,28 @@ const AtkFilterComponent = ({ atkfilterprops }: atkprops) => {
         setAtkLessThanEqual(true);
         setAtkEqual(false);
         setAtkGreaterThanEqual(false);
+        setCanClearFilters(true)
     }
 
     const handleEqualClick = () => {
         setAtkLessThanEqual(false);
         setAtkEqual(true);
         setAtkGreaterThanEqual(false);
+        setCanClearFilters(true)
     }
 
     const handleGreaterThanClick = () => {
         setAtkLessThanEqual(false);
         setAtkEqual(false);
         setAtkGreaterThanEqual(true);
+        setCanClearFilters(true)
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         const numericValue = inputValue.trim() === '' ? null : parseFloat(inputValue);
         setAtkFilter(numericValue)
-        setCanClearFilters(numericValue !== null)
+        setCanClearFilters(true)
     }
 
     return (

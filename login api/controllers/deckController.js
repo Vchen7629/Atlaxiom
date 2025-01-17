@@ -64,10 +64,6 @@ const getAllDecksforUser = asyncHandler(async (req, res) => {
     }
 
     const alldecks = await Deck.find({ user_id: id})
-
-    if (!alldecks || alldecks.length === 0) {
-        return res.status(404).json({ message: 'Owned Decks not found for the user' });
-    }
     
     res.json({ id , ownedDecks: alldecks});
 })
