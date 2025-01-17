@@ -22,6 +22,7 @@ import { ArchetypeDropDownProps } from "../../types/dropdowntypes"
  
 export function ArchetypeDropDownComponent({ archetypeprops }: ArchetypeDropDownProps) {
   const {
+    setCanClearFilter,
     uniqueArchtype,
     archeTypeFilter, setArcheTypeFilter,
     setListCurrentPage,
@@ -29,6 +30,18 @@ export function ArchetypeDropDownComponent({ archetypeprops }: ArchetypeDropDown
   } = archetypeprops
 
   const [open, setOpen] = React.useState(false)
+
+  const handleClick = (newValue: string) => {
+    setArcheTypeFilter(newValue)
+    setListCurrentPage(1);
+    setGalleryCurrentPage(1);
+    setOpen(false);
+    if (newValue) {
+      setCanClearFilter(true)
+    } else {
+      setCanClearFilter(false);
+    }
+  }
  
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -37,18 +50,22 @@ export function ArchetypeDropDownComponent({ archetypeprops }: ArchetypeDropDown
           variant="cardcollection"
           role="combobox"
           aria-expanded={open}
-          className="w-[15vw] bg-transparent border-transparent text-[hsl(var(--text))] justify-between"
+          className="w-[15vw] border-transparent text-[hsl(var(--text))] justify-between"
         >
-          {archeTypeFilter ? (
-            <span className={`flex relative items-center left-1/4 justify-between w-fit px-2 py-1 bg-[hsl(var(--background3))] text-white rounded text-sm`}>
-              {uniqueArchtype.find((archetype) => archetype == archeTypeFilter)}
-            </span>
-          ) : (
-            <span className={`flex relative items-center left-1/5 justify-between w-fit px-2 py-1 bg-transparent rounded text-sm`}>
-                Select Card Archetype...
-            </span>
-          )}
-          <CaretSortIcon className="min-h-6 min-w-6 shrink-0" />
+          <div className="flex w-[15vw] items-center justify-center text-sm hover:text-[hsl(var(--background3))]">
+            {archeTypeFilter ? (
+              <div className="flex w-[12vw] justify-center">
+                <span className="w-fit px-2 py-1 bg-[hsl(var(--background3))] rounded text-[hsl(var(--text))]">
+                  {uniqueArchtype.find((archetype) => archetype == archeTypeFilter)}
+                </span>
+              </div>
+            ) : (
+              <span className="flex items-center w-full px-2 py-1 bg-transparent">
+                  Select Card Archetype...
+              </span>
+            )}
+            <CaretSortIcon className="min-h-6 min-w-6 shrink-0" />
+          </div>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[15vw] p-0 relative top-[-42px]">
@@ -62,12 +79,7 @@ export function ArchetypeDropDownComponent({ archetypeprops }: ArchetypeDropDown
                   key={archetype}
                   value={archetype}
                   className="text-[hsl(var(--text))] bg-transparent"
-                  onSelect={(currentValue) => {
-                    setArcheTypeFilter(currentValue === archeTypeFilter ? "" : currentValue)
-                    setOpen(false)
-                    setListCurrentPage(1);
-                    setGalleryCurrentPage(1);
-                  }}
+                  onSelect={(currentValue) => {handleClick(currentValue === archeTypeFilter ? "" : currentValue)}}
                 >
                   {archetype}
                   <CheckIcon

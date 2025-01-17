@@ -114,14 +114,14 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
                     {totalListPages > 1 && (
                         <div className="flex w-full justify-between ">
                             <section className="flex items-center h-full space-x-2"> 
-                                <span className="text-lg">Page</span> 
+                                <span className="text-lg text-[hsl(var(--text))]">Page</span> 
                                 <input
                                     className="bg-transparent focus:outline-none w-10 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]"
                                     placeholder={String(currentListPage)}
                                     value={listpage}
                                     onChange={handleListInputChange}
                                 />
-                                <span className="text-lg">of {totalListPages}</span>
+                                <span className="text-lg text-[hsl(var(--text))]">of {totalListPages}</span>
                                 {listerr && (
                                     <span className="text-red-500">{listerr}</span>
                                 )}

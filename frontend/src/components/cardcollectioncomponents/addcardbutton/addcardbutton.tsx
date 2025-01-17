@@ -70,10 +70,12 @@ export const AddCardButton = ({ userId }: any) => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         setSearchTerm(inputValue);
+        setCurrentPage(1);
     };
 
     const handleClearClick = () => {
         setSearchTerm('');
+        setCurrentPage(1);
     };
 
     const handleCardClick = (name: string) => {
@@ -106,20 +108,22 @@ export const AddCardButton = ({ userId }: any) => {
                 <FontAwesomeIcon className="mr-1" icon={faPlusCircle}/>Add Card
             </Button>
         </AlertDialogTrigger>
-        <AlertDialogContent className="bg-[hsl(var(--background1))] min-w-[65vw] h-[70vh] border-transparent ">
+        <AlertDialogContent className="bg-[hsl(var(--background1))] min-w-[65vw] h-[55vh] max-h-[70vh] flex-grow border-transparent ">
           <AlertDialogHeader>
             <div className="flex justify-between items-center w-full">
                 <AlertDialogTitle className="text-[hsl(var(--text))]">Add Card to collection</AlertDialogTitle>
                 <AlertDialogCancel 
-                    className="bg-footer shadow-custom border-transparent hover:bg-footer hover:text-gold"
+                    className="bg-transparent shadow-custom border-transparent text-[hsl(var(--text))] hover:text-[hsl(var(--background3))]"
                     onClick={handleBackClick}
                 >
                     Back
                 </AlertDialogCancel>
             </div>
-                <AlertDialogDescription className="flex flex-col items-center pt-4">
+                <AlertDialogDescription className="flex flex-col  items-center justify-center pt-4">
                 {selectedcard ? (
-                    <SelectedCardComponent selectedcardprops={selectedcardprops}/>
+                    <div className="flex">
+                        <SelectedCardComponent selectedcardprops={selectedcardprops}/>
+                    </div>
                 ) : (
                     <>
                         <section className="flex w-[90%] h-[50px] pl-5 relative border-[1px] border-gray-400 justify-start text-[hsl(var(--text))]">                      
@@ -160,7 +164,7 @@ export const AddCardButton = ({ userId }: any) => {
                                     </div>
                                 ))
                             ) : loading ? (
-                                <div className="flex min-h-[40vh] justify-center items-center text-3xl text-gray-400 font-black">
+                                <div className="flex h-[100%] justify-center items-center text-3xl text-gray-400 font-black">
                                     <span>Loading Card Data...</span>
                                 </div>
                             ) : loadErr ? (

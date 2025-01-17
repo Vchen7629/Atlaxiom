@@ -16,16 +16,16 @@ const MyCardsSearchbarComponent = ({ searchbarprops }: searchbarprops) => {
     }
 
     return (
-        <div className="relative w-full flex h-12 items-center rounded-md bg-footer">
-            <FontAwesomeIcon icon={faSearch} className="text-xl w-[7%]"/>
+        <div className="relative w-full flex h-12 border-2 border-[hsl(var(text))] items-center rounded-md bg-[hsl(var(--background1))]">
+            <FontAwesomeIcon icon={faSearch} className="text-xl text-[hsl(var(--text))] mx-[3%]"/>
             <input 
-                className="w-[85%] bg-transparent h-full outline-none"
+                className="w-[85%] bg-transparent text-[hsl(var(--text))] h-full outline-none"
                 type="text"
                 value={searchTerm}
                 onChange={handleSearchTerm}
                 placeholder="Search Cards... "
             />
-            <button className="curser-pointer w-[8%] h-full text-gray-400 bg-transparent border-transparent fa-xl" onClick={handleClearClick}>
+            <button className="curser-pointer w-[10%] h-full text-gray-400 align-right border-transparent fa-xl" onClick={handleClearClick}>
                 <FontAwesomeIcon icon={faTimes}/>
             </button>
         </div>  

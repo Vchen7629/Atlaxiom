@@ -1,22 +1,56 @@
 export type OwnedCardsFilterProps = {
     filterProps: {
         ownedCards: any;
-        searchTerm: string;
-        setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-        setCardTypeFilter: React.Dispatch<React.SetStateAction<string>>;
-        isMonsterFilterActive: boolean;
-        setIsMonsterFilterActive: React.Dispatch<React.SetStateAction<boolean>>;
-        isSpellFilterActive: boolean;
-        setIsSpellFilterActive: React.Dispatch<React.SetStateAction<boolean>>;
-        isTrapFilterActive: boolean;
-        setIsTrapFilterActive: React.Dispatch<React.SetStateAction<boolean>>;
-        subTypeFilter: string;
-        setSubTypeFilter: React.Dispatch<React.SetStateAction<string>>;
+        monsterTypeFilter: string;
+        setMonsterTypeFilter: React.Dispatch<React.SetStateAction<string>>;
+        spellTypeFilter: string;
+        setSpellTypeFilter: React.Dispatch<React.SetStateAction<string>>;
+        trapTypeFilter: string;
+        setTrapTypeFilter: React.Dispatch<React.SetStateAction<string>>;
         attributeFilter: string;
         setAttributeFilter: React.Dispatch<React.SetStateAction<string>>;
         archeTypeFilter: string;
         setArcheTypeFilter: React.Dispatch<React.SetStateAction<string>>;
+        levelFilter: number | null;
         setLevelFilter: React.Dispatch<React.SetStateAction<number | null>>;
+        levelLessThanEqual: boolean;
+        setLevelLessThanEqual: React.Dispatch<React.SetStateAction<boolean>>;
+        levelEqual: boolean;
+        setLevelEqual: React.Dispatch<React.SetStateAction<boolean>>;
+        levelGreaterThanEqual: boolean;
+        setLevelGreaterThanEqual: React.Dispatch<React.SetStateAction<boolean>>
+        pendFilter: number | null;
+        setPendFilter: React.Dispatch<React.SetStateAction<number | null>>;
+        pendLessThanEqual: boolean;
+        setPendLessThanEqual: React.Dispatch<React.SetStateAction<boolean>>;
+        pendEqual: boolean;
+        setPendEqual: React.Dispatch<React.SetStateAction<boolean>>;
+        pendGreaterThanEqual: boolean;
+        setPendGreaterThanEqual: React.Dispatch<React.SetStateAction<boolean>>
+        linkFilter: number | null;
+        setLinkFilter: React.Dispatch<React.SetStateAction<number | null>>;
+        linkLessThanEqual: boolean;
+        setLinkLessThanEqual: React.Dispatch<React.SetStateAction<boolean>>;
+        linkEqual: boolean;
+        setLinkEqual: React.Dispatch<React.SetStateAction<boolean>>;
+        linkGreaterThanEqual: boolean;
+        setLinkGreaterThanEqual: React.Dispatch<React.SetStateAction<boolean>>
+        atkFilter: number | null
+        setAtkFilter: React.Dispatch<React.SetStateAction<number | null>>
+        atkLessThanEqual: boolean;
+        setAtkLessThanEqual: React.Dispatch<React.SetStateAction<boolean>>
+        atkEqual: boolean;
+        setAtkEqual: React.Dispatch<React.SetStateAction<boolean>>
+        atkGreaterThanEqual: boolean;
+        setAtkGreaterThanEqual: React.Dispatch<React.SetStateAction<boolean>>
+        defFilter: number | null
+        setDefFilter: React.Dispatch<React.SetStateAction<number | null>>
+        defLessThanEqual: boolean;
+        setDefLessThanEqual: React.Dispatch<React.SetStateAction<boolean>>
+        defEqual: boolean;
+        setDefEqual: React.Dispatch<React.SetStateAction<boolean>>
+        defGreaterThanEqual: boolean;
+        setDefGreaterThanEqual: React.Dispatch<React.SetStateAction<boolean>>
         setFilter: string;
         setSetFilter: React.Dispatch<React.SetStateAction<string>>;
         rarityFilter: string;

@@ -26,8 +26,22 @@ export function CardSetDropDownComponent({ setprops }: CardSetDropDownProps) {
     setFilter, setSetFilter,
     setListCurrentPage,
     setGalleryCurrentPage,
+    setCanClearFilter
   } = setprops
+
   const [open, setOpen] = React.useState(false)
+
+  const handleClick = (newValue: string) => {
+    setSetFilter(newValue)
+    setListCurrentPage(1);
+    setGalleryCurrentPage(1);
+    setOpen(false);
+    if (newValue) {
+      setCanClearFilter(true)
+    } else {
+      setCanClearFilter(false);
+    }
+  }
  
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -38,18 +52,20 @@ export function CardSetDropDownComponent({ setprops }: CardSetDropDownProps) {
           aria-expanded={open}
           className="w-[15vw] bg-transparent border-transparent text-[hsl(var(--text))] justify-between"
         >
-          {setFilter ? (
-            <div className="flex w-full items-center justify-center">
-              <span className={`flex items-center justify-between w-fit px-2 py-1 bg-[hsl(var(--background3))] rounded text-[12px]`}>
-                  {uniqueSet.find((sets) => sets === setFilter) }
+          <div className="flex w-[15vw] items-center justify-center text-sm hover:text-[hsl(var(--background3))]">
+            {setFilter ? (
+              <div className="flex w-full items-center justify-center">
+                <span className="w-fit px-2 py-1 bg-[hsl(var(--background3))] rounded text-[hsl(var(--text))]">
+                    {uniqueSet.find((sets) => sets === setFilter) }
+                </span>
+              </div>
+            ) : (
+              <span className="flex items-center w-full px-2 py-1 bg-transparent">
+                  Select Card Set...
               </span>
-            </div>
-          ) : (
-            <span className={`flex relative items-center justify-between w-[100%] px-2 py-1 bg-transparent rounded text-sm`}>
-                Select Card Set...
-            </span>
-          )}
-          <CaretSortIcon className="min-h-6 min-w-6 shrink-0" />
+            )}
+            <CaretSortIcon className="min-h-6 min-w-6 shrink-0" />
+          </div>
         </Button>
         
       </PopoverTrigger>
@@ -64,12 +80,7 @@ export function CardSetDropDownComponent({ setprops }: CardSetDropDownProps) {
                   key={sets}
                   value={sets}
                   className="text-[hsl(var(--text))] bg-transparent"
-                  onSelect={(currentValue) => {
-                    setSetFilter(currentValue === setFilter ? "" : currentValue);
-                    setOpen(false);
-                    setListCurrentPage(1);
-                    setGalleryCurrentPage(1);
-                  }}
+                  onSelect={(currentValue) => {handleClick(currentValue === setFilter ? "" : currentValue)}}
                 > 
                   {sets}
                   <CheckIcon

@@ -54,8 +54,6 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
       }, new Set<string>())
     ): [];
 
-    //console.log(uniqueSetNames);
-
     const [levelDropdown, setLevelDropdown] = useState(false);
     const [pendDropdown, setPendDropdown] = useState(false);
     const [linkDropdown, setLinkDropdown] = useState(false);

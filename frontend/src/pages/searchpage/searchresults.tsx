@@ -23,7 +23,7 @@ const SearchResults = ({ searchresultprops }: SearchResult) => {
     return (
         <main className="flex flex-col w-[100vw] items-center">
             <div className="flex w-[84%] items-center">
-                <BreadcrumbSearchResult/>
+              <BreadcrumbSearchResult/>
             </div>
             <main className="flex w-[100vw]">
                 <div className='flex flex-col w-[15vw] mx-[5%] justify-center space-y-[4vh]'>

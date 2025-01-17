@@ -28,17 +28,38 @@ const UserOwnedCardPage = () => {
   const [filterActive, setFilterActive] = useState<boolean>(true);
   const [statisticspage, setStatisticsPage] = useState<boolean>(false);
 
-  const [cardTypeFilter, setCardTypeFilter] = useState<string>('');
-  const [isMonsterFilterActive, setIsMonsterFilterActive] = useState<boolean>(false);
-  const [isSpellFilterActive, setIsSpellFilterActive] = useState<boolean>(false);
-  const [isTrapFilterActive, setIsTrapFilterActive] = useState<boolean>(false);
-
-  const [subTypeFilter, setSubTypeFilter] = useState<string>('');
+  const [monsterTypeFilter, setMonsterTypeFilter] = useState<string>('');
+  const [spellTypeFilter, setSpellTypeFilter] = useState<string>('');
+  const [trapTypeFilter, setTrapTypeFilter] = useState<string>('');
   const [attributeFilter, setAttributeFilter] = useState<string>('');
   const [archeTypeFilter, setArcheTypeFilter] = useState<string>('');
   const [setFilter, setSetFilter] = useState<string>('');
-  const [levelFilter, setLevelFilter] = useState<number | null>(0);
   const [rarityFilter, setRarityFilter] = useState<string>('');
+
+  const [levelFilter, setLevelFilter] = useState<number | null>(0);
+  const [levelLessThanEqual, setLevelLessThanEqual] = useState<boolean>(false);
+  const [levelEqual, setLevelEqual] = useState<boolean>(true);
+  const [levelGreaterThanEqual, setLevelGreaterThanEqual] = useState<boolean>(false);
+
+  const [pendFilter, setPendFilter] = useState<number | null>(0);
+  const [pendLessThanEqual, setPendLessThanEqual] = useState<boolean>(false);
+  const [pendEqual, setPendEqual] = useState<boolean>(true);
+  const [pendGreaterThanEqual, setPendGreaterThanEqual] = useState<boolean>(false);
+
+  const [linkFilter, setLinkFilter] = useState<number | null>(0);
+  const [linkLessThanEqual, setLinkLessThanEqual] = useState<boolean>(false);
+  const [linkEqual, setLinkEqual] = useState<boolean>(true);
+  const [linkGreaterThanEqual, setLinkGreaterThanEqual] = useState<boolean>(false);
+
+  const [atkFilter, setAtkFilter] = useState<number | null>(0);
+  const [atkLessThanEqual, setAtkLessThanEqual] = useState<boolean>(false);
+  const [atkEqual, setAtkEqual] = useState<boolean>(true);
+  const [atkGreaterThanEqual, setAtkGreaterThanEqual] = useState<boolean>(false);
+
+  const [defFilter, setDefFilter] = useState<number | null>(0);
+  const [defLessThanEqual, setDefLessThanEqual] = useState<boolean>(false);
+  const [defEqual, setDefEqual] = useState<boolean>(true);
+  const [defGreaterThanEqual, setDefGreaterThanEqual] = useState<boolean>(false);
 
   const [listView, setListView] = useState<boolean>(true);
   const [galleryView, setGalleryView] = useState<boolean>(false);
@@ -73,41 +94,81 @@ const UserOwnedCardPage = () => {
   console.log(cardsToDisplay)
             
   const filteredCards = useMemo(() => {
-        return cardsToDisplay.filter((card): card is Card => {
-            if (!card || !card.card_name) return false;
-            const matchesSearchTerm = card.card_name.toLowerCase().includes(searchTerm.toLowerCase());
-            const matchesTypeFilter = cardTypeFilter ? card.type?.toLowerCase().includes(cardTypeFilter) : true;
-            const matchesSubTypeFilter = subTypeFilter ? card.race?.toLowerCase().trim() === subTypeFilter.toLowerCase().trim() : true;
-            const matchesAttributeFilter = attributeFilter ? card.attribute?.toLowerCase().trim() === attributeFilter.toLowerCase().trim() : true;
-            const matchesArcheTypeFilter = archeTypeFilter ? card.archetype?.toLowerCase().trim() === archeTypeFilter.toLowerCase().trim() : true;
-            const matchesLevelFilter = levelFilter ? card.level === levelFilter : true;
-            const matchesSetFilter = setFilter ? card.set_name?.toLowerCase().trim() === setFilter.toLowerCase().trim() : true;
-            const matchesRarityFilter = rarityFilter ? card.rarity?.toLowerCase().trim() === rarityFilter.toLowerCase().trim() : true;
+    return cardsToDisplay.filter((card): card is Card => {
+      if (!card || !card.card_name) return false;
+      const matchesSearchTerm = card.card_name.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesMonsterTypeFilter = monsterTypeFilter ? card.race?.toLowerCase().trim() === monsterTypeFilter.toLowerCase().trim() : true;
+      const matchesSpellTypeFilter = spellTypeFilter ? card.race?.toLowerCase().trim() === spellTypeFilter.toLowerCase().trim() : true;
+      const matchesTrapTypeFilter = trapTypeFilter ? card.race?.toLowerCase().trim() === trapTypeFilter.toLowerCase().trim() : true;      
+      const matchesAttributeFilter = attributeFilter ? card.attribute?.toLowerCase().trim() === attributeFilter.toLowerCase().trim() : true;
+      const matchesArcheTypeFilter = archeTypeFilter ? card.archetype?.toLowerCase().trim() === archeTypeFilter.toLowerCase().trim() : true;
+      
+      const matchesLevelFilter = levelFilter ? 
+        (levelLessThanEqual && card.level !== undefined && card.level <= levelFilter ) || 
+        (levelEqual && card.level !== undefined && card.level === levelFilter) ||
+        (levelGreaterThanEqual && card.level !== undefined && card.level >= levelFilter)
+      : true;
+
+      const matchesPendFilter = pendFilter ? 
+        (pendLessThanEqual && card.scale !== undefined && card.scale <= pendFilter) ||
+        (pendEqual && card.scale !== undefined && card.scale === pendFilter) ||
+        (pendGreaterThanEqual && card.scale !== undefined && card.scale >= pendFilter)
+      : true;
+
+      const matchesLinkFilter = linkFilter ? 
+        (linkLessThanEqual && card.linkval !== undefined && card.linkval <= linkFilter) ||
+        (linkEqual && card.linkval !== undefined && card.linkval === linkFilter ) ||
+        (linkGreaterThanEqual && card.linkval !== undefined && card.linkval >= linkFilter)
+      : true;
+
+      const matchesAtkFilter = atkFilter ?
+        (atkLessThanEqual && card.atk !== undefined && card.atk <= atkFilter) ||
+        (atkEqual && card.atk !== undefined && card.atk === atkFilter) ||
+        (atkGreaterThanEqual && card.atk !== undefined && card.atk >= atkFilter) 
+      : true;
+  
+      const matchesDefFilter = defFilter ?
+        (defLessThanEqual && card.def !== undefined && card.def <= defFilter) ||
+        (defEqual && card.def !== undefined && card.def === defFilter) ||
+        (defGreaterThanEqual && card.def !== undefined && card.def >= defFilter) 
+      : true;
+
+      const matchesSetFilter = setFilter ? card.set_name?.toLowerCase().trim() === setFilter.toLowerCase().trim() : true;
+      const matchesRarityFilter = rarityFilter ? card.rarity?.toLowerCase().trim() === rarityFilter.toLowerCase().trim() : true;
         
-            return (
-                !! matchesSearchTerm &&
-                !! matchesTypeFilter &&
-                !! matchesSubTypeFilter &&
-                !! matchesAttributeFilter &&
-                !! matchesArcheTypeFilter &&
-                !! matchesLevelFilter &&
-                !! matchesSetFilter &&
-                !! matchesRarityFilter
-            );
-                
-        });
-    }, [
-        ownedCards,
-        cardsToDisplay,
-        searchTerm,
-        cardTypeFilter,
-        subTypeFilter,
-        attributeFilter,
-        archeTypeFilter,
-        levelFilter,
-        setFilter,
-        rarityFilter,
-    ]);
+      return (
+        !! matchesSearchTerm &&
+        !! matchesMonsterTypeFilter &&
+        !! matchesSpellTypeFilter &&
+        !! matchesTrapTypeFilter &&
+        !! matchesAttributeFilter &&
+        !! matchesArcheTypeFilter &&
+        !! matchesLevelFilter &&
+        !! matchesPendFilter &&
+        !! matchesLinkFilter &&
+        !! matchesAtkFilter && 
+        !! matchesDefFilter &&
+        !! matchesSetFilter &&
+        !! matchesRarityFilter
+      );
+    });
+  }, [
+    ownedCards,
+    cardsToDisplay,
+    searchTerm,
+    monsterTypeFilter,
+    spellTypeFilter,
+    trapTypeFilter,
+    attributeFilter,
+    archeTypeFilter,
+    levelFilter, levelLessThanEqual, levelEqual, levelGreaterThanEqual,
+    pendFilter, pendLessThanEqual, pendEqual, pendGreaterThanEqual,
+    linkFilter, linkLessThanEqual, linkEqual, linkGreaterThanEqual,
+    atkFilter, atkLessThanEqual, atkEqual, atkGreaterThanEqual,
+    defFilter, defLessThanEqual, defEqual, defGreaterThanEqual,
+    setFilter,
+    rarityFilter,
+  ]);
 
   const handleClickFilter = () => {
     setExpandStatus(!expandStatus)
@@ -136,15 +197,31 @@ const UserOwnedCardPage = () => {
   const filterProps = {
     ownedCards,
     expandStatus,
-    searchTerm, setSearchTerm,
-    setCardTypeFilter,
-    isMonsterFilterActive, setIsMonsterFilterActive, 
-    setIsSpellFilterActive, isSpellFilterActive,
-    isTrapFilterActive, setIsTrapFilterActive,
-    subTypeFilter, setSubTypeFilter,
+    monsterTypeFilter, setMonsterTypeFilter,
+    spellTypeFilter, setSpellTypeFilter,
+    trapTypeFilter, setTrapTypeFilter,
     attributeFilter, setAttributeFilter,
     archeTypeFilter, setArcheTypeFilter,
-    setLevelFilter,
+    levelFilter, setLevelFilter, 
+    levelLessThanEqual, setLevelLessThanEqual, 
+    levelEqual, setLevelEqual, 
+    levelGreaterThanEqual, setLevelGreaterThanEqual,
+    pendFilter, setPendFilter, 
+    pendLessThanEqual, setPendLessThanEqual, 
+    pendEqual, setPendEqual, 
+    pendGreaterThanEqual, setPendGreaterThanEqual,
+    linkFilter, setLinkFilter, 
+    linkLessThanEqual, setLinkLessThanEqual, 
+    linkEqual, setLinkEqual, 
+    linkGreaterThanEqual, setLinkGreaterThanEqual,
+    atkFilter, setAtkFilter,
+    atkLessThanEqual, setAtkLessThanEqual,
+    atkEqual, setAtkEqual,
+    atkGreaterThanEqual, setAtkGreaterThanEqual,
+    defFilter, setDefFilter,
+    defLessThanEqual, setDefLessThanEqual,
+    defEqual, setDefEqual,
+    defGreaterThanEqual, setDefGreaterThanEqual,
     setFilter, setSetFilter,
     rarityFilter, setRarityFilter,
     filterpage, setFilterPage,
@@ -210,7 +287,7 @@ const UserOwnedCardPage = () => {
                           <PaginationComponent paginationprops={paginationprops} />                                           
                         </main>
                         
-                        <div className={`flex flex-col h-fit ${expandStatus ? "w-[24%] border-gray-600 border-2" : "w-0"} items-center bg-[hsl(var(--background4))] rounded-xl py-8`}>
+                        <div className={`flex flex-col h-fit ${expandStatus ? "w-[24%] border-gray-600 border-2" : "w-0"} items-center bg-[hsl(var(--ownedcardcollection))] rounded-xl py-8`}>
                             {filterpage && (
                               <FilterOwnedCards filterProps={filterProps}/>
                             )}
@@ -228,7 +305,7 @@ const UserOwnedCardPage = () => {
                             <GalleryViewCardDisplayComponent displaygalleryprops={displaygalleryprops}/>                                           
                           </main>
                           
-                          <div className={`flex flex-col ${expandStatus ? "w-[24%] border-gray-600 border-2" : "w-0"} items-center bg-[hsl(var(--background4))] rounded-3xl pt-8`}>
+                          <div className={`flex flex-col h-fit ${expandStatus ? "w-[24%] border-gray-600 border-2" : "w-0"} items-center bg-[hsl(var(--ownedcardcollection))] rounded-3xl py-8`}>
                               {filterpage && (
                                 <FilterOwnedCards filterProps={filterProps}/>
                               )}

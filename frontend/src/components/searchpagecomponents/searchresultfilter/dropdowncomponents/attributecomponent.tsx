@@ -60,6 +60,7 @@ export function AttributeDropDownComponent({ attributedropdownprops }: attribute
   } = attributedropdownprops
 
   const handleClick = (newValue: string) => {
+    setOpen(false)
     setAttributeType(newValue)
     if (newValue) {
       setCanClearFilters(true)
@@ -105,13 +106,8 @@ export function AttributeDropDownComponent({ attributedropdownprops }: attribute
                   key={type.attributeType}
                   value={type.attributeType}
                   className="text-[hsl(var(--text))] "
-                  onSelect={(currentValue) => {
-                    const newValue = currentValue === attributeType ? "" : currentValue
-                    handleClick(newValue)
-                    setOpen(false)
-                  }}
+                  onSelect={(currentValue) => {handleClick(currentValue === attributeType ? "" : currentValue)}}
                 > 
-                 
                   {type.label}
                   <CheckIcon
                     className={cn(

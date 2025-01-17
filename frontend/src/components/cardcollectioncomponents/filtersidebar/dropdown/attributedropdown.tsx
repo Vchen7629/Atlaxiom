@@ -22,13 +22,26 @@ import { AttributeDropDownProps } from "../../types/dropdowntypes"
  
 export function AttributeDropDownComponent({ attributeprops }: AttributeDropDownProps) {
   const {
-      uniqueAttribute,
-      attributeFilter, setAttributeFilter,
-      setListCurrentPage,
-      setGalleryCurrentPage,
+    setCanClearFilter,
+    uniqueAttribute,
+    attributeFilter, setAttributeFilter,
+    setListCurrentPage,
+    setGalleryCurrentPage,
   } = attributeprops
 
   const [open, setOpen] = React.useState(false)
+
+  const handleClick = (newValue: string) => {
+    setAttributeFilter(newValue)
+    setListCurrentPage(1);
+    setGalleryCurrentPage(1);
+    setOpen(false);
+    if (newValue) {
+      setCanClearFilter(true)
+    } else {
+      setCanClearFilter(false);
+    }
+  }
  
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -39,16 +52,20 @@ export function AttributeDropDownComponent({ attributeprops }: AttributeDropDown
           aria-expanded={open}
           className="w-[15vw] bg-transparent border-transparent text-[hsl(var(--text))] justify-between"
         >
-          {attributeFilter ? (
-            <span className={`flex relative items-center left-1/4 justify-between w-fit px-2 py-1 bg-[hsl(var(--background3))] text-white rounded text-sm`}>
-              {uniqueAttribute.find((attribute) => attribute === attributeFilter)}
-            </span>
-          ) : (
-            <span className={`flex relative items-center left-1/5 justify-between w-fit px-2 py-1 bg-transparent rounded text-sm`}>
-                Select Card Attribute...
-            </span>
-          )}
-          <CaretSortIcon className="min-h-6 min-w-6 shrink-0" />
+          <div className="flex w-[15vw] items-center justify-center text-sm hover:text-[hsl(var(--background3))]">
+            {attributeFilter ? (
+              <div className="flex w-[12vw] justify-center">
+                <span className="w-fit px-2 py-1 bg-[hsl(var(--background3))] rounded text-[hsl(var(--text))]">
+                  {uniqueAttribute.find((attribute) => attribute === attributeFilter)}
+                </span>
+              </div>
+            ) : (
+              <span className="flex items-center w-full px-2 py-1 bg-transparent">
+                  Select Card Attribute...
+              </span>
+            )}
+            <CaretSortIcon className="min-h-6 min-w-6 shrink-0" />
+          </div>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[15vw] p-0 relative top-[-42px]">
@@ -62,12 +79,7 @@ export function AttributeDropDownComponent({ attributeprops }: AttributeDropDown
                   key={attribute}
                   value={attribute}
                   className="text-[hsl(var(--text))] bg-transparent"
-                  onSelect={(currentValue) => {
-                    setAttributeFilter(currentValue === attributeFilter ? "" : currentValue)
-                    setOpen(false)
-                    setListCurrentPage(1);
-                    setGalleryCurrentPage(1);
-                  }}
+                  onSelect={(currentValue) => {handleClick(currentValue === attributeFilter ? "" : currentValue)}}
                 >
                   {attribute}
                   <CheckIcon
