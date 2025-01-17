@@ -91,6 +91,7 @@ export type RarityDropDownProps = {
 export interface LevelSliderProps extends SliderProps {
     levelprops: {
         setCanClearFilter: React.Dispatch<React.SetStateAction<boolean>>
+        levelFilter: number | null;
         setLevelFilter: React.Dispatch<React.SetStateAction<number | null>>
         setListCurrentPage: React.Dispatch<React.SetStateAction<number>>
         setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>
@@ -100,6 +101,7 @@ export interface LevelSliderProps extends SliderProps {
 export interface PendSliderProps extends SliderProps {
     pendprops: {
         setCanClearFilter: React.Dispatch<React.SetStateAction<boolean>>
+        pendFilter: number | null;
         setPendFilter: React.Dispatch<React.SetStateAction<number | null>>
         setListCurrentPage: React.Dispatch<React.SetStateAction<number>>
         setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>
@@ -109,6 +111,7 @@ export interface PendSliderProps extends SliderProps {
 export interface LinkSliderProps extends SliderProps {
     linkprops: {
         setCanClearFilter: React.Dispatch<React.SetStateAction<boolean>>
+        linkFilter: number | null;
         setLinkFilter: React.Dispatch<React.SetStateAction<number | null>>
         setListCurrentPage: React.Dispatch<React.SetStateAction<number>>
         setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>

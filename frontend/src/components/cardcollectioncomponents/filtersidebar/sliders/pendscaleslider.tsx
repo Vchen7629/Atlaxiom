@@ -1,20 +1,16 @@
 import { cn } from "@/lib/utils"
 import { Slider } from "@/components/ui/slider"
-import { useState } from "react"
 import { PendSliderProps } from "../../types/dropdowntypes"
 
 export function PendScaleSliderComponent({ pendprops, className, ...props }: PendSliderProps) {
   const {
-    setCanClearFilter,
+    pendFilter, setCanClearFilter,
     setPendFilter,
     setListCurrentPage,
     setGalleryCurrentPage,
   } = pendprops 
-  
-  const [value, setValue] = useState([1])
 
   const handleSliderChange = (newValue: number[]) => {
-    setValue(newValue)
     setPendFilter(newValue[0])
     setListCurrentPage(1);
     setGalleryCurrentPage(1);
@@ -24,7 +20,7 @@ export function PendScaleSliderComponent({ pendprops, className, ...props }: Pen
   return (
     <div className="flex w-[94%]">
       <Slider
-        value={value}
+        value={[pendFilter ?? 1]}
         onValueChange={handleSliderChange}
         defaultValue={[1]}
         max={13}
@@ -33,7 +29,7 @@ export function PendScaleSliderComponent({ pendprops, className, ...props }: Pen
         {...props}
       />
       <span className="px-2 flex items-center justify-center rounded-lg bg-[hsl(var(--atkdefcomponent))] text-[hsl(var(--text))]">
-        {value[0]}
+        {pendFilter ?? 1}
       </span>
     </div>
   )

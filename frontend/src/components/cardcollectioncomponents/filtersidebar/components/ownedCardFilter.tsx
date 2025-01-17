@@ -23,9 +23,9 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         trapTypeFilter, setTrapTypeFilter,
         attributeFilter, setAttributeFilter,
         archeTypeFilter, setArcheTypeFilter,
-        setLevelFilter,
-        setPendFilter,
-        setLinkFilter,
+        levelFilter,setLevelFilter,
+        pendFilter, setPendFilter,
+        linkFilter, setLinkFilter,
         setFilter, setSetFilter,
         rarityFilter, setRarityFilter,
         filterpage, setFilterPage,
@@ -148,21 +148,21 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
     }
 
     const levelprops = {
-        setLevelFilter,
+        levelFilter, setLevelFilter,
         setListCurrentPage,
         setGalleryCurrentPage,
         setCanClearFilter
     }
 
     const pendprops = {
-        setPendFilter,
+        pendFilter, setPendFilter,
         setListCurrentPage,
         setGalleryCurrentPage,
         setCanClearFilter
     }
 
     const linkprops = {
-        setLinkFilter,
+        linkFilter, setLinkFilter,
         setListCurrentPage,
         setGalleryCurrentPage,
         setCanClearFilter
@@ -190,16 +190,16 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
                         </div>
                     </div>
                 </section>
-                <section className="flex flex-col w-[92%] items-start space-y-[3%]">
+                <section className="flex flex-col w-[92%] pl-2 items-center  space-y-[3%]">
                     <div className="flex w-full items-center">
                         <div className="flex h-full w-[7vw] text-sm font-black items-center text-[hsl(var(--text))] ">Monster Type:</div>
                         <div><MonsterTypeDropDownComponent monstertypeprops={monstertypeprops}/></div>
                     </div>
-                    <div className="flex w-full items-center mt-[5%]">
+                    <div className="flex w-full items-center">
                         <div className="flex h-full w-[7vw] text-sm font-black items-center text-[hsl(var(--text))] ">Spell Type:</div>
                         <div><SpellTypeDropDownComponent spelltypeprops={spelltypeprops}/></div>
                     </div>
-                    <div className="flex w-full items-center mt-[5%]">
+                    <div className="flex w-full items-center">
                         <div className="flex h-full w-[7vw] text-sm font-black items-center text-[hsl(var(--text))] ">Trap Type:</div>
                         <div><TrapTypeDropDownComponent traptypeprops={traptypeprops}/></div>
                     </div>
@@ -212,15 +212,15 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
                         <ArchetypeDropDownComponent archetypeprops={archetypeprops}/>
                     </div>
                     <div className="flex w-full items-center">
-                        <div className="flex h-full w-[10vw] text-sm  items-center font-black text-[hsl(var(--text))]">Card Level:</div>
+                        <div className="flex h-full w-[7vw] text-sm  items-center font-black text-[hsl(var(--text))]">Card Level:</div>
                         <div className="w-[80%]"><LevelSliderComponent levelprops={levelprops}/></div>
                     </div>
                     <div className="flex w-full items-center">
-                        <div className="flex h-full w-[10vw] text-sm  items-center font-black text-[hsl(var(--text))]">Pend Scale:</div>
+                        <div className="flex h-full w-[7vw] text-sm  items-center font-black text-[hsl(var(--text))]">Pend Scale:</div>
                         <div className="w-[80%]"><PendScaleSliderComponent pendprops={pendprops}/></div>
                     </div>
                     <div className="flex w-full items-center">
-                        <div className="flex h-full w-[10vw] text-sm  items-center font-black text-[hsl(var(--text))]">Pend Scale:</div>
+                        <div className="flex h-full w-[7vw] text-sm  items-center font-black text-[hsl(var(--text))]">Pend Scale:</div>
                         <div className="w-[80%]"><LinkScaleSliderComponent linkprops={linkprops}/></div>
                     </div>
                     <div className="flex w-full items-center">

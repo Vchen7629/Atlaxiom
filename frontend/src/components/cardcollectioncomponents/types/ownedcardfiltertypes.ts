@@ -11,8 +11,11 @@ export type OwnedCardsFilterProps = {
         setAttributeFilter: React.Dispatch<React.SetStateAction<string>>;
         archeTypeFilter: string;
         setArcheTypeFilter: React.Dispatch<React.SetStateAction<string>>;
+        levelFilter: number | null;
         setLevelFilter: React.Dispatch<React.SetStateAction<number | null>>;
+        pendFilter: number | null;
         setPendFilter: React.Dispatch<React.SetStateAction<number | null>>;
+        linkFilter: number | null;
         setLinkFilter: React.Dispatch<React.SetStateAction<number | null>>;
         setFilter: string;
         setSetFilter: React.Dispatch<React.SetStateAction<string>>;
