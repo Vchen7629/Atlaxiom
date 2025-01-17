@@ -23,9 +23,18 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         trapTypeFilter, setTrapTypeFilter,
         attributeFilter, setAttributeFilter,
         archeTypeFilter, setArcheTypeFilter,
-        levelFilter,setLevelFilter,
-        pendFilter, setPendFilter,
-        linkFilter, setLinkFilter,
+        levelFilter, setLevelFilter, 
+        levelLessThanEqual, setLevelLessThanEqual, 
+        levelEqual, setLevelEqual, 
+        levelGreaterThanEqual, setLevelGreaterThanEqual,
+        pendFilter, setPendFilter, 
+        pendLessThanEqual, setPendLessThanEqual, 
+        pendEqual, setPendEqual, 
+        pendGreaterThanEqual, setPendGreaterThanEqual,
+        linkFilter, setLinkFilter, 
+        linkLessThanEqual, setLinkLessThanEqual, 
+        linkEqual, setLinkEqual, 
+        linkGreaterThanEqual, setLinkGreaterThanEqual,
         setFilter, setSetFilter,
         rarityFilter, setRarityFilter,
         filterpage, setFilterPage,
@@ -81,8 +90,17 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         setAttributeFilter('');
         setArcheTypeFilter('');
         setLevelFilter(0);
+        setLevelEqual(true);
+        setLevelLessThanEqual(false);
+        setLevelGreaterThanEqual(false);
         setPendFilter(0);
+        setPendEqual(true);
+        setPendLessThanEqual(false);
+        setPendGreaterThanEqual(false);
         setLinkFilter(0);
+        setLinkEqual(true);
+        setLinkLessThanEqual(false);
+        setLinkGreaterThanEqual(false);
         setRarityFilter('');
         setSetFilter('');
         setCanClearFilter(false);
@@ -151,21 +169,30 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         levelFilter, setLevelFilter,
         setListCurrentPage,
         setGalleryCurrentPage,
-        setCanClearFilter
+        setCanClearFilter,
+        levelLessThanEqual, setLevelLessThanEqual, 
+        levelEqual, setLevelEqual, 
+        levelGreaterThanEqual, setLevelGreaterThanEqual,
     }
 
     const pendprops = {
         pendFilter, setPendFilter,
         setListCurrentPage,
         setGalleryCurrentPage,
-        setCanClearFilter
+        setCanClearFilter,
+        pendLessThanEqual, setPendLessThanEqual, 
+        pendEqual, setPendEqual, 
+        pendGreaterThanEqual, setPendGreaterThanEqual,
     }
 
     const linkprops = {
         linkFilter, setLinkFilter,
         setListCurrentPage,
         setGalleryCurrentPage,
-        setCanClearFilter
+        setCanClearFilter,
+        linkLessThanEqual, setLinkLessThanEqual, 
+        linkEqual, setLinkEqual, 
+        linkGreaterThanEqual, setLinkGreaterThanEqual,
     }
 
     const setprops = {

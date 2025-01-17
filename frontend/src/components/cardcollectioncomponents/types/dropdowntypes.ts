@@ -95,6 +95,12 @@ export interface LevelSliderProps extends SliderProps {
         setLevelFilter: React.Dispatch<React.SetStateAction<number | null>>
         setListCurrentPage: React.Dispatch<React.SetStateAction<number>>
         setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>
+        levelLessThanEqual: boolean
+        setLevelLessThanEqual: React.Dispatch<React.SetStateAction<boolean>>;
+        levelEqual: boolean;
+        setLevelEqual: React.Dispatch<React.SetStateAction<boolean>>;
+        levelGreaterThanEqual: boolean;
+        setLevelGreaterThanEqual: React.Dispatch<React.SetStateAction<boolean>>
     }
 }
 
@@ -105,6 +111,12 @@ export interface PendSliderProps extends SliderProps {
         setPendFilter: React.Dispatch<React.SetStateAction<number | null>>
         setListCurrentPage: React.Dispatch<React.SetStateAction<number>>
         setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>
+        pendLessThanEqual: boolean
+        setPendLessThanEqual: React.Dispatch<React.SetStateAction<boolean>>;
+        pendEqual: boolean;
+        setPendEqual: React.Dispatch<React.SetStateAction<boolean>>;
+        pendGreaterThanEqual: boolean;
+        setPendGreaterThanEqual: React.Dispatch<React.SetStateAction<boolean>>
     }
 }
 
@@ -115,5 +127,11 @@ export interface LinkSliderProps extends SliderProps {
         setLinkFilter: React.Dispatch<React.SetStateAction<number | null>>
         setListCurrentPage: React.Dispatch<React.SetStateAction<number>>
         setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>
+        linkLessThanEqual: boolean
+        setLinkLessThanEqual: React.Dispatch<React.SetStateAction<boolean>>;
+        linkEqual: boolean;
+        setLinkEqual: React.Dispatch<React.SetStateAction<boolean>>;
+        linkGreaterThanEqual: boolean;
+        setLinkGreaterThanEqual: React.Dispatch<React.SetStateAction<boolean>>
     }
 }

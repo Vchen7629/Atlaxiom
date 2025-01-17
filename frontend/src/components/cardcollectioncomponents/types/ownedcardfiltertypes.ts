@@ -13,10 +13,28 @@ export type OwnedCardsFilterProps = {
         setArcheTypeFilter: React.Dispatch<React.SetStateAction<string>>;
         levelFilter: number | null;
         setLevelFilter: React.Dispatch<React.SetStateAction<number | null>>;
+        levelLessThanEqual: boolean;
+        setLevelLessThanEqual: React.Dispatch<React.SetStateAction<boolean>>;
+        levelEqual: boolean;
+        setLevelEqual: React.Dispatch<React.SetStateAction<boolean>>;
+        levelGreaterThanEqual: boolean;
+        setLevelGreaterThanEqual: React.Dispatch<React.SetStateAction<boolean>>
         pendFilter: number | null;
         setPendFilter: React.Dispatch<React.SetStateAction<number | null>>;
+        pendLessThanEqual: boolean;
+        setPendLessThanEqual: React.Dispatch<React.SetStateAction<boolean>>;
+        pendEqual: boolean;
+        setPendEqual: React.Dispatch<React.SetStateAction<boolean>>;
+        pendGreaterThanEqual: boolean;
+        setPendGreaterThanEqual: React.Dispatch<React.SetStateAction<boolean>>
         linkFilter: number | null;
         setLinkFilter: React.Dispatch<React.SetStateAction<number | null>>;
+        linkLessThanEqual: boolean;
+        setLinkLessThanEqual: React.Dispatch<React.SetStateAction<boolean>>;
+        linkEqual: boolean;
+        setLinkEqual: React.Dispatch<React.SetStateAction<boolean>>;
+        linkGreaterThanEqual: boolean;
+        setLinkGreaterThanEqual: React.Dispatch<React.SetStateAction<boolean>>
         setFilter: string;
         setSetFilter: React.Dispatch<React.SetStateAction<string>>;
         rarityFilter: string;

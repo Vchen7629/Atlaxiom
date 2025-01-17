@@ -34,10 +34,22 @@ const UserOwnedCardPage = () => {
   const [attributeFilter, setAttributeFilter] = useState<string>('');
   const [archeTypeFilter, setArcheTypeFilter] = useState<string>('');
   const [setFilter, setSetFilter] = useState<string>('');
-  const [levelFilter, setLevelFilter] = useState<number | null>(0);
-  const [pendFilter, setPendFilter] = useState<number | null>(0);
-  const [linkFilter, setLinkFilter] = useState<number | null>(0);
   const [rarityFilter, setRarityFilter] = useState<string>('');
+
+  const [levelFilter, setLevelFilter] = useState<number | null>(0);
+  const [levelLessThanEqual, setLevelLessThanEqual] = useState<boolean>(false);
+  const [levelEqual, setLevelEqual] = useState<boolean>(true);
+  const [levelGreaterThanEqual, setLevelGreaterThanEqual] = useState<boolean>(false);
+
+  const [pendFilter, setPendFilter] = useState<number | null>(0);
+  const [pendLessThanEqual, setPendLessThanEqual] = useState<boolean>(false);
+  const [pendEqual, setPendEqual] = useState<boolean>(true);
+  const [pendGreaterThanEqual, setPendGreaterThanEqual] = useState<boolean>(false);
+
+  const [linkFilter, setLinkFilter] = useState<number | null>(0);
+  const [linkLessThanEqual, setLinkLessThanEqual] = useState<boolean>(false);
+  const [linkEqual, setLinkEqual] = useState<boolean>(true);
+  const [linkGreaterThanEqual, setLinkGreaterThanEqual] = useState<boolean>(false);
 
   const [listView, setListView] = useState<boolean>(true);
   const [galleryView, setGalleryView] = useState<boolean>(false);
@@ -80,9 +92,25 @@ const UserOwnedCardPage = () => {
       const matchesTrapTypeFilter = trapTypeFilter ? card.race?.toLowerCase().trim() === trapTypeFilter.toLowerCase().trim() : true;      
       const matchesAttributeFilter = attributeFilter ? card.attribute?.toLowerCase().trim() === attributeFilter.toLowerCase().trim() : true;
       const matchesArcheTypeFilter = archeTypeFilter ? card.archetype?.toLowerCase().trim() === archeTypeFilter.toLowerCase().trim() : true;
-      const matchesLevelFilter = levelFilter ? card.level === levelFilter : true;
-      const matchesPendFilter = pendFilter ? card.scale === pendFilter : true;
-      const matchesLinkFilter = linkFilter ? card.linkval === linkFilter : true;
+      
+      const matchesLevelFilter = levelFilter ? 
+        (levelLessThanEqual && card.level !== undefined && card.level <= levelFilter ) || 
+        (levelEqual && card.level !== undefined && card.level === levelFilter) ||
+        (levelGreaterThanEqual && card.level !== undefined && card.level >= levelFilter)
+      : true;
+
+      const matchesPendFilter = pendFilter ? 
+        (pendLessThanEqual && card.scale !== undefined && card.scale <= pendFilter) ||
+        (pendEqual && card.scale !== undefined && card.scale === pendFilter) ||
+        (pendGreaterThanEqual && card.scale !== undefined && card.scale >= pendFilter)
+      : true;
+
+      const matchesLinkFilter = linkFilter ? 
+        (linkLessThanEqual && card.linkval !== undefined && card.linkval <= linkFilter) ||
+        (linkEqual && card.linkval !== undefined && card.linkval === linkFilter ) ||
+        (linkGreaterThanEqual && card.linkval !== undefined && card.linkval >= linkFilter)
+      : true;
+
       const matchesSetFilter = setFilter ? card.set_name?.toLowerCase().trim() === setFilter.toLowerCase().trim() : true;
       const matchesRarityFilter = rarityFilter ? card.rarity?.toLowerCase().trim() === rarityFilter.toLowerCase().trim() : true;
         
@@ -109,9 +137,9 @@ const UserOwnedCardPage = () => {
     trapTypeFilter,
     attributeFilter,
     archeTypeFilter,
-    levelFilter,
-    pendFilter,
-    linkFilter,
+    levelFilter, levelLessThanEqual, levelEqual, levelGreaterThanEqual,
+    pendFilter, pendLessThanEqual, pendEqual, pendGreaterThanEqual,
+    linkFilter, linkLessThanEqual, linkEqual, linkGreaterThanEqual,
     setFilter,
     rarityFilter,
   ]);
@@ -148,9 +176,18 @@ const UserOwnedCardPage = () => {
     trapTypeFilter, setTrapTypeFilter,
     attributeFilter, setAttributeFilter,
     archeTypeFilter, setArcheTypeFilter,
-    levelFilter, setLevelFilter,
-    pendFilter, setPendFilter,
-    linkFilter, setLinkFilter,
+    levelFilter, setLevelFilter, 
+    levelLessThanEqual, setLevelLessThanEqual, 
+    levelEqual, setLevelEqual, 
+    levelGreaterThanEqual, setLevelGreaterThanEqual,
+    pendFilter, setPendFilter, 
+    pendLessThanEqual, setPendLessThanEqual, 
+    pendEqual, setPendEqual, 
+    pendGreaterThanEqual, setPendGreaterThanEqual,
+    linkFilter, setLinkFilter, 
+    linkLessThanEqual, setLinkLessThanEqual, 
+    linkEqual, setLinkEqual, 
+    linkGreaterThanEqual, setLinkGreaterThanEqual,
     setFilter, setSetFilter,
     rarityFilter, setRarityFilter,
     filterpage, setFilterPage,
