@@ -64,10 +64,6 @@ export function ComponentPieChart() {
       }
     })
 
-    console.log("Card Data:", cardData);
-
-
-
     return [
       { cardType: "Monster", count: cardCounts.monster, fill: chartConfig.monster.color },
       { cardType: "Spell", count: cardCounts.spell, fill: chartConfig.spell.color },

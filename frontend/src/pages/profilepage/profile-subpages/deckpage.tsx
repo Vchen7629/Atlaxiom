@@ -30,8 +30,6 @@ const ViewDecks = ({ deckprops, user }: DeckProps) => {
             const deldeck = await deleteDeck({ id: userId, DeckData: { deckId: deck._id } });
                 if (deldeck) {
                     refetchdecks();
-                } else {
-                    console.log("deleted deck error")
                 }
             } catch (error) {
                 const err = error as DeckError

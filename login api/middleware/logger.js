@@ -14,13 +14,12 @@ const logEvents = async (message, logFileName) => {
         }
         await fs.promises.appendFile(path.join(__dirname, '..', 'logs', logFileName), logItem) /*appending a new item to the log file */
     } catch (err) {
-        console.log(err)
+        console.error(err)
     }
 }
 
 const logger = (req, res, next) => {
     logEvents(`${req.method}\t${req.url}\t${req.headers.origin}`, 'LoggingData.log')
-    console.log(`${req.method} ${req.path}`) /*middleware for logging data */
     next()
 }
 

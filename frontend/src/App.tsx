@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
 import LoginPage from './pages/loginpage/login.tsx';
-import Banlists from './pages/banlist.tsx';
 import SearchBarPage from './pages/searchpage/searchbarpage.tsx';
 import StayLoggedIn from './features/auth/stayloggedin.tsx';
 import UserOwnedCardPage from './pages/my-cards/ownedCardPage.tsx';
@@ -26,7 +25,6 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="signup" element={<SignUpPageComponent/>}/>
         <Route path="login" element={<LoginPage/>}/>
-        <Route path="banlist" element={<Banlists />} />
         <Route path="search" element={<SearchBarPage/>}/>
         <Route path="/searchresult" element={<SearchResults/>}/>
 
@@ -44,7 +42,6 @@ function App() {
             <Route path="deckmanager" element={<MyDeck/>}/>
           <Route path="modifyDeck" element={<DeckBuilderPage/>}/>         
           <Route path="profile" element={<Profilepage />}/>
-          <Route path="banlistloggedin" element={<Banlists />} />
         </Route>
       
       </Routes>

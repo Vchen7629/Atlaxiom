@@ -83,11 +83,9 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
 
     useEffect(() => {
         updateTotalPages(filteredCards.length);
-        console.log("no")
         if (filteredCards.length > 0) {
             updateCurrentPageList();
             updateCurrentPageGallery();
-            console.log("Hi")
         } else if ((filteredCards.length === 0)) {
             setCurrentListPageResults([]);
             setCurrentGalleryPageResults([]);

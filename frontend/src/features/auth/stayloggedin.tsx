@@ -27,7 +27,7 @@ const StayLoggedIn = () => {
                     await refresh()
                     setTrueSuccess(true)
                 } catch (err) {
-                    console.log(err)
+                    console.error(err)
                 }
             }
         

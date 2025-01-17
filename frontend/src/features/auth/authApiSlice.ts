@@ -25,7 +25,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
                     }, 1000)
                    
                 } catch (err) {
-                    console.log("sendLogout onQueryStarted returned with error: ", err)
+                    console.error("sendLogout onQueryStarted returned with error: ", err)
                 }
             }
         }),

@@ -29,8 +29,6 @@ export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupPro
         setCardSets(selectedCardData?.card_sets || []);
     }, [cardSets])
 
-    console.log(cardSets)
-
     const handleBackClick = () => {
         setCardMessages({});
     };

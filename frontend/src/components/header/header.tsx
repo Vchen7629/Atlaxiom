@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import Cardsearch from './headerbuttons/searchbar.tsx'
-import Banlist from './headerbuttons/browse.tsx'
 import Mycards from './headerbuttons/my-cards.tsx'
 import Login from './headerbuttons/login.tsx'
 import Signup from './headerbuttons/signup.tsx'
@@ -49,8 +48,7 @@ const Header = () => {
         <header className="fixed justify-between items-center z-50 top-0 left-0 w-full flex py-2 text-white bg-[hsl(var(--header))] bg-opacity-60 backdrop-blur-md backdrop-brightness-150 px-2.5">
             <div className={`flex w-fit xs:hidden lg:flex py-2.5 ml-2.5 ${showDropdown ? "hidden" : ''}`}>
                 <div className='flex w-fit'>
-                    <div><Banlist/> </div>
-                    <div className="mx-[1vw]"><Cardsearch/></div>
+                    <div className="mr-[1vw]"><Cardsearch/></div>
                 </div>
                 {isAuthenticated && (
                     <div className="flex w-fit">
@@ -76,11 +74,8 @@ const Header = () => {
 
             {showDropdown && (
                 <div className={`items-center absolute right-0 h-12 mt-16 z-10 ${showDropdown ? 'flex' : 'hidden'}`}>
-                    <a className="p-2.5 text-gold bg-blackone border-2 border-footer">
+                    <a className="r-2.5 text-gold bg-blackone border-2 border-footer">
                         <Link to="/search">Card Search</Link>
-                    </a>
-                    <a className="p-2.5 text-gold border-r-2 border-y-2 border-footer">
-                        <Link to="/banlist">Banlist</Link>
                     </a>
                     <a className="p-2.5 text-gold border-r-2 border-y-2 border-footer">
                         <Link to="/my-cards">My Cards</Link>

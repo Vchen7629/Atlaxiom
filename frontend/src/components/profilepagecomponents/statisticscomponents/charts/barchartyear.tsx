@@ -41,13 +41,9 @@ export function ComponentBarChart(): JSX.Element {
       "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", 
       "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"
     ];
-    const currentYear = new Date().getFullYear();
+    //const currentYear = new Date().getFullYear();
     const [selectedYear, setSelectedYear] = useState<string>();
-    
 
-    useEffect(() => {
-      console.log(currentYear)
-    }, [selectedYear])
     
     const monthlyData = useMemo(() => {
         const data = Array.from({ length: 12 }, () => ({

@@ -27,8 +27,6 @@ const GalleryViewSearchSuggestionsComponent = ({ galleryviewprops }: GalleryView
         }   
     };
 
-    console.log(currentPageGalleryNamesArray)
-
     return (
         <main className="w-full h-full">
             {currentPageGalleryNamesArray.length > 0 ? (

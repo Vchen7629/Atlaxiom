@@ -6,22 +6,16 @@ const GridListViewComponent= ({ gridlistviewprops }: GridListViewComponentProps)
     const {
         listView, setListView,
         galleryView, setGalleryView,
-        //setClickedOnCard,
-        //setCurrentPage,
     } = gridlistviewprops
 
     const handleListView = () => {
         setListView(true)
         setGalleryView(false)
-        //setClickedOnCard(false)
-        //setCurrentPage(1)
     }
 
     const handleGalleryView = () => {
         setListView(false)
         setGalleryView(true)
-        //setClickedOnCard(false)
-        //setCurrentPage(1)
     }
 
     return (

@@ -7,7 +7,6 @@ const asyncHandler = require('express-async-handler')
 // @route POST /auth
 // @access Public
 const login = asyncHandler(async (req, res) => {
-    console.log(req.body);
     const { username, password } = req.body
 
     if (!username || !password) {
@@ -85,8 +84,6 @@ const refresh = (req, res) => {
                 process.env.ACCESS_TOKEN_SECRET,
                 { expiresIn: '15m' }
             )
-
-            console.log("Generated AccessToken with userId:", foundUser._id);
 
             res.json({ accessToken, userId: foundUser._id, username: foundUser.username })
         })

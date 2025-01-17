@@ -29,7 +29,6 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
         try {
           const response = await fetch(`${apiUrl}?name=${encodeURIComponent(cardName)}`);
           const data = await response.json();
-          console.log('Fetched data:', data);
     
           if (response.ok) {
             setLoading(false);

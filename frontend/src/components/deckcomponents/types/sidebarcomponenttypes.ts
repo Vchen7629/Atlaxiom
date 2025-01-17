@@ -19,7 +19,13 @@ export type Result = {
     _id: string;
     image_url: string;
     card_name: string;
-    desc?: string;
+    desc: string;
+}
+
+export type GalleryResult = {
+    _id: string;
+    image_url: string;
+    card_name: string;
 }
 
 export type AllCardsDisplayCompProps = {
@@ -39,8 +45,8 @@ export type CollectionDisplayCompProps = {
         galleryView: boolean;
         collectionListResults: Result[];
         collectionCurrentListResults: Result[];
-        collectionGalleryResults: Result[];
-        collectionCurrentGalleryResults: Result[];
+        collectionGalleryResults: GalleryResult[];
+        collectionCurrentGalleryResults: GalleryResult[];
     }
 }
 
