@@ -19,11 +19,11 @@ const DeckPageHomepage = () => {
     const { data: modifyDecks, refetch } = useGetAllOwnedDecksQuery(userId);
     const decksToDisplay = modifyDecks?.entities?.undefined?.ownedDecks || [];
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (userId) {
             refetch();
         }
-    }, [userId]);
+    }, [userId]);*/
 
     const filteredDecks = decksToDisplay.filter((deck: Deck) =>
         deck?.deck_name?.toLowerCase().includes(deckName.toLowerCase())

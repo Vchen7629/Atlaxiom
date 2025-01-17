@@ -19,6 +19,18 @@ export const deckApiSlice = apiSlice.injectEndpoints({
             ]
         }),
         
+        createDuplicateDeck: builder.mutation({
+            query: ({ id, deckId }) => ({
+                url: `/deck/duplicate/${id}`,
+                method: 'POST',
+                body: {
+                    deckId
+                },
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Deck', id: arg.id }
+            ]
+        }),
 
         getAllOwnedDecks: builder.query({
             query: (id) => `/deck/${id}`,
@@ -187,6 +199,7 @@ export const deckApiSlice = apiSlice.injectEndpoints({
 export const {
     useGetAllOwnedDecksQuery,
     useCreateNewDeckMutation,
+    useCreateDuplicateDeckMutation,
     useGetSpecificOwnedDeckQuery,
     useAddCardsMainDeckMutation,
     useAddNewCardtoExtraDeckMutation,

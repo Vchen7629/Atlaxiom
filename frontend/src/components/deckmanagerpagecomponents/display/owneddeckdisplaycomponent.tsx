@@ -1,8 +1,9 @@
-import { useDeleteDeckMutation } from '../../../features/api-slices/decksapislice.ts';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCopy, faStar, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { Deck, DeckDisplayComponent, DeckError, handleDeckClick } from '../types/homepagecomponentprops.ts';
+import { faCopy, faStar } from '@fortawesome/free-solid-svg-icons';
+import { Deck, DeckDisplayComponent, handleDeckClick } from '../types/homepagecomponentprops.ts';
+import DeleteDeckButtonComponent from '../buttons/deletedeckbutton.tsx';
+import DuplicateDeckButtonComponent from '../buttons/duplicatedeckbutton.tsx';
 
 const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
     const {
@@ -16,26 +17,9 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
     } = deckdisplayprops
     const navigate = useNavigate();
 
-    const [deleteDeck] = useDeleteDeckMutation();
-
     const handleDeckClick = async (deck: handleDeckClick) => {
         navigate('/modifyDeck', { state: { deckId: deck._id, userId: userId } });   
     };
-
-    const handleDeleteDeckClick = async(deck: handleDeckClick) => {
-        try {
-            const deldeck = await deleteDeck({
-                id: userId, 
-                DeckData: { deckId: deck._id }
-            });
-            if (deldeck) {
-                refetch();
-            } 
-        } catch (error) {
-            const err = error as DeckError
-            console.error("Error deleting deck:", err.message || error);
-        }
-    }
 
     return (
         <>  
@@ -55,16 +39,8 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                                 <section className="flex flex-col text-[hsl(var(--text))]">{deck.deck_desc}</section>
                                 <section className="flex w-fit space-x-1">
                                     <button className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'><FontAwesomeIcon icon={faStar}/></button>
-                                    <button className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'><FontAwesomeIcon icon={faCopy}/></button>
-                                    <button 
-                                        className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'
-                                        onClick={(event) => {
-                                            event.stopPropagation(); 
-                                            handleDeleteDeckClick(deck);
-                                        }}
-                                    >
-                                        <FontAwesomeIcon icon={faTrash}/>
-                                    </button>
+                                    <DuplicateDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
+                                    <DeleteDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                 </section>    
                             </div>
                         ))
@@ -98,15 +74,7 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                                     <section className="flex w-full mt-2 justify-center space-x-1">
                                         <button className='text-white h-7 w-7 rounded bg-[hsl(var(--background3))]'><FontAwesomeIcon icon={faStar}/></button>
                                         <button className='text-white h-7 w-7 rounded bg-[hsl(var(--background3))]'><FontAwesomeIcon icon={faCopy}/></button>
-                                        <button 
-                                            className='text-white h-7 w-7 rounded bg-[hsl(var(--background3))]'
-                                            onClick={(event) => {
-                                                event.stopPropagation(); 
-                                                handleDeleteDeckClick(deck);
-                                            }}
-                                        >
-                                            <FontAwesomeIcon icon={faTrash}/>
-                                        </button>
+                                        <DeleteDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                     </section>
                                 </div>   
                             ))}

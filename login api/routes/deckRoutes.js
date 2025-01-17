@@ -1,13 +1,15 @@
 const express = require("express")
 const router = express.Router()
 const deckController = require("../controllers/deckController")
-/*const verifyJWT = require('../middleware/verifyJWT')
+const verifyJWT = require('../middleware/verifyJWT')
 
-router.use(verifyJWT)*/
+router.use(verifyJWT)
 
 router.route("/")
     .post(deckController.createNewDeck)
 
+router.route("/duplicate/:id")
+    .post(deckController.createDuplicateDeck)
 
 router.route("/:id")
     .get(deckController.getAllDecksforUser)

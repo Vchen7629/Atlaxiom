@@ -14,8 +14,6 @@ export type ExtraDeckProps = {
 export type MainDeckProps = {
     maindeckprops: {
         deck: any;
-        mainDeckCards: Card[];
-        setMainDeckCards: React.Dispatch<React.SetStateAction<Card[]>>;
         monsterCards: Card[];
         setMonsterCards: React.Dispatch<React.SetStateAction<Card[]>>
         spellCards: Card[];

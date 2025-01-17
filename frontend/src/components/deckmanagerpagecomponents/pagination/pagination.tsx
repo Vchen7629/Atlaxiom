@@ -63,7 +63,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
             setCurrentPageListDecksArray([]);
             setCurrentPageGalleryDecksArray([]);
         }
-    }, [filteredDecks, suggestionsPerListPage, suggestionsPerGalleryPage, currentListPage, currentGalleryPage]);
+    }, [filteredDecks.length, suggestionsPerListPage, suggestionsPerGalleryPage, currentListPage, currentGalleryPage]);
 
     const updateCurrentPageGallery = () => {
         if (filteredDecks.length > 0) {
