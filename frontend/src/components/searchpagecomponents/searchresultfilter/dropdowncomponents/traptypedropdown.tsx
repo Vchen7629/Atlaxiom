@@ -51,8 +51,6 @@ export function TrapTypeDropDownComponent({ trapdropdownprops }: trapDropDown) {
     setTrapType(newValue)
     if (newValue) {
       setCanClearFilters(true)
-    } else {
-      setCanClearFilters(false);
     }
   }
 

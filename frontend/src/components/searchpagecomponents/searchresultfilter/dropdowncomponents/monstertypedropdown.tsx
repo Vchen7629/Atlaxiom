@@ -100,8 +100,6 @@ export function MonsterTypeDropDownComponent({ monsterdropdownprops }: monsterDr
     setTrapType("")
     if (newValue) {
       setCanClearFilters(true)
-    } else {
-      setCanClearFilters(false)
     }
   }
 

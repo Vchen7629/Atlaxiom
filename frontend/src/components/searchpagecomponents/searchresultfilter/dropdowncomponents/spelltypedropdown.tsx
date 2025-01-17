@@ -63,8 +63,6 @@ export function SpellTypeDropDownComponent({ spelldropdownprops }: spellDropDown
     setTrapType("")
     if (newValue) {
       setCanClearFilters(true);
-    } else {
-      setCanClearFilters(false);
     }
   }
  
