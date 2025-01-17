@@ -21,10 +21,14 @@ export type GridListViewComponentProps = {
 }
 
 export type DeckDisplayComponent = {
-    listView: boolean;
-    galleryView: boolean;
-    userId: string;
-    deckName: string;
+    deckdisplayprops:{ 
+        listView: boolean;
+        galleryView: boolean;
+        userId: string;
+        refetch: any;
+        currentPageListDecksArray: any[];
+        currentPageGalleryDecksArray: string[];
+    }
 }
 
 export type handleDeckClick = {

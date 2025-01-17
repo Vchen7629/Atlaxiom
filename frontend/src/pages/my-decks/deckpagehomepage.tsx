@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Footer from "../../components/footer/Footer.tsx"
 import Header from "../../components/header/header.tsx"
@@ -8,15 +8,49 @@ import DeckDisplay from '../../components/deckcomponents/homepage/owneddeckdispl
 import GridListViewComponent from '../../components/deckcomponents/homepage/grid_or_list_view.tsx';
 import CreateNewDeckComponent from '../../components/deckcomponents/homepage/CreateNewDeckButton.tsx';
 import { UserIdState } from './deckpagetypes.ts';
+import PaginationComponent from '@/components/deckcomponents/homepagepagination/pagination.tsx';
+import { useGetAllOwnedDecksQuery } from '@/features/api-slices/decksapislice.ts';
+import { Deck } from '@/components/deckcomponents/types/homepagecomponentprops.ts';
 
 
 const DeckPageHomepage = () => {
     const userId = useSelector((state: UserIdState) => state.auth.userId);
     const [deckName, setDeckName] = useState<string>('');
+    const { data: modifyDecks, refetch } = useGetAllOwnedDecksQuery(userId);
+    const decksToDisplay = modifyDecks?.entities?.undefined?.ownedDecks || [];
+
+    useEffect(() => {
+        if (userId) {
+            refetch();
+        }
+    }, [userId]);
+
+    const filteredDecks = decksToDisplay.filter((deck: Deck) =>
+        deck?.deck_name?.toLowerCase().includes(deckName.toLowerCase())
+    );
+
+    console.log(decksToDisplay)
+    
     const [, setClickedOnCard] = useState<boolean>(false);
 
     const [listView, setListView] = useState<boolean>(true);
     const [galleryView, setGalleryView] = useState<boolean>(false);
+
+    const suggestionsPerGalleryPage = 45;
+    const suggestionsPerListPage = 7;
+    const [totalListPages, setTotalListPages] = useState<number>(1);
+    const [totalGalleryPages, setTotalGalleryPages] = useState<number>(1);
+    const updateTotalListPages = (filteredCardsLength: number) => {
+        setTotalListPages(Math.ceil(filteredCardsLength / suggestionsPerListPage));
+    }
+    const updateTotalGalleryPages = (filteredCardsLength: number) => {
+        setTotalGalleryPages(Math.ceil(filteredCardsLength / suggestionsPerGalleryPage));
+    }
+    const [currentListPage, setListCurrentPage] = useState<number>(1);  
+    const [currentGalleryPage, setGalleryCurrentPage] = useState<number>(1);
+    const [currentPageListDecksArray, setCurrentPageListDecksArray] = useState<string[]>([]);
+    const [currentPageGalleryDecksArray, setCurrentPageGalleryDecksArray] = useState<string[]>([]);
+
     
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
@@ -37,16 +71,41 @@ const DeckPageHomepage = () => {
         //setCurrentPage,
     };
 
+    const paginationprops = {
+        filteredDecks,
+        listView,
+        galleryView,
+        currentListPage, setListCurrentPage,
+        currentGalleryPage, setGalleryCurrentPage,
+        suggestionsPerListPage,
+        suggestionsPerGalleryPage,
+        setCurrentPageListDecksArray,
+        setCurrentPageGalleryDecksArray,
+        totalListPages,
+        totalGalleryPages,
+        updateTotalListPages,
+        updateTotalGalleryPages,
+    }
+
+    const deckdisplayprops = {
+        listView,
+        galleryView,
+        userId,
+        refetch,
+        currentPageListDecksArray,
+        currentPageGalleryDecksArray,
+    }
+
 
     return (
         <main className="min-h-[110vh] flex flex-col bg-[hsl(var(--background1))] justify-between">
             <Header/>
             <div className="flex flex-col py-[15vh]">
-                <div className="flex w-[45vw] ml-[15vw] items-center justify-between">
+                <div className="flex w-[50vw] ml-[15vw] items-center justify-between">
                     <div className="text-3xl font-black text-[hsl(var(--text))]">Deck Manager</div>
                     <CreateNewDeckComponent userId={userId}/>
                 </div>
-                <div className="flex w-[45vw] ml-[15vw] my-[2.5vh] justify-between">
+                <div className="flex w-[50vw] ml-[15vw] my-[2.5vh] justify-between">
                     <div className="flex w-[15vw] h-[40px] pl-5 relative border-2 border-gray-400 justify-start text-gold">                      
                       <div className="flex items-center w-full">
                         <FontAwesomeIcon icon={faSearch} className="mr-2" />
@@ -64,12 +123,15 @@ const DeckPageHomepage = () => {
                         )}
                       </div>
                     </div>
+                    <section className="flex">
+                        <PaginationComponent paginationprops={paginationprops}/>
+                    </section>
                     <div className="flex w-20 bg-footer rounded-xl">
                         <GridListViewComponent filterProps={filterProps}/>  
                     </div>
                 </div>
-                <div className='flex w-[45vw] ml-[15vw] items-center justify-between'>
-                    <DeckDisplay listView={listView} galleryView={galleryView} userId={userId}  deckName={deckName}/>
+                <div className='flex w-[50vw] ml-[15vw] items-center justify-between'>
+                    <DeckDisplay deckdisplayprops={deckdisplayprops}/>
                 </div>
             </div>
             <Footer/>
