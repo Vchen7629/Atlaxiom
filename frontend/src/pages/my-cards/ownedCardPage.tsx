@@ -28,16 +28,15 @@ const UserOwnedCardPage = () => {
   const [filterActive, setFilterActive] = useState<boolean>(true);
   const [statisticspage, setStatisticsPage] = useState<boolean>(false);
 
-  const [cardTypeFilter, setCardTypeFilter] = useState<string>('');
-  const [isMonsterFilterActive, setIsMonsterFilterActive] = useState<boolean>(false);
-  const [isSpellFilterActive, setIsSpellFilterActive] = useState<boolean>(false);
-  const [isTrapFilterActive, setIsTrapFilterActive] = useState<boolean>(false);
-
-  const [subTypeFilter, setSubTypeFilter] = useState<string>('');
+  const [monsterTypeFilter, setMonsterTypeFilter] = useState<string>('');
+  const [spellTypeFilter, setSpellTypeFilter] = useState<string>('');
+  const [trapTypeFilter, setTrapTypeFilter] = useState<string>('');
   const [attributeFilter, setAttributeFilter] = useState<string>('');
   const [archeTypeFilter, setArcheTypeFilter] = useState<string>('');
   const [setFilter, setSetFilter] = useState<string>('');
   const [levelFilter, setLevelFilter] = useState<number | null>(0);
+  const [pendFilter, setPendFilter] = useState<number | null>(0);
+  const [linkFilter, setLinkFilter] = useState<number | null>(0);
   const [rarityFilter, setRarityFilter] = useState<string>('');
 
   const [listView, setListView] = useState<boolean>(true);
@@ -73,41 +72,49 @@ const UserOwnedCardPage = () => {
   console.log(cardsToDisplay)
             
   const filteredCards = useMemo(() => {
-        return cardsToDisplay.filter((card): card is Card => {
-            if (!card || !card.card_name) return false;
-            const matchesSearchTerm = card.card_name.toLowerCase().includes(searchTerm.toLowerCase());
-            const matchesTypeFilter = cardTypeFilter ? card.type?.toLowerCase().includes(cardTypeFilter) : true;
-            const matchesSubTypeFilter = subTypeFilter ? card.race?.toLowerCase().trim() === subTypeFilter.toLowerCase().trim() : true;
-            const matchesAttributeFilter = attributeFilter ? card.attribute?.toLowerCase().trim() === attributeFilter.toLowerCase().trim() : true;
-            const matchesArcheTypeFilter = archeTypeFilter ? card.archetype?.toLowerCase().trim() === archeTypeFilter.toLowerCase().trim() : true;
-            const matchesLevelFilter = levelFilter ? card.level === levelFilter : true;
-            const matchesSetFilter = setFilter ? card.set_name?.toLowerCase().trim() === setFilter.toLowerCase().trim() : true;
-            const matchesRarityFilter = rarityFilter ? card.rarity?.toLowerCase().trim() === rarityFilter.toLowerCase().trim() : true;
+    return cardsToDisplay.filter((card): card is Card => {
+      if (!card || !card.card_name) return false;
+      const matchesSearchTerm = card.card_name.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesMonsterTypeFilter = monsterTypeFilter ? card.race?.toLowerCase().trim() === monsterTypeFilter.toLowerCase().trim() : true;
+      const matchesSpellTypeFilter = spellTypeFilter ? card.race?.toLowerCase().trim() === spellTypeFilter.toLowerCase().trim() : true;
+      const matchesTrapTypeFilter = trapTypeFilter ? card.race?.toLowerCase().trim() === trapTypeFilter.toLowerCase().trim() : true;      
+      const matchesAttributeFilter = attributeFilter ? card.attribute?.toLowerCase().trim() === attributeFilter.toLowerCase().trim() : true;
+      const matchesArcheTypeFilter = archeTypeFilter ? card.archetype?.toLowerCase().trim() === archeTypeFilter.toLowerCase().trim() : true;
+      const matchesLevelFilter = levelFilter ? card.level === levelFilter : true;
+      const matchesPendFilter = pendFilter ? card.scale === pendFilter : true;
+      const matchesLinkFilter = linkFilter ? card.linkval === linkFilter : true;
+      const matchesSetFilter = setFilter ? card.set_name?.toLowerCase().trim() === setFilter.toLowerCase().trim() : true;
+      const matchesRarityFilter = rarityFilter ? card.rarity?.toLowerCase().trim() === rarityFilter.toLowerCase().trim() : true;
         
-            return (
-                !! matchesSearchTerm &&
-                !! matchesTypeFilter &&
-                !! matchesSubTypeFilter &&
-                !! matchesAttributeFilter &&
-                !! matchesArcheTypeFilter &&
-                !! matchesLevelFilter &&
-                !! matchesSetFilter &&
-                !! matchesRarityFilter
-            );
-                
-        });
-    }, [
-        ownedCards,
-        cardsToDisplay,
-        searchTerm,
-        cardTypeFilter,
-        subTypeFilter,
-        attributeFilter,
-        archeTypeFilter,
-        levelFilter,
-        setFilter,
-        rarityFilter,
-    ]);
+      return (
+        !! matchesSearchTerm &&
+        !! matchesMonsterTypeFilter &&
+        !! matchesSpellTypeFilter &&
+        !! matchesTrapTypeFilter &&
+        !! matchesAttributeFilter &&
+        !! matchesArcheTypeFilter &&
+        !! matchesLevelFilter &&
+        !! matchesPendFilter &&
+        !! matchesLinkFilter &&
+        !! matchesSetFilter &&
+        !! matchesRarityFilter
+      );
+    });
+  }, [
+    ownedCards,
+    cardsToDisplay,
+    searchTerm,
+    monsterTypeFilter,
+    spellTypeFilter,
+    trapTypeFilter,
+    attributeFilter,
+    archeTypeFilter,
+    levelFilter,
+    pendFilter,
+    linkFilter,
+    setFilter,
+    rarityFilter,
+  ]);
 
   const handleClickFilter = () => {
     setExpandStatus(!expandStatus)
@@ -136,14 +143,14 @@ const UserOwnedCardPage = () => {
   const filterProps = {
     ownedCards,
     expandStatus,
-    setCardTypeFilter,
-    isMonsterFilterActive, setIsMonsterFilterActive, 
-    setIsSpellFilterActive, isSpellFilterActive,
-    isTrapFilterActive, setIsTrapFilterActive,
-    subTypeFilter, setSubTypeFilter,
+    monsterTypeFilter, setMonsterTypeFilter,
+    spellTypeFilter, setSpellTypeFilter,
+    trapTypeFilter, setTrapTypeFilter,
     attributeFilter, setAttributeFilter,
     archeTypeFilter, setArcheTypeFilter,
     setLevelFilter,
+    setPendFilter,
+    setLinkFilter,
     setFilter, setSetFilter,
     rarityFilter, setRarityFilter,
     filterpage, setFilterPage,

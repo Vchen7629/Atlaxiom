@@ -1,6 +1,5 @@
 import { AttributeDropDownComponent } from "../dropdown/attributedropdown.tsx"
 import { ArchetypeDropDownComponent } from "../dropdown/archetypedropdown.tsx"
-import { SubTypeDropDownComponent } from "../dropdown/subtypedrowndown.tsx"
 import { CardSetDropDownComponent } from "../dropdown/cardsetdropdown.tsx"
 import { LevelSliderComponent } from '../sliders/levelslider.tsx';
 import { OwnedCardsFilterProps } from "../../types/ownedcardfiltertypes.ts";
@@ -9,19 +8,24 @@ import { useEffect, useState } from "react";
 import { Card } from "../../types/ownedcarddetailstypes.ts";
 import FilterCardViewButton from "./filtercardbutton.tsx";
 import StatisticsViewButton from "./statisticsbutton.tsx";
+import { MonsterTypeDropDownComponent } from "../dropdown/monstertypedropdown.tsx";
+import { SpellTypeDropDownComponent } from "../dropdown/spelltypedropdown.tsx";
+import { TrapTypeDropDownComponent } from "../dropdown/traptypedropdown.tsx";
+import { PendScaleSliderComponent } from "../sliders/pendscaleslider.tsx";
+import { LinkScaleSliderComponent } from "../sliders/linkvalueslider.tsx";
 
 const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
     const {
         ownedCards,
         expandStatus,
-        setCardTypeFilter,
-        isMonsterFilterActive, setIsMonsterFilterActive,
-        setIsSpellFilterActive, isSpellFilterActive,
-        isTrapFilterActive, setIsTrapFilterActive,
-        subTypeFilter, setSubTypeFilter,
+        monsterTypeFilter, setMonsterTypeFilter,
+        spellTypeFilter, setSpellTypeFilter,
+        trapTypeFilter, setTrapTypeFilter,
         attributeFilter, setAttributeFilter,
         archeTypeFilter, setArcheTypeFilter,
         setLevelFilter,
+        setPendFilter,
+        setLinkFilter,
         setFilter, setSetFilter,
         rarityFilter, setRarityFilter,
         filterpage, setFilterPage,
@@ -29,12 +33,10 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         setListCurrentPage,
         setGalleryCurrentPage,
     } = filterProps;
-
-    const [monsterCount, setMonsterCount] = useState<number>(0);
-    const [spellCount, setSpellCount] = useState<number>(0);
-    const [trapCount, setTrapCount] = useState<number>(0);
     
-    const [uniqueSubtype, setUniqueSubtype] = useState<string[]>([]);
+    const [uniqueMonsterType, setUniqueMonsterType] = useState<string[]>([])
+    const [uniqueSpellType, setUniqueSpellType] = useState<string[]>([]);
+    const [uniqueTrapType, setUniqueTrapType] = useState<string[]>([]);
     const [uniqueAttribute, setUniqueAttribute] = useState<string[]>([]);
     const [uniqueArchtype, setUniqueArchetype] = useState<string[]>([]);
     const [uniqueSet, setUniqueSet] = useState<string[]>([]);
@@ -46,9 +48,15 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
     useEffect(() => {
         if (ownedCards) {
           const allCards: Card[] = Object.values(ownedCards?.entities?.defaultId?.ownedCards || {}).flat().filter(card => card) as Card[];
-    
-          const subtypeList = new Set(allCards.map((card: any) => card.race).filter(race => race));
-          setUniqueSubtype([...subtypeList])
+
+          const monsterTypeList = new Set(allCards.filter((card: any) => card.type.includes("Monster")).map((card: any) => card.race).filter(race => race));
+          setUniqueMonsterType([...monsterTypeList])
+
+          const spellTypeList = new Set(allCards.filter((card: any) => card.type.includes("Spell")).map((card: any) => card.race).filter(race => race));
+          setUniqueSpellType([...spellTypeList])
+
+          const trapTypeList = new Set(allCards.filter((card: any) => card.type.includes("Trap")).map((card: any) => card.race).filter(race => race));
+          setUniqueTrapType([...trapTypeList])
     
           const attributeList = new Set(allCards.map((card: any) => card.attribute).filter(attribute => attribute));
           setUniqueAttribute([...attributeList])
@@ -62,59 +70,19 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
           const rarityList = new Set(allCards.map((card: any) => card.rarity).filter(rarity => rarity));
           setUniqueRarity([...rarityList])
     
-          const monsterCount = allCards
-            .filter((card: any): card is Card => card.type?.toLowerCase().includes('monster'))
-            .reduce((total, card) => total + (card.ownedamount || 0), 0); 
-          setMonsterCount(monsterCount);
-          
-          const spellCount = allCards
-            .filter((card: any) => card.type?.toLowerCase().includes('spell'))
-            .reduce((total, card) => total + (card.ownedamount || 0), 0); 
-          setSpellCount(spellCount);
-          
-          const trapCount = allCards
-            .filter((card: any) => card.type?.toLowerCase().includes('trap'))
-            .reduce((total, card) => total + (card.ownedamount || 0), 0);
-          setTrapCount(trapCount);
-    
         }
       }, [ownedCards]);
 
-    const handleMonsterFilter = () => {
-        setCardTypeFilter('monster');
-        setListCurrentPage(1);
-        setGalleryCurrentPage(1);
-        setIsMonsterFilterActive(true);
-        setIsSpellFilterActive(false);
-        setIsTrapFilterActive(false);
-        setCanClearFilter(true);
-    }
-    
-    const handleSpellFilter = () => {
-        setCardTypeFilter('spell');
-        setIsMonsterFilterActive(false);
-        setIsSpellFilterActive(true);
-        setIsTrapFilterActive(false);
-        setCanClearFilter(true);
-    }
-    
-    const handleTrapFilter = () => {
-        setCardTypeFilter('trap');
-        setIsMonsterFilterActive(false);
-        setIsSpellFilterActive(false);
-        setIsTrapFilterActive(true);
-        setCanClearFilter(true);
-    }
 
     const clearFilter = () => {
-        setCardTypeFilter('');
-        setIsMonsterFilterActive(false);
-        setIsSpellFilterActive(false);
-        setIsTrapFilterActive(false);
-        setSubTypeFilter('');
+        setMonsterTypeFilter('');
+        setSpellTypeFilter('');
+        setTrapTypeFilter('');
         setAttributeFilter('');
         setArcheTypeFilter('');
         setLevelFilter(0);
+        setPendFilter(0);
+        setLinkFilter(0);
         setRarityFilter('');
         setSetFilter('');
         setCanClearFilter(false);
@@ -131,9 +99,25 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         setFilterPage
     }
 
-    const subtypeprops = {
-        uniqueSubtype,
-        subTypeFilter, setSubTypeFilter,
+    const monstertypeprops = {
+        uniqueMonsterType,
+        monsterTypeFilter, setMonsterTypeFilter,
+        setListCurrentPage,
+        setGalleryCurrentPage,
+        setCanClearFilter
+    }
+
+    const spelltypeprops = {
+        uniqueSpellType,
+        spellTypeFilter, setSpellTypeFilter,
+        setListCurrentPage,
+        setGalleryCurrentPage,
+        setCanClearFilter
+    }
+
+    const traptypeprops = {
+        uniqueTrapType,
+        trapTypeFilter, setTrapTypeFilter,
         setListCurrentPage,
         setGalleryCurrentPage,
         setCanClearFilter
@@ -170,6 +154,20 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         setCanClearFilter
     }
 
+    const pendprops = {
+        setPendFilter,
+        setListCurrentPage,
+        setGalleryCurrentPage,
+        setCanClearFilter
+    }
+
+    const linkprops = {
+        setLinkFilter,
+        setListCurrentPage,
+        setGalleryCurrentPage,
+        setCanClearFilter
+    }
+
     const setprops = {
         uniqueSet,
         setFilter, setSetFilter,
@@ -192,34 +190,18 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
                         </div>
                     </div>
                 </section>
-                <section className="flex w-[92%] h-10 ">
-                    <button
-                        className={`w-[37%] flex ${isMonsterFilterActive ? 'text-[hsl(var(--background3))]' : 'text-[hsl(var(--text))]'} focus:outline-none`}
-                        onClick={handleMonsterFilter}
-                    >
-                        <div className="bg-[url('../img/monstercardicon.png')] relative bg-contain bg-no-repeat h-full w-1/4 "/>
-                        <span className='w-fit h-full font-bold text-[12px] flex items-center'>Monster Cards ({monsterCount})</span>
-                    </button>
-                    <button
-                        className={`w-[32%] flex ${isSpellFilterActive ? 'text-gold' : 'text-[hsl(var(--text))]'} focus:outline-none`}
-                        onClick={handleSpellFilter}
-                    >
-                        <div className="bg-[url('../img/spellcardicon.png')] relative bg-contain bg-no-repeat h-full w-1/4 "/>
-                        <div className='w-fit h-full text-[12px] flex items-center'>Spell Cards ({spellCount})</div>
-                    </button>
-                    <button
-                        className={`w-[31%] flex ${isTrapFilterActive ? 'text-gold' : 'text-[hsl(var(--text))]'} focus:outline-none`}
-                        onClick={handleTrapFilter}
-                    >
-                        <div className="bg-[url('../img/trapcardicon.png')] relative bg-contain bg-no-repeat h-full w-1/4 "/>
-                        <div className='w-fit h-full text-[12px] flex items-center'>Trap Cards ({trapCount})</div>
-                    </button>
-                </section>
-                
-                <section className="flex flex-col w-[92%] items-start space-y-[5%]">
+                <section className="flex flex-col w-[92%] items-start space-y-[3%]">
+                    <div className="flex w-full items-center">
+                        <div className="flex h-full w-[7vw] text-sm font-black items-center text-[hsl(var(--text))] ">Monster Type:</div>
+                        <div><MonsterTypeDropDownComponent monstertypeprops={monstertypeprops}/></div>
+                    </div>
                     <div className="flex w-full items-center mt-[5%]">
-                        <div className="flex h-full w-[7vw] text-sm font-black items-center text-[hsl(var(--text))] ">Card Subtype:</div>
-                        <div><SubTypeDropDownComponent subtypeprops={subtypeprops}/></div>
+                        <div className="flex h-full w-[7vw] text-sm font-black items-center text-[hsl(var(--text))] ">Spell Type:</div>
+                        <div><SpellTypeDropDownComponent spelltypeprops={spelltypeprops}/></div>
+                    </div>
+                    <div className="flex w-full items-center mt-[5%]">
+                        <div className="flex h-full w-[7vw] text-sm font-black items-center text-[hsl(var(--text))] ">Trap Type:</div>
+                        <div><TrapTypeDropDownComponent traptypeprops={traptypeprops}/></div>
                     </div>
                     <div className="flex w-full items-center">
                         <div className="flex h-full w-[7vw] text-sm items-center font-black text-[hsl(var(--text))] ">Card Attribute:</div>
@@ -232,6 +214,14 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
                     <div className="flex w-full items-center">
                         <div className="flex h-full w-[10vw] text-sm  items-center font-black text-[hsl(var(--text))]">Card Level:</div>
                         <div className="w-[80%]"><LevelSliderComponent levelprops={levelprops}/></div>
+                    </div>
+                    <div className="flex w-full items-center">
+                        <div className="flex h-full w-[10vw] text-sm  items-center font-black text-[hsl(var(--text))]">Pend Scale:</div>
+                        <div className="w-[80%]"><PendScaleSliderComponent pendprops={pendprops}/></div>
+                    </div>
+                    <div className="flex w-full items-center">
+                        <div className="flex h-full w-[10vw] text-sm  items-center font-black text-[hsl(var(--text))]">Pend Scale:</div>
+                        <div className="w-[80%]"><LinkScaleSliderComponent linkprops={linkprops}/></div>
                     </div>
                     <div className="flex w-full items-center">
                         <div className="flex h-full w-[7vw] text-sm items-center font-black text-[hsl(var(--text))]">Rarity:</div>

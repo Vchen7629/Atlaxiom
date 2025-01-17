@@ -8,6 +8,8 @@ export type Card = {
     attribute?: string;
     archetype?: string;
     level?: number;
+    scale?: number;
+    linkval?: number;
     set_name?: string;
     rarity?: string;
     id?: string;
