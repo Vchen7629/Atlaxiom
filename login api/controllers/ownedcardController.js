@@ -76,10 +76,6 @@ const getAllOwnedCards = asyncHandler(async (req, res) => {
 
   const allCards = await OwnedCard.find({ user_id: id })
 
-  if (!allCards || allCards.length === 0) {
-    return res.status(404).json({ message: 'Owned cards not found for the user' });
-  }
-
   // If the user has owned cards, return them
   res.json({ id, ownedCards: allCards});
 
