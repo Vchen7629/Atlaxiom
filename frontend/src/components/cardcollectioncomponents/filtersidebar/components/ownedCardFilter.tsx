@@ -174,19 +174,19 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
                     <span className="text-2xl text-[hsl(var(--text))] font-bold">Card Filter </span>
                     <div className="flex w-fit space-x-2">
                         <button className="flex items-center px-4 py-4 rounded-xl h-11 bg-[hsl(var(--background3))]" onClick={clearFilter}> Clear </button>
-                        <div className="flex justify-center w-fit h-11 bg-footer rounded-xl">
+                        <div className="flex w-19 h-11 bg-footer rounded-xl">
                             <FilterCardViewButton filterprops={filterprops}/>
                             <StatisticsViewButton statisticsprops={statisticsprops}/>
                         </div>
-                        </div>
+                    </div>
                 </section>
                 <section className="flex w-[92%] h-10 ">
                     <button
-                        className={`w-[37%] flex ${isMonsterFilterActive ? 'text-gold' : 'text-[hsl(var(--text))]'} focus:outline-none`}
+                        className={`w-[37%] flex ${isMonsterFilterActive ? 'text-[hsl(var(--background3))]' : 'text-[hsl(var(--text))]'} focus:outline-none`}
                         onClick={handleMonsterFilter}
                     >
                         <div className="bg-[url('../img/monstercardicon.png')] relative bg-contain bg-no-repeat h-full w-1/4 "/>
-                        <div className='w-fit h-full text-[12px] flex items-center'>Monster Cards ({monsterCount})</div>
+                        <span className='w-fit h-full font-bold text-[12px] flex items-center'>Monster Cards ({monsterCount})</span>
                     </button>
                     <button
                         className={`w-[32%] flex ${isSpellFilterActive ? 'text-gold' : 'text-[hsl(var(--text))]'} focus:outline-none`}

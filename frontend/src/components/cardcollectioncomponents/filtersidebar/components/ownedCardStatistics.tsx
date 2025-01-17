@@ -29,7 +29,7 @@ const CardCollectionStatistics = ({filterProps}: ownedcardstatsprops) => {
             <> 
                 <section className="flex w-[92%] justify-between items-center mb-2 pl-4">
                     <span className="text-2xl text-[hsl(var(--text))] font-bold">Card Statistics </span>
-                    <div className="flex w-fit justify-between h-11 bg-footer rounded-xl">
+                    <div className="flex w-19 h-11 bg-footer rounded-xl">
                         <FilterCardViewButton filterprops={filterprops}/>
                         <StatisticsViewButton statisticsprops={statisticsprops}/>
                     </div>
