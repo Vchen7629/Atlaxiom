@@ -1,3 +1,4 @@
+import { toast } from "sonner"
 import { filterbutton } from "../types/buttontypes"
 
 import {
@@ -26,7 +27,14 @@ const FilterButton = ({ filterbuttonprops }: filterbutton) => {
                 <TooltipTrigger>
                     <a
                         className={`h-[40px] ml-2 px-4 py-3 rounded-xl ${filterActive ? "bg-[hsl(var(--filterbutton))]" : "bg-gray-600"}`}  
-                        onClick={handleFilterClick}
+                        onClick={() => {
+                            handleFilterClick();
+                            {!filterActive ? (
+                                toast.success("Successfully hid the Filter Search Sidebar")
+                            ) : (
+                                toast.success("Re-opened Filter Search Sidebar")
+                            )}
+                        }}
                     >
                         Filter Card
                     </a>
