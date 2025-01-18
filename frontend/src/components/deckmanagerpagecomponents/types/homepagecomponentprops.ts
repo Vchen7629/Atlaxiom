@@ -22,12 +22,15 @@ export type GridListViewComponentProps = {
 
 export type DeckDisplayComponent = {
     deckdisplayprops:{ 
+        decksToDisplay: string[]
         listView: boolean;
         galleryView: boolean;
         userId: string;
         refetch: any;
         currentPageListDecksArray: any[];
+        setCurrentPageListDecksArray: React.Dispatch<React.SetStateAction<any[]>>
         currentPageGalleryDecksArray: string[];
+        setCurrentPageGalleryDecksArray: React.Dispatch<React.SetStateAction<string[]>>
     }
 }
 
@@ -37,6 +40,7 @@ export type handleDeckClick = {
 
 export type Deck = {
     _id: string;
+    favorite?: boolean;
     deck_name: string;
     deckName: string;
     lastUpdated: string;

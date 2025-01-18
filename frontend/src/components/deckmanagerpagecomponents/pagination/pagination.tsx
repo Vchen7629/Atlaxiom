@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Pagination } from "../types/paginationtypes.ts";
-import { PageSelectorComponent } from "./pageselector";
+import { PageSelectorComponent } from "./pageselector.tsx";
 
 const PaginationComponent = ({ paginationprops }: Pagination) => {
     const {
@@ -63,7 +63,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
             setCurrentPageListDecksArray([]);
             setCurrentPageGalleryDecksArray([]);
         }
-    }, [filteredDecks, suggestionsPerListPage, suggestionsPerGalleryPage, currentListPage, currentGalleryPage]);
+    }, [filteredDecks.length, suggestionsPerListPage, suggestionsPerGalleryPage, currentListPage, currentGalleryPage]);
 
     const updateCurrentPageGallery = () => {
         if (filteredDecks.length > 0) {
@@ -111,21 +111,25 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
             {listView && (
                 <>
                     {totalListPages > 1 && (
-                        <div className="flex space-x-[1vw] w-full justify-evenly">
-                            <section className="flex items-center h-full space-x-2"> 
-                                <span className="text-lg text-[hsl(var(--text))]">Page</span> 
-                                <input
-                                    className="bg-transparent focus:outline-none w-10 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]"
-                                    placeholder={String(currentListPage)}
-                                    value={listpage}
-                                    onChange={handleListInputChange}
-                                />
-                                <span className="text-lg text-[hsl(var(--text))]">of {totalListPages}</span>
+                        <div className="flex flex-col w-full">
+                            <div className="flex space-x-[1vw] w-full justify-evenly">
+                                <section className="flex items-center h-full space-x-2"> 
+                                    <span className="text-lg text-[hsl(var(--text))]">Page</span> 
+                                    <input
+                                        className="bg-transparent focus:outline-none w-10 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]"
+                                        placeholder={String(currentListPage)}
+                                        value={listpage}
+                                        onChange={handleListInputChange}
+                                    />
+                                    <span className="text-lg text-[hsl(var(--text))]">of {totalListPages}</span>
+                                </section>
+                                <PageSelectorComponent pageselectorprops={pageselectorprops}/>
+                            </div>
+                            <div className="pl-[4vw]">
                                 {listerr && (
-                                    <span className="text-red-500">{listerr}</span>
+                                    <span className="text-red-500 font-bold text-xs">{listerr}</span>
                                 )}
-                            </section>
-                            <PageSelectorComponent pageselectorprops={pageselectorprops}/>
+                            </div>
                         </div>
                     )}
                 </>
@@ -145,7 +149,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
                                 />
                                 <span className="text-lg">of {totalGalleryPages}</span>
                                 {galleryerr && (
-                                    <span className="text-red-500">{galleryerr}</span>
+                                    <span className="text-red-500 font-bold text-xs">{galleryerr}</span>
                                 )}
                             </section>
                             <PageSelectorComponent pageselectorprops={pageselectorprops}/>

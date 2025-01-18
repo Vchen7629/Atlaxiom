@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import GridListViewComponent from './gridlistviewcomponent';
-import AllCardsSearchResultsDisplayComponent from './allcardsdisplaycomponent';
+import GridListViewComponent from '../buttons/gridlistviewcomponent';
+import AllCardsSearchResultsDisplayComponent from '../sidebardisplaycomponents/allcardsdisplaycomponent';
 import AllCardsSearchBarComponent from '../searchbar/allcardssearchbarcomponent';
-import CollectionDisplayComponent from './collectiondisplaycomponent';
+import CollectionDisplayComponent from '../sidebardisplaycomponents/collectiondisplaycomponent';
 import CollectionSearchBarComponent from '../searchbar/collectionsearchbarcomponent';
 import { GalleryResult, Result, Sidebar } from '../types/sidebarcomponenttypes';
 import { Card } from '../types/datatypes';

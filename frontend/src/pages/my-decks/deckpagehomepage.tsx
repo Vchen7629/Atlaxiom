@@ -4,13 +4,13 @@ import Footer from "../../components/footer/Footer.tsx"
 import Header from "../../components/header/header.tsx"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
-import DeckDisplay from '../../components/deckcomponents/homepage/owneddeckdisplaycomponent.tsx';
-import GridListViewComponent from '../../components/deckcomponents/homepage/grid_or_list_view.tsx';
-import CreateNewDeckComponent from '../../components/deckcomponents/homepage/CreateNewDeckButton.tsx';
+import DeckDisplay from '../../components/deckmanagerpagecomponents/display/owneddeckdisplaycomponent.tsx';
+import GridListViewComponent from '../../components/deckmanagerpagecomponents/buttons/grid_or_list_view.tsx';
+import CreateNewDeckComponent from '../../components/deckmanagerpagecomponents/buttons/CreateNewDeckButton.tsx';
 import { UserIdState } from './deckpagetypes.ts';
-import PaginationComponent from '@/components/deckcomponents/homepagepagination/pagination.tsx';
+import PaginationComponent from '@/components/deckmanagerpagecomponents/pagination/pagination.tsx';
 import { useGetAllOwnedDecksQuery } from '@/features/api-slices/decksapislice.ts';
-import { Deck } from '@/components/deckcomponents/types/homepagecomponentprops.ts';
+import { Deck } from '@/components/deckmanagerpagecomponents/types/homepagecomponentprops.ts';
 
 
 const DeckPageHomepage = () => {
@@ -19,17 +19,15 @@ const DeckPageHomepage = () => {
     const { data: modifyDecks, refetch } = useGetAllOwnedDecksQuery(userId);
     const decksToDisplay = modifyDecks?.entities?.undefined?.ownedDecks || [];
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (userId) {
             refetch();
         }
-    }, [userId]);
+    }, [userId]);*/
 
     const filteredDecks = decksToDisplay.filter((deck: Deck) =>
         deck?.deck_name?.toLowerCase().includes(deckName.toLowerCase())
     );
-
-    console.log(decksToDisplay)
     
     const [, setClickedOnCard] = useState<boolean>(false);
 
@@ -88,12 +86,13 @@ const DeckPageHomepage = () => {
     }
 
     const deckdisplayprops = {
+        decksToDisplay,
         listView,
         galleryView,
         userId,
         refetch,
-        currentPageListDecksArray,
-        currentPageGalleryDecksArray,
+        currentPageListDecksArray, setCurrentPageListDecksArray,
+        currentPageGalleryDecksArray, setCurrentPageGalleryDecksArray,
     }
 
 
@@ -105,12 +104,12 @@ const DeckPageHomepage = () => {
                     <div className="text-3xl font-black text-[hsl(var(--text))]">Deck Manager</div>
                     <CreateNewDeckComponent userId={userId}/>
                 </div>
-                <div className="flex w-[50vw] ml-[15vw] my-[2.5vh] justify-between">
-                    <div className="flex w-[15vw] h-[40px] pl-5 relative border-2 border-gray-400 justify-start text-gold">                      
+                <div className="flex w-[50vw] ml-[15vw] mt-[2.5vh] mb-[1.5vh] justify-between">
+                    <div className="flex w-[15vw] h-[40px] pl-5 relative border-2 border-gray-400 justify-start text-[hsl(var(--text))]">                      
                       <div className="flex items-center w-full">
                         <FontAwesomeIcon icon={faSearch} className="mr-2" />
                         <input
-                          className="bg-transparent w-full h-full text-xl text-white focus:outline-none"
+                          className="bg-transparent w-full h-full text-xl text-[hsl(var(--text))] focus:outline-none"
                           type="text"
                           value={deckName}
                           onChange={handleInputChange}
@@ -126,7 +125,7 @@ const DeckPageHomepage = () => {
                     <section className="flex">
                         <PaginationComponent paginationprops={paginationprops}/>
                     </section>
-                    <div className="flex w-20 bg-footer rounded-xl">
+                    <div className="flex w-20 h-11 bg-footer rounded-xl">
                         <GridListViewComponent filterProps={filterProps}/>  
                     </div>
                 </div>

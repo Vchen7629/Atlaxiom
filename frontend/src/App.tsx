@@ -39,7 +39,7 @@ function App() {
               </Suspense>
             }/>
           <Route path="getcards" element={<UserOwnedCardPage/>}/>
-            <Route path="deckmanager" element={<MyDeck/>}/>
+          <Route path="deckmanager" element={<MyDeck/>}/>
           <Route path="modifyDeck" element={<DeckBuilderPage/>}/>         
           <Route path="profile" element={<Profilepage />}/>
         </Route>

@@ -3,6 +3,10 @@ const deckCardSchema = require('./deckCardModel.js')
 
 
 const ownedDeckSchema = new mongoose.Schema({
+    favorite: {
+        type: Boolean,
+        default: false
+    },
     user_id: {
         type: String,
         require: true

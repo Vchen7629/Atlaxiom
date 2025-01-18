@@ -3,14 +3,14 @@ import Header from '../../components/header/header.tsx';
 import Footer from '../../components/footer/Footer.tsx';
 import { useLocation } from 'react-router-dom';
 import { useGetSpecificOwnedDeckQuery } from '../../features/api-slices/decksapislice.ts';
-import DeckBuilderPageSidebarComponent from '../../components/deckcomponents/decksidebar/deckbuilderpagesidebar.tsx';
-import MainDeckCardZone from '@/components/deckcomponents/editdeckcomponents/MainDeckCardsZone.tsx';
+import DeckBuilderPageSidebarComponent from '../../components/editdeckpagecomponents/sidebar/deckbuilderpagesidebar.tsx';
+import MainDeckCardZone from '@/components/editdeckpagecomponents/carddropzones/MainDeckCardsZone.tsx';
 import { DndContext } from '@dnd-kit/core';
-import { Card, OwnedCard } from '../../components/deckcomponents/types/datatypes.ts';
+import { Card, OwnedCard } from '../../components/editdeckpagecomponents/types/datatypes.ts';
 import { restrictToWindowEdges } from "@dnd-kit/modifiers"
-import ExtraDeckCardZone from '@/components/deckcomponents/editdeckcomponents/ExtraDeckCardsZone.tsx';
-import SideDeckCardZone from '@/components/deckcomponents/editdeckcomponents/SideDeckCardsZone.tsx';
-import SaveDeckCardsButton from '@/components/deckcomponents/editdeckcomponents/SaveDeckCardsButton.tsx';
+import ExtraDeckCardZone from '@/components/editdeckpagecomponents/carddropzones/ExtraDeckCardsZone.tsx';
+import SideDeckCardZone from '@/components/editdeckpagecomponents/carddropzones/SideDeckCardsZone.tsx';
+import SaveDeckCardsButton from '@/components/editdeckpagecomponents/buttons/SaveDeckCardsButton.tsx';
 
 const DeckBuilderPage = () => {
     const location = useLocation();

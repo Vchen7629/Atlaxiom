@@ -28,6 +28,7 @@ const createNewDeck = asyncHandler(async (req, res) => {
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
 
     const deckObject = {
+        favorite: false,
         user_id: id,
         deck_name: "Unnamed Deck",
         deck_desc: "a new deck",
@@ -46,6 +47,64 @@ const createNewDeck = asyncHandler(async (req, res) => {
         res.status(201).json({ 
             message: `New deck named ${deck.deck_name} created for user ${user.username}`,
             deck: deck
+        });
+    } else {
+        res.status(400).json({ message: "Invalid deck data recieved"})
+    }
+
+});
+
+// @desc Duplicate and create a new owned Deck copying the original deck data
+// @route POST /duplicate/:id
+// @access Public
+const createDuplicateDeck = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const { deckId } = req.body
+
+    if (!id || !deckId ) {
+        return res.status(400).json({ message: "User ID and DeckId are required" });
+    }
+
+    const user = await User.findById(id);
+
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+
+    const originalDeck = await Deck.findOne({ user_id: id, _id: deckId})
+    if (!originalDeck) {
+        return res.status(404).json({ message: "Original deck not found" });
+    }
+
+    const now = new Date();
+    const formattedDate = now.toISOString().split('T')[0];
+    const formattedTime = now.toTimeString().split(' ')[0];
+
+    const deckObject = {
+        favorite: false,
+        user_id: id,
+        deck_name: originalDeck.deck_name,
+        deck_desc: originalDeck.deck_desc,
+        createdOn: formattedDate,
+        lastUpdated: formattedDate,
+        main_deck_cards: [...originalDeck.main_deck_cards], 
+        extra_deck_cards: [...originalDeck.extra_deck_cards], 
+        side_deck_cards: [...originalDeck.side_deck_cards],
+    };
+
+    const newDeck = await Deck.create(deckObject);
+
+    user.ownedDecks = user.ownedDecks || [];
+    user.ownedDecks.push(newDeck._id)
+    user.totalOwnedDecks = (user.totalOwnedDecks || 0) + 1;
+    user.lastUpdated = `${formattedDate} ${formattedTime}`;
+
+    await user.save();
+
+    if (newDeck) {
+        res.status(201).json({ 
+            message: `New deck named ${deck.deck_name} duplicated for user ${user.username}`,
+            deck: newDeck
         });
     } else {
         res.status(400).json({ message: "Invalid deck data recieved"})
@@ -86,6 +145,44 @@ const getSpecificDeckforUser = asyncHandler(async (req, res) => {
 
     res.json(deck);
 });
+
+// @desc Favorite a deck
+// @route PATCH /favorite/:id
+// @access Public
+const makeFavoriteDeck = asyncHandler(async (req, res) => {
+    const { id } = req.params
+    const { deckId } = req.body
+
+    if (!id || !deckId) {
+        return res.status(400).json({ message: "No UserId or Deck Id provided"})
+    }
+
+    const user = await User.findById(id);
+
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+
+    const deck = await Deck.findOne({ user_id: id, _id: deckId})
+
+    if (!deck) {
+        return res.status(404).json({ message: `Deck of ID ${deckId} not found for this user` });
+    }
+
+    deck.favorite = true;
+
+    const now = new Date();
+    const formattedDate = now.toISOString().split('T')[0];
+    const formattedTime = now.toTimeString().split(' ')[0];
+
+    user.lastUpdated = `${formattedDate} ${formattedTime}`;
+
+    await user.save();
+    await deck.save();
+
+    res.status(200).json({ message: `Deck ${deck.deck_name} favorited` })
+
+})
 
 // @desc Add a card to the main deck
 // @route PATCH /maindeck/:id
@@ -586,8 +683,10 @@ const DeleteDeck = asyncHandler(async (req, res) => {
 
 module.exports = {
     createNewDeck,
+    createDuplicateDeck,
     getAllDecksforUser,
     getSpecificDeckforUser,
+    makeFavoriteDeck,
     addCardtoMainDeck,
     addCardtoExtraDeck,
     addCardtoSideDeck,
