@@ -22,7 +22,6 @@ const EditAccountPage = ({ user, refetch }: EditAccount) => {
     const [newEmail, setNewEmail] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [deleteInput, setDeleteInput] = useState('');
-    const [deleteErrMsg, setDeleteErrMsg] = useState('')
 
     const UpdateUsernameProps = {
         refetch,
@@ -134,9 +133,6 @@ const EditAccountPage = ({ user, refetch }: EditAccount) => {
                             <DeleteAccountInputComponent deleteInput={deleteInput} setDeleteInput={setDeleteInput}/>
                             <DeleteAccountButton deleteInput={deleteInput}/>
                         </div>
-                        {deleteErrMsg && (
-                            <div className="bg-transparent text-red-400 w-fit px-4 py-2 rounded-lg ">{deleteErrMsg}</div>
-                        )}
                     </div>
                 )}
             </section>

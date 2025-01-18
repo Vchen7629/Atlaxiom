@@ -8,6 +8,10 @@ const SignUpPageComponent = () => {
         navigate("/login")
     }
 
+    const handleBackClick = () => {
+        navigate("/")
+    }
+
     return (
         <main className="flex h-[100vh] w-full items-center justify-center bg-[url('../img/background3.jpg')] ">
             <div className="flex w-[75%] h-[90vh]">
@@ -17,7 +21,12 @@ const SignUpPageComponent = () => {
                     
                 </section>
                 <section className="flex flex-col w-[60%] bg-white rounded-br-2xl rounded-tr-2xl py-8 pl-16 space-y-4">
-                    <span className="text-black text-4xl font-bold">Sign-Up</span>
+                    <div className="flex w-[95%] justify-between">
+                        <span className="text-black text-4xl font-bold">Sign-Up</span>
+                        <button className="px-6 py-2 bg-gray-200 rounded-lg" onClick={handleBackClick}>
+                            <span className="text-black font-bold">Back</span>
+                        </button>
+                    </div>
                     <div className="text-black space-x-2">
                         <span>Already have an account?</span> 
                         <button className="text-goldenrod font-bold" onClick={handleLoginClick}>Log in</button>

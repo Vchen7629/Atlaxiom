@@ -8,20 +8,28 @@ const asyncHandler = require('express-async-handler')
 // @access Public
 const login = asyncHandler(async (req, res) => {
     const { username, password } = req.body
+    
+    if (!username && !password) {
+        return res.status(400).json({ message: 'No Username and Password entered, please input a Username and Password' })
+    }   
 
-    if (!username || !password) {
-        return res.status(400).json({ message: 'All fields are required' })
-    }
+    if (!username) {
+        return res.status(400).json({ message: 'No Username entered, please input a Username' })
+    } 
+
+    if (!password) {
+        return res.status(400).json({ message: 'No Paasword entered, please input a Password' })
+    }   
 
     const foundUser = await User.findOne({ username }).exec()
 
     if (!foundUser || !foundUser.active) {
-        return res.status(401).json({ message: 'Unauthorized' })
+        return res.status(401).json({ message: "Invalid Username" })
     }
 
     const match = await bcrypt.compare(password, foundUser.password)
 
-    if (!match) return res.status(401).json({ message: 'Unauthorized' })
+    if (!match) return res.status(401).json({ message: 'Invalid Password' })
 
     const accessToken = jwt.sign(
         {
