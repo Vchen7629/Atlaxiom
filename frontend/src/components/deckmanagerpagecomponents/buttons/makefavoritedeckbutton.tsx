@@ -1,15 +1,15 @@
 import { useMakeDeckFavoriteMutation } from "@/features/api-slices/decksapislice";
-import { DeckError, handleDeckClick } from "../types/homepagecomponentprops";
+import { Deck, DeckError, handleDeckClick } from "../types/homepagecomponentprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { DeleteDeck } from "../types/buttonprops";
+import { FavoriteDeck } from "../types/buttonprops";
 
 
-const FavoriteDeckButtonComponent = ({ deck, refetch, userId }: DeleteDeck) => {
+const FavoriteDeckButtonComponent = ({ deck, refetch, userId, setCurrentPageListDecksArray, setCurrentPageGalleryDecksArray}: FavoriteDeck) => {
 
     const [favoriteDeck] = useMakeDeckFavoriteMutation();
 
-    const handleDeleteDeckClick = async(deck: handleDeckClick) => {
+    const handleFavoriteDeckClick = async(deck: handleDeckClick) => {
         try {
             const favoritedeck = await favoriteDeck({
                 id: userId,
@@ -17,6 +17,19 @@ const FavoriteDeckButtonComponent = ({ deck, refetch, userId }: DeleteDeck) => {
             });
             if (favoritedeck) {
                 refetch();
+                setCurrentPageListDecksArray((prevDecks: Deck[]) => 
+                    prevDecks.map((prevDeck) => 
+                        prevDeck._id === deck._id ? { ...prevDeck, favorite: true} : prevDeck
+                    )
+                )
+                setCurrentPageGalleryDecksArray((prevGalleryDecks: any[]) =>
+                    prevGalleryDecks.map((prevGalleryDeck) =>
+                        prevGalleryDeck._id === deck._id 
+                            ? { ...prevGalleryDeck, favorite: true }
+                            : prevGalleryDeck
+                    )
+                );
+                
             } 
         } catch (error) {
             const err = error as DeckError
@@ -29,7 +42,7 @@ const FavoriteDeckButtonComponent = ({ deck, refetch, userId }: DeleteDeck) => {
             className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'
             onClick={(event) => {
                 event.stopPropagation(); 
-                handleDeleteDeckClick(deck);
+                handleFavoriteDeckClick(deck);
             }}
         >
             <FontAwesomeIcon icon={faStar}/>

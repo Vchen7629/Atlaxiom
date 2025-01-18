@@ -13,8 +13,8 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
         galleryView,
         userId,
         refetch,
-        currentPageListDecksArray,
-        currentPageGalleryDecksArray,
+        currentPageListDecksArray, setCurrentPageListDecksArray,
+        currentPageGalleryDecksArray, setCurrentPageGalleryDecksArray,
     } = deckdisplayprops
     const navigate = useNavigate();
 
@@ -48,7 +48,13 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                                     <span>{deck.deck_desc}</span>
                                 </section>
                                 <section className="flex w-fit space-x-1">
-                                    <FavoriteDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
+                                    <FavoriteDeckButtonComponent 
+                                        deck={deck} 
+                                        userId={userId} 
+                                        refetch={refetch} 
+                                        setCurrentPageListDecksArray={setCurrentPageListDecksArray}
+                                        setCurrentPageGalleryDecksArray={setCurrentPageGalleryDecksArray}
+                                    />
                                     <DuplicateDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                     <DeleteDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                 </section>    
@@ -77,12 +83,23 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                             style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                         >
                             {currentPageGalleryDecksArray.map((deck: any, index) => (
-                                <div>
-                                    <div key={index} className="relative bg-deckpage flex h-[12vh] w-[4.8vw] rounded-lg" onClick={() => handleDeckClick(deck)}>
+                                <div className="flex flex-col items-center">
+                                    <div key={index} className="relative bg-deckpage flex flex-col h-[12vh] w-[4.8vw] rounded-lg" onClick={() => handleDeckClick(deck)}>
+                                        {deck.favorite === true && (
+                                            <span className='absolute left-1/2 top-2 translate-x-[-50%] text-[hsl(var(--background3))] flex'>
+                                                <FontAwesomeIcon icon={faStar} className='fa-lg'/>
+                                            </span>
+                                        )}
                                         <span className="flex text-wrap text-white text-sm w-full h-full text-center items-center font-bold">{deck.deck_name}</span>
                                     </div>
-                                    <section className="flex w-full mt-2 justify-center space-x-1">
-                                        <FavoriteDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
+                                    <section className="flex w-full mt-2 space-x-1">
+                                        <FavoriteDeckButtonComponent 
+                                            deck={deck} 
+                                            userId={userId} 
+                                            refetch={refetch} 
+                                            setCurrentPageListDecksArray={setCurrentPageListDecksArray}
+                                            setCurrentPageGalleryDecksArray={setCurrentPageGalleryDecksArray}
+                                        />
                                         <DuplicateDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                         <DeleteDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                     </section>

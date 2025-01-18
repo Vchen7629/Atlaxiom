@@ -28,7 +28,9 @@ export type DeckDisplayComponent = {
         userId: string;
         refetch: any;
         currentPageListDecksArray: any[];
+        setCurrentPageListDecksArray: React.Dispatch<React.SetStateAction<any[]>>
         currentPageGalleryDecksArray: string[];
+        setCurrentPageGalleryDecksArray: React.Dispatch<React.SetStateAction<string[]>>
     }
 }
 

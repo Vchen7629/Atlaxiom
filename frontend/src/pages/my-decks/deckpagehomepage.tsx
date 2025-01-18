@@ -91,8 +91,8 @@ const DeckPageHomepage = () => {
         galleryView,
         userId,
         refetch,
-        currentPageListDecksArray,
-        currentPageGalleryDecksArray,
+        currentPageListDecksArray, setCurrentPageListDecksArray,
+        currentPageGalleryDecksArray, setCurrentPageGalleryDecksArray,
     }
 
 
