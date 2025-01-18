@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useSendLogoutMutation } from '../../features/auth/authApiSlice'    
+import { useSendLogoutMutation } from '../../../features/auth/authApiSlice'    
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -19,12 +19,9 @@ const Logout = () => {
 
     return (
         <div>
-            <button 
-                className="flex items-center hover:bg-footer" 
-                onClick={sendLogout}
-            >
-                <div className='mr-2'><FontAwesomeIcon icon={faRightFromBracket} /></div>
-                <div className="fatextmargin text-red-400">Logout</div>
+            <button className="flex items-center pb-2 border-b-2 border-transparent hover:border-b-2 hover:border-red-400 " onClick={sendLogout}>
+                <span className='mr-2'><FontAwesomeIcon icon={faRightFromBracket} /></span>
+                <span className="fatextmargin font-bold text-[hsl(var(--text))] text-red-400">Logout</span>
             </button>
         </div>
     );

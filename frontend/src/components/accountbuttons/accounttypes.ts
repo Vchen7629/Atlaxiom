@@ -3,3 +3,9 @@ export type UsernameState = {
         username: string | null
     }
 }
+
+export type AuthenticationState = {
+    auth: {
+        userId: string | null
+    }
+}
