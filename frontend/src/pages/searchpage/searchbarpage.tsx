@@ -10,6 +10,7 @@ import GalleryViewSearchSuggestionsComponent from '../../components/searchpageco
 import ClearFilterButton from '../../components/searchpagecomponents/buttons/clearfilterbutton';
 import FilterButton from '../../components/searchpagecomponents/buttons/filterbutton';
 import PaginationComponent from '@/components/searchpagecomponents/pagination/pagination';
+import { Toaster } from 'sonner';
 
 const SearchBarPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -265,7 +266,8 @@ const SearchBarPage = () => {
     <main className="min-h-[100vh]">
       <div className="flex flex-col min-h-[120vh] bg-[hsl(var(--background1))] justify-between overflow-auto" >
         <Header/>
-        <main className="flex flex-grow py-[15vh] items-start ">            
+        <main className="flex flex-grow py-[15vh] items-start ">
+          <Toaster richColors  expand visibleToasts={4}/>            
           <div className={`flex flex-col ${expandStatus ? "w-[77.5%]" : "w-full"}`}>
                 <main>
                   <div className="flex w-full items-center justify-between mb-[5vh]">

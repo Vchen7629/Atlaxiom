@@ -8,6 +8,7 @@ import Header from '@/components/header/header.tsx';
 import { CardSet } from '@/components/searchpagecomponents/types/searchresultcomptypes.ts';
 import { useState } from 'react';
 import { ComponentCardSetPopup } from '@/components/searchpagecomponents/searchresultpagecomponents/addcard.tsx';
+import { Toaster } from 'sonner';
 
 const SearchResults = () => { 
     const location = useLocation();
@@ -27,6 +28,7 @@ const SearchResults = () => {
       <main className="min-h-[100vh]">
         <div className="flex flex-col min-h-[120vh] bg-[hsl(var(--background1))] justify-between overflow-auto" >
           <Header/>
+          <Toaster richColors  expand visibleToasts={4}/>
           <main className="flex flex-col py-[13vh] w-[100vw] justify-center items-center">
               <div className="flex w-[84%] items-center">
                 <BreadcrumbSearchResult/>

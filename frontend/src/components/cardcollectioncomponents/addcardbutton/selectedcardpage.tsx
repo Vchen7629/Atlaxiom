@@ -16,7 +16,6 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
 
     const [selectedCardData, setSelectedCardData] = useState<SelectedCardData | null>(null);
     const [cardSets, setCardSets] = useState<CardSet[]>([]);
-    const [cardMessages, setCardMessages] = useState<{ [key: number]: string }>({})
     const [loading, setLoading] = useState<boolean>(true);
 
 
@@ -52,7 +51,7 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
         setSelectedCard(false)
     }
 
-    const handleAddOwnedCardClick = async (set: CardSet) => {
+    const handleAddOwnedCardClick = async (set: CardSet, index: number) => {
         if (selectedCardData) {
             const cardToPost = {
                 card_name: selectedCardData.name,
@@ -77,7 +76,7 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
             try {
                 await addNewOwnedCard({ id: userId, CardData: cardToPost }).unwrap();
                 refetch();
-                return { name: selectedCardData.name };
+                return { name: selectedCardData.name, set: selectedCardData?.card_sets?.[index]?.set_name};
             } catch (error) {
                 throw error;
             }
@@ -171,10 +170,10 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
                                                 <div className="w-[8%]">
                                                     <button
                                                         onClick={() => {
-                                                            const promise = handleAddOwnedCardClick(set);
+                                                            const promise = handleAddOwnedCardClick(set, index);
                                                             toast.promise(promise, {
                                                                 loading: "loading...",
-                                                                success: (data: any) => `Card:: ${data.name} has been added`,
+                                                                success: (data: any) => `Card: ${data.name} from set: ${data.set} has been added`,
                                                                 error: (error: any) => {
                                                                     if (error?.status === 409) {
                                                                         return error?.response?.data?.message || "You already Own this Card";

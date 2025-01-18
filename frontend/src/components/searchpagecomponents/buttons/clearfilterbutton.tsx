@@ -8,6 +8,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { toast } from "sonner";
 
 const ClearFilterButton = ({ clearfilterprops }: clearfilter) => {
     const {
@@ -57,7 +58,14 @@ const ClearFilterButton = ({ clearfilterprops }: clearfilter) => {
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger>
-                    <a className={`${canClearFilters ? "bg-[hsl(var(--background3))]" : "bg-gray-600"} py-[12px] px-[14px] rounded-xl`} onClick={handleClearFilter}>
+                    <a 
+                        className={`${canClearFilters ? "bg-[hsl(var(--background3))]" : "bg-gray-600"} py-[12px] px-[14px] rounded-xl`} 
+                        onClick={() => {
+                            handleClearFilter();
+                            {canClearFilters && (
+                                toast.success("Removed All Search Filters Successfully"))
+                            }
+                        }}>
                         <FontAwesomeIcon icon={faArrowRotateRight}/>
                     </a>
                 </TooltipTrigger>

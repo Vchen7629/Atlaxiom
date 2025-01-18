@@ -36,6 +36,7 @@ export type DeckDisplayComponent = {
 
 export type handleDeckClick = {
     _id: string;
+    deck_name: string;
 }
 
 export type Deck = {
@@ -45,8 +46,4 @@ export type Deck = {
     deckName: string;
     lastUpdated: string;
     deck_desc: string;
-}
-
-export type DeckError = {
-    message?: string;
 }
