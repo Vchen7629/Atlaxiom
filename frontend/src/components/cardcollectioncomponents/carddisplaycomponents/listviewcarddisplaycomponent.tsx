@@ -10,72 +10,28 @@ import {
 } from "@/components/ui/alert-dialog"
 import { useState } from "react";
 import { useLocation } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMinus, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { useIncreaseOwnedCardMutation, useDecreaseOwnedCardMutation, useDeleteOwnedCardMutation, useGetOwnedCardsQuery } from '../../../features/api-slices/ownedCardapislice.ts';
+import { useGetOwnedCardsQuery } from '../../../features/api-slices/ownedCardapislice.ts';
 import { Card, filteredListCards, SelectedCard } from "../types/ownedcarddetailstypes.ts";
 import { useGetSpecificUserQuery } from "@/features/api-slices/usersApiSlice.ts";
+import { Toaster } from "sonner";
+import IncreaseOwnedCardButtonComponent from "../buttons/increasedownedcardbutton.tsx";
+import DecreaseOwnedCardButtonComponent from "../buttons/decreaseownedcardbutton.tsx";
+import DeleteOwnedCardButtonComponent from "../buttons/deleteownedcardbutton.tsx";
 
 export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListCards) => {
     const { currentListPageResults } = displaylistprops
-
-    const [increaseOwnedCard] = useIncreaseOwnedCardMutation();
-    const [decreaseOwnedCard] = useDecreaseOwnedCardMutation();
-    const [deleteOwnedCard] = useDeleteOwnedCardMutation();
     const location = useLocation();
     const { userId } = location.state || {};
 
     const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null)
 
     const { refetch } = useGetOwnedCardsQuery(userId);
-    const { data: ownedCardCount, refetch: refetchOwnedCards } = useGetSpecificUserQuery(userId);
-
-    const handleIncreaseClick = async (cardName: string) => {
-        try {
-          await increaseOwnedCard({ 
-            id: userId, 
-            CardData: { 
-              card_name: cardName,
-              increaseOwnedAmount: 1 
-            } 
-          });
-          refetch();
-        } catch (err) {
-          console.error('Failed to increase card amount:', err);
-        }
-      };
-    
-      const handleDecreaseClick = async (cardName: string) => {
-        try {
-          await decreaseOwnedCard({ 
-            id: userId, 
-            CardData: { 
-              card_name: cardName,
-              decreaseOwnedAmount: 1 
-            } 
-          });
-          refetch();
-        } catch (err) {
-          console.error('Failed to decrease card amount:', err);
-        }
-      };
-    
-      const handleDeleteCardClick = async (cardName: string) => {
-        try {
-          await deleteOwnedCard({
-            id: userId,
-            CardData: { card_name: cardName }
-          });
-          refetch();
-          refetchOwnedCards();
-        } catch (err) {
-          console.error('Failed to delete card:', err);
-        }
-      }
+    const { data: ownedCardCount } = useGetSpecificUserQuery(userId);
       
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
+              
                 <div className="text-[hsl(var(--text))]">
                     {currentListPageResults.length > 0 ? (
                         currentListPageResults.map((card: Card, index: number) => (
@@ -101,25 +57,12 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
                                 <div className="w-[10%] overflow-y-auto h-fullpx-[2%] flex items-center">
                                     ${card.price}
                                 </div>
+                                
+                                <Toaster richColors  expand visibleToasts={4}/>
                                 <div className="flex w-[10%] space-x-1 h-[10%] items-center mr-6">
-                                    <button 
-                                      className="h-8 w-8 rounded bg-[hsl(var(--background3))] cursor-pointer" 
-                                      onClick={(e) => { e.stopPropagation(); handleIncreaseClick(card.card_name); }}
-                                    >
-                                        <FontAwesomeIcon icon={faPlus}/>
-                                    </button>
-                                    <button 
-                                      className="h-8 w-8 rounded bg-[hsl(var(--background3))] cursor-pointer" 
-                                      onClick={(e) => { e.stopPropagation(); handleDecreaseClick(card.card_name); }}
-                                    >
-                                        <FontAwesomeIcon icon={faMinus}/>
-                                    </button>
-                                    <button 
-                                      className="h-8 w-8 rounded bg-[hsl(var(--background3))] cursor-pointer"
-                                      onClick={(e) => { e.stopPropagation(); handleDeleteCardClick(card.card_name); }}
-                                    >
-                                        <FontAwesomeIcon icon={faTrash}/>
-                                    </button>
+                                    <IncreaseOwnedCardButtonComponent card={card} userId={userId} refetch={refetch}/>
+                                    <DecreaseOwnedCardButtonComponent card={card} userId={userId} refetch={refetch}/>
+                                    <DeleteOwnedCardButtonComponent card={card} userId={userId} refetch={refetch}/>
                                 </div>
                         </div>
                         ))

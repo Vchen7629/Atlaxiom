@@ -31,3 +31,12 @@ export type selectedcard = {
         userId: any
     }
 }
+
+export type Error = {
+    status: number;
+    response: {
+        data: {
+            message: string
+        }
+    }
+}

@@ -14,9 +14,9 @@ import { Button } from "@/components/ui/button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faPlusCircle, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { ApiCardData } from "@/components/searchpagecomponents/types/datastructuretypes";
-import AddCardPaginationComponent from "./addcardpagination";
+import AddCardPaginationComponent from "../addcardbutton/addcardpagination";
 import { OwnedCard } from "../types/dataStructures";
-import SelectedCardComponent from "./selectedcardpage";
+import SelectedCardComponent from "../addcardbutton/selectedcardpage";
    
 export const AddCardButton = ({ userId }: any) => {
     const [cardData, setCardData] = useState<ApiCardData[]>([])

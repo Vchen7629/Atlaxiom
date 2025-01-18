@@ -14,7 +14,7 @@ import GridListViewComponent from '../../components/cardcollectioncomponents/com
 import { GalleryViewCardDisplayComponent } from '../../components/cardcollectioncomponents/carddisplaycomponents/galleryviewcarddisplaycomponent.tsx';
 import { useGetSpecificUserQuery } from '@/features/api-slices/usersApiSlice.ts';
 import PaginationComponent from '@/components/cardcollectioncomponents/paginationcomponents/pagination.tsx';
-import { AddCardButton } from '@/components/cardcollectioncomponents/addcardbutton/addcardbutton.tsx';
+import { AddCardButton } from '@/components/cardcollectioncomponents/buttons/addcardbutton.tsx';
 import { OwnedCard } from '@/components/cardcollectioncomponents/types/dataStructures.ts';
 
 const UserOwnedCardPage = () => {
