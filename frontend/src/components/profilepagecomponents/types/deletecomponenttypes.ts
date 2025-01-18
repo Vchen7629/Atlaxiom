@@ -5,5 +5,4 @@ export type DeleteInputProps = {
 
 export type DeleteButtonProps = {
     deleteInput: string
-    setDeleteErrMsg: React.Dispatch<React.SetStateAction<string>>
 }
