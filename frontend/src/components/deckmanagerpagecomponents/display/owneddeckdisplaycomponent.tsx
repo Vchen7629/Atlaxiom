@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { Deck, DeckDisplayComponent, handleDeckClick } from '../types/homepagecomponentprops.ts';
 import DeleteDeckButtonComponent from '../buttons/deletedeckbutton.tsx';
 import DuplicateDeckButtonComponent from '../buttons/duplicatedeckbutton.tsx';
+import FavoriteDeckButtonComponent from '../buttons/makefavoritedeckbutton.tsx';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
     const {
@@ -32,13 +33,22 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                                 key={index} 
                                 onClick={() => handleDeckClick(deck)}
                             >  
-                                <section className="flex flex-col">
-                                    <div className="text-[hsl(var(--text))]"><strong>{deck.deck_name}</strong></div>
-                                    <div className="text-gray-400">Last Updated {deck.lastUpdated}</div>
+                                <section className='flex w-1/4 space-x-8'>
+                                    <div className="flex flex-col">
+                                        <div className="text-[hsl(var(--text))]"><strong>{deck.deck_name}</strong></div>
+                                        <div className="text-gray-400">Last Updated {deck.lastUpdated}</div>
+                                    </div>
+                                    {deck.favorite === true && (
+                                        <span className=' text-[hsl(var(--background3))] flex items-center justify-center'>
+                                            <FontAwesomeIcon icon={faStar} className='fa-lg'/>
+                                        </span>
+                                    )}
                                 </section>
-                                <section className="flex flex-col text-[hsl(var(--text))]">{deck.deck_desc}</section>
+                                <section className="flex w-1/2 h-full items-center space-x-2 text-[hsl(var(--text))]">
+                                    <span>{deck.deck_desc}</span>
+                                </section>
                                 <section className="flex w-fit space-x-1">
-                                    <button className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'><FontAwesomeIcon icon={faStar}/></button>
+                                    <FavoriteDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                     <DuplicateDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                     <DeleteDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                 </section>    
@@ -72,7 +82,7 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                                         <span className="flex text-wrap text-white text-sm w-full h-full text-center items-center font-bold">{deck.deck_name}</span>
                                     </div>
                                     <section className="flex w-full mt-2 justify-center space-x-1">
-                                        <button className='text-white h-7 w-7 rounded bg-[hsl(var(--background3))]'><FontAwesomeIcon icon={faStar}/></button>
+                                        <FavoriteDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                         <DuplicateDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                         <DeleteDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                     </section>

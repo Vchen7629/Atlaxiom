@@ -11,6 +11,9 @@ router.route("/")
 router.route("/duplicate/:id")
     .post(deckController.createDuplicateDeck)
 
+router.route("/favorite/:id")
+    .patch(deckController.makeFavoriteDeck)
+
 router.route("/:id")
     .get(deckController.getAllDecksforUser)
     .delete(deckController.DeleteDeck)

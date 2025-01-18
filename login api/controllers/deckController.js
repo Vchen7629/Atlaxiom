@@ -28,6 +28,7 @@ const createNewDeck = asyncHandler(async (req, res) => {
     user.lastUpdated = `${formattedDate} ${formattedTime}`;
 
     const deckObject = {
+        favorite: false,
         user_id: id,
         deck_name: "Unnamed Deck",
         deck_desc: "a new deck",
@@ -53,7 +54,7 @@ const createNewDeck = asyncHandler(async (req, res) => {
 
 });
 
-// @desc Create a new owned Deck
+// @desc Duplicate and create a new owned Deck copying the original deck data
 // @route POST /duplicate/:id
 // @access Public
 const createDuplicateDeck = asyncHandler(async (req, res) => {
@@ -80,6 +81,7 @@ const createDuplicateDeck = asyncHandler(async (req, res) => {
     const formattedTime = now.toTimeString().split(' ')[0];
 
     const deckObject = {
+        favorite: false,
         user_id: id,
         deck_name: originalDeck.deck_name,
         deck_desc: originalDeck.deck_desc,
@@ -143,6 +145,44 @@ const getSpecificDeckforUser = asyncHandler(async (req, res) => {
 
     res.json(deck);
 });
+
+// @desc Favorite a deck
+// @route PATCH /favorite/:id
+// @access Public
+const makeFavoriteDeck = asyncHandler(async (req, res) => {
+    const { id } = req.params
+    const { deckId } = req.body
+
+    if (!id || !deckId) {
+        return res.status(400).json({ message: "No UserId or Deck Id provided"})
+    }
+
+    const user = await User.findById(id);
+
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+
+    const deck = await Deck.findOne({ user_id: id, _id: deckId})
+
+    if (!deck) {
+        return res.status(404).json({ message: `Deck of ID ${deckId} not found for this user` });
+    }
+
+    deck.favorite = true;
+
+    const now = new Date();
+    const formattedDate = now.toISOString().split('T')[0];
+    const formattedTime = now.toTimeString().split(' ')[0];
+
+    user.lastUpdated = `${formattedDate} ${formattedTime}`;
+
+    await user.save();
+    await deck.save();
+
+    res.status(200).json({ message: `Deck ${deck.deck_name} favorited` })
+
+})
 
 // @desc Add a card to the main deck
 // @route PATCH /maindeck/:id
@@ -646,6 +686,7 @@ module.exports = {
     createDuplicateDeck,
     getAllDecksforUser,
     getSpecificDeckforUser,
+    makeFavoriteDeck,
     addCardtoMainDeck,
     addCardtoExtraDeck,
     addCardtoSideDeck,

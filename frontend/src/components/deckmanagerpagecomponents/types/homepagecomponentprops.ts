@@ -38,6 +38,7 @@ export type handleDeckClick = {
 
 export type Deck = {
     _id: string;
+    favorite?: boolean;
     deck_name: string;
     deckName: string;
     lastUpdated: string;

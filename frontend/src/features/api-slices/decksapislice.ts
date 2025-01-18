@@ -72,6 +72,19 @@ export const deckApiSlice = apiSlice.injectEndpoints({
             }
         }),
 
+        makeDeckFavorite: builder.mutation({
+            query: ({ id, deckId }) => ({
+                url: `deck/favorite/${id}`,
+                method: "PATCH",
+                body: {
+                    deckId,
+                }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Deck', id: arg.id }
+            ]
+        }),
+
         addCardsMainDeck: builder.mutation({
             query: ({ id, deckId, main_deck_cards }) => ({
                 url: `/deck/maindeck/${id}`,
@@ -201,6 +214,7 @@ export const {
     useCreateNewDeckMutation,
     useCreateDuplicateDeckMutation,
     useGetSpecificOwnedDeckQuery,
+    useMakeDeckFavoriteMutation,
     useAddCardsMainDeckMutation,
     useAddNewCardtoExtraDeckMutation,
     useAddNewCardtoSideDeckMutation,
