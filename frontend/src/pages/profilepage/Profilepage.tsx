@@ -43,11 +43,15 @@ const Profilepage = () => {
     }
     const [currentListPage, setListCurrentPage] = useState<number>(1);  
     const [currentGalleryPage, setGalleryCurrentPage] = useState<number>(1);
-    const [currentListPageResults, setCurrentListPageResults] = useState({ currentListPageResults: [], length: 0, map: () => {} })
-    const [currentGalleryPageResults, setCurrentGalleryPageResults] = useState({ currentListPageResults: [], length: 0, map: () => {} })
+    const [currentListPageResults, setCurrentListPageResults] = useState<string[]>([])
+    const [currentGalleryPageResults, setCurrentGalleryPageResults] = useState<string[]>([])
 
     const [yearView, setYearView] = useState<boolean>(true);
     const [monthView, setMonthView] = useState<boolean>(false);
+
+    const {data: usersData, refetch} = useGetSpecificUserQuery(userId);
+
+    const user = usersData?.entities[userId]
 
     const navbarprops = {
         deckActive, setDeckActive,
@@ -62,13 +66,15 @@ const Profilepage = () => {
     }
 
     const deckprops = {
+        user,
         deckName,
         listView,
         galleryView,
+        refetch,
         refetchdecks,
         filteredDecks,
-        currentListPageResults,
-        currentGalleryPageResults
+        currentListPageResults, setCurrentListPageResults,
+        currentGalleryPageResults, setCurrentGalleryPageResults,
     }
 
     const paginationprops = {
@@ -96,41 +102,9 @@ const Profilepage = () => {
         yearView, setYearView,
         monthView, setMonthView
     }
-    
-    const { 
-        data: usersData, 
-        isLoading,
-        isError,
-        error,
-        refetch 
-    } = useGetSpecificUserQuery(userId);
 
     const renderProfileContent = () => {
-        const { ids, entities } = usersData || {}
-
-        if (!Array.isArray(ids) || ids.length === 0) {
-            return <span>No user data available</span>;
-        }
-
-        const defaultIdKey = ids[0];
-        const user = entities[defaultIdKey];
-
-        if (isError) {
-          return <span>Error loading user data</span>;
-        }
-        
-        if (isLoading || usersData == null) {
-          return <span>Loading user data...</span>;
-        } 
-        if (!userId) {
-          return <span>Please Login</span>;
-        }
-
-        if (error) {
-            return <span>Err</span>
-        }
-
-        const header = <ProfilePageHeader user={user}/>
+        const header = <ProfilePageHeader usersData={user}/>
               
         switch (selectedNavItem) {
             case 'deck': 
@@ -143,7 +117,7 @@ const Profilepage = () => {
                             <DeckSearchBar deckName={deckName} setDeckName={setDeckName}/>
                             <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                         </div>
-                        <ViewDecks deckprops={deckprops} user={user}/>
+                        <ViewDecks deckprops={deckprops}/>
                     </>
                 );
             case 'statistics':
@@ -175,7 +149,7 @@ const Profilepage = () => {
                             <DeckSearchBar deckName={deckName} setDeckName={setDeckName}/>
                             <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                         </div>
-                        <ViewDecks deckprops={deckprops} user={user}/>
+                        <ViewDecks deckprops={deckprops}/>
                     </>
                 );
             }

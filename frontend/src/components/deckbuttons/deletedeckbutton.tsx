@@ -1,23 +1,25 @@
-import { useCreateDuplicateDeckMutation } from "@/features/api-slices/decksapislice";
-import { handleDeckClick } from "../types/homepagecomponentprops";
+import { useDeleteDeckMutation } from "@/features/api-slices/decksapislice";
+import { handleDeckClick } from "../deckmanagerpagecomponents/types/homepagecomponentprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
-import { DeleteDeck } from "../types/buttonprops";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { DeleteDeck } from "./buttonprops";
 import { toast } from "sonner";
 
 
-const DuplicateDeckButtonComponent = ({ deck, refetch, userId }: DeleteDeck) => {
+const DeleteDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: DeleteDeck) => {
 
-    const [addNewDuplicateDeck] = useCreateDuplicateDeckMutation()
+    const [deleteDeck] = useDeleteDeckMutation();
     
-    const handleDuplicateDeckClick = async(deck: handleDeckClick) => {
+
+    const handleDeleteDeckClick = async(deck: handleDeckClick) => {
         try {
-            const duplicate = await addNewDuplicateDeck({
+            const deldeck = await deleteDeck({
                 id: userId, 
-                deckId: deck._id
+                DeckData: { deckId: deck._id }
             });
-            if (duplicate) {
+            if (deldeck) {
                 refetch();
+                if (refetchUser) refetchUser();
                 return { name: deck.deck_name}
             } 
         } catch (error) {
@@ -30,26 +32,28 @@ const DuplicateDeckButtonComponent = ({ deck, refetch, userId }: DeleteDeck) => 
             className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'
             onClick={(event) => {
                 event.stopPropagation(); 
-                const promise = handleDuplicateDeckClick(deck);
+                const promise = handleDeleteDeckClick(deck);
                 toast.promise(promise, {
                     loading: "loading...",
-                    success: (data: any) => `Duplicated Deck: ${data.name}`,
+                    success: (data: any) => `Deleted Deck: ${data.name}`,
                     error: (error: any) => {
                         if (error?.status === 404) {
                             return error?.response?.data?.message || "User Not Found";
                         } else if (error?.status === 405) {
-                            return error?.response?.data?.message || "Original Deck Not Found";
+                            return error?.response?.data?.message || "Deck Not Found";
                         } else if (error?.status === 400) {
                             return error?.response?.data?.message || "Missing UserId, deckId";
+                        } else if (error?.status === 500) {
+                            return error?.response?.data?.message || "Failed to Delete Deck";
                         }
                       return
                     },
                 })
             }}
         >
-            <FontAwesomeIcon icon={faCopy}/>
+            <FontAwesomeIcon icon={faTrash}/>
         </button>
     )
 }
 
-export default DuplicateDeckButtonComponent
+export default DeleteDeckButtonComponent

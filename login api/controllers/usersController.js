@@ -110,20 +110,36 @@ const updateUser = asyncHandler(async (req, res) => {
     const user = await User.findById(id).exec()
 
     if (!user) {
-        return res.status(400).json({ message: 'User not found' })
+        return res.status(404).json({ message: 'User not found' })
     }
 
     // check for duplicate
-    if (username && username!== user.username) {
-        const duplicate = await User.findOne({ username }).lean().exec()
-        if (duplicate && duplicate?._id.toString() !== id) {
-            return res.status(409).json({ message: 'Duplicate username' })
-        }
+    if (username && username === user.username) {
+        return res.status(409).json({ message: 'Cannot update to the same username' });
+    }
+
+    if (username && username !== user.username) {
         user.username = username
     }
 
+    if (email && email === user.email) {
+        return res.status(409).json({ message: 'Cannot update to the same email' });
+    }
+
     if (email) {
-        user.email = email
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|io)$/;
+
+        if (!emailRegex.test(email)) {
+            return res.status(422).json({ message: 'Invalid email format' });
+        }
+
+        // Check if the email is already taken
+        const emailTaken = await User.findOne({ email }).lean().exec();
+        if (emailTaken && emailTaken._id.toString() !== id) {
+            return res.status(409).json({ message: 'Duplicate email' });
+        }
+
+        user.email = email;
     }
 
     if (password) {

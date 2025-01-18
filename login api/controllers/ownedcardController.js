@@ -140,6 +140,10 @@ const DecreaseCard = asyncHandler(async (req, res) => {
 
   card.ownedamount =  Math.max(Number(card.ownedamount) - Number(decreaseOwnedAmount), 1);
 
+  if (card.ownedamount < 1) {
+    return res.status(405).json({ message: "Unable to decrease card to 0, try deleting the card instead"})
+  }
+
   user.totalOwnedCards = Number(user.totalOwnedCards) - Number(decreaseOwnedAmount) || 1;
   user.lastCardUpdated = `${formattedDate} ${formattedTime}`;
 

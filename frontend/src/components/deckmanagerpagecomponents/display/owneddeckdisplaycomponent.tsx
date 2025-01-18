@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { Deck, DeckDisplayComponent, handleDeckClick } from '../types/homepagecomponentprops.ts';
-import DeleteDeckButtonComponent from '../buttons/deletedeckbutton.tsx';
-import DuplicateDeckButtonComponent from '../buttons/duplicatedeckbutton.tsx';
-import FavoriteDeckButtonComponent from '../buttons/makefavoritedeckbutton.tsx';
+import DeleteDeckButtonComponent from '../../deckbuttons/deletedeckbutton.tsx';
+import DuplicateDeckButtonComponent from '../../deckbuttons/duplicatedeckbutton.tsx';
+import FavoriteDeckButtonComponent from '../../deckbuttons/makefavoritedeckbutton.tsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 

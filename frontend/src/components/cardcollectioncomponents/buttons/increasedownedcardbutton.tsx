@@ -16,7 +16,7 @@ const IncreaseOwnedCardButtonComponent = ({ userId, refetch, card }: IncreaseCar
               card_name: cardName,
               increaseOwnedAmount: 1 
             } 
-          });
+          }).unwrap();
           refetch();
           return { name: cardName };
         } catch (error) {

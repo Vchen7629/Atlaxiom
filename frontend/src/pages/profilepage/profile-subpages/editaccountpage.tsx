@@ -8,9 +8,11 @@ import PasswordUpdateButton from "../../../components/profilepagecomponents/edit
 import DeleteAccountInputComponent from "../../../components/profilepagecomponents/deleteaccountcomponents/deleteaccountinput.tsx";
 import DeleteAccountButton from "../../../components/profilepagecomponents/deleteaccountcomponents/deleteaccountbutton.tsx";
 import { EditAccount } from "../types/subpagetypes.ts";
+import { Toaster } from "sonner";
 
 const EditAccountPage = ({ user, refetch }: EditAccount) => {
-    const { username, email } = user;
+    const username = user.username;
+    const email = user.email;
     const [changeUsername, setChangeUsername] = useState(true);
     const [changeEmail, setChangeEmail] = useState(false);
     const [changePassword, setChangePassword] = useState(false);
@@ -20,64 +22,21 @@ const EditAccountPage = ({ user, refetch }: EditAccount) => {
     const [newEmail, setNewEmail] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [deleteInput, setDeleteInput] = useState('');
-
-    const [userErrMsg, setUserErrMsg] = useState('');
-    const [userSuccessMsg, setUserSuccessMsg] = useState('');
-    const [emailErrMsg, setEmailErrMsg] = useState('');
-    const [emailSuccessMsg, setEmailSuccessMsg] = useState('');
-    const [passwordErrMsg, setPasswordErrMsg] = useState('');
-    const [passwordSuccessMsg, setPasswordSuccessMsg] = useState('');
     const [deleteErrMsg, setDeleteErrMsg] = useState('')
-
-    const UsernameInputProps = {
-        newUsername, setNewUsername,
-        setUserErrMsg,
-        setUserSuccessMsg,
-    }
 
     const UpdateUsernameProps = {
         refetch,
-        username,
-        newUsername, setNewUsername,
-        setUserErrMsg,
-        setUserSuccessMsg,
-    }
-
-    const EmailInputProps = {
-        newEmail, setNewEmail,
-        setEmailErrMsg,
-        setEmailSuccessMsg,
+        newUsername, setNewUsername
     }
 
     const UpdateEmailProps = {
         refetch,
-        email,
         newEmail, setNewEmail,
-        setEmailErrMsg,
-        setEmailSuccessMsg,
-    }
-
-    const PasswordInputProps = {
-        newPassword, setNewPassword,
-        setPasswordErrMsg,
-        setPasswordSuccessMsg,
     }
 
     const UpdatePasswordProps = {
         refetch,
         newPassword, setNewPassword,
-        setPasswordErrMsg,
-        setPasswordSuccessMsg
-    }
-
-    const DeleteInputProps = {
-        deleteInput, setDeleteInput,
-        setDeleteErrMsg,
-    } 
-
-    const DeleteButtonProps = {
-        deleteInput,
-        setDeleteErrMsg,
     }
 
     const handleChangeUserNameClick = () => {
@@ -110,6 +69,7 @@ const EditAccountPage = ({ user, refetch }: EditAccount) => {
 
     return (
         <div className="flex pl-8 pt-8 bg-[hsl(var(--profilebackground))] rounded-xl">
+            <Toaster richColors expand visibleToasts={4} position="bottom-center"/>
             <section className="flex flex-col h-full w-1/4 space-y-6 text-xl text-[hsl(var(--text))]">
                 <button className="w-full flex items-center space-x-6" onClick={handleChangeUserNameClick}>
                     <div className={`flex items-center justify-center w-10 h-10 ${changeUsername ? "bg-[hsl(var(--background3))]" : "bg-footer text-white"} rounded-xl`}>
@@ -142,14 +102,8 @@ const EditAccountPage = ({ user, refetch }: EditAccount) => {
                         <header className="font-bold text-3xl text-[hsl(var(--text))]">Change Username</header>
                         <div className="text-gray-400 font-bold my-4"> Current Username: {username}</div>
                         <div className="text-[hsl(var(--text))] mb-4"> New Username: </div>
-                        <div className="mb-8"><EditUsernameInputComponent UsernameInputProps={UsernameInputProps} /></div>
+                        <div className="mb-8"><EditUsernameInputComponent newUsername={newUsername} setNewUsername={setNewUsername}/></div>
                         <div><UsernameUpdateButton UpdateUsernameProps={UpdateUsernameProps} /></div>
-                        {userErrMsg && (
-                            <div className="bg-red-500 w-fit px-4 py-2 rounded-lg mt-12">{userErrMsg}</div>
-                        )}
-                        {userSuccessMsg && (
-                            <div className="bg-green-500 w-fit px-4 py-2 rounded-lg mt-12">{userSuccessMsg}</div>
-                        )}
                     </div>
                 )} 
                 {changeEmail && (
@@ -157,28 +111,16 @@ const EditAccountPage = ({ user, refetch }: EditAccount) => {
                         <header className="font-bold text-3xl text-[hsl(var(--text))]">Change Email</header>
                         <div className="text-gray-400 font-bold my-4"> Current Email: {email}</div>
                         <div className="text-[hsl(var(--text))] mb-4"> New Email: </div>
-                        <div className="mb-8"><EditEmailInputComponent EmailInputProps={EmailInputProps} /></div>
+                        <div className="mb-8"><EditEmailInputComponent newEmail={newEmail} setNewEmail={setNewEmail} /></div>
                         <div><EmailUpdateButton UpdateEmailProps={UpdateEmailProps}/></div>
-                        {emailErrMsg && (
-                            <div className="bg-red-500 w-fit px-4 py-2 rounded-lg mt-12">{emailErrMsg}</div>
-                        )}
-                        {emailSuccessMsg && (
-                            <div className="bg-green-500 w-fit px-4 py-2 rounded-lg mt-12">{emailSuccessMsg}</div>
-                        )}
                     </div>
                 )}
                 {changePassword && (
                     <div className="flex flex-col">
                         <header className="font-bold text-3xl text-[hsl(var(--text))]">Change Password</header>
                         <div className="text-[hsl(var(--text))] my-4">New Password: </div>
-                        <div className="mb-8"><EditPasswordInputComponent PasswordInputProps={PasswordInputProps} /></div>
+                        <div className="mb-8"><EditPasswordInputComponent newPassword={newPassword} setNewPassword={setNewPassword} /></div>
                         <div><PasswordUpdateButton UpdatePasswordProps={UpdatePasswordProps}/></div>
-                        {passwordErrMsg && (
-                            <div className="bg-red-500 w-fit px-4 py-2 rounded-lg mt-12">{passwordErrMsg}</div>
-                        )}
-                        {passwordSuccessMsg && (
-                            <div className="bg-green-500 w-fit px-4 py-2 rounded-lg mt-12">{passwordSuccessMsg}</div>
-                        )}
                     </div>
                 )}
                 {deleteAccount && (
@@ -189,8 +131,8 @@ const EditAccountPage = ({ user, refetch }: EditAccount) => {
                             cannot be undone.
                         </div>
                         <div className="flex flex-col space-y-4">
-                            <DeleteAccountInputComponent DeleteInputProps={DeleteInputProps}/>
-                            <DeleteAccountButton DeleteButtonProps={DeleteButtonProps}/>
+                            <DeleteAccountInputComponent deleteInput={deleteInput} setDeleteInput={setDeleteInput}/>
+                            <DeleteAccountButton deleteInput={deleteInput}/>
                         </div>
                         {deleteErrMsg && (
                             <div className="bg-transparent text-red-400 w-fit px-4 py-2 rounded-lg ">{deleteErrMsg}</div>

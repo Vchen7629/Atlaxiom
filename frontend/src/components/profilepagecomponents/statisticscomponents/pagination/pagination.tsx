@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { PageSelectorComponent } from "./pageselector.tsx";
-import { Pagination } from "../types/paginationtypes";
-import { OwnedCard } from "../types/dataStructures";
+import { Pagination } from "../types/paginationtypes.ts";
 
 const PaginationComponent = ({ paginationprops }: Pagination) => {
     const {
@@ -30,7 +29,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         if (filteredDecks.length > 0) {
             const startIndex = (currentListPage - 1) * suggestionsPerListPage;
             const endIndex = startIndex + suggestionsPerListPage;
-            const currentListSuggestions = filteredDecks.slice(startIndex, endIndex) as OwnedCard[];
+            const currentListSuggestions = filteredDecks.slice(startIndex, endIndex) as any[];
             setCurrentListPageResults(currentListSuggestions);
         }
     };
@@ -58,7 +57,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         if (filteredDecks.length > 0) {
             const startIndex = (currentListPage - 1) * suggestionsPerGalleryPage;
             const endIndex = startIndex + suggestionsPerGalleryPage;
-            const currentGallerySuggestions = filteredDecks.slice(startIndex, endIndex) as OwnedCard[];
+            const currentGallerySuggestions = filteredDecks.slice(startIndex, endIndex) as any[];
             setCurrentGalleryPageResults(currentGallerySuggestions);
         }
     };
