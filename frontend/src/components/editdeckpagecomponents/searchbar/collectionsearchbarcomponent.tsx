@@ -179,7 +179,7 @@ const CollectionSearchBarComponent = ({ CollectionSearchBarCompProps }: Collecti
                 </section>
                 
             </div>
-            <div className="flex w-full justify-center text-gray-500 mt-1">
+            <div className="flex w-full justify-center text-gray-500 my-2">
                 {listView && collectionCardsView && collectionTotalListPage > 0 && (
                     <span>{`Page ${collectionCurrentPage} of ${collectionTotalListPage}`}</span>
                 )}

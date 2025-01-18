@@ -81,7 +81,7 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
                           src={card?.card_images?.[0]?.image_url || card?.image_url}
                           className="h-full object-contain"
                         />
-                        <div className="font-black text-sm w-[55%]">{card?.name || card?.card_name}</div>
+                        <span className="font-black text-[hsl(var(--text))] text-sm w-[55%]">{card?.name || card?.card_name}</span>
                         <div className="flex space-x-1">
                           <button 
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))]'
@@ -132,7 +132,7 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
                             className="h-full object-contain"
                             //alt={card.card_name}
                         />
-                        <div className="font-black text-sm w-[55%]">{card?.name || card?.card_name}</div>
+                        <span className="font-black text-[hsl(var(--text))] text-sm w-[55%]">{card?.name || card?.card_name}</span>
                         <div className="flex space-x-1">
                           <button 
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))]'
@@ -183,7 +183,7 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
                             className="h-full object-contain"
                             //alt={card.card_name}
                         />
-                        <div className="font-black text-sm w-[55%]">{card?.name || card?.card_name}</div>
+                        <span className="font-black text-[hsl(var(--text))] text-sm w-[55%]">{card?.name || card?.card_name}</span>
                         <div className="flex space-x-1">
                           <button 
                             className='text-white h-6 w-6 rounded bg-[hsl(var(--background3))]'
@@ -236,13 +236,17 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
                     >
                       {monsterCards.map((card: any) => (
                         <div className="flex h-full">
-                            <div key={card.id} className="flex flex-col items-center space-y-2">
+                            <div key={card.id} className="relative group flex flex-col items-center space-y-2">
                               <label className="bg-[hsl(var(--background3))] font-bold text-[hsl(var(--text))] px-2 text-xs rounded-2xl">{card?.cardInDeckOwnedAmount}x</label>
                               <img
                                 src={card?.image_url || card?.card_images?.[0]?.image_url}
-                                className="h-full object-contain"
+                                className="h-full object-contain group-hover:blur-xs"
                                 //alt={card.card_name}
                               />
+                              <div className="absolute inset-0 flex items-center justify-center top-[10%] h-[70%] bg-black bg-opacity-50 text-white text-center text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                  {card.name}
+                              </div>
+
                               <div className="flex space-x-1">
                                 <button 
                                   className='flex text-white h-4 w-4 justify-center items-center rounded bg-[hsl(var(--background3))] hover:text-green-400'
@@ -292,13 +296,16 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
                     >
                       {spellCards.map((card: any) => (
                         <div className="flex h-full">
-                            <div key={card.id} className="flex flex-col items-center space-y-2">
+                            <div key={card.id} className="relative group flex flex-col items-center space-y-2">
                               <label className="bg-[hsl(var(--background3))] font-bold text-[hsl(var(--text))] px-2 text-xs rounded-2xl">{card?.cardInDeckOwnedAmount}x</label>
                               <img
                                 src={card?.image_url || card?.card_images?.[0]?.image_url}
-                                className="h-full object-contain"
+                                className="h-full object-contain group-hover:blur-xs"
                                 //alt={card.card_name}
                               />
+                              <div className="absolute inset-0 flex items-center justify-center top-[10%] h-[70%] bg-black bg-opacity-50 text-white text-center text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                  {card.name}
+                              </div>
                               <div className="flex space-x-1">
                                 <button 
                                   className='flex text-white h-4 w-4 justify-center items-center rounded bg-[hsl(var(--background3))] hover:text-green-400'
@@ -348,13 +355,16 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
                       >
                         {trapCards.map((card: any) => (
                           <div className="flex h-full">
-                              <div key={card.id} className="flex flex-col items-center space-y-2">
-                              <label className="bg-[hsl(var(--background3))] font-bold text-[hsl(var(--text))] px-2 text-xs rounded-2xl">{card?.cardInDeckOwnedAmount}x</label>
+                              <div key={card.id} className="flex flex-col relative group items-center space-y-2">
+                                <label className="bg-[hsl(var(--background3))] font-bold text-[hsl(var(--text))] px-2 text-xs rounded-2xl">{card?.cardInDeckOwnedAmount}x</label>
                                 <img
                                   src={card?.image_url || card?.card_images?.[0]?.image_url}
                                   className="h-full object-contain"
                                   //alt={card.card_name}
                                 />
+                                <div className="absolute inset-0 flex items-center justify-center top-[10%] h-[70%] bg-black bg-opacity-50 text-white text-center text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    {card.name}
+                                </div>
                                 <div className="flex space-x-1">
                                   <button 
                                     className='flex text-white h-4 w-4 justify-center items-center rounded bg-[hsl(var(--background3))] hover:text-green-400'

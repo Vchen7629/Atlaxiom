@@ -23,7 +23,7 @@ const AllCardsSearchResultsDisplayComponent = ({ AllCardsDisplayCompProps }: All
                         ))}
                     </div>
                 ) : (
-                    <div className="flex w-full h-full justify-center items-center font-black">
+                    <div className="flex w-full h-full justify-center text-[hsl(var(--text))] items-center font-black">
                         Enter a card Name to find cards
                     </div>
                 )}
@@ -42,7 +42,7 @@ const AllCardsSearchResultsDisplayComponent = ({ AllCardsDisplayCompProps }: All
                      ))}
                  </div>
             ) : (
-                <div className="flex w-full h-full justify-center items-center font-black">
+                <div className="flex w-full h-full justify-center items-center text-[hsl(var(--text))] font-black">
                     Enter a card Name to find cards
                 </div>
             )}

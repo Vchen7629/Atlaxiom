@@ -140,7 +140,7 @@ const DeckBuilderPageSidebarComponent = ({ sidebarprops }: Sidebar) => {
                     )}
                 </div>
             </header>
-            <div className="flex w-full h-[80%] bg-[hsl(var(--editdeckdraganddropbackground))] p-2 rounded-2xl mb-4 mt-[5vh]">
+            <div className="flex w-full h-[80%] bg-[hsl(var(--editdeckdraganddropbackground))] p-2 rounded-2xl mb-4">
                 {allCardsView && (
                     <AllCardsSearchResultsDisplayComponent AllCardsDisplayCompProps={AllCardsDisplayCompProps}/>
                 )}

@@ -162,7 +162,7 @@ const AllCardsSearchBarComponent = ({ AllCardsSearchBarCompProps }: AllCardsSear
                 </section>
                 
             </div>
-            <div className="flex w-full justify-center text-gray-500 mt-1">
+            <div className="flex w-full justify-center text-gray-500 my-2">
                 {listView && allCardsView && allCardsTotalListPages > 0 && (
                     <span>{`Page ${allCardsCurrentPage} of ${allCardsTotalListPages}`}</span>
                 )}
