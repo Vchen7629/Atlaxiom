@@ -5,6 +5,8 @@ import { ProfileHeader } from '../types/componenttypes';
 const ProfilePageHeader = ({ user }: ProfileHeader) => {
     const { username, totalOwnedCards, totalOwnedDecks, creation } = user;
 
+    
+
     return (
         <>
         <div className="flex flex-col min-h-[25vh] mt-4">
