@@ -130,7 +130,7 @@ const updateUser = asyncHandler(async (req, res) => {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|io)$/;
 
         if (!emailRegex.test(email)) {
-            return res.status(402).json({ message: 'Invalid email format' });
+            return res.status(422).json({ message: 'Invalid email format' });
         }
 
         // Check if the email is already taken
@@ -140,10 +140,6 @@ const updateUser = asyncHandler(async (req, res) => {
         }
 
         user.email = email;
-    }
-
-    if (!password) {
-        return res.status(400).json({ message: 'Password not provided' })
     }
 
     if (password) {

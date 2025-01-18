@@ -12,7 +12,7 @@ const UsernameUpdateButton = ({ UpdateUsernameProps } : SaveUsernameButton) => {
 
     const userId = useSelector((state: UserId) => state.auth.userId);
 
-    const [updateUsername ] = useUpdateUserMutation(userId)
+    const [updateUsername ] = useUpdateUserMutation()
 
     const handleSubmitUsername = async () => {
         try {

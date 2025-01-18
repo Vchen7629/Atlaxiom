@@ -12,7 +12,7 @@ const EmailUpdateButton = ({ UpdateEmailProps } : SaveEmailButton) => {
 
     const userId = useSelector((state: UserId) => state.auth.userId);
 
-    const [updateUsername] = useUpdateUserMutation(userId)
+    const [updateUsername] = useUpdateUserMutation()
 
     const handleSubmitEmail = async () => {
         try {
@@ -42,7 +42,7 @@ const EmailUpdateButton = ({ UpdateEmailProps } : SaveEmailButton) => {
                             return "User Not Found";
                         } else if (error?.status === 400) {
                             return "No email provided, Please provide a email";
-                        } else if (error?.status === 402) {
+                        } else if (error?.status === 422) {
                             return  "Invalid Email Format";
                         } else if (error?.status === 409) {
                             return  "Duplicate Email, Please Enter a Different Email";

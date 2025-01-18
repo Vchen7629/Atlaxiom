@@ -12,7 +12,7 @@ const PasswordUpdateButton = ({ UpdatePasswordProps } : SavePasswordButton) => {
 
     const userId = useSelector((state: UserId) => state.auth.userId);
 
-    const [updatePassword] = useUpdateUserMutation(userId)
+    const [updatePassword] = useUpdateUserMutation()
 
     const handleSubmitPassword = async () => {
         try {

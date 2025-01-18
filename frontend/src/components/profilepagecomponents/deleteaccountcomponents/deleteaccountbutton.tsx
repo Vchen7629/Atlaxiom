@@ -8,7 +8,7 @@ import { DeleteButtonProps } from "../types/deletecomponenttypes";
 const DeleteAccountButton = ({ deleteInput, setDeleteErrMsg }: DeleteButtonProps) => {
     const userId = useSelector((state: UserId) => state.auth.userId);
     const navigate = useNavigate();
-    const [deleteUser] = useDeleteUserMutation(userId)
+    const [deleteUser] = useDeleteUserMutation()
     const [sendLogout] = useSendLogoutMutation()
     const deleteMsg = ("DELETE")
 
