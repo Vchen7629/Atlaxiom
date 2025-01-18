@@ -1,12 +1,12 @@
 import { useCreateDuplicateDeckMutation } from "@/features/api-slices/decksapislice";
-import { handleDeckClick } from "../types/homepagecomponentprops";
+import { handleDeckClick } from "../deckmanagerpagecomponents/types/homepagecomponentprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
-import { DeleteDeck } from "../types/buttonprops";
+import { DeleteDeck } from "./buttonprops";
 import { toast } from "sonner";
 
 
-const DuplicateDeckButtonComponent = ({ deck, refetch, userId }: DeleteDeck) => {
+const DuplicateDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: DeleteDeck) => {
 
     const [addNewDuplicateDeck] = useCreateDuplicateDeckMutation()
     
@@ -18,6 +18,7 @@ const DuplicateDeckButtonComponent = ({ deck, refetch, userId }: DeleteDeck) => 
             });
             if (duplicate) {
                 refetch();
+                if (refetchUser) refetchUser();
                 return { name: deck.deck_name}
             } 
         } catch (error) {

@@ -2,10 +2,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faUser } from '@fortawesome/free-solid-svg-icons';
 import { ProfileHeader } from '../types/componenttypes';
 
-const ProfilePageHeader = ({ user }: ProfileHeader) => {
-    const { username, totalOwnedCards, totalOwnedDecks, creation } = user;
+const ProfilePageHeader = ({ usersData }: ProfileHeader) => {
+    //const { totalOwnedCards, totalOwnedDecks, creation } = usersData;
 
-    
+    const username = usersData?.username
+    const totalOwnedCards = usersData?.totalOwnedCards
+    const totalOwnedDecks = usersData?.totalOwnedDecks
+    const creation = usersData?.creation
+    console.log(username)
+
 
     return (
         <>

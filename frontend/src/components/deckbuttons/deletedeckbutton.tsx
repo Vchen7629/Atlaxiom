@@ -6,9 +6,10 @@ import { DeleteDeck } from "./buttonprops";
 import { toast } from "sonner";
 
 
-const DeleteDeckButtonComponent = ({ deck, refetch, userId }: DeleteDeck) => {
+const DeleteDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: DeleteDeck) => {
 
     const [deleteDeck] = useDeleteDeckMutation();
+    
 
     const handleDeleteDeckClick = async(deck: handleDeckClick) => {
         try {
@@ -18,6 +19,7 @@ const DeleteDeckButtonComponent = ({ deck, refetch, userId }: DeleteDeck) => {
             });
             if (deldeck) {
                 refetch();
+                if (refetchUser) refetchUser();
                 return { name: deck.deck_name}
             } 
         } catch (error) {

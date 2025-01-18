@@ -1,5 +1,3 @@
-import { OwnedDecksApiRes } from "./datastructuretypes"
-
 export type UserId = {
     auth: {
         userId: string
@@ -13,25 +11,18 @@ export type Username = {
 }
 
 export type DeckProps = {
-    user: {
-        totalOwnedDecks: number;
-    };
     deckprops: {
+        user: {
+            totalOwnedDecks: number;
+        }
         listView: boolean;
         galleryView: boolean;
+        refetch: any;
         refetchdecks: any;
         filteredDecks: any;
-        currentListPageResults: {
-            currentListPageResults: OwnedDecksApiRes[];
-            length: number
-            map: any;
-        }
+        currentListPageResults: any
         setCurrentListPageResults: React.Dispatch<React.SetStateAction<any>> 
-        currentGalleryPageResults: {
-            currentListPageResults: OwnedDecksApiRes[];
-            length: number
-            map: any;
-        };
+        currentGalleryPageResults: any
         setCurrentGalleryPageResults: React.Dispatch<React.SetStateAction<any>> 
     }
 }

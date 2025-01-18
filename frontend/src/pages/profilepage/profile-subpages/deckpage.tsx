@@ -9,10 +9,12 @@ import { Toaster } from 'sonner';
 import DuplicateDeckButtonComponent from '@/components/deckbuttons/duplicatedeckbutton';
 import FavoriteDeckButtonComponent from '@/components/deckbuttons/makefavoritedeckbutton';
 
-const ViewDecks = ({ deckprops, user }: DeckProps) => {
+const ViewDecks = ({ deckprops }: DeckProps) => {
     const {
+        user,
         listView,
         galleryView,
+        refetch,
         refetchdecks,
         currentListPageResults, setCurrentListPageResults,
         currentGalleryPageResults, setCurrentGalleryPageResults,
@@ -20,7 +22,7 @@ const ViewDecks = ({ deckprops, user }: DeckProps) => {
 
     const userId = useSelector((state: UserId) => state.auth.userId);
     const navigate = useNavigate();
-    const { totalOwnedDecks } = user;
+    const totalOwnedDecks = user?.totalOwnedDecks;
 
     console.log(totalOwnedDecks)
         
@@ -58,12 +60,12 @@ const ViewDecks = ({ deckprops, user }: DeckProps) => {
                                                 <FavoriteDeckButtonComponent 
                                                     deck={deck} 
                                                     userId={userId} 
-                                                    refetch={refetchdecks} 
+                                                    refetch={refetchdecks}
                                                     setCurrentPageListDecksArray={setCurrentListPageResults}
                                                     setCurrentPageGalleryDecksArray={setCurrentGalleryPageResults}
                                                 />
-                                                <DuplicateDeckButtonComponent userId={userId} refetch={refetchdecks} deck={deck}/>
-                                                <DeleteDeckButtonComponent userId={userId} refetch={refetchdecks} deck={deck}/>
+                                                <DuplicateDeckButtonComponent userId={userId} refetch={refetchdecks} refetchUser={refetch} deck={deck}/>
+                                                <DeleteDeckButtonComponent userId={userId} refetch={refetchdecks} refetchUser={refetch} deck={deck}/>
                                             </section>      
                                         </div>
                                     </>
@@ -107,8 +109,8 @@ const ViewDecks = ({ deckprops, user }: DeckProps) => {
                                                 setCurrentPageListDecksArray={setCurrentListPageResults}
                                                 setCurrentPageGalleryDecksArray={setCurrentGalleryPageResults}
                                             />
-                                            <DuplicateDeckButtonComponent userId={userId} refetch={refetchdecks} deck={deck}/>
-                                            <DeleteDeckButtonComponent userId={userId} refetch={refetchdecks} deck={deck}/>
+                                            <DuplicateDeckButtonComponent userId={userId} refetch={refetchdecks} refetchUser={refetch} deck={deck}/>
+                                            <DeleteDeckButtonComponent userId={userId} refetch={refetchdecks}  refetchUser={refetch} deck={deck}/>
                                         </section>
                                     </div>
                                 )}
