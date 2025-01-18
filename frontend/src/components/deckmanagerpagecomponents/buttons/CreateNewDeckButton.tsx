@@ -1,6 +1,7 @@
 import { useCreateNewDeckMutation, useGetAllOwnedDecksQuery } from '../../../features/api-slices/decksapislice.ts';
 import { useNavigate } from 'react-router-dom';
-import { ErrorResponse, NewDeckButton } from '../types/homepagecomponentprops.ts';
+import { NewDeckButton } from '../types/homepagecomponentprops.ts';
+import { toast } from 'sonner';
 
 const CreateNewDeckComponent: React.FC<NewDeckButton> = ({ userId }) => {
     const navigate = useNavigate()
@@ -12,24 +13,35 @@ const CreateNewDeckComponent: React.FC<NewDeckButton> = ({ userId }) => {
             const payload = { id: userId };
             const result = await addNewDeck(payload).unwrap();
     
-            if (result && result.deck && result.deck._id) {
-                navigate('/modifyDeck', { state: { deckId: result.deck._id, userId: userId } });
-                refetch()
-            } else {
-                console.error("Error: Deck creation failed, missing deck ID.");
-            }
+            navigate('/modifyDeck', { state: { deckId: result.deck._id, userId: userId } });
+            refetch()
+            console.log(result.deck.deck_name)
+
+            return { name: result.deck.deck_name}
         } catch (error) {
-            const err = error as ErrorResponse
-            if (err.status === 404 && err.data?.message === "Owned Decks not found for the user") {
-                alert("No decks found for this user. Please create a new deck.");
-            } else {
-                alert("An unexpected error occurred. Please try again.");
-            }
+            throw error
         }
     };
 
     return (
-        <button className="flex text-md px-4 py-2 rounded-xl bg-[hsl(var(--background3))]" onClick={handleCreateDeckClick}>
+        <button 
+            className="flex text-md px-4 py-2 rounded-xl bg-[hsl(var(--background3))]" 
+            onClick={() => {
+                const promise = handleCreateDeckClick()
+                toast.promise(promise, {
+                    loading: "loading...",
+                    success: (data: any) => `Created New Deck Named: ${data.name}`,
+                    error: (error: any) => {    
+                        if (error?.status === 404 ) {
+                            return error?.response?.data?.message || "User Not Found"
+                        } else if (error?.status === 400 ) {
+                            return error?.response?.data?.message || "User Id not Found"
+                        }
+                        return
+                    }
+                })
+            }}
+        >
             New Deck
         </button>
     )

@@ -11,6 +11,7 @@ import { UserIdState } from './deckpagetypes.ts';
 import PaginationComponent from '@/components/deckmanagerpagecomponents/pagination/pagination.tsx';
 import { useGetAllOwnedDecksQuery } from '@/features/api-slices/decksapislice.ts';
 import { Deck } from '@/components/deckmanagerpagecomponents/types/homepagecomponentprops.ts';
+import { Toaster } from 'sonner';
 
 
 const DeckPageHomepage = () => {
@@ -100,6 +101,7 @@ const DeckPageHomepage = () => {
         <main className="min-h-[110vh] flex flex-col bg-[hsl(var(--background1))] justify-between">
             <Header/>
             <div className="flex flex-col py-[15vh]">
+                <Toaster richColors  expand visibleToasts={4}/>
                 <div className="flex w-[50vw] ml-[15vw] items-center justify-between">
                     <div className="text-3xl font-black text-[hsl(var(--text))]">Deck Manager</div>
                     <CreateNewDeckComponent userId={userId}/>

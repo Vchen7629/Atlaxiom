@@ -1,8 +1,9 @@
 import { useMakeDeckFavoriteMutation } from "@/features/api-slices/decksapislice";
-import { Deck, DeckError, handleDeckClick } from "../types/homepagecomponentprops";
+import { Deck, handleDeckClick } from "../types/homepagecomponentprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FavoriteDeck } from "../types/buttonprops";
+import { toast } from "sonner";
 
 
 const FavoriteDeckButtonComponent = ({ deck, refetch, userId, setCurrentPageListDecksArray, setCurrentPageGalleryDecksArray}: FavoriteDeck) => {
@@ -29,11 +30,10 @@ const FavoriteDeckButtonComponent = ({ deck, refetch, userId, setCurrentPageList
                             : prevGalleryDeck
                     )
                 );
-                
+                return { name: deck.deck_name}
             } 
         } catch (error) {
-            const err = error as DeckError
-            console.error("Error deleting deck:", err.message || error);
+            throw error
         }
     }
 
@@ -42,7 +42,21 @@ const FavoriteDeckButtonComponent = ({ deck, refetch, userId, setCurrentPageList
             className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'
             onClick={(event) => {
                 event.stopPropagation(); 
-                handleFavoriteDeckClick(deck);
+                const promise = handleFavoriteDeckClick(deck);
+                toast.promise(promise, {
+                    loading: "loading...",
+                    success: (data: any) => `Added Deck: ${data.name} to Favorites`,
+                    error: (error: any) => {
+                        if (error?.status === 404) {
+                            return error?.response?.data?.message || "User Not Found";
+                        } else if (error?.status === 405) {
+                            return error?.response?.data?.message || "Deck Not Found";
+                        } else if (error?.status === 400) {
+                            return error?.response?.data?.message || "Missing UserId, deckId";
+                        }
+                      return
+                    },
+                })
             }}
         >
             <FontAwesomeIcon icon={faStar}/>
