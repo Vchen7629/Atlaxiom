@@ -67,8 +67,8 @@ const Profilepage = () => {
         galleryView,
         refetchdecks,
         filteredDecks,
-        currentListPageResults,
-        currentGalleryPageResults
+        currentListPageResults, setCurrentListPageResults,
+        currentGalleryPageResults, setCurrentGalleryPageResults,
     }
 
     const paginationprops = {

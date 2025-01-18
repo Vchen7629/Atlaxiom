@@ -73,7 +73,7 @@ const createDuplicateDeck = asyncHandler(async (req, res) => {
 
     const originalDeck = await Deck.findOne({ user_id: id, _id: deckId})
     if (!originalDeck) {
-        return res.status(404).json({ message: "Original deck not found" });
+        return res.status(405).json({ message: "Original deck not found" });
     }
 
     const now = new Date();
@@ -166,7 +166,7 @@ const makeFavoriteDeck = asyncHandler(async (req, res) => {
     const deck = await Deck.findOne({ user_id: id, _id: deckId})
 
     if (!deck) {
-        return res.status(404).json({ message: `Deck of ID ${deckId} not found for this user` });
+        return res.status(405).json({ message: `Deck of ID ${deckId} not found for this user` });
     }
 
     deck.favorite = true;
@@ -654,7 +654,7 @@ const DeleteDeck = asyncHandler(async (req, res) => {
     const deck = await Deck.find({ user_id: id, _id: deckId})
 
     if (!deck) {
-        return res.status(404).json({ message: "Deck not found" });
+        return res.status(405).json({ message: "Deck not found" });
     }
     
     const user = await User.findById(id)

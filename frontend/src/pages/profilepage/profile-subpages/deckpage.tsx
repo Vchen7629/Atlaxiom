@@ -1,44 +1,34 @@
 
-import { useDeleteDeckMutation } from '@/features/api-slices/decksapislice.ts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faCopy, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { DeckError, DeckProps, FilteredDecks, handleDeckClick, UserId } from '../types/subpagetypes';
+import { DeckProps, FilteredDecks, handleDeckClick, UserId } from '../types/subpagetypes';
+import DeleteDeckButtonComponent from '@/components/deckbuttons/deletedeckbutton';
+import { Toaster } from 'sonner';
+import DuplicateDeckButtonComponent from '@/components/deckbuttons/duplicatedeckbutton';
+import FavoriteDeckButtonComponent from '@/components/deckbuttons/makefavoritedeckbutton';
 
 const ViewDecks = ({ deckprops, user }: DeckProps) => {
     const {
         listView,
         galleryView,
         refetchdecks,
-        currentListPageResults,
-        currentGalleryPageResults,
+        currentListPageResults, setCurrentListPageResults,
+        currentGalleryPageResults, setCurrentGalleryPageResults,
     } = deckprops 
 
     const userId = useSelector((state: UserId) => state.auth.userId);
     const navigate = useNavigate();
     const { totalOwnedDecks } = user;
-    
-    const [deleteDeck] = useDeleteDeckMutation();
-    
+        
     const handleDeckClick = async (deck: handleDeckClick) => {
         navigate('/modifyDeck', { state: { deckId: deck._id, userId: userId } });   
     };
-    
-    const handleDeleteDeckClick = async(deck: handleDeckClick) => {
-        try {
-            const deldeck = await deleteDeck({ id: userId, DeckData: { deckId: deck._id } });
-                if (deldeck) {
-                    refetchdecks();
-                }
-            } catch (error) {
-                const err = error as DeckError
-                console.error("Error deleting deck:", err.message || error);
-            }
-        }
         
         return (
-            <div className="bg-[hsl(var(--profilebackground))] p-4 rounded-xl min-h-[60vh]">  
+            <div className="bg-[hsl(var(--profilebackground))] p-4 rounded-xl min-h-[60vh]">
+                <Toaster richColors  expand visibleToasts={4}/>  
                 {listView && (
                     <main className='flex flex-col w-full'>
                         {totalOwnedDecks === 0 ? (
@@ -54,20 +44,28 @@ const ViewDecks = ({ deckprops, user }: DeckProps) => {
                                             key={deck._id} 
                                             onClick={() => handleDeckClick(deck)}
                                         >  
-                                            <section className="flex flex-col">
-                                                <div className="text-[hsl(var(--text))]"><strong>{deck.deck_name}</strong></div>
-                                                <div className="text-gray-400">Last Updated {deck.lastUpdated}</div>
+                                            <section className='flex w-1/4 space-x-8'>
+                                                <div className="flex flex-col">
+                                                    <div className="text-[hsl(var(--text))]"><strong>{deck.deck_name}</strong></div>
+                                                    <div className="text-gray-400">Last Updated {deck.lastUpdated}</div>
+                                                </div>
+                                                {deck.favorite === true && (
+                                                    <span className=' text-[hsl(var(--background3))] flex items-center justify-center'>
+                                                        <FontAwesomeIcon icon={faStar} className='fa-lg'/>
+                                                    </span>
+                                                )}
                                             </section>
                                             <section className="flex flex-col text-[hsl(var(--text))]">{deck.deck_desc}</section>
                                             <section className="flex w-fit space-x-1">
-                                                <button className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'><FontAwesomeIcon icon={faStar}/></button>
-                                                <button className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'><FontAwesomeIcon icon={faCopy}/></button>
-                                                <button 
-                                                    className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'
-                                                    onClick={(event) => {event.stopPropagation(); handleDeleteDeckClick(deck)}}
-                                                >
-                                                    <FontAwesomeIcon icon={faTrash}/>
-                                                </button>
+                                                <FavoriteDeckButtonComponent 
+                                                    deck={deck} 
+                                                    userId={userId} 
+                                                    refetch={refetchdecks} 
+                                                    setCurrentPageListDecksArray={setCurrentListPageResults}
+                                                    setCurrentPageGalleryDecksArray={setCurrentGalleryPageResults}
+                                                />
+                                                <DuplicateDeckButtonComponent userId={userId} refetch={refetchdecks} deck={deck}/>
+                                                <DeleteDeckButtonComponent userId={userId} refetch={refetchdecks} deck={deck}/>
                                             </section>      
                                         </div>
                                     </>

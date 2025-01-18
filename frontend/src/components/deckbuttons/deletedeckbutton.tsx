@@ -1,8 +1,8 @@
 import { useDeleteDeckMutation } from "@/features/api-slices/decksapislice";
-import { handleDeckClick } from "../types/homepagecomponentprops";
+import { handleDeckClick } from "../deckmanagerpagecomponents/types/homepagecomponentprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { DeleteDeck } from "../types/buttonprops";
+import { DeleteDeck } from "./buttonprops";
 import { toast } from "sonner";
 
 

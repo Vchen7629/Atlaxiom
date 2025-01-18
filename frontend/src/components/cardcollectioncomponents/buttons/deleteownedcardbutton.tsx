@@ -14,7 +14,7 @@ const DeleteOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCard)
           await deleteOwnedCard({
             id: userId,
             CardData: { card_name: cardName }
-          });
+          }).unwrap();
           refetch();
           return { name: cardName }
         } catch (error) {

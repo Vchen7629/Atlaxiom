@@ -1,8 +1,8 @@
 import { useMakeDeckFavoriteMutation } from "@/features/api-slices/decksapislice";
-import { Deck, handleDeckClick } from "../types/homepagecomponentprops";
+import { Deck, handleDeckClick } from "../deckmanagerpagecomponents/types/homepagecomponentprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { FavoriteDeck } from "../types/buttonprops";
+import { FavoriteDeck } from "./buttonprops";
 import { toast } from "sonner";
 
 

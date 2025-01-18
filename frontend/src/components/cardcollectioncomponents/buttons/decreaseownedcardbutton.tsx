@@ -16,7 +16,7 @@ const DecreaseOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCar
               card_name: cardName,
               decreaseOwnedAmount: 1 
             } 
-          });
+          }).unwrap();
           refetch();
           return { name: cardName };
         } catch (error) {
@@ -34,10 +34,13 @@ const DecreaseOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCar
                     loading: "loading...",
                     success: (data: any) => `Decreased Owned Amount for Card: ${data.name}`,
                     error: (error: any) => {
+                      console.log(error)
                       if (error?.status === 404) {
-                            return error?.response?.data?.message || "Card Not Found";
+                        return error?.response?.data?.message || "Card Not Found";
                       } else if (error?.status === 400) {
-                          return error?.response?.data?.message || "Missing UserId, Card Name or Valid IncreaseOwnedAmount";
+                        return error?.response?.data?.message || "Missing UserId, Card Name or Valid IncreaseOwnedAmount";
+                      } else if (error?.status === 405) {
+                        return error?.response?.data?.message || "Unable to decrease card to 0, try deleting the card instead";
                       }
                       return
                     },

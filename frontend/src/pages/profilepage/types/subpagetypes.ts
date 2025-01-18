@@ -25,12 +25,14 @@ export type DeckProps = {
             currentListPageResults: OwnedDecksApiRes[];
             length: number
             map: any;
-        }, 
+        }
+        setCurrentListPageResults: React.Dispatch<React.SetStateAction<any>> 
         currentGalleryPageResults: {
             currentListPageResults: OwnedDecksApiRes[];
             length: number
             map: any;
         };
+        setCurrentGalleryPageResults: React.Dispatch<React.SetStateAction<any>> 
     }
 }
 
@@ -38,15 +40,13 @@ export type handleDeckClick = {
     _id: string;
 }
 
-export type DeckError = {
-    message: string
-}
 
 export type FilteredDecks = {
     _id: string;
     deck_name: string;
     lastUpdated: string;
-    deck_desc: string
+    deck_desc: string;
+    favorite?: boolean
 }
 
 export type EditAccount = {
