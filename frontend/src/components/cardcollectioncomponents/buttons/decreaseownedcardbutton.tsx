@@ -18,8 +18,9 @@ const DecreaseOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCar
             } 
           });
           refetch();
-        } catch (err) {
-          console.error('Failed to decrease card amount:', err);
+          return { name: cardName };
+        } catch (error) {
+          throw error
         }
     };
 
@@ -27,9 +28,21 @@ const DecreaseOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCar
         <button 
             className="h-8 w-8 rounded bg-[hsl(var(--background3))] cursor-pointer" 
             onClick={(e) => {
-                e.stopPropagation(); handleDecreaseClick(card.card_name);
-                toast.success(`Decreased Owned Amount for ${card.card_name}`,
-            )}}
+                e.stopPropagation(); 
+                const promise = handleDecreaseClick(card.card_name);
+                toast.promise(promise, {
+                    loading: "loading...",
+                    success: (data: any) => `Decreased Owned Amount for Card: ${data.name}`,
+                    error: (error: any) => {
+                      if (error?.status === 404) {
+                            return error?.response?.data?.message || "Card Not Found";
+                      } else if (error?.status === 400) {
+                          return error?.response?.data?.message || "Missing UserId, Card Name or Valid IncreaseOwnedAmount";
+                      }
+                      return
+                    },
+                })
+            }}
         >
             <FontAwesomeIcon icon={faMinus}/>
         </button>

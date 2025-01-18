@@ -16,8 +16,9 @@ const DeleteOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCard)
             CardData: { card_name: cardName }
           });
           refetch();
-        } catch (err) {
-          console.error('Failed to delete card:', err);
+          return { name: cardName }
+        } catch (error) {
+          throw error
         }
     }
 
@@ -25,11 +26,21 @@ const DeleteOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCard)
         <button 
             className="h-8 w-8 rounded bg-[hsl(var(--background3))] cursor-pointer"
             onClick={(e) => {
-                e.stopPropagation(); handleDeleteCardClick(card.card_name);
-                toast.success(`Deleted Card: ${card.card_name}`, {
-                    icon: <FontAwesomeIcon icon={faTrash}/>
-                }
-            )}}
+                e.stopPropagation();
+                const promise = handleDeleteCardClick(card.card_name);
+                toast.promise(promise, {
+                    loading: "loading...",
+                    success: (data: any) => `Deleted Card: ${data.name}`,
+                    error: (error: any) => {
+                      if (error?.status === 404) {
+                            return error?.response?.data?.message || "Card Not Found";
+                      } else if (error?.status === 400) {
+                          return error?.response?.data?.message || "Missing UserId, or Card Name";
+                      }
+                      return
+                    },
+                })
+            }}
         >
             <FontAwesomeIcon icon={faTrash}/>
         </button>

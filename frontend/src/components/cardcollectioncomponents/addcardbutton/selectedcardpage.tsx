@@ -5,6 +5,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { selectedcard } from "../types/addcardtypes";
+import { toast } from "sonner";
 
 const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
     const {
@@ -37,8 +38,8 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
           } else {
             console.error('Error fetching card data:', data.message);
           }
-        } catch  {
-          console.error('Error fetching card data:', Error);
+        } catch (error) {
+          throw error
         }
         
     }
@@ -51,7 +52,7 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
         setSelectedCard(false)
     }
 
-    const handleAddOwnedCardClick = async (set: CardSet, index: number) => {
+    const handleAddOwnedCardClick = async (set: CardSet) => {
         if (selectedCardData) {
             const cardToPost = {
                 card_name: selectedCardData.name,
@@ -75,10 +76,10 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
             };
             try {
                 await addNewOwnedCard({ id: userId, CardData: cardToPost }).unwrap();
-                setCardMessages(prev => ({...prev, [index]: "Card successfully added to Collection!"}));
-                refetch()
+                refetch();
+                return { name: selectedCardData.name };
             } catch (error) {
-                setCardMessages(prev => ({...prev, [index]: "Error adding Card to Collection."}));
+                throw error;
             }
         } else {
             console.error("No selected Card Data")
@@ -162,7 +163,6 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
                                         key={index}
                                         className="flex p-1 mb-2 text-xs items-center space-x-[5%] text-[hsl(var(--text))] border-2 border-[hsl(var(--background4))] rounded-xl"
                                     >
-                                        {!cardMessages[index] ? (
                                             <>
                                                 <div className="w-[25%]">{set.set_name}</div>
                                                 <div className="w-[18%]">{set.set_code}</div>
@@ -170,22 +170,26 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
                                                 <div className="w-[13%]">${set.set_price}</div>
                                                 <div className="w-[8%]">
                                                     <button
-                                                        onClick={() => handleAddOwnedCardClick(set, index)}
+                                                        onClick={() => {
+                                                            const promise = handleAddOwnedCardClick(set);
+                                                            toast.promise(promise, {
+                                                                loading: "loading...",
+                                                                success: (data: any) => `Card:: ${data.name} has been added`,
+                                                                error: (error: any) => {
+                                                                    if (error?.status === 409) {
+                                                                        return error?.response?.data?.message || "You already Own this Card";
+                                                                    }
+                                                                    return "An Error occured while adding the Card"
+                                                                },
+                                                            })
+                                                        }}
                                                         className="bg-[hsl(var(--background3))] rounded-lg flex items-center p-2"
                                                     >
                                                         <FontAwesomeIcon icon={faPlus} />
                                                     </button>
                                                 </div>
                                             </>
-                                        ) : (
-                                            <div
-                                                className={`h-full w-full flex justify-center p-2 text-[12px] ${
-                                                    cardMessages[index].includes("successfully") ? 'text-green-500' : 'text-red-600'
-                                                }`}
-                                            >
-                                                {cardMessages[index]}
-                                            </div>
-                                        )}
+                                    
                                     </div>
                                 ))}
                             </div>
