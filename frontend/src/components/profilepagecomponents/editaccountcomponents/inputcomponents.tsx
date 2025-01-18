@@ -2,30 +2,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTimes } from "@fortawesome/free-solid-svg-icons"
 import { EmailInput, PasswordInput, UsernameInput } from "../types/editcomponenttypes";
 
-export const EditUsernameInputComponent = ({ UsernameInputProps }: UsernameInput) => {
-    const {
-        newUsername, setNewUsername,
-        setUserErrMsg,
-        setUserSuccessMsg,
-    } = UsernameInputProps
+export const EditUsernameInputComponent = ({ newUsername, setNewUsername }: UsernameInput) => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         setNewUsername(inputValue);
-        setUserErrMsg('');
-        setUserSuccessMsg('');
     };
 
     const handleClearClick = () => {
         setNewUsername('');
-        setUserErrMsg('');
-        setUserSuccessMsg('');
     };
-
-    const handleUsernameFocus = () => {
-        setUserErrMsg('');
-        setUserSuccessMsg('');
-    }
 
     return (
         <div className="flex w-[25vw] h-[40px] pl-3 relative border-2 border-gray-400 justify-start text-[hsl(var(--text))]">                      
@@ -35,7 +21,6 @@ export const EditUsernameInputComponent = ({ UsernameInputProps }: UsernameInput
                     type="text"
                     value={newUsername}
                     onChange={handleInputChange}
-                    onFocus={handleUsernameFocus}
                     placeholder="Enter New Username..."
                 />
                 {newUsername && (
@@ -48,30 +33,15 @@ export const EditUsernameInputComponent = ({ UsernameInputProps }: UsernameInput
     )
 }
 
-export const EditEmailInputComponent = ({ EmailInputProps }: EmailInput) => {
-    const {
-        newEmail,
-        setNewEmail,
-        setEmailErrMsg,
-        setEmailSuccessMsg,
-    } = EmailInputProps
+export const EditEmailInputComponent = ({ newEmail, setNewEmail }: EmailInput) => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         setNewEmail(inputValue);
-        setEmailErrMsg('');
-        setEmailSuccessMsg('');
     };
 
-    const handleClearClick = () => {
-        setNewEmail('');
-        setEmailErrMsg('');
-        setEmailSuccessMsg('');
-    };
-
-    const handleEmailFocus = () => {
-        setEmailErrMsg('');
-        setEmailSuccessMsg('');
+    const handleClearClick = () => { 
+        setNewEmail('') 
     }
 
     return (
@@ -82,7 +52,6 @@ export const EditEmailInputComponent = ({ EmailInputProps }: EmailInput) => {
                     type="text"
                     value={newEmail}
                     onChange={handleInputChange}
-                    onFocus={handleEmailFocus}
                     placeholder="Enter new Email..."
                 />
                 {newEmail && (
@@ -95,31 +64,15 @@ export const EditEmailInputComponent = ({ EmailInputProps }: EmailInput) => {
     )
 }
 
-export const EditPasswordInputComponent = ({ PasswordInputProps }: PasswordInput) => {
-    const {
-        newPassword,
-        setNewPassword,
-        setPasswordErrMsg,
-        setPasswordSuccessMsg,
-    } = PasswordInputProps
-
+export const EditPasswordInputComponent = ({ newPassword, setNewPassword }: PasswordInput) => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         setNewPassword(inputValue);
-        setPasswordErrMsg('');
-        setPasswordSuccessMsg('');
     };
 
     const handleClearClick = () => {
-        setNewPassword('');
-        setPasswordErrMsg('');
-        setPasswordSuccessMsg('');
+        setNewPassword('')
     };
-
-    const handlePasswordFocus = () => {
-        setPasswordErrMsg('');
-        setPasswordSuccessMsg('');
-    }
 
     return (
         <div className="flex w-[25vw] h-[40px] pl-3 relative border-2 border-gray-400 justify-start text-[hsl(var(--text))]">                      
@@ -129,7 +82,6 @@ export const EditPasswordInputComponent = ({ PasswordInputProps }: PasswordInput
                     type="text"
                     value={newPassword}
                     onChange={handleInputChange}
-                    onFocus={handlePasswordFocus}
                     placeholder="Enter new Password"
                 />
                 {newPassword && (

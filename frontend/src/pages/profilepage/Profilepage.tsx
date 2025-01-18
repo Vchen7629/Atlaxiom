@@ -136,7 +136,7 @@ const Profilepage = () => {
                     <>
                         {header}
                         <NavBarComponent navbarprops={navbarprops}/>
-                        <EditAccountPage user={usersData} refetch={refetch}/>
+                        <EditAccountPage user={user} refetch={refetch}/>
                     </>
                 );
             default:

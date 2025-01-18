@@ -2,53 +2,56 @@ import { useSelector } from "react-redux";
 import { UserId } from "../../../pages/profilepage/types/subpagetypes";
 import { useUpdateUserMutation } from "@/features/api-slices/usersApiSlice";
 import { SaveEmailButton } from "../types/editcomponenttypes";
+import { toast } from "sonner";
 
 const EmailUpdateButton = ({ UpdateEmailProps } : SaveEmailButton) => {
     const {
         refetch,
-        email,
         newEmail, setNewEmail,
-        setEmailErrMsg,
-        setEmailSuccessMsg,
     } = UpdateEmailProps
 
     const userId = useSelector((state: UserId) => state.auth.userId);
 
     const [updateUsername] = useUpdateUserMutation(userId)
 
-    const handleSubmitEmail = async (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-
-        if (!newEmail) {
-            setEmailErrMsg("Please enter a Email");
-            setNewEmail('')
-            return;
-        }
-        
-        if (newEmail === email) {
-            setEmailErrMsg("Email entered is the same as current");
-            setNewEmail('')
-            return;
-        }
-
+    const handleSubmitEmail = async () => {
         try {
             await updateUsername({
                 id: userId,
                 userData: { email: newEmail },
             }).unwrap();
-            
             setNewEmail('')
-            setEmailSuccessMsg("Email successfully updated!")
             refetch()
+            return { name: newEmail}
         } catch (error) {
-            setEmailErrMsg("Error Updating Email");
-            setNewEmail('')
-            return;
+            throw error
         }
     };
 
     return (
-        <button className="flex items-center justify-center rounded-2xl bg-blue-500 w-36 h-10" onClick={handleSubmitEmail}>
+        <button 
+            className="flex items-center justify-center rounded-2xl bg-blue-500 w-36 h-10" 
+            onClick={(event) => {
+                event.preventDefault()
+                const promise = handleSubmitEmail()
+                toast.promise(promise, {
+                    loading: "loading...",
+                    success: (data: any) => `Email Updated Successfully to: ${data.name}`,
+                    error: (error: any) => {
+                        if (error?.status === 404) {
+                            return "User Not Found";
+                        } else if (error?.status === 400) {
+                            return "No email provided, Please provide a email";
+                        } else if (error?.status === 402) {
+                            return  "Invalid Email Format";
+                        } else if (error?.status === 409) {
+                            return  "Duplicate Email, Please Enter a Different Email";
+                        }
+                        return "error updating"
+                    }
+                })
+            }}
+        >
             Save Email
         </button>
     );

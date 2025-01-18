@@ -5,13 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useSendLogoutMutation } from "@/features/auth/authApiSlice";
 import { DeleteButtonProps } from "../types/deletecomponenttypes";
 
-const DeleteAccountButton = ({ DeleteButtonProps }: DeleteButtonProps) => {
-    const {
-        deleteInput,
-        setDeleteErrMsg,
-        //setDeleteSuccessMsg,
-    } = DeleteButtonProps
-
+const DeleteAccountButton = ({ deleteInput, setDeleteErrMsg }: DeleteButtonProps) => {
     const userId = useSelector((state: UserId) => state.auth.userId);
     const navigate = useNavigate();
     const [deleteUser] = useDeleteUserMutation(userId)
@@ -20,11 +14,6 @@ const DeleteAccountButton = ({ DeleteButtonProps }: DeleteButtonProps) => {
 
     const handleSubmitDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-
-        if (!deleteInput) {
-            setDeleteErrMsg("Enter DELETE to confirm Deletion");
-            return;
-        } 
 
         if (deleteInput !== deleteMsg) {
             setDeleteErrMsg("Input doesn't match DELETE");

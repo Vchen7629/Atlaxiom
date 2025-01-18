@@ -2,53 +2,54 @@ import { useSelector } from "react-redux";
 import { UserId } from "../../../pages/profilepage/types/subpagetypes";
 import { useUpdateUserMutation } from "@/features/api-slices/usersApiSlice";
 import { SaveUsernameButton } from "../types/editcomponenttypes";
+import { toast } from "sonner";
 
 const UsernameUpdateButton = ({ UpdateUsernameProps } : SaveUsernameButton) => {
     const {
         refetch,
-        username,
         newUsername, setNewUsername,
-        setUserErrMsg,
-        setUserSuccessMsg,
     } = UpdateUsernameProps
 
     const userId = useSelector((state: UserId) => state.auth.userId);
 
     const [updateUsername ] = useUpdateUserMutation(userId)
 
-    const handleSubmitUsername = async (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-
-        if (!newUsername) {
-            setUserErrMsg("Please enter a Username");
-            setNewUsername('')
-            return;
-        } 
-
-        if (newUsername === username) {
-            setUserErrMsg("Username entered is the same as current");
-            setNewUsername('')
-            return;
-        }
-
+    const handleSubmitUsername = async () => {
         try {
             await updateUsername({
                 id: userId,
                 userData: { username: newUsername },
             }).unwrap();
-                
             setNewUsername('')
-            setUserSuccessMsg("Username successfully updated!")
             refetch();
+            return { name: newUsername }
         } catch (error) {
-            setUserErrMsg("Error Updating Username");
-            setNewUsername('')
-            return;
+            throw error
         }
     };
 
     return (
-        <button className="flex items-center justify-center rounded-2xl bg-blue-500 w-36 h-10" onClick={handleSubmitUsername}>
+        <button 
+            className="flex items-center justify-center rounded-2xl bg-blue-500 w-36 h-10" 
+            onClick={(event) => {
+                event.preventDefault()
+                const promise = handleSubmitUsername()
+                toast.promise(promise, {
+                    loading: "loading...",
+                    success: (data: any) => `Username Updated Successfully to: ${data.name}`,
+                    error: (error: any) => {
+                        if (error?.status === 404) {
+                            return "User Not Found";
+                        } else if (error?.status === 400) {
+                            return "No username provided, Please provide a username";
+                        } else if (error?.status === 409) {
+                            return  "Duplicate Username, Please Enter a Different Username";
+                        }
+                        return "error updating"
+                    }
+                })
+            }}
+        >
             Save Username
         </button>
     );

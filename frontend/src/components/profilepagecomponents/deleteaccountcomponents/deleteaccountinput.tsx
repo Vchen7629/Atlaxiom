@@ -1,20 +1,10 @@
 import { DeleteInputProps } from "../types/deletecomponenttypes";
 
-const DeleteAccountInputComponent = ({ DeleteInputProps }: DeleteInputProps) => {
-    const {
-        deleteInput, setDeleteInput,
-        setDeleteErrMsg,
-    } = DeleteInputProps
-
+const DeleteAccountInputComponent = ({ deleteInput, setDeleteInput }: DeleteInputProps) => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         setDeleteInput(inputValue);
-        setDeleteErrMsg('');
     };
-
-    const handleUsernameFocus = () => {
-        setDeleteErrMsg('');
-    }
 
     return (
         <section className="flex flex-col">
@@ -26,7 +16,6 @@ const DeleteAccountInputComponent = ({ DeleteInputProps }: DeleteInputProps) => 
                         type="text"
                         value={deleteInput}
                         onChange={handleInputChange}
-                        onFocus={handleUsernameFocus}
                     />
                 </div>
             </div>
