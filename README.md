@@ -8,7 +8,7 @@ Welcome to Atlaxiom! This is a wip full-stack web applicationproject that is aim
     <li>Card Collection feature to display user's card collections.</li>
     <li>Charts to display user collection statistics.</li>
     <li>Deck Creation Page that allows users to create/delete decks </li>
-    <li>WIP: Deck Edit feature that allows users to add their owned cards or search up cards to add to their deck and save to their db/account.</li>
+    <li>Edit Deck Page that allows users to drag/drop cards to add to their deck and save to Database</li>
 </ul>
 
 <h1> <strong> Getting started with this project </strong> </h1>
