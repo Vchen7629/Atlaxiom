@@ -7,6 +7,7 @@ import { MarqueeDemo } from "../../components/magicui_components/general_anim/im
 
  
 import Particles from "../../components/ui/particles.tsx";
+
  
 export function HomePage() {
   const [color] = useState<string>("#FFD700");

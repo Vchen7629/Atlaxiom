@@ -57,9 +57,9 @@ export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupPro
             };
             try {
                 await addNewOwnedCard({ id: userId, CardData: cardToPost }).unwrap();
-                setCardMessages(prev => ({...prev, [index]: "Card successfully added to Collection!"}));
+                setCardMessages(prev => ({...prev, [index]: "Successfully Added"}));
             } catch (error) {
-                setCardMessages(prev => ({...prev, [index]: "Error adding Card to Collection."}));
+                setCardMessages(prev => ({...prev, [index]: "Error."}));
             }
         } else {
             console.error("No selected Card Data")
@@ -94,26 +94,26 @@ export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupPro
                     <>
                     {cardSets.map((set, index) => (
                         <div key={index} className="flex p-2 mb-2 items-center text-[hsl(var(--background3))]">
-                            {(!cardMessages[index]) ? (
-                                <>
-                                    <div className="flex w-[20%] pr-8 h-fit flex-grow">{set.set_name}</div>
-                                    <div className="w-[20%]">{set.set_code}</div>
-                                    <div className="w-[20%]">{set.set_rarity}</div>
-                                    <div className="w-[20%]">${set.set_price}</div>
-                                    <div className="w-[20%]">
-                                        <button
-                                            onClick={() => handleAddOwnedCardClick(set, index)}
-                                            className="bg-[hsl(var(--background3))] text-[hsl(var(--text))] rounded-md flex items-center h-[30px] w-fit p-2 text-[12px]"
-                                        >   
-                                            Add to Collection
-                                        </button>
-                                    </div>
-                                </>
-                            ) : (
-                                <div className={`flex h-full w-full text-md justify-center ${cardMessages[index].includes("successfully") ? 'text-green-500' : 'text-red-600'}`}>
-                                    {cardMessages[index]}
+                            <>
+                                <span className="flex w-[20%] pr-8 h-fit flex-grow">{set.set_name}</span>
+                                <span className="w-[20%]">{set.set_code}</span>
+                                <span className="w-[20%]">{set.set_rarity}</span>
+                                <span className="w-[20%]">${set.set_price}</span>
+                                <div className="w-[20%]">
+                                    <button
+                                        onClick={() => handleAddOwnedCardClick(set, index)}
+                                        className="bg-[hsl(var(--background3))] text-[hsl(var(--text))] rounded-md flex items-center h-[30px] w-[78%] p-2 text-[12px]"
+                                    >   
+                                        {(!cardMessages[index]) ? (
+                                            <span>Add to Collection</span>
+                                        ) : (
+                                            <span className={`flex h-full w-full text-sm font-bold items-center justify-center ${cardMessages[index].includes("Successfully") ? 'text-green-500' : 'text-red-600'}`}>
+                                                {cardMessages[index]}
+                                            </span>
+                                        )}
+                                    </button>
                                 </div>
-                            )}
+                            </>
                         </div>
                     ))}
                     </>
