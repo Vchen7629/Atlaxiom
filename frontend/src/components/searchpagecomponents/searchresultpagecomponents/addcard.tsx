@@ -10,10 +10,11 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button"
 import { useAddNewOwnedCardMutation } from '../../../features/api-slices/ownedCardapislice';
 import { CardSet, ComponentCardSetPopupProps } from "../types/searchresultcomptypes";
+import { toast } from "sonner";
    
 export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupProps) => {
     const {
@@ -22,16 +23,12 @@ export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupPro
         cardSets, setCardSets
     } = addcardprops 
     
-    const [cardMessages, setCardMessages] = useState<{ [key: number]: string }>({});
     const [addNewOwnedCard] = useAddNewOwnedCardMutation();
 
     useEffect(() => {
         setCardSets(selectedCardData?.card_sets || []);
     }, [cardSets])
 
-    const handleBackClick = () => {
-        setCardMessages({});
-    };
 
     const handleAddOwnedCardClick = async (set: CardSet, index: number) => {
         if (selectedCardData) {
@@ -57,9 +54,9 @@ export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupPro
             };
             try {
                 await addNewOwnedCard({ id: userId, CardData: cardToPost }).unwrap();
-                setCardMessages(prev => ({...prev, [index]: "Successfully Added"}));
+                return { name: selectedCardData.name, set: selectedCardData?.card_sets?.[index]?.set_name}
             } catch (error) {
-                setCardMessages(prev => ({...prev, [index]: "Error."}));
+                throw error
             }
         } else {
             console.error("No selected Card Data")
@@ -77,7 +74,6 @@ export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupPro
                 <AlertDialogTitle>All printings</AlertDialogTitle>
                 <AlertDialogCancel 
                     className="bg-transparent shadow-custom border-transparent hover:bg-footer hover:text-gold"
-                    onClick={handleBackClick}
                 >
                     Back
                 </AlertDialogCancel>
@@ -101,16 +97,22 @@ export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupPro
                                 <span className="w-[20%]">${set.set_price}</span>
                                 <div className="w-[20%]">
                                     <button
-                                        onClick={() => handleAddOwnedCardClick(set, index)}
-                                        className="bg-[hsl(var(--background3))] text-[hsl(var(--text))] rounded-md flex items-center h-[30px] w-[78%] p-2 text-[12px]"
+                                        className="bg-[hsl(var(--background3))] text-[hsl(var(--text))] rounded-md justify-center flex items-center h-[30px] w-[78%] p-2 text-[12px]"
+                                        onClick={() => {
+                                            const promise = handleAddOwnedCardClick(set, index);
+                                            toast.promise(promise, {
+                                                loading: "loading...",
+                                                success: (data: any) => `Card: ${data.name} from set: ${data.set} has been added`,
+                                                error: (error: any) => {
+                                                if (error?.status === 409) {
+                                                    return error?.response?.data?.message || "You already Own this Card";
+                                                }
+                                                    return "An Error occured while adding the Card"
+                                                },
+                                            })
+                                        }}
                                     >   
-                                        {(!cardMessages[index]) ? (
-                                            <span>Add to Collection</span>
-                                        ) : (
-                                            <span className={`flex h-full w-full text-sm font-bold items-center justify-center ${cardMessages[index].includes("Successfully") ? 'text-green-500' : 'text-red-600'}`}>
-                                                {cardMessages[index]}
-                                            </span>
-                                        )}
+                                    <span className="font-bold">Add Card</span>
                                     </button>
                                 </div>
                             </>
