@@ -24,10 +24,10 @@ const CollectionListViewItem = ({ result }: { result: CollectionListResult }) =>
                 alt={result.card_name}
             />
             <div className="flex flex-col max-h-[95%]">
-                <div className="font-black text-xs">{result.card_name}</div>
-                <div className="overflow-y-auto mt-1 text-xs text-gray-300 max-w-[95%]">
+                <span className="font-black text-xs text-[hsl(var(--background3))]">{result.card_name}</span>
+                <span className="overflow-y-auto mt-1 text-xs text-[hsl(var(--text))] max-w-[95%]">
                     {result.desc || "No description available"}
-                </div>
+                </span>
             </div>
         </div>
     );

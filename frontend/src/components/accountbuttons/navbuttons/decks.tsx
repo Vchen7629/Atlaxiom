@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBook } from '@fortawesome/free-solid-svg-icons';
 
-const Profile = () => {
+const MyDecks = () => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate('/profile');
+    navigate('/deckmanager');
   };
 
   return (
@@ -15,11 +15,11 @@ const Profile = () => {
           className="flex items-center pb-2 border-b-2 border-transparent hover:border-b-2 hover:border-[hsl(var(--background3))] " 
           onClick={handleButtonClick}
         >
-            <div className='mr-2'><FontAwesomeIcon icon={faUser} /></div>
-            <div className="fatextmargin font-bold text-[hsl(var(--text))]">My Profile</div>
+          <span className='mr-2'><FontAwesomeIcon icon={faBook} /></span>
+          <span className="fatextmargin font-bold text-[hsl(var(--text))]">Decks</span>
         </button>
     </div>
   );
 }
 
-export default Profile;
+export default MyDecks;

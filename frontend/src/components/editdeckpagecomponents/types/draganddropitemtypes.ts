@@ -10,6 +10,7 @@ export type SubGridListViewComponentProps = {
 export type CollectionGalleryResult = {
     _id: string;
     image_url: string
+    card_name: string
 }
 
 export type CollectionListResult = {
@@ -26,6 +27,7 @@ export type SearchGalleryResult = {
             image_url: string
         }
     }
+    name: string
 }
 
 export type SearchListResult = {
