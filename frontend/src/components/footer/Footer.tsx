@@ -1,7 +1,7 @@
 import Home from "./footerbuttons/home.tsx"
 import AboutUs from "./footerbuttons/Aboutus.tsx"
-import ContactUs from "./footerbuttons/Contactus.tsx"
 import FAQ from "./footerbuttons/FAQ.tsx"
+import PrivacyPolicy from "./footerbuttons/PrivacyPolicy.tsx"
 
 const Footer = () => {
 
@@ -14,7 +14,7 @@ const Footer = () => {
                     </div>
                     <div className="flex w-[30%] justify-between">
                         <AboutUs/>
-                        <ContactUs/>
+                        <PrivacyPolicy/>
                         <Home/>
                         <FAQ/>
                     </div>

@@ -11,6 +11,7 @@ import SignUpPageComponent from './pages/sign-up-page/signuppage.tsx';
 import { lazy, Suspense } from 'react';
 import FoldingCube from './components/loadingcomponents/foldingcube.tsx';
 import PrivacyPolicyPage from './pages/privacypolicypage/privacypolicypage.tsx';
+import SiteHelpPage from './pages/sitehelppage/FaqPage.tsx';
 
 const SearchResults = lazy(() => delayLoadTimer(import('./pages/searchpage/searchresults.tsx')))
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="search" element={<SearchBarPage/>}/>
         <Route path="/searchresult" element={<SearchResults/>}/>
         <Route path="/privacy" element={<PrivacyPolicyPage/>}/>
+        <Route path="/FAQ" element={<SiteHelpPage/>}/>
 
         <Route element={<StayLoggedIn/>}>
           <Route path="/loggedin" element={<HomePage/>}/>
@@ -45,6 +47,7 @@ function App() {
           <Route path="modifyDeck" element={<DeckBuilderPage/>}/>         
           <Route path="profile" element={<Profilepage />}/>
           <Route path="/privacyloggedin" element={<PrivacyPolicyPage/>}/>
+          <Route path="/FAQloggedin" element={<SiteHelpPage/>}/>
         </Route>
       
       </Routes>
