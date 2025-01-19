@@ -1,29 +1,30 @@
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { AuthenticationState } from './hometypes';
-import { useSelector } from 'react-redux';
 
-const FAQ = () => {
+const PrivacyPolicy = () => {
   const navigate = useNavigate();
   const authenticated = useSelector((state: AuthenticationState) => state.auth.token !== null);
+  
 
   const handleButtonClick = () => {
     if (authenticated) {
-      navigate("/FAQloggedin")
+      navigate("/privacyloggedin")
     } else {
-      navigate('/FAQ');
+      navigate('/privacy');
     }
   };
 
   return (
     <div>
         <button 
-          className="flex bg-transparent border-transparent w-fit h-8 px-2 items-center border-b-2 hover:border-b-2 hover:border-goldenrod" 
-          onClick={handleButtonClick}
+          className="bg-transparent border-transparent cursor-pointer border-b-2 px-2 hover:border-b-goldenrod text-white"
+          onClick={handleButtonClick} 
         >
-            Site Help
+            Privacy Policy
         </button>
     </div>
   );
 }
 
-export default FAQ;
+export default PrivacyPolicy;

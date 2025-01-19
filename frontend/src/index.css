@@ -35,13 +35,6 @@ body {
   
 }
 
-input,
-button,
-textarea,
-select {
-  font: inherit;
-}
-
 
 
 .fatextmargin {
@@ -141,7 +134,7 @@ section {
     --background2: 100, 100%, 100%;
     --background3: 200, 100%, 50%;
     --background4: 200, 100%, 50%;
-    --background5: 0, 0%, 93%;;
+    --background5: 0, 0%, 93%;
     --profile:  100, 100%, 100%;
     --profilebackground: 0, 0%, 90%;
     --shadow-color: 0, 0%, 5%;
