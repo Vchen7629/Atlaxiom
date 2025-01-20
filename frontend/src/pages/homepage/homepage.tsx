@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Header from '../../components/header/header.tsx';
 import Footer from '../../components/footer/Footer.tsx';
-import { MarqueeDemo } from "../../components/magicui_components/general_anim/image_anim.tsx"
 
  
 import Particles from "../../components/ui/particles.tsx";
@@ -36,7 +35,6 @@ export function HomePage() {
     </div>
     <div className=" flex flex-col bg-[hsl(var(--background1))] min-h-[100vh] items-center">
       Start Building Your Collection today!
-      <MarqueeDemo/>
     </div>
     <Footer/>
     </main>
