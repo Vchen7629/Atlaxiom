@@ -33,10 +33,10 @@ services:
 
 secrets:
   node-env:
-    file: ./loginapi/secrets/node_env
+    file: ./login api/secrets/node_env.txt
   mongodb-db-uri:
-    file: ./loginapi/secrets/database_uri
+    file: ./login api/secrets/database_uri.txt
   access-token-secret:
-    file: ./loginapi/secrets/access_token_secret
+    file: ./login api/secrets/access_token_secret.txt
   refresh-token-secret:
-    file: ./loginapi/secrets/refresh_token_secret
+    file: ./login api/secrets/refresh_token_secret.txt
