@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+const fs = require('fs')
 
 const getSecret = (filePath, envVar) => {
     if (filePath && fs.existsSync(filePath)) {
