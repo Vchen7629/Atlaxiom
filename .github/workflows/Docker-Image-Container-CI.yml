@@ -28,7 +28,7 @@ env:
 jobs:
   build-frontend-image:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' || github.event_name == 'schedule' }}
+    if: ${{ github.event_name == 'push' && github.event.head_commit.modified[0] == 'frontend/' || github.event_name == 'schedule' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -66,7 +66,7 @@ jobs:
 
   build-backend-image:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' || github.event_name == 'schedule' }}  # Run only if changes are in login-api
+    if: ${{ github.event_name == 'push'  && github.event.head_commit.modified[0] == 'login api/' || github.event_name == 'schedule' }}  # Run only if changes are in login-api
     steps: 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -82,12 +82,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+       # Extract metadata (tags, labels) for Docker
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5.0.0
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}
+
       - name: Build and push backend image
         uses: docker/build-push-action@v5
         with:
           context: ./login api
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest
+          tags: ${{ steps.meta.outputs.tags }}
           build-args: |
             NODE_ENV=${{ env.NODE_ENV }}
             DATABASE_URI=${{ secrets.DATABASE_URI }}
