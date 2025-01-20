@@ -25,7 +25,7 @@ services:
     expose: 
       - 3005
     healthcheck:
-      test: ["executable", "arg"]
+      test: ["CMD-SHELL", "curl -f http://localhost:3005 || exit 1"]
       interval: 1m30s
       timeout: 30s
       retries: 5
