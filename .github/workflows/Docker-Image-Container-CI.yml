@@ -28,10 +28,21 @@ env:
 jobs:
   build-frontend-image:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.event.head_commit.modified[0] == 'frontend/' || github.event_name == 'schedule' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Check if files in frontend folder have changed
+        id: changes
+        run: |
+          echo "Checking for changes in 'frontend folder'..."
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^frontend/'; then
+            echo "Changes detected in 'frontend folder'."
+            echo "run-backend=true" >> $GITHUB_ENV
+          else
+            echo "No changes detected in 'frontend folder'."
+            echo "run-backend=false" >> $GITHUB_ENV
+          fi
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@f95db51fddba0c2d1ec667646a06c2ce06100226 # v3.0.0
@@ -66,10 +77,21 @@ jobs:
 
   build-backend-image:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push'  && github.event.head_commit.modified[0] == 'login api/' || github.event_name == 'schedule' }}  # Run only if changes are in login-api
     steps: 
       - name: Checkout repository
         uses: actions/checkout@v4
+      
+      - name: Check if files in login api have changed
+        id: changes
+        run: |
+          echo "Checking for changes in 'login api folder'..."
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^login api/'; then
+            echo "Changes detected in 'login api folder'."
+            echo "run-backend=true" >> $GITHUB_ENV
+          else
+            echo "No changes detected in 'login api folder'."
+            echo "run-backend=false" >> $GITHUB_ENV
+          fi
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@f95db51fddba0c2d1ec667646a06c2ce06100226 # v3.0.0
