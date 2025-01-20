@@ -2,7 +2,8 @@ services:
   frontend:
     image: ghcr.io/vchen7629/atlaxiom-frontend
     container_name: frontend 
-    ports: 8080:8080
+    ports: 
+      - 8080:8080
     #depends_on:
       #loginapi: 
         #condition: service_healthy
