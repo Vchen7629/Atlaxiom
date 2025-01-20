@@ -4,7 +4,7 @@ ARG TEST_SECRET
 
 RUN echo "The test secret is: $TEST_SECRET"
 
-WORKDIR /app
+WORKDIR /login api
 
 COPY package*json ./
 
