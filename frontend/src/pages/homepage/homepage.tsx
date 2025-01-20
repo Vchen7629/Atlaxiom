@@ -34,7 +34,7 @@ export function HomePage() {
       </div>
     </div>
     <div className=" flex flex-col bg-[hsl(var(--background1))] min-h-[100vh] items-center">
-      Start Building Your Collection today!
+      Start Building Your Collection today! DEVELOPMENT
     </div>
     <Footer/>
     </main>
