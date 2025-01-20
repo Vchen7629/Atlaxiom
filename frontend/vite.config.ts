@@ -11,15 +11,15 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  preview: {
-    port: 8080,
+  /*preview: {
+    port: 3000,
     strictPort: true,
     host: "0.0.0.0",
    },
-  server: {
-    port: 8080,
+  /*server: {
+    port: 3000,
     strictPort: true,
     host: "0.0.0.0",
     origin: "http://165.227.176.18:8080",
-  }
+  }*/
 })

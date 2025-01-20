@@ -9,10 +9,7 @@ const connectDB = async() => {
 
         if (!databaseURI) {
             throw new Error('DATABASE_URI is not set.');
-        } await mongoose.connect(databaseURI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+        } await mongoose.connect(databaseURI);
 
         console.log('Database connected successfully');
     } catch (err) {
