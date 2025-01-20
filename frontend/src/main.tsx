@@ -8,7 +8,6 @@ import { Provider } from 'react-redux';
 import { ThemeProvider } from './components/shadcn_components/darklightmode/theme-provider.js';
 import { DndContext } from '@dnd-kit/core';
 
-
 const rootElement = document.getElementById('root')!;
 const root = ReactDOM.createRoot(rootElement);
 
