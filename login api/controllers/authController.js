@@ -1,5 +1,6 @@
 const { User } = require('../../login api/models/genmodels.js');
 const bcrypt = require('bcrypt')
+const fs = require('fs')
 const jwt = require('jsonwebtoken')
 const asyncHandler = require('express-async-handler')
 
