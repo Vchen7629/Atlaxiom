@@ -1,5 +1,9 @@
 FROM node:22 
 
+ARG TEST_SECRET
+
+RUN echo "The test secret is: $TEST_SECRET"
+
 WORKDIR /app
 
 COPY package*json ./
