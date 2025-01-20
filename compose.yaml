@@ -4,23 +4,39 @@ services:
     container_name: frontend 
     ports: 
       - 8080:8080
-    #depends_on:
-      #loginapi: 
-        #condition: service_healthy
+    depends_on:
+      loginapi: 
+        condition: service_healthy
 
 
-  #loginapi: 
-    #image: ghcr.io/vchen7629/atlaxiom-backend
-    #container_name: loginapi
-    #secrets: # access file to get env variables on vps
-    #  - db-
-    #environment:
-    #  - name=value
-    #expose: 
-    #  - 3005
-    #healthcheck:
-    #  test: ["executable", "arg"]
-    #  interval: 1m30s
-    #  timeout: 30s
-    #  retries: 5
-    #  start_period: 30s
+  loginapi: 
+    image: ghcr.io/vchen7629/atlaxiom-backend:main
+    container_name: loginapi
+    secrets:
+      - node-env
+      - mongodb-db-uri
+      - access-token-secret
+      - refresh-token-secret
+    environment:
+      - NODE_ENV_FILE=/run/secrets/node-env
+      - DATABASE_URI_FILE=/run/secrets/database-uri
+      - ACCESS_TOKEN_SECRET_FILE=/run/secrets/access-token-secret
+      - REFRESH_TOKEN_SECRET_FILE=/run/secrets/refresh-token-secret
+    expose: 
+      - 3005
+    healthcheck:
+      test: ["executable", "arg"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+
+secrets:
+  node-env:
+    file: ./loginapi/secrets/node_env
+  mongodb-db-uri:
+    file: ./loginapi/secrets/database_uri
+  access-token-secret:
+    file: ./loginapi/secrets/access_token_secret
+  refresh-token-secret:
+    file: ./loginapi/secrets/refresh_token_secret
