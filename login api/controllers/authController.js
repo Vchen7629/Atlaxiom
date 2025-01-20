@@ -31,6 +31,26 @@ const login = asyncHandler(async (req, res) => {
 
     if (!match) return res.status(401).json({ message: 'Invalid Password' })
 
+    const getSecret = (filePath, envVar) => {
+        if (filePath && fs.existsSync(filePath)) {
+                return fs.readFileSync(filePath, 'utf8').trim();
+        } else {
+            console.log("error 1")
+        }
+        
+        return envVar || null;
+    };
+
+    // Read secrets
+    const accessTokenSecret = getSecret(process.env.ACCESS_TOKEN_SECRET_FILE, process.env.ACCESS_TOKEN_SECRET);
+    const refreshTokenSecret = getSecret(process.env.REFRESH_TOKEN_SECRET_FILE, process.env.REFRESH_TOKEN_SECRET);
+
+    // Ensure secrets are available
+    if (!accessTokenSecret || !refreshTokenSecret) {
+        console.log('Access or Refresh token secrets are missing.')
+        throw new Error('Access or Refresh token secrets are missing.');
+    }
+
     const accessToken = jwt.sign(
         {
             "UserInfo": {
@@ -39,13 +59,13 @@ const login = asyncHandler(async (req, res) => {
                 "userId": foundUser._id
             }
         },
-        process.env.ACCESS_TOKEN_SECRET,
+        accessTokenSecret,
         { expiresIn: '15min' }
     )
 
     const refreshToken = jwt.sign(
         { "username": foundUser.username },
-        process.env.REFRESH_TOKEN_SECRET,
+        refreshTokenSecret,
         { expiresIn: '7d' }
     )
 
