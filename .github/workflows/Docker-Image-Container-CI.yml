@@ -99,6 +99,4 @@ jobs:
             NODE_ENV=${{ env.NODE_ENV }}
             DATABASE_URI=${{ secrets.DATABASE_URI }}
             ACCESS_TOKEN_SECRET=${{ secrets.ACCESS_TOKEN_SECRET }}
-            REFRESH_TOKEN_SECRET=${{ secrets.REFRESH_TOKEN_SECRET }}
-            TEST_SECRET=${{ secrets.TEST_SECRET }}
-        
+            REFRESH_TOKEN_SECRET=${{ secrets.REFRESH_TOKEN_SECRET }}        
