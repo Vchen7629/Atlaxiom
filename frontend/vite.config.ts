@@ -12,12 +12,12 @@ export default defineConfig({
     },
   },
   preview: {
-    port: 8080,
+    port: 80,
     strictPort: true,
     host: "0.0.0.0",
    },
   server: {
-    port: 8080,
+    port: 80,
     strictPort: true,
     host: "0.0.0.0",
     proxy: {
