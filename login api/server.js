@@ -10,6 +10,7 @@ const corsOptions = require('./config/corsOptions')
 const connectDB = require('./config/dbConn')
 const mongoose = require('mongoose')
 const fs = require('fs')
+const https = require('https');
 const PORT = process.env.PORT || 3005;
 
 const privateKey = fs.readFileSync('/etc/letsencrypt/live/atlaxiom.com/privkey.pem', "utf-8")
