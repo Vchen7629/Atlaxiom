@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Footer from "../../components/footer/Footer.tsx"
 import Header from "../../components/header/header.tsx"

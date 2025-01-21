@@ -6,7 +6,6 @@ const ContactInfos = () => {
     return (
     <>
         <Header/>
-        <banner className="bannerone"></banner>
         <h1>
             Contact Info Contact Info Contact Info Contact Info Contact Info Contact Info Contact Info Contact Info Contact Info 
             Contact Info Contact Info Contact Info Contact Info Contact Info Contact Info Contact Info Contact Info Contact Info 

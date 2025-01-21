@@ -1,6 +1,6 @@
 import { Outlet, useNavigate } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
-import { useRefreshMutation } from "./authApiSlice"
+import { useRefreshMutation } from "./authApiSlice.ts"
 import { useSelector } from "react-redux"
 import { selectCurrentToken } from "./authSlice"
 

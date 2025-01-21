@@ -35,7 +35,7 @@ const LoginPage = () => {
         }
 
         try {
-            const { accessToken, userId } = await login({ username, password }).unwrap();
+            const { accessToken, userId }: any = await login({ username, password }).unwrap();
             dispatch(setCredentials({ accessToken, userId, username }));
             setUsername('');
             setPassword('');

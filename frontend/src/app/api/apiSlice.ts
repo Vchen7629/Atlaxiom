@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { setCredentials } from '../../features/auth/authSlice'
+import { setCredentials } from '../../features/auth/authSlice.ts'
 
 const baseQuery = fetchBaseQuery({
     baseUrl: 'https://api.atlaxiom.com',
     credentials: 'include',
-    prepareHeaders: (headers, { getState }) => {
+    prepareHeaders: (headers, { getState }: any) => {
         const token = getState().auth.token 
 
         if (token) {
@@ -15,7 +15,7 @@ const baseQuery = fetchBaseQuery({
     }
 })
 
-const baseQueryWithReauth = async (args, api, extraOptions) => {
+const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
     let result = await baseQuery(args, api, extraOptions)
 
     if (result?.error?.status === 403 ) {
@@ -31,7 +31,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
             result = await baseQuery(args, api, extraOptions)
         } else {
             if (refreshResult?.error?.status === 403) {
-                refreshResult.error.data.message = "Your login has expired. "
+                (refreshResult.error.data as {message: string }).message = "Your login has expired. "
             }
             return refreshResult
         }
@@ -43,6 +43,6 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 export const apiSlice = createApi({
     baseQuery: baseQueryWithReauth,
     tagTypes: ['OwnedCards', 'Deck', 'User'],
-    endpoints: builder => ({})
+    endpoints: () => ({})
 })
 

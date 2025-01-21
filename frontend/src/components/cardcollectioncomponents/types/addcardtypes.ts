@@ -8,7 +8,6 @@ export type Pagination = {
         setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
         cardsPerPage: number;
         totalPages: number;
-        currentCards: OwnedCard[];
         setCurrentCards: React.Dispatch<React.SetStateAction<OwnedCard[]>>;
         UpdateTotalPages: (filteredCardsLength: number) => void;
     }
