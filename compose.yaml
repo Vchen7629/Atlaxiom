@@ -21,7 +21,8 @@ services:
       - refresh-token-secret
     volumes:
       - /etc/letsencrypt/live/atlaxiom.com/fullchain.pem:/etc/letsencrypt/live/atlaxiom.com/fullchain.pem:ro # Read only lets encrypt generated cert
-      - /etc/letsencrypt/live/atlaxiom.com/privkey.pem:/etc/letsencrypt/live/atlaxiom.com/privkey.pem:ro # Read only lets encrypt generated private key
+      - /etc/letsencrypt/live/atlaxiom.com/privkey.pem:/etc/letsencrypt/live/atlaxiom.com/privkey.pem:ro # Read only lets encrypt generated private key\
+      - /etc/ssl/certs/cloudflare.crt:/etc/ssl/certs/cloudflare.crt:ro 
     environment:
       - NODE_ENV_FILE=/run/secrets/node-env
       - DATABASE_URI_FILE=/run/secrets/mongodb-db-uri

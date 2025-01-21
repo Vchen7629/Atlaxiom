@@ -18,7 +18,7 @@ const ca = fs.readFileSync('/etc/ssl/certs/cloudflare.crt' ,"utf-8")
 
 const httpsOptions = {
     key: privateKey,
-    cert: certificate,
+    cert: cert,
     ca: ca,
 };
 
