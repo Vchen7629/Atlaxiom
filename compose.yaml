@@ -14,6 +14,8 @@ services:
 
   loginapi: 
     image: ghcr.io/vchen7629/atlaxiom-backend:main
+    ports:
+      - 443:443
     secrets:
       - node-env
       - mongodb-db-uri
@@ -28,8 +30,6 @@ services:
       - DATABASE_URI_FILE=/run/secrets/mongodb-db-uri
       - ACCESS_TOKEN_SECRET_FILE=/run/secrets/access-token-secret
       - REFRESH_TOKEN_SECRET_FILE=/run/secrets/refresh-token-secret
-    expose: 
-      - 443
     healthcheck:
       test: ["CMD-SHELL", "curl -k --retry 3 --retry-connrefused https://127.0.0.1:443 || exit 1"]
       interval: 1m30s
