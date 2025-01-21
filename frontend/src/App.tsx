@@ -35,13 +35,9 @@ function App() {
         <Route element={<StayLoggedIn/>}>
           <Route path="/loggedin" element={<HomePage/>}/>
           <Route path="searchloggedin" element={<SearchBarPage/>} />
-          <Route 
-            path="/searchresultloggedin" 
-            element={
-              <Suspense fallback={<FoldingCube/>}>
-                <SearchResults/>
-              </Suspense>
-            }/>
+          <Suspense fallback={<FoldingCube/>}>
+            <Route path="/searchresultloggedin" element={<SearchResults/>}/>
+          </Suspense>
           <Route path="getcards" element={<UserOwnedCardPage/>}/>
           <Route path="deckmanager" element={<MyDeck/>}/>
           <Route path="modifyDeck" element={<DeckBuilderPage/>}/>         
