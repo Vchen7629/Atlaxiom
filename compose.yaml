@@ -2,7 +2,7 @@ services:
   frontend:
     image: ghcr.io/vchen7629/atlaxiom-frontend:main
     ports: 
-      - 443:443 #443 for https, 80 for http, I'm running frontend using https so i run it through port 443
+      - 443:8443 #443 for https, 80 for http, I'm running frontend using https so i run it through port 443
     volumes:
       - /etc/letsencrypt/live/atlaxiom.com/fullchain.pem:/etc/letsencrypt/live/atlaxiom.com/fullchain.pem:ro # Read only lets encrypt generated cert
       - /etc/letsencrypt/live/atlaxiom.com/privkey.pem:/etc/letsencrypt/live/atlaxiom.com/privkey.pem:ro # Read only lets encrypt generated private key
@@ -21,9 +21,9 @@ services:
       - mongodb-db-uri
       - access-token-secret
       - refresh-token-secret
-    volumes:
-      - /etc/letsencrypt/live/api.atlaxiom.com/privkey.pem:/etc/letsencrypt/live/api.atlaxiom.com/privkey.pem:ro # Read only lets encrypt generated cert
+    volumes:- /etc/letsencrypt/live/api.atlaxiom.com/privkey.pem:/etc/letsencrypt/live/api.atlaxiom.com/privkey.pem:ro # Read only lets encrypt generated cert
       - /etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem:/etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem:ro # Read only lets encrypt generated private key\
+      
     environment:
       - NODE_ENV_FILE=/run/secrets/node-env
       - DATABASE_URI_FILE=/run/secrets/mongodb-db-uri

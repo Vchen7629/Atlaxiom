@@ -8,8 +8,10 @@ RUN npm install
 
 COPY . .
 
-ENV PORT=443
+RUN npm run build
 
-EXPOSE 443
+RUN npm install -g serve
 
-CMD [ "npm" , "run", "dev" ]
+EXPOSE 8443
+
+CMD ["serve", "-s", "dist", "-l", "8443"]
