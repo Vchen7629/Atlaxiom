@@ -20,6 +20,12 @@ export default defineConfig({
     port: 8080,
     strictPort: true,
     host: "0.0.0.0",
-    origin: "http://165.227.176.18:8080",
+    proxy: {
+      '/auth': {
+        target: 'http://localhost:3005',
+        changeOrigin: true,
+        secure: false, // Disable SSL verification (use `true` if your backend uses HTTPS)
+        cookieDomainRewrite: '165.227.176.18', 
+      },
   }
 })
