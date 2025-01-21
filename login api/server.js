@@ -11,7 +11,7 @@ const connectDB = require('./config/dbConn')
 const mongoose = require('mongoose')
 const fs = require('fs')
 const https = require('https');
-const PORT = process.env.PORT || 3005;
+const PORT = process.env.PORT || 443;
 
 const privateKey = fs.readFileSync('/etc/letsencrypt/live/atlaxiom.com/privkey.pem', "utf-8")
 const cert = fs.readFileSync('/etc/letsencrypt/live/atlaxiom.com/fullchain.pem', "utf-8")
