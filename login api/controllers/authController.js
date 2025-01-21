@@ -64,6 +64,13 @@ const login = asyncHandler(async (req, res) => {
         { expiresIn: '15min' }
     )
 
+    res.cookie('accessToken', accessToken, {
+        httpOnly: true,
+        secure: false, // set to true if using HTTPS
+        sameSite: 'None',
+        maxAge: 15 * 60 * 1000, 
+    });
+
     const refreshToken = jwt.sign(
         { "username": foundUser.username },
         refreshTokenSecret,
