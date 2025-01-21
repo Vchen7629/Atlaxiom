@@ -3,7 +3,10 @@ services:
     image: ghcr.io/vchen7629/atlaxiom-frontend:main
     container_name: frontend 
     ports: 
-      - 80:80
+      - 443:443 #443 for https, 80 for http, I'm running frontend using https so i run it through port 443
+    volumes:
+      - /etc/ssl/certs/cloudflare.crt:/etc/ssl/certs/cloudflare.crt:ro # Read only cloud flare crt
+      - /etc/ssl/private/cloudflare.key:/etc/ssl/private/cloudflare.key:ro # Read only cloud flare private key
     depends_on:
       loginapi: 
         condition: service_healthy

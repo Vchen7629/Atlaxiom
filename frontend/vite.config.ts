@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from "path"
-
+import fs from 'fs';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -12,12 +12,16 @@ export default defineConfig({
     },
   },
   preview: {
-    port: 80,
+    port: 443,
     strictPort: true,
     host: "0.0.0.0",
    },
   server: {
-    port: 80,
+    https: {
+      key: fs.readFileSync('/etc/ssl/private/cloudflare.key'),
+      cert: fs.readFileSync('/etc/ssl/certs/cloudflare.crt'),
+    },
+    port: 443,
     strictPort: true,
     host: "0.0.0.0",
     proxy: {
