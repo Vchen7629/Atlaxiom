@@ -10,7 +10,7 @@ COPY . .
 
 RUN npm install -g serve
 
-RUN npm build
+RUN npm run build
 
 EXPOSE 8443
 
