@@ -18,8 +18,8 @@ export default defineConfig({
    },
   server: {
     https: {
-      key: fs.readFileSync('/etc/ssl/private/cloudflare.key'),
-      cert: fs.readFileSync('/etc/ssl/certs/cloudflare.crt'),
+      key: fs.readFileSync('/etc/letsencrypt/live/atlaxiom.com/fullchain.pem'),
+      cert: fs.readFileSync('/etc/letsencrypt/live/atlaxiom.com/privkey.pem'),
     },
     port: 443,
     strictPort: true,
