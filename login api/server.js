@@ -65,7 +65,7 @@ app.all('*', (req, res) => {
 app.use(errorhandler)
 
 mongoose.connection.once('open', () => {
-    https.createServer(httpsOptions, app).listen(3005, () => {
+    https.createServer(httpsOptions, app).listen(PORT, '0.0.0.0', () => {
         console.log(`HTTPS server running on https://localhost:${PORT}`);
     });
 })
