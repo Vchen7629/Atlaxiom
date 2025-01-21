@@ -18,8 +18,8 @@ export default defineConfig({
    },
   server: {
     https: {
-      key: fs.readFileSync('/etc/letsencrypt/live/atlaxiom.com/fullchain.pem'),
-      cert: fs.readFileSync('/etc/letsencrypt/live/atlaxiom.com/privkey.pem'),
+      key: fs.readFileSync('/etc/letsencrypt/live/atlaxiom.com/privkey.pem'),
+      cert: fs.readFileSync('/etc/letsencrypt/live/atlaxiom.com/fullchain.pem'),
     },
     port: 443,
     strictPort: true,
