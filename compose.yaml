@@ -15,7 +15,7 @@ services:
   loginapi: 
     image: ghcr.io/vchen7629/atlaxiom-backend:main
     ports:
-      - 8443:8443
+      - 8443:8443 # alternative port for https since 443 is in use by frontend
     secrets:
       - node-env
       - mongodb-db-uri

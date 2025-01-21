@@ -1,6 +1,6 @@
 FROM node:22 
 
-WORKDIR /login api
+WORKDIR /loginapi
 
 COPY package*json ./
 
