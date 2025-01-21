@@ -14,4 +14,4 @@ RUN npm install -g http-server
 
 EXPOSE 443
 
-CMD ["http-server", "dist", "-S", "-C", "/etc/letsencrypt/live/atlaxiom.com/fullchain.pem", "-K", "/etc/letsencrypt/live/atlaxiom.com/privkey.pem", "-p", "443"]
+CMD ["http-server", "dist", "-S", "-C", "/etc/letsencrypt/live/atlaxiom.com/fullchain.pem", "-K", "/etc/letsencrypt/live/atlaxiom.com/privkey.pem", "-p", "443" "--cors"]
