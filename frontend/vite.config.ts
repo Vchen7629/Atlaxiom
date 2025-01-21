@@ -21,15 +21,8 @@ export default defineConfig({
       key: fs.readFileSync('/etc/letsencrypt/live/atlaxiom.com/privkey.pem'),
       cert: fs.readFileSync('/etc/letsencrypt/live/atlaxiom.com/fullchain.pem'),
     },
-    port: 443,
+    port: 8443,
     strictPort: true,
     host: "0.0.0.0",
-    proxy: {
-      '/auth': {
-        target: 'http://localhost:3005',
-        changeOrigin: true,
-        secure: false, // Disable SSL verification (use `true` if your backend uses HTTPS)
-      },
-    }
   }
 })
