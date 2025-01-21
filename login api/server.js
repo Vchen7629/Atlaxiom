@@ -9,7 +9,18 @@ const cors = require('cors')
 const corsOptions = require('./config/corsOptions')
 const connectDB = require('./config/dbConn')
 const mongoose = require('mongoose')
+const fs = require('fs')
 const PORT = process.env.PORT || 3005;
+
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/atlaxiom.com/privkey.pem', "utf-8")
+const cert = fs.readFileSync('/etc/letsencrypt/live/atlaxiom.com/fullchain.pem', "utf-8")
+const ca = fs.readFileSync('/etc/ssl/certs/cloudflare.crt' ,"utf-8")
+
+const httpsOptions = {
+    key: privateKey,
+    cert: certificate,
+    ca: ca,
+};
 
 connectDB()
 app.use(logger)
@@ -49,7 +60,9 @@ app.all('*', (req, res) => {
 app.use(errorhandler)
 
 mongoose.connection.once('open', () => {
-    app.listen(PORT, () => console.log(`server running on port http://localhost:${PORT}`))
+    https.createServer(httpsOptions, app).listen(3005, () => {
+        console.log{`HTTPS server running on https://localhost:${PORT}`};
+    });
 })
 
 mongoose.connection.on('error', err => {
