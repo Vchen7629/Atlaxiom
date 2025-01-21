@@ -66,7 +66,7 @@ app.all('*', (req, res) => {
 app.use(errorhandler)
 
 mongoose.connection.once('open', () => {
-    https.createServer(/*httpsOptions,*/ app).listen(443, '0.0.0.0', () => {
+    https.createServer(httpsOptions, app).listen(443, '0.0.0.0', () => {
         console.log(`HTTPS server running on https://api.atlaxiom.com`);
     });
 })
