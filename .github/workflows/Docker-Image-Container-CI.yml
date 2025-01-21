@@ -13,7 +13,7 @@ on:
       - main
     paths: 
       - 'frontend/**'
-      - 'login api/**'
+      - 'loginapi/**'
 
 env:
   # Use docker.io for Docker Hub if empty
