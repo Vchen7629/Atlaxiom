@@ -1,7 +1,6 @@
 services:
   frontend:
     image: ghcr.io/vchen7629/atlaxiom-frontend:main
-    container_name: frontend 
     ports: 
       - 443:443 #443 for https, 80 for http, I'm running frontend using https so i run it through port 443
     volumes:
@@ -14,7 +13,6 @@ services:
 
   loginapi: 
     image: ghcr.io/vchen7629/atlaxiom-backend:main
-    container_name: loginapi
     secrets:
       - node-env
       - mongodb-db-uri
@@ -22,7 +20,7 @@ services:
       - refresh-token-secret
     environment:
       - NODE_ENV_FILE=/run/secrets/node-env
-      - DATABASE_URI_FILE=/run/secrets/database-uri
+      - DATABASE_URI_FILE=/run/secrets/mongodb-db-uri
       - ACCESS_TOKEN_SECRET_FILE=/run/secrets/access-token-secret
       - REFRESH_TOKEN_SECRET_FILE=/run/secrets/refresh-token-secret
     expose: 
@@ -36,10 +34,10 @@ services:
 
 secrets:
   node-env:
-    file: ./login api/secrets/node_env.txt
+    file: ./loginapi/secrets/node_env.txt
   mongodb-db-uri:
-    file: ./login api/secrets/database_uri.txt
+    file: ./loginapi/secrets/database_uri.txt
   access-token-secret:
-    file: ./login api/secrets/access_token_secret.txt
+    file: ./loginapi/secrets/access_token_secret.txt
   refresh-token-secret:
-    file: ./login api/secrets/refresh_token_secret.txt
+    file: ./loginapi/secrets/refresh_token_secret.txt
