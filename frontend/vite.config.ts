@@ -27,5 +27,6 @@ export default defineConfig({
         secure: false, // Disable SSL verification (use `true` if your backend uses HTTPS)
         cookieDomainRewrite: '165.227.176.18', 
       },
+    }
   }
 })
