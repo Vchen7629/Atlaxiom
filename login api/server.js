@@ -23,7 +23,11 @@ const httpsOptions = {
     ca: ca,
 };
 
-connectDB()
+connectDB().catch(err => {
+    console.error("Database connection failed:", err);
+    process.exit(1); // Exit the process if DB connection fails
+});
+
 app.use(logger)
 app.use(cors(corsOptions))
 app.use(express.json())
