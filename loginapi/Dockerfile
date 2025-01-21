@@ -4,11 +4,11 @@ WORKDIR /loginapi
 
 COPY package*json ./
 
-RUN npm install
+RUN npm install --production
 
 COPY . .
 
 EXPOSE 8443
 
 # Start the application
-CMD ["npm", "run", "dev"]
+CMD ["node", "server.js"]
