@@ -8,9 +8,10 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 url: "/auth",
                 method: "POST",
                 body: { ...credentials },
-                credentials: 'include' 
+                credentials: 'include',
             })
         }),
+        
 
         sendLogout: builder.mutation({
             query: () => ({
