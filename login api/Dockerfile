@@ -8,9 +8,7 @@ RUN npm install
 
 COPY . .
 
-ENV PORT = 443
-
-EXPOSE 443
+EXPOSE 8443
 
 # Start the application
 CMD ["npm", "run", "dev"]
