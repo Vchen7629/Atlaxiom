@@ -8,7 +8,8 @@ RUN npm install
 
 COPY . .
 
-# Expose the port the app runs on
+ENV PORT = 443
+
 EXPOSE 443
 
 # Start the application
