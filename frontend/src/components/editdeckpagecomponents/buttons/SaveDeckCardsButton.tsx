@@ -57,7 +57,7 @@ const SaveDeckCardsButton = ({ savebuttonprops }: SaveDeckButton) => {
             const normalizedModifySideDeckCards = modifySideDeckCardAmountPlaceHolder.map(normalizeCard);
 
             if (normalizedMainCards.length > 0) {
-                await addCardsToMainDeck({ id: userId, deckId, main_deck_cards: normalizedMainCards});
+                await addCardsToMainDeck({ id: userId, deckId, main_deck_cards: normalizedMainCards as any});
                 setCardsToAddMainDeckPlaceHolder([])
             } 
 

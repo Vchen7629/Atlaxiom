@@ -3,7 +3,7 @@ import { useGetAllOwnedDecksQuery } from "../../../../features/api-slices/decksa
 import { useGetOwnedCardsQuery } from "../../../../features/api-slices/ownedCardapislice"
 import { useSelector } from "react-redux"
 import { Bar, BarChart, XAxis } from "recharts"
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   Card,
   CardContent,

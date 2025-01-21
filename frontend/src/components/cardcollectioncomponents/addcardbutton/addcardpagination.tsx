@@ -10,10 +10,10 @@ const AddCardPaginationComponent = ({ paginationprops }: Pagination) => {
         cardsPerPage,
         totalPages,
         UpdateTotalPages,
-        currentCards, setCurrentCards,
+        setCurrentCards,
     } = paginationprops
     
-    const [page, setPage] = useState(currentPage);
+    const [, setPage] = useState(currentPage);
     const [err, setErr] = useState<string>("")
 
 

@@ -1,8 +1,8 @@
-import { createEntityAdapter } from "@reduxjs/toolkit";
+import { createEntityAdapter, EntityState } from "@reduxjs/toolkit";
 import { apiSlice } from "../../app/api/apiSlice"
 
-const ownedCardsAdapter = createEntityAdapter({
-    selectId: (entityArray) => {
+const ownedCardsAdapter = createEntityAdapter<any>({
+    selectId: (entityArray: any) => {
         // Check if the entityArray is defined and has elements
         if (entityArray && entityArray.length > 0) {
           const firstEntity = entityArray[0];
@@ -17,70 +17,69 @@ const ownedCardsAdapter = createEntityAdapter({
       },
 }) 
 
-const initialState = ownedCardsAdapter.getInitialState()
+const initialState: EntityState<any> = ownedCardsAdapter.getInitialState()
 
 export const ownedCardsApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
-        AddNewOwnedCard: builder.mutation({
+        AddNewOwnedCard: builder.mutation<string, { id: string; CardData: any }>({
             query: ({ id, CardData }) => ({
               url: `/card/${id}`,
               method: 'POST',
               body: CardData,
             }),
-            invalidatesTags: (result, error, arg) => [
+            invalidatesTags: (arg: any) => [
                 { type: 'OwnedCards', id: arg.id }
             ],
             
         }),
 
-        getOwnedCards: builder.query({
-            query: (id) => `/card/${id}`,
-            method: 'GET',
-            validateStatus: (response, result) => {
-                return response.status === 200 && !result.isError;
-            },
-            transformResponse: (responseData) => {
+        getOwnedCards: builder.query<EntityState<any>, string>({
+            query: (id) => ({
+                url: `/card/${id}`,
+                method: 'GET',
+            }),
+            transformResponse: (responseData: any) => {
                 return ownedCardsAdapter.upsertOne(initialState, { ...responseData, id: responseData._id });
             },
-            providesTags: (result, error, arg) => {
+            providesTags: (result: any) => {
                 if (result?.ids) {
                     return [
                         { type: 'OwnedCards', id: 'LIST' },
-                        ...result.ids.map(id => ({ type: 'OwnedCard', id }))
+                        ...result.ids.map((id: any) => ({ type: 'OwnedCard', id }))
                     ]
                 } else return [{ type: 'OwnedCards', id: 'LIST' }]
             }
         }),
 
-        IncreaseOwnedCard: builder.mutation({
+        IncreaseOwnedCard: builder.mutation<string, { id: string; CardData: { card_name: string, increaseOwnedAmount: number } }>({
             query: ({ id, CardData }) => ({
                 url: `/card/increasecard/${id}`,
                 method: 'PATCH',
                 body: CardData
             }),
-            invalidatesTags: (result, error, arg) => [
+            invalidatesTags: (arg: any) => [
                 { type: 'OwnedCards', id: arg.id }
             ]
         }),
 
-        DecreaseOwnedCard: builder.mutation({
+        DecreaseOwnedCard: builder.mutation<string, { id: string; CardData: { card_name: string, decreaseOwnedAmount: number } }>({
             query: ({ id, CardData }) => ({
                 url: `/card/decreasecard/${id}`,
                 method: 'PATCH',
                 body: CardData
             }), 
-            invalidatesTags: (result, error, arg) => [
+            invalidatesTags: (arg: any) => [
                 { type: 'OwnedCards', id: arg.id }
             ]
         }),
 
-        DeleteOwnedCard: builder.mutation({
+        DeleteOwnedCard: builder.mutation<string, { id: string; CardData: { card_name: string } }>({
             query: ({ id, CardData }) => ({
                 url: `/card/${id}`,
                 method: 'DELETE',
                 body: CardData
             }),
-            invalidatesTags: (result, error, arg) => [
+            invalidatesTags: (arg: any) => [
                 { type: 'OwnedCards', id: arg.id }
             ]
         })

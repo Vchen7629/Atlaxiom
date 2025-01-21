@@ -1,4 +1,4 @@
-import { pageselector } from "../types/paginationtypes";
+import { pageselector } from "@/components/cardcollectioncomponents/types/paginationtypes";
 
 export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
     const {

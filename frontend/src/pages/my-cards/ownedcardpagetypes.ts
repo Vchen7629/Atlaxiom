@@ -1,7 +1,6 @@
-import { OwnedCard } from "@/components/cardcollectioncomponents/types/paginationtypes";
 
 export type Card = {
-    filteredCards: OwnedCard[];
+    filteredCards: any[];
     card_name: string;
     type?: string;
     race?: string;

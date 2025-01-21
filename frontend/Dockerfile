@@ -10,7 +10,7 @@ COPY . .
 
 RUN npm install -g http-server
 
-#RUN npm run build
+RUN npm run build
 
 EXPOSE 443
 

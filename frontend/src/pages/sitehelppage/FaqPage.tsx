@@ -2,16 +2,16 @@ import { FAQPageMenuSideBar } from "@/components/sitehelppagecomponents/dropdown
 import Footer from "../../components/footer/Footer.tsx"
 import Header from "../../components/header/header.tsx"
 import { Toaster } from "sonner"
-import { useState } from "react"
+//import { useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faQuestion, faQuestionCircle } from "@fortawesome/free-solid-svg-icons"
+import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons"
 
 const SiteHelpPage = () => {
-    const [cardSearchView, setCardSearchView] = useState(true);
+    /*const [cardSearchView, setCardSearchView] = useState(true);
     const [collectionPageView, setCollectionPageView] = useState(false);
     const [deckBuildPageView, setDeckBuildPageView] = useState(false);
     const [editProfileView, setEditProfileView] = useState(true);
-    const [darkLightModeView, setDarkLightModeView] = useState(true);
+    const [darkLightModeView, setDarkLightModeView] = useState(true);*/
 
     const content = (
         <main className="min-h-[100vh] flex flex-col justify-between">

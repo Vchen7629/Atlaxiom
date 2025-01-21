@@ -1,8 +1,7 @@
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
-import { SearchListResult } from '../types/draganddropitemtypes';
 
-const SearchCardListViewItem = ({ card }: { card: SearchListResult }) => {
+const SearchCardListViewItem = ({ card }: any) => {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
         id: card.id, 
     });

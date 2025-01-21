@@ -79,14 +79,14 @@ export function ComponentRadialChart() {
                                     >
                                         <tspan
                                             x={viewBox.cx}
-                                            y={viewBox.cy - 10}
+                                            y={viewBox.cy}
                                             className="fill-current text-2xl font-bold"
                                         >
                                             {chartData[0].owned} / {chartData[0].total}
                                         </tspan>
                                         <tspan
                                             x={viewBox.cx}
-                                            y={viewBox.cy + 14}
+                                            y={viewBox.cy}
                                             className="fill-current text-gray-300 text-sm text-muted-foreground"
                                         >
                                             Cards Owned
