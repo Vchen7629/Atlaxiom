@@ -12,6 +12,6 @@ RUN npm install -g serve
 
 #RUN npm run build
 
-EXPOSE 8443
+EXPOSE 443
 
-CMD ["serve", "-s", "dist", "-l", "8443"]
+CMD ["serve", "-s", "dist", "-l", "443"]
