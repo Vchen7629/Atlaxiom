@@ -8,10 +8,10 @@ RUN npm install
 
 COPY . .
 
-RUN npm install -g http-server
+RUN npm install -g serve
 
 RUN npm run build
 
 EXPOSE 443
 
-CMD ["http-server", "dist", "-S", "-C", "/etc/letsencrypt/live/atlaxiom.com/fullchain.pem", "-K", "/etc/letsencrypt/live/atlaxiom.com/privkey.pem", "-p", "443" "--cors"]
+CMD ["serve", "-s", "dist", "-l", "443", "--ssl-cert", "/etc/letsencrypt/live/atlaxiom.com/fullchain.pem", "--ssl-key", "/etc/letsencrypt/live/atlaxiom.com/privkey.pem", "--cors"]
