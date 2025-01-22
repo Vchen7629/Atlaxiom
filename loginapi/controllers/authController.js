@@ -4,6 +4,16 @@ const fs = require('fs')
 const jwt = require('jsonwebtoken')
 const asyncHandler = require('express-async-handler')
 
+const getSecret = (filePath, envVar) => {
+    if (filePath && fs.existsSync(filePath)) {
+            return fs.readFileSync(filePath, 'utf8').trim();
+    } else {
+        console.log("error 1")
+    }
+    
+    return envVar || null;
+};
+
 // @desc Login
 // @route POST /auth
 // @access Public
@@ -31,16 +41,6 @@ const login = asyncHandler(async (req, res) => {
     const match = await bcrypt.compare(password, foundUser.password)
 
     if (!match) return res.status(401).json({ message: 'Invalid Password' })
-
-    const getSecret = (filePath, envVar) => {
-        if (filePath && fs.existsSync(filePath)) {
-                return fs.readFileSync(filePath, 'utf8').trim();
-        } else {
-            console.log("error 1")
-        }
-        
-        return envVar || null;
-    };
 
     // Read secrets
     const accessTokenSecret = getSecret(process.env.ACCESS_TOKEN_SECRET_FILE, process.env.ACCESS_TOKEN_SECRET);
@@ -99,11 +99,16 @@ const refresh = (req, res) => {
     if (!cookies?.jwt) return res.status(401).json({ message: 'Unauthorized' })
 
     const refreshToken = cookies.jwt
+    console.log('Received refresh token:', refreshToken);
 
-    jwt.verify(
-        refreshToken,
-        process.env.REFRESH_TOKEN_SECRET,
-        asyncHandler(async (err, decoded) => {
+    const refreshTokenSecret = getSecret(process.env.REFRESH_TOKEN_SECRET_FILE, process.env.REFRESH_TOKEN_SECRET);
+    const accessTokenSecret = getSecret(process.env.ACCESS_TOKEN_SECRET_FILE, process.env.ACCESS_TOKEN_SECRET);
+    
+    if (!refreshTokenSecret) {
+        return res.status(500).json({ message: 'Refresh token secret is missing' });
+    }
+
+    jwt.verify(refreshToken, refreshTokenSecret, asyncHandler(async (err, decoded) => {
             if (err) return res.status(403).json({ message: 'Forbidden' })
 
             const foundUser = await User.findOne({ username: decoded.username }).exec()
@@ -118,7 +123,7 @@ const refresh = (req, res) => {
                         "roles": foundUser.roles
                     }
                 },
-                process.env.ACCESS_TOKEN_SECRET,
+                accessTokenSecret,
                 { expiresIn: '15m' }
             )
 
