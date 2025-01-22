@@ -1,4 +1,4 @@
-const allowedHost = "api.atlaxiom.com"
+const allowedHost = "api.atlaxiom.com:8443"
 
 const checkHost = (req, res, next) => {
     const host = req.headers.host;
