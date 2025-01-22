@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { setCredentials } from '../../features/auth/authSlice.ts'
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'https://api.atlaxiom.com',
+    baseUrl: 'https://api.atlaxiom.com:8443',
     credentials: 'include',
     prepareHeaders: (headers, { getState }: any) => {
         const token = getState().auth.token 
