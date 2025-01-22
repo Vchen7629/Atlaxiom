@@ -1,10 +1,5 @@
 name: CI/CD deploy to vps server
 
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 on:
   schedule:
     - cron: '59 11 * * *'
@@ -12,13 +7,8 @@ on:
     branches:
       - main
 
-env:
-  # Use docker.io for Docker Hub if empty
-  REGISTRY: ghcr.io
-  # github.repository as <account>/<repo>
-  IMAGE_NAME_FRONTEND: ${{ github.repository }}-frontend
-  IMAGE_NAME_BACKEND: ${{ github.repository }}-backend
-
+permissions:
+  packages: write
 
 jobs:
   commit-hash:
@@ -99,7 +89,7 @@ jobs:
         with:
           context: ./loginapi
           push: true
-          tags: ghcr.io/vchen7629/atlaxiom-backend:${{ needs.commit-hash.outputs.commit_hash}}
+          tags: ghcr.io/vchen7629/atlaxiom-backend:${{ needs.commit-hash.outputs.commit_hash }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
