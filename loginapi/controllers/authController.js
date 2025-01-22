@@ -65,8 +65,9 @@ const login = asyncHandler(async (req, res) => {
     )
 
     res.cookie('accessToken', accessToken, {
+        domain: '.atlaxiom.com',
         httpOnly: true,
-        secure: false, // set to true if using HTTPS
+        secure: true,
         sameSite: 'None',
         maxAge: 15 * 60 * 1000, 
     });
@@ -77,12 +78,12 @@ const login = asyncHandler(async (req, res) => {
         { expiresIn: '7d' }
     )
 
-    // Create secure cookie with refresh token 
     res.cookie('jwt', refreshToken, {
-        httpOnly: true, //accessible only by web server 
-        secure: false,
-        sameSite: 'None', //cross-site cookie 
-        maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
+        domain: '.atlaxiom.com',
+        httpOnly: true, 
+        secure: true,
+        sameSite: 'None',
+        maxAge: 7 * 24 * 60 * 60 * 1000
     })
 
     // Send accessToken containing username and roles 
