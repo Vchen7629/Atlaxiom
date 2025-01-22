@@ -23,13 +23,6 @@ connectDB().catch(err => {
     process.exit(1); // Exit the process if DB connection fails
 });
 
-app.options('/auth', (res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://api.atlaxiom.com');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS'); 
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization'); 
-    next();
-});
-
 app.use(checkHost)
 app.use(logger)
 app.use(cors(corsOptions))
