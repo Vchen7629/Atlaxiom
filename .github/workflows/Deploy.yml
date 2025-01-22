@@ -68,7 +68,7 @@ jobs:
         with:
           context: ./frontend
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/vchen7629/Atlaxiom:${{ needs.commit-hash.outputs.commit_hash}}
+          tags: ghcr.io/vchen7629/atlaxiom-frontend:${{ needs.commit-hash.outputs.commit_hash}}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -102,7 +102,7 @@ jobs:
         with:
           context: ./loginapi
           push: true
-          tags: ghcr.io/vchen7629/Atlaxiom:${{ needs.commit-hash.outputs.commit_hash}}
+          tags: ghcr.io/vchen7629/atlaxiom-backend:${{ needs.commit-hash.outputs.commit_hash}}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -118,7 +118,7 @@ jobs:
       - name: create env file
         run: |
           echo "GIT_COMMIT_HASH=${{ github.sha }}" >> env
-      - name: 'Docker Stack Deploy Frontend'
+      - name: 'Docker Stack Deploy '
         uses: cssnr/stack-deploy-action@v1
         with:
           name: 'guestbook'
