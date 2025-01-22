@@ -105,7 +105,7 @@ export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupPro
                                                 success: (data: any) => `Card: ${data.name} from set: ${data.set} has been added`,
                                                 error: (error: any) => {
                                                 if (error?.status === 409) {
-                                                    return error?.response?.data?.message || "You already Own this Card";
+                                                    return error?.response?.message || "You already Own this Card";
                                                 }
                                                     return "An Error occured while adding the Card"
                                                 },
