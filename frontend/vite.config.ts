@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from "path"
-import fs from 'fs';
+//import fs from 'fs';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -11,7 +11,16 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  preview: {
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom"]
+        }
+      }
+    }
+  }
+  /*preview: {
     port: 443,
     strictPort: true,
     host: "0.0.0.0",
@@ -24,5 +33,5 @@ export default defineConfig({
     port: 443,
     strictPort: true,
     host: "0.0.0.0",
-  }
+  }*/
 })

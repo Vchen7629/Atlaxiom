@@ -8,7 +8,7 @@ import Footer from '../../components/footer/Footer.tsx';
 import Particles from "../../components/ui/particles.tsx";
 
  
-export function HomePage() {
+const HomePage = () => {
   const [color] = useState<string>("#FFD700");
   
   return (
@@ -40,3 +40,5 @@ export function HomePage() {
     </main>
   );
 }
+
+export default HomePage
