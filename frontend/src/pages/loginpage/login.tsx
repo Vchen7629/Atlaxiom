@@ -24,8 +24,6 @@ const LoginPage = () => {
     }
 
     const handleSubmit = async () => {
-        
-
         if (!username ||username.trim() === '') {
             setUsernameError(true);
         }
