@@ -23,10 +23,9 @@ connectDB().catch(err => {
     process.exit(1); // Exit the process if DB connection fails
 });
 
-
+app.use(cors(corsOptions))
 app.use(checkHost)
 app.use(logger)
-app.use(cors(corsOptions))
 app.use(express.json())
 app.use(cookieParser())
 
