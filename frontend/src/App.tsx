@@ -1,31 +1,26 @@
 import { Routes, Route } from 'react-router-dom'
-import LoginPage from './pages/loginpage/login.tsx';
-import SearchBarPage from './pages/searchpage/searchbarpage.tsx';
 import StayLoggedIn from './features/auth/stayloggedin.tsx';
-import UserOwnedCardPage from './pages/my-cards/ownedCardPage.tsx';
-import MyDeck from './pages/my-decks/deckpagehomepage.tsx';
-import DeckBuilderPage from './pages/my-decks/editdeckpage.tsx';
-import Profilepage from './pages/profilepage/Profilepage.tsx';
-import { HomePage } from './pages/homepage/homepage.tsx';
-import SignUpPageComponent from './pages/sign-up-page/signuppage.tsx';
 import { lazy, Suspense } from 'react';
 import FoldingCube from './components/loadingcomponents/foldingcube.tsx';
-import PrivacyPolicyPage from './pages/privacypolicypage/privacypolicypage.tsx';
-import SiteHelpPage from './pages/sitehelppage/FaqPage.tsx';
 
-const SearchResults = lazy(() => delayLoadTimer(import('./pages/searchpage/searchresults.tsx')))
-
-async function delayLoadTimer (promise: any) {
-  return new Promise(resolve => {
-    setTimeout(resolve, 800);
-  }).then(() => promise);
-}
+const SearchResults = lazy(() => (import('./pages/searchpage/searchresults.tsx')))
+const HomePage = lazy(() => (import("./pages/homepage/homepage.tsx")))
+const SignUpPage = lazy(() => (import("./pages/sign-up-page/signuppage.tsx")))
+const LoginPage = lazy(() => import("./pages/loginpage/login.tsx"))
+const SearchBarPage = lazy(() => import("./pages/searchpage/searchbarpage.tsx"))
+const PrivacyPolicyPage = lazy(() => import("./pages/privacypolicypage/privacypolicypage.tsx"))
+const SiteHelpPage = lazy(() => import("./pages/sitehelppage/FaqPage.tsx"))
+const UserOwnedCardPage = lazy(() => import("./pages/my-cards/ownedCardPage.tsx"))
+const MyDeck = lazy(() => import("./pages/my-decks/deckpagehomepage.tsx"))
+const DeckBuilderPage = lazy(() => import("./pages/my-decks/editdeckpage.tsx"))
+const Profilepage = lazy(() => import("./pages/profilepage/Profilepage.tsx"))
 
 function App() {
   return (
+    <Suspense fallback={<FoldingCube/>}>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="signup" element={<SignUpPageComponent/>}/>
+        <Route path="signup" element={<SignUpPage/>}/>
         <Route path="login" element={<LoginPage/>}/>
         <Route path="search" element={<SearchBarPage/>}/>
         <Route path="/searchresult" element={<SearchResults/>}/>
@@ -35,13 +30,7 @@ function App() {
         <Route element={<StayLoggedIn/>}>
           <Route path="/loggedin" element={<HomePage/>}/>
           <Route path="searchloggedin" element={<SearchBarPage/>} />
-          <Route 
-            path="/searchresultloggedin" 
-            element={
-              <Suspense fallback={<FoldingCube/>}>
-                <SearchResults/>
-              </Suspense>
-            }/>
+          <Route path="/searchresultloggedin" element={<SearchResults/>}/>
           <Route path="getcards" element={<UserOwnedCardPage/>}/>
           <Route path="deckmanager" element={<MyDeck/>}/>
           <Route path="modifyDeck" element={<DeckBuilderPage/>}/>         
@@ -51,6 +40,7 @@ function App() {
         </Route>
       
       </Routes>
+    </Suspense>
   );
 } 
 
