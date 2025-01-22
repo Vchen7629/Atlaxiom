@@ -20,9 +20,9 @@ function App() {
     <Suspense fallback={<FoldingCube/>}>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="signup" element={<SignUpPage/>}/>
-        <Route path="login" element={<LoginPage/>}/>
-        <Route path="search" element={<SearchBarPage/>}/>
+        <Route path="/signup" element={<SignUpPage/>}/>
+        <Route path="/login" element={<LoginPage/>}/>
+        <Route path="/search" element={<SearchBarPage/>}/>
         <Route path="/searchresult" element={<SearchResults/>}/>
         <Route path="/privacy" element={<PrivacyPolicyPage/>}/>
         <Route path="/FAQ" element={<SiteHelpPage/>}/>
@@ -31,10 +31,10 @@ function App() {
           <Route path="/loggedin" element={<HomePage/>}/>
           <Route path="searchloggedin" element={<SearchBarPage/>} />
           <Route path="/searchresultloggedin" element={<SearchResults/>}/>
-          <Route path="getcards" element={<UserOwnedCardPage/>}/>
-          <Route path="deckmanager" element={<MyDeck/>}/>
-          <Route path="modifyDeck" element={<DeckBuilderPage/>}/>         
-          <Route path="profile" element={<Profilepage />}/>
+          <Route path="/getcards" element={<UserOwnedCardPage/>}/>
+          <Route path="/deckmanager" element={<MyDeck/>}/>
+          <Route path="/modifyDeck" element={<DeckBuilderPage/>}/>         
+          <Route path="/profile" element={<Profilepage />}/>
           <Route path="/privacyloggedin" element={<PrivacyPolicyPage/>}/>
           <Route path="/FAQloggedin" element={<SiteHelpPage/>}/>
         </Route>

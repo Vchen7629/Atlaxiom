@@ -10,6 +10,7 @@ services:
     depends_on:
       loginapi: 
         condition: service_healthy
+    command: ["http-server", "dist", "-S", "-C", "/etc/letsencrypt/live/atlaxiom.com/fullchain.pem", "-K", "/etc/letsencrypt/live/atlaxiom.com/privkey.pem", "-p", "443"]
 
 
   loginapi: 
