@@ -104,7 +104,11 @@ jobs:
         uses: actions/checkout@v4
       - name: create env file
         run: |
-          echo "GIT_COMMIT_HASH=${{ github.sha }}" >> env     
+          echo "GIT_COMMIT_HASH=${{ github.sha }}" >> env
+      - name: Check current working directory
+        run: |
+          pwd
+          ls -l     
       - name: 'Docker Stack Deploy '
         uses: cssnr/stack-deploy-action@v1
         with:
