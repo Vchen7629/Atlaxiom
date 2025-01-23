@@ -31,7 +31,7 @@ const GalleryViewSearchSuggestionsComponent = ({ galleryviewprops }: GalleryView
         <main className="w-full h-full">
             {currentPageGalleryNamesArray.length > 0 ? (
                 <div
-                    className="grid grid-cols-10 gap-4 w-full h-full p-4 justify-items-start items-start"  
+                    className="grid grid-cols-4 sm-grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-4 w-full h-full p-4 justify-items-start items-start"  
                     style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                 >
                     {currentPageGalleryNamesArray.map((card: any, index) => (

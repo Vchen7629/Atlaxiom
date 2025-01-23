@@ -110,7 +110,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
             {listView && (
                 <>
                     {totalListPages > 1 && (
-                        <div className="flex w-full justify-between ">
+                        <div className="flex flex-col lg:flex-row w-full justify-between ">
                             <section className="flex items-center h-full space-x-2 text-[hsl(var(--text))]"> 
                                 <span className="text-lg">Page</span> 
                                 <input
@@ -133,7 +133,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
             {galleryView && (
                 <>
                     {totalGalleryPages > 1 && (
-                        <div className="flex w-full justify-between">
+                        <div className="flex flex-col lg:flex-row w-full justify-between">
                             <section className="flex items-center h-full space-x-2 text-[hsl(var(--text))]"> 
                                 <span className="text-lg">Page</span> 
                                 <input

@@ -35,9 +35,9 @@ const Header = () => {
         }
         
         return (
-            <div className={`flex xs:hidden lg:flex py-2.5 mr-2.5 ${showDropdown ? "hidden" : ''} justify-around`}>
-                <div className='mr-4'><Signup /></div>
-                <div><Login /></div>
+            <div className={`flex xs:hidden space-x-[1vw] lg:flex py-2.5 mr-[1vw] ${showDropdown ? "hidden" : ''} justify-around`}>
+                <div><Signup /></div>
+                <div className='mr-[1vw]'><Login /></div>
             </div>
         );
       };
@@ -64,7 +64,7 @@ const Header = () => {
                     Atlaxiom
                 </button>
             </div>
-            <div className='flex w-fit justify-between items-center space-x-4'>
+            <div className='flex w-fit justify-between items-center space-x-[1vw]'>
                 <div className="absolute left-2 md:relative md:mr-4"><ModeToggle/></div>
                 <div className='w-fit hidden sm:hidden md:flex'>{renderAuthButtons()}</div>
                

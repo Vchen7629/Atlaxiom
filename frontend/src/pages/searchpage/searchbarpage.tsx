@@ -268,25 +268,32 @@ const SearchBarPage = () => {
         <Header/>
         <main className="flex flex-grow py-[15vh] items-start ">
           <Toaster richColors  expand visibleToasts={4}/>            
-          <div className={`flex flex-col ${expandStatus ? "w-[77.5%]" : "w-full"}`}>
+          <div className={`flex flex-col w-full ${expandStatus ? "md:w-[77.5vw]" : "md:w-full"}`}>
                 <main>
-                  <div className="flex w-full items-center justify-between mb-[5vh]">
+                  <div className="lg:flex space-y-[2vh] w-full items-center justify-between lg:mb-[5vh]">
                     <div className="text-4xl text-goldenrod pl-8">
                       <strong>Card Search</strong>
                     </div>
-                    <section className="flex">
-                      <div className="w-[30vw]"><SearchBarComponent searchbarprops={searchbarprops}/></div>
+                    <section className="flex px-[3vw] lg:px-[0.001vw]">
+                      <div className="lg:w-[30vw] md:w-[75%] w-[90%]"><SearchBarComponent searchbarprops={searchbarprops}/></div>
                       <div className="flex ml-2 items-center">
                         <ClearFilterButton clearfilterprops={clearfilterprops}/>
-                        <FilterButton filterbuttonprops={filterbuttonprops}/>
+                        <div className='hidden md:flex'>
+                          <FilterButton filterbuttonprops={filterbuttonprops}/>
+                        </div>
                       </div>
                     </section>
-                    <div className="flex w-20 bg-footer rounded-xl ml-4">
-                      <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
+                    <div className="flex mr-[3vw]">
+                      <div className="flex w-20 bg-footer rounded-xl ml-4">
+                        <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
+                      </div>
+                      <div className='flex md:hidden'>
+                        <FilterButton filterbuttonprops={filterbuttonprops}/>
+                      </div>
                     </div>
                   </div>
                   {listView && (
-                    <main className='flex flex-col w-full justify-center space-y-2 pl-8'>
+                    <main className='flex flex-col w-full justify-center space-y-2 px-[3vw] lg:px-[1vw]'>
                       <PaginationComponent paginationprops={paginationprops}/>
                       <ListViewSearchSuggestionsComponent listviewprops={listviewprops}/>
                       <PaginationComponent paginationprops={paginationprops}/>
@@ -294,7 +301,7 @@ const SearchBarPage = () => {
                   )}
 
                   {galleryView && (
-                    <main className="flex flex-col w-full h-full space-y-2 pl-8">
+                    <main className="flex flex-col w-full  justify-center space-y-2 px-[3vw] lg:px-[1vw]">
                       <PaginationComponent paginationprops={paginationprops}/>
                       <GalleryViewSearchSuggestionsComponent galleryviewprops={galleryviewprops}/>
                       <PaginationComponent paginationprops={paginationprops}/>
@@ -302,9 +309,9 @@ const SearchBarPage = () => {
                   )}
                 </main>       
           </div>
-          <div className={`fixed flex right-2 top-24 min-h-[80vh] ${expandStatus ? "w-[20.5%]" : "w-0 "}`}>
+          {/*<div className={`fixed flex right-2 top-24 min-h-[80vh] ${expandStatus ? "w-[20.5%]" : "w-0 "}`}>
             <FilterCardComponent filterprops={filterprops}/>
-          </div>      
+          </div>*/}      
         </main>   
         <Footer/>
       </div>
