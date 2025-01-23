@@ -91,6 +91,7 @@ jobs:
           username: vchen7629
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           script: |
+            cd Atlaxiom/
             docker compose pull
                                
 
