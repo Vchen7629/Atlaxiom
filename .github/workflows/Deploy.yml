@@ -76,9 +76,9 @@ jobs:
       - name: Create backend env file
         run: |
           echo "NODE_ENV=${{ secrets.NODE_ENV }}" > ./loginapi/.env
-          echo "DATABASE_URI=${{ secrets.DATABASE_URI }}" >> 
-          echo "ACCESS_TOKEN_SECRET=${{ secrets.ACCESS_TOKEN_SECRET }}" >> 
-          echo "REFRESH_TOKEN_SECRET=${{ secrets.REFRESH_TOKEN_SECRET }}" >> 
+          echo "DATABASE_URI=${{ secrets.DATABASE_URI }}" >> ./loginapi/.env
+          echo "ACCESS_TOKEN_SECRET=${{ secrets.ACCESS_TOKEN_SECRET }}" >> ./loginapi/.env
+          echo "REFRESH_TOKEN_SECRET=${{ secrets.REFRESH_TOKEN_SECRET }}" >> ./loginapi/.env
           # Add more environment variables as needed here
 
       - name: Set up Docker Buildx
