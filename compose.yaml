@@ -40,11 +40,10 @@ services:
     volumes:
       - /etc/letsencrypt/live/api.atlaxiom.com/privkey.pem:/etc/letsencrypt/live/api.atlaxiom.com/privkey.pem:ro # Read only lets encrypt generated cert
       - /etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem:/etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem:ro # Read only lets encrypt generated private key\
+      - ./loginapi/.env:/loginapi/.env
     healthcheck:
       test: ["CMD-SHELL", "curl -k --retry 3 --retry-connrefused https://api.atlaxiom.com:8443 || exit 1"]
       interval: 1m30s
       timeout: 30s
       retries: 3
       start_period: 30s
-    env_file:
-      - ./loginapi/.env
