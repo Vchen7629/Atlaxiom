@@ -113,7 +113,7 @@ jobs:
         uses: cssnr/stack-deploy-action@v1
         with:
           name: 'Atlaxiom'
-          file: '/home/vchen7629/Atlaxiom/compose.yaml'
+          file: './compose.yaml'
           host: ${{ secrets.VPS_IP_ADDRESS }}
           user: vchen7629
           ssh_key: ${{ secrets.DEPLOY_SSH_KEY }}
