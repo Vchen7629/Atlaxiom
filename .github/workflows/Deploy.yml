@@ -110,14 +110,8 @@ jobs:
           pwd
           ls -l     
       - name: 'Docker Stack Deploy '
-        uses: cssnr/stack-deploy-action@v1
-        with:
-          name: 'Atlaxiom'
-          file: './compose.yaml'
-          host: ${{ secrets.VPS_IP_ADDRESS }}
-          user: vchen7629
-          ssh_key: ${{ secrets.DEPLOY_SSH_KEY }}
-          env_file: './env'
-          args: '--debug'
+        run: |
+          ssh -i ${{ secrets.DEPLOY_SSH_KEY }} -o StrictHostKeyChecking=no vchen7629@${{ secrets.VPS_IP_ADDRESS }} "docker stack deploy -c /home/vchen7629/Atlaxiom/compose.yaml Atlaxiom --with-registry-auth"
+
                                
 
