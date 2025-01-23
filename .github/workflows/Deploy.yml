@@ -102,6 +102,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Start SSH Agent
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
+          ssh-passphrase: ${{ secrets.DEPLOY_SSH_PASSPHRASE }}
       - name: create env file
         run: |
           echo "GIT_COMMIT_HASH=${{ github.sha }}" >> env    
@@ -110,7 +115,7 @@ jobs:
         with:
           name: 'Atlaxiom'
           file: '/home/vchen7629/Atlaxiom/compose.yaml'
-          host: atlaxiom.com
+          host: ${{ secrets.VPS_IP_ADDRESS }}
           user: vchen7629
           ssh_key: ${{ secrets.DEPLOY_SSH_KEY }}
           env_file: './env'
