@@ -11,7 +11,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
   frontend:
-    image: ghcr.io/vchen7629/atlaxiom-frontend:${{ GIT_COMMIT_HASH }}
+    image: ghcr.io/vchen7629/atlaxiom-frontend:${ GIT_COMMIT_HASH }
     deploy: 
       replicas: 2
       restart_policy:
