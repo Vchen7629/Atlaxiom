@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Cardsearch from './headerbuttons/searchbar.tsx'
 import Mycards from './headerbuttons/my-cards.tsx'
 import Login from './headerbuttons/login.tsx'
