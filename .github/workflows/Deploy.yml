@@ -114,6 +114,9 @@ jobs:
       - name: create env file
         run: |
           echo "GIT_COMMIT_HASH=${{ github.sha }}" >> env
+      - name: Check contents of env file
+        run: |
+          cat ./env
       - name: Check current working directory
         run: |
           pwd
