@@ -9,11 +9,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
   frontend:
-    image: ghcr.io/vchen7629/atlaxiom-frontend:${GIT_COMMIT_HASH:-prod}
-    deploy: 
-      replicas: 2
-      restart_policy:
-        condition: on-failure
+    image: ghcr.io/vchen7629/atlaxiom-frontend:prod
     ports: 
       - 443:443 #443 for https, 80 for http, I'm running frontend using https so i run it through port 443
     labels:
@@ -28,11 +24,7 @@ services:
 
 
   loginapi: 
-    image: ghcr.io/vchen7629/atlaxiom-backend:${GIT_COMMIT_HASH:-prod}
-    deploy: 
-      replicas: 2
-      restart_policy:
-        condition: on-failure
+    image: ghcr.io/vchen7629/atlaxiom-backend:prod
     ports:
       - 8443:8443 # alternative port for https since 443 is in use by frontend
     labels:
