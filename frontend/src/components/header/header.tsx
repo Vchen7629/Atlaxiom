@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Cardsearch from './headerbuttons/searchbar.tsx'
 import Mycards from './headerbuttons/my-cards.tsx'
 import Login from './headerbuttons/login.tsx'
@@ -9,6 +9,8 @@ import Mydecks from './headerbuttons/my-decks.tsx'
 import Accountsbutton from '../accountbuttons/navbuttons/account.js'
 import { ModeToggle } from "../shadcn_components/darklightmode/mode-toggle.tsx"
 import { AuthenticationState } from './types/headertypes.ts'
+import Logout from '../accountbuttons/navbuttons/logout.tsx'
+import MyDecks from '../accountbuttons/navbuttons/decks.tsx'
 
 const Header = () => {
     const navigate = useNavigate()
@@ -46,43 +48,43 @@ const Header = () => {
 
     return (
         <header className="fixed justify-between items-center z-50 top-0 left-0 w-full flex py-2 text-white bg-[hsl(var(--header))] bg-opacity-60 backdrop-blur-md backdrop-brightness-150 px-2.5">
-            <div className={`flex w-fit xs:hidden lg:flex py-2.5 ml-2.5 ${showDropdown ? "hidden" : ''}`}>
-                <div className='flex w-fit'>
-                    <div className="mr-[1vw]"><Cardsearch/></div>
+            <div className={`w-fit flex py-2.5 ml-2.5 ${showDropdown ? "hidden" : ''}`}>
+                <div className='w-fit flex'>
+                    <div className="mr-[1vw] hidden sm:hidden md:flex"><Cardsearch/></div>
                 </div>
                 {isAuthenticated && (
-                    <div className="flex w-fit">
+                    <div className="flex w-fit ">
                         <div><Mycards/></div>
                         <div className="ml-[1vw]"><Mydecks/></div>
                     </div>
                 )}
             </div>
             <div className="absolute left-1/2 transform -translate-x-1/2">
-                <button className={`text-[hsl(var(--background3))] font-black text-4xl ${showDropdown ? "hidden" : ''}`} onClick={handleHomeClick}>
+                <button className={`text-[hsl(var(--background3))] font-black text-xl md:text-4xl`} onClick={handleHomeClick}>
                     Atlaxiom
                 </button>
             </div>
-            <div className='flex w-[15%]  justify-around items-center'>
-                <ModeToggle/>
-                <div className='w-[8vw] '>{renderAuthButtons()}</div>
+            <div className='flex w-fit justify-between items-center space-x-4'>
+                <div className="absolute left-2 md:relative md:mr-4"><ModeToggle/></div>
+                <div className='w-fit hidden sm:hidden md:flex'>{renderAuthButtons()}</div>
+               
             </div>
-            
 
-            <div className={`relative xs:flex lg:hidden text-3xl cursor-pointer ${showDropdown ? 'active' : ''}`} onClick={toggleDropdown}>
+            <a className={`sm:flex text-[hsl(var(--background3))] md:hidden text-3xl cursor-pointer ${showDropdown ? 'active' : ''}`} onClick={toggleDropdown}>
                 ☰
-            </div>
+            </a>
 
-            {showDropdown && (
-                <div className={`items-center absolute right-0 h-12 mt-16 z-10 ${showDropdown ? 'flex' : 'hidden'}`}>
-                    <a className="r-2.5 text-gold bg-blackone border-2 border-footer">
-                        <Link to="/search">Card Search</Link>
-                    </a>
-                    <a className="p-2.5 text-gold border-r-2 border-y-2 border-footer">
-                        <Link to="/my-cards">My Cards</Link>
-                    </a>
-                    <a className="p-2.5 text-gold border-r-2 border-y-2 border-footer">
-                        <Link to="/about-us">Login</Link>
-                        </a>
+            {showDropdown && isAuthenticated ? (
+                <div className={`bg-[hsl(var(--background2))] rounded-md space-y-[1vh] items-center absolute right-0 h-fit px-2 py-3 mt-40 z-10 ${showDropdown ? 'flex flex-col' : 'hidden'}`}>
+                    <Cardsearch />
+                    <Mycards />
+                    <MyDecks/>
+                    <Logout />
+                </div>
+            ) : (
+                <div className={`bg-[hsl(var(--editdeckdraganddropbackground))] rounded-md space-y-[1vh] items-center absolute right-0 h-fit px-2 py-3 mt-40 z-10 ${showDropdown ? 'flex flex-col' : 'hidden'}`}>
+                    <Cardsearch />
+                    <Login />
                 </div>
             )}
         </header>
