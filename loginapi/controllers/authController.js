@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const fs = require('fs')
 const jwt = require('jsonwebtoken')
 const asyncHandler = require('express-async-handler')
+require('dotenv').config();
 
 const getSecret = (filePath, envVar) => {
     if (filePath && fs.existsSync(filePath)) {
