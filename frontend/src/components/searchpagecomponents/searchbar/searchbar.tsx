@@ -24,7 +24,7 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
       };
     
     return (
-        <div className="flex h-[50px] ml-[10%] pl-5 relative border-2 border-gray-400 justify-start text-[hsl(var(--text))]">                      
+        <div className="flex h-[50px] pl-5 relative border-2 border-gray-400 justify-start text-[hsl(var(--text))]">                      
             <div className="flex items-center w-full">
                 <FontAwesomeIcon icon={faSearch} className="mr-2" />
                 <input

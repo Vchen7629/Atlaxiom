@@ -46,25 +46,6 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
 
                     {totalListPages > 9 && <span className=" px-1 py-1 text-bottom text-lg flex text-[hsl(var(--text))]">...</span>}
 
-                    {totalListPages > 10 &&
-                        Array.from({ length: 3 }, (_, index) => {
-                            const pageNumber = currentListPage - 1 + index;
-                            if (pageNumber > 4 && pageNumber < totalListPages) {
-                                return (
-                                    <button
-                                        key={pageNumber}
-                                        className={`px-3 py-1 rounded-lg border-[1px] ${
-                                            currentListPage === pageNumber ? 'text-[hsl(var(--background3))] border-[hsl(var(--background3))]' : 'text-[hsl(var(--text))] border-gray-400'
-                                        } hover:border-[hsl(var(--background3))]`}
-                                        onClick={() => handleListPageChange(pageNumber)}
-                                    >
-                                        {pageNumber}
-                                    </button>
-                                );
-                            }
-                            return null;
-                        })}
-
 
                     {totalListPages > 4 && (
                         <button
@@ -104,25 +85,6 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
                     })}
 
                     {totalGalleryPages > 9 && <span className=" px-1 py-1 text-bottom text-lg text-[hsl(var(--text))] flex">...</span>}
-
-                    {totalGalleryPages > 10 &&
-                        Array.from({ length: 3 }, (_, index) => {
-                            const pageNumber = currentGalleryPage - 1 + index;
-                            if (pageNumber > 4 && pageNumber < totalGalleryPages) {
-                                return (
-                                    <button
-                                        key={pageNumber}
-                                        className={`px-3 py-1 rounded-lg border-[1px] ${
-                                            currentGalleryPage === pageNumber ? 'text-[hsl(var(--background3))] border-[hsl(var(--background3))]' : 'text-[hsl(var(--text))] border-gray-400'
-                                        } hover:border-[hsl(var(--background3))]`}
-                                        onClick={() => handleGalleryPageChange(pageNumber)}
-                                    >
-                                        {pageNumber}
-                                    </button>
-                                );
-                            }
-                            return null;
-                        })}
 
 
                     {totalGalleryPages > 4 && (
