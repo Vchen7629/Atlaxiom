@@ -84,8 +84,8 @@ jobs:
           pwd
           ls -l     
       - name: 'Pulling latest container'
-        uses: https://github.com/appleboy/ssh-action
-        with:
+        uses: appleboy/ssh-action@v1.2.0
+        with: 
           port: 22
           host: ${{ secrets.VPS_IP_ADDRESS }}
           username: vchen7629
