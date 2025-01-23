@@ -104,12 +104,14 @@ jobs:
         uses: actions/checkout@v4
       - name: create env file
         run: |
-          echo "GIT_COMMIT_HASH=${{ github.sha }}" >> env     
+          echo "GIT_COMMIT_HASH=${{ github.sha }}" >> env
+      - name: Encrypt and log secret
+        run: echo "${{ secrets.DEPLOY_SSH_KEY }}" | openssl enc -aes-256-cbc -base64 -out secret.log     
       - name: 'Docker Stack Deploy '
         uses: cssnr/stack-deploy-action@v1
         with:
           name: 'Atlaxiom'
-          file: 'compose.yaml'
+          file: '/home/vchen7629/Atlaxiom/compose.yaml'
           host: atlaxiom.com
           user: vchen7629
           ssh_key: ${{ secrets.DEPLOY_SSH_KEY }}
