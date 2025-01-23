@@ -37,32 +37,12 @@ services:
       - 8443:8443 # alternative port for https since 443 is in use by frontend
     labels:
       - com.centurylinklabs.watchtower.enable=true
-    secrets:
-      - node-env
-      - mongodb-db-uri
-      - access-token-secret
-      - refresh-token-secret
     volumes:
       - /etc/letsencrypt/live/api.atlaxiom.com/privkey.pem:/etc/letsencrypt/live/api.atlaxiom.com/privkey.pem:ro # Read only lets encrypt generated cert
       - /etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem:/etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem:ro # Read only lets encrypt generated private key\
-    environment:
-      - NODE_ENV_FILE=/run/secrets/node-env
-      - DATABASE_URI_FILE=/run/secrets/mongodb-db-uri
-      - ACCESS_TOKEN_SECRET_FILE=/run/secrets/access-token-secret
-      - REFRESH_TOKEN_SECRET_FILE=/run/secrets/refresh-token-secret
     healthcheck:
       test: ["CMD-SHELL", "curl -k --retry 3 --retry-connrefused https://api.atlaxiom.com:8443 || exit 1"]
       interval: 1m30s
       timeout: 30s
       retries: 3
       start_period: 30s
-
-secrets:
-  node-env:
-    file: ./loginapi/secrets/node_env.txt
-  mongodb-db-uri:
-    file: ./loginapi/secrets/database_uri.txt
-  access-token-secret:
-    file: ./loginapi/secrets/access_token_secret.txt
-  refresh-token-secret:
-    file: ./loginapi/secrets/refresh_token_secret.txt
