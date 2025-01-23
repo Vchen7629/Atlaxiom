@@ -6,10 +6,12 @@ services:
       - "--interval"
       - "30"
       - "--rolling-restart"
+      - "--debug"
+      - "--trace"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
   frontend:
-    image: ghcr.io/vchen7629/atlaxiom-frontend:${GIT_COMMIT_HASH:-prod}
+    image: ghcr.io/vchen7629/atlaxiom-frontend:${{ GIT_COMMIT_HASH }}
     deploy: 
       replicas: 2
       restart_policy:
@@ -28,7 +30,7 @@ services:
 
 
   loginapi: 
-    image: ghcr.io/vchen7629/atlaxiom-backend:${GIT_COMMIT_HASH:-prod}
+    image: ghcr.io/vchen7629/atlaxiom-backend:${ GIT_COMMIT_HASH }
     deploy: 
       replicas: 2
       restart_policy:
