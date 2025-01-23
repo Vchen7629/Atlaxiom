@@ -117,6 +117,8 @@ jobs:
         run: |
           pwd
           ls -l     
+      - name: Verify .env file existence
+        run: ls -al ./loginapi/.env
       - name: 'Docker Stack Deploy '
         uses: cssnr/stack-deploy-action@v1
         with:
