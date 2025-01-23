@@ -91,6 +91,6 @@ jobs:
           username: vchen7629
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           script: |
-            - docker compose pull
+            docker compose pull
                                
 
