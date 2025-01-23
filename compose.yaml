@@ -1,3 +1,5 @@
+version: "3.4"
+
 services:
   watchtower:
     image: containrrr/watchtower
@@ -19,8 +21,7 @@ services:
       - /etc/letsencrypt/live/atlaxiom.com/privkey.pem:/etc/letsencrypt/live/atlaxiom.com/privkey.pem:ro # Read only lets encrypt generated private key
       - /etc/ssl/certs/cloudflare.crt:/etc/ssl/certs/cloudflare.crt:ro 
     depends_on:
-      loginapi: 
-        condition: service_healthy
+      - loginapi
     command: ["serve", "-s", "dist", "-l", "443", "--ssl-cert", "/etc/letsencrypt/live/atlaxiom.com/fullchain.pem", "--ssl-key", "/etc/letsencrypt/live/atlaxiom.com/privkey.pem", "--cors" ]
 
 
