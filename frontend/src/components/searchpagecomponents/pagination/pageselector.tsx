@@ -26,7 +26,7 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
         <div className="flex w-fit text-center space-x-2">
             {listView && (
                 <>
-                    <button className="text-[hsl(var(--text))] px-2 border-[1px] font-bold border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentListPage === 1} onClick={() => {handleListPageChange(currentListPage - 1)}}>
+                    <button className="text-[hsl(var(--text))] bg-transparent px-2 border-[1px] font-bold border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentListPage === 1} onClick={() => {handleListPageChange(currentListPage - 1)}}>
                         {'<<'}
                     </button>
                     {Array.from({ length: Math.min(4, totalListPages) }, (_, index) => {
@@ -34,7 +34,7 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
                         return (
                             <button
                                 key={pageNumber}
-                                className={`px-3 py-1 rounded-lg border-[1px] ${
+                                className={`px-3 py-1 rounded-lg border-[1px] bg-transparent ${
                                     currentListPage === pageNumber ? 'text-[hsl(var(--background3))] border-[hsl(var(--background3))]' : 'text-[hsl(var(--text))] border-gray-400'
                                 } hover:border-[hsl(var(--background3))]`}
                                 onClick={() => handleListPageChange(pageNumber)}
@@ -50,7 +50,7 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
                     {totalListPages > 4 && (
                         <button
                             key={totalListPages}
-                            className={`px-3 py-1 rounded-lg border-[1px] ${
+                            className={`px-3 py-1 rounded-lg border-[1px] bg-transparent ${
                                 currentListPage === totalListPages ? 'text-[hsl(var(--background3))] border-[hsl(var(--background3))]' : 'text-[hsl(var(--text))] border-gray-400'
                             } hover:border-[hsl(var(--background3))]`}
                             onClick={() => handleListPageChange(totalListPages)}
@@ -58,7 +58,7 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
                             {totalListPages}
                         </button>
                     )}
-                    <button className="text-[hsl(var(--text))] px-2 border-[1px] font-bold border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentListPage === totalListPages} onClick={() => {handleListPageChange(currentListPage + 1)}}>
+                    <button className="text-[hsl(var(--text))] px-2 border-[1px] bg-transparent font-bold border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentListPage === totalListPages} onClick={() => {handleListPageChange(currentListPage + 1)}}>
                         {'>>'}
                     </button>
                 </>
@@ -66,7 +66,7 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
 
             {galleryView && (
                 <>
-                    <button className="text-[hsl(var(--text))] px-2 border-[1px] font-bold border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentGalleryPage === 1} onClick={() => {handleGalleryPageChange(currentGalleryPage - 1)}}>
+                    <button className="text-[hsl(var(--text))] px-2 border-[1px] bg-transparent font-bold border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentGalleryPage === 1} onClick={() => {handleGalleryPageChange(currentGalleryPage - 1)}}>
                         {'<<'}
                     </button>
                     {Array.from({ length: Math.min(4, totalGalleryPages) }, (_, index) => {
@@ -74,7 +74,7 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
                         return (
                             <button
                                 key={pageNumber}
-                                className={`px-3 py-1 rounded-lg border-[1px] ${
+                                className={`px-3 py-1 rounded-lg border-[1px] bg-transparent ${
                                     currentGalleryPage === pageNumber ? 'text-[hsl(var(--background3))] border-[hsl(var(--background3))]' : 'text-[hsl(var(--text))] border-gray-400'
                                 } hover:border-[hsl(var(--background3))]`}
                                 onClick={() => handleGalleryPageChange(pageNumber)}
@@ -90,7 +90,7 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
                     {totalGalleryPages > 4 && (
                         <button
                             key={totalGalleryPages}
-                            className={`px-3 py-1 rounded-lg border-[1px] ${
+                            className={`px-3 py-1 rounded-lg border-[1px] bg-transparent ${
                                 currentGalleryPage === totalGalleryPages ? 'text-[hsl(var(--background3))] border-[hsl(var(--background3))]' : 'text-[hsl(var(--text))] border-gray-400'
                             } hover:border-[hsl(var(--background3))]`}
                             onClick={() => handleGalleryPageChange(totalGalleryPages)}
@@ -98,7 +98,7 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
                             {totalGalleryPages}
                         </button>
                     )}
-                    <button className="text-[hsl(var(--text))] px-2 border-[1px] font-bold border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentGalleryPage === totalGalleryPages} onClick={() => {handleGalleryPageChange(currentGalleryPage + 1)}}>
+                    <button className="text-[hsl(var(--text))] px-2 border-[1px] bg-transparent font-bold border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentGalleryPage === totalGalleryPages} onClick={() => {handleGalleryPageChange(currentGalleryPage + 1)}}>
                         {'>>'}
                     </button>
                 </>

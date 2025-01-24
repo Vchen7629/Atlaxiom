@@ -26,7 +26,7 @@ export function BreadcrumbSearchResult() {
                     <Tooltip>
                         <TooltipTrigger>
                             <BreadcrumbItem>
-                                <BreadcrumbLink className="text-[hsl(var(--text))] text-lg hover:text-gold" href={isAuthenticated ? "/loggedin" : "/"}>Home</BreadcrumbLink>
+                                <BreadcrumbLink className="text-[hsl(var(--text))] bg-transparent text-lg hover:text-gold" href={isAuthenticated ? "/loggedin" : "/"}>Home</BreadcrumbLink>
                             </BreadcrumbItem>
                         </TooltipTrigger>
                         <TooltipContent className="bg-[hsl(var(--ownedcardcollection))] border-transparent">
@@ -37,7 +37,7 @@ export function BreadcrumbSearchResult() {
                     <Tooltip>
                         <TooltipTrigger>
                             <BreadcrumbItem>
-                                <BreadcrumbLink  className="text-[hsl(var(--text))] text-lg hover:text-gold" href={isAuthenticated ? "/searchloggedin" : "/search"}>Search</BreadcrumbLink>
+                                <BreadcrumbLink  className="text-[hsl(var(--text))] bg-transparent text-lg hover:text-gold" href={isAuthenticated ? "/searchloggedin" : "/search"}>Search</BreadcrumbLink>
                             </BreadcrumbItem>
                         </TooltipTrigger>
                         <TooltipContent className="bg-[hsl(var(--ownedcardcollection))] border-transparent">

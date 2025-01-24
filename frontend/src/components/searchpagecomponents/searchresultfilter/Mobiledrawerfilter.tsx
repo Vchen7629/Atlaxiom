@@ -162,7 +162,7 @@ export function MobileSearchFilterDrawer({ filterprops }: FilterSidebar) {
     return (
         <Drawer modal={false}>
         <DrawerTrigger asChild>
-            <Button className={`h-[40px] ml-2 px-4 py-3 rounded-xl ${filterActive ? "bg-[hsl(var(--filterbutton))]" : "bg-gray-600"}`} variant="default">
+            <Button className={`h-[40px] text-white ml-2 px-4 py-3 rounded-xl ${filterActive ? "bg-[hsl(var(--filterbutton))]" : "bg-gray-600"}`} variant="default">
                 Filter Cards
             </Button>
         </DrawerTrigger>
@@ -170,7 +170,7 @@ export function MobileSearchFilterDrawer({ filterprops }: FilterSidebar) {
             <div className="mx-auto max-w-full">
                 <DrawerHeader className="flex w-full justify-between">
                     <DrawerTitle className="text-3xl text-[hsl(var(--background3))]">Filter Search</DrawerTitle>
-                    <DrawerClose>
+                    <DrawerClose className="bg-transparent">
                         <FontAwesomeIcon icon={faXmarkCircle} className="fa-xl text-gray-400"/>
                     </DrawerClose>
                 </DrawerHeader>
@@ -190,7 +190,7 @@ export function MobileSearchFilterDrawer({ filterprops }: FilterSidebar) {
                     <div className='flex h-full w-fit font-black items-center text-[hsl(var(--text))]'>Attribute: </div>
                     <div><MobileAttributeDropDownComponent attributedropdownprops={attributedropdownprops}/></div>
                 </div>
-                <div className="flex flex-col w-full items-center min-h-6 my-2 space-y-2">
+                <div className="flex flex-col w-full items-center min-h-6 my-2 space-y-2 bg-transparent">
                     <button className="flex w-full justify-between text-left text-[hsl(var(--text))] font-black" onClick={handleLevelFilter}>
                         Level / Rank:
                         {levelDropdown ? (<CaretDownIcon className="h-6 w-6 text-gold"/>): (<CaretRightIcon className="h-6 w-6"/>)}
@@ -199,7 +199,7 @@ export function MobileSearchFilterDrawer({ filterprops }: FilterSidebar) {
                         <MobileLevelFilterComponent levelfilterprops={levelfilterprops}/>
                     )}
                 </div>
-                <div className="flex flex-col w-full items-center min-h-6 my-2 space-y-2">
+                <div className="flex flex-col w-full items-center min-h-6 my-2 space-y-2 bg-transparent">
                     <button className="flex w-full justify-between text-left text-[hsl(var(--text))] font-black" onClick={handlePendFilter}>
                         Pendulum Value:
                         {pendDropdown ? (<CaretDownIcon className="h-6 w-6 text-gold"/>): (<CaretRightIcon className="h-6 w-6"/>)}
@@ -208,7 +208,7 @@ export function MobileSearchFilterDrawer({ filterprops }: FilterSidebar) {
                         <MobilePendFilterComponent pendfilterprops={pendfilterprops}/>
                     )}
                 </div>
-                <div className="flex flex-col w-full items-center min-h-6 my-2 space-y-2">
+                <div className="flex flex-col w-full items-center min-h-6 my-2 space-y-2 bg-transparent">
                     <button className="flex w-full justify-between text-left text-[hsl(var(--text))] font-black" onClick={handleLinkFilter}>
                         Link Rating:
                         {linkDropdown ? (<CaretDownIcon className="h-6 w-6 text-gold"/>): (<CaretRightIcon className="h-6 w-6"/>)}
