@@ -3,6 +3,7 @@ import { ApiCardData } from "./datastructuretypes";
 
 export type FilterSidebar = {
     filterprops: {
+        filterActive?: boolean;
         cardData: ApiCardData[];
         expandStatus: boolean;
         setCanClearFilters: React.Dispatch<React.SetStateAction<boolean>>
