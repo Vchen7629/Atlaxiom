@@ -54,7 +54,7 @@ export function MobileSetDropDownComponent({ setfilterprops }: SetDropDown) {
                 </span>
               </div>
             ) : (
-              <span className="flex items-center text-xs w-full px-2 py-1 bg-transparent">
+              <span className="flex items-center text-[hsl(var(--text))] text-xs w-full px-2 py-1 bg-transparent">
                   Select Set...
               </span>
             )}

@@ -42,7 +42,7 @@ const DefFilterComponent = ({ deffilterprops }: defprops) => {
     return (
         <div className="flex w-full justify-center my-2">   
             <div className="flex items-center max-w-[85%] justify-between">
-                <div className="mr-2 font-black">Attack:</div>
+                <div className="mr-2 font-black">Defense:</div>
                 <div className="flex w-[30%]">
                     <button 
                         className={`${defGreaterThanEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))]"} h-7 px-2 rounded-tl-lg rounded-bl-lg`} 

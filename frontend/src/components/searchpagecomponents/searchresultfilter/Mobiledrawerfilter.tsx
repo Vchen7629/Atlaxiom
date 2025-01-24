@@ -175,23 +175,23 @@ export function MobileSearchFilterDrawer({ filterprops }: FilterSidebar) {
                     </DrawerClose>
                 </DrawerHeader>
                 <div className="flex w-full justify-between items-center min-h-6 my-2 ">
-                    <div className='flex h-full w-fit font-black items-center'>Monster Type: </div>
+                    <div className='flex h-full w-fit font-black items-center text-[hsl(var(--text))]'>Monster Type: </div>
                     <div><MobileMonsterTypeDropDownComponent monsterdropdownprops={monsterdropdownprops}/></div>
                 </div>
                 <div className="flex justify-between items-center w-full min-h-6 my-2">
-                    <div className='flex h-full w-fit font-black items-center'>Spell Type: </div>
+                    <div className='flex h-full w-fit font-black items-center text-[hsl(var(--text))]'>Spell Type: </div>
                     <div><MobileSpellTypeDropDownComponent spelldropdownprops={spelldropdownprops}/></div>
                 </div>
                 <div className="flex justify-between items-center w-full min-h-6 my-2">
-                    <div className='flex h-full w-fit font-black items-center'>Trap Type: </div>
+                    <div className='flex h-full w-fit font-black items-center text-[hsl(var(--text))]'>Trap Type: </div>
                     <div><MobileTrapTypeDropDownComponent trapdropdownprops={trapdropdownprops}/></div>
                 </div>
                 <div className="flex justify-between items-center w-full min-h-6 my-2">
-                    <div className='flex h-full w-fit font-black items-center'>Attribute: </div>
+                    <div className='flex h-full w-fit font-black items-center text-[hsl(var(--text))]'>Attribute: </div>
                     <div><MobileAttributeDropDownComponent attributedropdownprops={attributedropdownprops}/></div>
                 </div>
                 <div className="flex flex-col w-full items-center min-h-6 my-2 space-y-2">
-                    <button className="flex w-full justify-between text-left font-black" onClick={handleLevelFilter}>
+                    <button className="flex w-full justify-between text-left text-[hsl(var(--text))] font-black" onClick={handleLevelFilter}>
                         Level / Rank:
                         {levelDropdown ? (<CaretDownIcon className="h-6 w-6 text-gold"/>): (<CaretRightIcon className="h-6 w-6"/>)}
                     </button>
@@ -200,7 +200,7 @@ export function MobileSearchFilterDrawer({ filterprops }: FilterSidebar) {
                     )}
                 </div>
                 <div className="flex flex-col w-full items-center min-h-6 my-2 space-y-2">
-                    <button className="flex w-full justify-between text-left font-black" onClick={handlePendFilter}>
+                    <button className="flex w-full justify-between text-left text-[hsl(var(--text))] font-black" onClick={handlePendFilter}>
                         Pendulum Value:
                         {pendDropdown ? (<CaretDownIcon className="h-6 w-6 text-gold"/>): (<CaretRightIcon className="h-6 w-6"/>)}
                     </button>
@@ -209,7 +209,7 @@ export function MobileSearchFilterDrawer({ filterprops }: FilterSidebar) {
                     )}
                 </div>
                 <div className="flex flex-col w-full items-center min-h-6 my-2 space-y-2">
-                    <button className="flex w-full justify-between text-left font-black" onClick={handleLinkFilter}>
+                    <button className="flex w-full justify-between text-left text-[hsl(var(--text))] font-black" onClick={handleLinkFilter}>
                         Link Rating:
                         {linkDropdown ? (<CaretDownIcon className="h-6 w-6 text-gold"/>): (<CaretRightIcon className="h-6 w-6"/>)}
                     </button>
@@ -220,7 +220,7 @@ export function MobileSearchFilterDrawer({ filterprops }: FilterSidebar) {
                 <MobileAtkFilterComponent atkfilterprops={atkfilterprops}/>
                 <MobileDefFilterComponent deffilterprops={deffilterprops}/>
                 <div className="flex justify-between w-full items-center min-h-6 my-2">
-                    <div className='flex h-full w-fit font-black items-center'>Set: </div>
+                    <div className='flex h-full w-fit font-black text-[hsl(var(--text))] items-center'>Set: </div>
                     <div><MobileSetDropDownComponent setfilterprops={setfilterprops}/></div>
                 </div>
             </div>

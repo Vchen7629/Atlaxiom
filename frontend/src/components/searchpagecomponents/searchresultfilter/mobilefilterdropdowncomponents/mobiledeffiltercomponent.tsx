@@ -42,29 +42,29 @@ const MobileDefFilterComponent = ({ deffilterprops }: defprops) => {
     return (
         <div className="flex w-full justify-center my-2">   
             <div className="flex items-center max-w-full justify-between">
-                <div className="mr-2 font-black">Attack:</div>
+                <div className="mr-2 font-black text-[hsl(var(--text))]">Defense:</div>
                 <div className="flex w-[30%]">
                     <button 
-                        className={`${defGreaterThanEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))]"} h-7 px-2 rounded-tl-lg rounded-bl-lg`} 
+                        className={`${defGreaterThanEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))] text-[hsl(var(--text))]"} h-7 px-2 rounded-tl-lg rounded-bl-lg`} 
                         onClick={handleGreaterThanClick}
                     >
                         <FontAwesomeIcon icon={faGreaterThanEqual}/>
                     </button>
                     <button 
-                        className={`${defEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))]"} h-7 px-2`} 
+                        className={`${defEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))] text-[hsl(var(--text))]"} h-7 px-2`} 
                         onClick={handleEqualClick}
                     >
                         <FontAwesomeIcon icon={faEquals}/>
                     </button>
                     <button 
-                        className={`${defLessThanEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))]"} h-7 px-2 rounded-tr-lg rounded-br-lg`} 
+                        className={`${defLessThanEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))] text-[hsl(var(--text))]"} h-7 px-2 rounded-tr-lg rounded-br-lg`} 
                         onClick={handleLessThanClick}
                     >
                         <FontAwesomeIcon icon={faLessThanEqual}/>
                     </button>
                 </div>
                 <input
-                    className="flex text-center bg-[hsl(var(--atkdefcomponent))] border-2 ml-2 w-1/4 border-transparent"
+                    className="flex text-center bg-[hsl(var(--atkdefcomponent))] text-[hsl(var(--text))] rounded-md border-2 ml-2 w-1/4 border-transparent"
                     value={defFilter ?? ""}
                     onChange={handleInputChange}
                 />
