@@ -10,7 +10,7 @@ const Login = () => {
   return (
     <div>
         <button 
-          className="flex font-bold w-fit h-8 py-4 items-center text-[hsl(var(--text))] border-b-2 border-transparent" 
+          className="flex font-bold w-fit h-8 py-4 bg-transparent items-center text-[hsl(var(--text))] border-b-2 border-transparent" 
           onClick={handleButtonClick}
         >
           Login

@@ -3,9 +3,9 @@
 import { useState } from "react";
 import Header from '../../components/header/header.tsx';
 import Footer from '../../components/footer/Footer.tsx';
-
  
 import Particles from "../../components/ui/particles.tsx";
+import { WebsiteFeaturesBento } from "./websitefeaturesbento.tsx";
 
  
 const HomePage = () => {
@@ -33,8 +33,9 @@ const HomePage = () => {
         </div>        
       </div>
     </div>
-    <div className=" flex flex-col bg-[hsl(var(--background1))] min-h-[100vh] items-center">
-      Start Building Your Collection today! DEVELOPEMENT | UPDATE Testing
+    <div className="px-[3vw] flex flex-col bg-[hsl(var(--background1))] space-y-[5vh] pt-[5vh] min-h-[100vh] items-center">
+      <span className="text-3xl text-[hsl(var(--background3))] w-1/2 text-center font-black">Create a User Account today to get access to all of the features!</span>
+      <WebsiteFeaturesBento />
     </div>
     <Footer/>
     </main>
