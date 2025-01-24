@@ -1,5 +1,5 @@
 <h1><strong>Atlaxiom</strong></h1>
-Welcome to Atlaxiom! This is a wip full-stack web applicationproject that is aimed to catalog trading cards online<br>
+Welcome to Atlaxiom! This is a full-stack web application project that is aimed to catalog yugioh trading cards online<br>
 
 <h1><strong>Notable features of the website</strongZ></h1>
 <ul>
@@ -11,16 +11,4 @@ Welcome to Atlaxiom! This is a wip full-stack web applicationproject that is aim
     <li>Edit Deck Page that allows users to drag/drop cards to add to their deck and save to Database</li>
 </ul>
 
-<h1> <strong> Getting started with this project </strong> </h1>
-<div> 
-    1) Clone the Project:
-    <li>Run: git clone https://github.com/Vchen7629/CardWebApp.git </li>
-</div>
-<div>
-    2) install node modules:
-    <li>Run: npm install or npm i</li>
-</div>
-<div>
-    3) Run the project on localhost
-    <li>Run: npm start for frontend folder to launch a localhost instance of the frontend without user features</li>
-</div>
+<h1>Access the site at https://www.atlaxiom.com </h1>
