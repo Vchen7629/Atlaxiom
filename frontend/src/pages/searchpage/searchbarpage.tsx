@@ -285,7 +285,7 @@ const SearchBarPage = () => {
                         </div>
                       </div>
                     </section>
-                    <div className="flex mr-[3vw]">
+                    <div className="flex mr-[3vw] bg-transparent">
                       <div className="flex w-20 bg-footer rounded-xl ml-4">
                         <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                       </div>

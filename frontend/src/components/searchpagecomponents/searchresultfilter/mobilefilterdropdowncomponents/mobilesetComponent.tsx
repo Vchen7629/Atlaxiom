@@ -58,7 +58,7 @@ export function MobileSetDropDownComponent({ setfilterprops }: SetDropDown) {
                   Select Set...
               </span>
             )}
-            <CaretSortIcon className="min-h-6 min-w-6 shrink-0" />
+            <CaretSortIcon className="min-h-6 min-w-6 shrink-0 text-white" />
           </div>
         </Button>
       </PopoverTrigger>
