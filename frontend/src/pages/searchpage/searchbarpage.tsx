@@ -11,6 +11,7 @@ import ClearFilterButton from '../../components/searchpagecomponents/buttons/cle
 import FilterButton from '../../components/searchpagecomponents/buttons/filterbutton';
 import PaginationComponent from '@/components/searchpagecomponents/pagination/pagination';
 import { Toaster } from 'sonner';
+import { MobileSearchFilterDrawer } from '@/components/searchpagecomponents/searchresultfilter/Mobiledrawerfilter';
 
 const SearchBarPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -20,7 +21,7 @@ const SearchBarPage = () => {
   const [currentPageGalleryNamesArray, setCurrentPageGalleryNamesArray] = useState<string[]>([]);
 
   const [/*errorMessage*/, setErrorMessage] = useState<string>('');
-  const [expandStatus, setExpandStatus] = useState<boolean>(true);
+  const [expandStatus, setExpandStatus] = useState<boolean>(false);
   const [filterActive, setFilterActive] = useState<boolean>(false);
   const [canClearFilters, setCanClearFilters] = useState<boolean>(false);
 
@@ -215,6 +216,7 @@ const SearchBarPage = () => {
   } 
 
   const filterprops = {
+    filterActive,
     cardData,
     setCanClearFilters,
     expandStatus,
@@ -275,10 +277,10 @@ const SearchBarPage = () => {
                       <strong>Card Search</strong>
                     </div>
                     <section className="flex px-[3vw] lg:px-[0.001vw]">
-                      <div className="lg:w-[30vw] md:w-[75%] w-[90%]"><SearchBarComponent searchbarprops={searchbarprops}/></div>
+                      <div className="lg:w-[30vw] md:w-[90%] w-[90%]"><SearchBarComponent searchbarprops={searchbarprops}/></div>
                       <div className="flex ml-2 items-center">
                         <ClearFilterButton clearfilterprops={clearfilterprops}/>
-                        <div className='hidden md:flex'>
+                        <div className='hidden lg:flex'>
                           <FilterButton filterbuttonprops={filterbuttonprops}/>
                         </div>
                       </div>
@@ -287,8 +289,8 @@ const SearchBarPage = () => {
                       <div className="flex w-20 bg-footer rounded-xl ml-4">
                         <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                       </div>
-                      <div className='flex md:hidden'>
-                        <FilterButton filterbuttonprops={filterbuttonprops}/>
+                      <div className='flex lg:hidden'>
+                        <MobileSearchFilterDrawer filterprops={filterprops}/>
                       </div>
                     </div>
                   </div>
@@ -309,9 +311,11 @@ const SearchBarPage = () => {
                   )}
                 </main>       
           </div>
-          {/*<div className={`fixed flex right-2 top-24 min-h-[80vh] ${expandStatus ? "w-[20.5%]" : "w-0 "}`}>
-            <FilterCardComponent filterprops={filterprops}/>
-          </div>*/}      
+          {expandStatus && (
+            <div className={`fixed sm:hidden lg:flex right-2 top-24 min-h-[80vh] ${expandStatus ? "w-[20.5%]" : "w-0 "}`}>
+                <FilterCardComponent filterprops={filterprops}/>
+            </div>      
+          )}
         </main>   
         <Footer/>
       </div>

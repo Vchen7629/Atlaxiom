@@ -146,6 +146,8 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
       uniqueSetNames
     }
 
+
+
     return (
         <div className="w-full flex">
             <div className={`flex text-[hsl(var(--text))] text-sm h-fit py-[3vh] ${expandStatus ? "w-full bg-[hsl(var(--ownedcardcollection))] border-gray-600 border-2 rounded-3xl" : "w-0"} flex-col`}>
@@ -203,7 +205,7 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
                   <div><SetDropDownComponent setfilterprops={setfilterprops}/></div>
                 </div>
                 </>
-              )}   
+              )}
             </div>
     </div>
     )

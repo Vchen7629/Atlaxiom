@@ -26,7 +26,7 @@ const FilterButton = ({ filterbuttonprops }: filterbutton) => {
             <Tooltip>
                 <TooltipTrigger>
                     <a
-                        className={`h-[40px] ml-2 px-4 py-3 rounded-xl ${filterActive ? "bg-[hsl(var(--filterbutton))]" : "bg-gray-600"}`}  
+                        className={`h-[40px] ml-2 px-4 py-3 rounded-xl ${filterActive ? "bg-[hsl(var(--background3))]" : "bg-gray-600"}`}  
                         onClick={() => {
                             handleFilterClick();
                             {!filterActive ? (
