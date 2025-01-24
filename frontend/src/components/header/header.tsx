@@ -67,7 +67,6 @@ const Header = () => {
             <div className='flex w-fit justify-between items-center space-x-[1vw]'>
                 <div className="absolute left-2 md:relative md:mr-4"><ModeToggle/></div>
                 <div className='w-fit hidden sm:hidden md:flex'>{renderAuthButtons()}</div>
-               
             </div>
 
             <a className={`sm:flex text-[hsl(var(--background3))] md:hidden text-3xl cursor-pointer ${showDropdown ? 'active' : ''}`} onClick={toggleDropdown}>

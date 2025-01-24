@@ -35,7 +35,7 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
                     placeholder="Enter card name"
                 />
                 {searchTerm && (
-                    <button className="cursor-pointer mr-[25px]" onClick={handleClearClick}>
+                    <button className="cursor-pointer bg-transparent mr-[25px]" onClick={handleClearClick}>
                         <FontAwesomeIcon icon={faTimes} className="fa-lg" />
                     </button>
                 )}
