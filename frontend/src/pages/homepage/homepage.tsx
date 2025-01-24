@@ -24,10 +24,10 @@ const HomePage = () => {
       />
       <div className="flex">
         <div className="relative flex flex-col items-center w-full">
-          <div className= "font-black xs:text-6xl lg:text-6xl 2xl:text-8xl text-gold">
+          <div className= "font-black text-4xl lg:text-6xl 2xl:text-8xl text-gold">
             Atlaxiom
           </div>
-          <div className="relative text-2xl text-[hsl(var(--text))] top-[5vh]"> 
+          <div className="relative text-md sm:text-lg lg:text-2xl text-[hsl(var(--text))] top-[5vh]"> 
             Online Yugioh card collection and deck builder
           </div>
         </div>        

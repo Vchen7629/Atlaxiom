@@ -37,11 +37,11 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                     <main className='flex flex-col w-full'>
                         {currentListPageResults.length > 0 ? (
                             <>
-                                {currentListPageResults.map((deck: FilteredDecks) => (
+                                {currentListPageResults.map((deck: FilteredDecks, index: string) => (
                                     <>
                                         <div 
                                             className="flex  h-[7vh] px-2 justify-between items-center mb-2 hover:bg-[hsl(var(--background5))]" 
-                                            key={deck._id} 
+                                            key={index} 
                                             onClick={() => handleDeckClick(deck)}
                                         >  
                                             <section className='flex w-1/4 space-x-8'>

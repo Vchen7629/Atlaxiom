@@ -244,7 +244,7 @@ const UserOwnedCardPage = () => {
         <div className=" bg-[hsl(var(--background1))] flex items-center justify-center ">
           <div className="text-white relative flex flex-col w-full min-h-[130vh] p-5 pt-20">
             <header className="relative items-center flex w-full mt-[1%]">
-              <section className="flex flex-col w-1/4">
+              <section className="flex flex-col w-full md:w-1/4">
                 <div className="text-[40px] text-goldenrod font-bold">My Collection</div>
                 <div className="text-lg text-gray-400">Last Edited: {userData?.entities[userId]?.lastCardUpdated}</div>
               </section>

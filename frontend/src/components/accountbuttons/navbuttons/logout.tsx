@@ -3,19 +3,23 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSendLogoutMutation } from '../../../features/auth/authApiSlice'    
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch } from 'react-redux';
+import { logOut } from '@/features/auth/authSlice';
 
 
 const Logout = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch()
+    
 
-    const [sendLogout, {
-        isSuccess,
-        isError,
-    }] = useSendLogoutMutation()
+    const [sendLogout, { isSuccess,isError }] = useSendLogoutMutation()
 
     useEffect(() => {
-        if (isSuccess && !isError) navigate('/')
-    }, [isSuccess, isError, navigate])
+        if (isSuccess && !isError) {
+            dispatch(logOut())
+            navigate('/')
+        }
+    }, [isSuccess, isError, dispatch, navigate])
 
     return (
         <div>

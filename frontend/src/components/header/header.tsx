@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Cardsearch from './headerbuttons/searchbar.tsx'
@@ -46,6 +46,10 @@ const Header = () => {
         setShowDropdown(!showDropdown);
     };
 
+    useEffect(() => {
+        console.log("Auth state changed:", isAuthenticated);
+    }, [isAuthenticated]);
+
     return (
         <header className="fixed justify-between items-center z-50 top-0 left-0 w-full flex py-2 text-white bg-[hsl(var(--header))] bg-opacity-60 backdrop-blur-md backdrop-brightness-150 px-2.5">
             <div className={`w-fit flex py-2.5 ml-2.5 ${showDropdown ? "hidden" : ''}`}>
@@ -54,8 +58,8 @@ const Header = () => {
                 </div>
                 {isAuthenticated && (
                     <div className="flex w-fit ">
-                        <div><Mycards/></div>
-                        <div className="ml-[1vw]"><Mydecks/></div>
+                        <div className="mr-[1vw] hidden sm:hidden md:flex"><Mycards/></div>
+                        <div className="ml-[1vw] hidden sm:hidden md:flex"><Mydecks/></div>
                     </div>
                 )}
             </div>
@@ -69,12 +73,15 @@ const Header = () => {
                 <div className='w-fit hidden sm:hidden md:flex'>{renderAuthButtons()}</div>
             </div>
 
-            <a className={`sm:flex text-[hsl(var(--background3))] md:hidden text-3xl cursor-pointer ${showDropdown ? 'active' : ''}`} onClick={toggleDropdown}>
+            
+            
+
+            <a className={`sm:flex bg-red-500 text-[hsl(var(--background3))] md:hidden text-3xl cursor-pointer ${showDropdown ? 'active' : ''}`} onClick={toggleDropdown}>
                 ☰
             </a>
 
             {showDropdown && isAuthenticated ? (
-                <div className={`bg-[hsl(var(--background2))] rounded-md space-y-[1vh] items-center absolute right-0 h-fit px-2 py-3 mt-40 z-10 ${showDropdown ? 'flex flex-col' : 'hidden'}`}>
+                <div className={`bg-[hsl(var(--editdeckdraganddropbackground))] rounded-md space-y-[1vh] items-center absolute right-0 h-fit px-2 py-3 mt-[35vh] z-10 ${showDropdown ? 'flex flex-col' : 'hidden'}`}>
                     <Cardsearch />
                     <Mycards />
                     <MyDecks/>
