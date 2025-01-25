@@ -213,13 +213,13 @@ const DeckBuilderPage = () => {
     return (
         <>  
         <Header/>
-            <main className="flex w-full min-h-[110vh] bg-[hsl(var(--background1))]">           
+            <main className="flex flex-col md:flex-row  w-full min-h-[110vh] bg-[hsl(var(--background1))]">           
                 {!isLoading && deckData && (
                     <DndContext onDragCancel={handleDragLeave} onDragMove={handleDragMove} onDragEnd={handleDragEnd} modifiers={[restrictToWindowEdges]}>
-                        <section className="flex flex-col w-[80vw] pt-[76px]">
+                        <section className="flex flex-col w-full md:w-[80vw] pt-[76px]">
                             <header className="flex justify-between items-center p-5 w-full h-[17vh] bg-gradient-to-t from-[hsl(var(--homepagegradient1))] to-[hsl(var(--homepagegradient3))]">
                                 <section className="flex flex-col h-full justify-between">
-                                    <div className='text-3xl font-black text-[hsl(var(--text))]'>{deck?.deck_name}</div>
+                                    <div className='text-lg md:text-3xl font-black text-[hsl(var(--text))]'>{deck?.deck_name}</div>
                                     <div>Created On: {deck?.createdOn}</div>
                                 </section>
                                 <SaveDeckCardsButton savebuttonprops={savebuttonprops}/>
@@ -228,17 +228,17 @@ const DeckBuilderPage = () => {
                                     <section className="flex mb-[10vh]">
                                         <MainDeckCardZone maindeckprops={maindeckprops}/>
                                     </section>
-                                    <section className="flex w-full mb-[10vh]">
-                                        <div className="flex w-1/2">
+                                    <section className="flex flex-col md:flex-row w-full mb-[10vh]">
+                                        <div className="flex w-full md:w-1/2">
                                             <ExtraDeckCardZone extradeckprops={extradeckprops}/>
                                         </div>
-                                        <div className="flex w-1/2">
+                                        <div className="flex w-full md:w-1/2">
                                             <SideDeckCardZone sidedeckprops={sidedeckprops}/>
                                         </div>
                                     </section>
                             </main>
                         </section>
-                        <section className="flex flex-col max-h-[110vh] w-[20vw] pt-[76px] px-4 justify-between">
+                        <section className="hidden md:flex md:flex-col max-h-[110vh] w-[20vw] pt-[76px] px-4 justify-between">
                             <DeckBuilderPageSidebarComponent sidebarprops={sidebarprops}/>
                         </section>
                     </DndContext>

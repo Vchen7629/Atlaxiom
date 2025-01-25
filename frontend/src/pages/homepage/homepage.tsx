@@ -34,7 +34,7 @@ const HomePage = () => {
       </div>
     </div>
     <div className="px-[3vw] flex flex-col bg-[hsl(var(--background1))] space-y-[5vh] pt-[5vh] min-h-[100vh] items-center">
-      <span className="text-3xl text-[hsl(var(--background3))] w-1/2 text-center font-black">Create a User Account today to get access to all of the features!</span>
+      <span className="text-3xl text-[hsl(var(--background3))] w-full md:w-1/2 text-center font-black">Create a User Account today to get access to all of the features!</span>
       <WebsiteFeaturesBento />
     </div>
     <Footer/>

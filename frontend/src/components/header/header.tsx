@@ -10,6 +10,7 @@ import { ModeToggle } from "../shadcn_components/darklightmode/mode-toggle.tsx"
 import { AuthenticationState } from './types/headertypes.ts'
 import Logout from '../accountbuttons/navbuttons/logout.tsx'
 import MyDecks from '../accountbuttons/navbuttons/decks.tsx'
+import Signup from './headerbuttons/signup.tsx'
 
 const Header = () => {
     const navigate = useNavigate()
@@ -34,9 +35,13 @@ const Header = () => {
         }
         
         return (
-            <a className={`sm:flex bg-red-500 text-[hsl(var(--background3))] md:hidden text-3xl cursor-pointer ${showDropdown ? 'active' : ''}`} onClick={toggleDropdown}>
-                ☰
-            </a>
+            <div className='flex h-full space-x-[2vw] md:mr-[2vw]'>
+                <a className={`flex text-[hsl(var(--background3))] md:hidden text-3xl cursor-pointer ${showDropdown ? 'active' : ''}`} onClick={toggleDropdown}>
+                    ☰
+                </a>
+                <a className="hidden md:flex"><Signup/></a>
+                <a className="hidden md:flex"><Login/></a>
+            </div>
         );
       };
 
@@ -62,8 +67,8 @@ const Header = () => {
                     Atlaxiom
                 </button>
             </div>
-            <div className='flex w-fit justify-between items-center space-x-[1vw]'>
-                <div className="absolute left-2 md:relative md:mr-4"><ModeToggle/></div>
+            <div className='flex w-fit justify-between items-center space-x-[1xvw]'>
+                <div className="absolute left-2 md:relative"><ModeToggle/></div>
                 <div className='w-fit flex'>{renderAuthButtons()}</div>
             </div>
 

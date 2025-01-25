@@ -29,8 +29,8 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                     {currentPageListDecksArray.length > 0 ? (
                         currentPageListDecksArray.map((deck: Deck, index) => (
                             <div 
+                                key={index}
                                 className="flex  h-[7vh] px-2 justify-between items-center mb-2 hover:bg-[hsl(var(--background5))]" 
-                                key={index} 
                                 onClick={() => handleDeckClick(deck)}
                             >  
                                 <section className='flex w-1/4 space-x-8'>
