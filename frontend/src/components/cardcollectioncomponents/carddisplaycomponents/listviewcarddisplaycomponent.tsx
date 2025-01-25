@@ -29,8 +29,6 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
 
     const { refetch } = useGetOwnedCardsQuery(userId);
     const { data: ownedCardCount } = useGetSpecificUserQuery(userId);
-
-    console.log(selectedCard)
       
     return (
         <AlertDialog >
@@ -44,7 +42,7 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
                                 <img 
                                     src={card.image_url} 
                                     alt={card.card_name} 
-                                    className="h-[90%] object-contain items-center" 
+                                    className="w-3/4 lg:h-[90%] object-contain items-center" 
                                 />
                                 <div className="flex flex-col items-center overflow-auto space-y-2 md:space-y-[4vh] py-[2vh] w-full h-full lg:hidden">
                                     <span className="text-xs md:text-3xl text-center">{card.card_name}</span>
@@ -68,7 +66,7 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
                                 <div className="hidden lg:flex overflow-y-auto h-full items-center">
                                     ${card.price}
                                 </div>
-                                <div className="flex space-x-1 h-[10%] w-full justify-center items-center mr-6">
+                                <div className="flex space-x-1 h-[10%] w-[90%] justify-center items-center mr-6">
                                     <IncreaseOwnedCardButtonComponent card={card} userId={userId} refetch={refetch}/>
                                     <DecreaseOwnedCardButtonComponent card={card} userId={userId} refetch={refetch}/>
                                     <DeleteOwnedCardButtonComponent card={card} userId={userId} refetch={refetch}/>
@@ -112,13 +110,13 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
                                 <img
                                     src={selectedCard.image_url}
                                     alt={selectedCard.card_name}
-                                    className="hidden lg:flex w-[30%] max-w-[30%] lg:mr-4"
+                                    className="hidden lg:flex w-[29%] max-w-[30%] lg:mr-4"
                                 />
                                 <div className="flex flex-col space-y-2 w-1/2 lg:hidden">
                                     <img
                                         src={selectedCard.image_url}
                                         alt={selectedCard.card_name}
-                                        className="w-full"
+                                        className="max-w-[10px]"
                                     />
                                     <div className="flex flex-col text-left space-y-[1vh]">
                                         <span><strong className="font-bold">Owned Amount:</strong> {selectedCard.ownedamount}</span>

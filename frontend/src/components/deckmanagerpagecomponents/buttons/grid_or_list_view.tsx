@@ -5,7 +5,8 @@ import { GridListViewComponentProps } from '../../deckmanagerpagecomponents/type
 const GridListViewComponent= ({ filterProps }: GridListViewComponentProps) => {
     const {
         setClickedOnCard,
-        //setCurrentPage,
+        setGalleryCurrentPage,
+        setListCurrentPage,
         listView, setListView,
         galleryView, setGalleryView
     } = filterProps
@@ -14,14 +15,16 @@ const GridListViewComponent= ({ filterProps }: GridListViewComponentProps) => {
         setListView(true)
         setGalleryView(false)
         setClickedOnCard(false)
-        //setCurrentPage(1)
+        setGalleryCurrentPage(1)
+        setListCurrentPage(1)
     }
 
     const handleGalleryView = () => {
         setListView(false)
         setGalleryView(true)
         setClickedOnCard(false)
-        //setCurrentPage(1)
+        setGalleryCurrentPage(1)
+        setListCurrentPage(1)
     }
 
     return (
