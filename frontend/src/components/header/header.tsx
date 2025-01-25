@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Cardsearch from './headerbuttons/searchbar.tsx'
 import Mycards from './headerbuttons/my-cards.tsx'
 import Login from './headerbuttons/login.tsx'
-import Signup from './headerbuttons/signup.tsx'
 import Mydecks from './headerbuttons/my-decks.tsx'
 import Accountsbutton from '../accountbuttons/navbuttons/account.js'
 import { ModeToggle } from "../shadcn_components/darklightmode/mode-toggle.tsx"
