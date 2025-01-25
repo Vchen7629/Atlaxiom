@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { Suspense, useEffect, useMemo, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { useGetOwnedCardsQuery } from '../../features/api-slices/ownedCardapislice.ts';
@@ -330,7 +330,9 @@ const UserOwnedCardPage = () => {
                             <div className="text-center">Details</div>
                             <div className="text-center">Actions</div>
                           </div>
+                          <Suspense>
                           <ListViewCardDisplayComponent displaylistprops={displaylistprops}/>
+                          </Suspense>
                           <PaginationComponent paginationprops={paginationprops} />                                           
                         </main>
                         

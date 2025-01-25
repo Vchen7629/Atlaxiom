@@ -45,11 +45,13 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
                                     className="w-3/4 lg:h-[90%] object-contain items-center" 
                                 />
                                 <div className="flex flex-col items-center overflow-auto space-y-2 md:space-y-[4vh] py-[2vh] w-full h-full lg:hidden">
-                                    <span className="text-xs md:text-3xl text-center">{card.card_name}</span>
-                                    <span className="text-xs md:text-3xl text-center">{card.set_code}</span>
-                                    <span className="text-xs md:text-3xl text-center">{card.set_name}</span>
-                                    <span className="text-xs md:text-3xl text-center">{card.rarity}</span>
-                                    <span className="text-xs md:text-3xl text-center">${card.price}</span>
+                                    <span className="text-xs md:text-xl text-center">{card.card_name}</span>
+                                    <span className="text-xs md:text-xl text-center">{card.set_code}</span>
+                                    <span className="text-xs md:text-xl text-center">{card.set_name}</span>
+                                    <div className="space-x-2"> 
+                                        <span className="text-xs md:text-xl text-center">{card.rarity}</span>
+                                        <span className="text-xs md:text-xl text-center">${card.price}</span>
+                                    </div>
                                 </div>
                                 <div className="hidden lg:flex overflow-y-auto h-full px-[2vw] items-center">
                                     {card.card_name}

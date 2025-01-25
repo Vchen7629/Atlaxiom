@@ -15,6 +15,8 @@ import { Button } from "@/components/ui/button"
 import { useAddNewOwnedCardMutation } from '../../../features/api-slices/ownedCardapislice';
 import { CardSet, ComponentCardSetPopupProps } from "../types/searchresultcomptypes";
 import { toast } from "sonner";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeftLong, faPlus } from "@fortawesome/free-solid-svg-icons";
    
 export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupProps) => {
     const {
@@ -70,34 +72,34 @@ export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupPro
         </AlertDialogTrigger>
         <AlertDialogContent className="bg-[hsl(var(--atkdefcomponent))] min-w-[40vw] border-transparent ">
           <AlertDialogHeader>
-            <div className="flex justify-between text-[hsl(var(--text))]">
+            <div className="flex justify-between items-center text-[hsl(var(--text))]">
                 <AlertDialogTitle>All printings</AlertDialogTitle>
                 <AlertDialogCancel 
                     className="bg-transparent shadow-custom border-transparent hover:bg-footer hover:text-gold"
                 >
-                    Back
+                    <FontAwesomeIcon icon={faArrowLeftLong} />
                 </AlertDialogCancel>
             </div>
             <AlertDialogDescription className="flex flex-col">
-                <div className="flex text-[hsl(var(--text))] p-2 border-b-[1px] border-black">
-                    <div className="w-[20%]">Set Name</div>
-                    <div className="w-[20%]">Set Code</div>
-                    <div className="w-[20%]">Rarity</div>
-                    <div className="w-[20%]">Price</div>
-                    <div className="w-[20%]">Action</div>
+                <div className="grid grid-cols-[40%_20%_20%_15%_5%] text-[hsl(var(--text))] p-2 border-b-[1px] border-black">
+                    <div className="text-xs lg:text-md">Set Name</div>
+                    <div className="text-xs lg:text-md">Set Code</div>
+                    <div className="text-xs lg:text-md">Rarity</div>
+                    <div className="text-xs lg:text-md">Price</div>
+                    <div className="text-xs lg:text-md">Add</div>
                 </div>
                 {cardSets.length > 0 ? (
                     <>
                     {cardSets.map((set, index) => (
-                        <div key={index} className="flex p-2 mb-2 items-center text-[hsl(var(--background3))]">
+                        <div key={index} className="grid grid-cols-[40%_20%_20%_15%_5%] p-2 mb-2 justify-center items-center text-[hsl(var(--background3))]">
                             <>
-                                <span className="flex w-[20%] pr-8 h-fit flex-grow">{set.set_name}</span>
-                                <span className="w-[20%]">{set.set_code}</span>
-                                <span className="w-[20%]">{set.set_rarity}</span>
-                                <span className="w-[20%]">${set.set_price}</span>
-                                <div className="w-[20%]">
+                                <span className="text-xs lg:text-md">{set.set_name}</span>
+                                <span className="text-xs lg:text-md">{set.set_code}</span>
+                                <span className="text-xs lg:text-md">{set.set_rarity}</span>
+                                <span className="text-xs lg:text-md">${set.set_price}</span>
+                                <div className="text-xs lg:text-md">
                                     <button
-                                        className="bg-[hsl(var(--background3))] text-[hsl(var(--text))] rounded-md justify-center flex items-center h-[30px] w-[78%] p-2 text-[12px]"
+                                        className="bg-[hsl(var(--background3))] text-[hsl(var(--text))] rounded-md justify-center flex items-center h-[25px] w-[25px] p-2 text-[12px]"
                                         onClick={() => {
                                             const promise = handleAddOwnedCardClick(set, index);
                                             toast.promise(promise, {
@@ -112,7 +114,9 @@ export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupPro
                                             })
                                         }}
                                     >   
-                                    <span className="font-bold">Add Card</span>
+                                    <span className="font-black">
+                                        <FontAwesomeIcon icon={faPlus} />
+                                    </span>
                                     </button>
                                 </div>
                             </>
