@@ -1,5 +1,5 @@
 import { apiSlice } from "../../app/api/apiSlice";
-import { logOut, setCredentials } from "./authSlice";
+import { logOut, resetLoggingOutState, setCredentials } from "./authSlice";
 import { Refresh } from "./types";
 
 export const authApiSlice = apiSlice.injectEndpoints({
@@ -22,10 +22,9 @@ export const authApiSlice = apiSlice.injectEndpoints({
             async onQueryStarted({ dispatch }) {
                 try {
                     dispatch(logOut())
-                    setTimeout(() => {
-                        dispatch(apiSlice.util.resetApiState())
-                    }, 1000)
-                   
+                    dispatch(apiSlice.util.resetApiState())
+                    dispatch(resetLoggingOutState());
+                    console.log("logout")
                 } catch (err) {
                     console.error("sendLogout onQueryStarted returned with error: ", err)
                 }

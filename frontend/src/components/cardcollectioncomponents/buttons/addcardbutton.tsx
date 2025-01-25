@@ -102,10 +102,10 @@ export const AddCardButton = ({ userId }: any) => {
       <AlertDialog>
         <AlertDialogTrigger asChild>
             <Button 
-                className="flex items-center justify-center rounded-md w-28 h-9 bg-blue-500"
+                className="flex items-center justify-center rounded-md w-24 h-9 md:w-28 md:h-9 bg-blue-500"
                 onClick={fetchAllCardData}
             >
-                <FontAwesomeIcon className="mr-1" icon={faPlusCircle}/>Add Card
+                <FontAwesomeIcon className="lg:mr-1" icon={faPlusCircle}/>Add Card
             </Button>
         </AlertDialogTrigger>
         <AlertDialogContent className="bg-[hsl(var(--background1))] min-w-[65vw] h-[55vh] max-h-[70vh] flex-grow border-transparent ">

@@ -16,6 +16,7 @@ import { useGetSpecificUserQuery } from '@/features/api-slices/usersApiSlice.ts'
 import PaginationComponent from '@/components/cardcollectioncomponents/paginationcomponents/pagination.tsx';
 import { AddCardButton } from '@/components/cardcollectioncomponents/buttons/addcardbutton.tsx';
 import { OwnedCard } from '@/components/cardcollectioncomponents/types/dataStructures.ts';
+import MobileFilterDrawerComponent from '@/components/cardcollectioncomponents/mobilefilter/components/MobileFilterDrawer.tsx';
 
 const UserOwnedCardPage = () => {
   const location = useLocation();
@@ -24,8 +25,8 @@ const UserOwnedCardPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   const [filterpage, setFilterPage] = useState<boolean>(true);
-  const [expandStatus, setExpandStatus] = useState<boolean>(true);
-  const [filterActive, setFilterActive] = useState<boolean>(true);
+  const [expandStatus, setExpandStatus] = useState<boolean>(false);
+  const [filterActive, setFilterActive] = useState<boolean>(false);
   const [statisticspage, setStatisticsPage] = useState<boolean>(false);
 
   const [monsterTypeFilter, setMonsterTypeFilter] = useState<string>('');
@@ -173,6 +174,39 @@ const UserOwnedCardPage = () => {
     setFilterActive(!filterActive)
   }
 
+  const [canClearFilter, setCanClearFilter] = useState<boolean>(false);
+
+  const clearFilter = () => {
+    setMonsterTypeFilter('');
+    setSpellTypeFilter('');
+    setTrapTypeFilter('');
+    setAttributeFilter('');
+    setArcheTypeFilter('');
+    setLevelFilter(0);
+    setLevelEqual(true);
+    setLevelLessThanEqual(false);
+    setLevelGreaterThanEqual(false);
+    setPendFilter(0);
+    setPendEqual(true);
+    setPendLessThanEqual(false);
+    setPendGreaterThanEqual(false);
+    setLinkFilter(0);
+    setLinkEqual(true);
+    setLinkLessThanEqual(false);
+    setLinkGreaterThanEqual(false);
+    setAtkFilter(null);
+    setAtkEqual(true);
+    setAtkLessThanEqual(false);
+    setAtkGreaterThanEqual(false);
+    setDefFilter(null);
+    setDefEqual(true);
+    setDefLessThanEqual(false);
+    setDefGreaterThanEqual(false);
+    setRarityFilter('');
+    setSetFilter('');
+    setCanClearFilter(false);
+  } 
+
   const searchbarprops = { 
     searchTerm, setSearchTerm,
   }
@@ -193,7 +227,9 @@ const UserOwnedCardPage = () => {
   }
 
   const filterProps = {
+    setCanClearFilter,
     ownedCards,
+    filterActive,
     expandStatus,
     monsterTypeFilter, setMonsterTypeFilter,
     spellTypeFilter, setSpellTypeFilter,
@@ -243,25 +279,33 @@ const UserOwnedCardPage = () => {
         <Header/>
         <div className=" bg-[hsl(var(--background1))] flex items-center justify-center ">
           <div className="text-white relative flex flex-col w-full min-h-[130vh] p-5 pt-20">
-            <header className="relative items-center flex w-full mt-[1%]">
-              <section className="flex flex-col w-1/4">
-                <div className="text-[40px] text-goldenrod font-bold">My Collection</div>
-                <div className="text-lg text-gray-400">Last Edited: {userData?.entities[userId]?.lastCardUpdated}</div>
+            <header className="relative items-center flex flex-col sm:flex-col md:flex-row w-full mt-[1%]">
+              <section className="flex flex-col w-full md:w-1/4">
+                <div className="text-4xl text-center lg:text-left lg:text-[40px] text-goldenrod font-bold">My Collection</div>
+                <div className="text-center lg:text-left text-lg text-gray-400">Last Edited: {userData?.entities[userId]?.lastCardUpdated}</div>
               </section>
-              <section className="relative flex items-center space-x-2 w-full">
-                  <div className="flex w-1/2">
-                      <MyCardsSearchbarComponent searchbarprops={searchbarprops}/>
-                    </div>
-                    <button className={`flex justify-center items-center rounded-md h-9 w-24 ${expandStatus ? "bg-[hsl(var(--background3))]" : "bg-footer"}`} onClick={handleClickFilter}>
-                      <FontAwesomeIcon className="mr-2" icon={faFilter}/>Filter
-                    </button>
-                    <AddCardButton userId={userId}/>
-                    <button className="flex rounded-md px-4 items-center justify-center w-20 h-9 bg-footer">
-                      <FontAwesomeIcon icon={faEllipsisVertical} className="mr-2 text-gray-400"/>More
-                    </button>
-                    <div className="flex w-20 h-11 bg-footer rounded-xl absolute right-[2vw]">
-                      <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
-                    </div>
+              <section className="relative space-y-[1vh] flex flex-col sm:flex-col  lg:flex-row items-center lg:space-x-2 w-full">
+                <div className="flex w-full lg:w-1/2">
+                  <MyCardsSearchbarComponent searchbarprops={searchbarprops}/>
+                </div>
+                <button className={`hidden lg:flex justify-center items-center rounded-md h-9 w-24 ${expandStatus ? "bg-[hsl(var(--background3))]" : "bg-footer"}`} onClick={handleClickFilter}>
+                  <FontAwesomeIcon className="mr-2" icon={faFilter}/>Filter
+                </button>
+                <div className="hidden lg:flex"><AddCardButton userId={userId}/></div>
+                <button className="hidden lg:flex rounded-md px-4 items-center justify-center w-20 h-9 bg-footer">
+                  <FontAwesomeIcon icon={faEllipsisVertical} className="mr-2 text-gray-400"/>More
+                </button>
+                <div className="hidden lg:flex w-20 h-11 bg-footer rounded-xl absolute right-[2vw]">
+                  <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
+                </div>
+                <div className="flex sm:flex lg:hidden space-x-[1vw] w-full items-center">
+                  <MobileFilterDrawerComponent filterProps={filterProps} />
+                  <AddCardButton />
+                  <button className={`flex items-center px-4 rounded-md h-9 ${canClearFilter ? "bg-[hsl(var(--background3))]" : "bg-gray-600"}`} onClick={clearFilter}> Clear </button>
+                  <div className="flex lg:hidden w-20 h-10 bg-footer rounded-xl absolute right-0">
+                    <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
+                  </div>
+                </div>
               </section>
               
             </header>
@@ -272,14 +316,19 @@ const UserOwnedCardPage = () => {
                       <main className="flex justify-between">
                         <main className={`bg-[hsl(var(--ownedcardcollection))] ${expandStatus ? "w-3/4" : "w-full"} h-full rounded-xl`}>
                           <PaginationComponent paginationprops={paginationprops} />
-                          <div className="flex font-black w-full h-8 bg-[hsl(var(--background3))] text-lg rounded-lg items-center">
-                            <div className="w-[5%] pl-4"> Qty </div>
-                            <div className="w-[27%]"> Name</div>
-                            <div className="w-[12%]"> Set Code</div>
-                            <div className="w-[20%]">Set</div>
-                            <div className="w-[15%] pl-14">Rarity</div>
-                            <div className="w-[7%] text-center ">Price</div>
-                            <div className="w-[10%] text-center ml-[2%]">Options</div>
+                          <div className="hidden lg:grid font-black h-8 bg-[hsl(var(--background3))] text-lg rounded-lg items-center grid-cols-[5%_28%_10%_25%_6%_19%_5%]">
+                            <div className="pl-4"> Qty </div>
+                            <div> Name</div>
+                            <div> Set Code</div>
+                            <div> Set</div>
+                            <div >Rarity</div>
+                            <div className="text-center ">Price</div>
+                            <div className="text-center ml-[2%]">Options</div>
+                          </div>
+                          <div className="grid grid-cols-[30%_35%_35%] font-black text-lg items-center lg:hidden w-full h-8 bg-[hsl(var(--background3))]">
+                            <div className="text-center">Card</div>
+                            <div className="text-center">Details</div>
+                            <div className="text-center">Actions</div>
                           </div>
                           <ListViewCardDisplayComponent displaylistprops={displaylistprops}/>
                           <PaginationComponent paginationprops={paginationprops} />                                           
