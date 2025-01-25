@@ -28,27 +28,22 @@ const Header = () => {
     const renderAuthButtons = () => {   
         if (isAuthenticated) {
           return (
-            <div className={`flex justify-center items-center xs:hidden lg:flex py-2.5 mr-2.5 ${showDropdown ? "hidden" : ''}`}>
+            <div className={`flex justify-center items-center xs:hidden lg:flex py-2.5 lg:mr-2.5 ${showDropdown ? "hidden" : ''}`}>
                 <div className=''><Accountsbutton/></div>
             </div>
           );
         }
         
         return (
-            <div className={`flex xs:hidden space-x-[1vw] lg:flex py-2.5 mr-[1vw] ${showDropdown ? "hidden" : ''} justify-around`}>
-                <div><Signup /></div>
-                <div className='mr-[1vw]'><Login /></div>
-            </div>
+            <a className={`sm:flex bg-red-500 text-[hsl(var(--background3))] md:hidden text-3xl cursor-pointer ${showDropdown ? 'active' : ''}`} onClick={toggleDropdown}>
+                ☰
+            </a>
         );
       };
 
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
     };
-
-    useEffect(() => {
-        console.log("Auth state changed:", isAuthenticated);
-    }, [isAuthenticated]);
 
     return (
         <header className="fixed justify-between items-center z-50 top-0 left-0 w-full flex py-2 text-white bg-[hsl(var(--header))] bg-opacity-60 backdrop-blur-md backdrop-brightness-150 px-2.5">
@@ -70,15 +65,8 @@ const Header = () => {
             </div>
             <div className='flex w-fit justify-between items-center space-x-[1vw]'>
                 <div className="absolute left-2 md:relative md:mr-4"><ModeToggle/></div>
-                <div className='w-fit hidden sm:hidden md:flex'>{renderAuthButtons()}</div>
+                <div className='w-fit flex'>{renderAuthButtons()}</div>
             </div>
-
-            
-            
-
-            <a className={`sm:flex bg-red-500 text-[hsl(var(--background3))] md:hidden text-3xl cursor-pointer ${showDropdown ? 'active' : ''}`} onClick={toggleDropdown}>
-                ☰
-            </a>
 
             {showDropdown && isAuthenticated ? (
                 <div className={`bg-[hsl(var(--editdeckdraganddropbackground))] rounded-md space-y-[1vh] items-center absolute right-0 h-fit px-2 py-3 mt-[35vh] z-10 ${showDropdown ? 'flex flex-col' : 'hidden'}`}>

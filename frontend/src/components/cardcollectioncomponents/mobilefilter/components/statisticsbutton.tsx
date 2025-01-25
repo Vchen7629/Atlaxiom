@@ -15,7 +15,7 @@ const StatisticsViewButton = ({ statisticsprops }: StatisticsButtonProps) => {
 
     return (
         <button className={`p-2 rounded-xl font-black ${statisticspage ? "bg-[hsl(var(--background3))] text-white" : "bg-transparent text-gray-400"}`} onClick={handleStatisticsClick}>
-            <FontAwesomeIcon icon={faChartSimple} className="fa-lg"/>
+            <FontAwesomeIcon icon={faChartSimple} className="fa-sm"/>
         </button>
     )
 }

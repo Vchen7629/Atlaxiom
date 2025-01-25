@@ -12,7 +12,7 @@ const Mydecks = () => {
   return (
     <div>
         <button 
-          className="flex w-fit h-8 px-2 py-4 text-[hsl(var(--text))] items-center border-b-2 border-transparent hover:border-[hsl(var(--background3))]" 
+          className="flex w-fit h-8 px-2 py-4 bg-transparent text-[hsl(var(--text))] items-center border-b-2 border-transparent hover:border-[hsl(var(--background3))]" 
           onClick={handleButtonClick}
         >
             <FontAwesomeIcon icon={faBook} />

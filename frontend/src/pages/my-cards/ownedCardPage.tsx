@@ -174,6 +174,39 @@ const UserOwnedCardPage = () => {
     setFilterActive(!filterActive)
   }
 
+  const [canClearFilter, setCanClearFilter] = useState<boolean>(false);
+
+  const clearFilter = () => {
+    setMonsterTypeFilter('');
+    setSpellTypeFilter('');
+    setTrapTypeFilter('');
+    setAttributeFilter('');
+    setArcheTypeFilter('');
+    setLevelFilter(0);
+    setLevelEqual(true);
+    setLevelLessThanEqual(false);
+    setLevelGreaterThanEqual(false);
+    setPendFilter(0);
+    setPendEqual(true);
+    setPendLessThanEqual(false);
+    setPendGreaterThanEqual(false);
+    setLinkFilter(0);
+    setLinkEqual(true);
+    setLinkLessThanEqual(false);
+    setLinkGreaterThanEqual(false);
+    setAtkFilter(null);
+    setAtkEqual(true);
+    setAtkLessThanEqual(false);
+    setAtkGreaterThanEqual(false);
+    setDefFilter(null);
+    setDefEqual(true);
+    setDefLessThanEqual(false);
+    setDefGreaterThanEqual(false);
+    setRarityFilter('');
+    setSetFilter('');
+    setCanClearFilter(false);
+  } 
+
   const searchbarprops = { 
     searchTerm, setSearchTerm,
   }
@@ -194,6 +227,7 @@ const UserOwnedCardPage = () => {
   }
 
   const filterProps = {
+    setCanClearFilter,
     ownedCards,
     filterActive,
     expandStatus,
@@ -251,7 +285,7 @@ const UserOwnedCardPage = () => {
                 <div className="text-center lg:text-left text-lg text-gray-400">Last Edited: {userData?.entities[userId]?.lastCardUpdated}</div>
               </section>
               <section className="relative space-y-[1vh] flex flex-col sm:flex-col  lg:flex-row items-center lg:space-x-2 w-full">
-                <div className="flex w-full sm:1/2 lg:w-1/2">
+                <div className="flex w-full lg:w-1/2">
                   <MyCardsSearchbarComponent searchbarprops={searchbarprops}/>
                 </div>
                 <button className={`hidden lg:flex justify-center items-center rounded-md h-9 w-24 ${expandStatus ? "bg-[hsl(var(--background3))]" : "bg-footer"}`} onClick={handleClickFilter}>
@@ -261,12 +295,13 @@ const UserOwnedCardPage = () => {
                 <button className="hidden lg:flex rounded-md px-4 items-center justify-center w-20 h-9 bg-footer">
                   <FontAwesomeIcon icon={faEllipsisVertical} className="mr-2 text-gray-400"/>More
                 </button>
-                <div className="hidden md:flex w-20 h-11 bg-footer rounded-xl absolute right-[2vw]">
+                <div className="hidden lg:flex w-20 h-11 bg-footer rounded-xl absolute right-[2vw]">
                   <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                 </div>
                 <div className="flex sm:flex lg:hidden space-x-[1vw] w-full items-center">
                   <MobileFilterDrawerComponent filterProps={filterProps} />
                   <AddCardButton />
+                  <button className={`flex items-center px-4 rounded-md h-9 ${canClearFilter ? "bg-[hsl(var(--background3))]" : "bg-gray-600"}`} onClick={clearFilter}> Clear </button>
                   <div className="flex lg:hidden w-20 h-10 bg-footer rounded-xl absolute right-0">
                     <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                   </div>

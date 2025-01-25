@@ -6,8 +6,6 @@ import { OwnedCardsFilterProps } from "../../types/ownedcardfiltertypes.ts";
 import { RarityDropDownComponent } from "../dropdown/raritydropdown.tsx";
 import { useEffect, useState } from "react";
 import { Card } from "../../types/ownedcarddetailstypes.ts";
-import FilterCardViewButton from "./filtercardbutton.tsx";
-import StatisticsViewButton from "./statisticsbutton.tsx";
 import { MonsterTypeDropDownComponent } from "../dropdown/monstertypedropdown.tsx";
 import { SpellTypeDropDownComponent } from "../dropdown/spelltypedropdown.tsx";
 import { TrapTypeDropDownComponent } from "../dropdown/traptypedropdown.tsx";
@@ -30,6 +28,7 @@ import { faFilter, faXmarkSquare } from "@fortawesome/free-solid-svg-icons";
 
 const MobileFilterDrawerComponent = ({ filterProps }: OwnedCardsFilterProps) => {
     const {
+        setCanClearFilter,
         ownedCards,
         filterActive,
         monsterTypeFilter, setMonsterTypeFilter,
@@ -59,8 +58,6 @@ const MobileFilterDrawerComponent = ({ filterProps }: OwnedCardsFilterProps) => 
         defGreaterThanEqual, setDefGreaterThanEqual,
         setFilter, setSetFilter,
         rarityFilter, setRarityFilter,
-        filterpage, setFilterPage,
-        statisticspage, setStatisticsPage,
         setListCurrentPage,
         setGalleryCurrentPage,
     } = filterProps;
@@ -72,9 +69,6 @@ const MobileFilterDrawerComponent = ({ filterProps }: OwnedCardsFilterProps) => 
     const [uniqueArchtype, setUniqueArchetype] = useState<string[]>([]);
     const [uniqueSet, setUniqueSet] = useState<string[]>([]);
     const [uniqueRarity, setUniqueRarity] = useState<string[]>([]);
-
-    const [canClearFilter, setCanClearFilter] = useState<boolean>(false);
-
 
     useEffect(() => {
         if (ownedCards) {
@@ -103,49 +97,6 @@ const MobileFilterDrawerComponent = ({ filterProps }: OwnedCardsFilterProps) => 
     
         }
       }, [ownedCards]);
-
-
-    const clearFilter = () => {
-        setMonsterTypeFilter('');
-        setSpellTypeFilter('');
-        setTrapTypeFilter('');
-        setAttributeFilter('');
-        setArcheTypeFilter('');
-        setLevelFilter(0);
-        setLevelEqual(true);
-        setLevelLessThanEqual(false);
-        setLevelGreaterThanEqual(false);
-        setPendFilter(0);
-        setPendEqual(true);
-        setPendLessThanEqual(false);
-        setPendGreaterThanEqual(false);
-        setLinkFilter(0);
-        setLinkEqual(true);
-        setLinkLessThanEqual(false);
-        setLinkGreaterThanEqual(false);
-        setAtkFilter(null);
-        setAtkEqual(true);
-        setAtkLessThanEqual(false);
-        setAtkGreaterThanEqual(false);
-        setDefFilter(null);
-        setDefEqual(true);
-        setDefLessThanEqual(false);
-        setDefGreaterThanEqual(false);
-        setRarityFilter('');
-        setSetFilter('');
-        setCanClearFilter(false);
-    }
-
-
-    const filterprops = { 
-        filterpage, setFilterPage,
-        setStatisticsPage
-    }
-
-    const statisticsprops = {
-        statisticspage, setStatisticsPage,
-        setFilterPage
-    }
 
     const monstertypeprops = {
         uniqueMonsterType,
@@ -256,7 +207,7 @@ const MobileFilterDrawerComponent = ({ filterProps }: OwnedCardsFilterProps) => 
     return (
         <Drawer modal={false}>
             <DrawerTrigger asChild>
-                <Button className={`text-white ml-2 h-9 px-4 rounded-md ${filterActive ? "bg-[hsl(var(--filterbutton))]" : "bg-gray-600"}`} variant="default">
+                <Button className={`text-white h-9 px-2 rounded-md ${filterActive ? "bg-[hsl(var(--filterbutton))]" : "bg-gray-600"}`} variant="default">
                     <FontAwesomeIcon className="mr-2" icon={faFilter}/>Filter
                 </Button>
             </DrawerTrigger>
@@ -268,63 +219,53 @@ const MobileFilterDrawerComponent = ({ filterProps }: OwnedCardsFilterProps) => 
                                 <FontAwesomeIcon icon={faXmarkSquare} className="fa-2xl text-[hsl(var(--background3))]"/>
                             </DrawerClose>
                     </DrawerHeader>
-                    <section className="flex w-[92%] justify-between items-center mb-6 pl-4">
-                        <span className="text-2xl text-[hsl(var(--background3))] font-bold">Card Filter </span>
-                        <div className="flex w-fit space-x-2">
-                            <button className={`flex items-center px-4 py-4 rounded-xl h-11 ${canClearFilter ? "bg-[hsl(var(--background3))]" : "bg-gray-600"}`} onClick={clearFilter}> Clear </button>
-                            <div className="flex w-19 h-11 bg-footer rounded-xl">
-                                <FilterCardViewButton filterprops={filterprops}/>
-                                <StatisticsViewButton statisticsprops={statisticsprops}/>
-                            </div>
-                        </div>
-                    </section>
-                    <section className="flex flex-col w-[92%] pl-2 items-center  space-y-[2%]">
-                        <div className="flex w-full items-center">
-                            <div className="flex h-full w-[7vw] text-sm font-black items-center text-[hsl(var(--text))] ">Monster Type:</div>
+                    <section className="flex flex-col pl-2 items-center  space-y-[1%]">
+                        <div className="flex w-full items-center justify-between">
+                            <div className="flex h-full w-fit text-sm font-black items-center text-[hsl(var(--text))] ">Monster Type:</div>
                             <div><MonsterTypeDropDownComponent monstertypeprops={monstertypeprops}/></div>
                         </div>
-                        <div className="flex w-full items-center">
-                            <div className="flex h-full w-[7vw] text-sm font-black items-center text-[hsl(var(--text))] ">Spell Type:</div>
+                        <div className="flex w-full items-center justify-between">
+                            <div className="flex h-full w-fit text-sm font-black items-center text-[hsl(var(--text))] ">Spell Type:</div>
                             <div><SpellTypeDropDownComponent spelltypeprops={spelltypeprops}/></div>
                         </div>
-                        <div className="flex w-full items-center">
-                            <div className="flex h-full w-[7vw] text-sm font-black items-center text-[hsl(var(--text))] ">Trap Type:</div>
+                        <div className="flex w-full items-center justify-between">
+                            <div className="flex h-full w-fit text-sm font-black items-center text-[hsl(var(--text))] ">Trap Type:</div>
                             <div><TrapTypeDropDownComponent traptypeprops={traptypeprops}/></div>
                         </div>
-                        <div className="flex w-full items-center">
-                            <div className="flex h-full w-[7vw] text-sm items-center font-black text-[hsl(var(--text))] ">Card Attribute:</div>
+                        <div className="flex w-full items-center justify-between">
+                            <div className="flex h-full w-fit text-sm items-center font-black text-[hsl(var(--text))] ">Card Attribute:</div>
                             <div><AttributeDropDownComponent attributeprops={attributeprops}/></div>
                         </div>
-                        <div className="flex w-full items-center">
-                            <div className="flex h-full w-[7vw] text-sm  items-center font-black text-[hsl(var(--text))] ">Card Archetype:</div>
+                        <div className="flex w-full items-center justify-between">
+                            <div className="flex h-full w-fit text-sm  items-center font-black text-[hsl(var(--text))] ">Card Archetype:</div>
                             <ArchetypeDropDownComponent archetypeprops={archetypeprops}/>
                         </div>
-                        <div className="flex w-full items-center">
-                            <div className="flex h-full w-[7vw] text-sm  items-center font-black text-[hsl(var(--text))]">Card Level:</div>
+                        <div className="flex w-full items-center justify-between">
+                            <div className="flex h-full w-fit text-sm  items-center font-black text-[hsl(var(--text))]">Card Level:</div>
                             <div className="w-[80%]"><LevelSliderComponent levelprops={levelprops}/></div>
                         </div>
-                        <div className="flex w-full items-center">
-                            <div className="flex h-full w-[7vw] text-sm  items-center font-black text-[hsl(var(--text))]">Pend Scale:</div>
+                        <div className="flex w-full items-center justify-between">
+                            <div className="flex h-full w-fit text-sm  items-center font-black text-[hsl(var(--text))]">Pend Scale:</div>
                             <div className="w-[80%]"><PendScaleSliderComponent pendprops={pendprops}/></div>
                         </div>
-                        <div className="flex w-full items-center">
-                            <div className="flex h-full w-[7vw] text-sm  items-center font-black text-[hsl(var(--text))]">Link Value:</div>
+                        <div className="flex w-full items-center justify-between">
+                            <div className="flex h-full w-fit text-sm  items-center font-black text-[hsl(var(--text))]">Link Value:</div>
                             <div className="w-[80%]"><LinkScaleSliderComponent linkprops={linkprops}/></div>
                         </div>
-                        <div className="flex w-full items-center">
-                            <span className="flex h-full w-[7vw] text-sm  items-center font-black text-[hsl(var(--text))]">Attack</span>
+                        <div className="flex w-full items-center justify-between">
+                            <span className="flex h-full w-fit text-sm  items-center font-black text-[hsl(var(--text))]">Attack</span>
                             <div><AtkFilterComponent atkfilterprops={atkfilterprops}/></div>
                         </div>
-                        <div className="flex w-full items-center">
-                            <span className="flex h-full w-[7vw] text-sm  items-center font-black text-[hsl(var(--text))]">Defense</span>
+                        <div className="flex w-full items-center justify-between">
+                            <span className="flex h-full w-fit text-sm  items-center font-black text-[hsl(var(--text))]">Defense</span>
                             <div><DefFilterComponent deffilterprops={deffilterprops}/></div>
                         </div>
-                        <div className="flex w-full items-center">
-                            <div className="flex h-full w-[7vw] text-sm items-center font-black text-[hsl(var(--text))]">Rarity:</div>
+                        <div className="flex w-full items-center justify-between">
+                            <div className="flex h-full w-fit text-sm items-center font-black text-[hsl(var(--text))]">Rarity:</div>
                             <div><RarityDropDownComponent rarityprops={rarityprops}/></div>
                         </div>
-                        <div className="flex w-full items-center">
-                            <div className="flex h-full w-[7vw] text-sm items-center font-black text-[hsl(var(--text))]">Card Set:</div>
+                        <div className="flex w-full items-center justify-between">
+                            <div className="flex h-full w-fit text-sm items-center font-black text-[hsl(var(--text))]">Card Set:</div>
                             <div><CardSetDropDownComponent setprops={setprops}/></div>
                         </div>
                     </section>

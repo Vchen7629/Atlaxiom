@@ -17,6 +17,8 @@ import { useLocation } from "react-router-dom";
 import { useGetOwnedCardsQuery } from "@/features/api-slices/ownedCardapislice.ts";
 import { Toaster } from "sonner";
 import { useGetSpecificUserQuery } from "@/features/api-slices/usersApiSlice.ts";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 export const GalleryViewCardDisplayComponent = ({ displaygalleryprops }: filteredGalleryCards) => {
     const { currentGalleryPageResults } = displaygalleryprops
@@ -34,7 +36,7 @@ export const GalleryViewCardDisplayComponent = ({ displaygalleryprops }: filtere
                 <div className="flex">
                     {currentGalleryPageResults.length > 0 ? (
                         <div 
-                            className="grid grid-cols-10 gap-4 p-4 justify-items-start items-start hover:border-10 hover-border-blacktwo"  
+                            className="grid grid-cols-2 sm-grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-4 p-4 justify-items-start items-start hover:border-10 hover-border-blacktwo"  
                             style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                         >
                             {currentGalleryPageResults.map((card: Card, index: number) => (
@@ -54,11 +56,11 @@ export const GalleryViewCardDisplayComponent = ({ displaygalleryprops }: filtere
                             ))}
                         </div>
                     ) : ownedCardCount?.entities[userId].totalOwnedCards === 0 ? (
-                        <div className="flex h-[80vh] w-full justify-center pt-[25%] text-3xl text-gray-400 font-black">
+                        <div className="flex h-[80vh] w-full justify-center text-center pt-[25%] text-xl lg:text-3xl text-gray-400 font-black">
                           <span>You have no owned Cards</span>
                         </div>
                     ) : (
-                        <div className="flex w-full h-full justify-center pt-[25%] text-3xl text-gray-400 font-black">
+                        <div className="flex w-full h-full justify-center text-center pt-[25%] text-xl lg:text-3xl text-gray-400 font-black">
                             <span>No cards matching your Filters</span>
                         </div>
                     )}
@@ -77,60 +79,83 @@ export const GalleryViewCardDisplayComponent = ({ displaygalleryprops }: filtere
                     <AlertDialogCancel 
                         className="bg-footer shadow-custom border-transparent hover:bg-footer hover:text-gold"
                     >
-                        Back
+                        <FontAwesomeIcon icon={faArrowLeft} />
                     </AlertDialogCancel>
                 </div>
                 <AlertDialogDescription className="flex flex-col">
-                    {selectedCard ? (
+                {selectedCard ? (
                         <div className="text-white p-2">
                             <div className="flex mb-4">
-                            <img
-                                src={selectedCard.image_url}
-                                alt={selectedCard.card_name}
-                                className="w-[30%] max-w-[30%] mr-4"
-                            />
-                            <div className="flex flex-col">
-                                <div className="flex w-full justify-between">
-                                    <strong>Type:</strong> {selectedCard.type}
-                                    <strong>race:</strong> {selectedCard.race}
-                                    <strong>Archetype:</strong> {selectedCard.archetype}
+                                <img
+                                    src={selectedCard.image_url}
+                                    alt={selectedCard.card_name}
+                                    className="hidden lg:flex w-[30%] max-w-[30%] lg:mr-4"
+                                />
+                                <div className="flex flex-col space-y-2 w-1/2 lg:hidden">
+                                    <img
+                                        src={selectedCard.image_url}
+                                        alt={selectedCard.card_name}
+                                        className="w-full"
+                                    />
+                                    <div className="flex flex-col text-left space-y-[1vh]">
+                                        <span><strong className="font-bold">Owned Amount:</strong> {selectedCard.ownedamount}</span>
+                                        <span><strong className="font-bold">Set Name:</strong> {selectedCard.set_name}</span>
+                                        <span><strong className="font-bold">Price:</strong> ${selectedCard.price}</span>
+                                    </div>
                                 </div>
-                                <div>
-                                <strong>attribute:</strong> {selectedCard.attribute}
+                                <div className="flex flex-col space-y-[1vh] ml-[5vw] lg:ml-2">
+                                    <div className="hidden lg:flex flex-col space-y-[2vh] w-full">
+                                        <div className="flex w-full justify-between">
+                                            <span><strong className="mr-2">Type:</strong>{selectedCard.type}</span>
+                                            <span><strong className="mr-2">race:</strong> {selectedCard.race}</span>
+                                            <span><strong className="mr-2">Archetype:</strong> {selectedCard.archetype}</span>
+                                        </div>
+                                        {selectedCard.attribute || selectedCard.level && (
+                                            <div className="flex w-full justfiy-between">
+                                                <span><strong>attribute:</strong> {selectedCard.attribute}</span>
+                                                <span><strong>level:</strong> {selectedCard.level}</span>
+                                            </div>
+                                        )}
+                                        <span><strong>Desc:</strong> {selectedCard.desc}</span>
+                                        {selectedCard.atk || selectedCard.def && (
+                                            <div className="flex w-full justify-between">
+                                                <span><strong>Atk:</strong> {selectedCard.atk}</span>
+                                                <span><strong>Def:</strong> {selectedCard.def}</span>
+                                            </div>
+                                        )}
+                                        <div className="flex w-full justify-between">
+                                            <span><strong>Set Name:</strong> {selectedCard.set_name}</span>
+                                            <span><strong>Set Code:</strong> {selectedCard.set_code}</span>
+                                        </div>
+                                        <div><strong>Rarity:</strong> {selectedCard.rarity}</div>
+                                        <div><strong>Owned Amount:</strong> {selectedCard.ownedamount}</div>
+                                        <div><strong>Price:</strong> ${selectedCard.price}</div>
+                                    </div>
+                                    <div className="flex flex-col space-y-[2vh] text-left lg:hidden w-[45vw] justify-between ">
+                                        <span><strong className="mr-2">Type:</strong> {selectedCard.type}</span>
+                                        <span><strong className="mr-2">race:</strong> {selectedCard.race}</span>
+                                        <span><strong className="mr-2">Archetype:</strong> {selectedCard.archetype}</span>
+                                        {selectedCard.attribute || selectedCard.level && (
+                                            <div className="flex flex-col space-y-[2vh]">
+                                                <span><strong>attribute:</strong> {selectedCard.attribute}</span>
+                                                <span><strong>level:</strong> {selectedCard.level}</span>
+                                            </div>
+                                        )}
+                                        <span className="max-w-full text-wrap"><strong>Desc:</strong> {selectedCard.desc}</span>
+                                        {selectedCard.atk || selectedCard.def && (
+                                            <div className="flex flex-col w-full space-y-[2vh]">
+                                                <span><strong>Atk:</strong> {selectedCard.atk}</span>
+                                                <span><strong>Def:</strong> {selectedCard.def}</span>
+                                            </div>
+                                        )}
+                                        <span><strong>Set Code:</strong> {selectedCard.set_code}</span>
+                                        <div><strong>Rarity:</strong> {selectedCard.rarity}</div>
+                                    </div>
                                 </div>
-                                <div>
-                                <strong>level:</strong> {selectedCard.level}
-                                </div>
-                                <div>
-                                <strong>Desc:</strong> {selectedCard.desc}
-                                </div>
-                                <div>
-                                <strong>Atk:</strong> {selectedCard.atk}
-                                </div>
-                                <div>
-                                <strong>Def:</strong> {selectedCard.def}
-                                </div>
-                                <div>
-                                <strong>Set Code:</strong> {selectedCard.set_code}
-                                </div>
-                                <div>
-                                <strong>Set Name:</strong> {selectedCard.set_name}
-                                </div>
-                                <div>
-                                <strong>Rarity:</strong> {selectedCard.rarity}
-                                </div>
-                                <div>
-                                <strong>Owned Amount:</strong> {selectedCard.ownedamount}
-                                </div>
-                                <div>
-                                <strong>Price:</strong> ${selectedCard.price}
-                                </div>
-                                
-                            </div>
                             </div>
                         </div>
                         ) : (
-                        <div>Select a card to view its details</div>
+                            <div>Select a card to view its details</div>
                         )}
                 </AlertDialogDescription>   
             </AlertDialogHeader>

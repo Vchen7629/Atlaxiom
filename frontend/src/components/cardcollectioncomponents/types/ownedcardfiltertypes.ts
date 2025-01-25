@@ -1,5 +1,6 @@
 export type OwnedCardsFilterProps = {
     filterProps: {
+        setCanClearFilter: React.Dispatch<React.SetStateAction<boolean>>;
         ownedCards: any;
         filterActive?: boolean
         monsterTypeFilter: string;

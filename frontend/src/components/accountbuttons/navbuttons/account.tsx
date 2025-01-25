@@ -20,11 +20,11 @@ const Accountsbutton = () => {
         <>
         <div>
             <button 
-            className="flex bg-[hsl(var(--profile))] w-[180px] h-10 px-8 items-center justify-between rounded-3xl  text-[hsl(var(--background3))]  border-2 border-[hsl(var(--background3))]" 
+            className="flex bg-[hsl(var(--profile))] lg:w-[9vw] h-10 px-4 lg:px-8 items-center justify-between rounded-xl lg:rounded-3xl  text-[hsl(var(--background3))]  border-2 border-[hsl(var(--background3))]" 
             onClick={toggleDropdown}
             >   
                 <FontAwesomeIcon icon={faUser}/>
-                <div className="fatextmargin font-bold text-xl">
+                <div className="fatextmargin font-bold mr-2 lg:text-xl">
                     {cachedUsername}
                 </div>
                 <FontAwesomeIcon icon={faCaretDown}/>
@@ -34,7 +34,7 @@ const Accountsbutton = () => {
         </div>
 
         {showDropdown && (
-            <main className="w-[180px] text-[hsl(var(--background3))] shadow-dropdow top-16 absolute flex flex-col space-y-2 right-5 h-fit bg-[hsl(var(--header))] rounded-2xl py-4">
+            <main className="lg:w-[9vw] w-[28vw] text-[hsl(var(--background3))] shadow-dropdow top-16 absolute flex flex-col space-y-2 right-[3vw] lg:right-5 h-fit bg-[hsl(var(--header))] rounded-2xl py-4">
                 <div className="w-full flex pl-4"><Profile/></div>
                 <div className="w-full flex pl-4"><Mycards/></div>
                 <div className="w-full flex pl-4"><MyDecks/></div>
