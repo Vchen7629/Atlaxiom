@@ -30,7 +30,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.options('*', (req, res) => {
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Range, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.status(200).end(); 

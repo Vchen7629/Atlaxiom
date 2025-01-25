@@ -103,7 +103,7 @@ const createDuplicateDeck = asyncHandler(async (req, res) => {
 
     if (newDeck) {
         res.status(201).json({ 
-            message: `New deck named ${deck.deck_name} duplicated for user ${user.username}`,
+            message: `New deck named ${newDeck.deck_name} duplicated for user ${user.username}`,
             deck: newDeck
         });
     } else {

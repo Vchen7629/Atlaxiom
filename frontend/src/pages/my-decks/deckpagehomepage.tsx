@@ -20,12 +20,6 @@ const DeckPageHomepage = () => {
     const { data: modifyDecks, refetch } = useGetAllOwnedDecksQuery(userId);
     const decksToDisplay = modifyDecks?.entities?.undefined?.ownedDecks || [];
 
-    /*useEffect(() => {
-        if (userId) {
-            refetch();
-        }
-    }, [userId]);*/
-
     const filteredDecks = decksToDisplay.filter((deck: Deck) =>
         deck?.deck_name?.toLowerCase().includes(deckName.toLowerCase())
     );
@@ -35,15 +29,15 @@ const DeckPageHomepage = () => {
     const [listView, setListView] = useState<boolean>(true);
     const [galleryView, setGalleryView] = useState<boolean>(false);
 
-    const suggestionsPerGalleryPage = 45;
+    const suggestionsPerGalleryPage = 18;
     const suggestionsPerListPage = 7;
     const [totalListPages, setTotalListPages] = useState<number>(1);
     const [totalGalleryPages, setTotalGalleryPages] = useState<number>(1);
-    const updateTotalListPages = (filteredCardsLength: number) => {
-        setTotalListPages(Math.ceil(filteredCardsLength / suggestionsPerListPage));
+    const updateTotalListPages = (filteredDecksLength: number) => {
+        setTotalListPages(Math.ceil(filteredDecksLength / suggestionsPerListPage));
     }
-    const updateTotalGalleryPages = (filteredCardsLength: number) => {
-        setTotalGalleryPages(Math.ceil(filteredCardsLength / suggestionsPerGalleryPage));
+    const updateTotalGalleryPages = (filteredDecksLength: number) => {
+        setTotalGalleryPages(Math.ceil(filteredDecksLength / suggestionsPerGalleryPage));
     }
     const [currentListPage, setListCurrentPage] = useState<number>(1);  
     const [currentGalleryPage, setGalleryCurrentPage] = useState<number>(1);
@@ -58,8 +52,6 @@ const DeckPageHomepage = () => {
 
     const handleClearClick = () => {
         setDeckName('');
-        //setSelectedCardData(null);
-        //setSelectedSuggestion(null);
         setClickedOnCard(false);
     };
 
@@ -67,7 +59,8 @@ const DeckPageHomepage = () => {
         listView, setListView,
         galleryView, setGalleryView,
         setClickedOnCard,
-        //setCurrentPage,
+        setGalleryCurrentPage,
+        setListCurrentPage,
     };
 
     const paginationprops = {
@@ -100,18 +93,18 @@ const DeckPageHomepage = () => {
     return (
         <main className="min-h-[110vh] flex flex-col bg-[hsl(var(--background1))] justify-between">
             <Header/>
-            <div className="flex flex-col py-[15vh]">
+            <div className="flex flex-col items-center lg:items-start py-[15vh]">
                 <Toaster richColors  expand visibleToasts={4}/>
-                <div className="flex w-[50vw] ml-[15vw] items-center justify-between">
-                    <div className="text-3xl font-black text-[hsl(var(--text))]">Deck Manager</div>
+                <div className="flex w-[80vw] lg:w-[50vw] lg:ml-[15vw] items-center justify-between">
+                    <span className="text-lg lg:text-3xl font-black text-[hsl(var(--text))]">Deck Manager</span>
                     <CreateNewDeckComponent userId={userId}/>
                 </div>
-                <div className="flex w-[50vw] ml-[15vw] mt-[2.5vh] mb-[1.5vh] justify-between">
-                    <div className="flex w-[15vw] h-[40px] pl-5 relative border-2 border-gray-400 justify-start text-[hsl(var(--text))]">                      
+                <div className="flex w-[80vw] lg:w-[50vw] lg:ml-[15vw] mt-[2.5vh] mb-[1.5vh] justify-between">
+                    <div className="flex w-[50vw] lg:w-[15vw] h-[40px] pl-5 relative border-2 border-gray-400 justify-start text-[hsl(var(--text))]">                      
                       <div className="flex items-center w-full">
                         <FontAwesomeIcon icon={faSearch} className="mr-2" />
                         <input
-                          className="bg-transparent w-full h-full text-xl text-[hsl(var(--text))] focus:outline-none"
+                          className="bg-transparent w-full h-full text-sm lg:text-xl text-[hsl(var(--text))] focus:outline-none"
                           type="text"
                           value={deckName}
                           onChange={handleInputChange}
@@ -124,14 +117,17 @@ const DeckPageHomepage = () => {
                         )}
                       </div>
                     </div>
-                    <section className="flex">
+                    <section className="hidden lg:flex">
                         <PaginationComponent paginationprops={paginationprops}/>
                     </section>
                     <div className="flex w-20 h-11 bg-footer rounded-xl">
                         <GridListViewComponent filterProps={filterProps}/>  
                     </div>
                 </div>
-                <div className='flex w-[50vw] ml-[15vw] items-center justify-between'>
+                <section className="flex w-[80vw] lg:hidden">
+                    <PaginationComponent paginationprops={paginationprops}/>
+                </section>
+                <div className='flex w-[80vw] lg:w-[50vw] lg:ml-[15vw] items-center justify-between'>
                     <DeckDisplay deckdisplayprops={deckdisplayprops}/>
                 </div>
             </div>

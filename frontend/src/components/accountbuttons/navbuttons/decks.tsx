@@ -12,7 +12,7 @@ const MyDecks = () => {
   return (
     <div>
         <button 
-          className="flex items-center pb-2 border-b-2 border-transparent hover:border-b-2 hover:border-[hsl(var(--background3))] " 
+          className="flex items-center pb-2 border-b-2 border-transparent bg-transparent hover:border-b-2 hover:border-[hsl(var(--background3))] " 
           onClick={handleButtonClick}
         >
           <span className='lg:mr-2'><FontAwesomeIcon icon={faBook} /></span>

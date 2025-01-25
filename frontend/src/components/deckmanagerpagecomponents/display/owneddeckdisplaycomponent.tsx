@@ -35,17 +35,22 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                             >  
                                 <section className='flex w-1/4 space-x-8'>
                                     <div className="flex flex-col">
-                                        <div className="text-[hsl(var(--text))]"><strong>{deck.deck_name}</strong></div>
-                                        <div className="text-gray-400">Last Updated {deck.lastUpdated}</div>
+                                        <div className="text-[hsl(var(--text))] text-xs lg:text-lg"><strong>{deck.deck_name}</strong></div>
+                                        <div className="text-gray-400 hidden md:text-md lg:text-lg lg:flex">Last Updated {deck.lastUpdated}</div>
                                     </div>
                                     {deck.favorite === true && (
-                                        <span className=' text-[hsl(var(--background3))] flex items-center justify-center'>
+                                        <span className=' text-[hsl(var(--background3))] hidden md:flex items-center justify-center'>
                                             <FontAwesomeIcon icon={faStar} className='fa-lg'/>
                                         </span>
                                     )}
                                 </section>
                                 <section className="flex w-1/2 h-full items-center space-x-2 text-[hsl(var(--text))]">
-                                    <span>{deck.deck_desc}</span>
+                                    {deck.favorite === true && (
+                                        <span className=' text-[hsl(var(--background3))] flex md:hidden items-center justify-center'>
+                                            <FontAwesomeIcon icon={faStar} className='fa-sm'/>
+                                        </span>
+                                    )}
+                                    <span className="text-xs md:text-md lg:text-lg">{deck.deck_desc}</span>
                                 </section>
                                 <section className="flex w-fit space-x-1">
                                     <FavoriteDeckButtonComponent 
@@ -76,21 +81,21 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                 </main>
             )}        
             {galleryView && (
-                <main className='flex flex-col w-full '>
+                <main className='flex flex-col w-full'>
                     {currentPageGalleryDecksArray.length > 0 ? (
                         <div
-                            className="grid grid-cols-6 gap-6 w-full h-full p-4 justify-items-center items-start"  
+                            className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 w-full h-full p-4 justify-items-center items-start"  
                             style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                         >
                             {currentPageGalleryDecksArray.map((deck: any, index) => (
                                 <div className="flex flex-col items-center">
-                                    <div key={index} className="relative bg-deckpage flex flex-col h-[12vh] w-[4.8vw] rounded-lg" onClick={() => handleDeckClick(deck)}>
+                                    <div key={index} className="relative bg-deckpage flex flex-col h-[20vh] w-[28vw] md:h-[18vh] md:w-[15vw] lg:h-[12vh] lg:w-[4.8vw] rounded-lg" onClick={() => handleDeckClick(deck)}>
                                         {deck.favorite === true && (
                                             <span className='absolute left-1/2 top-2 translate-x-[-50%] text-[hsl(var(--background3))] flex'>
                                                 <FontAwesomeIcon icon={faStar} className='fa-lg'/>
                                             </span>
                                         )}
-                                        <span className="flex text-wrap text-white text-sm w-full h-full text-center items-center font-bold">{deck.deck_name}</span>
+                                        <span className="flex text-wrap text-white text-sm w-[90%] h-full text-center items-center font-bold">{deck.deck_name}</span>
                                     </div>
                                     <section className="flex w-full mt-2 space-x-1">
                                         <FavoriteDeckButtonComponent 

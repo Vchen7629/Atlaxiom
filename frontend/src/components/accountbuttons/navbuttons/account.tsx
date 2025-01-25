@@ -7,6 +7,7 @@ import Logout from './logout.tsx';
 import { UsernameState } from '../accounttypes.ts';
 import Mycards from './collections.tsx';
 import MyDecks from './decks.tsx';
+import Cardsearch from '@/components/header/headerbuttons/searchbar.tsx';
 
 const Accountsbutton = () => {
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
@@ -39,7 +40,7 @@ const Accountsbutton = () => {
                 <div className="w-full flex pl-4"><Mycards/></div>
                 <div className="w-full flex pl-4"><MyDecks/></div>
                 <div className="w-full flex pl-4 text-red-500"><Logout/></div>
-                
+                <div className="w-full flex pl-4 text-red-500"><Cardsearch/></div>
             </main>
         )}
         </>
