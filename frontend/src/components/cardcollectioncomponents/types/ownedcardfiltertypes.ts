@@ -1,6 +1,7 @@
 export type OwnedCardsFilterProps = {
     filterProps: {
         ownedCards: any;
+        filterActive?: boolean
         monsterTypeFilter: string;
         setMonsterTypeFilter: React.Dispatch<React.SetStateAction<string>>;
         spellTypeFilter: string;
@@ -59,7 +60,7 @@ export type OwnedCardsFilterProps = {
         setFilterPage: React.Dispatch<React.SetStateAction<boolean>>;
         statisticspage: boolean;
         setStatisticsPage: React.Dispatch<React.SetStateAction<boolean>>;
-        expandStatus: boolean;
+        expandStatus?: boolean;
         setListCurrentPage: React.Dispatch<React.SetStateAction<number>>;
         setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>;
     }
