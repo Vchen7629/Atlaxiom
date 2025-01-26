@@ -27,6 +27,12 @@ jobs:
           registry: https://ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Debug Docker build process
+        run: |
+            docker info
+            docker buildx version
+            docker buildx ls
+            docker buildx build --cache-from type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend:prod --cache-to type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend:prod,mode=max --file ./Dockerfile .
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
@@ -39,7 +45,7 @@ jobs:
           push: true
           tags: ghcr.io/vchen7629/atlaxiom-frontend:prod
           cache-from: type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend:prod
-          cache-to: type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend:prod:latest,mode=max
+          cache-to: type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend:prod,mode=max
 
   build-and-push-backend-image:
     runs-on: ubuntu-latest
@@ -57,6 +63,13 @@ jobs:
           registry: https://ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+    
+      - name: Debug Docker build process
+        run: |
+            docker info
+            docker buildx version
+            docker buildx ls
+            docker buildx build --cache-from type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend:prod --cache-to type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend:prod,mode=max --file ./Dockerfile .
 
       - name: Build and push backend image
         uses: docker/build-push-action@v5
@@ -76,6 +89,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Set BuildKit environment variable
+        run: echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
+  
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          
       - name: 'Pulling latest container'
         uses: appleboy/ssh-action@v1.2.0
         with: 
@@ -85,4 +109,5 @@ jobs:
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           script: |
             cd Atlaxiom/
+            docker images
             docker compose pull
