@@ -34,8 +34,8 @@ jobs:
                 context: ./loginapi
                 file: ./loginapi/Dockerfile.backendcache
                 push: ${{ github.event_name != 'pull_request' }}
-                tags: ghcr.io/vchen7629/atlaxiom-backend-cache:latest
-                cache-from: type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend-cache:latest
-                cache-to: type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend-cache:latest,mode=max
+                tags: ghcr.io/vchen7629/atlaxiom-backend:prod
+                cache-from: type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend:prod
+                cache-to: type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend:prod,mode=max
 
         
