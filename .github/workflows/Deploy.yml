@@ -16,13 +16,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Debug paths
+        run: ls -lah ~/.npm && ls -lah frontend/node_modules
 
       - name: Cache npm dependencies
         uses: actions/cache@v3
         with:
-          path: |
-            frontend/node_modules
-            ~/.npm
+          path: ~/.npm
           key: ${{ runner.os }}-npm-${{ hashFiles('frontend/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-
@@ -46,8 +46,7 @@ jobs:
         with:
           context: ./frontend
           push: ${{ github.event_name != 'pull_request' }}
-          tags: |
-            ghcr.io/vchen7629/atlaxiom-frontend:prod
+          tags: ghcr.io/vchen7629/atlaxiom-frontend:prod
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -56,13 +55,13 @@ jobs:
     steps: 
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Debug paths
+        run: ls -lah ~/.npm && ls -lah loginapi/node_modules
 
       - name: Cache npm dependencies
         uses: actions/cache@v3
         with:
-          path: |
-            loginapi/node_modules
-            ~/.npm
+          path: ~/.npm
           key: ${{ runner.os }}-npm-${{ hashFiles('loginapi/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-
@@ -83,8 +82,7 @@ jobs:
         with:
           context: ./loginapi
           push: true
-          tags: |
-            ghcr.io/vchen7629/atlaxiom-backend:prod
+          tags: ghcr.io/vchen7629/atlaxiom-backend:prod
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
