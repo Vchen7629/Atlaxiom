@@ -2,6 +2,8 @@ FROM node:22-alpine
 
 WORKDIR /loginapi
 
+ENV NPM_CONFIG_CACHE=/loginapi/.npm
+
 COPY package*json ./
 
 RUN npm install ci --only=production
