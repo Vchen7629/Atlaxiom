@@ -6,9 +6,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'loginapi/package.json'
-      - 'loginapi/package-lock.json'
 
 permissions:
   packages: write

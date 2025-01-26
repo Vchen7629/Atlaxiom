@@ -6,9 +6,9 @@ on:
   push:
     branches:
       - main
-    #paths:
-    #  - 'loginapi/package.json'
-    #  - 'loginapi/package-lock.json'
+    paths:
+      - 'loginapi/package.json'
+      - 'loginapi/package-lock.json'
 
 jobs: 
     build-and-push-cache:
