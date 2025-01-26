@@ -37,9 +37,8 @@ jobs:
           context: ./frontend
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/vchen7629/atlaxiom-frontend:prod
-          cache-from: type=gha, scope=${{ github.ref }}-${{ runner.os }}-frontend
-          cache-to: type=gha,mode=max, scope=${{ github.ref }}-${{ runner.os }}-frontend
-          build-args: |
+          cache-from: type=gha, key=backend-static-cache-key-${{ hashFiles('loginapi/package-lock.json') }}
+          cache-to: type=gha,mode=max, key=backend-static-cache-key-${{ hashFiles('loginapi/package-lock.json') }}
             BUILDKIT_PROGRESS=plain
 
       - name: Check if cache was used
