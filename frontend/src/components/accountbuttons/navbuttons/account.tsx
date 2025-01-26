@@ -17,6 +17,8 @@ const Accountsbutton = () => {
         setShowDropdown(!showDropdown);
     };
 
+    console.log("hi")
+    
     return (
         <>
         <div>
