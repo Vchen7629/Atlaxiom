@@ -31,7 +31,7 @@ jobs:
       - name: Verify package-lock.json
         run: md5sum frontend/package-lock.json
 
-      # Build and push Docker image with Buildx (don't push on PR)sss
+      # Build and push Docker image with Buildx (don't push on PR)ssss
       # https://github.com/docker/build-push-action
       - name: Build and push Docker image
         id: build-and-push
