@@ -2,7 +2,7 @@ FROM node:22 AS builder
 
 WORKDIR /app
 
-ENV NPM_CONFIG_CACHE=/app/.npm
+RUN mkdir -p /app/.npm
 
 COPY package*.json ./
 
