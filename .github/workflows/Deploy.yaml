@@ -32,7 +32,7 @@ jobs:
             docker info
             docker buildx version
             docker buildx ls
-            docker buildx build --cache-from type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend:prod --cache-to type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend:prod,mode=max --file ./Dockerfile .
+            docker buildx build --cache-from type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend:prod --cache-to type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend:prod,mode=max --file ../../frontend/Dockerfile --push.
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
@@ -69,7 +69,7 @@ jobs:
             docker info
             docker buildx version
             docker buildx ls
-            docker buildx build --cache-from type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend:prod --cache-to type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend:prod,mode=max --file ./Dockerfile .
+            docker buildx build --cache-from type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend:prod --cache-to type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend:prod,mode=max ../../loginapi/Dockerfile --push.
 
       - name: Build and push backend image
         uses: docker/build-push-action@v5
@@ -99,7 +99,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          
+
       - name: 'Pulling latest container'
         uses: appleboy/ssh-action@v1.2.0
         with: 
