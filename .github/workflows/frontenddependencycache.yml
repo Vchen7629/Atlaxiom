@@ -16,6 +16,9 @@ jobs:
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
+            
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v3 # v3.0.0
 
             - name: Log into registry https://ghcr.io
               if: github.event_name != 'pull_request'
@@ -32,4 +35,6 @@ jobs:
                 file: ./frontend/Dockerfile.cache
                 push: ${{ github.event_name != 'pull_request' }}
                 tags: ghcr.io/vchen7629/atlaxiom-frontend-cache:latest
+                cache-from: type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend-cache:latest
+                cache-to: type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend-cache:latest,mode=max
         
