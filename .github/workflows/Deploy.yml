@@ -35,7 +35,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./frontend
-          push: ${{ github.event_name != 'pull_request' }}
+          file: ./frontend/Dockerfile
+          push: true
           tags: ghcr.io/vchen7629/atlaxiom-frontend:prod
           cache-from: type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend:prod
           cache-to: type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend:prod,mode=max
@@ -61,6 +62,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./loginapi
+          file: ./loginapi/Dockerfile
           push: true
           tags: ghcr.io/vchen7629/atlaxiom-backend:prod
           cache-from: type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend:prod
