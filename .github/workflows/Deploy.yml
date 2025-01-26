@@ -39,7 +39,6 @@ jobs:
           push: true
           tags: ghcr.io/vchen7629/atlaxiom-frontend:prod
           cache-from: type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend:prod
-          cache-to: type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend:prod,mode=max
 
   build-and-push-backend-image:
     runs-on: ubuntu-latest
@@ -66,8 +65,6 @@ jobs:
           push: true
           tags: ghcr.io/vchen7629/atlaxiom-backend:prod
           cache-from: type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend:prod
-          cache-to: type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend:prod,mode=max
-          build-args: BUILDKIT_PROGRESS=plain
 
   deploy:
     runs-on: ubuntu-latest
