@@ -56,7 +56,8 @@ export const ownedCardsApiSlice = apiSlice.injectEndpoints({
             query: ({ id, CardData }) => ({
                 url: `/card/increasecard/${id}`,
                 method: 'PATCH',
-                body: CardData
+                body: CardData,
+                credentials: 'include'
             }),
             invalidatesTags: (arg: any) => [
                 { type: 'OwnedCards', id: arg.id }
@@ -67,7 +68,8 @@ export const ownedCardsApiSlice = apiSlice.injectEndpoints({
             query: ({ id, CardData }) => ({
                 url: `/card/decreasecard/${id}`,
                 method: 'PATCH',
-                body: CardData
+                body: CardData,
+                credentials: 'include'
             }), 
             invalidatesTags: (arg: any) => [
                 { type: 'OwnedCards', id: arg.id }
