@@ -38,7 +38,7 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/vchen7629/atlaxiom-frontend:prod
           cache-from: type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend-cache:latest
-          cache-to: type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend-cache:latest,mode=max,
+          cache-to: type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend-cache:latest,mode=max
 
   build-and-push-backend-image:
     runs-on: ubuntu-latest
