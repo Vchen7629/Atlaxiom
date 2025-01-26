@@ -6,50 +6,11 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'frontend/package.json'
-      - 'frontend/package-lock.json'
 
 permissions:
   packages: write
 
-jobs:   
-  build-and-push-frontend-cache-image:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Log into registry https://ghcr.io
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d
-        with:
-          registry: https://ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Check if package.json or package-lock.json changed
-        id: changes
-        run: |
-          # Fetch the base branch to compare changes
-          git fetch origin ${{ github.base_ref }}:refs/remotes/origin/${{ github.base_ref }}
-          # Check if the specific files have been modified
-          if git diff --name-only origin/${{ github.base_ref }} | grep -E '^frontend/package.json$|^frontend/package-lock.json$'; then
-            echo "Changes detected in package.json or package-lock.json"
-            echo "changed=true" >> $GITHUB_ENV
-          else
-            echo "No changes detected in package.json or package-lock.json"
-            echo "changed=false" >> $GITHUB_ENV
-      
-      - name: Build Docker Image (Frontend)
-        if: env.changed == 'true'
-        uses: docker/build-push-action@v5
-        with:
-          context: ./frontend
-          file: ./frontend/Dockerfile.cache
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/vchen7629/atlaxiom-frontend:cache
-
+jobs:  
   build-and-push-frontend-image:
     runs-on: ubuntu-latest
     steps:
@@ -102,8 +63,8 @@ jobs:
           context: ./loginapi
           push: true
           tags: ghcr.io/vchen7629/atlaxiom-backend:prod
-          cache-from: type=gha, key=${{ runner.os }}-npm-cache-${{ hashFiles('loginapi/package-lock.json') }}
-          cache-to: type=gha,mode=max, key=${{ runner.os }}-npm-cache-${{ hashFiles('loginapi/package-lock.json') }}
+          cache-from: type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend:cache
+          cache-to: type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend:cache,mode=max
           build-args: BUILDKIT_PROGRESS=plain
 
   deploy:

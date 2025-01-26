@@ -1,0 +1,35 @@
+name: Caching Backend dependencies 
+
+on:
+  schedule:
+    - cron: '59 11 * * *'
+  push:
+    branches:
+      - main
+    paths:
+      - 'loginapi/package.json'
+      - 'loginapi/package-lock.json'
+
+jobs: 
+    build-and-push-frontend-cache-image:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Log into registry https://ghcr.io
+              if: github.event_name != 'pull_request'
+              uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d
+              with:
+                registry: https://ghcr.io
+                username: ${{ github.actor }}
+                password: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Build Docker Image (Frontend)
+              uses: docker/build-push-action@v5
+              with:
+                context: ./loginapi
+                file: ./loginapi/Dockerfile.cache
+                push: ${{ github.event_name != 'pull_request' }}
+                tags: ghcr.io/vchen7629/atlaxiom-backend:cache
+        
