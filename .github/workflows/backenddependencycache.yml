@@ -11,7 +11,7 @@ on:
       - 'loginapi/package-lock.json'
 
 jobs: 
-    build-and-push-frontend-cache-image:
+    build-and-push-backend-cache-image:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
