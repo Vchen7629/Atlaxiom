@@ -4,7 +4,7 @@ WORKDIR /loginapi
 
 COPY package*json ./
 
-RUN npm install ci --production
+RUN npm install ci --only=production
 
 COPY . .
 
