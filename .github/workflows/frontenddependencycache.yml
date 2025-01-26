@@ -31,5 +31,5 @@ jobs:
                 context: ./frontend
                 file: ./frontend/Dockerfile.cache
                 push: ${{ github.event_name != 'pull_request' }}
-                tags: ghcr.io/vchen7629/atlaxiom-frontend:cache
+                tags: ghcr.io/vchen7629/atlaxiom-frontend-cache:latest
         

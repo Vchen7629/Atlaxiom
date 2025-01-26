@@ -31,5 +31,5 @@ jobs:
                 context: ./loginapi
                 file: ./loginapi/Dockerfile.cache
                 push: ${{ github.event_name != 'pull_request' }}
-                tags: ghcr.io/vchen7629/atlaxiom-backend:cache
+                tags: ghcr.io/vchen7629/atlaxiom-backend-cache:latest
         
