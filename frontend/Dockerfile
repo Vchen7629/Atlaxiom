@@ -2,10 +2,9 @@ FROM node:22 as builder
 
 WORKDIR /app
 
-COPY package*.json ./
-
 ENV NPM_CONFIG_CACHE=/app/.npm
 
+COPY package*.json ./
 RUN npm ci
 
 COPY . .
