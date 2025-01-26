@@ -19,7 +19,6 @@ const cert = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/fullchain.p
 const httpsOptions = { key: privateKey, cert: cert };
 
 connectDB().catch(err => {
-    console.error("Database connection failed:", err);
     process.exit(1); // Exit the process if DB connection fails
 });
 
@@ -33,7 +32,6 @@ app.options('*', (req, res) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Range, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
-    console.log('Preflight response headers:', res.getHeaders());
     res.status(200).end(); 
 });
 

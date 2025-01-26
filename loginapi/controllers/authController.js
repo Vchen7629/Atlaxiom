@@ -49,7 +49,6 @@ const login = asyncHandler(async (req, res) => {
 
     // Ensure secrets are available
     if (!accessTokenSecret || !refreshTokenSecret) {
-        console.log('Access or Refresh token secrets are missing.')
         throw new Error('Access or Refresh token secrets are missing.');
     }
 
@@ -100,7 +99,6 @@ const refresh = (req, res) => {
     if (!cookies?.jwt) return res.status(401).json({ message: 'Unauthorized' })
 
     const refreshToken = cookies.jwt
-    console.log('Received refresh token:', refreshToken);
 
     const refreshTokenSecret = getSecret(process.env.REFRESH_TOKEN_SECRET_FILE, process.env.REFRESH_TOKEN_SECRET);
     const accessTokenSecret = getSecret(process.env.ACCESS_TOKEN_SECRET_FILE, process.env.ACCESS_TOKEN_SECRET);
