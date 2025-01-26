@@ -9,17 +9,17 @@ const cors = require('cors')
 const corsOptions = require('./config/corsOptions')
 const connectDB = require('./config/dbConn')
 const mongoose = require('mongoose')
-//const fs = require('fs')
-//const https = require('https');
+const fs = require('fs')
+const https = require('https');
 const checkHost = require('./middleware/checkhostname')
 
 const PORT = process.env.PORT || 3005;
 
 
-/*const privateKey = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/privkey.pem', "utf-8")
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/privkey.pem', "utf-8")
 const cert = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem', "utf-8")
 
-const httpsOptions = { key: privateKey, cert: cert };*/
+const httpsOptions = { key: privateKey, cert: cert };
 
 connectDB().catch(err => {
     process.exit(1); // Exit the process if DB connection fails
@@ -69,17 +69,17 @@ app.all('*', (req, res) => {
 
 app.use(errorhandler)
 
-/*mongoose.connection.once('open', () => {
+mongoose.connection.once('open', () => {
     https.createServer(httpsOptions, app).listen(8443, '0.0.0.0', () => {
         console.log(`HTTPS server running on https://api.atlaxiom.com`);
     });
-})*/
+})
 
-mongoose.connection.once('open', () => {
+/*mongoose.connection.once('open', () => {
     app.listen(PORT, () => {
         console.log(`HTTPS server running on http://localhost:${PORT}`);
     });
-})
+})*/
 
 mongoose.connection.on('error', err => {
     logEvents(`${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`, 
