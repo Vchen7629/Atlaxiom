@@ -68,7 +68,7 @@ jobs:
           push: true
           tags: ghcr.io/vchen7629/atlaxiom-backend:prod
           cache-from: type=gha, key=${{ runner.os }}-npm-cache-${{ hashFiles('loginapi/package-lock.json') }}
-          cache-to: type=registry,mode=max, key=${{ runner.os }}-npm-cache-${{ hashFiles('loginapi/package-lock.json') }}
+          cache-to: type=gha,mode=max, key=${{ runner.os }}-npm-cache-${{ hashFiles('loginapi/package-lock.json') }}
           build-args: BUILDKIT_PROGRESS=plain
 
   deploy:
