@@ -6,9 +6,9 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'loginapi/package.json'
-      - 'loginapi/package-lock.json'
+    #paths:
+     # - 'loginapi/package.json'
+    #  - 'loginapi/package-lock.json'
 
 jobs: 
     build-and-push-cache:
@@ -34,8 +34,8 @@ jobs:
                 context: ./loginapi
                 file: ./loginapi/Dockerfile.backendcache
                 push: ${{ github.event_name != 'pull_request' }}
-                tags: ghcr.io/vchen7629/atlaxiom-backend:prod
-                cache-from: type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend:prod
-                cache-to: type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend:prod,mode=max
+                tags: ghcr.io/vchen7629/backendend-npm-cache:latest
+                cache-from: type=registry,ref=ghcr.io/vchen7629/backendend-npm-cache:latest
+                cache-to: type=registry,ref=ghcr.io/vchen7629/backendend-npm-cache:latest,mode=max
 
         
