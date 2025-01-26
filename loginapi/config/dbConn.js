@@ -12,7 +12,7 @@ const connectDB = async() => {
             throw new Error('DATABASE_URI is not set.');
         } await mongoose.connect(databaseURI);
 
-        console.log('Database connected successfully');
+        console.log('Database connected successfully!');
     } catch (err) {
         console.log(err)
         process.exit(1)
