@@ -37,8 +37,8 @@ jobs:
           context: ./frontend
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/vchen7629/atlaxiom-frontend:prod
-          cache-from: type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend-cache:latest
-          cache-to: type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend-cache:latest,mode=max
+          cache-from: type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend:prod
+          cache-to: type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend:prod,mode=max
 
   build-and-push-backend-image:
     runs-on: ubuntu-latest
@@ -63,8 +63,8 @@ jobs:
           context: ./loginapi
           push: true
           tags: ghcr.io/vchen7629/atlaxiom-backend:prod
-          cache-from: type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend-cache:latest
-          cache-to: type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend-cache:latest,mode=max
+          cache-from: type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend:prod
+          cache-to: type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend:prod,mode=max
           build-args: BUILDKIT_PROGRESS=plain
 
   deploy:
