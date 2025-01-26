@@ -1,16 +1,23 @@
-FROM node:22
+FROM node:22 as builder
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm ci
 
 COPY . .
 
-RUN npm install -g serve
-
 RUN npm run build
+
+#prod image
+FROM node:22-alpine
+
+WORKDIR /app
+
+COPY --from=builder /app/dist ./dist
+
+RUN npm install -g serve
 
 EXPOSE 443
 
