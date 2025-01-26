@@ -37,8 +37,12 @@ jobs:
           context: ./frontend
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/vchen7629/atlaxiom-frontend:prod
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha, key=${{ runner.os }}-frontend-${{ hashFiles('frontend/package-lock.json') }}
+          cache-to: type=gha,mode=max, key=${{ runner.os }}-frontend-${{ hashFiles('frontend/package-lock.json') }}
+
+      - name: Show cache key
+        run: |
+          echo "The Cache Key is: ${{ env.CACHE_KEY }}"
 
   build-and-push-backend-image:
     runs-on: ubuntu-latest
@@ -63,8 +67,12 @@ jobs:
           context: ./loginapi
           push: true
           tags: ghcr.io/vchen7629/atlaxiom-backend:prod
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha, key=${{ runner.os }}-backend-${{ hashFiles('loginapi/package-lock.json') }}
+          cache-to: type=gha, mode=max, key=${{ runner.os }}-backend-${{ hashFiles('loginapi/package-lock.json') }}
+
+      - name: Show cache key
+        run: |
+          echo "The Cache Key is: ${{ env.CACHE_KEY }}"
 
   deploy:
     runs-on: ubuntu-latest
