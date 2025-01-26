@@ -53,6 +53,16 @@ jobs:
             - BUILDKIT_PROGRESS=plain
             - NPM_CONFIG_CACHE=/app/.npm
 
+      # Debugging step: Verify the current working directory
+      - name: Print working directory inside Docker container
+        run: |
+          echo "Working directory: $(pwd)"
+
+      # Debugging step: List contents of /app inside Docker container
+      - name: List contents of /app directory in Docker container
+        run: |
+          docker run --rm ghcr.io/vchen7629/atlaxiom-frontend:prod ls -la /app
+
       - name: Verify NPM_CONFIG_CACHE directory
         run: |
           if [ -d "/app/.npm" ]; then
