@@ -1,6 +1,5 @@
 import { GalleryResult, Result } from "./sidebarcomponenttypes";
 import { Card, OwnedCard } from "./datatypes";
-import AllCardsSearchBarComponent from "../searchbar/allcardssearchbarcomponent";
 
 export type AllCardsSearchbarCompProps = {
     AllCardsSearchBarCompProps: {

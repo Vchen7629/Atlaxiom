@@ -30,8 +30,8 @@ export type MainDeckProps = {
         userId: string;
         allCardsListResults: Card[];
         setAllCardsListResults: React.Dispatch<React.SetStateAction<Card[]>>;
-        collectionCardData: OwnedCard[];
-        setCollectionCardData: React.Dispatch<React.SetStateAction<OwnedCard[]>>
+        collectionCardData?: OwnedCard[];
+        setCollectionCardData?: React.Dispatch<React.SetStateAction<OwnedCard[]>>
     }
 }
 

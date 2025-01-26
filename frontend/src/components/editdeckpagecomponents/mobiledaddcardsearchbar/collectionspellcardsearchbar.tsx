@@ -26,14 +26,14 @@ const MobileCollectionMonsterCardSearchBarComponent = ({ CollectionSearchBarComp
     } = CollectionSearchBarCompProps
 
     const memoizedCards = useMemo(() => {
-        if (data) {
-            return Object.values(data.entities.defaultId.ownedCards || {})
+        if (cardData) {
+            return Object.values(cardData.entities.defaultId.ownedCards || {})
                 .flat()
                 .filter((card: any): card is OwnedCard => card !== undefined && card !== null && Object.keys(card).length > 0)
                 .filter(card => card.type && card.type.includes("Spell"))
         }
         return [];
-    }, [data]);
+    }, [cardData]);
 
     useEffect(() => {
         setCollectionMonsterCards(memoizedCards);

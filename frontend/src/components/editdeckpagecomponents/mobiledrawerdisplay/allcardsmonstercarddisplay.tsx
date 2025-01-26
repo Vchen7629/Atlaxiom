@@ -10,7 +10,7 @@ const MobileAllCardsMonsterCardDisplayComponent = ({ AllCardsDisplayCompProps }:
         galleryView,
         allCardsGalleryResults,
         allCardsCurrentGalleryResults,
-        setMonsterCards
+        //setMonsterCards
     } = AllCardsDisplayCompProps
 
     console.log(allCardsCurrentListResults)

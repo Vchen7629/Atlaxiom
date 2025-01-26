@@ -22,7 +22,6 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
     allCardsView, setAllCardsView,
     collectionCardsView, setCollectionCardsView,
     allCardsListResults, setAllCardsListResults,
-    collectionCardData, setCollectionCardData
   } = maindeckprops
 
   const [listView, setListView] = useState(true);
@@ -51,8 +50,8 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
   const [openDrawer, setOpenDrawer] = useState<string | null>(null);
   const [collectionMonsterCards, setCollectionMonsterCards] = useState<any>([])
   const [allMonsterCards, setAllMonsterCards] = useState<any>([])
-  const [collectionSpellCards, setCollectionSpellCards] = useState([])
-  const [collectionTrapCards, setCollectionTrapCards] = useState([])
+  //const [collectionSpellCards, setCollectionSpellCards] = useState([])
+  //const [collectionTrapCards, setCollectionTrapCards] = useState([])
 
   const filterProps = {
     listView, setListView,
