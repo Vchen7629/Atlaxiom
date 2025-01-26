@@ -11,7 +11,7 @@ on:
       - 'loginapi/package-lock.json'
 
 jobs: 
-    build-and-push-backend-cache-image:
+    build-and-push-cache:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
@@ -32,7 +32,7 @@ jobs:
               uses: docker/build-push-action@v5
               with:
                 context: ./loginapi
-                file: ./loginapi/Dockerfile.cache
+                file: ./loginapi/Dockerfile.backendcache
                 push: ${{ github.event_name != 'pull_request' }}
                 tags: ghcr.io/vchen7629/atlaxiom-backend-cache:latest
                 cache-from: type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend-cache:latest
