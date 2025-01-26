@@ -1,12 +1,10 @@
-FROM ghcr.io/vchen7629/backend-npm-cache:latest AS cache
-
 FROM node:22-alpine
 
 WORKDIR /loginapi
 
-COPY --from=cache /loginapi/node_modules /loginapi/
+COPY package*.json ./
 
-RUN if [ ! -d "node_modules" ]; then npm ci --only=production
+RUN --mount=type=cache,target=/app/node_modules npm ci --only=production
 
 COPY . .
 

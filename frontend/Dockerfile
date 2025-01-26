@@ -1,12 +1,10 @@
-FROM ghcr.io/vchen7629/frontend-npm-cache:latest AS cache
-
 FROM node:22-alpine
 
 WORKDIR /app
 
-COPY --from=cache /app/node_modules /app/
+COPY package*.json ./
 
-RUN if [ ! -d "node_modules" ]; then npm ci; fi
+RUN --mount=type=cache,target=/app/node_modules npm ci
 
 COPY . .
 
