@@ -44,6 +44,10 @@ jobs:
         run: |
           echo "Cache Key: ${{ runner.os }}-frontend-${{ hashFiles('frontend/package-lock.json') }}"
 
+      - name: Check if Docker cache is used
+        run: |
+           docker buildx build --cache-from=type=gha, key=${{ runner.os }}-frontend-${{ hashFiles('frontend/package-lock.json', 'frontend/Dockerfile') }} --no-cache --file frontend/Dockerfile .
+
   build-and-push-backend-image:
     runs-on: ubuntu-latest
     steps: 
