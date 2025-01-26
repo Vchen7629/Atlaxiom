@@ -71,7 +71,7 @@ app.use(errorhandler)
 
 mongoose.connection.once('open', () => {
     https.createServer(httpsOptions, app).listen(8443, '0.0.0.0', () => {
-        console.log(`HTTPS server running on https://api.atlaxiom.com`);
+        console.log(`HTTPS server is running on https://api.atlaxiom.com`);
     });
 })
 
