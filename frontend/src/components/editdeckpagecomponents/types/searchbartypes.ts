@@ -27,6 +27,34 @@ export type AllCardsSearchbarCompProps = {
     }
 }
 
+export type MobileAllCardsSearchbarCompProps = {
+    AllCardsSearchBarCompProps: {
+        allCardsCurrentPage: number;
+        allCardsTotalListPages: number;
+        allCardsTotalGalleryPages: number;
+        resultsPerListPage: number;
+        resultsPerGalleryPage: number;
+        allMonsterCards: Card[];
+        setAllMonsterCards: React.Dispatch<React.SetStateAction<Card[]>>;
+        allCardsName: string;
+        setAllCardsName: React.Dispatch<React.SetStateAction<string>>;
+        allCardsListResults: Card[];
+        setAllCardsListResults: React.Dispatch<React.SetStateAction<Card[]>>;
+        allCardsGalleryResults: Card[];
+        setAllCardsGalleryResults: React.Dispatch<React.SetStateAction<Card[]>>;
+        setError: React.Dispatch<React.SetStateAction<string | null>>;
+        setAllCardsCurrentListResults: React.Dispatch<React.SetStateAction<Card[]>>;
+        setAllCardsCurrentGalleryResults: React.Dispatch<React.SetStateAction<Card[]>>;
+        maxResults: number;
+        listView: boolean;
+        galleryView: boolean;
+        allCardsView: boolean;
+        setAllCardsCurrentPage: React.Dispatch<React.SetStateAction<number>>
+    }
+}
+
+
+
 export type CollectionSearchbarCompProps = {
     CollectionSearchBarCompProps: {
         userId: string;
@@ -37,6 +65,32 @@ export type CollectionSearchbarCompProps = {
         resultsPerGalleryPage: number;
         collectionCardData: OwnedCard[];
         setCollectionCardData: React.Dispatch<React.SetStateAction<OwnedCard[]>>;
+        collectionCardsName: string;
+        setCollectionCardsName: React.Dispatch<React.SetStateAction<string>>;
+        collectionListResults: Result[];
+        setCollectionListResults: React.Dispatch<React.SetStateAction<Result[]>>;
+        collectionGalleryResults: GalleryResult[];
+        setCollectionGalleryResults: React.Dispatch<React.SetStateAction<GalleryResult[]>>;
+        setCollectionCurrentListResults: React.Dispatch<React.SetStateAction<Result[]>>;
+        setCollectionCurrentGalleryResults: React.Dispatch<React.SetStateAction<GalleryResult[]>>;
+        maxResults: number;
+        listView: boolean;
+        galleryView: boolean;
+        collectionCardsView: boolean;
+        setCollectionCardsCurrentPage: React.Dispatch<React.SetStateAction<number>>
+    }
+}
+
+export type MobileCollectionSearchbarCompProps = {
+    CollectionSearchBarCompProps: {
+        cardData: any;
+        collectionCurrentPage: number;
+        collectionTotalListPage: number;
+        collectionTotalGalleryPage: number;
+        resultsPerListPage: number;
+        resultsPerGalleryPage: number;
+        collectionMonsterCards: any;
+        setCollectionMonsterCards: React.Dispatch<React.SetStateAction<any>>
         collectionCardsName: string;
         setCollectionCardsName: React.Dispatch<React.SetStateAction<string>>;
         collectionListResults: Result[];

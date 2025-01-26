@@ -33,6 +33,7 @@ app.options('*', (req, res) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Range, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
+    console.log('Preflight response headers:', res.getHeaders());
     res.status(200).end(); 
 });
 

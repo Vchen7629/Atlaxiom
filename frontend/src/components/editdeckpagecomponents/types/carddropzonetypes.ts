@@ -1,4 +1,4 @@
-import { Card } from "./datatypes";
+import { Card, OwnedCard } from "./datatypes";
 
 export type ExtraDeckProps = {
     extradeckprops: {
@@ -23,6 +23,15 @@ export type MainDeckProps = {
         hoveredCard: any | null;
         setModifyMainDeckCardAmountPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>;
         setCardsToDeleteMainDeckPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>;
+        allCardsView: boolean
+        setAllCardsView: React.Dispatch<React.SetStateAction<boolean>>
+        collectionCardsView: boolean
+        setCollectionCardsView: React.Dispatch<React.SetStateAction<boolean>>
+        userId: string;
+        allCardsListResults: Card[];
+        setAllCardsListResults: React.Dispatch<React.SetStateAction<Card[]>>;
+        collectionCardData?: OwnedCard[];
+        setCollectionCardData?: React.Dispatch<React.SetStateAction<OwnedCard[]>>
     }
 }
 
