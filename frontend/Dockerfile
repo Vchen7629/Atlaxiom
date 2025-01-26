@@ -1,4 +1,4 @@
-FROM node:22 AS builder
+FROM node:22-alpine
 
 WORKDIR /app
 
@@ -9,13 +9,6 @@ RUN npm ci
 COPY . .
 
 RUN npm run build
-
-#prod image
-FROM node:22-alpine
-
-WORKDIR /app
-
-COPY --from=builder /app/dist ./dist
 
 EXPOSE 443
 

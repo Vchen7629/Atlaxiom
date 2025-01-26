@@ -6,9 +6,9 @@ on:
   push:
     branches:
       - main
-    #paths:
-      #- 'loginapi/package.json'
-      #- 'loginapi/package-lock.json'
+    paths:
+      - 'loginapi/package.json'
+      - 'loginapi/package-lock.json'
 
 jobs: 
     build-and-push-cache:
@@ -28,7 +28,7 @@ jobs:
                 username: ${{ github.actor }}
                 password: ${{ secrets.GITHUB_TOKEN }}
 
-            - name: Build Docker Image (Frontend)
+            - name: Build Docker Image (Backend)
               uses: docker/build-push-action@v5
               with:
                 context: ./loginapi
