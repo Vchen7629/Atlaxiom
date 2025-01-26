@@ -21,8 +21,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-            ~/.npm
             frontend/node_modules
+            ~/.npm
           key: ${{ runner.os }}-npm-${{ hashFiles('frontend/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-
@@ -61,8 +61,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-            ~/.npm
             loginapi/node_modules
+            ~/.npm
           key: ${{ runner.os }}-npm-${{ hashFiles('loginapi/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-
