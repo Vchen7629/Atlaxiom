@@ -1,20 +1,28 @@
 import { useDroppable } from "@dnd-kit/core"
-import { useState } from "react";
+import {  useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { handleDecreaseCardOwnedAmount, handleDeleteCardClick, handleIncreaseCardOwnedAmount } from "../../editdeckpagecomponents/buttons/EditDeckCardButtons";
 import { MainDeckProps } from "../types/carddropzonetypes";
 import SubGridListViewComponent from "../../editdeckpagecomponents/draganddropitems/subgridlistviewcomp";
+import AddMonsterCardDrawer from "../mobileaddcarddrawers/addmonstercarddrawer";
+import AddSpellCardDrawer from "../mobileaddcarddrawers/addspellcarddrawer";
+import AddTrapCardDrawer from "../mobileaddcarddrawers/addtrapcarddrawer";
 
 const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
   const {
+    userId,
     deck,
     setModifyMainDeckCardAmountPlaceHolder,
     setCardsToDeleteMainDeckPlaceHolder,
     monsterCards, setMonsterCards,
     spellCards, setSpellCards,
     trapCards, setTrapCards,
-    hoveredCard
+    hoveredCard,
+    allCardsView, setAllCardsView,
+    collectionCardsView, setCollectionCardsView,
+    allCardsListResults, setAllCardsListResults,
+    collectionCardData, setCollectionCardData
   } = maindeckprops
 
   const [listView, setListView] = useState(true);
@@ -40,16 +48,33 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
 
   const shouldTrapBlur = isTrapOver && hoveredCard && hoveredCard?.type?.includes("Trap");
 
+  const [openDrawer, setOpenDrawer] = useState<string | null>(null);
+  const [collectionMonsterCards, setCollectionMonsterCards] = useState<any>([])
+  const [allMonsterCards, setAllMonsterCards] = useState<any>([])
+  const [collectionSpellCards, setCollectionSpellCards] = useState([])
+  const [collectionTrapCards, setCollectionTrapCards] = useState([])
+
   const filterProps = {
     listView, setListView,
     galleryView, setGalleryView
   }
 
+  const monstercarddrawerprops = {
+    userId,
+    openDrawer, setOpenDrawer,
+    allCardsView, setAllCardsView,
+    allCardsListResults, setAllCardsListResults,
+    collectionCardsView, setCollectionCardsView,
+    collectionMonsterCards, setCollectionMonsterCards,
+    allMonsterCards, setAllMonsterCards,
+    setMonsterCards
+  }
+
   return (
     <section className="flex flex-grow flex-col justify-between min-h-[35vh] w-full px-4">
         <header className="flex w-full py-[2vh] pl-[3vw] justify-between text-[hsl(var(--text))]">
-            <span className="flex font-black items-center">Main Deck</span>
-            <div className="flex h-fit items-center space-x-4">
+            <span className="hidden md:flex w-[10vw] font-black items-center">Main Deck</span>
+            <div className="flex h-fit items-center w-full justify-between space-x-4">
                 <div className="font-bold">Total Main Deck Cards: {deck?.total_cards_main_deck}</div>
                 <div className='flex w-20 bg-footer rounded-xl'>
                     <SubGridListViewComponent filterProps={filterProps}/>
@@ -57,18 +82,21 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
             </div>
         </header>
         {listView && (
-          <div className="flex bg-[hsl(var(--editdeckdraganddropbackground))] w-full min-h-[90%] rounded-lg">
+          <div className="flex flex-col md:flex-row bg-transparent space-y-[3vh] md:space-y-0 md:bg-[hsl(var(--editdeckdraganddropbackground))] w-full min-h-[90%] rounded-lg">
             <section 
               ref={MonsterCardRef} 
-              className={`flex flex-col w-1/3 relative ${shouldMonsterBlur ? "border-2 border-goldenrod rounded-lg" : ""}`}
+              className={`flex flex-col w-full h-[30vh] md:h-full rounded-lg md:w-1/3 relative bg-[hsl(var(--editdeckdraganddropbackground))] ${shouldMonsterBlur ? "border-2 border-goldenrod rounded-lg" : ""}`}
             >
               {shouldMonsterBlur && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-transparent">
+                  <div className="absolute text-center inset-0 flex items-center justify-center bg-transparent">
                     <span className="text-[hsl(var(--text))] font-bold text-lg z-10">Drop To Add Monster Card To Main Deck</span>
                   </div>
               )}
               <div className={`relative flex flex-col w-full h-full transition-all duration-300 ${ shouldMonsterBlur ? "blur-sm" : "" }`}>
-                <span className="text-lg pl-[2vw] py-[2vh] font-black text-[hsl(var(--text))]"> monster: </span>
+                <div className="flex w-full items-center justify-between px-[2vw] py-[2vh]">
+                  <span className="text-lg font-black text-[hsl(var(--text))]"> monster: </span>
+                  <a className="flex md:hidden"><AddMonsterCardDrawer monstercarddrawerprops={monstercarddrawerprops}/></a>
+                </div>
                 {monsterCards.length > 0 && (
                   <div className="w-full h-full pl-[1vw] flex flex-col space-y-2">
                     {monsterCards.map((card: any) => (
@@ -113,15 +141,18 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
             </section>
             <section 
               ref={SpellCardRef} 
-              className={`flex flex-col w-1/3 relative ${shouldSpellBlur ? "border-2 border-goldenrod rounded-lg" : ""}`}
+              className={`flex flex-col w-full rounded-lg  md:w-1/3 h-[30vh] md:h-full relative bg-[hsl(var(--editdeckdraganddropbackground))] ${shouldSpellBlur ? "border-2 border-goldenrod rounded-lg" : ""}`}
             >
               {shouldSpellBlur && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-transparent">
+                  <div className="absolute text-center inset-0 flex items-center justify-center bg-transparent">
                     <span className="text-[hsl(var(--text))] font-bold text-lg z-10">Drop To Add Spell Card To Main Deck</span>
                   </div>
               )}
               <div className={`relative flex flex-col w-full h-full transition-all duration-300 ${ shouldSpellBlur ? "blur-sm" : "" }`}>
-                <span className="text-lg pl-[2vw] py-[2vh] font-black text-[hsl(var(--text))]">Spell: </span>
+                <div className="flex w-full items-center justify-between px-[2vw] py-[2vh]">
+                  <span className="text-lg font-black text-[hsl(var(--text))]">Spell: </span>
+                  <a className="flex md:hidden"><AddSpellCardDrawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}/></a>
+                </div>
                 {spellCards.length > 0 && (
                   <div className="w-full h-full pl-[1vw] flex flex-col space-y-2">
                     {spellCards.map((card: any) => (
@@ -164,7 +195,7 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
             </section>
             <section 
               ref={TrapCardRef} 
-              className={`flex flex-col w-1/3 relative ${shouldTrapBlur ? "border-2 border-goldenrod rounded-lg" : "" }`}
+              className={`flex flex-col w-full rounded-lg  md:w-1/3 h-[30vh] md:h-full relative  bg-[hsl(var(--editdeckdraganddropbackground))]${shouldTrapBlur ? "border-2 border-goldenrod rounded-lg" : "" }`}
             >
               {shouldTrapBlur && (
                   <div className="absolute inset-0 flex items-center justify-center bg-transparent">
@@ -172,7 +203,10 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
                   </div>
               )}
               <div className={`relative flex flex-col w-full h-full transition-all duration-300 ${ shouldTrapBlur ? "blur-sm" : "" }`}>
-                <span className="text-lg pl-[2vw] py-[2vh] font-black text-[hsl(var(--text))]">Trap:</span>
+                <div className="flex w-full items-center justify-between px-[2vw] py-[2vh]">
+                  <span className="text-lg font-black text-[hsl(var(--text))]">Trap:</span>
+                  <a className="flex md:hidden"><AddTrapCardDrawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}/></a>
+                </div>
                 {trapCards.length > 0 && (
                   <div className="w-full h-full pl-[1vw] flex flex-col space-y-2">
                     {trapCards.map((card: any) => (
@@ -217,13 +251,13 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
         )}
 
         {galleryView && (
-          <div className="flex bg-[hsl(var(--editdeckdraganddropbackground))] w-full min-h-[90%] rounded-lg">
+          <div className="flex flex-col md:flex-row bg-transparent space-y-[3vh] md:space-y-0 md:bg-[hsl(var(--editdeckdraganddropbackground))] w-full min-h-[90%] rounded-lg">
             <section 
               ref={MonsterCardRef} 
-              className={`flex flex-col w-1/3 relative ${shouldMonsterBlur ? "border-2 border-goldenrod rounded-tl-lg rounded-bl-lg" : ""}`}
+              className={`flex flex-col w-full h-[30vh] md:h-full rounded-lg md:w-1/3 relative bg-[hsl(var(--editdeckdraganddropbackground))] ${shouldMonsterBlur ? "border-2 border-goldenrod rounded-tl-lg rounded-bl-lg" : ""}`}
             >
               {shouldMonsterBlur && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-transparent">
+                  <div className="absolute inset-0 flex text-center items-center justify-center bg-transparent">
                     <span className="text-[hsl(var(--text))] font-bold text-lg z-10">Drop To Add Monster Card To Main Deck</span>
                   </div>
               )}
@@ -280,10 +314,10 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
 
             <section 
               ref={SpellCardRef} 
-              className={`flex flex-col w-1/3 relative ${shouldSpellBlur ? "border-2 border-goldenrod" : ""}`}
+              className={`flex flex-col w-full h-[30vh] md:h-full rounded-lg md:w-1/3 relative bg-[hsl(var(--editdeckdraganddropbackground))] ${shouldSpellBlur ? "border-2 border-goldenrod" : ""}`}
             >
               {shouldSpellBlur && (
-                <div className="absolute inset-0 flex items-center justify-center bg-transparent">
+                <div className="absolute text-center inset-0 flex items-center justify-center bg-transparent">
                   <span className="text-[hsl(var(--text))] font-bold text-lg z-10">Drop To Add Spell Card To Main Deck</span>
                 </div>
               )}
@@ -339,10 +373,10 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
 
             <section 
               ref={TrapCardRef} 
-              className={`flex flex-col w-1/3 relative ${shouldTrapBlur ? "border-2 border-goldenrod rounded-tr-lg rounded-br-lg" : "" }`}
+              className={`flex flex-col w-full h-[30vh] md:h-full rounded-lg md:w-1/3 relative bg-[hsl(var(--editdeckdraganddropbackground))] ${shouldTrapBlur ? "border-2 border-goldenrod rounded-tr-lg rounded-br-lg" : "" }`}
             >
               {shouldTrapBlur && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-transparent">
+                  <div className="absolute  text-center inset-0 flex items-center justify-center bg-transparent">
                     <span className="text-[hsl(var(--text))] font-bold text-lg z-10">Drop To Add Trap Card To Main Deck</span>
                   </div>
               )}

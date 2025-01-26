@@ -35,6 +35,6 @@ export type OwnedCard = {
     card_name: string;
     image_url: string;
     desc: string;
-    
+    type?: string
 }
 

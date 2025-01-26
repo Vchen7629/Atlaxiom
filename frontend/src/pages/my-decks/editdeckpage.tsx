@@ -170,13 +170,18 @@ const DeckBuilderPage = () => {
     }
 
     const maindeckprops = {
+        userId,
         deck,
         setModifyMainDeckCardAmountPlaceHolder,
         setCardsToDeleteMainDeckPlaceHolder,
         monsterCards, setMonsterCards,
         spellCards, setSpellCards,
         trapCards, setTrapCards,
-        hoveredCard
+        hoveredCard,
+        allCardsView, setAllCardsView,
+        collectionCardsView, setCollectionCardsView,
+        allCardsListResults, setAllCardsListResults,
+        collectionCardData, setCollectionCardData
     }
 
     const extradeckprops = {
@@ -219,16 +224,17 @@ const DeckBuilderPage = () => {
                         <section className="flex flex-col w-full md:w-[80vw] pt-[76px]">
                             <header className="flex justify-between items-center p-5 w-full h-[17vh] bg-gradient-to-t from-[hsl(var(--homepagegradient1))] to-[hsl(var(--homepagegradient3))]">
                                 <section className="flex flex-col h-full justify-between">
-                                    <div className='text-lg md:text-3xl font-black text-[hsl(var(--text))]'>{deck?.deck_name}</div>
+                                    <div className='text-2xl md:text-3xl font-black text-[hsl(var(--text))]'>{deck?.deck_name}</div>
                                     <div>Created On: {deck?.createdOn}</div>
+                                    <span>Last Updated: {deck?.lastUpdated}</span>
                                 </section>
                                 <SaveDeckCardsButton savebuttonprops={savebuttonprops}/>
                             </header>
                             <main className="flex flex-col flex-grow min-h-[87vh] bg-transparent">
-                                    <section className="flex mb-[10vh]">
+                                    <section className="flex mb-[3vh] md:mb-[10vh]">
                                         <MainDeckCardZone maindeckprops={maindeckprops}/>
                                     </section>
-                                    <section className="flex flex-col md:flex-row w-full mb-[10vh]">
+                                    <section className="flex flex-col md:flex-row w-full mb-[3vh] md:mb-[10vh]">
                                         <div className="flex w-full md:w-1/2">
                                             <ExtraDeckCardZone extradeckprops={extradeckprops}/>
                                         </div>

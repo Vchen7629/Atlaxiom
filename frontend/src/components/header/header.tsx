@@ -67,7 +67,7 @@ const Header = () => {
                     Atlaxiom
                 </button>
             </div>
-            <div className='flex w-fit justify-between items-center space-x-[1xvw]'>
+            <div className='flex w-fit justify-between items-center space-x-[1vw]'>
                 <div className="absolute left-2 md:relative"><ModeToggle/></div>
                 <div className='w-fit flex'>{renderAuthButtons()}</div>
             </div>

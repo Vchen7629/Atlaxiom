@@ -87,7 +87,8 @@ export const deckApiSlice = apiSlice.injectEndpoints({
                 body: {
                     deckId,
                     main_deck_cards
-                }
+                },
+                credentials: 'include',
             }),
             invalidatesTags: (arg: any) => [
                 { type: 'Deck', id: arg.id }

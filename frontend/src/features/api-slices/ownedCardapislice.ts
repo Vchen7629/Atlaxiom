@@ -48,7 +48,8 @@ export const ownedCardsApiSlice = apiSlice.injectEndpoints({
                         ...result.ids.map((id: any) => ({ type: 'OwnedCard', id }))
                     ]
                 } else return [{ type: 'OwnedCards', id: 'LIST' }]
-            }
+            },
+            
         }),
 
         IncreaseOwnedCard: builder.mutation<string, { id: string; CardData: { card_name: string, increaseOwnedAmount: number } }>({

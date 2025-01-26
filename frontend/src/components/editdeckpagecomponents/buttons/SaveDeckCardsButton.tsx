@@ -1,5 +1,7 @@
 import { useAddCardsMainDeckMutation, useAddNewCardtoExtraDeckMutation, useAddNewCardtoSideDeckMutation, useDeleteCardfromExtraDeckMutation, useDeleteCardfromMainDeckMutation, useDeleteCardfromSideDeckMutation, useModifyCardAmountinExtraDeckMutation, useModifyCardAmountinMainDeckMutation, useModifyCardAmountinSideDeckMutation } from "@/features/api-slices/decksapislice"
 import { SaveDeckButton } from "../types/buttontypes";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSave } from "@fortawesome/free-solid-svg-icons";
 
 const SaveDeckCardsButton = ({ savebuttonprops }: SaveDeckButton) => {
     const {
@@ -162,11 +164,13 @@ const SaveDeckCardsButton = ({ savebuttonprops }: SaveDeckButton) => {
     return (
         <section>
             <button 
-                className="flex text-sm flex-col px-8 py-2 items-center rounded-2xl bg-blue-400"
+                className="flex text-sm lg:text-md flex-col px-6 py-3 lg:py-4 items-center rounded-xl bg-blue-400"
                 onClick={handleSaveClick}
             >
-                <div>Save</div>
-                <div>{deck?.lastUpdated}</div>
+                <span>
+                    <FontAwesomeIcon icon={faSave} className="fa-xl mr-4"/>
+                    Save
+                </span>
             </button>
         </section>
     )
