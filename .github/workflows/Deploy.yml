@@ -76,10 +76,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Check current working directory
-        run: |
-          pwd
-          ls -l     
       - name: 'Pulling latest container'
         uses: appleboy/ssh-action@v1.2.0
         with: 
