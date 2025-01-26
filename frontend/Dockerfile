@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY package*.json ./
 
+ENV NPM_CONFIG_CACHE=/app/.npm
+
 RUN npm ci
 
 COPY . .
