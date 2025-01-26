@@ -14,6 +14,8 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
         setErr("")
     };
 
+    console.log(currentPage)
+
     return (
         <div className="flex w-fit text-center space-x-2">
                 <>
