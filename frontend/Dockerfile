@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN --mount=type=cache,target=/app/node_modules npm ci
+RUN --mount=type=cache,target=/frontend/node_modules npm ci
 
 COPY . .
 

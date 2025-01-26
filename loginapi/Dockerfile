@@ -4,7 +4,7 @@ WORKDIR /loginapi
 
 COPY package*.json ./
 
-RUN --mount=type=cache,target=/app/node_modules npm ci --only=production
+RUN --mount=type=cache,target=/loginapi/node_modules npm ci --only=production
 
 COPY . .
 
