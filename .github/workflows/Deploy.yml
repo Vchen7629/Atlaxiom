@@ -33,19 +33,22 @@ jobs:
 
       - name: Show cache key for frontend
         run: |
-          echo "Cache Key: ${{ runner.os }}-frontend-${{ hashFiles('frontend/package-lock.json') }}"
+          echo "Cache Key: frontend-${{ hashFiles('frontend/package-lock.json') }}"
+
+      - name: Verify Cache Layers
+        run: docker buildx imagetools inspect ghcr.io/vchen7629/atlaxiom-frontend:prod
 
       # Build and push Docker image with Buildx (don't push on PR)ssss
       # https://github.com/docker/build-push-action
       - name: Build and push Docker image
         id: build-and-push
-        uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
+        uses: docker/build-push-action@v5
         with:
           context: ./frontend
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/vchen7629/atlaxiom-frontend:prod
-          cache-from: type=gha, key=${{ runner.os }}-npm-cache-${{ hashFiles('frontend/package-lock.json') }}
-          cache-to: type=gha,mode=max, key=${{ runner.os }}-npm-cache-${{ hashFiles('frontend/package-lock.json') }}
+          cache-from: type=gha, key=npm-cache-${{ hashFiles('frontend/package-lock.json') }}
+          cache-to: type=gha,mode=max, key=npm-cache-${{ hashFiles('frontend/package-lock.json') }}
           build-args: BUILDKIT_PROGRESS=plain
 
   build-and-push-backend-image:
