@@ -6,11 +6,50 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'frontend/package.json'
+      - 'frontend/package-lock.json'
 
 permissions:
   packages: write
 
 jobs:   
+  build-and-push-frontend-cache-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log into registry https://ghcr.io
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d
+        with:
+          registry: https://ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Check if package.json or package-lock.json changed
+        id: changes
+        run: |
+          # Fetch the base branch to compare changes
+          git fetch origin ${{ github.base_ref }}:refs/remotes/origin/${{ github.base_ref }}
+          # Check if the specific files have been modified
+          if git diff --name-only origin/${{ github.base_ref }} | grep -E '^frontend/package.json$|^frontend/package-lock.json$'; then
+            echo "Changes detected in package.json or package-lock.json"
+            echo "changed=true" >> $GITHUB_ENV
+          else
+            echo "No changes detected in package.json or package-lock.json"
+            echo "changed=false" >> $GITHUB_ENV
+      
+      - name: Build Docker Image (Frontend)
+        if: env.changed == 'true'
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          file: ./frontend/Dockerfile.cache
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ghcr.io/vchen7629/atlaxiom-frontend:cache
+
   build-and-push-frontend-image:
     runs-on: ubuntu-latest
     steps:
@@ -28,16 +67,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Verify package-lock.json
-        run: md5sum frontend/package-lock.json
-
-      - name: Show cache key for frontend
-        run: |
-          echo "Cache Key: frontend-${{ hashFiles('frontend/package-lock.json') }}"
-
-      - name: Verify Cache Layers
-        run: docker buildx imagetools inspect ghcr.io/vchen7629/atlaxiom-frontend:prod
-
       # Build and push Docker image with Buildx (don't push on PR)ssss
       # https://github.com/docker/build-push-action
       - name: Build and push Docker image
@@ -47,29 +76,8 @@ jobs:
           context: ./frontend
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/vchen7629/atlaxiom-frontend:prod
-          cache-from: type=gha, key=npm-cache-${{ hashFiles('frontend/package-lock.json') }}
-          cache-to: type=gha,mode=max, key=npm-cache-${{ hashFiles('frontend/package-lock.json') }}
-          build-args: |
-            - BUILDKIT_PROGRESS=plain
-            - NPM_CONFIG_CACHE=/app/.npm
-
-      # Debugging step: Verify the current working directory
-      - name: Print working directory inside Docker container
-        run: |
-          echo "Working directory: $(pwd)"
-
-      # Debugging step: List contents of /app inside Docker container
-      - name: List contents of /app directory in Docker container
-        run: |
-          docker run --rm ghcr.io/vchen7629/atlaxiom-frontend:prod ls -la /app
-
-      - name: Verify NPM_CONFIG_CACHE directory
-        run: |
-          if [ -d "/app/.npm" ]; then
-            echo "NPM_CONFIG_CACHE directory exists!"
-          else
-            echo "NPM_CONFIG_CACHE directory does not exist!"
-          fi
+          cache-from: type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend:cache
+          cache-to: type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend:cache,mode=max,
 
   build-and-push-backend-image:
     runs-on: ubuntu-latest

@@ -2,8 +2,6 @@ FROM node:22 AS builder
 
 WORKDIR /app
 
-RUN mkdir -p /app/.npm
-
 COPY package*.json ./
 
 RUN npm ci
