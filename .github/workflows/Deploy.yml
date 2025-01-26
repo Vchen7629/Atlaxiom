@@ -45,6 +45,7 @@ jobs:
       - name: Check if cache was used
         run: |
           echo "Cache hit: ${{ steps.build-and-push.outputs.cache-hit }}"
+          echo "Full output: ${{ toJson(steps.build-and-push.outputs) }}"
 
   build-and-push-backend-image:
     runs-on: ubuntu-latest
