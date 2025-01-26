@@ -49,7 +49,17 @@ jobs:
           tags: ghcr.io/vchen7629/atlaxiom-frontend:prod
           cache-from: type=gha, key=npm-cache-${{ hashFiles('frontend/package-lock.json') }}
           cache-to: type=gha,mode=max, key=npm-cache-${{ hashFiles('frontend/package-lock.json') }}
-          build-args: BUILDKIT_PROGRESS=plain
+          build-args: |
+            - BUILDKIT_PROGRESS=plain
+            - NPM_CONFIG_CACHE=/app/.npm
+
+      - name: Verify NPM_CONFIG_CACHE directory
+        run: |
+          if [ -d "/app/.npm" ]; then
+            echo "NPM_CONFIG_CACHE directory exists!"
+          else
+            echo "NPM_CONFIG_CACHE directory does not exist!"
+          fi
 
   build-and-push-backend-image:
     runs-on: ubuntu-latest
