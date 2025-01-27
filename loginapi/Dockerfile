@@ -1,7 +1,7 @@
 # Cache npm dependencies
 FROM node:22 AS cache
 
-WORKDIR /app
+WORKDIR /loginapi
 
 COPY package*.json ./
 
