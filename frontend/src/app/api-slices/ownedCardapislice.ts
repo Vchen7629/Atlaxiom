@@ -1,5 +1,5 @@
 import { createEntityAdapter, EntityState } from "@reduxjs/toolkit";
-import { apiSlice } from "../../app/api/apiSlice"
+import { apiSlice } from "../api/apiSlice"
 
 const ownedCardsAdapter = createEntityAdapter<any>({
     selectId: (entityArray: any) => {

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { setCredentials } from '../../features/auth/authSlice.ts'
+import { setCredentials } from '../auth/authSlice.ts'
 
 const baseQuery = fetchBaseQuery({
     baseUrl: 'https://api.atlaxiom.com:8443',

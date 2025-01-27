@@ -51,7 +51,7 @@ const AtkFilterComponent = ({ atkfilterprops }: atkprops) => {
 
     return (
         <div className="flex w-[93%] my-2">   
-            <div className="flex items-center justify-end space-x-4">
+            <div className="flex items-center justify-evenly space-x-4">
                 <div className="flex w-[30%] text-[hsl(var(--text))]">
                     <button 
                         className={`${atkGreaterThanEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))]"} h-6 px-2 rounded-tl-lg rounded-bl-lg`} 

@@ -1,4 +1,4 @@
-import { useMakeDeckFavoriteMutation } from "@/features/api-slices/decksapislice";
+import { useMakeDeckFavoriteMutation } from "@/app/api-slices/decksapislice";
 import { Deck, handleDeckClick } from "../deckmanagerpagecomponents/types/homepagecomponentprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";

@@ -1,4 +1,4 @@
-import { useCreateDuplicateDeckMutation } from "@/features/api-slices/decksapislice";
+import { useCreateDuplicateDeckMutation } from "@/app/api-slices/decksapislice";
 import { handleDeckClick } from "../deckmanagerpagecomponents/types/homepagecomponentprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";

@@ -15,7 +15,7 @@ import GridListViewComponent from "../buttons/gridlistviewcomponent";
 import { Card } from "../types/datatypes";
 import { GalleryResult, Result } from "../types/sidebarcomponenttypes";
 import MobileCollectionMonsterCardSearchBarComponent from "../mobiledaddcardsearchbar/collectionmonstercardsearchbar";
-import { useGetOwnedCardsQuery } from "@/features/api-slices/ownedCardapislice";
+import { useGetOwnedCardsQuery } from "@/app/api-slices/ownedCardapislice";
 import MobileCollectionMonsterCardDisplayComponent from "../mobiledrawerdisplay/collectionmonstercarddisplay";
 import AllCardsMobileSearchBarComponent from "../mobiledaddcardsearchbar/allcardsmonstercardsearchbar";
 import MobileAllCardsMonsterCardDisplayComponent from "../mobiledrawerdisplay/allcardsmonstercarddisplay";

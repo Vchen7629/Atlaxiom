@@ -10,9 +10,9 @@ import {
 } from "@/components/ui/alert-dialog"
 import { useState } from "react";
 import { useLocation } from 'react-router-dom';
-import { useGetOwnedCardsQuery } from '../../../features/api-slices/ownedCardapislice.ts';
+import { useGetOwnedCardsQuery } from '../../../app/api-slices/ownedCardapislice.ts';
 import { Card, filteredListCards, SelectedCard } from "../types/ownedcarddetailstypes.ts";
-import { useGetSpecificUserQuery } from "@/features/api-slices/usersApiSlice.ts";
+import { useGetSpecificUserQuery } from "@/app/api-slices/usersApiSlice.ts";
 import { Toaster } from "sonner";
 import IncreaseOwnedCardButtonComponent from "../buttons/increasedownedcardbutton.tsx";
 import DecreaseOwnedCardButtonComponent from "../buttons/decreaseownedcardbutton.tsx";
@@ -29,24 +29,23 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
 
     const { refetch } = useGetOwnedCardsQuery(userId);
     const { data: ownedCardCount } = useGetSpecificUserQuery(userId);
+
+    console.log(currentListPageResults)
       
     return (
         <AlertDialog >
             <AlertDialogTrigger asChild>
               
-                <div className="text-[hsl(var(--text))]">
+                <div className="text-[hsl(var(--text))] ">
                     {currentListPageResults.length > 0 ? (
                         currentListPageResults.map((card: Card, index: number) => (
-                            <div key={index} className="grid grid-cols-[30%_35%_35%] lg:grid-cols-[5%_3%_25%_10%_25%_15%_9%_8%] bg-transparent h-fit min-h-24 text-sm font-bold items-center hover:bg-blacktwo" onClick={() => setSelectedCard(card)}>
+                            <div key={index} className="grid grid-cols-[30%_35%_35%] lg:grid-cols-[5%_3%_25%_10%_25%_15%_9%_8%] bg-transparent min-h-24 text-sm font-bold items-center hover:bg-blacktwo" onClick={() => setSelectedCard(card)}>
                                 <div className="hidden lg:flex pl-6 ">{card.ownedamount}</div>
-                                <img 
-                                    src={card.image_url} 
-                                    alt={card.card_name} 
-                                    className="w-3/4 lg:h-[90%] object-contain items-center" 
-                                />
+                                <div className="flex items-center justify-center h-24">
+                                    <img src={card.image_url} alt={card.card_name} className="w-3/4 h-[65%] lg:w-full lg:h-[90%] object-contain" />
+                                </div>
                                 <div className="flex flex-col items-center overflow-auto space-y-2 md:space-y-[4vh] py-[2vh] w-full h-full lg:hidden">
                                     <span className="text-xs md:text-xl text-center">{card.card_name}</span>
-                                    <span className="text-xs md:text-xl text-center">{card.set_code}</span>
                                     <span className="text-xs md:text-xl text-center">{card.set_name}</span>
                                     <div className="space-x-2"> 
                                         <span className="text-xs md:text-xl text-center">{card.rarity}</span>

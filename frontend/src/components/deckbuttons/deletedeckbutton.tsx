@@ -1,4 +1,4 @@
-import { useDeleteDeckMutation } from "@/features/api-slices/decksapislice";
+import { useDeleteDeckMutation } from "@/app/api-slices/decksapislice";
 import { handleDeckClick } from "../deckmanagerpagecomponents/types/homepagecomponentprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";

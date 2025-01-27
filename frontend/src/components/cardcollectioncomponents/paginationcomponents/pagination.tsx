@@ -106,7 +106,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
     }
 
     return (
-        <div className="py-2 px-2 bg-[hsl(var(--background1))]">
+        <div className={`mb-4 px-2 bg-[hsl(var(--background1))] ${totalListPages <= 1 ? "hidden" : ""}`}>
             {listView && (
                 <>
                     {totalListPages > 1 && (

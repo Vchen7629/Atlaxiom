@@ -1,7 +1,7 @@
-import { Suspense, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faFilter } from '@fortawesome/free-solid-svg-icons';
-import { useGetOwnedCardsQuery } from '../../features/api-slices/ownedCardapislice.ts';
+import { useGetOwnedCardsQuery } from '../../app/api-slices/ownedCardapislice.ts';
 import { useLocation } from 'react-router-dom';
 import Header from '../../components/header/header.tsx';
 import Footer from '../../components/footer/Footer.tsx';
@@ -12,7 +12,7 @@ import MyCardsSearchbarComponent from '../../components/cardcollectioncomponents
 import { Card } from './ownedcardpagetypes.ts';
 import GridListViewComponent from '../../components/cardcollectioncomponents/components/grid_or_list_view.tsx';
 import { GalleryViewCardDisplayComponent } from '../../components/cardcollectioncomponents/carddisplaycomponents/galleryviewcarddisplaycomponent.tsx';
-import { useGetSpecificUserQuery } from '@/features/api-slices/usersApiSlice.ts';
+import { useGetSpecificUserQuery } from '@/app/api-slices/usersApiSlice.ts';
 import PaginationComponent from '@/components/cardcollectioncomponents/paginationcomponents/pagination.tsx';
 import { AddCardButton } from '@/components/cardcollectioncomponents/buttons/addcardbutton.tsx';
 import { OwnedCard } from '@/components/cardcollectioncomponents/types/dataStructures.ts';
@@ -168,6 +168,7 @@ const UserOwnedCardPage = () => {
     setFilter,
     rarityFilter,
   ]);
+  
 
   const handleClickFilter = () => {
     setExpandStatus(!expandStatus)
@@ -278,13 +279,13 @@ const UserOwnedCardPage = () => {
     <main className="flex flex-col min-h-[100vh]  ">
         <Header/>
         <div className=" bg-[hsl(var(--background1))] flex items-center justify-center ">
-          <div className="text-white relative flex flex-col w-full min-h-[130vh] p-5 pt-20">
-            <header className="relative items-center flex flex-col sm:flex-col md:flex-row w-full mt-[1%]">
+          <div className="text-white relative flex flex-col items-center w-[95%] min-h-[110vh] p-5 pt-[10vh]">
+            <header className="relative items-center flex flex-col sm:flex-col md:flex-row w-full my-[1%]">
               <section className="flex flex-col w-full md:w-1/4">
                 <div className="text-4xl text-center lg:text-left lg:text-[40px] text-goldenrod font-bold">My Collection</div>
                 <div className="text-center lg:text-left text-lg text-gray-400">Last Edited: {userData?.entities[userId]?.lastCardUpdated}</div>
               </section>
-              <section className="relative space-y-[1vh] flex flex-col sm:flex-col  lg:flex-row items-center lg:space-x-2 w-full">
+              <section className="relative space-y-[1vh] lg:space-y-0 flex flex-col lg:flex-row items-center lg:space-x-2 w-full">
                 <div className="flex w-full lg:w-1/2">
                   <MyCardsSearchbarComponent searchbarprops={searchbarprops}/>
                 </div>
@@ -295,14 +296,14 @@ const UserOwnedCardPage = () => {
                 <button className="hidden lg:flex rounded-md px-4 items-center justify-center w-20 h-9 bg-footer">
                   <FontAwesomeIcon icon={faEllipsisVertical} className="mr-2 text-gray-400"/>More
                 </button>
-                <div className="hidden lg:flex w-20 h-11 bg-footer rounded-xl absolute right-[2vw]">
+                <div className="hidden lg:flex w-20 h-11 bg-footer rounded-xl absolute right-0">
                   <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                 </div>
                 <div className="flex sm:flex lg:hidden space-x-[1vw] w-full items-center">
                   <MobileFilterDrawerComponent filterProps={filterProps} />
                   <AddCardButton />
                   <button className={`flex items-center px-4 rounded-md h-9 ${canClearFilter ? "bg-[hsl(var(--background3))]" : "bg-gray-600"}`} onClick={clearFilter}> Clear </button>
-                  <div className="flex lg:hidden w-20 h-10 bg-footer rounded-xl absolute right-0">
+                  <div className="flex lg:hidden w-20 h-10 bg-footer rounded-xl absolute right-[-1px]">
                     <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                   </div>
                 </div>
@@ -310,7 +311,7 @@ const UserOwnedCardPage = () => {
               
             </header>
            
-            <main className="flex justify-between"> 
+            <main className="flex w-full justify-between"> 
                 <div className='w-full'>
                     {listView ? (
                       <main className="flex justify-between">
@@ -330,13 +331,10 @@ const UserOwnedCardPage = () => {
                             <div className="text-center">Details</div>
                             <div className="text-center">Actions</div>
                           </div>
-                          <Suspense>
                           <ListViewCardDisplayComponent displaylistprops={displaylistprops}/>
-                          </Suspense>
-                          <PaginationComponent paginationprops={paginationprops} />                                           
                         </main>
                         
-                        <div className={`flex flex-col h-fit ${expandStatus ? "w-[24%] border-gray-600 border-2" : "w-0"} items-center bg-[hsl(var(--ownedcardcollection))] rounded-xl py-8`}>
+                        <div className={`flex flex-col h-fit ${expandStatus ? "w-[24%] border-[hsl(var(--background3))] border-2" : "w-0"} items-center bg-[hsl(var(--ownedcardcollection))] rounded-lg py-8`}>
                             {filterpage && (
                               <FilterOwnedCards filterProps={filterProps}/>
                             )}

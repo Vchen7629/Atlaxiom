@@ -1,10 +1,10 @@
 import {useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useSendLogoutMutation } from '../../../features/auth/authApiSlice'    
+import { useSendLogoutMutation } from '@/app/auth/authApiSlice'    
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
-import { logOut } from '@/features/auth/authSlice';
+import { logOut } from '@/app/auth/authSlice';
 
 
 const Logout = () => {

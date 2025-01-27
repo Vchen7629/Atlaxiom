@@ -14,9 +14,9 @@ import IncreaseOwnedCardButtonComponent from "../buttons/increasedownedcardbutto
 import DecreaseOwnedCardButtonComponent from "../buttons/decreaseownedcardbutton.tsx";
 import DeleteOwnedCardButtonComponent from "../buttons/deleteownedcardbutton.tsx";
 import { useLocation } from "react-router-dom";
-import { useGetOwnedCardsQuery } from "@/features/api-slices/ownedCardapislice.ts";
+import { useGetOwnedCardsQuery } from "@/app/api-slices/ownedCardapislice.ts";
 import { Toaster } from "sonner";
-import { useGetSpecificUserQuery } from "@/features/api-slices/usersApiSlice.ts";
+import { useGetSpecificUserQuery } from "@/app/api-slices/usersApiSlice.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 

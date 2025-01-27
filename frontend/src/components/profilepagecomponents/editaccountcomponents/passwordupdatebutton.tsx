@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { UserId } from "../../../pages/profilepage/types/subpagetypes";
-import { useUpdateUserMutation } from "@/features/api-slices/usersApiSlice";
+import { useUpdateUserMutation } from "@/app/api-slices/usersApiSlice";
 import { SavePasswordButton } from "../types/editcomponenttypes";
 import { toast } from "sonner";
 
