@@ -5,13 +5,13 @@ WORKDIR /loginapi
 
 COPY package*.json ./
 
-RUN npm ci --only=production
+RUN npm ci
 
 FROM node:22
 
 WORKDIR /loginapi
 
-COPY --from=cache /loginapi/node_modules /loginapi/
+COPY --from=cache /loginapi/node_modules ./node_modules
 
 COPY . .
 

@@ -91,5 +91,4 @@ jobs:
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           script: |
             cd Atlaxiom/
-            docker images
             docker compose pull
