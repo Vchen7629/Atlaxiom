@@ -15,7 +15,7 @@ COPY --from=cache ./node_modules ./node_modules
 
 COPY . .
 
-RUN npm install serve --save
+RUN npm install -g serve
 
 RUN npm run build
 
