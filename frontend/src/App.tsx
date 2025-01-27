@@ -19,7 +19,8 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    document.title = window.location.href;
+    const subpage = location.pathname === '/' ? 'Home' : location.pathname.replace('/', '');
+    document.title = `Atlaxiom - ${subpage.charAt(0).toUpperCase() + subpage.slice(1)}`;
   }, [location]);
 
   return (
