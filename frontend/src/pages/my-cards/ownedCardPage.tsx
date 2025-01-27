@@ -67,7 +67,7 @@ const UserOwnedCardPage = () => {
 
   const { data: ownedCards, refetch } = useGetOwnedCardsQuery(userId);
   const { data: userData, refetch: refetchOnUpdate} = useGetSpecificUserQuery(userId)
-  const suggestionsPerGalleryPage = 45;
+  const suggestionsPerGalleryPage = 20;
   const suggestionsPerListPage = 7;
   const [totalListPages, setTotalListPages] = useState<number>(1);
   const [totalGalleryPages, setTotalGalleryPages] = useState<number>(1);
@@ -347,12 +347,14 @@ const UserOwnedCardPage = () => {
                     ) : (
                       galleryView && (
                         <main className="flex justify-between">
-                          <main className={`bg-[hsl(var(--ownedcardcollection))] ${expandStatus ? "w-3/4" : "w-full"} min-h-full rounded-xl`}>
+                          <main className={`${expandStatus ? "w-3/4" : "w-full"}`}>
                             <PaginationComponent paginationprops={paginationprops} />
-                            <GalleryViewCardDisplayComponent displaygalleryprops={displaygalleryprops}/>                                           
+                            <div className="bg-[hsl(var(--ownedcardcollection))]  border-2 border-[hsl(var(--background3))] min-h-full rounded-xl">
+                            <GalleryViewCardDisplayComponent displaygalleryprops={displaygalleryprops}/>
+                            </div>                                           
                           </main>
                           
-                          <div className={`flex flex-col h-fit ${expandStatus ? "w-[24%] border-gray-600 border-2" : "w-0"} items-center bg-[hsl(var(--ownedcardcollection))] rounded-3xl py-8`}>
+                          <div className={`flex flex-col h-fit ${expandStatus ? "w-[24%] border-[hsl(var(--background3))] border-2" : "w-0"} items-center bg-[hsl(var(--ownedcardcollection))] rounded-lg py-8`}>
                               {filterpage && (
                                 <FilterOwnedCards filterProps={filterProps}/>
                               )}
