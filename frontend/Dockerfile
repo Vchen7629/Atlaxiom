@@ -1,10 +1,19 @@
-FROM node:22-alpine
+# Cache npm dependencies
+FROM node:22-alpine AS cache
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN --mount=type=cache,target=/frontend/node_modules npm ci
+RUN npm ci
+
+#build stage
+
+FROM node:22-alpine
+
+WORKDIR /app
+
+COPY --from=cache /app/node_modules /app/
 
 COPY . .
 

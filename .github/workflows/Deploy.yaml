@@ -38,8 +38,7 @@ jobs:
           file: ./frontend/Dockerfile
           push: true
           tags: ghcr.io/vchen7629/atlaxiom-frontend:prod
-          cache-from: type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend:prod
-          cache-to: type=registry,ref=ghcr.io/vchen7629/atlaxiom-frontend:prod,mode=max
+          cache-from: type=registry,ref=ghcr.io/vchen7629/frontend-npm-cache:latest
 
   build-and-push-backend-image:
     runs-on: ubuntu-latest
@@ -65,8 +64,7 @@ jobs:
           file: ./loginapi/Dockerfile
           push: true
           tags: ghcr.io/vchen7629/atlaxiom-backend:prod
-          cache-from: type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend:prod
-          cache-to: type=registry,ref=ghcr.io/vchen7629/atlaxiom-backend:prod,mode=max
+          cache-from: type=registry,ref=ghcr.io/vchen7629/loginapi-npm-cache:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -76,9 +74,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Set BuildKit environment variable
-        run: echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
   
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
