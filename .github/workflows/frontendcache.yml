@@ -9,6 +9,7 @@ on:
         paths:
             - 'frontend/package.json'
             - 'frontend/package-lock.json'
+            - 'frontend/Dockerfile'
 
 jobs:
   build-and-push-cache:
