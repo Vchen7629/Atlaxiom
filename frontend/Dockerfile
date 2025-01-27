@@ -13,7 +13,7 @@ FROM node:22
 
 WORKDIR /app
 
-COPY --from=cache /app/node_modules /app/
+COPY --from=cache /app/node_modules ./node_modules
 
 COPY . .
 
