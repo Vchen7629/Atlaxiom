@@ -3,8 +3,6 @@ FROM node:22 AS cache
 
 COPY package*.json ./
 
-RUN npm install serve --save
-
 RUN npm ci --include=dev
 
 #build stage
@@ -16,6 +14,8 @@ WORKDIR /app
 COPY --from=cache ./node_modules ./node_modules
 
 COPY . .
+
+RUN npm install serve --save
 
 RUN npm run build
 
