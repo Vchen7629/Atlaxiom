@@ -1,6 +1,6 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import StayLoggedIn from './features/auth/stayloggedin.tsx';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import FoldingCube from './components/loadingcomponents/foldingcube.tsx';
 
 const SearchResults = lazy(() => (import('./pages/searchpage/searchresults.tsx')))
@@ -16,6 +16,12 @@ const DeckBuilderPage = lazy(() => import("./pages/my-decks/editdeckpage.tsx"))
 const Profilepage = lazy(() => import("./pages/profilepage/Profilepage.tsx"))
 
 function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    document.title = window.location.href;
+  }, [location]);
+
   return (
     <Suspense fallback={<FoldingCube/>}>
       <Routes>
