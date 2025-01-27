@@ -125,6 +125,7 @@ section {
 
   :root {
     --header: 0, 5%, 92%;
+    --headerbutton: 0, 7%, 92%;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
@@ -146,6 +147,7 @@ section {
     --ownedcardcollection: 0, 0%, 90%;
     --editdeckdraganddropbackground: 0, 0%, 90%;
     --atkdefcomponent: 100, 100%, 100%;
+    --border: 0, 5%, 92%
   }
  
   .dark {
@@ -156,6 +158,7 @@ section {
     --chart-5: 340 75% 55%;
     --primary: 0 0% 98%;
     --header: 0 7% 11%;
+    --headerbutton: 0 7% 20%;
     --background1:  0, 2%, 13%;
     --background2: 0, 0%, 0%;
     --background3: 43, 77%, 49%;
@@ -172,5 +175,6 @@ section {
     --ownedcardcollection:  0, 2%, 10%;
     --editdeckdraganddropbackground: 0, 2%, 11%;
     --atkdefcomponent: 0, 0%, 20%;
+    --border: 240, 4%, 16%
   }
 }

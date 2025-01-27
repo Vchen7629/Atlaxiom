@@ -35,7 +35,7 @@ const Header = () => {
         }
         
         return (
-            <div className='flex h-full space-x-[2vw] md:mr-[2vw]'>
+            <div className='flex h-full space-x-[1vw] md:mr-[2vw]'>
                 <a className={`flex text-[hsl(var(--background3))] md:hidden text-3xl cursor-pointer ${showDropdown ? 'active' : ''}`} onClick={toggleDropdown}>
                     ☰
                 </a>
@@ -58,7 +58,7 @@ const Header = () => {
                 {isAuthenticated && (
                     <div className="flex w-fit ">
                         <div className="mr-[1vw] hidden sm:hidden md:flex"><Mycards/></div>
-                        <div className="ml-[1vw] hidden sm:hidden md:flex"><Mydecks/></div>
+                        <div className="hidden sm:hidden md:flex"><Mydecks/></div>
                     </div>
                 )}
             </div>

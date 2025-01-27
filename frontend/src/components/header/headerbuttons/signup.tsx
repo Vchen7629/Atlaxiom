@@ -10,7 +10,7 @@ const Signup = () => {
   return (
     <div>
         <button 
-          className="flex font-bold w-fit h-8 py-4 items-center text-[hsl(var(--text))] border-b-2 border-transparent hover:border-[hsl(var(--background3))]" 
+          className="flex font-bold h-10 px-6 bg-[hsl(var(--text))] items-center text-[hsl(var(--profile))] rounded-lg border-2 border-[hsl(var(--border))]" 
           onClick={handleButtonClick}
         >
           Sign Up

@@ -19,7 +19,7 @@ const Cardsearch = () => {
   return (
     <div>
         <button 
-          className="flex w-fit h-8 px-2 py-4 bg-transparent text-[hsl(var(--text))] items-center border-b-2 border-transparent" 
+          className="flex font-bold h-10 px-4 bg-[hsl(var(--background3))] items-center text-[hsl(var(--profile))] rounded-lg border-2 border-[hsl(var(--border))]" 
           onClick={handleButtonClick}
           
         >
