@@ -1,5 +1,5 @@
 # Cache npm dependencies
-FROM node:22-alpine AS cache
+FROM node:22 AS cache
 
 WORKDIR /app
 
@@ -9,7 +9,7 @@ RUN npm ci
 
 #build stage
 
-FROM node:22-alpine
+FROM node:22
 
 WORKDIR /app
 
