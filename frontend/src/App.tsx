@@ -1,5 +1,5 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
-import StayLoggedIn from './features/auth/stayloggedin.tsx';
+import StayLoggedIn from './app/auth/stayloggedin.tsx';
 import { lazy, Suspense, useEffect } from 'react';
 import FoldingCube from './components/loadingcomponents/foldingcube.tsx';
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Header from '../../components/header/header.tsx';
 import Footer from '../../components/footer/Footer.tsx';
 import { useLocation } from 'react-router-dom';
-import { useGetSpecificOwnedDeckQuery } from '../../features/api-slices/decksapislice.ts';
+import { useGetSpecificOwnedDeckQuery } from '../../app/api-slices/decksapislice.ts';
 import DeckBuilderPageSidebarComponent from '../../components/editdeckpagecomponents/sidebar/deckbuilderpagesidebar.tsx';
 import MainDeckCardZone from '@/components/editdeckpagecomponents/carddropzones/MainDeckCardsZone.tsx';
 import { DndContext } from '@dnd-kit/core';

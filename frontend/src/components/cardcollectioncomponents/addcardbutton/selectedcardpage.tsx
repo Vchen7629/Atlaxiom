@@ -1,6 +1,6 @@
 import { SelectedCardData } from "@/components/searchpagecomponents/types/datastructuretypes";
 import { CardSet } from "@/components/searchpagecomponents/types/searchresultcomptypes";
-import { useAddNewOwnedCardMutation, useGetOwnedCardsQuery } from "@/features/api-slices/ownedCardapislice";
+import { useAddNewOwnedCardMutation, useGetOwnedCardsQuery } from "@/app/api-slices/ownedCardapislice";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";

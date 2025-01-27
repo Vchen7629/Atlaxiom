@@ -13,7 +13,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { useGetOwnedCardsQuery } from "../../../../features/api-slices/ownedCardapislice"
+import { useGetOwnedCardsQuery } from "../../../../app/api-slices/ownedCardapislice"
 import { useSelector } from "react-redux"
 export const description = "A Pie Chart displaying the user's card collection makeup by the number of monster/spell/trap cards"
 

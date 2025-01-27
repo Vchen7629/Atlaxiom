@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from "sonner";
-import { useDecreaseOwnedCardMutation } from "@/features/api-slices/ownedCardapislice";
+import { useDecreaseOwnedCardMutation } from "@/app/api-slices/ownedCardapislice";
 import { DecreaseCard } from "../types/buttontypes";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
 

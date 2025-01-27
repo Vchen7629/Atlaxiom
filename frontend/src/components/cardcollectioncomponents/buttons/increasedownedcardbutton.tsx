@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "sonner";
-import { useIncreaseOwnedCardMutation } from "@/features/api-slices/ownedCardapislice";
+import { useIncreaseOwnedCardMutation } from "@/app/api-slices/ownedCardapislice";
 import { IncreaseCard } from "../types/buttontypes";
 
 

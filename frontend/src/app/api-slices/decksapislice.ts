@@ -1,5 +1,5 @@
 import { createEntityAdapter, EntityState } from "@reduxjs/toolkit";
-import { apiSlice } from "../../app/api/apiSlice.js"
+import { apiSlice } from "../api/apiSlice.js"
 
 const DeckAdapter = createEntityAdapter({})
 

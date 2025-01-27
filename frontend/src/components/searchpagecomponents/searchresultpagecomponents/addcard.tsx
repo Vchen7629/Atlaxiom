@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button"
-import { useAddNewOwnedCardMutation } from '../../../features/api-slices/ownedCardapislice';
+import { useAddNewOwnedCardMutation } from '../../../app/api-slices/ownedCardapislice';
 import { CardSet, ComponentCardSetPopupProps } from "../types/searchresultcomptypes";
 import { toast } from "sonner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

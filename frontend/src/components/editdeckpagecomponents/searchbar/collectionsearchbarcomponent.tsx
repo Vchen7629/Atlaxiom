@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faSearch } from "@fortawesome/free-solid-svg-icons";
-import { useGetOwnedCardsQuery } from "../../../features/api-slices/ownedCardapislice";
+import { useGetOwnedCardsQuery } from "../../../app/api-slices/ownedCardapislice";
 import { useEffect, useCallback } from "react";
 import { CollectionSearchbarCompProps } from "../types/searchbartypes";
 import { OwnedCard } from "../types/datatypes";

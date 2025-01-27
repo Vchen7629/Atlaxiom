@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { UserId } from "../../../pages/profilepage/types/subpagetypes";
-import { useDeleteUserMutation } from "@/features/api-slices/usersApiSlice";
+import { useDeleteUserMutation } from "@/app/api-slices/usersApiSlice";
 import { useNavigate } from "react-router-dom";
-import { useSendLogoutMutation } from "@/features/auth/authApiSlice";
+import { useSendLogoutMutation } from "@/app/auth/authApiSlice";
 import { DeleteButtonProps } from "../types/deletecomponenttypes";
 import { toast } from "sonner";
 

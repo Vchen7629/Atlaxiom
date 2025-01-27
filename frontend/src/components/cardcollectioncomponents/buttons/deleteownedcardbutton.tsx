@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from "sonner";
 import { DecreaseCard } from "../types/buttontypes";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { useDeleteOwnedCardMutation } from "@/features/api-slices/ownedCardapislice";
+import { useDeleteOwnedCardMutation } from "@/app/api-slices/ownedCardapislice";
 
 
 const DeleteOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCard) => {

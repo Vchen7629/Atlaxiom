@@ -1,4 +1,4 @@
-import { useCreateNewDeckMutation, useGetAllOwnedDecksQuery } from '../../../features/api-slices/decksapislice.ts';
+import { useCreateNewDeckMutation, useGetAllOwnedDecksQuery } from '../../../app/api-slices/decksapislice.ts';
 import { useNavigate } from 'react-router-dom';
 import { NewDeckButton } from '../types/homepagecomponentprops.ts';
 import { toast } from 'sonner';

@@ -13,7 +13,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { useGetSpecificUserQuery } from "../../../../features/api-slices/usersApiSlice"
+import { useGetSpecificUserQuery } from "../../../../app/api-slices/usersApiSlice"
 import { useSelector } from "react-redux"
 import { userId } from "../types/charttypes"
 export const description = "A radial chart displaying the user's unique cards compared to the total unique cards"

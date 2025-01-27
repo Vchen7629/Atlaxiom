@@ -9,7 +9,7 @@ import GridListViewComponent from '../../components/deckmanagerpagecomponents/bu
 import CreateNewDeckComponent from '../../components/deckmanagerpagecomponents/buttons/CreateNewDeckButton.tsx';
 import { UserIdState } from './deckpagetypes.ts';
 import PaginationComponent from '@/components/deckmanagerpagecomponents/pagination/pagination.tsx';
-import { useGetAllOwnedDecksQuery } from '@/features/api-slices/decksapislice.ts';
+import { useGetAllOwnedDecksQuery } from '@/app/api-slices/decksapislice.ts';
 import { Deck } from '@/components/deckmanagerpagecomponents/types/homepagecomponentprops.ts';
 import { Toaster } from 'sonner';
 

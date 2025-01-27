@@ -55,7 +55,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
 
     const updateCurrentPageGallery = () => {
         if (filteredCards.length > 0) {
-            const startIndex = (currentListPage - 1) * suggestionsPerGalleryPage;
+            const startIndex = (currentGalleryPage - 1) * suggestionsPerGalleryPage;
             const endIndex = startIndex + suggestionsPerGalleryPage;
             const currentGallerySuggestions = filteredCards.slice(startIndex, endIndex) as OwnedCard[];
             setCurrentGalleryPageResults(currentGallerySuggestions);
@@ -106,9 +106,9 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
     }
 
     return (
-        <div className="py-2 px-2 bg-[hsl(var(--background1))]">
+        <>
             {listView && (
-                <>
+                <div className={`mb-4 px-2 bg-[hsl(var(--background1))] ${totalListPages <= 1 ? "hidden" : ""}`}>
                     {totalListPages > 1 && (
                         <div className="flex w-full justify-between ">
                             <section className="flex items-center h-full space-x-2"> 
@@ -127,11 +127,11 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
                             <PageSelectorComponent pageselectorprops={pageselectorprops}/>
                         </div>
                     )}
-                </>
+                </div>
             )}
 
             {galleryView && (
-                <>
+                <div className={`mb-4 px-2 bg-[hsl(var(--background1))] ${totalGalleryPages <= 1 ? "hidden" : ""}`}>
                     {totalGalleryPages > 1 && (
                         <div className="flex w-full justify-between">
                             <section className="flex items-center h-full space-x-2"> 
@@ -150,9 +150,9 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
                             <PageSelectorComponent pageselectorprops={pageselectorprops}/>
                         </div>
                     )}
-                </>
+                </div>
             )}
-        </div>
+        </>
     )
 
     
