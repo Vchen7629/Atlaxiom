@@ -9,6 +9,7 @@ on:
         paths:
             - 'loginapi/package.json'
             - 'loginapi/package-lock.json'
+            - 'loginapi/Dockerfile'
 
 jobs:
   build-and-push-cache:

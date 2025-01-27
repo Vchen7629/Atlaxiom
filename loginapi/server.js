@@ -13,9 +13,6 @@ const fs = require('fs')
 const https = require('https');
 const checkHost = require('./middleware/checkhostname')
 
-const PORT = process.env.PORT || 3005;
-
-
 const privateKey = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/privkey.pem', "utf-8")
 const cert = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem', "utf-8")
 
