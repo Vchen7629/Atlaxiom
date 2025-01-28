@@ -1,4 +1,5 @@
-[![DeepSource](https://app.deepsource.com/gh/Vchen7629/Atlaxiom.svg/?label=code+coverage&show_trend=true&token=-cGZztkl5gmbggfqKDor8NdW)](https://app.deepsource.com/gh/Vchen7629/Atlaxiom/)
+[![DeepSource](https://app.deepsource.com/gh/Vchen7629/Atlaxiom.svg/?label=active+issues&show_trend=true&token=-cGZztkl5gmbggfqKDor8NdW)](https://app.deepsource.com/gh/Vchen7629/Atlaxiom/)
+[![DeepSource](https://app.deepsource.com/gh/Vchen7629/Atlaxiom.svg/?label=resolved+issues&show_trend=true&token=-cGZztkl5gmbggfqKDor8NdW)](https://app.deepsource.com/gh/Vchen7629/Atlaxiom/)
 
 <h1><strong>Atlaxiom</strong></h1>
 Welcome to Atlaxiom! This is a full-stack web application project that is aimed to catalog yugioh trading cards online<br>
