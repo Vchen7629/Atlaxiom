@@ -118,7 +118,6 @@ const ExtraDeckCardZone = ({ extradeckprops }: ExtraDeckProps) => {
                         style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                       >
                         {extraDeckCards.map((card: any) => (
-                          <div className="flex h-full">
                               <div key={card.id} className="flex flex-col group relative items-center space-y-2">
                                 <label className="bg-[hsl(var(--background3))] font-bold text-[hsl(var(--text))] px-2 text-xs rounded-2xl">{card?.cardInDeckOwnedAmount}x</label>
                                 <img
@@ -153,7 +152,6 @@ const ExtraDeckCardZone = ({ extradeckprops }: ExtraDeckProps) => {
                                   </button>
                                 </div>
                               </div>
-                          </div>
                         ))}
                       </div>
                   )}

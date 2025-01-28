@@ -415,10 +415,18 @@ const modifyCardAmountinMainDeck = asyncHandler(async (req, res) => {
     await user.save()
     await deck.save()
 
-    res.json({ message: `deck ${deck_name} increased by ${modifyAmount } successfully`, ownedDeck: deck });
+    const updatedCardsSummary = cardUpdates.map(({ card_name, modifyAmount }) => ({
+        card_name,
+        modifyAmount,
+    }));
+
+    res.json({ 
+        message: `Cards updated successfully for msin deck in deck ${deckId}`, 
+        updatedCards: updatedCardsSummary, 
+    });
 })
 
-// @desc Modify the amount of a specific card in the main deck
+// @desc Modify cards in the extra deck
 // @route PATCH /extradeck/update/:id
 // @access Public
 const modifyCardAmountinExtraDeck = asyncHandler(async (req, res) => {
@@ -461,10 +469,18 @@ const modifyCardAmountinExtraDeck = asyncHandler(async (req, res) => {
     await user.save()
     await deck.save()
 
-    res.json({ message: `deck ${deck_name} increased by ${modifyAmount } successfully`, ownedDeck: deck });
+    const updatedCardsSummary = cardUpdates.map(({ card_name, modifyAmount }) => ({
+        card_name,
+        modifyAmount,
+    }));
+
+    res.json({ 
+        message: `Cards updated successfully for extra deck in deck ${deckId}`, 
+        updatedCards: updatedCardsSummary, 
+    });
 })
 
-// @desc Modify the amount of a specific card in the main deck
+// @desc Modify the cards in side deck
 // @route PATCH /sidedeck/update/:id
 // @access Public
 const modifyCardAmountinSideDeck = asyncHandler(async (req, res) => {
@@ -507,7 +523,15 @@ const modifyCardAmountinSideDeck = asyncHandler(async (req, res) => {
     await user.save()
     await deck.save()
 
-    res.json({ message: `deck ${deck_name} increased by ${modifyAmount } successfully`, ownedDeck: deck });
+    const updatedCardsSummary = cardUpdates.map(({ card_name, modifyAmount }) => ({
+        card_name,
+        modifyAmount,
+    }));
+
+    res.json({ 
+        message: `Cards updated successfully for side deck in deck ${deckId}`, 
+        updatedCards: updatedCardsSummary, 
+    });
 })
 
 // @desc Delete a card from the main deck

@@ -35,7 +35,7 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
             setSelectedCardData(data.data[0]);
             setCardSets(data.data[0].card_sets || []);
           } else {
-            console.error('Error fetching card data:', data.message);
+            console.error('Error fetching card data:');
           }
         } catch (error) {
           throw error
