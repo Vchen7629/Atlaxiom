@@ -37,3 +37,11 @@ export type userId = {
         userId: string
     }
 }
+
+export type Year = {
+    yearprops: {
+        years: string[];
+        selectedYear: string;
+        setSelectedYear: React.Dispatch<React.SetStateAction<string>>
+    }
+}

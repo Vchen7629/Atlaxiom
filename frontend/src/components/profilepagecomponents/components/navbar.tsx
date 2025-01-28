@@ -43,14 +43,14 @@ const NavBarComponent = ({ navbarprops }: NavBarComp) => {
                     <span className="ml-[10px]">View Decks</span>
                 </button>
                 <button 
-                    className={`flex py-2 px-2 rounded-lg ${statisticsActive ? "bg-[hsl(var(--background3))]" : "bg-footer"} items-center`} 
+                    className={`flex py-2 px-2 rounded-lg ${statisticsActive ? "bg-[hsl(var(--background3))]" : "bg-footer"} text-white items-center`} 
                     onClick={handleStatisticsClick}
                 >
                     <FontAwesomeIcon icon={faChartColumn}/>
                     <span className="ml-[10px]">View Statistics</span>
                 </button>
                 <button 
-                    className={`flex py-2 px-2 rounded-lg ${editActive ? "bg-[hsl(var(--background3))]" : "bg-footer"} items-center`} 
+                    className={`flex py-2 px-2 rounded-lg ${editActive ? "bg-[hsl(var(--background3))]" : "bg-footer"} text-white items-center`} 
                     onClick={handleEditAccClick}
                 >
                     <FontAwesomeIcon icon={faEdit}/>
