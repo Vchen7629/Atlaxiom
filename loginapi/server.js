@@ -18,8 +18,8 @@ const cert = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/fullchain.p
 
 const httpsOptions = { key: privateKey, cert: cert };
 
-connectDB().catch(err => {
-    process.exit(1); // Exit the process if DB connection fails
+connectDB().catch(_ => {
+    process.exit(1); 
 });
 
 app.use(cors(corsOptions))

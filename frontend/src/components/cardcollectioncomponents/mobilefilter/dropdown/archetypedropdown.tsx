@@ -56,7 +56,7 @@ export function ArchetypeDropDownComponent({ archetypeprops }: ArchetypeDropDown
             {archeTypeFilter ? (
               <div className="flex w-[12vw] justify-center">
                 <span className="w-fit px-2 py-1 bg-[hsl(var(--background3))] rounded text-[hsl(var(--text))]">
-                  {uniqueArchtype.find((archetype) => archetype == archeTypeFilter)}
+                  {uniqueArchtype.find((archetype) => archetype === archeTypeFilter)}
                 </span>
               </div>
             ) : (

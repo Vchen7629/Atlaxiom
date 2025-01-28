@@ -37,6 +37,7 @@ const SearchResults = () => {
                   <div className='hidden lg:flex flex-col w-[100vw] lg:w-[15vw] mx-[5%] pt-[3%] space-y-[4vh]'>
                     <img className="object-contain"
                         src={selectedCardData?.card_images[0].image_url}
+                        alt={selectedCardData?.name}
                     /> 
                     {authenticated && (
                       <div>
@@ -50,6 +51,7 @@ const SearchResults = () => {
                     <span className="text-2xl w-[90%] text-center font-bold text-[hsl(var(--background3))]">{selectedCardData?.name}</span>
                     <img className="object-contain w-1/2"
                       src={selectedCardData?.card_images[0].image_url}
+                      alt={selectedCardData?.name}
                     /> 
                     {authenticated && (
                       <div>

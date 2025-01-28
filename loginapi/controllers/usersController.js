@@ -1,8 +1,6 @@
 const { User, OwnedCard } = require('../../loginapi/models/genmodels');
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
-const mongoose = require('mongoose');
-
 
 // @desc create a new users
 // @route POST /user/newuser
@@ -185,7 +183,7 @@ const deleteUser = asyncHandler(async (req, res) => {
     // Delete all documents with the same user_id
     await OwnedCard.deleteMany({ user_id: user._id });
 
-    const result = await user.deleteOne()
+    await user.deleteOne()
 
     res.json({message: `Username ${user.username} with ID ${user._id} deleted` })
 

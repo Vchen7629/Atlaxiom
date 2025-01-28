@@ -62,6 +62,7 @@ const SideDeckCardZone = ({ sidedeckprops }: SideDeckProps) => {
                         <span className="text-gray-500">{card?.cardInDeckOwnedAmount}</span>
                         <img
                           src={card?.card_images?.[0]?.image_url || card?.image_url}
+                          alt={card?.name || card?.card_name}
                           className="h-full object-contain"
                         />
                         <span className="font-black text-[hsl(var(--text))] text-sm w-[70%]">
@@ -122,8 +123,8 @@ const SideDeckCardZone = ({ sidedeckprops }: SideDeckProps) => {
                             <label className="bg-[hsl(var(--background3))] font-bold text-[hsl(var(--text))] px-2 text-xs rounded-2xl">{card?.cardInDeckOwnedAmount}x</label>
                             <img
                               src={card?.image_url || card?.card_images?.[0]?.image_url}
-                              className="h-full object-contain"
-                              //alt={card.card_name}
+                              alt={card.name}
+                              className="h-full object-contain"                              
                             />
                             <div className="absolute inset-0 flex items-center justify-center top-[10%] h-[70%] bg-black bg-opacity-50 text-white text-center text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                               {card.name}

@@ -36,7 +36,7 @@ const GalleryViewSearchSuggestionsComponent = ({ galleryviewprops }: GalleryView
                 >
                     {currentPageGalleryNamesArray.map((card: any, index) => (
                         <div key={index} className="relative flex h-full w-full group" onClick={() => handleSuggestionClick(card)}>
-                            <img src={card?.card_images[0].image_url} className="h-full object-contain group-hover:blur-xs"/>
+                            <img src={card?.card_images[0].image_url} alt={card.name} className="h-full object-contain group-hover:blur-xs"/>
                             <div 
                                 className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white text-center text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                             >

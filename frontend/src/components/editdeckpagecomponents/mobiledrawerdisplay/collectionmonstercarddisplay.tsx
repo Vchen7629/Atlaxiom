@@ -52,7 +52,7 @@ const MobileCollectionMonsterCardDisplayComponent = ({ CollectionDisplayCompProp
                                     <div className="flex items-center justify-center text-[hsl(var(--text))] text-center text-xs">
                                         {result.card_name}
                                     </div>
-                                    <img src={result.image_url} className='h-full object-contain'/>
+                                    <img src={result.image_url} alt={result.card_name} className='h-full object-contain'/>
                                 </div>
                             ))}
                         </div>
