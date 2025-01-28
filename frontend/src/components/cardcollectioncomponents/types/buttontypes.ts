@@ -9,7 +9,7 @@ export type DecreaseCard = {
     card: {
         card_name: string
     };
-    refetch: () => {};
+    refetch: () => void;
 }
 
 export type toastSuccessMessage = {

@@ -28,6 +28,11 @@ export const GalleryViewCardDisplayComponent = ({ displaygalleryprops }: filtere
     const { refetch } = useGetOwnedCardsQuery(userId);
 
     const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null)
+
+    const handleClick = (card: Card) => () => {
+        setSelectedCard(card);
+    };
+
     const { data: ownedCardCount } = useGetSpecificUserQuery(userId);
           
     return (
@@ -40,7 +45,7 @@ export const GalleryViewCardDisplayComponent = ({ displaygalleryprops }: filtere
                             style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                         >
                             {currentGalleryPageResults.map((card: Card) => (
-                                <div key={card.id} className="flex flex-col w-fit group relative items-center space-y-2" onClick={() => setSelectedCard(card)}>
+                                <div key={card.id} className="flex flex-col w-fit group relative items-center space-y-2" onClick={handleClick(card)}>
                                     <label className="bg-[hsl(var(--background3))] w-fit  font-bold text-[hsl(var(--text))] px-4 text-sm rounded-xl">{card?.ownedamount}x</label>
                                     <img src={card.image_url} alt={card.card_name} className="h-full object-contain group-hover:blur-xs"/>
                                     <span className="absolute inset-0 flex items-center justify-center h-[73%] top-5 bg-black bg-opacity-50 text-white text-center text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">

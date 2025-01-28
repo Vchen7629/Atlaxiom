@@ -15,7 +15,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faPlusCircle, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { ApiCardData } from "@/components/searchpagecomponents/types/datastructuretypes";
 import AddCardPaginationComponent from "../addcardbutton/addcardpagination";
-import { OwnedCard } from "../types/dataStructures";
 import SelectedCardComponent from "../addcardbutton/selectedcardpage";
 import { mappedCard, UserId } from "../types/buttontypes";
    
