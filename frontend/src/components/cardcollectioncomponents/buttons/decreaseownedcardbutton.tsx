@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from "sonner";
 import { useDecreaseOwnedCardMutation } from "@/app/api-slices/ownedCardapislice";
-import { DecreaseCard } from "../types/buttontypes";
+import { DecreaseCard, toastErrorMessage, toastSuccessMessage } from "../types/buttontypes";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
 
 
@@ -32,8 +32,8 @@ const DecreaseOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCar
                 const promise = handleDecreaseClick(card.card_name);
                 toast.promise(promise, {
                     loading: "loading...",
-                    success: (data: any) => `Decreased Owned Amount for Card: ${data.name}`,
-                    error: (error: any) => {
+                    success: (data: toastSuccessMessage) => `Decreased Owned Amount for Card: ${data?.name}`,
+                    error: (error: toastErrorMessage) => {
                       console.log(error)
                       if (error?.status === 404) {
                         return error?.response?.data?.message || "Card Not Found";

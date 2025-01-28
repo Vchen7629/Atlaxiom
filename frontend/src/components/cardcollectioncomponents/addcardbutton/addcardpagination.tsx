@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { PageSelectorComponent } from "./addcardpageselector.tsx";
-import { OwnedCard } from "../types/dataStructures";
 import { Pagination } from "../types/addcardtypes.ts";
+import { mappedCard } from "../types/buttontypes.ts";
 
 const AddCardPaginationComponent = ({ paginationprops }: Pagination) => {
     const {
@@ -21,7 +21,7 @@ const AddCardPaginationComponent = ({ paginationprops }: Pagination) => {
         if (filteredCards.length > 0) {
             const startIndex = (currentPage - 1) * cardsPerPage;
             const endIndex = startIndex + cardsPerPage;
-            const currentCards = filteredCards.slice(startIndex, endIndex) as OwnedCard[];
+            const currentCards = filteredCards.slice(startIndex, endIndex) as mappedCard[];
             setCurrentCards(currentCards);
         }
     };

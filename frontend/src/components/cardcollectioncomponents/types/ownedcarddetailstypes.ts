@@ -1,4 +1,5 @@
 export type Card = {
+    id?: string
     filteredCards: string[];
     card_name: string;
     ownedamount?: number;

@@ -1,7 +1,9 @@
+import { OwnedCard } from "./dataStructures";
+
 export type OwnedCardsFilterProps = {
     filterProps: {
         setCanClearFilter: React.Dispatch<React.SetStateAction<boolean>>;
-        ownedCards: any;
+        ownedCards: OwnedCard;
         filterActive?: boolean
         monsterTypeFilter: string;
         setMonsterTypeFilter: React.Dispatch<React.SetStateAction<string>>;

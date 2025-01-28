@@ -1,3 +1,5 @@
+import { GalleryDeck } from "@/components/deckbuttons/buttonprops";
+
 export type NewDeckButton = {
     userId: string;
 }
@@ -30,8 +32,8 @@ export type DeckDisplayComponent = {
         refetch: any;
         currentPageListDecksArray: any[];
         setCurrentPageListDecksArray: React.Dispatch<React.SetStateAction<any[]>>
-        currentPageGalleryDecksArray: string[];
-        setCurrentPageGalleryDecksArray: React.Dispatch<React.SetStateAction<string[]>>
+        currentPageGalleryDecksArray: GalleryDeck[];
+        setCurrentPageGalleryDecksArray: React.Dispatch<React.SetStateAction<GalleryDeck[]>>
     }
 }
 

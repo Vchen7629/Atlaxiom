@@ -36,3 +36,35 @@ export type SaveDeckButton = {
         setModifySideDeckCardAmountPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>;
     }
 }
+
+export type CardToIncrease = {
+    id?: string;
+    _id?: string;
+    name?: string;
+    card_name?: string;
+    cardInDeckOwnedAmount?: number
+}
+
+export type CardToDecrease = {
+    id?: string;
+    _id?: string;
+    name?: string;
+    card_name?: string;
+    cardInDeckOwnedAmount?: number
+}
+
+export type CardToDelete = {
+    id?: string;
+    _id?: string;
+    name?: string;
+    card_name?: string;
+}
+
+
+export type UpdatedCard = {
+    _id?: string;
+    id?: string;
+    name?: string;
+    card_name?: string;
+    cardInDeckOwnedAmount?: number;
+  }

@@ -47,9 +47,15 @@ export function LevelSliderComponent({ levelprops, className, ...props }: LevelS
   return (
     <div className="flex w-[94%] my-2 justify-between">
       <div className="flex w-fit text-[hsl(var(--text))]">
-        <button className={`${levelLessThanEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))]"} h-6 px-2 rounded-tl-lg rounded-bl-lg`} onClick={handleLessThanClick}><FontAwesomeIcon icon={faGreaterThanEqual} className="fa-xs"/></button>
-        <button className={`${levelEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))]"} h-6 px-2`} onClick={handleEqualClick}><FontAwesomeIcon icon={faEquals} className="fa-xs"/></button>
-        <button className={`${levelGreaterThanEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))]"} h-6 px-2 rounded-tr-lg rounded-br-lg`} onClick={handleGreaterThanClick}><FontAwesomeIcon icon={faLessThanEqual} className="fa-xs"/></button>
+        <button className={`${levelLessThanEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))]"} h-6 px-2 rounded-tl-lg rounded-bl-lg`} onClick={handleLessThanClick}>
+          <FontAwesomeIcon icon={faGreaterThanEqual} className="fa-xs"/>
+        </button>
+        <button className={`${levelEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))]"} h-6 px-2`} onClick={handleEqualClick}>
+          <FontAwesomeIcon icon={faEquals} className="fa-xs"/>
+        </button>
+        <button className={`${levelGreaterThanEqual ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--atkdefcomponent))]"} h-6 px-2 rounded-tr-lg rounded-br-lg`} onClick={handleGreaterThanClick}>
+          <FontAwesomeIcon icon={faLessThanEqual} className="fa-xs"/>
+        </button>
       </div>
       <Slider
         value={[levelFilter ?? 1]}

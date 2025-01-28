@@ -5,7 +5,6 @@ import { LevelSliderComponent } from '../sliders/levelslider.tsx';
 import { OwnedCardsFilterProps } from "../../types/ownedcardfiltertypes.ts";
 import { RarityDropDownComponent } from "../dropdown/raritydropdown.tsx";
 import { useEffect, useState } from "react";
-import { Card } from "../../types/ownedcarddetailstypes.ts";
 import { MonsterTypeDropDownComponent } from "../dropdown/monstertypedropdown.tsx";
 import { SpellTypeDropDownComponent } from "../dropdown/spelltypedropdown.tsx";
 import { TrapTypeDropDownComponent } from "../dropdown/traptypedropdown.tsx";
@@ -25,6 +24,7 @@ import {
 } from "@/components/ui/drawer"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter, faXmarkSquare } from "@fortawesome/free-solid-svg-icons";
+import { OwnedCard } from "../../types/dataStructures.ts";
 
 const MobileFilterDrawerComponent = ({ filterProps }: OwnedCardsFilterProps) => {
     const {
@@ -72,7 +72,7 @@ const MobileFilterDrawerComponent = ({ filterProps }: OwnedCardsFilterProps) => 
 
     useEffect(() => {
         if (ownedCards) {
-          const allCards: Card[] = Object.values(ownedCards?.entities?.defaultId?.ownedCards || {}).flat().filter(card => card) as Card[];
+          const allCards: OwnedCard[] = Object.values(ownedCards?.entities?.defaultId?.ownedCards || {}).flat().filter(card => card) as OwnedCard[];
 
           const monsterTypeList = new Set(allCards.filter((card: any) => card.type.includes("Monster")).map((card: any) => card.race).filter(race => race));
           setUniqueMonsterType([...monsterTypeList])

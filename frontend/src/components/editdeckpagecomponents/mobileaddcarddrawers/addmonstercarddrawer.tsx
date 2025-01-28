@@ -19,8 +19,9 @@ import { useGetOwnedCardsQuery } from "@/app/api-slices/ownedCardapislice";
 import MobileCollectionMonsterCardDisplayComponent from "../mobiledrawerdisplay/collectionmonstercarddisplay";
 import AllCardsMobileSearchBarComponent from "../mobiledaddcardsearchbar/allcardsmonstercardsearchbar";
 import MobileAllCardsMonsterCardDisplayComponent from "../mobiledrawerdisplay/allcardsmonstercarddisplay";
+import { MonsterDrawer } from "../types/mobileaddcarddrawers";
 
-const AddMonsterCardDrawer = ({ monstercarddrawerprops }: any) => {
+const AddMonsterCardDrawer = ({ monstercarddrawerprops }: MonsterDrawer) => {
     const {
         userId,
         openDrawer, setOpenDrawer,

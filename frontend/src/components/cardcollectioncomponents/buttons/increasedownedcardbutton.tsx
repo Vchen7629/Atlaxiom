@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "sonner";
 import { useIncreaseOwnedCardMutation } from "@/app/api-slices/ownedCardapislice";
-import { IncreaseCard } from "../types/buttontypes";
+import { IncreaseCard, toastErrorMessage, toastSuccessMessage } from "../types/buttontypes";
 
 
 const IncreaseOwnedCardButtonComponent = ({ userId, refetch, card }: IncreaseCard) => {
@@ -32,8 +32,8 @@ const IncreaseOwnedCardButtonComponent = ({ userId, refetch, card }: IncreaseCar
                 const promise = handleIncreaseClick(card.card_name);
                 toast.promise(promise, {
                     loading: "loading...",
-                    success: (data: any) => `Increased Owned Amount for Card: ${data.name}`,
-                    error: (error: any) => {
+                    success: (data: toastSuccessMessage) => `Increased Owned Amount for Card: ${data?.name}`,
+                    error: (error: toastErrorMessage) => {
                       if (error?.status === 404) {
                             return error?.response?.data?.message || "Card Not Found";
                       } else if (error?.status === 400) {
