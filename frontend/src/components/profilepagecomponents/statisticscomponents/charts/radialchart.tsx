@@ -46,9 +46,9 @@ export function ComponentRadialChart() {
     }, [userData, userId])
 
     return (
-        <Card className="flex flex-col bg-[hsl(var(--profilebackground))] border-transparent rounded-xl">
+        <Card className="flex flex-col bg-[hsl(var(--profilebackground))] items-center border-transparent rounded-xl">
         <CardHeader>
-            <CardTitle className="text-[hsl(var(--background3)">Collection status</CardTitle>
+            <CardTitle className="text-[hsl(var(--text) mb-[2vh]">Collection status</CardTitle>
         </CardHeader>
         <CardContent className="flex pb-0 h-[22vh]">
             <ChartContainer
@@ -75,7 +75,7 @@ export function ComponentRadialChart() {
                                         x={viewBox.cx} 
                                         y={viewBox.cy} 
                                         textAnchor="middle" 
-                                        className="text-goldenrod relative"
+                                        className="text-[hsl(var(--text))] relative"
                                     >
                                         <tspan
                                             x={viewBox.cx}
@@ -86,8 +86,8 @@ export function ComponentRadialChart() {
                                         </tspan>
                                         <tspan
                                             x={viewBox.cx}
-                                            y={viewBox.cy}
-                                            className="fill-current text-gray-300 text-sm text-muted-foreground"
+                                            y={viewBox.cy + 22}
+                                            className="fill-current pt-[10vh] text-lg text-muted-foreground"
                                         >
                                             Cards Owned
                                         </tspan>

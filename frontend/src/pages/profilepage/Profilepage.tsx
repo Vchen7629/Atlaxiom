@@ -126,7 +126,7 @@ const Profilepage = () => {
                 return (
                     <>
                         {header}
-                        <div className="flex flex-col xl:flex-row items-center w-full justify-between">
+                        <div className="flex flex-col md:flex-row items-center w-full justify-between">
                             <NavBarComponent navbarprops={navbarprops}/>
                             <BarChartViewButton barchartbuttonprops={barchartbuttonprops}/>
                         </div>
