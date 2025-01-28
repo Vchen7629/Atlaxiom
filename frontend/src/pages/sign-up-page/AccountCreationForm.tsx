@@ -127,7 +127,7 @@ import { ErrorRes } from "./types/creationformtypes"
                     <div className="relative flex flex-col w-full space-y-1">
                         <span className="text-gray-600">Username</span>
                         <input
-                            className={`text-xl focus:outline-none text-black pl-4 w-full h-11 bg-transparent border-gray-400 border-2 focus:outline-none ${validUserClass && usernameError && formSubmitted ? 'border-red-400 border-2' : ''}`}
+                            className={`text-xl focus:outline-none text-black pl-4 w-full h-11 bg-transparent border-gray-400 border-2 ${validUserClass && usernameError && formSubmitted ? 'border-red-400 border-2' : ''}`}
                             id="username"
                             name="username"
                             type="text"
@@ -146,7 +146,7 @@ import { ErrorRes } from "./types/creationformtypes"
                     <div className="relative flex flex-col w-full space-y-1 my-8">
                         <span className="text-gray-600">Email</span>
                         <input
-                            className={`text-xl focus:outline-none text-black pl-4 w-full h-11 bg-transparent border-gray-400 border-2 focus:outline-none ${validEmailClass && emailError && formSubmitted ? 'border-red-400 border-2' : ''}`}
+                            className={`text-xl focus:outline-none text-black pl-4 w-full h-11 bg-transparent border-gray-400 border-2  ${validEmailClass && emailError && formSubmitted ? 'border-red-400 border-2' : ''}`}
                             id="email"
                             name="email"
                             type="text"
@@ -163,7 +163,7 @@ import { ErrorRes } from "./types/creationformtypes"
                     <div className="relative flex flex-col w-full space-y-1 mb-12">
                         <span className="text-gray-600">Password</span>
                         <input 
-                            className={`text-xl focus:outline-none text-black pl-4 w-full h-11 bg-transparent border-gray-400 border-2 focus:outline-none ${validPwdClass && passwordError && formSubmitted ? 'border-red-400 border-2' : ''}`}
+                            className={`text-xl text-black pl-4 w-full h-11 bg-transparent border-gray-400 border-2 focus:outline-none ${validPwdClass && passwordError && formSubmitted ? 'border-red-400 border-2' : ''}`}
                             id="password"
                             name="password"
                             type="text"

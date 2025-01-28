@@ -1,0 +1,16 @@
+version = 1
+
+exclude_patterns = [
+    "src/components/ui/**",
+    "img",
+]
+
+[[analyzers]]
+name = "javascript"
+
+  [analyzers.meta]
+  plugins = ["react"]
+  environment = [
+    "nodejs",
+    "browser"
+  ]
