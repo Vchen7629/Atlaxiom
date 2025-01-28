@@ -78,7 +78,7 @@ export function ComponentPieChart() {
   return (
     <Card className="flex flex-col bg-[hsl(var(--profilebackground))] border-transparent rounded-xl">
       <CardHeader className="items-center pb-0">
-        <CardTitle className="text-gold">Card Type Make-up</CardTitle>
+        <CardTitle className="text-[hsl(var(--text))]">Card Type Make-up</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
@@ -111,14 +111,14 @@ export function ComponentPieChart() {
                         <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className="fill-current text-3xl font-bold"
+                          className="fill-current text-[hsl(var(--text))] text-3xl font-bold"
                         >
                           {totalCards.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
-                          className="fill-current text-gray-300 text-muted-foreground"
+                          className="fill-current text-[hsl(var(--text))] text-muted-foreground"
                         >
                           total Cards
                         </tspan>

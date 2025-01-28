@@ -47,15 +47,22 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                                             <section className='flex w-1/4 space-x-8'>
                                                 <div className="flex flex-col">
                                                     <div className="text-[hsl(var(--text))]"><strong>{deck.deck_name}</strong></div>
-                                                    <div className="text-gray-400">Last Updated {deck.lastUpdated}</div>
+                                                    <div className="hidden lg:flex text-gray-400">Last Updated {deck.lastUpdated}</div>
                                                 </div>
                                                 {deck.favorite === true && (
-                                                    <span className=' text-[hsl(var(--background3))] flex items-center justify-center'>
+                                                    <span className='text-[hsl(var(--background3))] hidden md:flex items-center justify-center'>
                                                         <FontAwesomeIcon icon={faStar} className='fa-lg'/>
                                                     </span>
                                                 )}
                                             </section>
-                                            <section className="flex flex-col text-[hsl(var(--text))]">{deck.deck_desc}</section>
+                                            <section className="flex text-[hsl(var(--text))]">
+                                                {deck.favorite === true && (
+                                                    <span className=' text-[hsl(var(--background3))] flex md:hidden items-center justify-center'>
+                                                        <FontAwesomeIcon icon={faStar} className='fa-sm'/>
+                                                    </span>
+                                                )}
+                                                <span className="text-xs md:text-md lg:text-lg">{deck.deck_desc}</span>
+                                            </section>
                                             <section className="flex w-fit space-x-1">
                                                 <FavoriteDeckButtonComponent 
                                                     deck={deck} 
@@ -88,12 +95,12 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                     <main className='flex flex-col w-full'>
                         {currentGalleryPageResults.length > 0 ? (
                             <div
-                                className="grid grid-cols-12 gap-6 w-full h-full p-4 justify-items-center items-start"  
+                                className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-6 w-full h-full p-4 justify-items-center items-start"  
                                 style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                             >
                                 {currentGalleryPageResults.map((deck: FilteredDecks, index: string) =>
                                     <div className="flex flex-col items-center">
-                                        <div key={index} className="relative bg-deckpage flex flex-col items-center h-[13vh] w-[5.4vw] rounded-lg" onClick={() => handleDeckClick(deck)}>
+                                        <div key={index} className="relative bg-deckpage flex flex-col items-center h-[20vh] md:h-[16vh] lg:h-[15vh] lg:w-[8vw] xl:h-[13vh] xl:w-[5.4vw] rounded-lg" onClick={() => handleDeckClick(deck)}>
                                             {deck.favorite === true && (
                                                 <span className='absolute left-1/2 top-2 translate-x-[-50%] text-[hsl(var(--background3))] flex'>
                                                     <FontAwesomeIcon icon={faStar} className='fa-lg'/>

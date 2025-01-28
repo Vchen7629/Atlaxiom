@@ -12,7 +12,7 @@ import DeckSearchBar from '../../components/profilepagecomponents/viewdeckcompon
 import GridListViewComponent from '../../components/profilepagecomponents/viewdeckcomponents/gridlistviewcomponent.tsx';
 import EditAccountPage from './profile-subpages/editaccountpage.tsx';
 import { useGetAllOwnedDecksQuery } from '@/app/api-slices/decksapislice.ts';
-import PaginationComponent from '@/components/profilepagecomponents/statisticscomponents/pagination/pagination.tsx';
+import PaginationComponent from '@/components/profilepagecomponents/viewdeckcomponents/pagination/pagination.tsx';
 import { Deck } from '@/components/profilepagecomponents/statisticscomponents/types/paginationtypes.ts';
 import BarChartViewButton from '@/components/profilepagecomponents/statisticscomponents/buttons/barchartbutton.tsx';
 
@@ -31,7 +31,7 @@ const Profilepage = () => {
     const { data: modifyDecks, refetch: refetchdecks } = useGetAllOwnedDecksQuery(userId);
     const decksToDisplay = modifyDecks?.entities?.undefined?.ownedDecks || [];
     const filteredDecks = decksToDisplay.filter((deck: Deck) => deck?.deck_name?.toLowerCase().includes(deckName.toLowerCase()));
-    const suggestionsPerGalleryPage = 45;
+    const suggestionsPerGalleryPage = 20;
     const suggestionsPerListPage = 7;
     const [totalListPages, setTotalListPages] = useState<number>(1);
     const [totalGalleryPages, setTotalGalleryPages] = useState<number>(1);
@@ -111,11 +111,13 @@ const Profilepage = () => {
                 return (
                     <>
                         {header}
-                        <div className="flex items-center">
+                        <div className="flex flex-col xl:flex-row items-center">
                             <NavBarComponent navbarprops={navbarprops}/>
                             <PaginationComponent paginationprops={paginationprops}/>
-                            <DeckSearchBar deckName={deckName} setDeckName={setDeckName}/>
-                            <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
+                            <div className='flex justify-between w-full lg:w-fit'>
+                                <DeckSearchBar deckName={deckName} setDeckName={setDeckName}/>
+                                <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
+                            </div>
                         </div>
                         <ViewDecks deckprops={deckprops}/>
                     </>
@@ -124,7 +126,7 @@ const Profilepage = () => {
                 return (
                     <>
                         {header}
-                        <div className="flex items-center w-full justify-between">
+                        <div className="flex flex-col md:flex-row items-center w-full justify-between">
                             <NavBarComponent navbarprops={navbarprops}/>
                             <BarChartViewButton barchartbuttonprops={barchartbuttonprops}/>
                         </div>
@@ -143,11 +145,13 @@ const Profilepage = () => {
                 return (
                     <>
                         {header}
-                        <div className="flex items-center">
+                        <div className="flex flex-col xl:flex-row items-center">
                             <NavBarComponent navbarprops={navbarprops}/>
                             <PaginationComponent paginationprops={paginationprops}/>
-                            <DeckSearchBar deckName={deckName} setDeckName={setDeckName}/>
-                            <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
+                            <div className="flex justify-between w-full lg:w-fit">
+                                <DeckSearchBar deckName={deckName} setDeckName={setDeckName}/>
+                                <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
+                            </div>
                         </div>
                         <ViewDecks deckprops={deckprops}/>
                     </>
@@ -160,7 +164,7 @@ const Profilepage = () => {
         <main className="min-h-[100vh] flex flex-col justify-center">
             <Header/>
             <div className="flex justify-center pt-[10vh] bg-[hsl(var(--background1))] min-h-[120vh]">
-                <div className="flex flex-col w-full px-[10%] my-[3%]">
+                <div className="flex flex-col w-full px-[5%] lg:px-[10%] my-[3%]">
                     <div className="flex flex-col align-center w-full">
                         {renderProfileContent()}
                     </div>

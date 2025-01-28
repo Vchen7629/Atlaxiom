@@ -60,7 +60,7 @@ const SearchBarPage = () => {
 
   const [galleryView, setGalleryView] = useState(false);
 
-  const suggestionsPerGalleryPage = 45;
+  const suggestionsPerGalleryPage = 40;
   const suggestionsPerListPage = 15;
   const [totalListPages, setTotalListPages] = useState<number>(1);
   const [totalGalleryPages, setTotalGalleryPages] = useState<number>(1);
@@ -270,52 +270,53 @@ const SearchBarPage = () => {
         <Header/>
         <main className="flex flex-grow py-[15vh] items-start ">
           <Toaster richColors  expand visibleToasts={4}/>            
-          <div className={`flex flex-col w-full ${expandStatus ? "md:w-[77.5vw]" : "md:w-full"}`}>
-                <main>
-                  <div className="lg:flex space-y-[2vh] w-full items-center justify-between lg:mb-[5vh]">
-                    <div className="text-4xl text-goldenrod pl-8">
-                      <strong>Card Search</strong>
-                    </div>
-                    <section className="flex px-[3vw] lg:px-[0.001vw]">
-                      <div className="lg:w-[30vw] md:w-[90%] w-[90%]"><SearchBarComponent searchbarprops={searchbarprops}/></div>
-                      <div className="flex ml-2 items-center">
-                        <ClearFilterButton clearfilterprops={clearfilterprops}/>
-                        <div className='hidden lg:flex'>
-                          <FilterButton filterbuttonprops={filterbuttonprops}/>
-                        </div>
-                      </div>
-                    </section>
-                    <div className="flex mr-[3vw] bg-transparent">
-                      <div className="flex w-20 bg-footer rounded-xl ml-4">
-                        <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
-                      </div>
-                      <div className='flex lg:hidden'>
-                        <MobileSearchFilterDrawer filterprops={filterprops}/>
-                      </div>
-                    </div>
+          <div className={`flex flex-col w-full`}>
+            <header className="lg:flex space-y-[2vh] w-full items-center justify-between lg:mb-[5vh]">
+              <div className="text-4xl text-goldenrod pl-8">
+                <strong>Card Search</strong>
+              </div>
+              <section className="flex px-[3vw] lg:px-0">
+                <div className="lg:w-[30vw] md:w-[90%] w-[90%]">
+                  <SearchBarComponent searchbarprops={searchbarprops}/>
+                </div>
+                <div className="flex ml-2 items-center">
+                  <ClearFilterButton clearfilterprops={clearfilterprops}/>
+                  <div className='hidden lg:flex'>
+                    <FilterButton filterbuttonprops={filterbuttonprops}/>
                   </div>
-                  {listView && (
-                    <main className='flex flex-col w-full justify-center space-y-2 px-[3vw] lg:px-[1vw]'>
-                      <PaginationComponent paginationprops={paginationprops}/>
-                      <ListViewSearchSuggestionsComponent listviewprops={listviewprops}/>
-                      <PaginationComponent paginationprops={paginationprops}/>
-                    </main>
-                  )}
-
-                  {galleryView && (
-                    <main className="flex flex-col w-full  justify-center space-y-2 px-[3vw] lg:px-[1vw]">
-                      <PaginationComponent paginationprops={paginationprops}/>
-                      <GalleryViewSearchSuggestionsComponent galleryviewprops={galleryviewprops}/>
-                      <PaginationComponent paginationprops={paginationprops}/>
-                    </main>
-                  )}
-                </main>       
+                </div>
+              </section>
+              <div className="flex mr-[3vw] bg-transparent">
+                <div className="flex w-20 bg-footer rounded-xl ml-4">
+                  <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
+                </div>
+                <div className='flex lg:hidden'>
+                  <MobileSearchFilterDrawer filterprops={filterprops}/>
+                </div>
+              </div>
+            </header>
+            <section className='flex'>
+              {listView && (
+                <main className={`flex flex-col justify-center space-y-2 px-[3vw] lg:px-[1vw] ${expandStatus ? "md:w-[77.5vw]" : "md:w-full"}`}>
+                  <PaginationComponent paginationprops={paginationprops}/>
+                  <ListViewSearchSuggestionsComponent listviewprops={listviewprops}/>
+                  <PaginationComponent paginationprops={paginationprops}/>
+                </main>
+              )}
+              {galleryView && (
+                <main className="flex flex-col w-full  justify-center space-y-2 px-[3vw] lg:px-[1vw]">
+                  <PaginationComponent paginationprops={paginationprops}/>
+                  <GalleryViewSearchSuggestionsComponent galleryviewprops={galleryviewprops}/>
+                  <PaginationComponent paginationprops={paginationprops}/>
+                </main>
+              )}
+              {expandStatus && (
+                <div className={`hidden lg:flex min-h-[80vh] ${expandStatus ? "w-[20.5%]" : "w-0 "}`}>
+                  <FilterCardComponent filterprops={filterprops}/>
+                </div>      
+              )} 
+            </section> 
           </div>
-          {expandStatus && (
-            <div className={`fixed sm:hidden lg:flex right-2 top-24 min-h-[80vh] ${expandStatus ? "w-[20.5%]" : "w-0 "}`}>
-                <FilterCardComponent filterprops={filterprops}/>
-            </div>      
-          )}
         </main>   
         <Footer/>
       </div>

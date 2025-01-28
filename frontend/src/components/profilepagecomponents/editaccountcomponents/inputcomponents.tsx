@@ -14,7 +14,7 @@ export const EditUsernameInputComponent = ({ newUsername, setNewUsername }: User
     };
 
     return (
-        <div className="flex w-[25vw] h-[40px] pl-3 relative border-2 border-gray-400 justify-start text-[hsl(var(--text))]">                      
+        <div className="flex w-[90%] xl:w-[25vw] h-[40px] pl-3 relative border-2 border-gray-400 justify-start text-[hsl(var(--text))]">                      
             <div className="flex items-center w-full">
                 <input
                     className="bg-transparent w-full h-full text-md focus:outline-none"
@@ -45,7 +45,7 @@ export const EditEmailInputComponent = ({ newEmail, setNewEmail }: EmailInput) =
     }
 
     return (
-        <div className="flex w-[25vw] h-[40px] pl-3 relative border-2 border-gray-400 justify-start text-[hsl(var(--text))]">                      
+        <div className="flex w-[90%] xl:w-[25vw] h-[40px] pl-3 relative border-2 border-gray-400 justify-start text-[hsl(var(--text))]">                      
             <div className="flex items-center w-full">
                 <input
                     className="bg-transparent w-full h-full text-md focus:outline-none"
@@ -75,7 +75,7 @@ export const EditPasswordInputComponent = ({ newPassword, setNewPassword }: Pass
     };
 
     return (
-        <div className="flex w-[25vw] h-[40px] pl-3 relative border-2 border-gray-400 justify-start text-[hsl(var(--text))]">                      
+        <div className="flex w-[90%] xl:w-[25vw] h-[40px] pl-3 relative border-2 border-gray-400 justify-start text-[hsl(var(--text))]">                      
             <div className="flex items-center w-full">
                 <input
                     className="bg-transparent w-full h-full text-md focus:outline-none"

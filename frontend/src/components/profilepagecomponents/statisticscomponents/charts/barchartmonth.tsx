@@ -95,12 +95,12 @@ export function ComponentBarMonthChart(): JSX.Element {
 
     return (
       <div>
-          <Card className="relative w-[60vw] bg-[hsl(var(--profilebackground))] rounded-xl">
+          <Card className="relative w-full lg:w-[60vw] bg-[hsl(var(--profilebackground))] rounded-xl">
               <CardHeader>
-                <div className="flex w-full  justify-between">
-                    <div className="flex flex-col space-y-2">
-                        <CardTitle className="text-gold">Your Cards/Deck Statistics</CardTitle>
-                        <CardDescription className="">
+                <div className="flex flex-col lg:flex-row w-full  justify-between">
+                    <div className="flex flex-col items-center lg:items-start space-y-2">
+                        <CardTitle className="text-[hsl(var(--text))] lg:text-4xl">Your Cards/Deck Statistics</CardTitle>
+                        <CardDescription className="text-md">
                             {`Card Statistics for ${selectedMonth} of 2024`}
                         </CardDescription>
                     </div>
@@ -110,7 +110,7 @@ export function ComponentBarMonthChart(): JSX.Element {
                             <select
                                 value={selectedMonth}
                                 onChange={(e) => setSelectedMonth(e.target.value)}
-                                className="p-2 rounded max-h-[40px] bg-[hsl(var(--background1))] text-white"
+                                className="p-2 rounded max-h-[40px] bg-[hsl(var(--background1))] text-[hsl(var(--text))]"
                             >
                                 {months.map((month) => (
                                     <option key={month} value={month}>{month}</option>
@@ -120,18 +120,18 @@ export function ComponentBarMonthChart(): JSX.Element {
                         <div className="flex space-x-8">
                             <button
                                 onClick={() => setStatisticType("cards")}
-                                className={`flex flex-col items-center w-fit py-1 ${statisticType === "cards" ? "border-b-2 border-goldenrod" : "bg-transparent border-b-2 border-transparent"} text-white`}
+                                className={`flex flex-col items-center w-fit py-1 ${statisticType === "cards" ? "border-b-2 border-goldenrod" : "bg-transparent border-b-2 border-transparent"} text-[hsl(var(--text))]`}
                             >
                                 
-                                <div className="text-xs text-muted-foreground">Total Cards</div>
-                                <span className="text-sm text-gold font-bold leading-none sm:text-3xl">{totalCards}</span>
+                                <div className="text-md lg:text-xl text-muted-foreground">Total Cards</div>
+                                <span className="lg:text-md font-bold leading-none sm:text-3xl">{totalCards}</span>
                             </button>
                             <button
                                 onClick={() => setStatisticType("decks")}
-                                className={`flex flex-col items-center w-fit py-1  ${statisticType === "decks" ? "border-b-2 border-goldenrod" : "bg-transparent border-b-2 border-transparent"} text-white`}
+                                className={`flex flex-col items-center w-fit py-1  ${statisticType === "decks" ? "border-b-2 border-goldenrod" : "bg-transparent border-b-2 border-transparent"} text-[hsl(var(--text))]`}
                             >
-                                <div className="text-xs text-muted-foreground">Total Decks</div>
-                                <span className="text-sm text-gold font-bold leading-none sm:text-3xl">{totalDecks}</span>
+                                <div className="text-md lg:text-xl text-muted-foreground">Total Decks</div>
+                                <span className="lg:text-md font-bold leading-none sm:text-3xl">{totalDecks}</span>
                             </button>
                         </div>
                     </div>

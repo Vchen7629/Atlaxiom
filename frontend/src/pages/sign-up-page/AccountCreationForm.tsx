@@ -1,7 +1,7 @@
     import { useState, useEffect } from "react"
     import { useAddNewUserMutation } from "../../app/api-slices/usersApiSlice"
     import { useNavigate } from "react-router-dom"
-    import { isUsernameValid, isPasswordValid, isEmailValid } from "../../features/auth/UserDataValidation"
+    import { isUsernameValid, isPasswordValid, isEmailValid } from "../../app/auth/UserDataValidation"
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query"
 import { ErrorRes } from "./types/creationformtypes"
 

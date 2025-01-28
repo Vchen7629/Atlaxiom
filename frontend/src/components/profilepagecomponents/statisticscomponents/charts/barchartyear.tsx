@@ -86,7 +86,7 @@ export function ComponentBarChart(): JSX.Element {
     
 
     return (
-      <div className="relative w-[60vw] bg-[hsl(var(--profilebackground))] rounded-xl">
+      <div className="relative w-full lg:w-[60vw] bg-[hsl(var(--profilebackground))] rounded-xl">
           <Card>
             <CardHeader>
               <section className="flex w-full  justify-between">
@@ -99,7 +99,7 @@ export function ComponentBarChart(): JSX.Element {
                   <select
                     value={selectedYear}
                     onChange={(e) => setSelectedYear(e.target.value)}
-                    className="p-2 rounded max-h-[40px] bg-[hsl(var(--background1))] text-white"
+                    className="p-2 rounded max-h-[40px] bg-[hsl(var(--background3))] text-white"
                   >
                     {years.map((year) => (<option key={year} value={year}>{year}</option>))}
                   </select>  

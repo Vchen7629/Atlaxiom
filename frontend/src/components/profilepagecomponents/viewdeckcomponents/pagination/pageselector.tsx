@@ -10,27 +10,23 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
         totalListPages,
         currentGalleryPage, setGalleryCurrentPage,
         totalGalleryPages,
-        setListErr,
-        setGalleryErr,
     } = pageselectorprops
 
     const handleListPageChange = (page: number) => {
         setListCurrentPage(page);
         setListPage(page); 
-        setListErr("")       
     };
 
     const handleGalleryPageChange = (page: number) => {
         setGalleryCurrentPage(page);
         setGalleryPage(page);  
-        setGalleryErr("");      
     };
 
     return (
         <div className="flex w-fit text-center space-x-2">
             {listView && (
                 <>
-                    <button className="text-white px-1 border-[1px] border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentListPage === 1} onClick={() => {handleListPageChange(currentListPage - 1)}}>
+                    <button className="text-white px-2 border-[1px] border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentListPage === 1} onClick={() => {handleListPageChange(currentListPage - 1)}}>
                         {'<<'}
                     </button>
                     {Array.from({ length: Math.min(3, totalListPages) }, (_, index) => {
@@ -38,7 +34,7 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
                         return (
                             <button
                                 key={pageNumber}
-                                className={`px-2 py-1 rounded-lg border-[1px] ${
+                                className={`px-3 py-1 rounded-lg border-[1px] ${
                                     currentListPage === pageNumber ? 'text-[hsl(var(--background3))] border-[hsl(var(--background3))]' : 'text-white border-gray-400'
                                 } hover:border-[hsl(var(--background3))]`}
                                 onClick={() => handleListPageChange(pageNumber)}
@@ -48,32 +44,12 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
                         );
                     })}
 
-                    {totalListPages > 3 && <span className=" px-1 py-1 text-bottom flex">...</span>}
+                    {totalListPages > 4 && <span className=" px-1 py-1 text-bottom flex">...</span>}
 
-                    {totalListPages > 10 &&
-                        Array.from({ length: 3 }, (_, index) => {
-                            const pageNumber = currentListPage - 1 + index;
-                            if (pageNumber > 4 && pageNumber < totalListPages) {
-                                return (
-                                    <button
-                                        key={pageNumber}
-                                        className={`px-2 py-1 rounded-lg border-[1px] ${
-                                            currentListPage === totalListPages ? 'text-[hsl(var(--background3))] border-[hsl(var(--background3))]' : 'text-white border-gray-400'
-                                        } hover:border-[hsl(var(--background3))]`}
-                                        onClick={() => handleListPageChange(pageNumber)}
-                                    >
-                                        {pageNumber}
-                                    </button>
-                                );
-                            }
-                            return null;
-                        })}
-
-
-                    {totalListPages > 3 && (
+                    {totalListPages > 4 && (
                         <button
                             key={totalListPages}
-                            className={`px-2 py-1 rounded-lg border-[1px] ${
+                            className={`px-3 py-1 rounded-lg border-[1px] ${
                                 currentListPage === totalListPages ? 'text-[hsl(var(--background3))] border-[hsl(var(--background3))]' : 'text-white border-gray-400'
                             } hover:border-[hsl(var(--background3))]`}
                             onClick={() => handleListPageChange(totalListPages)}
@@ -107,27 +83,7 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
                         );
                     })}
 
-                    {totalGalleryPages > 9 && <span className=" px-1 py-1 text-bottom flex">...</span>}
-
-                    {totalGalleryPages > 10 &&
-                        Array.from({ length: 3 }, (_, index) => {
-                            const pageNumber = currentGalleryPage - 1 + index;
-                            if (pageNumber > 4 && pageNumber < totalGalleryPages) {
-                                return (
-                                    <button
-                                        key={pageNumber}
-                                        className={`px-3 py-1 rounded-lg border-[1px] ${
-                                            currentGalleryPage === totalGalleryPages ? 'text-[hsl(var(--background3))] border-[hsl(var(--background3))]' : 'text-white border-gray-400'
-                                        } hover:border-[hsl(var(--background3))]`}
-                                        onClick={() => handleGalleryPageChange(pageNumber)}
-                                    >
-                                        {pageNumber}
-                                    </button>
-                                );
-                            }
-                            return null;
-                        })}
-
+                    {totalGalleryPages > 4 && <span className=" px-1 py-1 text-bottom flex">...</span>}
 
                     {totalGalleryPages > 4 && (
                         <button

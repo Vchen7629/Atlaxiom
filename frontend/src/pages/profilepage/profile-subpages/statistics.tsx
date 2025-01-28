@@ -12,19 +12,19 @@ const UserStatistics = ({ statisticsprops }: Statistics) => {
     } = statisticsprops
 
     return (
-        <main className="flex flex-col h-full pb-[1vh]">
-            <div className="flex h-full space-x-[3%]">
+        <main className="flex flex-col items-center h-full py-[1vh]">
+            <div className="flex flex-col space-y-[5vh] lg:space-y-0 lg:flex-row space-x-[3%] h-full">
                 {yearView && (
-                    <div className="flex items-center min-h-full">
+                    <div className="flex h-fit">
                         <ComponentBarChart/>
                     </div>
                 )}
                 {monthView && (
-                    <div className="flex items-center min-h-full">
+                    <div className="flex h-fit">
                         <ComponentBarMonthChart/>
                     </div>
                 )}
-                <div className="flex flex-col justify-between space-y-[3%]">
+                <div className="flex flex-col justify-between space-y-[5vh] lg:space-y-[3%]">
                     <ComponentPieChart/>
                     <ComponentRadialChart/>
                 </div>

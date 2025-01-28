@@ -34,8 +34,7 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
       
     return (
         <AlertDialog >
-            <AlertDialogTrigger asChild>
-              
+            <AlertDialogTrigger asChild>       
                 <div className="text-[hsl(var(--text))] ">
                     {currentListPageResults.length > 0 ? (
                         currentListPageResults.map((card: Card, index: number) => (
@@ -77,7 +76,7 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
                                 
                             </div>
                         ))
-                    ) : ownedCardCount?.entities[userId].totalOwnedCards === 0 ? (
+                    ) : ownedCardCount?.entities[userId]?.totalOwnedCards === 0 ? (
                       <div className="flex h-[80vh] justify-center pt-[25%] text-center text-xl lg:text-3xl text-gray-400 font-black">
                         <span>You have no owned Cards</span>
                       </div>
