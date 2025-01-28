@@ -86,7 +86,7 @@ export function ComponentRadialChart() {
                                         </tspan>
                                         <tspan
                                             x={viewBox.cx}
-                                            y={viewBox.cy + 22}
+                                            y={viewBox.cy}
                                             className="fill-current pt-[10vh] text-lg text-muted-foreground"
                                         >
                                             Cards Owned
