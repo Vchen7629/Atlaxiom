@@ -311,7 +311,7 @@ const addCardtoExtraDeck = asyncHandler(async (req, res) => {
     await user.save();
     await deck.save();
 
-    res.status(200).json({ message: `Card with card name ${extra_deck_cards[0].card_name} added to the extra deck of deck with name${deck_name} for user called ${user.username}`})
+    res.status(200).json({ message: `Card with card name ${extra_deck_cards[0].card_name} added to the extra deck of deck with name${deckId} for user called ${user.username}`})
 })
 
 // @desc Add a card to the side deck
@@ -368,7 +368,7 @@ const addCardtoSideDeck = asyncHandler(async (req, res) => {
     await user.save();
     await deck.save();
 
-    res.status(200).json({ message: `Card with card name ${side_deck_cards[0].card_name} added to the side deck of deck with name ${deck_name} for user called ${user.username}`})
+    res.status(200).json({ message: `Card with card name ${side_deck_cards[0].card_name} added to the side deck of deck with name ${deckId} for user called ${user.username}`})
 })
 
 

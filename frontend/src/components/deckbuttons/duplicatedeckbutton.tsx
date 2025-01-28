@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { DeleteDeck } from "./buttonprops";
 import { toast } from "sonner";
+import { toastErrorMessage, toastSuccessMessage } from "../cardcollectioncomponents/types/buttontypes";
 
 
 const DuplicateDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: DeleteDeck) => {
@@ -34,8 +35,8 @@ const DuplicateDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: De
                 const promise = handleDuplicateDeckClick(deck);
                 toast.promise(promise, {
                     loading: "loading...",
-                    success: (data: any) => `Duplicated Deck: ${data.name}`,
-                    error: (error: any) => {
+                    success: (data: toastSuccessMessage) => `Duplicated Deck: ${data?.name}`,
+                    error: (error: toastErrorMessage) => {
                         if (error?.status === 404) {
                             return error?.response?.data?.message || "User Not Found";
                         } else if (error?.status === 405) {

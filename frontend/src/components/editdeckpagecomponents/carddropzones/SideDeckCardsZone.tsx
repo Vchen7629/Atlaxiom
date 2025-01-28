@@ -3,7 +3,7 @@ import { useState } from "react"
 import { faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { handleDecreaseCardOwnedAmount, handleDeleteCardClick, handleIncreaseCardOwnedAmount } from "../../editdeckpagecomponents/buttons/EditDeckCardButtons"
-import { SideDeckProps } from "../types/carddropzonetypes"
+import { deckCards, SideDeckProps } from "../types/carddropzonetypes"
 import SubGridListViewComponent from "../../editdeckpagecomponents/draganddropitems/subgridlistviewcomp"
 
 const SideDeckCardZone = ({ sidedeckprops }: SideDeckProps) => {
@@ -54,7 +54,7 @@ const SideDeckCardZone = ({ sidedeckprops }: SideDeckProps) => {
               <div className={`relative flex flex-col w-full h-full transition-all duration-300 ${ shouldSideDeckBlur ? "blur-sm" : "" }`}>
                 {sideDeckCards.length > 0 && (
                   <div className="w-full h-full flex flex-col space-y-2 pl-2">
-                    {sideDeckCards.map((card: any) => (
+                    {sideDeckCards.map((card: deckCards) => (
                       <div
                         key={card?.id || card?._id}
                         className="flex h-[5vh] items-center space-x-2"
@@ -117,7 +117,7 @@ const SideDeckCardZone = ({ sidedeckprops }: SideDeckProps) => {
                       className="grid grid-cols-6 gap-4 w-full h-full p-4 justify-items-start items-start"  
                       style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                     >  
-                      {sideDeckCards.map((card: any) => (
+                      {sideDeckCards.map((card: deckCards) => (
                           <div key={card.id} className="flex flex-col group relative items-center space-y-2">
                             <label className="bg-[hsl(var(--background3))] font-bold text-[hsl(var(--text))] px-2 text-xs rounded-2xl">{card?.cardInDeckOwnedAmount}x</label>
                             <img

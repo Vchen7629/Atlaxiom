@@ -1,10 +1,12 @@
+import { CardToDecrease, CardToDelete, CardToIncrease, UpdatedCard } from "../types/buttontypes";
+
 export const handleIncreaseCardOwnedAmount = (
-    cardToIncrease: any, 
-    setCard: React.Dispatch<React.SetStateAction<any[]>>, 
-    setCardsToAdd: React.Dispatch<React.SetStateAction<any[]>>,
+    cardToIncrease: CardToIncrease, 
+    setCard: React.Dispatch<React.SetStateAction<UpdatedCard[]>>, 
+    setCardsToAdd: React.Dispatch<React.SetStateAction<UpdatedCard[]>>,
 ) => {
-    setCard((prevCard: any) => {
-      const updatedCard = prevCard.map((card: any) => {
+    setCard((prevCard: UpdatedCard[]) => {
+      const updatedCard = prevCard.map(card => {
         if ((card._id || card.id) === (cardToIncrease._id || cardToIncrease.id)) {
           return { 
             ...card, 
@@ -16,8 +18,8 @@ export const handleIncreaseCardOwnedAmount = (
       });
       return updatedCard;
     })
-    setCardsToAdd((prevPlaceholder: any[]) => {
-      const cardExists = prevPlaceholder.some((card: any) => (card.name || card.card_name) === (cardToIncrease.name || cardToIncrease.card_name));
+    setCardsToAdd((prevPlaceholder: UpdatedCard[]) => {
+      const cardExists = prevPlaceholder.some((card) => (card.name || card.card_name) === (cardToIncrease.name || cardToIncrease.card_name));
 
       if (!cardExists) {
         return [
@@ -26,7 +28,7 @@ export const handleIncreaseCardOwnedAmount = (
         ];
       }
 
-      return prevPlaceholder.map((card: any) => {
+      return prevPlaceholder.map((card) => {
         if ((card._id || card.id) === (cardToIncrease._id || cardToIncrease.id)) {
           return {
             ...card,
@@ -39,12 +41,12 @@ export const handleIncreaseCardOwnedAmount = (
 };
 
 export const handleDecreaseCardOwnedAmount = (
-    cardToDecrease: any, 
-    setCard: React.Dispatch<React.SetStateAction<any[]>>,
-    setCardsToDecrease: React.Dispatch<React.SetStateAction<any[]>>,
+    cardToDecrease: CardToDecrease, 
+    setCard: React.Dispatch<React.SetStateAction<UpdatedCard[]>>,
+    setCardsToDecrease: React.Dispatch<React.SetStateAction<UpdatedCard[]>>,
 ) => {
-    setCard((prevCard: any) => {
-      const updatedCard = prevCard.map((card: any) => {
+    setCard((prevCard: UpdatedCard[]) => {
+      const updatedCard = prevCard.map(card => {
         if ((card._id || card.id) === (cardToDecrease._id || cardToDecrease.id)) {
           return { 
             ...card, 
@@ -56,8 +58,8 @@ export const handleDecreaseCardOwnedAmount = (
       })
       return updatedCard;
     })
-    setCardsToDecrease((prevPlaceholder: any[]) => {
-      const cardExists = prevPlaceholder.some((card: any) => (card.name || card.card_name) === (cardToDecrease.name || cardToDecrease.card_name));
+    setCardsToDecrease((prevPlaceholder: UpdatedCard[]) => {
+      const cardExists = prevPlaceholder.some(card => (card.name || card.card_name) === (cardToDecrease.name || cardToDecrease.card_name));
 
       if (!cardExists) {
         return [
@@ -66,7 +68,7 @@ export const handleDecreaseCardOwnedAmount = (
         ];
       }
 
-      return prevPlaceholder.map((card: any) => {
+      return prevPlaceholder.map(card => {
         if ((card._id || card.id) === (cardToDecrease._id || cardToDecrease.id)) {
           return {
             ...card,
@@ -79,25 +81,25 @@ export const handleDecreaseCardOwnedAmount = (
 }
 
 export const handleDeleteCardClick = (
-    cardToDelete: any,
-    setCards: React.Dispatch<React.SetStateAction<any[]>>,
-    removeFromArray: React.Dispatch<React.SetStateAction<any[]>>,
-    setCardsToDelete: React.Dispatch<React.SetStateAction<any[]>>,
+    cardToDelete: CardToDelete,
+    setCards: React.Dispatch<React.SetStateAction<UpdatedCard[]>>,
+    removeFromArray: React.Dispatch<React.SetStateAction<UpdatedCard[]>>,
+    setCardsToDelete: React.Dispatch<React.SetStateAction<UpdatedCard[]>>,
 ) => {
-    setCards((prevCards: any) => 
-      prevCards.filter((card: any) => {
+    setCards((prevCards: UpdatedCard[]) => 
+      prevCards.filter(card => {
         const cardId = card?.id || card?._id;
         const deleteCardId = cardToDelete?.id || cardToDelete?._id;
         return cardId !== deleteCardId;
       })
     );
-    removeFromArray((prevPlaceHolder: any[]) => 
+    removeFromArray((prevPlaceHolder: UpdatedCard[]) => 
         prevPlaceHolder.filter(
-            (card: any) => (card._id || card.id) !== (cardToDelete._id || cardToDelete.id)
+            card => (card._id || card.id) !== (cardToDelete._id || cardToDelete.id)
         )
     );
-    setCardsToDelete((prevPlaceholder: any[]) => {
-        const cardExists = prevPlaceholder.some((card: any) => (card.name || card.card_name) === (cardToDelete.name || cardToDelete.card_name));
+    setCardsToDelete((prevPlaceholder: UpdatedCard[]) => {
+        const cardExists = prevPlaceholder.some(card => (card.name || card.card_name) === (cardToDelete.name || cardToDelete.card_name));
   
         if (!cardExists) {
           return [

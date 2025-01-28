@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { DeleteDeck } from "./buttonprops";
 import { toast } from "sonner";
+import { toastErrorMessage, toastSuccessMessage } from "../cardcollectioncomponents/types/buttontypes";
 
 
 const DeleteDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: DeleteDeck) => {
@@ -35,8 +36,8 @@ const DeleteDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: Delet
                 const promise = handleDeleteDeckClick(deck);
                 toast.promise(promise, {
                     loading: "loading...",
-                    success: (data: any) => `Deleted Deck: ${data.name}`,
-                    error: (error: any) => {
+                    success: (data: toastSuccessMessage) => `Deleted Deck: ${data?.name}`,
+                    error: (error: toastErrorMessage) => {
                         if (error?.status === 404) {
                             return error?.response?.data?.message || "User Not Found";
                         } else if (error?.status === 405) {

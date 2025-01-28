@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from "sonner";
-import { DecreaseCard } from "../types/buttontypes";
+import { DecreaseCard, toastErrorMessage, toastSuccessMessage } from "../types/buttontypes";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useDeleteOwnedCardMutation } from "@/app/api-slices/ownedCardapislice";
 
@@ -30,8 +30,8 @@ const DeleteOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCard)
                 const promise = handleDeleteCardClick(card.card_name);
                 toast.promise(promise, {
                     loading: "loading...",
-                    success: (data: any) => `Deleted Card: ${data.name}`,
-                    error: (error: any) => {
+                    success: (data: toastSuccessMessage) => `Deleted Card: ${data?.name}`,
+                    error: (error: toastErrorMessage) => {
                       if (error?.status === 404) {
                             return error?.response?.data?.message || "Card Not Found";
                       } else if (error?.status === 400) {

@@ -2,6 +2,7 @@ import { useCreateNewDeckMutation, useGetAllOwnedDecksQuery } from '../../../app
 import { useNavigate } from 'react-router-dom';
 import { NewDeckButton } from '../types/homepagecomponentprops.ts';
 import { toast } from 'sonner';
+import { toastErrorMessage, toastSuccessMessage } from '@/components/cardcollectioncomponents/types/buttontypes.ts';
 
 const CreateNewDeckComponent: React.FC<NewDeckButton> = ({ userId }) => {
     const navigate = useNavigate()
@@ -30,8 +31,8 @@ const CreateNewDeckComponent: React.FC<NewDeckButton> = ({ userId }) => {
                 const promise = handleCreateDeckClick()
                 toast.promise(promise, {
                     loading: "loading...",
-                    success: (data: any) => `Created New Deck Named: ${data.name}`,
-                    error: (error: any) => {    
+                    success: (data: toastSuccessMessage) => `Created New Deck Named: ${data?.name}`,
+                    error: (error: toastErrorMessage) => {    
                         if (error?.status === 404 ) {
                             return error?.response?.data?.message || "User Not Found"
                         } else if (error?.status === 400 ) {

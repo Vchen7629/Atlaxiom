@@ -10,8 +10,12 @@ import {
 } from "@/components/ui/drawer"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faXmarkSquare } from "@fortawesome/free-solid-svg-icons";
+import { SpellDrawer } from "../types/mobileaddcarddrawers";
 
-const AddSpellCardDrawer = ({ openDrawer, setOpenDrawer}: any) => {
+const AddSpellCardDrawer = ({ spellcarddrawerprops }: SpellDrawer) => {
+    const {
+        openDrawer, setOpenDrawer
+    } = spellcarddrawerprops
     return (
         <Drawer modal={false} open={openDrawer === "spell"}>
             <DrawerTrigger asChild>

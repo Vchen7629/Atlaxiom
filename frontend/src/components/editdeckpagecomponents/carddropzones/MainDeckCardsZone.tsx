@@ -3,11 +3,12 @@ import {  useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { handleDecreaseCardOwnedAmount, handleDeleteCardClick, handleIncreaseCardOwnedAmount } from "../../editdeckpagecomponents/buttons/EditDeckCardButtons";
-import { MainDeckProps } from "../types/carddropzonetypes";
+import { deckCards, MainDeckProps } from "../types/carddropzonetypes";
 import SubGridListViewComponent from "../../editdeckpagecomponents/draganddropitems/subgridlistviewcomp";
 import AddMonsterCardDrawer from "../mobileaddcarddrawers/addmonstercarddrawer";
 import AddSpellCardDrawer from "../mobileaddcarddrawers/addspellcarddrawer";
 import AddTrapCardDrawer from "../mobileaddcarddrawers/addtrapcarddrawer";
+import { Card } from "../types/datatypes";
 
 const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
   const {
@@ -48,8 +49,8 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
   const shouldTrapBlur = isTrapOver && hoveredCard && hoveredCard?.type?.includes("Trap");
 
   const [openDrawer, setOpenDrawer] = useState<string | null>(null);
-  const [collectionMonsterCards, setCollectionMonsterCards] = useState<any>([])
-  const [allMonsterCards, setAllMonsterCards] = useState<any>([])
+  const [collectionMonsterCards, setCollectionMonsterCards] = useState<Card[]>([])
+  const [allMonsterCards, setAllMonsterCards] = useState<Card[]>([])
   //const [collectionSpellCards, setCollectionSpellCards] = useState([])
   //const [collectionTrapCards, setCollectionTrapCards] = useState([])
 
@@ -67,6 +68,14 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
     collectionMonsterCards, setCollectionMonsterCards,
     allMonsterCards, setAllMonsterCards,
     setMonsterCards
+  }
+
+  const spellcarddrawerprops = {
+    openDrawer, setOpenDrawer
+  }
+
+  const trapcarddrawerprops = {
+    openDrawer, setOpenDrawer
   }
 
   return (
@@ -98,7 +107,7 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
                 </div>
                 {monsterCards.length > 0 && (
                   <div className="w-full h-full pl-[1vw] flex flex-col space-y-2">
-                    {monsterCards.map((card: any) => (
+                    {monsterCards.map((card: deckCards) => (
                       <div
                         key={card?.id || card?._id}
                         className="flex w-full h-[5vh] items-center space-x-2"
@@ -151,11 +160,11 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
               <div className={`relative flex flex-col w-full h-full transition-all duration-300 ${ shouldSpellBlur ? "blur-sm" : "" }`}>
                 <div className="flex w-full items-center justify-between px-[2vw] py-[2vh]">
                   <span className="text-lg font-black text-[hsl(var(--text))]">Spell: </span>
-                  <div className="flex md:hidden"><AddSpellCardDrawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}/></div>
+                  <div className="flex md:hidden"><AddSpellCardDrawer spellcarddrawerprops={spellcarddrawerprops}/></div>
                 </div>
                 {spellCards.length > 0 && (
                   <div className="w-full h-full pl-[1vw] flex flex-col space-y-2">
-                    {spellCards.map((card: any) => (
+                    {spellCards.map((card: deckCards) => (
                       <div key={card?.id || card?._id} className="flex h-[5vh] items-center space-x-2">
                         <span className="text-gray-500">{card?.cardInDeckOwnedAmount}x</span>
                         <img
@@ -205,11 +214,11 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
               <div className={`relative flex flex-col w-full h-full transition-all duration-300 ${ shouldTrapBlur ? "blur-sm" : "" }`}>
                 <div className="flex w-full items-center justify-between px-[2vw] py-[2vh]">
                   <span className="text-lg font-black text-[hsl(var(--text))]">Trap:</span>
-                  <div className="flex md:hidden"><AddTrapCardDrawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}/></div>
+                  <div className="flex md:hidden"><AddTrapCardDrawer trapcarddrawerprops={trapcarddrawerprops}/></div>
                 </div>
                 {trapCards.length > 0 && (
                   <div className="w-full h-full pl-[1vw] flex flex-col space-y-2">
-                    {trapCards.map((card: any) => (
+                    {trapCards.map((card: deckCards) => (
                       <div key={card.id} className="flex h-[5vh] items-center space-x-2">
                         <span className="text-gray-500">{card?.cardInDeckOwnedAmount}x</span>
                         <img

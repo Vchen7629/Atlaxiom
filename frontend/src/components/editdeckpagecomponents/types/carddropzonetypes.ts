@@ -1,28 +1,37 @@
+import { UpdatedCard } from "./buttontypes";
 import { Card, OwnedCard } from "./datatypes";
 
 export type ExtraDeckProps = {
     extradeckprops: {
-        deck: any;
-        extraDeckCards: Card[];
-        setExtraDeckCards: React.Dispatch<React.SetStateAction<Card[]>>;
-        hoveredCard: any;
-        setModifyExtraDeckCardAmountPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>;
-        setCardsToDeleteExtraDeckPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>;
+        deck: {
+            total_cards_extra_deck: number;
+        };
+        extraDeckCards: UpdatedCard[];
+        setExtraDeckCards: React.Dispatch<React.SetStateAction<UpdatedCard[]>>;
+        hoveredCard: {
+            type?: string[]
+        };
+        setModifyExtraDeckCardAmountPlaceHolder: React.Dispatch<React.SetStateAction<UpdatedCard[]>>;
+        setCardsToDeleteExtraDeckPlaceHolder: React.Dispatch<React.SetStateAction<UpdatedCard[]>>;
     }
 }
 
 export type MainDeckProps = {
     maindeckprops: {
-        deck: any;
-        monsterCards: Card[];
-        setMonsterCards: React.Dispatch<React.SetStateAction<Card[]>>
-        spellCards: Card[];
-        setSpellCards: React.Dispatch<React.SetStateAction<Card[]>>
-        trapCards: Card[];
-        setTrapCards: React.Dispatch<React.SetStateAction<Card[]>>
-        hoveredCard: any | null;
-        setModifyMainDeckCardAmountPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>;
-        setCardsToDeleteMainDeckPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>;
+        deck: {
+            total_cards_main_deck: number;
+        };
+        monsterCards: UpdatedCard[];
+        setMonsterCards: React.Dispatch<React.SetStateAction<UpdatedCard[]>>
+        spellCards: UpdatedCard[];
+        setSpellCards: React.Dispatch<React.SetStateAction<UpdatedCard[]>>
+        trapCards: UpdatedCard[];
+        setTrapCards: React.Dispatch<React.SetStateAction<UpdatedCard[]>>
+        hoveredCard: {
+            type?: string[]
+        };
+        setModifyMainDeckCardAmountPlaceHolder: React.Dispatch<React.SetStateAction<UpdatedCard[]>>;
+        setCardsToDeleteMainDeckPlaceHolder: React.Dispatch<React.SetStateAction<UpdatedCard[]>>;
         allCardsView: boolean
         setAllCardsView: React.Dispatch<React.SetStateAction<boolean>>
         collectionCardsView: boolean
@@ -37,11 +46,29 @@ export type MainDeckProps = {
 
 export type SideDeckProps = {
     sidedeckprops: {
-        deck: any;
-        sideDeckCards: Card[];
-        setSideDeckCards: React.Dispatch<React.SetStateAction<Card[]>>;
-        hoveredCard: any;
-        setModifySideDeckCardAmountPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>;
-        setCardsToDeleteSideDeckPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>;
+        deck: {
+            total_cards_side_deck: number;
+        };
+        sideDeckCards: UpdatedCard[];
+        setSideDeckCards: React.Dispatch<React.SetStateAction<UpdatedCard[]>>;
+        hoveredCard: {
+            type?: string[]
+        };
+        setModifySideDeckCardAmountPlaceHolder: React.Dispatch<React.SetStateAction<UpdatedCard[]>>;
+        setCardsToDeleteSideDeckPlaceHolder: React.Dispatch<React.SetStateAction<UpdatedCard[]>>;
     }
+}
+
+export type deckCards = {
+    id?: string;
+    _id?: string;
+    cardInDeckOwnedAmount?: number;
+    card_images?: {
+        [0]?: {
+            image_url?: string
+        }
+    }
+    image_url?: string;
+    name?: string;
+    card_name?: string;
 }

@@ -10,8 +10,12 @@ import {
 } from "@/components/ui/drawer"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faXmarkSquare } from "@fortawesome/free-solid-svg-icons";
+import { TrapDrawer } from "../types/mobileaddcarddrawers";
 
-const AddTrapCardDrawer = ({ openDrawer, setOpenDrawer}: any) => {
+const AddTrapCardDrawer = ({ trapcarddrawerprops }: TrapDrawer) => {
+    const {
+        openDrawer, setOpenDrawer
+    } = trapcarddrawerprops
     return (
         <Drawer modal={false} open={openDrawer === "trap"}>
             <DrawerTrigger asChild>

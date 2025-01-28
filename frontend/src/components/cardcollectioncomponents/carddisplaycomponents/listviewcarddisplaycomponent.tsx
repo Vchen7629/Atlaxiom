@@ -27,18 +27,20 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
 
     const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null)
 
+    const handleClick = (card: Card) => () => {
+        setSelectedCard(card);
+    };
+
     const { refetch } = useGetOwnedCardsQuery(userId);
     const { data: ownedCardCount } = useGetSpecificUserQuery(userId);
-
-    console.log(currentListPageResults)
       
     return (
         <AlertDialog >
             <AlertDialogTrigger asChild>       
                 <div className="text-[hsl(var(--text))] ">
                     {currentListPageResults.length > 0 ? (
-                        currentListPageResults.map((card: Card, index: number) => (
-                            <div key={index} className="grid grid-cols-[30%_35%_35%] lg:grid-cols-[5%_3%_25%_10%_25%_15%_9%_8%] bg-transparent min-h-24 text-sm font-bold items-center hover:bg-blacktwo" onClick={() => setSelectedCard(card)}>
+                        currentListPageResults.map((card: Card) => (
+                            <div key={card.id} className="grid grid-cols-[30%_35%_35%] lg:grid-cols-[5%_3%_25%_10%_25%_15%_9%_8%] bg-transparent min-h-24 text-sm font-bold items-center hover:bg-blacktwo" onClick={handleClick(card)}>
                                 <div className="hidden lg:flex pl-6 ">{card.ownedamount}</div>
                                 <div className="flex items-center justify-center h-24">
                                     <img src={card.image_url} alt={card.card_name} className="w-3/4 h-[65%] lg:w-full lg:h-[90%] object-contain" />

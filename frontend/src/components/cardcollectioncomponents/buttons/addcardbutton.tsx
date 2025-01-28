@@ -15,10 +15,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faPlusCircle, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { ApiCardData } from "@/components/searchpagecomponents/types/datastructuretypes";
 import AddCardPaginationComponent from "../addcardbutton/addcardpagination";
-import { OwnedCard } from "../types/dataStructures";
 import SelectedCardComponent from "../addcardbutton/selectedcardpage";
+import { mappedCard, UserId } from "../types/buttontypes";
    
-export const AddCardButton = ({ userId }: any) => {
+export const AddCardButton = ({ userId }: UserId) => {
     const [cardData, setCardData] = useState<ApiCardData[]>([])
     const [cardName, setCardName] = useState<string>("");
     const [searchTerm, setSearchTerm] = useState<string>("");
@@ -60,7 +60,7 @@ export const AddCardButton = ({ userId }: any) => {
     const UpdateTotalPages = (filteredCardsLength: number) => {
         setTotalPages(Math.ceil(filteredCardsLength / cardsPerPage));
     }
-    const [currentCards, setCurrentCards] = useState<OwnedCard[]>([])
+    const [currentCards, setCurrentCards] = useState<mappedCard[]>([])
 
     const handleBackClick = () => {
         setCardData([]);
@@ -146,8 +146,8 @@ export const AddCardButton = ({ userId }: any) => {
                         <section className="flex flex-col w-[90%] pt-4">
                             <AddCardPaginationComponent paginationprops={paginationprops} /> 
                             {currentCards.length > 0 ? (
-                                currentCards.map((card: any, index: number) => (
-                                    <div key={index} className="flex bg-transparent h-16 text-sm font-bold items-center hover:bg-blacktwo">
+                                currentCards.map((card: mappedCard) => (
+                                    <div key={card.id} className="flex bg-transparent h-16 text-sm font-bold items-center hover:bg-blacktwo">
                                         <img 
                                             src={card.card_images[0]?.image_url} // Accessing the image from card_images array
                                             alt={card.name || 'Unknown Card'} 
