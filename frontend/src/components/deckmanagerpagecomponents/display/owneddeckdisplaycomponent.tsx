@@ -18,13 +18,14 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
     } = deckdisplayprops
     const navigate = useNavigate();
 
+    const handleDeckClick = async (deck: handleDeckClick) => {
+        navigate('/modifyDeck', { state: { deckId: deck._id, userId: userId } });   
+    };
+
     const handleDeckClickWrapper = (deck: handleDeckClick) => {
         return () => handleDeckClick(deck);
     };
 
-    const handleDeckClick = async (deck: handleDeckClick) => {
-        navigate('/modifyDeck', { state: { deckId: deck._id, userId: userId } });   
-    };
 
     return (
         <>  
