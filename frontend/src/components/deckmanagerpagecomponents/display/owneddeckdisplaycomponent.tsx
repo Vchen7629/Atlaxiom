@@ -18,6 +18,10 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
     } = deckdisplayprops
     const navigate = useNavigate();
 
+    const handleDeckClickWrapper = (deck: handleDeckClick) => {
+        return () => handleDeckClick(deck);
+    };
+
     const handleDeckClick = async (deck: handleDeckClick) => {
         navigate('/modifyDeck', { state: { deckId: deck._id, userId: userId } });   
     };
@@ -89,7 +93,7 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                         >
                             {currentPageGalleryDecksArray.map((deck: any) => (
                                 <div key={deck._id} className="flex flex-col items-center">
-                                    <button className="relative bg-deckpage flex flex-col h-[20vh] w-[28vw] md:h-[18vh] md:w-[15vw] lg:h-[12vh] lg:w-[4.8vw] rounded-lg" onClick={() => handleDeckClick(deck)}>
+                                    <button className="relative bg-deckpage flex flex-col h-[20vh] w-[28vw] md:h-[18vh] md:w-[15vw] lg:h-[12vh] lg:w-[4.8vw] rounded-lg" onClick={handleDeckClickWrapper(deck)}>
                                         {deck.favorite === true && (
                                             <span className='absolute left-1/2 top-2 translate-x-[-50%] text-[hsl(var(--background3))] flex'>
                                                 <FontAwesomeIcon icon={faStar} className='fa-lg'/>
