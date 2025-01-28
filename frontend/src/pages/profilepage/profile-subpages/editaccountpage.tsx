@@ -1,4 +1,4 @@
-import { faEnvelope, faLock, faUser, faUserSlash } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown, faEnvelope, faLock, faUser, faUserSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react"
 import { EditEmailInputComponent, EditPasswordInputComponent, EditUsernameInputComponent } from "../../../components/profilepagecomponents/editaccountcomponents/inputcomponents.tsx";
@@ -22,6 +22,24 @@ const EditAccountPage = ({ user, refetch }: EditAccount) => {
     const [newEmail, setNewEmail] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [deleteInput, setDeleteInput] = useState('');
+
+    const pages = ["username", "email", "password", "delete"];
+
+    const [selectedPage, setSelectedPage] = useState<string>(pages[0])
+
+    const handlePageChange = (value: string) => {
+        setSelectedPage(value);
+    
+        setChangeUsername(false);
+        setChangeEmail(false);
+        setChangePassword(false);
+        setDeleteAccount(false);
+    
+        if (value === "username") setChangeUsername(true);
+        if (value === "email") setChangeEmail(true);
+        if (value === "password") setChangePassword(true);
+        if (value === "delete") setDeleteAccount(true);
+      };
 
     const UpdateUsernameProps = {
         refetch,
@@ -67,9 +85,42 @@ const EditAccountPage = ({ user, refetch }: EditAccount) => {
     }
 
     return (
-        <div className="flex pl-8 pt-8 bg-[hsl(var(--profilebackground))] rounded-xl">
+        <div className="flex flex-col lg:flex-row pl-8 pt-8 bg-[hsl(var(--profilebackground))] rounded-xl">
             <Toaster richColors expand visibleToasts={4} position="bottom-center"/>
-            <section className="flex flex-col h-full w-1/4 space-y-6 text-xl text-[hsl(var(--text))]">
+            <section className="flex xl:hidden w-full pr-[5vw] h-fit mb-2 items-center justify-between">
+                {changeUsername ? (
+                    <header className="flex h-fit items-center space-x-4 xl:hidden font-bold text-xl text-[hsl(var(--text))]">
+                        <FontAwesomeIcon icon={faUser} className="text-[hsl(var(--background3))] fa-xl" />
+                        <span>Change Username</span>
+                    </header>
+                ) : changeEmail ? (
+                    <header className="flex h-fit items-center space-x-4 xl:hidden font-bold text-xl text-[hsl(var(--text))]">
+                        <FontAwesomeIcon icon={faEnvelope} className="text-[hsl(var(--background3))] fa-xl" />
+                        <span>Change Email</span>
+                    </header>
+                ) : changePassword ? (
+                    <header className="flex h-fit items-center space-x-4 xl:hidden font-bold text-xl text-[hsl(var(--text))]">
+                        <FontAwesomeIcon icon={faLock} className="text-[hsl(var(--background3))] fa-xl" />
+                        <span>Update Password</span>
+                    </header>
+                ) : deleteAccount && (
+                    <header className="flex h-fit items-center space-x-4 xl:hidden font-bold text-xl text-[hsl(var(--text))]">
+                        <FontAwesomeIcon icon={faUserSlash} className="text-red-400 fa-xl" />
+                        <span>Delete Account</span>
+                    </header>
+                )}
+                <select 
+                    className="flex bg-transparent text-[hsl(var(--text))] items-center px-4 space-x-2 sm:w-[15vw] lg:w-[10vw] h-[4vh] rounded-lg outline-none border-2 border-[hsl(var(--text))]"
+                    onChange={(e) => handlePageChange(e.target.value)}
+                    value={selectedPage}
+                >
+                    {pages.map((pages) => (
+                        <option>{pages}</option>
+                    ))}
+                    <FontAwesomeIcon icon={faCaretDown} className="text-[hsl(var(--text))]"/>
+                </select>
+            </section>
+            <section className="hidden xl:flex flex-col h-full w-1/4 space-y-6 text-xl text-[hsl(var(--text))]">
                 <button className="w-full flex items-center space-x-6" onClick={handleChangeUserNameClick}>
                     <div className={`flex items-center justify-center w-10 h-10 ${changeUsername ? "bg-[hsl(var(--background3))]" : "bg-footer text-white"} rounded-xl`}>
                         <FontAwesomeIcon icon={faUser}/>
@@ -86,7 +137,7 @@ const EditAccountPage = ({ user, refetch }: EditAccount) => {
                     <div className={`flex items-center justify-center w-10 h-10 ${changePassword ? "bg-[hsl(var(--background3))]" : "bg-footer text-white"} rounded-xl`}>
                         <FontAwesomeIcon icon={faLock}/>
                     </div>
-                    <span>Change Password</span>
+                    <span>Update Password</span>
                 </button>
                 <button className="w-full flex items-center space-x-6" onClick={handleDeleteAccountClick}>
                     <div className={`flex items-center justify-center w-10 h-10 ${deleteAccount ? "bg-red-500" : "bg-footer text-white"} rounded-xl`}>
@@ -95,10 +146,10 @@ const EditAccountPage = ({ user, refetch }: EditAccount) => {
                     <span>Delete Account</span>
                 </button>
             </section>
-            <section className="h-[50vh] w-3/4">
+            <section className="h-[50vh] w-full lg:w-3/4 ">
                 {changeUsername && (
                     <div className="flex flex-col">
-                        <header className="font-bold text-3xl text-[hsl(var(--text))]">Change Username</header>
+                        <header className="hidden xl:flex font-bold text-3xl text-[hsl(var(--text))]">Change Username</header>
                         <div className="text-gray-400 font-bold my-4"> Current Username: {username}</div>
                         <div className="text-[hsl(var(--text))] mb-4"> New Username: </div>
                         <div className="mb-8"><EditUsernameInputComponent newUsername={newUsername} setNewUsername={setNewUsername}/></div>
@@ -107,7 +158,7 @@ const EditAccountPage = ({ user, refetch }: EditAccount) => {
                 )} 
                 {changeEmail && (
                     <div className="flex flex-col">
-                        <header className="font-bold text-3xl text-[hsl(var(--text))]">Change Email</header>
+                        <header className="hidden xl:flex font-bold text-3xl text-[hsl(var(--text))]">Change Email</header>
                         <div className="text-gray-400 font-bold my-4"> Current Email: {email}</div>
                         <div className="text-[hsl(var(--text))] mb-4"> New Email: </div>
                         <div className="mb-8"><EditEmailInputComponent newEmail={newEmail} setNewEmail={setNewEmail} /></div>
@@ -116,7 +167,7 @@ const EditAccountPage = ({ user, refetch }: EditAccount) => {
                 )}
                 {changePassword && (
                     <div className="flex flex-col">
-                        <header className="font-bold text-3xl text-[hsl(var(--text))]">Change Password</header>
+                        <header className="hidden xl:flex font-bold text-3xl text-[hsl(var(--text))]">Change Password</header>
                         <div className="text-[hsl(var(--text))] my-4">New Password: </div>
                         <div className="mb-8"><EditPasswordInputComponent newPassword={newPassword} setNewPassword={setNewPassword} /></div>
                         <div><PasswordUpdateButton UpdatePasswordProps={UpdatePasswordProps}/></div>
@@ -124,7 +175,7 @@ const EditAccountPage = ({ user, refetch }: EditAccount) => {
                 )}
                 {deleteAccount && (
                     <div className="flex flex-col">
-                        <header className="font-bold text-3xl text-[hsl(var(--text))] mb-4">Delete Your Account</header>
+                        <header className="hidden xl:flex font-bold text-3xl text-[hsl(var(--text))] mb-4">Delete Your Account</header>
                         <div className="text-gray-500 w-1/2 mb-8">
                             Deleting your account will remove all of your information from our database. This
                             cannot be undone.

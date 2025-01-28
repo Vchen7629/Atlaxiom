@@ -8,8 +8,6 @@ import Mydecks from './headerbuttons/my-decks.tsx'
 import Accountsbutton from '../accountbuttons/navbuttons/account.js'
 import { ModeToggle } from "../shadcn_components/darklightmode/mode-toggle.tsx"
 import { AuthenticationState } from './types/headertypes.ts'
-import Logout from '../accountbuttons/dropdownmenubuttons/logout.tsx'
-import MyDecks from '../accountbuttons/dropdownmenubuttons/decks.tsx'
 import Signup from './headerbuttons/signup.tsx'
 
 const Header = () => {
@@ -53,12 +51,12 @@ const Header = () => {
         <header className="fixed justify-between items-center z-50 top-0 left-0 w-full flex py-2 text-white bg-[hsl(var(--header))] bg-opacity-60 backdrop-blur-md backdrop-brightness-150 px-2.5">
             <div className={`w-fit flex py-2.5 ml-2.5 ${showDropdown ? "hidden" : ''}`}>
                 <div className='w-fit flex'>
-                    <div className="mr-[1vw] hidden sm:hidden md:flex"><Cardsearch/></div>
+                    <div className="mr-[1vw] hidden xl:flex"><Cardsearch/></div>
                 </div>
                 {isAuthenticated && (
                     <div className="flex w-fit ">
-                        <div className="mr-[1vw] hidden sm:hidden md:flex"><Mycards/></div>
-                        <div className="hidden sm:hidden md:flex"><Mydecks/></div>
+                        <div className="mr-[1vw] hidden xl:flex"><Mycards/></div>
+                        <div className="hidden xl:flex"><Mydecks/></div>
                     </div>
                 )}
             </div>
@@ -68,7 +66,7 @@ const Header = () => {
                 </button>
             </div>
             <div className='flex w-fit justify-between items-center space-x-[1vw]'>
-                <div className="absolute left-2 md:relative"><ModeToggle/></div>
+                <div className="absolute left-2 xl:relative"><ModeToggle/></div>
                 <div className='w-fit flex'>{renderAuthButtons()}</div>
             </div>
 

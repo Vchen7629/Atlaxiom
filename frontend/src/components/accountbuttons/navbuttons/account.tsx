@@ -23,7 +23,7 @@ const Accountsbutton = () => {
         <>
         <div>
             <button 
-            className="flex bg-[hsl(var(--profile))] lg:w-[9vw] h-10 px-4 lg:px-8 items-center justify-between rounded-xl lg:rounded-3xl  text-[hsl(var(--background3))]  border-2 border-[hsl(var(--background3))]" 
+            className="flex bg-[hsl(var(--profile))] xl:w-[9vw] h-10 px-4 lg:px-8 items-center justify-between rounded-xl lg:rounded-3xl  text-[hsl(var(--background3))]  border-2 border-[hsl(var(--background3))]" 
             onClick={toggleDropdown}
             >   
                 <FontAwesomeIcon icon={faUser}/>
@@ -37,7 +37,7 @@ const Accountsbutton = () => {
         </div>
 
         {showDropdown && (
-            <main className="lg:w-[9vw] w-[28vw] text-[hsl(var(--background3))] top-16 absolute flex flex-col space-y-2 right-[3vw] lg:right-5 h-fit bg-[hsl(var(--header))] rounded-2xl py-4">
+            <main className="lg:w-[9vw] w-[34vw] border-2 border-[hsl(var(--background3))] text-[hsl(var(--background3))] top-16 absolute flex flex-col space-y-2 right-[3vw] lg:right-5 h-fit bg-[hsl(var(--header))] rounded-2xl py-4">
                 <div className="w-full flex pl-4"><Profile/></div>
                 <div className="w-full flex pl-4"><CardSearch/></div>
                 <div className="w-full flex pl-4"><Mycards/></div>
