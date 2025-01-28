@@ -8,8 +8,8 @@ import Mydecks from './headerbuttons/my-decks.tsx'
 import Accountsbutton from '../accountbuttons/navbuttons/account.js'
 import { ModeToggle } from "../shadcn_components/darklightmode/mode-toggle.tsx"
 import { AuthenticationState } from './types/headertypes.ts'
-import Logout from '../accountbuttons/navbuttons/logout.tsx'
-import MyDecks from '../accountbuttons/navbuttons/decks.tsx'
+import Logout from '../accountbuttons/dropdownmenubuttons/logout.tsx'
+import MyDecks from '../accountbuttons/dropdownmenubuttons/decks.tsx'
 import Signup from './headerbuttons/signup.tsx'
 
 const Header = () => {
@@ -72,14 +72,7 @@ const Header = () => {
                 <div className='w-fit flex'>{renderAuthButtons()}</div>
             </div>
 
-            {showDropdown && isAuthenticated ? (
-                <div className={`bg-[hsl(var(--editdeckdraganddropbackground))] rounded-md space-y-[1vh] items-center absolute right-0 h-fit px-2 py-3 mt-[35vh] z-10 ${showDropdown ? 'flex flex-col' : 'hidden'}`}>
-                    <Cardsearch />
-                    <Mycards />
-                    <MyDecks/>
-                    <Logout />
-                </div>
-            ) : (
+            {showDropdown && (
                 <div className={`bg-[hsl(var(--editdeckdraganddropbackground))] rounded-md space-y-[1vh] items-center absolute right-0 h-fit px-2 py-3 mt-40 z-10 ${showDropdown ? 'flex flex-col' : 'hidden'}`}>
                     <Cardsearch />
                     <Login />

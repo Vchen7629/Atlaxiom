@@ -150,7 +150,7 @@ const FilterCardComponent = ({ filterprops }: FilterSidebar) => {
 
     return (
         <div className="w-full flex">
-            <div className={`flex text-[hsl(var(--text))] text-sm h-fit py-[3vh] ${expandStatus ? "w-full bg-[hsl(var(--ownedcardcollection))] border-gray-600 border-2 rounded-3xl" : "w-0"} flex-col`}>
+            <div className={`flex text-[hsl(var(--text))] text-sm h-fit py-[3vh] ${expandStatus ? "w-full bg-[hsl(var(--ownedcardcollection))] border-[hsl(var(--background3))] border-2 rounded-xl" : "w-0"} flex-col`}>
               {expandStatus && (
                 <>
                 <div className="font-black text-2xl w-full text-center mb-2">Filter Search</div>
