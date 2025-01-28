@@ -449,7 +449,7 @@ const modifyCardAmountinExtraDeck = asyncHandler(async (req, res) => {
             return res.status(400).json({ message: 'Each card update must have a valid card_name and modifyAmount' });
         }
 
-        const card = deck.extra_deck_cards.find(card => card.card_name === card_name);
+        const card = deck.extra_deck_cards.find(cards => cards.card_name === card_name);
 
         if (!card) {
             return res.status(404).json({ message: `Card with name ${card_name} not found in main deck` });
@@ -503,7 +503,7 @@ const modifyCardAmountinSideDeck = asyncHandler(async (req, res) => {
             return res.status(400).json({ message: 'Each card update must have a valid card_name and modifyAmount' });
         }
 
-        const card = deck.side_deck_cards.find(card => card.card_name === card_name);
+        const card = deck.side_deck_cards.find(cards => cards.card_name === card_name);
 
         if (!card) {
             return res.status(404).json({ message: `Card with name ${card_name} not found in main deck` });
