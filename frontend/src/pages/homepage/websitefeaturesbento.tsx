@@ -27,7 +27,7 @@ import { AuthenticationState } from "@/components/footer/footerbuttons/hometypes
               ) as React.ReactNode,
             href: isAuthenticated ? "/Deck" : "/login",
             cta: "Learn more",
-            background: <img className="absolute -right-20 -top-20 opacity-60" />,
+            background: <img className="absolute -right-20 -top-20 opacity-60" alt="Create and Manage Decks Feature details homepage element"/>,
             className: "lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3",
           },
         {
@@ -36,7 +36,7 @@ import { AuthenticationState } from "@/components/footer/footerbuttons/hometypes
             description: "Add and Modify your Yugioh Card Collection",
             href: isAuthenticated ? "/getcards" : "/login",
             cta: "Learn more",
-            background: <img className="absolute -right-20 -top-20 opacity-60" />,
+            background: <img className="absolute -right-20 -top-20 opacity-60" alt="Card Collection Feature details homepage element"/>,
             className: "lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4",
         },
         {
@@ -52,7 +52,7 @@ import { AuthenticationState } from "@/components/footer/footerbuttons/hometypes
               ) as React.ReactNode,
             href: isAuthenticated ? "/searchloggedin" : "/search",
             cta: "Learn more",
-            background: <img className="absolute -right-20 -top-20 opacity-60" />,
+            background: <img className="absolute -right-20 -top-20 opacity-60" alt="Searchbar Page Feature details homepage element"/>,
             className: "lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3",
         },
         {
@@ -67,7 +67,7 @@ import { AuthenticationState } from "@/components/footer/footerbuttons/hometypes
           ) as React.ReactNode,
           href: isAuthenticated ? "/profile" : "/login",
           cta: "Learn more",
-          background: <img className="absolute -right-20 -top-20 opacity-60" />,
+          background: <img className="absolute -right-20 -top-20 opacity-60" alt="Profile Page details homepage element"/>,
           className: "lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-4",
         },
       ];

@@ -99,11 +99,11 @@ export function RarityDropDownComponent() {
           className="w-[11vw] h-8 bg-transparent border-transparent text-base  justify-between"
         >
             {value ? (
-                <span className={`flex relative items-center left-2 justify-between w-full px-2 py-1 bg-blue-500 text-white rounded text-sm`}>
+                <span className="flex relative items-center left-2 justify-between w-full px-2 py-1 bg-blue-500 text-white rounded text-sm">
                     {Rarity.find((types) => types.value === value)?.label}
                 </span>
             ) : (
-              <span className={`flex relative items-center left-1/5 justify-between w-full px-2 py-1 bg-transparent text-white rounded text-sm`}>
+              <span className="flex relative items-center left-1/5 justify-between w-full px-2 py-1 bg-transparent text-white rounded text-sm">
                   Select Rarity...
               </span>
             )}

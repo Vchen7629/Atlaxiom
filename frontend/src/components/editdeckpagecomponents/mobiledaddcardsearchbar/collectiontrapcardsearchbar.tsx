@@ -30,7 +30,7 @@ const MobileCollectionMonsterCardSearchBarComponent = ({ CollectionSearchBarComp
             return Object.values(cardData.entities.defaultId.ownedCards || {})
                 .flat()
                 .filter((card: any): card is OwnedCard => card !== undefined && card !== null && Object.keys(card).length > 0)
-                .filter(card => card.type && card.type.includes("Monster"))
+                .filter(card => card.type?.includes("Monster"))
         }
         return [];
     }, [cardData]);

@@ -16,7 +16,7 @@ const AddTrapCardDrawer = ({ openDrawer, setOpenDrawer}: any) => {
         <Drawer modal={false} open={openDrawer === "trap"}>
             <DrawerTrigger asChild>
                 <Button 
-                    className={`text-white h-9 px-2 bg-footer rounded-md`} 
+                    className="text-white h-9 px-2 bg-footer rounded-md" 
                     variant="default"
                     onClick={() => setOpenDrawer("trap")}
                 >
