@@ -34,7 +34,8 @@ const Header = () => {
         );
     }
 
-    const handlePageNav = (value: string) => {
+    const handlePageNav = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = e.target.value;
         if (value === "login") {
             navigate("/login")
         } else if (value === "Signup") {
@@ -42,27 +43,26 @@ const Header = () => {
         } else {
             navigate("/")
         }
-    }
+    }      
         
-        return (
-            <div className='flex h-full space-x-[1vw] md:mr-[2vw]'>
-                <select 
-                    value="menu"
-                    className="appearance-none text-end outline-none text-2xl flex bg-transparent text-[hsl(var(--background3))] md:hidden " 
-                    onChange={(e) => handlePageNav(e.target.value)}
-                >
-                    <option value="menu" disabled hidden>☰</option>
-                    {pages.map((page) => (
-                        <option key={page} value={page} className='h-[30vh] p-4 bg-[hsl(var(--header))] border-2 border-[hsl(var(--background3))] text-lg flex justify-start'>
-                            {page}
-                        </option>
-                    ))}
-                </select>
-                <a className="hidden md:flex" href="/signup"><Signup/></a>
-                <a className="hidden md:flex" href="/login"><Login/></a>
-            </div>
-        );
-      };
+    return (
+        <div className='flex h-full space-x-[1vw] md:mr-[2vw]'>
+            <select 
+                value="menu"
+                className="appearance-none text-end outline-none text-2xl flex bg-transparent text-[hsl(var(--background3))] md:hidden " 
+                onChange={handlePageNav}
+            >
+                <option value="menu" disabled hidden>☰</option>
+                {pages.map((page) => (
+                    <option key={page} value={page} className='h-[30vh] p-4 bg-[hsl(var(--header))] border-2 border-[hsl(var(--background3))] text-lg flex justify-start'>
+                        {page}
+                    </option>
+                ))}
+            </select>
+            <a className="hidden md:flex" href="/signup"><Signup/></a>
+            <a className="hidden md:flex" href="/login"><Login/></a>
+        </div>
+    )};
 
     return (
         <header className="fixed justify-between items-center z-50 top-0 left-0 w-full flex py-2 text-white bg-[hsl(var(--header))] bg-opacity-60 backdrop-blur-md backdrop-brightness-150 px-2.5">
