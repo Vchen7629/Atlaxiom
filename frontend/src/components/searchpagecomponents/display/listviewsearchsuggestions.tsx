@@ -38,7 +38,7 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
                         <div key={index} onClick={() => handleSuggestionClick(card)}>
                             <div className="flex w-full h-[20vh] mb-2 bg-transparentt">
                                 
-                                <img src={card?.card_images[0].image_url} className="w-auto"/>
+                                <img src={card?.card_images[0].image_url} alt={card.name} className="w-auto"/>
                                 <div className="flex h-[20vh] overflow-y-auto w-full min-h-full flex-col border-2 border-transparent hover:border-gray-500">
                                     <section className="relative flex justify-between w-full h-[20%]">
                                         <span className="flex text-center items-center pl-[3%] w-[55%] text-[hsl(var(--background3))] font-black text-[11px] lg:text-2xl">{card.name}</span>

@@ -108,8 +108,8 @@ const SearchBarPage = () => {
       const matchesname = normalizedCardName.includes(normalizedInput);
       const matchesMonsterType = monsterType ? card.type?.toLowerCase() === monsterType.toLowerCase() : true ;
       const matchesSpellType = spellType? card.race?.toLowerCase() === normalizedSpellType && card.frameType?.toLowerCase() === 'spell' : true;
-      const matchesTrapType = trapType ? card.race?.toLowerCase() == normalizedTrapType && card.frameType?.toLowerCase() === "trap" : true;
-      const matchesAttributeType = attributeType? card.attribute?.toLowerCase() == normalizedAttributeType : true;
+      const matchesTrapType = trapType ? card.race?.toLowerCase() === normalizedTrapType && card.frameType?.toLowerCase() === "trap" : true;
+      const matchesAttributeType = attributeType? card.attribute?.toLowerCase() === normalizedAttributeType : true;
       const matchesSetName = setName ? card.card_sets?.some(set => set.set_name?.toLowerCase() === setName.toLowerCase()) : true;
           
       const matchesLevelFilter = levelFilter ?

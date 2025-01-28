@@ -18,7 +18,7 @@ const CollectionGalleryViewItem = ({ result }: { result: CollectionGalleryResult
             {...attributes}
             className="flex relative h-full w-full group"
         >
-            <img src={result.image_url} className='h-full object-contain group-hover:blur-xs'/>
+            <img src={result.image_url} alt={result.card_name} className='h-full object-contain group-hover:blur-xs'/>
             <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white text-center text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 {result.card_name}
             </div>
