@@ -49,7 +49,7 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
                                         </div>
                                     </section>
                                     <div className="flex flex-col h-[80%]">
-                                        <section className={`flex-grow overflow-y-auto max-h-full px-[3%] pt-[5px]`}>
+                                        <section className="flex-grow overflow-y-auto max-h-full px-[3%] pt-[5px]">
                                             <span className="text-[10px] lg:text-sm text-ellipsis text-[hsl(var(--text))] font-semibold lg:font-black">{card?.desc}</span>
                                         </section>
                                         {(card?.atk || card?.atk === 0 || card?.def || card?.def === 0 || card?.level || card?.scale || card?.linkval) && (     

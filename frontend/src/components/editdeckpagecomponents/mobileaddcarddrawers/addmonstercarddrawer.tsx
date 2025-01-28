@@ -143,7 +143,7 @@ const AddMonsterCardDrawer = ({ monstercarddrawerprops }: any) => {
         <Drawer modal={false} open={openDrawer === "monster"}>
             <DrawerTrigger asChild>
                 <Button 
-                    className={`text-white h-9 px-2 bg-footer rounded-md`} 
+                    className="text-white h-9 px-2 bg-footer rounded-md"
                     variant="default" 
                     onClick={() => setOpenDrawer("monster")}
                 >

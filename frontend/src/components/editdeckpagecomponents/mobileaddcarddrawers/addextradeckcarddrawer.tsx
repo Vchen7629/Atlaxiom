@@ -15,7 +15,7 @@ const AddExtraDeckCardDrawer = () => {
     return (
         <Drawer modal={false}>
             <DrawerTrigger asChild>
-                <Button className={`text-white h-9 px-2 bg-footer rounded-md`} variant="default">
+                <Button className="text-white h-9 px-2 bg-footer rounded-md" variant="default">
                     <FontAwesomeIcon icon={faPlus}/>Add Card
                 </Button>
             </DrawerTrigger>

@@ -270,7 +270,7 @@ const SearchBarPage = () => {
         <Header/>
         <main className="flex flex-grow py-[15vh] items-start ">
           <Toaster richColors  expand visibleToasts={4}/>            
-          <div className={`flex flex-col w-full`}>
+          <div className="flex flex-col w-full">
             <header className="lg:flex space-y-[2vh] w-full items-center justify-between lg:mb-[5vh]">
               <div className="text-4xl text-goldenrod pl-8">
                 <strong>Card Search</strong>

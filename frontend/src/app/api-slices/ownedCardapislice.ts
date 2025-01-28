@@ -7,7 +7,7 @@ const ownedCardsAdapter = createEntityAdapter<any>({
         if (entityArray && entityArray.length > 0) {
           const firstEntity = entityArray[0];
           // Check if the first entity is defined and has a card_name property
-          if (firstEntity && firstEntity.card_name) {
+          if (firstEntity?.card_name) {
             return firstEntity.card_name;
           }
         }

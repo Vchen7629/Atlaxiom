@@ -61,7 +61,7 @@ const Header = () => {
                 )}
             </div>
             <div className="absolute left-1/2 transform -translate-x-1/2">
-                <button className={`text-[hsl(var(--background3))] bg-transparent font-black text-xl md:text-4xl`} onClick={handleHomeClick}>
+                <button className="text-[hsl(var(--background3))] bg-transparent font-black text-xl md:text-4xl" onClick={handleHomeClick}>
                     Atlaxiom
                 </button>
             </div>
