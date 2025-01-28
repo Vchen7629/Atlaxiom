@@ -17,7 +17,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { ChartData, deckData, Year } from "../types/charttypes"
+import { ChartData, deckData } from "../types/charttypes"
 
 // Types
 
