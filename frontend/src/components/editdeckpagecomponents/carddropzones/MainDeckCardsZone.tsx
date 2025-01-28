@@ -94,7 +94,7 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
               <div className={`relative flex flex-col w-full h-full transition-all duration-300 ${ shouldMonsterBlur ? "blur-sm" : "" }`}>
                 <div className="flex w-full items-center justify-between px-[2vw] py-[2vh]">
                   <span className="text-lg font-black text-[hsl(var(--text))]"> monster: </span>
-                  <a className="flex md:hidden"><AddMonsterCardDrawer monstercarddrawerprops={monstercarddrawerprops}/></a>
+                  <div className="flex md:hidden"><AddMonsterCardDrawer monstercarddrawerprops={monstercarddrawerprops}/></div>
                 </div>
                 {monsterCards.length > 0 && (
                   <div className="w-full h-full pl-[1vw] flex flex-col space-y-2">
@@ -151,7 +151,7 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
               <div className={`relative flex flex-col w-full h-full transition-all duration-300 ${ shouldSpellBlur ? "blur-sm" : "" }`}>
                 <div className="flex w-full items-center justify-between px-[2vw] py-[2vh]">
                   <span className="text-lg font-black text-[hsl(var(--text))]">Spell: </span>
-                  <a className="flex md:hidden"><AddSpellCardDrawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}/></a>
+                  <div className="flex md:hidden"><AddSpellCardDrawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}/></div>
                 </div>
                 {spellCards.length > 0 && (
                   <div className="w-full h-full pl-[1vw] flex flex-col space-y-2">
@@ -205,7 +205,7 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
               <div className={`relative flex flex-col w-full h-full transition-all duration-300 ${ shouldTrapBlur ? "blur-sm" : "" }`}>
                 <div className="flex w-full items-center justify-between px-[2vw] py-[2vh]">
                   <span className="text-lg font-black text-[hsl(var(--text))]">Trap:</span>
-                  <a className="flex md:hidden"><AddTrapCardDrawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}/></a>
+                  <div className="flex md:hidden"><AddTrapCardDrawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}/></div>
                 </div>
                 {trapCards.length > 0 && (
                   <div className="w-full h-full pl-[1vw] flex flex-col space-y-2">
@@ -269,7 +269,6 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
                       style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                     >
                       {monsterCards.map((card: any) => (
-                        <div className="flex h-full">
                             <div key={card.id} className="relative group flex flex-col items-center space-y-2">
                               <label className="bg-[hsl(var(--background3))] font-bold text-[hsl(var(--text))] px-2 text-xs rounded-2xl">{card?.cardInDeckOwnedAmount}x</label>
                               <img
@@ -305,7 +304,6 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
                                 </button>
                               </div>
                             </div>
-                        </div>
                       ))}
                     </div>
                 )}
@@ -329,7 +327,6 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
                       style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                     >
                       {spellCards.map((card: any) => (
-                        <div className="flex h-full">
                             <div key={card.id} className="relative group flex flex-col items-center space-y-2">
                               <label className="bg-[hsl(var(--background3))] font-bold text-[hsl(var(--text))] px-2 text-xs rounded-2xl">{card?.cardInDeckOwnedAmount}x</label>
                               <img
@@ -364,7 +361,6 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
                                 </button>
                               </div>
                             </div>
-                        </div>
                       ))}
                     </div>
                 )}
@@ -388,7 +384,6 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
                         style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                       >
                         {trapCards.map((card: any) => (
-                          <div className="flex h-full">
                               <div key={card.id} className="flex flex-col relative group items-center space-y-2">
                                 <label className="bg-[hsl(var(--background3))] font-bold text-[hsl(var(--text))] px-2 text-xs rounded-2xl">{card?.cardInDeckOwnedAmount}x</label>
                                 <img
@@ -423,7 +418,6 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
                                   </button>
                                 </div>
                               </div>
-                          </div>
                         ))}
                       </div>
                   )}

@@ -19,7 +19,7 @@ const CollectionDisplayComponent = ({ CollectionDisplayCompProps }: CollectionDi
                         {collectionListResults.length > 0 ? (
                             <div className="flex flex-col space-y-2">
                                 {collectionCurrentListResults.map((result) => (
-                                    <CollectionListViewItem result={result} />
+                                    <CollectionListViewItem key={result._id} result={result} />
                                 ))}
                             </div>
                     ) : (
@@ -38,7 +38,7 @@ const CollectionDisplayComponent = ({ CollectionDisplayCompProps }: CollectionDi
                             style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                         >
                             {collectionCurrentGalleryResults.map((result) => (
-                                <CollectionGalleryViewItem result={result} />
+                                <CollectionGalleryViewItem key={result._id} result={result} />
                             ))}
                         </div>
                     ) : (

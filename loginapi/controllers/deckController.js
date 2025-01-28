@@ -415,10 +415,18 @@ const modifyCardAmountinMainDeck = asyncHandler(async (req, res) => {
     await user.save()
     await deck.save()
 
-    res.json({ message: `deck ${deck_name} increased by ${modifyAmount } successfully`, ownedDeck: deck });
+    const updatedCardsSummary = cardUpdates.map(({ card_name, modifyAmount }) => ({
+        card_name,
+        modifyAmount,
+    }));
+
+    res.json({ 
+        message: `Cards updated successfully for msin deck in deck ${deckId}`, 
+        updatedCards: updatedCardsSummary, 
+    });
 })
 
-// @desc Modify the amount of a specific card in the main deck
+// @desc Modify cards in the extra deck
 // @route PATCH /extradeck/update/:id
 // @access Public
 const modifyCardAmountinExtraDeck = asyncHandler(async (req, res) => {
@@ -441,7 +449,7 @@ const modifyCardAmountinExtraDeck = asyncHandler(async (req, res) => {
             return res.status(400).json({ message: 'Each card update must have a valid card_name and modifyAmount' });
         }
 
-        const card = deck.extra_deck_cards.find(card => card.card_name === card_name);
+        const card = deck.extra_deck_cards.find(cards => cards.card_name === card_name);
 
         if (!card) {
             return res.status(404).json({ message: `Card with name ${card_name} not found in main deck` });
@@ -461,10 +469,18 @@ const modifyCardAmountinExtraDeck = asyncHandler(async (req, res) => {
     await user.save()
     await deck.save()
 
-    res.json({ message: `deck ${deck_name} increased by ${modifyAmount } successfully`, ownedDeck: deck });
+    const updatedCardsSummary = cardUpdates.map(({ card_name, modifyAmount }) => ({
+        card_name,
+        modifyAmount,
+    }));
+
+    res.json({ 
+        message: `Cards updated successfully for extra deck in deck ${deckId}`, 
+        updatedCards: updatedCardsSummary, 
+    });
 })
 
-// @desc Modify the amount of a specific card in the main deck
+// @desc Modify the cards in side deck
 // @route PATCH /sidedeck/update/:id
 // @access Public
 const modifyCardAmountinSideDeck = asyncHandler(async (req, res) => {
@@ -487,7 +503,7 @@ const modifyCardAmountinSideDeck = asyncHandler(async (req, res) => {
             return res.status(400).json({ message: 'Each card update must have a valid card_name and modifyAmount' });
         }
 
-        const card = deck.side_deck_cards.find(card => card.card_name === card_name);
+        const card = deck.side_deck_cards.find(cards => cards.card_name === card_name);
 
         if (!card) {
             return res.status(404).json({ message: `Card with name ${card_name} not found in main deck` });
@@ -507,7 +523,15 @@ const modifyCardAmountinSideDeck = asyncHandler(async (req, res) => {
     await user.save()
     await deck.save()
 
-    res.json({ message: `deck ${deck_name} increased by ${modifyAmount } successfully`, ownedDeck: deck });
+    const updatedCardsSummary = cardUpdates.map(({ card_name, modifyAmount }) => ({
+        card_name,
+        modifyAmount,
+    }));
+
+    res.json({ 
+        message: `Cards updated successfully for side deck in deck ${deckId}`, 
+        updatedCards: updatedCardsSummary, 
+    });
 })
 
 // @desc Delete a card from the main deck
@@ -533,7 +557,7 @@ const DeleteCardfromMainDeck = asyncHandler(async (req, res) => {
             return res.status(400).json({ message: 'Each card update must have a valid card_name' });
         }
 
-        const cardIndex = deck.main_deck_cards.findIndex(deck => deck.card_name === card_name);
+        const cardIndex = deck.main_deck_cards.findIndex(card => card.card_name === card_name);
 
         if (cardIndex === -1) {
             return res.status(400).json({ message: `Card with name ${card_name} not found in main deck` });
@@ -575,7 +599,7 @@ const DeleteCardfromExtraDeck = asyncHandler(async (req, res) => {
             return res.status(400).json({ message: 'Each card update must have a valid card_name' });
         }
 
-        const cardIndex = deck.extra_deck_cards.findIndex(deck => deck.card_name === card_name);
+        const cardIndex = deck.extra_deck_cards.findIndex(card => card.card_name === card_name);
 
         if (cardIndex === -1) {
             return res.status(400).json({ message: `Card with name ${card_name} not found in extra deck` });
@@ -617,7 +641,7 @@ const DeleteCardfromSideDeck = asyncHandler(async (req, res) => {
             return res.status(400).json({ message: 'Each card update must have a valid card_name' });
         }
 
-        const cardIndex = deck.side_deck_cards.findIndex(deck => deck.card_name === card_name);
+        const cardIndex = deck.side_deck_cards.findIndex(card => card.card_name === card_name);
 
         if (cardIndex === -1) {
             return res.status(400).json({ message: `Card with name ${card_name} not found in side deck` });

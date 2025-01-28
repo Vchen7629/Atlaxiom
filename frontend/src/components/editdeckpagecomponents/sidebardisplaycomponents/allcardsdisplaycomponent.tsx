@@ -19,7 +19,7 @@ const AllCardsSearchResultsDisplayComponent = ({ AllCardsDisplayCompProps }: All
                 {allCardsListResults.length > 0 ? (
                     <div className="flex flex-col space-y-2 ">
                         {allCardsCurrentListResults.map((card) => (
-                            <SearchCardListViewItem card={card} />
+                            <SearchCardListViewItem key={card.id} card={card} />
                         ))}
                     </div>
                 ) : (
@@ -38,7 +38,7 @@ const AllCardsSearchResultsDisplayComponent = ({ AllCardsDisplayCompProps }: All
                     style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                 >
                      {allCardsCurrentGalleryResults.map((card) => (
-                        <SearchCardGalleryViewItem card={card} />
+                        <SearchCardGalleryViewItem key={card.id} card={card} />
                      ))}
                  </div>
             ) : (

@@ -22,6 +22,11 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
         navigate('/modifyDeck', { state: { deckId: deck._id, userId: userId } });   
     };
 
+    const handleDeckClickWrapper = (deck: handleDeckClick) => {
+        return () => handleDeckClick(deck);
+    };
+
+
     return (
         <>  
             {listView && (
@@ -87,16 +92,16 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                             className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 w-full h-full p-4 justify-items-center items-start"  
                             style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                         >
-                            {currentPageGalleryDecksArray.map((deck: any, index) => (
-                                <div className="flex flex-col items-center">
-                                    <div key={index} className="relative bg-deckpage flex flex-col h-[20vh] w-[28vw] md:h-[18vh] md:w-[15vw] lg:h-[12vh] lg:w-[4.8vw] rounded-lg" onClick={() => handleDeckClick(deck)}>
+                            {currentPageGalleryDecksArray.map((deck: any) => (
+                                <div key={deck._id} className="flex flex-col items-center">
+                                    <button className="relative bg-deckpage flex flex-col h-[20vh] w-[28vw] md:h-[18vh] md:w-[15vw] lg:h-[12vh] lg:w-[4.8vw] rounded-lg" onClick={handleDeckClickWrapper(deck)}>
                                         {deck.favorite === true && (
                                             <span className='absolute left-1/2 top-2 translate-x-[-50%] text-[hsl(var(--background3))] flex'>
                                                 <FontAwesomeIcon icon={faStar} className='fa-lg'/>
                                             </span>
                                         )}
                                         <span className="flex text-wrap text-white text-sm w-[90%] h-full text-center items-center font-bold">{deck.deck_name}</span>
-                                    </div>
+                                    </button>
                                     <section className="flex w-full mt-2 space-x-1">
                                         <FavoriteDeckButtonComponent 
                                             deck={deck} 
