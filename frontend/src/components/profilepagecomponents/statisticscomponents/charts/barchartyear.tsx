@@ -3,7 +3,7 @@ import { useGetAllOwnedDecksQuery } from "../../../../app/api-slices/decksapisli
 import { useGetOwnedCardsQuery } from "../../../../app/api-slices/ownedCardapislice"
 import { useSelector } from "react-redux"
 import { Bar, BarChart, XAxis } from "recharts"
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
   Card,
   CardContent,
@@ -17,7 +17,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { Deck } from "../types/charttypes"
+import { Deck, Year } from "../types/charttypes"
 
 export const description = "Bar Chart Displaying Information for decks/cards added by Year"
 
@@ -32,18 +32,20 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function ComponentBarChart(): JSX.Element {
+export function ComponentBarChart({ yearprops }: Year): JSX.Element {
+    const {
+      years,
+      selectedYear, setSelectedYear
+    } = yearprops
+  
     const userId = useSelector((state: { auth: { userId: string } }) => state.auth.userId);
     const { data: cardData } = useGetOwnedCardsQuery(userId);
     const { data: deckData } = useGetAllOwnedDecksQuery(userId);
 
-    const years = [
-      "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", 
-      "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"
-    ];
-    //const currentYear = new Date().getFullYear();
-    const [selectedYear, setSelectedYear] = useState<string>();
 
+    const handleSelectedYear = (value: string) => {
+      setSelectedYear(value); 
+    };
     
     const monthlyData = useMemo(() => {
         const data = Array.from({ length: 12 }, () => ({
@@ -51,26 +53,25 @@ export function ComponentBarChart(): JSX.Element {
           cards: 0,
         }));
     
-        // Process owned decks
         const ownedDeck = deckData?.entities?.undefined?.ownedDecks || [];
         ownedDeck.forEach((deck: Deck) => {
+          const deckYear = deck.createdOn.slice(0, 4);
           const createdMonth = new Date(deck.createdOn).getMonth();
-          if (deck.createdOn.slice(0,4) === selectedYear) {
+          if (deckYear === String(selectedYear)) {
             data[createdMonth].decks++;
           }
         });
     
-        // Process owned cards
         const ownedCards = Object.values(cardData?.entities?.defaultId?.ownedCards || {}).flat();
         ownedCards.forEach((card: any) => {
-            if (card?.addedOn.slice(0,4) === selectedYear) {
+            if (card.addedOn.slice(0,4) === selectedYear) {
                 const addedMonth = new Date(card?.addedOn).getMonth();
                 data[addedMonth].cards += card?.ownedamount || 0;
             }
         });
     
         return data;
-      }, [cardData, deckData, userId]);
+      }, [selectedYear, cardData, deckData, userId]);
 
     const months = useMemo(() => {
         return [
@@ -92,16 +93,16 @@ export function ComponentBarChart(): JSX.Element {
               <section className="flex w-full  justify-between">
                 <div className="flex flex-col space-y-2">
                   <CardTitle className="text-[hsl(var(--text))]">Your Cards/Deck Statistics</CardTitle>
-                  <CardDescription className="">Decks/Cards created January - December 2024</CardDescription>
+                  <CardDescription className="text-md">Decks/Cards created January - December {selectedYear}</CardDescription>
                 </div>
                 <div>
                   <label htmlFor="monthSelect" className="sr-only">Select Month</label>
                   <select
                     value={selectedYear}
-                    onChange={(e) => setSelectedYear(e.target.value)}
+                    onChange={(e) => handleSelectedYear(e.target.value)}
                     className="p-2 rounded max-h-[40px] bg-[hsl(var(--background3))] text-white"
                   >
-                    {years.map((year) => (<option key={year} value={year}>{year}</option>))}
+                    {years?.map((year) => (<option key={year} value={year}>{year}</option>))}
                   </select>  
                 </div>
               </section>

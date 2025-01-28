@@ -34,7 +34,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function ComponentBarMonthChart(): JSX.Element {
+export function ComponentBarMonthChart({ selectedYear }: any): JSX.Element {
     const userId = useSelector((state: { auth: { userId: string } }) => state.auth.userId);
     const { data: deckData } = useGetAllOwnedDecksQuery(userId);
     const { data: cardData } = useGetOwnedCardsQuery(userId)
@@ -72,23 +72,25 @@ export function ComponentBarMonthChart(): JSX.Element {
           cards: 0,
       }));
 
-      ownedDeck.forEach((deck: deckData) => {
-          const createdDate = new Date(deck.createdOn);
-          if (createdDate.getMonth() === monthIndex && createdDate.getFullYear() === currentYear) {
-              dailyData[createdDate.getDate() - 1].decks++;
-          }
-      });
+        ownedDeck.forEach((deck: deckData) => {
+            const deckYear = deck.createdOn.slice(0, 4);
+            const createdDate = new Date(deck.createdOn);
+            if (createdDate.getMonth() === monthIndex && deckYear === selectedYear) {
+                dailyData[createdDate.getDate() - 1].decks++;
+            }
+        });
 
-      ownedCards.forEach((card: any) => {
-          const addedDate = new Date(card.addedOn);
-          const amount = card.ownedamount || 1
-          if (addedDate.getMonth() === monthIndex && addedDate.getFullYear() === currentYear) {
-              dailyData[addedDate.getDate() - 1].cards += amount;
-          }
-      });
+        ownedCards.forEach((card: any) => {
+            const deckYear = card.addedOn.slice(0, 4);
+            const addedDate = new Date(card.addedOn);
+            const amount = card.ownedamount || 1
+            if (addedDate.getMonth() === monthIndex && deckYear === selectedYear) {
+                dailyData[addedDate.getDate() - 1].cards += amount;
+            }
+        });
 
       return dailyData;
-    }, [ userId, selectedMonth]);
+    }, [ userId, selectedYear, selectedMonth]);
 
     const totalCards = chartData.reduce((acc, curr) => acc + curr.cards, 0);
     const totalDecks = chartData.reduce((acc, curr) => acc + curr.decks, 0);
@@ -101,7 +103,7 @@ export function ComponentBarMonthChart(): JSX.Element {
                     <div className="flex flex-col items-center lg:items-start space-y-2">
                         <CardTitle className="text-[hsl(var(--text))] lg:text-4xl">Your Cards/Deck Statistics</CardTitle>
                         <CardDescription className="text-md">
-                            {`Card Statistics for ${selectedMonth} of 2024`}
+                            {`Card Statistics for ${selectedMonth} of ${selectedYear}`}
                         </CardDescription>
                     </div>
                     <div className="flex items-center space-x-[2vw]">
@@ -120,7 +122,7 @@ export function ComponentBarMonthChart(): JSX.Element {
                         <div className="flex space-x-8">
                             <button
                                 onClick={() => setStatisticType("cards")}
-                                className={`flex flex-col items-center w-fit py-1 ${statisticType === "cards" ? "border-b-2 border-goldenrod" : "bg-transparent border-b-2 border-transparent"} text-[hsl(var(--text))]`}
+                                className={`flex flex-col items-center w-fit py-1 bg-transparent ${statisticType === "cards" ? "border-b-2 border-goldenrod" : " border-b-2 border-transparent"} text-[hsl(var(--text))]`}
                             >
                                 
                                 <div className="text-md lg:text-xl text-muted-foreground">Total Cards</div>
@@ -128,7 +130,7 @@ export function ComponentBarMonthChart(): JSX.Element {
                             </button>
                             <button
                                 onClick={() => setStatisticType("decks")}
-                                className={`flex flex-col items-center w-fit py-1  ${statisticType === "decks" ? "border-b-2 border-goldenrod" : "bg-transparent border-b-2 border-transparent"} text-[hsl(var(--text))]`}
+                                className={`flex flex-col items-center w-fit py-1 bg-transparent ${statisticType === "decks" ? "border-b-2 border-goldenrod" : "border-b-2 border-transparent"} text-[hsl(var(--text))]`}
                             >
                                 <div className="text-md lg:text-xl text-muted-foreground">Total Decks</div>
                                 <span className="lg:text-md font-bold leading-none sm:text-3xl">{totalDecks}</span>
