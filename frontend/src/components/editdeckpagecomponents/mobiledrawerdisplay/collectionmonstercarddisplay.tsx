@@ -18,8 +18,8 @@ const MobileCollectionMonsterCardDisplayComponent = ({ CollectionDisplayCompProp
                 <div className="flex w-full h-full">
                     {collectionListResults.length > 0 ? (
                         <div className="flex flex-col space-y-[2vh]">
-                            {collectionCurrentListResults.map((result, index) => (
-                                <div key={index} className="grid grid-cols-[20%_70%_10%] max-h-[10vh] w-full bg-[hsl(var(--background1))]">
+                            {collectionCurrentListResults.map((result) => (
+                                <div key={result._id} className="grid grid-cols-[20%_70%_10%] max-h-[10vh] w-full bg-[hsl(var(--background1))]">
                                     <img src={result.image_url} className="w-1/2 object-contain" alt={result.card_name} />
                                     <div className="flex flex-col  max-h-[10vh]">
                                         <span className="font-black text-xs text-[hsl(var(--background3))]">{result.card_name}</span>
@@ -47,8 +47,8 @@ const MobileCollectionMonsterCardDisplayComponent = ({ CollectionDisplayCompProp
                             className="grid grid-cols-4 gap-2 w-full h-full p-4 justify-items-start items-start"  
                             style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                         >
-                            {collectionCurrentGalleryResults.map((result, index) => (
-                                <div key={index} className="flex flex-col h-full w-full"> 
+                            {collectionCurrentGalleryResults.map((result) => (
+                                <div key={result._id} className="flex flex-col h-full w-full"> 
                                     <div className="flex items-center justify-center text-[hsl(var(--text))] text-center text-xs">
                                         {result.card_name}
                                     </div>

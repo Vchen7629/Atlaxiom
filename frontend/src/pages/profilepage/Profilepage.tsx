@@ -29,7 +29,7 @@ const Profilepage = () => {
     const [galleryView, setGalleryView] = useState(false);
 
     const { data: modifyDecks, refetch: refetchdecks } = useGetAllOwnedDecksQuery(userId);
-    const decksToDisplay = modifyDecks?.entities?.undefined?.ownedDecks || [];
+    const decksToDisplay = modifyDecks || [];
     const filteredDecks = decksToDisplay.filter((deck: Deck) => deck?.deck_name?.toLowerCase().includes(deckName.toLowerCase()));
     const suggestionsPerGalleryPage = 20;
     const suggestionsPerListPage = 7;

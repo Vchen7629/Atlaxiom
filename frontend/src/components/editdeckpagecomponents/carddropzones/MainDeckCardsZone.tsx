@@ -3,12 +3,13 @@ import {  useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { handleDecreaseCardOwnedAmount, handleDeleteCardClick, handleIncreaseCardOwnedAmount } from "../../editdeckpagecomponents/buttons/EditDeckCardButtons";
-import { deckCards, MainDeckProps } from "../types/carddropzonetypes";
+import { MainDeckProps } from "../types/carddropzonetypes";
 import SubGridListViewComponent from "../../editdeckpagecomponents/draganddropitems/subgridlistviewcomp";
 import AddMonsterCardDrawer from "../mobileaddcarddrawers/addmonstercarddrawer";
 import AddSpellCardDrawer from "../mobileaddcarddrawers/addspellcarddrawer";
 import AddTrapCardDrawer from "../mobileaddcarddrawers/addtrapcarddrawer";
 import { Card } from "../types/datatypes";
+import { UpdatedCard } from "../types/buttontypes";
 
 const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
   const {
@@ -107,7 +108,7 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
                 </div>
                 {monsterCards.length > 0 && (
                   <div className="w-full h-full pl-[1vw] flex flex-col space-y-2">
-                    {monsterCards.map((card: deckCards) => (
+                    {monsterCards.map((card: UpdatedCard) => (
                       <div
                         key={card?.id || card?._id}
                         className="flex w-full h-[5vh] items-center space-x-2"
@@ -164,7 +165,7 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
                 </div>
                 {spellCards.length > 0 && (
                   <div className="w-full h-full pl-[1vw] flex flex-col space-y-2">
-                    {spellCards.map((card: deckCards) => (
+                    {spellCards.map((card: UpdatedCard) => (
                       <div key={card?.id || card?._id} className="flex h-[5vh] items-center space-x-2">
                         <span className="text-gray-500">{card?.cardInDeckOwnedAmount}x</span>
                         <img
@@ -218,7 +219,7 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
                 </div>
                 {trapCards.length > 0 && (
                   <div className="w-full h-full pl-[1vw] flex flex-col space-y-2">
-                    {trapCards.map((card: deckCards) => (
+                    {trapCards.map((card: UpdatedCard) => (
                       <div key={card.id} className="flex h-[5vh] items-center space-x-2">
                         <span className="text-gray-500">{card?.cardInDeckOwnedAmount}x</span>
                         <img

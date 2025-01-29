@@ -1,3 +1,4 @@
+import { DeckApiResponse } from "@/app/api-slices/types/decktypes";
 import { GalleryDeck } from "@/components/deckbuttons/buttonprops";
 
 export type NewDeckButton = {
@@ -25,13 +26,13 @@ export type GridListViewComponentProps = {
 
 export type DeckDisplayComponent = {
     deckdisplayprops:{ 
-        decksToDisplay: string[]
+        decksToDisplay: DeckApiResponse[]
         listView: boolean;
         galleryView: boolean;
         userId: string;
         refetch: any;
-        currentPageListDecksArray: any[];
-        setCurrentPageListDecksArray: React.Dispatch<React.SetStateAction<any[]>>
+        currentPageListDecksArray: Deck[];
+        setCurrentPageListDecksArray: React.Dispatch<React.SetStateAction<Deck[]>>
         currentPageGalleryDecksArray: GalleryDeck[];
         setCurrentPageGalleryDecksArray: React.Dispatch<React.SetStateAction<GalleryDeck[]>>
     }

@@ -37,22 +37,6 @@ export type SaveDeckButton = {
     }
 }
 
-export type CardToIncrease = {
-    id?: string;
-    _id?: string;
-    name?: string;
-    card_name?: string;
-    cardInDeckOwnedAmount?: number
-}
-
-export type CardToDecrease = {
-    id?: string;
-    _id?: string;
-    name?: string;
-    card_name?: string;
-    cardInDeckOwnedAmount?: number
-}
-
 export type CardToDelete = {
     id?: string;
     _id?: string;
@@ -61,10 +45,12 @@ export type CardToDelete = {
 }
 
 
-export type UpdatedCard = {
-    _id?: string;
-    id?: string;
-    name?: string;
-    card_name?: string;
+export type UpdatedCard = Card & {
+    _id: string | undefined;
+    id: string | undefined;
+    name: string | undefined;
+    card_name: string | undefined;
+    desc: string | undefined;
     cardInDeckOwnedAmount?: number;
+    image_url?: string
   }

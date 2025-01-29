@@ -91,7 +91,7 @@ export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupPro
                 {cardSets.length > 0 ? (
                     <>
                     {cardSets.map((set, index) => (
-                        <div key={index} className="grid grid-cols-[40%_20%_20%_15%_5%] p-2 mb-2 justify-center items-center text-[hsl(var(--background3))]">
+                        <div key={set.id} className="grid grid-cols-[40%_20%_20%_15%_5%] p-2 mb-2 justify-center items-center text-[hsl(var(--background3))]">
                             <>
                                 <span className="text-xs lg:text-md">{set.set_name}</span>
                                 <span className="text-xs lg:text-md">{set.set_code}</span>

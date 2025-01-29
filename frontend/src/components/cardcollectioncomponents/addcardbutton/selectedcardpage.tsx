@@ -159,7 +159,7 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
                             <div className="flex flex-col max-h-[45vh] overflow-y-auto">
                                 {cardSets.map((set, index) => (
                                     <div
-                                        key={index}
+                                        key={set.id}
                                         className="flex p-1 mb-2 text-xs items-center space-x-[5%] text-[hsl(var(--text))] border-2 border-[hsl(var(--background4))] rounded-xl"
                                     >
                                             <>

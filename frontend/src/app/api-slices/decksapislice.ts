@@ -1,5 +1,6 @@
 import { createEntityAdapter, EntityState } from "@reduxjs/toolkit";
 import { apiSlice } from "../api/apiSlice.js"
+import { DeckApiResponse } from "./types/decktypes.js";
 
 const DeckAdapter = createEntityAdapter({})
 
@@ -31,13 +32,15 @@ export const deckApiSlice = apiSlice.injectEndpoints({
             ]
         }),
 
-        getAllOwnedDecks: builder.query<EntityState<any>, string>({
+        getAllOwnedDecks: builder.query<DeckApiResponse[], string>({
             query: (id) => ({
                 url: `/deck/${id}`,
                 method: "GET",
             }),
-            transformResponse: (responseData: any) => {
-                return DeckAdapter.upsertOne(initialState, { ...responseData, id: responseData._id });
+            transformResponse: (responseData: { ownedDecks: DeckApiResponse[]}): DeckApiResponse[] => {
+                const updatedDecks = DeckAdapter.upsertMany(initialState, responseData.ownedDecks.map(deck => ({ ...deck, id: deck._id })));
+                console.log(updatedDecks)
+                return updatedDecks.ids.map(id => updatedDecks.entities[id]) as DeckApiResponse[];
             },
             providesTags: (result: any) => {
                 if (result?.ids) {

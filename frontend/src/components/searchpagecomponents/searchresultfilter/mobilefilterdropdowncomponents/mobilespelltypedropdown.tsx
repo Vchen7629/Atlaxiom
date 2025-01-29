@@ -95,7 +95,7 @@ export function MobileSpellTypeDropDownComponent({ spelldropdownprops }: spellDr
         <Command>
           <CommandInput placeholder="Filter by Spell Types..." className="h-9" />
           <CommandList className="max-h-[300px] overflow-y-auto">
-            <CommandEmpty>Inputed spell type doesn't exist.</CommandEmpty>
+            <CommandEmpty>Inputed spell type doesn&apos;t exist.</CommandEmpty>
             <CommandGroup>
               {SpellTypes.map((type) => (
                 <CommandItem

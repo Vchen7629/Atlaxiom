@@ -136,19 +136,19 @@ const UserOwnedCardPage = () => {
       const matchesRarityFilter = rarityFilter ? card.rarity?.toLowerCase().trim() === rarityFilter.toLowerCase().trim() : true;
         
       return (
-        !! matchesSearchTerm &&
-        !! matchesMonsterTypeFilter &&
-        !! matchesSpellTypeFilter &&
-        !! matchesTrapTypeFilter &&
-        !! matchesAttributeFilter &&
-        !! matchesArcheTypeFilter &&
-        !! matchesLevelFilter &&
-        !! matchesPendFilter &&
-        !! matchesLinkFilter &&
-        !! matchesAtkFilter && 
-        !! matchesDefFilter &&
-        !! matchesSetFilter &&
-        !! matchesRarityFilter
+        Boolean(matchesSearchTerm) && 
+        Boolean(matchesMonsterTypeFilter) && 
+        Boolean(matchesSpellTypeFilter) && 
+        Boolean(matchesTrapTypeFilter) &&
+        Boolean(matchesAttributeFilter) &&
+        Boolean(matchesArcheTypeFilter) &&
+        Boolean(matchesLevelFilter) &&
+        Boolean(matchesPendFilter) &&
+        Boolean(matchesLinkFilter) &&
+        Boolean(matchesAtkFilter) && 
+        Boolean(matchesDefFilter) &&
+        Boolean(matchesSetFilter) &&
+        Boolean(matchesRarityFilter)
       );
     });
   }, [
@@ -301,7 +301,7 @@ const UserOwnedCardPage = () => {
                 </div>
                 <div className="flex sm:flex lg:hidden space-x-[1vw] w-full items-center">
                   <MobileFilterDrawerComponent filterProps={filterProps} />
-                  <AddCardButton />
+                  <AddCardButton userId={userId}/>
                   <button className={`flex items-center px-4 rounded-md h-9 ${canClearFilter ? "bg-[hsl(var(--background3))]" : "bg-gray-600"}`} onClick={clearFilter}> Clear </button>
                   <div className="flex lg:hidden w-20 h-10 bg-footer rounded-xl absolute right-[-1px]">
                     <GridListViewComponent gridlistviewprops={gridlistviewprops}/>

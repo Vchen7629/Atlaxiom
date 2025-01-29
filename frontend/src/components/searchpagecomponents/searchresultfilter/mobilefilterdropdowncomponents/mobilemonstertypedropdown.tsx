@@ -132,7 +132,7 @@ export function MobileMonsterTypeDropDownComponent({ monsterdropdownprops }: mon
         <Command>
           <CommandInput placeholder="Filter by Monster Types" className="h-9" />
           <CommandList className="max-h-[30vh] overflow-y-auto">
-            <CommandEmpty>Inputed monster type doesn't exist.</CommandEmpty>
+            <CommandEmpty>Inputed monster type doesn&apos;t exist.</CommandEmpty>
             <CommandGroup>
               {MonsterTypes.map((type) => (
                 <CommandItem
