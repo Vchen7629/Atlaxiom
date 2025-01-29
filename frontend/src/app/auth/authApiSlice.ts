@@ -19,12 +19,12 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 url: "/auth/logout",
                 method: "POST",
             }),
-            async onQueryStarted({ dispatch }) {
+            async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
-                    dispatch(logOut())
+                    await queryFulfilled; 
+                    dispatch(logOut());
                     dispatch(apiSlice.util.resetApiState())
                     dispatch(resetLoggingOutState());
-                    console.log("logout")
                 } catch (err) {
                     console.error("sendLogout onQueryStarted returned with error: ", err)
                 }

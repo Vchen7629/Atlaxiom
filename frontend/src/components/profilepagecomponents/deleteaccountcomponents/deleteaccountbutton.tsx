@@ -31,7 +31,8 @@ const DeleteAccountButton = ({ deleteInput }: DeleteButtonProps) => {
         }
     };
 
-    const handleClick = () => {
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
         const promise = handleSubmitDelete();
         toast.promise(promise, {
             loading: "loading...",
