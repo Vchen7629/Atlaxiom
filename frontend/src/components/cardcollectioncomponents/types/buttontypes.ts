@@ -27,6 +27,7 @@ export type toastErrorMessage = {
         data: {
             message: string
         }
+        message?: string
     }
     data?: {
         message: string

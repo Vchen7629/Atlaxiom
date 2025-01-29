@@ -17,6 +17,7 @@ import { CardSet, ComponentCardSetPopupProps } from "../types/searchresultcompty
 import { toast } from "sonner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { toastErrorMessage, toastSuccessTwoMessage } from "@/components/cardcollectioncomponents/types/buttontypes";
    
 export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupProps) => {
     const {
@@ -103,10 +104,10 @@ export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupPro
                                     className="bg-[hsl(var(--background3))] text-[hsl(var(--text))] rounded-md justify-center flex items-center h-[25px] w-[25px] p-2 text-[12px]"
                                     onClick={() => {
                                         const promise = handleAddOwnedCardClick(set, index);
-                                        toast.promise(promise, {
+                                        toast.promise(promise as any, {
                                             loading: "loading...",
-                                            success: (data: any) => `Card: ${data.name} from set: ${data.set} has been added`,
-                                            error: (error: any) => {
+                                            success: (data: toastSuccessTwoMessage) => `Card: ${data?.name} from set: ${data?.set} has been added`,
+                                            error: (error: toastErrorMessage) => {
                                             if (error?.status === 409) {
                                                 return error?.response?.message || "You already Own this Card";
                                             }
