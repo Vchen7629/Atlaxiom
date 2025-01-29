@@ -23,12 +23,15 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
     const userId = useSelector((state: UserId) => state.auth.userId);
     const navigate = useNavigate();
     const totalOwnedDecks = user?.totalOwnedDecks;
-
-    console.log(totalOwnedDecks)
         
     const handleDeckClick = async (deck: handleDeckClick) => {
         navigate('/modifyDeck', { state: { deckId: deck._id, userId: userId } });   
     };
+
+    const handleClick = (deck: handleDeckClick) => {
+        return () => handleDeckClick(deck);
+    };
+
         
         return (
             <div className="bg-[hsl(var(--profilebackground))] p-4 rounded-xl min-h-[60vh]">
@@ -41,7 +44,7 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                                     <div 
                                         className="flex  h-[7vh] px-2 justify-between items-center mb-2 hover:bg-[hsl(var(--background5))]" 
                                         key={deck._id} 
-                                        onClick={() => handleDeckClick(deck)}
+                                        onClick={handleClick(deck)}
                                         >  
                                             <section className='flex w-1/4 space-x-8'>
                                                 <div className="flex flex-col">
@@ -96,9 +99,9 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                                 className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-6 w-full h-full p-4 justify-items-center items-start"  
                                 style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                             >
-                                {currentGalleryPageResults.map((deck: FilteredDecks, index: string) =>
-                                    <div key={index} className="flex flex-col items-center">
-                                        <div className="relative bg-deckpage flex flex-col items-center h-[20vh] md:h-[16vh] lg:h-[15vh] lg:w-[8vw] xl:h-[13vh] xl:w-[5.4vw] rounded-lg" onClick={() => handleDeckClick(deck)}>
+                                {currentGalleryPageResults.map((deck: FilteredDecks) =>
+                                    <div key={deck._id} className="flex flex-col items-center">
+                                        <div className="relative bg-deckpage flex flex-col items-center h-[20vh] md:h-[16vh] lg:h-[15vh] lg:w-[8vw] xl:h-[13vh] xl:w-[5.4vw] rounded-lg" onClick={handleClick(deck)}>
                                             {deck.favorite === true && (
                                                 <span className='absolute left-1/2 top-2 translate-x-[-50%] text-[hsl(var(--background3))] flex'>
                                                     <FontAwesomeIcon icon={faStar} className='fa-lg'/>

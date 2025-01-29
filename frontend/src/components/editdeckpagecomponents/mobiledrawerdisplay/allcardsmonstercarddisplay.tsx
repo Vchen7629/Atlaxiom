@@ -21,8 +21,8 @@ const MobileAllCardsMonsterCardDisplayComponent = ({ AllCardsDisplayCompProps }:
                 <div className="flex w-full h-full">
                     {allCardsListResults.length > 0 ? (
                         <div className="flex flex-col space-y-[2vh]">
-                            {allCardsCurrentListResults.map((card, index) => (
-                                <div key={index} className="grid grid-cols-[20%_70%_10%] max-h-[10vh] w-full bg-[hsl(var(--background1))]">
+                            {allCardsCurrentListResults.map((card) => (
+                                <div key={card._id} className="grid grid-cols-[20%_70%_10%] max-h-[10vh] w-full bg-[hsl(var(--background1))]">
                                     <img
                                         src={card.card_images?.[0]?.image_url}
                                         className="w-[60%] object-contain"
@@ -54,8 +54,8 @@ const MobileAllCardsMonsterCardDisplayComponent = ({ AllCardsDisplayCompProps }:
                             className="grid grid-cols-4 gap-2 w-full p-4 justify-items-start items-start"  
                             style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                         >
-                            {allCardsCurrentGalleryResults.map((card, index) => (
-                                <div key={index} className="flex flex-col h-full w-full"> 
+                            {allCardsCurrentGalleryResults.map((card) => (
+                                <div key={card._id} className="flex flex-col h-full w-full"> 
                                     <img src={card.card_images?.[0]?.image_url} className='h-3/4 object-contain'/>
                                 </div>
                             ))}

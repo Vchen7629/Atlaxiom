@@ -1,6 +1,7 @@
 import { SelectedCardData } from "./datastructuretypes";
 
 export type CardSet = {
+    id?: string
     set_name: string;
     set_code: string;
     set_rarity: string;
