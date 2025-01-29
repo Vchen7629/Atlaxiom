@@ -1,3 +1,5 @@
+import { DeckApiResponse } from "@/app/api-slices/types/decktypes";
+
 export type Deck = {
     deck_name: string
 }
@@ -17,7 +19,7 @@ export type DeckProps = {
 
 export type Pagination = {
     paginationprops: {
-        filteredDecks: string[];
+        filteredDecks: DeckApiResponse[];
         listView: boolean;
         galleryView: boolean;
         currentListPage: number;

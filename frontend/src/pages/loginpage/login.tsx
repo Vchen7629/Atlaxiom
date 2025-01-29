@@ -69,7 +69,7 @@ const LoginPage = () => {
                             </div>
                             <header className="mt-[1vh] text-2xl sm:text-5xl mb-3 xl:text-4xl text-[hsl(var(--background3))] font-black">Welcome Back</header>
                             <div className="flex text-lg mb-[1vh] text-gray-500">
-                                <div className="mr-2">Don't have an account yet? </div>
+                                <div className="mr-2">Don&apos;t have an account yet? </div>
                                 <button type="button" className="text-[hsl(var(--background3))] bg-transparent font-bold" onClick={handleSignUpClick}>
                                     Sign Up
                                 </button>

@@ -1,3 +1,5 @@
+import { DeckApiResponse } from "@/app/api-slices/types/decktypes";
+
 type OwnedDeck = {
     createdOn: string;
     deck: string; 
@@ -27,7 +29,7 @@ export type ChartData = {
     cards: number;
 }
 
-export type Deck = {
+export type Deck = DeckApiResponse & {
     createdOn: string;
     deckName?: string;
 }

@@ -114,8 +114,8 @@ const EditAccountPage = ({ user, refetch }: EditAccount) => {
                     onChange={(e) => handlePageChange(e.target.value)}
                     value={selectedPage}
                 >
-                    {pages.map((pages) => (
-                        <option>{pages}</option>
+                    {pages.map((pages, index) => (
+                        <option key={index}>{pages}</option>
                     ))}
                     <FontAwesomeIcon icon={faCaretDown} className="text-[hsl(var(--text))]"/>
                 </select>

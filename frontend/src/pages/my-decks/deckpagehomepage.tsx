@@ -10,18 +10,20 @@ import CreateNewDeckComponent from '../../components/deckmanagerpagecomponents/b
 import { UserIdState } from './deckpagetypes.ts';
 import PaginationComponent from '@/components/deckmanagerpagecomponents/pagination/pagination.tsx';
 import { useGetAllOwnedDecksQuery } from '@/app/api-slices/decksapislice.ts';
-import { Deck } from '@/components/deckmanagerpagecomponents/types/homepagecomponentprops.ts';
 import { Toaster } from 'sonner';
 import { GalleryDeck } from '@/components/deckbuttons/buttonprops.ts';
+import { DeckApiResponse } from '@/app/api-slices/types/decktypes.ts';
+import { Deck } from '@/components/deckmanagerpagecomponents/types/homepagecomponentprops.ts';
+
 
 
 const DeckPageHomepage = () => {
     const userId = useSelector((state: UserIdState) => state.auth.userId);
     const [deckName, setDeckName] = useState<string>('');
     const { data: modifyDecks, refetch } = useGetAllOwnedDecksQuery(userId);
-    const decksToDisplay = modifyDecks?.entities?.undefined?.ownedDecks || [];
+    const decksToDisplay: DeckApiResponse[] = modifyDecks || [];
 
-    const filteredDecks = decksToDisplay.filter((deck: Deck) =>
+    const filteredDecks = decksToDisplay.filter((deck: DeckApiResponse) =>
         deck?.deck_name?.toLowerCase().includes(deckName.toLowerCase())
     );
     

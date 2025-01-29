@@ -1,3 +1,4 @@
+import { DeckApiResponse } from "@/app/api-slices/types/decktypes";
 import { GalleryDeck } from "@/components/deckbuttons/buttonprops";
 
 export type NewDeckButton = {
@@ -25,7 +26,7 @@ export type GridListViewComponentProps = {
 
 export type DeckDisplayComponent = {
     deckdisplayprops:{ 
-        decksToDisplay: string[]
+        decksToDisplay: DeckApiResponse[]
         listView: boolean;
         galleryView: boolean;
         userId: string;

@@ -48,7 +48,7 @@ import {
         <AccordionItem value="item-5">
           <AccordionTrigger>Using Dark/Light Mode</AccordionTrigger>
           <AccordionContent>
-            Yes. It's animated by default, but you can disable it if you prefer.
+            Yes. It&apos;s animated by default, but you can disable it if you prefer.
           </AccordionContent>
         </AccordionItem>
       </Accordion>

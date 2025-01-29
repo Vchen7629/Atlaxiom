@@ -83,7 +83,7 @@ export function MobileTrapTypeDropDownComponent({ trapdropdownprops }: trapDropD
         <Command>
           <CommandInput placeholder="Search trap types..." className="h-9" />
           <CommandList className="max-h-[300px] overflow-y-auto">
-            <CommandEmpty>Inputed Trap Type doesn't exist.</CommandEmpty>
+            <CommandEmpty>Inputed Trap Type doesn&apos;t exist.</CommandEmpty>
             <CommandGroup>
               {TrapTypes.map((type) => (
                 <CommandItem

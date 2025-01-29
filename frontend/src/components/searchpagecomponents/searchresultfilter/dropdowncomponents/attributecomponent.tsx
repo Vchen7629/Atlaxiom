@@ -97,7 +97,7 @@ export function AttributeDropDownComponent({ attributedropdownprops }: attribute
         <Command>
           <CommandInput placeholder="Search attributes..." className="h-9" />
           <CommandList className="max-h-[300px] overflow-y-auto">
-            <CommandEmpty>Inputed attribute doesn't exist.</CommandEmpty>
+            <CommandEmpty>Inputed attribute doesn&apos;t exist.</CommandEmpty>
             <CommandGroup>
               {Attributes.map((type) => (
                 <CommandItem

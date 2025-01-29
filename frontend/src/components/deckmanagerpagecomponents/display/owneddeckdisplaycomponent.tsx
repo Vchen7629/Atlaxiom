@@ -26,6 +26,7 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
         return () => handleDeckClick(deck);
     };
 
+    console.log(decksToDisplay)
 
     return (
         <>  
@@ -73,7 +74,7 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                     ) : decksToDisplay.length === 0 ? (
                         <div className="flex h-[45vh] w-full items-center justify-center">
                             <span className="text-xl font-bold text-[hsl(var(--text))]">
-                                You Don't Own any Decks, Click the New Deck Button To add a new deck
+                                You Don&apos;t Own any Decks, Click the New Deck Button To add a new deck
                             </span>
                         </div>
                     ) : (
@@ -119,7 +120,7 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                     ) : decksToDisplay.length === 0 ? (
                         <div className="flex h-[45vh] w-full items-center justify-center">
                             <span className="text-xl font-bold text-[hsl(var(--text))]">
-                                You Don't Own any Decks, Click the New Deck Button To add a new deck
+                                You Don&apos;t Own any Decks, Click the New Deck Button To add a new deck
                             </span>
                         </div>
                     ) : (

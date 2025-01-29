@@ -37,12 +37,11 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                     <main className='flex flex-col w-full'>
                         {currentListPageResults.length > 0 ? (
                             <>
-                                {currentListPageResults.map((deck: FilteredDecks, index: string) => (
-                                    <>
-                                        <div 
-                                            className="flex  h-[7vh] px-2 justify-between items-center mb-2 hover:bg-[hsl(var(--background5))]" 
-                                            key={index} 
-                                            onClick={() => handleDeckClick(deck)}
+                                {currentListPageResults.map((deck: FilteredDecks) => (
+                                    <div 
+                                        className="flex  h-[7vh] px-2 justify-between items-center mb-2 hover:bg-[hsl(var(--background5))]" 
+                                        key={deck._id} 
+                                        onClick={() => handleDeckClick(deck)}
                                         >  
                                             <section className='flex w-1/4 space-x-8'>
                                                 <div className="flex flex-col">
@@ -74,17 +73,16 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                                                 <DuplicateDeckButtonComponent userId={userId} refetch={refetchdecks} refetchUser={refetch} deck={deck}/>
                                                 <DeleteDeckButtonComponent userId={userId} refetch={refetchdecks} refetchUser={refetch} deck={deck}/>
                                             </section>      
-                                        </div>
-                                    </>
+                                    </div>
                                 ))}        
                             </>
                         ) : totalOwnedDecks === 0 ? (
                             <section className="flex w-full h-[50vh] justify-center items-center">
-                                <span className="text-[hsl(var(--text))] font-bold text-2xl">You don't have any owned Decks</span>
+                                <span className="text-[hsl(var(--text))] font-bold text-2xl">You don&apos;t have any owned Decks</span>
                             </section>
                         ) : (
                             <section className="flex w-full h-[50vh] justify-center items-center">
-                                <span className="text-[hsl(var(--text))] font-bold text-2xl">Deck of this search name doesn't exist</span>
+                                <span className="text-[hsl(var(--text))] font-bold text-2xl">Deck of this search name doesn&apos;t exist</span>
                             </section>
                         )}
                                
@@ -99,8 +97,8 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                                 style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                             >
                                 {currentGalleryPageResults.map((deck: FilteredDecks, index: string) =>
-                                    <div className="flex flex-col items-center">
-                                        <div key={index} className="relative bg-deckpage flex flex-col items-center h-[20vh] md:h-[16vh] lg:h-[15vh] lg:w-[8vw] xl:h-[13vh] xl:w-[5.4vw] rounded-lg" onClick={() => handleDeckClick(deck)}>
+                                    <div key={index} className="flex flex-col items-center">
+                                        <div className="relative bg-deckpage flex flex-col items-center h-[20vh] md:h-[16vh] lg:h-[15vh] lg:w-[8vw] xl:h-[13vh] xl:w-[5.4vw] rounded-lg" onClick={() => handleDeckClick(deck)}>
                                             {deck.favorite === true && (
                                                 <span className='absolute left-1/2 top-2 translate-x-[-50%] text-[hsl(var(--background3))] flex'>
                                                     <FontAwesomeIcon icon={faStar} className='fa-lg'/>
@@ -124,11 +122,11 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                             </div>
                         ) : totalOwnedDecks === 0 ? (
                             <section className="flex w-full h-[50vh] justify-center items-center">
-                                <span className="text-[hsl(var(--text))] font-bold text-2xl">You don't have any owned Decks</span>
+                                <span className="text-[hsl(var(--text))] font-bold text-2xl">You don&apos;t have any owned Decks</span>
                             </section>
                         ) : (
                             <section className="flex w-full h-[50vh] justify-center items-center">
-                                <span className="text-[hsl(var(--text))] font-bold text-2xl">Deck of this search name doesn't exist</span>
+                                <span className="text-[hsl(var(--text))] font-bold text-2xl">Deck of this search name doesn&apos;t exist</span>
                             </section>
                         )}
                     </main>

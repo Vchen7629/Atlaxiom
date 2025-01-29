@@ -136,19 +136,19 @@ const UserOwnedCardPage = () => {
       const matchesRarityFilter = rarityFilter ? card.rarity?.toLowerCase().trim() === rarityFilter.toLowerCase().trim() : true;
         
       return (
-        !! matchesSearchTerm &&
-        !! matchesMonsterTypeFilter &&
-        !! matchesSpellTypeFilter &&
-        !! matchesTrapTypeFilter &&
-        !! matchesAttributeFilter &&
-        !! matchesArcheTypeFilter &&
-        !! matchesLevelFilter &&
-        !! matchesPendFilter &&
-        !! matchesLinkFilter &&
-        !! matchesAtkFilter && 
-        !! matchesDefFilter &&
-        !! matchesSetFilter &&
-        !! matchesRarityFilter
+        Boolean(matchesSearchTerm) && 
+        Boolean(matchesMonsterTypeFilter) && 
+        Boolean(matchesSpellTypeFilter) && 
+        Boolean(matchesTrapTypeFilter) &&
+        Boolean(matchesAttributeFilter) &&
+        Boolean(matchesArcheTypeFilter) &&
+        Boolean(matchesLevelFilter) &&
+        Boolean(matchesPendFilter) &&
+        Boolean(matchesLinkFilter) &&
+        Boolean(matchesAtkFilter) && 
+        Boolean(matchesDefFilter) &&
+        Boolean(matchesSetFilter) &&
+        Boolean(matchesRarityFilter)
       );
     });
   }, [

@@ -143,17 +143,17 @@ const SearchBarPage = () => {
       : true;
   
       return (
-        !! matchesname &&
-        matchesMonsterType &&
-        matchesSpellType && 
-        matchesTrapType && 
-        matchesAttributeType && 
-        matchesLevelFilter && 
-        matchesPendFilter && 
-        matchesLinkFilter && 
-        matchesAtkFilter &&
-        matchesDefFilter && 
-        matchesSetName
+        Boolean(matchesname) &&
+        Boolean(matchesMonsterType) &&
+        Boolean(matchesSpellType) && 
+        Boolean(matchesTrapType) && 
+        Boolean(matchesAttributeType) && 
+        Boolean(matchesLevelFilter) && 
+        Boolean(matchesPendFilter) && 
+        Boolean(matchesLinkFilter) && 
+        Boolean(matchesAtkFilter) &&
+        Boolean(matchesDefFilter) && 
+        Boolean(matchesSetName)
       ) 
     });
   }, [

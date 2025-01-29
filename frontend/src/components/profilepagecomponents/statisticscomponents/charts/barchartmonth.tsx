@@ -17,9 +17,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { ChartData, deckData } from "../types/charttypes"
-
-// Types
+import { ChartData } from "../types/charttypes"
 
 export const description = "Bar Chart Displaying Information for decks/cards added by Month";
 
@@ -58,7 +56,7 @@ export function ComponentBarMonthChart({ selectedYear }: any): JSX.Element {
 
       const currentYear = new Date().getFullYear();
       
-      const ownedDeck = deckData?.entities?.undefined?.ownedDecks || [];
+      const ownedDeck = deckData || [];
       const ownedCards = Object.values(cardData?.entities?.defaultId?.ownedCards || {}).flat();
 
       if (selectedMonth === "All") return [];
@@ -72,7 +70,7 @@ export function ComponentBarMonthChart({ selectedYear }: any): JSX.Element {
           cards: 0,
       }));
 
-        ownedDeck.forEach((deck: deckData) => {
+        ownedDeck.forEach((deck: any) => {
             const deckYear = deck.createdOn.slice(0, 4);
             const createdDate = new Date(deck.createdOn);
             if (createdDate.getMonth() === monthIndex && deckYear === selectedYear) {
