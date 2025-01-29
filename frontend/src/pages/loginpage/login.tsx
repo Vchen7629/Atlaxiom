@@ -58,7 +58,7 @@ const LoginPage = () => {
     }
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.stopPropagation();
+        event.preventDefault();
         const promise = handleSubmit();
         toast.promise(promise, {
             loading: "loading...",
