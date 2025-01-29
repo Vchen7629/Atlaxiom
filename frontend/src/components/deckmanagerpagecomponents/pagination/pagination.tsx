@@ -54,6 +54,15 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         }
     };
 
+    const updateCurrentPageGallery = () => {
+        if (filteredDecks.length > 0) {
+            const startIndex = (currentGalleryPage - 1) * suggestionsPerGalleryPage;
+            const endIndex = startIndex + suggestionsPerGalleryPage;
+            const currentGallerySuggestions = filteredDecks.slice(startIndex, endIndex) as Deck[];
+            setCurrentPageGalleryDecksArray(currentGallerySuggestions);
+        }
+    };
+
     useEffect(() => {
         updateTotalListPages(filteredDecks.length);
         updateTotalGalleryPages(filteredDecks.length);
@@ -65,15 +74,6 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
             updateCurrentPageGallery();
         }
     }, [filteredDecks.length, suggestionsPerListPage, suggestionsPerGalleryPage, currentListPage, currentGalleryPage]);
-
-    const updateCurrentPageGallery = () => {
-        if (filteredDecks.length > 0) {
-            const startIndex = (currentGalleryPage - 1) * suggestionsPerGalleryPage;
-            const endIndex = startIndex + suggestionsPerGalleryPage;
-            const currentGallerySuggestions = filteredDecks.slice(startIndex, endIndex) as Deck[];
-            setCurrentPageGalleryDecksArray(currentGallerySuggestions);
-        }
-    };
 
     const handleGalleryPageChange = (page: number) => {
         setGalleryCurrentPage(page);        
