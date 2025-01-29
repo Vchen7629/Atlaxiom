@@ -46,8 +46,9 @@ const DeleteDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: Delet
                             return error?.response?.data?.message || "Missing UserId, deckId";
                         } else if (error?.status === 500) {
                             return error?.response?.data?.message || "Failed to Delete Deck";
+                        } else {
+                            return "An unexpected error occurred";
                         }
-                      return
                     },
                 })
             }}

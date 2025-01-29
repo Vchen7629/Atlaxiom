@@ -33,31 +33,29 @@ const NavBarComponent = ({ navbarprops }: NavBarComp) => {
     };
 
     return (
-        <>
-            <div className="flex my-4 space-x-4 relative h-fit text-sm w-full lg:text-lg lg:w-3/4 ">
-                <button 
-                    className={`flex py-2 px-2 rounded-lg ${deckActive ? "bg-[hsl(var(--background3))]" : "bg-footer"} text-white items-center`} 
-                    onClick={handleDeckClick}
-                >
-                    <FontAwesomeIcon icon={faChartColumn}/>
-                    <span className="ml-[10px]">View Decks</span>
-                </button>
-                <button 
-                    className={`flex py-2 px-2 rounded-lg ${statisticsActive ? "bg-[hsl(var(--background3))]" : "bg-footer"} text-white items-center`} 
-                    onClick={handleStatisticsClick}
-                >
-                    <FontAwesomeIcon icon={faChartColumn}/>
-                    <span className="ml-[10px]">View Statistics</span>
-                </button>
-                <button 
-                    className={`flex py-2 px-2 rounded-lg ${editActive ? "bg-[hsl(var(--background3))]" : "bg-footer"} text-white items-center`} 
-                    onClick={handleEditAccClick}
-                >
-                    <FontAwesomeIcon icon={faEdit}/>
-                    <span className="ml-[10px]">Edit Account</span>
-                </button>
-            </div>
-        </>
+        <div className="flex my-4 space-x-4 relative h-fit text-sm w-full lg:text-lg lg:w-3/4 ">
+            <button 
+                className={`flex py-2 px-2 rounded-lg ${deckActive ? "bg-[hsl(var(--background3))]" : "bg-footer"} text-white items-center`} 
+                onClick={handleDeckClick}
+            >
+                <FontAwesomeIcon icon={faChartColumn}/>
+                <span className="ml-[10px]">View Decks</span>
+            </button>
+            <button 
+                className={`flex py-2 px-2 rounded-lg ${statisticsActive ? "bg-[hsl(var(--background3))]" : "bg-footer"} text-white items-center`} 
+                onClick={handleStatisticsClick}
+            >
+                <FontAwesomeIcon icon={faChartColumn}/>
+                <span className="ml-[10px]">View Statistics</span>
+            </button>
+            <button 
+                className={`flex py-2 px-2 rounded-lg ${editActive ? "bg-[hsl(var(--background3))]" : "bg-footer"} text-white items-center`} 
+                onClick={handleEditAccClick}
+            >
+                <FontAwesomeIcon icon={faEdit}/>
+                <span className="ml-[10px]">Edit Account</span>
+            </button>
+        </div>
     )
 }
 

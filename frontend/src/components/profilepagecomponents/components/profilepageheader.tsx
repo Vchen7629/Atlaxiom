@@ -11,7 +11,6 @@ const ProfilePageHeader = ({ usersData }: ProfileHeader) => {
 
 
     return (
-        <>
         <div className="flex flex-col min-h-[25vh] mt-4">
           <section className="h-full rounded-3xl px-12 items-center justify-between flex w-full bg-[hsl(var(--profilebackground))] text-[hsl(var(--text))]">
             <div className="flex items-center">  
@@ -32,12 +31,9 @@ const ProfilePageHeader = ({ usersData }: ProfileHeader) => {
                 <span className="flex lg:hidden text-xl font-bold text-[hsl(var(--background3))] mr-2">Decks:</span>
                 <span className="font-bold text-md lg:text-xl">{totalOwnedDecks}</span>
               </div>
-            </div>
-            
-          </section>
-          
+            </div> 
+          </section>  
         </div>
-      </>
     );
 }
 

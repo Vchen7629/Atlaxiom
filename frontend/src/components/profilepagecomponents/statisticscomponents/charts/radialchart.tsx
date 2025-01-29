@@ -1,5 +1,4 @@
 "use client"
-import * as React from "react"
 import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts"
 import {
   Card,
@@ -16,6 +15,7 @@ import {
 import { useGetSpecificUserQuery } from "../../../../app/api-slices/usersApiSlice"
 import { useSelector } from "react-redux"
 import { userId } from "../types/charttypes"
+import { useMemo } from "react"
 export const description = "A radial chart displaying the user's unique cards compared to the total unique cards"
 
 const chartConfig = {
@@ -34,7 +34,7 @@ export function ComponentRadialChart() {
     const userId = useSelector((state: userId) => state.auth.userId)
     const { data: userData } = useGetSpecificUserQuery(userId)
 
-    const chartData = React.useMemo(() => {
+    const chartData = useMemo(() => {
         if (!userData || !userData.entities || !userData.entities[userId]) return []
 
         const totalOwnedCards = userData.entities[userId].totalOwnedCards || 0

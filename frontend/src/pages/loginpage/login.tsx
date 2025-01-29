@@ -57,7 +57,6 @@ const LoginPage = () => {
     }
 
     const content = (
-        <>
         <main className="min-h-[100vh] flex flex-col justify-between">
             <Toaster richColors  expand visibleToasts={4} position="bottom-center"/>
             <Header/>
@@ -112,8 +111,9 @@ const LoginPage = () => {
                                                         return error?.data?.message || "Invalid Username or Password";
                                                     } else if (error?.status === 400) {
                                                         return error?.data?.message || "Missing Username or Password";
+                                                    } else {
+                                                        return "An unexpected error occurred";
                                                     }
-                                                    return "error logging in"
                                                 }
                                             })
                                         }}
@@ -127,7 +127,6 @@ const LoginPage = () => {
             </div>
             <Footer/>
         </main>
-        </>
     )
 
     return content

@@ -46,8 +46,9 @@ const EmailUpdateButton = ({ UpdateEmailProps } : SaveEmailButton) => {
                             return  "Invalid Email Format";
                         } else if (error?.status === 409) {
                             return  "Duplicate Email, Please Enter a Different Email";
+                        } else {
+                            return "An unexpected error occurred";
                         }
-                        return "error updating"
                     }
                 })
             }}

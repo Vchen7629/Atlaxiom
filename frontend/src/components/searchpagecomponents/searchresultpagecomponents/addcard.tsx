@@ -63,6 +63,8 @@ export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupPro
         } else {
             console.error("No selected Card Data")
         }      
+
+        return null
     }
 
     return (

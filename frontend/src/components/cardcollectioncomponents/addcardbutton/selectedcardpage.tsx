@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { selectedcard } from "../types/addcardtypes";
 import { toast } from "sonner";
+import { toastErrorMessage, toastSuccessTwoMessage } from "../types/buttontypes";
 
 const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
     const {
@@ -82,7 +83,9 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
             }
         } else {
             console.error("No selected Card Data")
-        }      
+        }
+        
+        return null
     }
 
     return (
@@ -162,33 +165,30 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
                                         key={set.id}
                                         className="flex p-1 mb-2 text-xs items-center space-x-[5%] text-[hsl(var(--text))] border-2 border-[hsl(var(--background4))] rounded-xl"
                                     >
-                                            <>
                                                 <div className="w-[25%]">{set.set_name}</div>
                                                 <div className="w-[18%]">{set.set_code}</div>
                                                 <div className="w-[15%]">{set.set_rarity}</div>
                                                 <div className="w-[13%]">${set.set_price}</div>
                                                 <div className="w-[8%]">
-                                                    <button
-                                                        onClick={() => {
-                                                            const promise = handleAddOwnedCardClick(set, index);
-                                                            toast.promise(promise, {
-                                                                loading: "loading...",
-                                                                success: (data: any) => `Card: ${data.name} from set: ${data.set} has been added`,
-                                                                error: (error: any) => {
-                                                                    if (error?.status === 409) {
-                                                                        return error?.response?.data?.message || "You already Own this Card";
-                                                                    }
-                                                                    return "An Error occured while adding the Card"
-                                                                },
-                                                            })
-                                                        }}
-                                                        className="bg-[hsl(var(--background3))] rounded-lg flex items-center p-2"
-                                                    >
-                                                        <FontAwesomeIcon icon={faPlus} />
-                                                    </button>
-                                                </div>
-                                            </>
-                                    
+                                            <button
+                                                onClick={() => {
+                                                    const promise = handleAddOwnedCardClick(set, index);
+                                                    toast.promise(promise as any, {
+                                                    loading: "loading...",
+                                                    success: (data: toastSuccessTwoMessage) => `Card: ${data?.name} from set: ${data?.set} has been added`,
+                                                    error: (error: toastErrorMessage) => {
+                                                        if (error?.status === 409) {
+                                                            return error?.response?.data?.message || "You already Own this Card";
+                                                        }
+                                                            return "An Error occured while adding the Card"
+                                                        },
+                                                    })
+                                                }}
+                                                className="bg-[hsl(var(--background3))] rounded-lg flex items-center p-2"
+                                            >
+                                                <FontAwesomeIcon icon={faPlus} />
+                                            </button>
+                                        </div>
                                     </div>
                                 ))}
                             </div>
