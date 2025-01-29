@@ -1,3 +1,4 @@
+import { UpdatedCard } from "./buttontypes";
 import { Card } from "./datatypes";
 import { GalleryResult, Result } from "./sidebarcomponenttypes";
 
@@ -8,8 +9,8 @@ export type AllCardsDisplayCompProps = {
         galleryView: boolean;
         allCardsListResults: Card[];
         allCardsGalleryResults: Card[];
-        allCardsCurrentListResults: Card[];
-        allCardsCurrentGalleryResults: Card[];
+        allCardsCurrentListResults: UpdatedCard[];
+        allCardsCurrentGalleryResults: UpdatedCard[];
         setMonsterCards?: any
     }
 }

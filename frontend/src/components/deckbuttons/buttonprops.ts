@@ -19,3 +19,7 @@ export type GalleryDeck = {
     _id: string;
     favorite?: boolean;
 }
+
+export type ListDeck = {
+    
+}

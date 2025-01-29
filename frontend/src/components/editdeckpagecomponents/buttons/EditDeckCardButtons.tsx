@@ -1,7 +1,7 @@
-import { CardToDecrease, CardToDelete, CardToIncrease, UpdatedCard } from "../types/buttontypes";
+import { UpdatedCard } from "../types/buttontypes";
 
 export const handleIncreaseCardOwnedAmount = (
-    cardToIncrease: CardToIncrease, 
+    cardToIncrease: UpdatedCard, 
     setCard: React.Dispatch<React.SetStateAction<UpdatedCard[]>>, 
     setCardsToAdd: React.Dispatch<React.SetStateAction<UpdatedCard[]>>,
 ) => {
@@ -41,7 +41,7 @@ export const handleIncreaseCardOwnedAmount = (
 };
 
 export const handleDecreaseCardOwnedAmount = (
-    cardToDecrease: CardToDecrease, 
+    cardToDecrease: UpdatedCard, 
     setCard: React.Dispatch<React.SetStateAction<UpdatedCard[]>>,
     setCardsToDecrease: React.Dispatch<React.SetStateAction<UpdatedCard[]>>,
 ) => {
@@ -81,7 +81,7 @@ export const handleDecreaseCardOwnedAmount = (
 }
 
 export const handleDeleteCardClick = (
-    cardToDelete: CardToDelete,
+    cardToDelete: UpdatedCard,
     setCards: React.Dispatch<React.SetStateAction<UpdatedCard[]>>,
     removeFromArray: React.Dispatch<React.SetStateAction<UpdatedCard[]>>,
     setCardsToDelete: React.Dispatch<React.SetStateAction<UpdatedCard[]>>,

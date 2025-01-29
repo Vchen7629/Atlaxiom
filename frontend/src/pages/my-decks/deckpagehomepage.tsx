@@ -12,6 +12,7 @@ import PaginationComponent from '@/components/deckmanagerpagecomponents/paginati
 import { useGetAllOwnedDecksQuery } from '@/app/api-slices/decksapislice.ts';
 import { Deck } from '@/components/deckmanagerpagecomponents/types/homepagecomponentprops.ts';
 import { Toaster } from 'sonner';
+import { GalleryDeck } from '@/components/deckbuttons/buttonprops.ts';
 
 
 const DeckPageHomepage = () => {
@@ -41,8 +42,8 @@ const DeckPageHomepage = () => {
     }
     const [currentListPage, setListCurrentPage] = useState<number>(1);  
     const [currentGalleryPage, setGalleryCurrentPage] = useState<number>(1);
-    const [currentPageListDecksArray, setCurrentPageListDecksArray] = useState<string[]>([]);
-    const [currentPageGalleryDecksArray, setCurrentPageGalleryDecksArray] = useState<string[]>([]);
+    const [currentPageListDecksArray, setCurrentPageListDecksArray] = useState<Deck[]>([]);
+    const [currentPageGalleryDecksArray, setCurrentPageGalleryDecksArray] = useState<GalleryDeck[]>([]);
 
     
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

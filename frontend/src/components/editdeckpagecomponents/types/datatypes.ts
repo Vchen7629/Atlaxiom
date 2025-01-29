@@ -1,5 +1,6 @@
 export type Card = {
     name: string;
+    card_name: string | undefined;
     desc: string;
     card_images: { 
         image_url: string;
@@ -25,7 +26,8 @@ export type Card = {
     archetype: string | null;
     set_name: string;
     rarity: string;
-    id?: string | number;
+    id: string | undefined;
+    _id: string | undefined;
     ownedamount?: number;
     ygoprodeck_url?: string;
 }

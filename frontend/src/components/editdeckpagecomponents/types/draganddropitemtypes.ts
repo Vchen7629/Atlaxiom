@@ -1,3 +1,5 @@
+import { Card } from "./datatypes";
+
 export type SubGridListViewComponentProps = {
     filterProps: {
         setListView: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,21 +22,21 @@ export type CollectionListResult = {
     desc: string;
 }
 
-export type SearchGalleryResult = {
-    id: string;
+export type SearchGalleryResult = Card & {
+    id: string | undefined;
     card_images?: {
         0?: {
             image_url: string
         }
     }
-    name: string
+    name: string | undefined
 }
 
-export type SearchListResult = {
-    id: string;
-    card_name: string;
-    name: string;
-    desc: string;
+export type SearchListResult = Card & {
+    id: string | undefined;
+    card_name: string | undefined;
+    name: string | undefined;
+    desc: string | undefined;
     card_images?: {
         0?: {
             image_url: string

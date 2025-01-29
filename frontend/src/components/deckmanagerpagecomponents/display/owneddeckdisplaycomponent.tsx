@@ -32,9 +32,9 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
             {listView && (
                 <main className='flex flex-col w-full'>
                     {currentPageListDecksArray.length > 0 ? (
-                        currentPageListDecksArray.map((deck: Deck, index) => (
+                        currentPageListDecksArray.map((deck: Deck) => (
                             <div 
-                                key={index}
+                                key={deck._id}
                                 className="flex  h-[7vh] px-2 justify-between items-center mb-2 hover:bg-[hsl(var(--background5))]" 
                                 onClick={() => handleDeckClick(deck)}
                             >  

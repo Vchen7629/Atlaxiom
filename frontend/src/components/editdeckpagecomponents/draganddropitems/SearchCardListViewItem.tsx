@@ -4,7 +4,7 @@ import { SearchListResult } from '../types/draganddropitemtypes';
 
 const SearchCardListViewItem = ({ card }: {card: SearchListResult}) => {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
-        id: card.id, 
+        id: card.id as string 
     });
     const style = {
         transform: CSS.Translate.toString(transform),
