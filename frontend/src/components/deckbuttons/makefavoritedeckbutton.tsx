@@ -54,8 +54,9 @@ const FavoriteDeckButtonComponent = ({ deck, refetch, userId, setCurrentPageList
                             return error?.response?.data?.message || "Deck Not Found";
                         } else if (error?.status === 400) {
                             return error?.response?.data?.message || "Missing UserId, deckId";
+                        } else {
+                            return "An unexpected error occurred";
                         }
-                      return
                     },
                 })
             }}

@@ -44,8 +44,9 @@ const UsernameUpdateButton = ({ UpdateUsernameProps } : SaveUsernameButton) => {
                             return "No username provided, Please provide a username";
                         } else if (error?.status === 409) {
                             return  "Duplicate Username, Please Enter a Different Username";
+                        } else {
+                            return "An unexpected error occurred";
                         }
-                        return "error updating"
                     }
                 })
             }}

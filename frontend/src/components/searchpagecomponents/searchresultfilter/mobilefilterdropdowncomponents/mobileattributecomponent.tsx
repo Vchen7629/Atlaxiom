@@ -1,6 +1,5 @@
 "use client"
  
-import * as React from "react"
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
  
 import { cn } from "@/lib/utils"
@@ -19,6 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { attributeDropDown } from "../../types/searchfiltercomptypes"
+import { useState } from "react"
  
 const Attributes = [
   {
@@ -53,7 +53,7 @@ const Attributes = [
 
  
 export function MobileAttributeDropDownComponent({ attributedropdownprops }: attributeDropDown) {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
   const { 
     setCanClearFilters,
     attributeType, setAttributeType 

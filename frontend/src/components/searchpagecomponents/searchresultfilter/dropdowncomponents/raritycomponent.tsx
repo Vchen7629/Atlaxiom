@@ -2,7 +2,6 @@
 
 "use client"
  
-import * as React from "react"
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
  
 import { cn } from "@/lib/utils"
@@ -20,6 +19,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { useState } from "react"
  
 const Rarity = [
   {
@@ -86,8 +86,8 @@ const Rarity = [
 
  
 export function RarityDropDownComponent() {
-  const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("")
+  const [open, setOpen] = useState(false)
+  const [value, setValue] = useState("")
  
   return (
     <Popover open={open} onOpenChange={setOpen}>

@@ -41,8 +41,9 @@ const DecreaseOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCar
                         return error?.response?.data?.message || "Missing UserId, Card Name or Valid IncreaseOwnedAmount";
                       } else if (error?.status === 405) {
                         return error?.response?.data?.message || "Unable to decrease card to 0, try deleting the card instead";
+                      } else {
+                        return "An unexpected error occurred";
                       }
-                      return
                     },
                 })
             }}

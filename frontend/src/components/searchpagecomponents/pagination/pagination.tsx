@@ -148,46 +148,41 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
                 </>
             )}
 
-            {galleryView && (
-                <>
-                    {totalGalleryPages > 1 && (
-                       <div className="flex flex-col">
-                            <div className="hidden md:flex space-x-[1vw] w-full justify-between">
-                                <section className="flex items-center h-full space-x-2"> 
-                                    <span className="text-lg">Page</span> 
-                                    <input
-                                        className="bg-transparent focus:outline-none w-10 text-center text-lg border-b-2 border-[hsl(var(--background3))]"
-                                        placeholder={String(currentGalleryPage)}
-                                        value={galleryPage}
-                                        onChange={handleGalleryInputChange}
-                                    />
-                                    <span className="text-lg">of {totalGalleryPages}</span>
-                                    {galleryerr && (
-                                        <span className="text-red-500">{galleryerr}</span>
-                                    )}
-                                </section>
-                                <PageSelectorComponent pageselectorprops={pageselectorprops}/>
-                            </div>
-                            <div className={`${totalGalleryPages > 4 ? "flex flex-col" : "flex"} md:hidden space-y-[2vh] items-center space-x-[3vw] w-full`}>
-                                <section className="flex items-center h-full space-x-2"> 
-                                    <span className="text-lg">Page</span> 
-                                    <input
-                                        className="bg-transparent focus:outline-none w-10 text-center text-lg border-b-2 border-[hsl(var(--background3))]"
-                                        placeholder={String(currentGalleryPage)}
-                                        value={galleryPage}
-                                        onChange={handleGalleryInputChange}
-                                    />
-                                    <span className="text-lg">of {totalGalleryPages}</span>
-                                    {galleryerr && (
-                                        <span className="text-red-500">{galleryerr}</span>
-                                    )}
-                                </section>
-                                <PageSelectorComponent pageselectorprops={pageselectorprops}/>
-                            </div>
-
-                       </div>
-                    )}
-                </>
+            {galleryView && totalGalleryPages > 1 && (
+                <div className="flex flex-col">
+                    <div className="hidden md:flex space-x-[1vw] w-full justify-between">
+                        <section className="flex items-center h-full space-x-2"> 
+                            <span className="text-lg">Page</span> 
+                            <input
+                                className="bg-transparent focus:outline-none w-10 text-center text-lg border-b-2 border-[hsl(var(--background3))]"
+                                placeholder={String(currentGalleryPage)}
+                                value={galleryPage}
+                                onChange={handleGalleryInputChange}
+                            />
+                            <span className="text-lg">of {totalGalleryPages}</span>
+                            {galleryerr && (
+                                <span className="text-red-500">{galleryerr}</span>
+                            )}
+                        </section>
+                        <PageSelectorComponent pageselectorprops={pageselectorprops}/>
+                    </div>
+                    <div className={`${totalGalleryPages > 4 ? "flex flex-col" : "flex"} md:hidden space-y-[2vh] items-center space-x-[3vw] w-full`}>
+                        <section className="flex items-center h-full space-x-2"> 
+                            <span className="text-lg">Page</span> 
+                            <input
+                                className="bg-transparent focus:outline-none w-10 text-center text-lg border-b-2 border-[hsl(var(--background3))]"
+                                placeholder={String(currentGalleryPage)}
+                                value={galleryPage}
+                                onChange={handleGalleryInputChange}
+                            />
+                            <span className="text-lg">of {totalGalleryPages}</span>
+                            {galleryerr && (
+                                <span className="text-red-500">{galleryerr}</span>
+                            )}
+                         </section>
+                        <PageSelectorComponent pageselectorprops={pageselectorprops}/>
+                    </div>
+                </div>
             )}
         </div>
     )

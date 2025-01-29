@@ -41,8 +41,9 @@ const PasswordUpdateButton = ({ UpdatePasswordProps } : SavePasswordButton) => {
                             return "User Not Found";
                         } else if (error?.status === 400) {
                             return "No password provided, Please enter a password";
+                        } else {
+                            return "error updating"
                         }
-                        return "error updating"
                     }
                 })
             }}

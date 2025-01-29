@@ -1,5 +1,4 @@
 "use client"
-import * as React from "react"
 import { Label, Pie, PieChart } from "recharts"
 import {
   Card,
@@ -15,6 +14,7 @@ import {
 } from "@/components/ui/chart"
 import { useGetOwnedCardsQuery } from "../../../../app/api-slices/ownedCardapislice"
 import { useSelector } from "react-redux"
+import { useMemo } from "react"
 export const description = "A Pie Chart displaying the user's card collection makeup by the number of monster/spell/trap cards"
 
 
@@ -37,7 +37,7 @@ export function ComponentPieChart() {
   const userId = useSelector((state: { auth: { userId: string } }) => state.auth.userId);
   const { data: cardData } = useGetOwnedCardsQuery(userId)
 
-  const chartData = React.useMemo(() => {
+  const chartData = useMemo(() => {
     if (!cardData || !cardData.entities) {
       console.error("cardData.entities is undefined or empty.");
       return [];
@@ -71,7 +71,7 @@ export function ComponentPieChart() {
     ]
   }, [cardData, userId])
 
-  const totalCards = React.useMemo(() => {
+  const totalCards = useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.count, 0)
   }, [chartData])
 

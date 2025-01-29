@@ -20,6 +20,7 @@ const DeleteOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCard)
         } catch (error) {
           throw error
         }
+        
     }
 
     return (
@@ -36,8 +37,9 @@ const DeleteOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCard)
                             return error?.response?.data?.message || "Card Not Found";
                       } else if (error?.status === 400) {
                           return error?.response?.data?.message || "Missing UserId, or Card Name";
+                      } else {
+                        return "An unexpected error occurred";
                       }
-                      return
                     },
                 })
             }}

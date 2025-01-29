@@ -56,7 +56,7 @@ const MobileAllCardsMonsterCardDisplayComponent = ({ AllCardsDisplayCompProps }:
                         >
                             {allCardsCurrentGalleryResults.map((card) => (
                                 <div key={card._id} className="flex flex-col h-full w-full"> 
-                                    <img src={card.card_images?.[0]?.image_url} className='h-3/4 object-contain'/>
+                                    <img src={card.card_images?.[0]?.image_url} alt="Search Result monster Cards" className='h-3/4 object-contain'/>
                                 </div>
                             ))}
                         </div>

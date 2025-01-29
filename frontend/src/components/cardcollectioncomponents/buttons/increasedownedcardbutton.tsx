@@ -38,8 +38,9 @@ const IncreaseOwnedCardButtonComponent = ({ userId, refetch, card }: IncreaseCar
                             return error?.response?.data?.message || "Card Not Found";
                       } else if (error?.status === 400) {
                           return error?.response?.data?.message || "Missing UserId, Card Name or Valid IncreaseOwnedAmount";
+                      } else {
+                        return "An unexpected error occurred";
                       }
-                      return
                     },
                 })
             }}
