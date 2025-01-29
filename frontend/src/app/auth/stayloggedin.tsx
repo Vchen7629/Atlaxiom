@@ -19,14 +19,14 @@ const StayLoggedIn = () => {
     }] = useRefreshMutation()
 
     useEffect(() => {
+        console.log(loggingOut)
         
-        if (effectRan.current === true || process.env.NODE_ENV !== 'development') {
-            if (!token && !loggingOut) {
+        if (effectRan.current === true) {
+            if (!token && !loggingOut && !effectRan.current) {
                 const verifyRefreshToken = async() => {
                     try {
                         await refresh()
                         setTrueSuccess(true)
-                        console.log("Stay logged in ran")
                     } catch (err) {
                         console.error(err)
                     }
@@ -38,7 +38,7 @@ const StayLoggedIn = () => {
         
         effectRan.current = true
 
-    }, [refresh, token, loggingOut])
+    }, [refresh, token, effectRan, loggingOut])
 
     if (isError) {
         navigate("/login")

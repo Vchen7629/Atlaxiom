@@ -16,8 +16,6 @@ const Accountsbutton = () => {
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
     };
-
-    console.log("hi")
     
     return (
         <>

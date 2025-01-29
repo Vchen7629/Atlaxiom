@@ -7,8 +7,6 @@ const ProfilePageHeader = ({ usersData }: ProfileHeader) => {
     const totalOwnedCards = usersData?.totalOwnedCards
     const totalOwnedDecks = usersData?.totalOwnedDecks
     const creation = usersData?.creation
-    console.log(username)
-
 
     return (
         <div className="flex flex-col min-h-[25vh] mt-4">
