@@ -8,6 +8,7 @@ import { useLoginMutation } from "../../app/auth/authApiSlice.ts"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUser } from "@fortawesome/free-solid-svg-icons"
 import { toast, Toaster } from "sonner"
+import { toastErrorMessage } from "@/components/cardcollectioncomponents/types/buttontypes.ts"
 
 const LoginPage = () => {
     const userRef = useRef<HTMLInputElement>(null)
@@ -56,6 +57,24 @@ const LoginPage = () => {
         setPasswordError(false)
     }
 
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation();
+        const promise = handleSubmit();
+        toast.promise(promise, {
+            loading: "loading...",
+            success: () => "sucessfully logged in",
+            error: (error: toastErrorMessage) => {
+                if (error?.status === 401) {
+                    return error?.data?.message || "Invalid Username or Password";
+                } else if (error?.status === 400) {
+                    return error?.data?.message || "Missing Username or Password";
+                } else {
+                    return "An unexpected error occurred";
+                }
+            },
+        })
+    }
+
     const content = (
         <main className="min-h-[100vh] flex flex-col justify-between">
             <Toaster richColors  expand visibleToasts={4} position="bottom-center"/>
@@ -98,26 +117,7 @@ const LoginPage = () => {
                                     />
                                 </div>
                                 <div className="w-full h-32 flex flex-col items-center ">
-                                    <button 
-                                        className="bg-[hsl(var(--background3))] w-[92%] h-12 rounded-2xl"  
-                                        onClick={(event) => {
-                                            event.preventDefault();
-                                            const promise = handleSubmit();
-                                            toast.promise(promise, {
-                                                loading: "loading...",
-                                                success: () => "sucessfully logged in",
-                                                error: (error: any) => {
-                                                    if (error?.status === 401) {
-                                                        return error?.data?.message || "Invalid Username or Password";
-                                                    } else if (error?.status === 400) {
-                                                        return error?.data?.message || "Missing Username or Password";
-                                                    } else {
-                                                        return "An unexpected error occurred";
-                                                    }
-                                                }
-                                            })
-                                        }}
-                                    >
+                                    <button className="bg-[hsl(var(--background3))] w-[92%] h-12 rounded-2xl" onClick={handleClick}>
                                         <h1 className="text-[25px] text-white">Login</h1>
                                     </button>
                                 </div>

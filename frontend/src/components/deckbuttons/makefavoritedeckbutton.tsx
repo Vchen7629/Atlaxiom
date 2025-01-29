@@ -38,29 +38,28 @@ const FavoriteDeckButtonComponent = ({ deck, refetch, userId, setCurrentPageList
         }
     }
 
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation()
+        const promise = handleFavoriteDeckClick(deck);
+        toast.promise(promise, {
+            loading: "loading...",
+            success: (data: toastSuccessMessage) => `Added Deck: ${data?.name} to Favorites`,
+            error: (error: toastErrorMessage) => {
+                if (error?.status === 404) {
+                    return error?.response?.data?.message || "User Not Found";
+                } else if (error?.status === 405) {
+                    return error?.response?.data?.message || "Deck Not Found";
+                } else if (error?.status === 400) {
+                     return error?.response?.data?.message || "Missing UserId, deckId";
+                } else {
+                    return "An unexpected error occurred";
+                }
+            },
+        })
+    }
+
     return (
-        <button 
-            className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'
-            onClick={(event) => {
-                event.stopPropagation(); 
-                const promise = handleFavoriteDeckClick(deck);
-                toast.promise(promise, {
-                    loading: "loading...",
-                    success: (data: toastSuccessMessage) => `Added Deck: ${data?.name} to Favorites`,
-                    error: (error: toastErrorMessage) => {
-                        if (error?.status === 404) {
-                            return error?.response?.data?.message || "User Not Found";
-                        } else if (error?.status === 405) {
-                            return error?.response?.data?.message || "Deck Not Found";
-                        } else if (error?.status === 400) {
-                            return error?.response?.data?.message || "Missing UserId, deckId";
-                        } else {
-                            return "An unexpected error occurred";
-                        }
-                    },
-                })
-            }}
-        >
+        <button className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]' onClick={handleClick}>
             <FontAwesomeIcon icon={faStar}/>
         </button>
     )

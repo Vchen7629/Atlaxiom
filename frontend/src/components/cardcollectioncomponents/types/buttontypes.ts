@@ -28,6 +28,14 @@ export type toastErrorMessage = {
             message: string
         }
     }
+    data?: {
+        message: string
+    }
+}
+
+export type toastErrorTwoMessage = {
+    status: number;
+    message: string;
 }
 
 export type UserId = {

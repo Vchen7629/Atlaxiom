@@ -8,7 +8,6 @@ import { useDeleteOwnedCardMutation } from "@/app/api-slices/ownedCardapislice";
 const DeleteOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCard) => {
     const [deleteOwnedCard] = useDeleteOwnedCardMutation();
     
-    
     const handleDeleteCardClick = async (cardName: string) => {
         try {
           await deleteOwnedCard({
@@ -20,30 +19,28 @@ const DeleteOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCard)
         } catch (error) {
           throw error
         }
-        
+    }
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.stopPropagation()
+      const promise = handleDeleteCardClick(card.card_name);
+      toast.promise(promise, {
+        loading: "loading...",
+        success: (data: toastSuccessMessage) => `Deleted Card: ${data?.name}`,
+        error: (error: toastErrorMessage) => {
+          if (error?.status === 404) {
+            return error?.response?.data?.message || "Card Not Found";
+          } else if (error?.status === 400) {
+            return error?.response?.data?.message || "Missing UserId, or Card Name";
+          } else {
+            return "An unexpected error occurred";
+          }
+        },
+      })
     }
 
     return (
-        <button 
-            className="h-8 w-8 rounded bg-[hsl(var(--background3))] cursor-pointer"
-            onClick={(e) => {
-                e.stopPropagation();
-                const promise = handleDeleteCardClick(card.card_name);
-                toast.promise(promise, {
-                    loading: "loading...",
-                    success: (data: toastSuccessMessage) => `Deleted Card: ${data?.name}`,
-                    error: (error: toastErrorMessage) => {
-                      if (error?.status === 404) {
-                            return error?.response?.data?.message || "Card Not Found";
-                      } else if (error?.status === 400) {
-                          return error?.response?.data?.message || "Missing UserId, or Card Name";
-                      } else {
-                        return "An unexpected error occurred";
-                      }
-                    },
-                })
-            }}
-        >
+        <button className="h-8 w-8 rounded bg-[hsl(var(--background3))] cursor-pointer" onClick={handleClick}>
             <FontAwesomeIcon icon={faTrash}/>
         </button>
     )
