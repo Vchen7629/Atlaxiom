@@ -8,7 +8,6 @@ import { toastErrorMessage, toastSuccessMessage } from "../cardcollectioncompone
 
 
 const DuplicateDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: DeleteDeck) => {
-
     const [addNewDuplicateDeck] = useCreateDuplicateDeckMutation()
     
     const handleDuplicateDeckClick = async(deck: handleDeckClick) => {
@@ -25,31 +24,32 @@ const DuplicateDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: De
         } catch (error) {
             throw error
         }
-        
+    }
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation()
+        const promise = handleDuplicateDeckClick(deck);
+        toast.promise(promise, {
+            loading: "loading...",
+            success: (data: toastSuccessMessage) => `Duplicated Deck: ${data?.name}`,
+            error: (error: toastErrorMessage) => {
+                if (error?.status === 404) {
+                    return error?.response?.data?.message || "User Not Found";
+                } else if (error?.status === 405) {
+                    return error?.response?.data?.message || "Original Deck Not Found";
+                } else if (error?.status === 400) {
+                    return error?.response?.data?.message || "Missing UserId, deckId";
+                } else {
+                    return "An unexpected error occurred";
+                }
+            },
+        })
     }
 
     return (
         <button 
             className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]'
-            onClick={(event) => {
-                event.stopPropagation(); 
-                const promise = handleDuplicateDeckClick(deck);
-                toast.promise(promise, {
-                    loading: "loading...",
-                    success: (data: toastSuccessMessage) => `Duplicated Deck: ${data?.name}`,
-                    error: (error: toastErrorMessage) => {
-                        if (error?.status === 404) {
-                            return error?.response?.data?.message || "User Not Found";
-                        } else if (error?.status === 405) {
-                            return error?.response?.data?.message || "Original Deck Not Found";
-                        } else if (error?.status === 400) {
-                            return error?.response?.data?.message || "Missing UserId, deckId";
-                        } else {
-                            return "An unexpected error occurred";
-                        }
-                    },
-                })
-            }}
+            onClick={handleClick}
         >
             <FontAwesomeIcon icon={faCopy}/>
         </button>

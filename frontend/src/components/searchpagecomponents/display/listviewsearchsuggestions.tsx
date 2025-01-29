@@ -28,14 +28,18 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
         }   
     };
 
+    const handleClick = (card: SearchResCardData) => {
+        return () => handleSuggestionClick(card)
+    }
+
     console.log(currentPageListNamesArray)
 
     return (
         <main className="w-full">
             <div className="">
                 {currentPageListNamesArray.length > 0 ? (
-                    currentPageListNamesArray.map((card: any, index) => (
-                        <div key={index} onClick={() => handleSuggestionClick(card)}>
+                    currentPageListNamesArray.map((card: any) => (
+                        <div key={card.id} onClick={handleClick(card)}>
                             <div className="flex w-full h-[20vh] mb-2 bg-transparentt">
                                 
                                 <img src={card?.card_images[0].image_url} alt={card.name} className="w-auto"/>

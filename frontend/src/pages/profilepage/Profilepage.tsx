@@ -160,7 +160,6 @@ const Profilepage = () => {
         };
 
     return (
-        <>
         <main className="min-h-[100vh] flex flex-col justify-center">
             <Header/>
             <div className="flex justify-center pt-[10vh] bg-[hsl(var(--background1))] min-h-[120vh]">
@@ -172,7 +171,6 @@ const Profilepage = () => {
             </div>
             <Footer/>
         </main>
-        </>
     );
     };
 

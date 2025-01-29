@@ -208,7 +208,7 @@ const PrivacyPolicyPage = () => {
                 </section>
                 <section className="flex flex-col space-y-[2vh] text-[hsl(var(--text))]">
                     <span className="text-2xl font-bold">Links to Other Websites</span>
-                    <p>Our Service may contain links to other websites that are not operated by Us. If You click on a third party link, You will be directed to that third party's site. We strongly advise You to review the Privacy Policy of every site You visit.</p>
+                    <p>Our Service may contain links to other websites that are not operated by Us. If You click on a third party link, You will be directed to that third party&apos;s site. We strongly advise You to review the Privacy Policy of every site You visit.</p>
                     <p>We have no control over and assume no responsibility for the content, privacy policies or practices of any third party sites or services.</p>
                 </section>
                 <section className="flex flex-col space-y-[2vh] text-[hsl(var(--text))]">

@@ -24,27 +24,26 @@ const IncreaseOwnedCardButtonComponent = ({ userId, refetch, card }: IncreaseCar
         }
     };
 
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.stopPropagation()
+      const promise = handleIncreaseClick(card.card_name);
+      toast.promise(promise, {
+        loading: "loading...",
+        success: (data: toastSuccessMessage) => `Increased Owned Amount for Card: ${data?.name}`,
+        error: (error: toastErrorMessage) => {
+          if (error?.status === 404) {
+            return error?.response?.data?.message || "Card Not Found";
+          } else if (error?.status === 400) {
+            return error?.response?.data?.message || "Missing UserId, Card Name or Valid IncreaseOwnedAmount";
+          } else {
+            return "An unexpected error occurred";
+          }
+        },
+      })
+    }
+
     return (
-        <button 
-            className="h-8 w-8 rounded bg-[hsl(var(--background3))] cursor-pointer" 
-            onClick={(e) => {
-                e.stopPropagation()
-                const promise = handleIncreaseClick(card.card_name);
-                toast.promise(promise, {
-                    loading: "loading...",
-                    success: (data: toastSuccessMessage) => `Increased Owned Amount for Card: ${data?.name}`,
-                    error: (error: toastErrorMessage) => {
-                      if (error?.status === 404) {
-                            return error?.response?.data?.message || "Card Not Found";
-                      } else if (error?.status === 400) {
-                          return error?.response?.data?.message || "Missing UserId, Card Name or Valid IncreaseOwnedAmount";
-                      } else {
-                        return "An unexpected error occurred";
-                      }
-                    },
-                })
-            }}
-        >
+        <button className="h-8 w-8 rounded bg-[hsl(var(--background3))] cursor-pointer" onClick={handleClick}>
             <FontAwesomeIcon icon={faPlus}/>
         </button>
     )

@@ -1,6 +1,5 @@
 "use client"
  
-import * as React from "react"
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
  
 import { cn } from "@/lib/utils"
@@ -19,6 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { ArchetypeDropDownProps } from "../../types/dropdowntypes"
+import { useState } from "react"
  
 export function ArchetypeDropDownComponent({ archetypeprops }: ArchetypeDropDownProps) {
   const {
@@ -29,7 +29,7 @@ export function ArchetypeDropDownComponent({ archetypeprops }: ArchetypeDropDown
     setGalleryCurrentPage,
   } = archetypeprops
 
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
 
   const handleClick = (newValue: string) => {
     setArcheTypeFilter(newValue)

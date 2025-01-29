@@ -89,7 +89,7 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
     }
 
     return (
-        <>
+        <div>
             {loading ? (
                 <span className="h-[50vh] w-full flex items-center justify-center text-3xl font-bold">Loading...</span>
             ) : (
@@ -200,7 +200,7 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
                     </div>
                 </main>
             )}
-        </>
+        </div>
     )
 }
 

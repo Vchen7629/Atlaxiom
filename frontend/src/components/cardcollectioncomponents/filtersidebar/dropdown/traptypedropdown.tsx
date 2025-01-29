@@ -1,6 +1,5 @@
 "use client"
  
-import * as React from "react"
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
  
 import { cn } from "@/lib/utils"
@@ -19,6 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { TrapTypeDropDownProps } from "../../types/dropdowntypes"
+import { useState } from "react"
  
 export function TrapTypeDropDownComponent({ traptypeprops }: TrapTypeDropDownProps) {
   const {
@@ -28,7 +28,7 @@ export function TrapTypeDropDownComponent({ traptypeprops }: TrapTypeDropDownPro
     setGalleryCurrentPage,
     setCanClearFilter
   } = traptypeprops 
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
 
   const handleClick = (newValue: string) => {
     setTrapTypeFilter(newValue)

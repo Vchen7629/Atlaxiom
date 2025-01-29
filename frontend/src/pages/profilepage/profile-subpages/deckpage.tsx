@@ -109,7 +109,7 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                                             )}
                                             <span className="flex text-wrap text-white text-sm w-[90%] h-full text-center items-center font-bold">{deck.deck_name}</span>
                                         </div>
-                                        <section className="flex w-full mt-2 space-x-1">
+                                        <section className="flex w-full h-fit mt-2 space-x-1">
                                             <FavoriteDeckButtonComponent 
                                                 deck={deck} 
                                                 userId={userId} 
