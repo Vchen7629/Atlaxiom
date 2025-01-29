@@ -1,6 +1,5 @@
 "use client"
  
-import * as React from "react"
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
  
 import { cn } from "@/lib/utils"
@@ -19,6 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { SpellTypeDropDownProps } from "../../types/dropdowntypes"
+import { useState } from "react"
  
 export function SpellTypeDropDownComponent({ spelltypeprops }: SpellTypeDropDownProps) {
   const {
@@ -28,7 +28,7 @@ export function SpellTypeDropDownComponent({ spelltypeprops }: SpellTypeDropDown
     setGalleryCurrentPage,
     setCanClearFilter
   } = spelltypeprops 
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
 
   const handleClick = (newValue: string) => {
     setSpellTypeFilter(newValue)

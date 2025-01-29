@@ -70,29 +70,27 @@ export function ComponentRadialChart() {
                     content={({ viewBox }) => {
                         if (viewBox && "cx" in viewBox && "cy" in viewBox) {
                             return (
-                                <>
-                                    <text 
-                                        x={viewBox.cx} 
-                                        y={viewBox.cy} 
-                                        textAnchor="middle" 
-                                        className="text-[hsl(var(--text))] relative"
+                                <text 
+                                    x={viewBox.cx} 
+                                    y={viewBox.cy} 
+                                    textAnchor="middle" 
+                                    className="text-[hsl(var(--text))] relative"
+                                >
+                                    <tspan
+                                        x={viewBox.cx}
+                                        y={viewBox.cy}
+                                        className="fill-current text-2xl font-bold"
                                     >
-                                        <tspan
-                                            x={viewBox.cx}
-                                            y={viewBox.cy}
-                                            className="fill-current text-2xl font-bold"
-                                        >
-                                            {chartData[0].owned} / {chartData[0].total}
-                                        </tspan>
-                                        <tspan
-                                            x={viewBox.cx}
-                                            y={viewBox.cy}
-                                            className="fill-current pt-[10vh] text-lg text-muted-foreground"
-                                        >
-                                            Cards Owned
-                                        </tspan>
-                                    </text>
-                                </>
+                                        {chartData[0].owned} / {chartData[0].total}
+                                    </tspan>
+                                    <tspan
+                                        x={viewBox.cx}
+                                        y={viewBox.cy}
+                                        className="fill-current pt-[10vh] text-lg text-muted-foreground"
+                                    >
+                                        Cards Owned
+                                    </tspan>
+                                </text>
                             )
                         }
                     }}

@@ -94,34 +94,30 @@ export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupPro
                     <>
                     {cardSets.map((set, index) => (
                         <div key={set.id} className="grid grid-cols-[40%_20%_20%_15%_5%] p-2 mb-2 justify-center items-center text-[hsl(var(--background3))]">
-                            <>
-                                <span className="text-xs lg:text-md">{set.set_name}</span>
-                                <span className="text-xs lg:text-md">{set.set_code}</span>
-                                <span className="text-xs lg:text-md">{set.set_rarity}</span>
-                                <span className="text-xs lg:text-md">${set.set_price}</span>
-                                <div className="text-xs lg:text-md">
-                                    <button
-                                        className="bg-[hsl(var(--background3))] text-[hsl(var(--text))] rounded-md justify-center flex items-center h-[25px] w-[25px] p-2 text-[12px]"
-                                        onClick={() => {
-                                            const promise = handleAddOwnedCardClick(set, index);
-                                            toast.promise(promise, {
-                                                loading: "loading...",
-                                                success: (data: any) => `Card: ${data.name} from set: ${data.set} has been added`,
-                                                error: (error: any) => {
-                                                if (error?.status === 409) {
-                                                    return error?.response?.message || "You already Own this Card";
-                                                }
-                                                    return "An Error occured while adding the Card"
-                                                },
-                                            })
-                                        }}
-                                    >   
-                                    <span className="font-black">
-                                        <FontAwesomeIcon icon={faPlus} />
-                                    </span>
-                                    </button>
-                                </div>
-                            </>
+                            <span className="text-xs lg:text-md">{set.set_name}</span>
+                            <span className="text-xs lg:text-md">{set.set_code}</span>
+                            <span className="text-xs lg:text-md">{set.set_rarity}</span>
+                            <span className="text-xs lg:text-md">${set.set_price}</span>
+                            <div className="text-xs lg:text-md">
+                                <button
+                                    className="bg-[hsl(var(--background3))] text-[hsl(var(--text))] rounded-md justify-center flex items-center h-[25px] w-[25px] p-2 text-[12px]"
+                                    onClick={() => {
+                                        const promise = handleAddOwnedCardClick(set, index);
+                                        toast.promise(promise, {
+                                            loading: "loading...",
+                                            success: (data: any) => `Card: ${data.name} from set: ${data.set} has been added`,
+                                            error: (error: any) => {
+                                            if (error?.status === 409) {
+                                                return error?.response?.message || "You already Own this Card";
+                                            }
+                                                return "An Error occured while adding the Card"
+                                            },
+                                        })
+                                    }}
+                                >   
+                                <span className="font-black"><FontAwesomeIcon icon={faPlus} /></span>
+                                </button>
+                            </div>
                         </div>
                     ))}
                     </>

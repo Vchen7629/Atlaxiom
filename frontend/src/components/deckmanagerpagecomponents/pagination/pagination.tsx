@@ -57,12 +57,12 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
     useEffect(() => {
         updateTotalListPages(filteredDecks.length);
         updateTotalGalleryPages(filteredDecks.length);
-        if (filteredDecks.length > 0) {
-            updateCurrentPageList();
-            updateCurrentPageGallery();
-        } else if (filteredDecks.length === 0) {
+        if (filteredDecks.length === 0) {
             setCurrentPageListDecksArray([]);
             setCurrentPageGalleryDecksArray([]);
+        } if (filteredDecks.length > 0) {
+            updateCurrentPageList();
+            updateCurrentPageGallery();
         }
     }, [filteredDecks.length, suggestionsPerListPage, suggestionsPerGalleryPage, currentListPage, currentGalleryPage]);
 
