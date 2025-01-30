@@ -3,6 +3,7 @@ import { faTimes, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useCallback, useMemo } from "react";
 import { MobileCollectionSearchbarCompProps } from "../types/searchbartypes";
 import { OwnedCard } from "../types/datatypes";
+import { SetCollectionGallery, SetCollectionList } from "../types/mobileaddcardsearchbartypes";
 
 const MobileCollectionMonsterCardSearchBarComponent = ({ CollectionSearchBarCompProps }: MobileCollectionSearchbarCompProps) => {
     const {
@@ -29,7 +30,7 @@ const MobileCollectionMonsterCardSearchBarComponent = ({ CollectionSearchBarComp
         if (cardData) {
             return Object.values(cardData.entities.defaultId.ownedCards || {})
                 .flat()
-                .filter((card: any): card is OwnedCard => card !== undefined && card !== null && Object.keys(card).length > 0)
+                .filter((card): card is OwnedCard => card !== undefined && card !== null && Object.keys(card).length > 0)
                 .filter(card => card.type?.includes("Spell"))
         }
         return [];
@@ -42,18 +43,18 @@ const MobileCollectionMonsterCardSearchBarComponent = ({ CollectionSearchBarComp
     const DelayCollectionSearchResults = useCallback((inputValue: string) => {
 
         const normalizedInput = inputValue.toLowerCase().replace(/[-\s]/g, ''); 
-        const filteredSuggestions = collectionMonsterCards.filter((card: any) => {
+        const filteredSuggestions = collectionMonsterCards.filter((card: { card_name: string }) => {
             const normalizedCardName = card?.card_name?.toLowerCase().replace(/[-\s]/g, ''); 
             return normalizedCardName?.includes(normalizedInput);
         });
 
-        setCollectionListResults(filteredSuggestions.slice(0, maxResults).map((card: any) => ({
+        setCollectionListResults(filteredSuggestions.slice(0, maxResults).map((card: SetCollectionList) => ({
             _id: card._id,
             card_name: card.card_name,
             image_url: card.image_url,
             desc: card.desc,
         })));
-        setCollectionGalleryResults(filteredSuggestions.slice(0, maxResults).map((card: any) => ({
+        setCollectionGalleryResults(filteredSuggestions.slice(0, maxResults).map((card: SetCollectionGallery) => ({
             _id: card._id,
             card_name: card.card_name,
             image_url: card.image_url,

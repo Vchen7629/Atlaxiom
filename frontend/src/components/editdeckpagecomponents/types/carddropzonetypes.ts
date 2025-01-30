@@ -8,9 +8,7 @@ export type ExtraDeckProps = {
         };
         extraDeckCards: UpdatedCard[];
         setExtraDeckCards: React.Dispatch<React.SetStateAction<UpdatedCard[]>>;
-        hoveredCard: {
-            type?: string[]
-        };
+        hoveredCard: Card | null
         setModifyExtraDeckCardAmountPlaceHolder: React.Dispatch<React.SetStateAction<UpdatedCard[]>>;
         setCardsToDeleteExtraDeckPlaceHolder: React.Dispatch<React.SetStateAction<UpdatedCard[]>>;
     }
@@ -27,9 +25,7 @@ export type MainDeckProps = {
         setSpellCards: React.Dispatch<React.SetStateAction<UpdatedCard[]>>
         trapCards: UpdatedCard[];
         setTrapCards: React.Dispatch<React.SetStateAction<UpdatedCard[]>>
-        hoveredCard: {
-            type?: string[]
-        };
+        hoveredCard: Card | null
         setModifyMainDeckCardAmountPlaceHolder: React.Dispatch<React.SetStateAction<UpdatedCard[]>>;
         setCardsToDeleteMainDeckPlaceHolder: React.Dispatch<React.SetStateAction<UpdatedCard[]>>;
         allCardsView: boolean
@@ -51,9 +47,7 @@ export type SideDeckProps = {
         };
         sideDeckCards: UpdatedCard[];
         setSideDeckCards: React.Dispatch<React.SetStateAction<UpdatedCard[]>>;
-        hoveredCard: {
-            type?: string[]
-        };
+        hoveredCard: Card | null
         setModifySideDeckCardAmountPlaceHolder: React.Dispatch<React.SetStateAction<UpdatedCard[]>>;
         setCardsToDeleteSideDeckPlaceHolder: React.Dispatch<React.SetStateAction<UpdatedCard[]>>;
     }

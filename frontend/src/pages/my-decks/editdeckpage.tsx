@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { useGetSpecificOwnedDeckQuery } from '../../app/api-slices/decksapislice.ts';
 import DeckBuilderPageSidebarComponent from '../../components/editdeckpagecomponents/sidebar/deckbuilderpagesidebar.tsx';
 import MainDeckCardZone from '@/components/editdeckpagecomponents/carddropzones/MainDeckCardsZone.tsx';
-import { DndContext } from '@dnd-kit/core';
+import { DndContext, DragEndEvent, DragMoveEvent } from '@dnd-kit/core';
 import { Card, OwnedCard } from '../../components/editdeckpagecomponents/types/datatypes.ts';
 import { restrictToWindowEdges } from "@dnd-kit/modifiers"
 import ExtraDeckCardZone from '@/components/editdeckpagecomponents/carddropzones/ExtraDeckCardsZone.tsx';
@@ -33,7 +33,7 @@ const DeckBuilderPage = () => {
 
     const deck = deckData?.entities?.undefined?.[0];
 
-    const [hoveredCard, setHoveredCard] = useState<any | null>(null);
+    const [hoveredCard, setHoveredCard] = useState<Card | null>(null);
     const [monsterCards, setMonsterCards] = useState<Card[]>([]);
     const [spellCards, setSpellCards] = useState<Card[]>([]);
     const [trapCards, setTrapCards] = useState<Card[]>([]);
@@ -56,9 +56,9 @@ const DeckBuilderPage = () => {
                 const extraDeckCards = deck?.extra_deck_cards;
                 const sideDeckCards = deck?.side_deck_cards;
     
-                const monsters = mainCards.filter((card: any) => card.type && !["Spell Card", "Trap Card"].includes(card.type));
-                const spells = mainCards.filter((card: any) => card.type?.includes("Spell"));
-                const traps = mainCards.filter((card: any) => card.type?.includes("Trap"));
+                const monsters = mainCards.filter((card: { type: string }) => card.type && !["Spell Card", "Trap Card"].includes(card.type));
+                const spells = mainCards.filter((card: { type: string }) => card.type?.includes("Spell"));
+                const traps = mainCards.filter((card: { type: string }) => card.type?.includes("Trap"));
     
                 setMonsterCards(monsters);
                 setSpellCards(spells);
@@ -69,7 +69,7 @@ const DeckBuilderPage = () => {
         }
     }, [deckData]);
 
-    const handleDragMove = (event: any) => {
+    const handleDragMove = (event: DragMoveEvent) => {
         const { active } = event;
     
         if (!active?.id) {
@@ -88,7 +88,7 @@ const DeckBuilderPage = () => {
         setHoveredCard(null);
     };
 
-    const handleDragEnd = (event: any) => {
+    const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event;
 
         if (!active.id) {

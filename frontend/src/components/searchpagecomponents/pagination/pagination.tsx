@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { PageSelectorComponent } from "./pageselector.tsx";
 import { Pagination } from "../types/paginationtypes.ts";
+import { SearchResCardData } from "../types/datastructuretypes.ts";
 
 const PaginationComponent = ({ paginationprops }: Pagination) => {
     const { 
@@ -30,7 +31,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         if (filteredCards.length > 0) {
             const startIndex = (currentListPage - 1) * suggestionsPerListPage;
             const endIndex = startIndex + suggestionsPerListPage;
-            const currentListSuggestions = filteredCards.slice(startIndex, endIndex) as string[];
+            const currentListSuggestions = filteredCards.slice(startIndex, endIndex) as SearchResCardData[];
             setCurrentPageListNamesArray(currentListSuggestions);
         }
     };
@@ -58,7 +59,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         if (filteredCards.length > 0) {
             const startIndex = (currentListPage - 1) * suggestionsPerGalleryPage;
             const endIndex = startIndex + suggestionsPerGalleryPage;
-            const currentGallerySuggestions = filteredCards.slice(startIndex, endIndex) as string[];
+            const currentGallerySuggestions = filteredCards.slice(startIndex, endIndex) as SearchResCardData[];
             setCurrentPageGalleryNamesArray(currentGallerySuggestions);
         }
     };

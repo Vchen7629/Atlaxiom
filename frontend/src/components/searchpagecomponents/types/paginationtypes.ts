@@ -1,3 +1,5 @@
+import { SearchResCardData } from "./datastructuretypes";
+
 export type Pagination = {
     paginationprops: {
         filteredCards: any;
@@ -9,8 +11,8 @@ export type Pagination = {
         setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>;
         suggestionsPerListPage: number;
         suggestionsPerGalleryPage: number;
-        setCurrentPageListNamesArray: React.Dispatch<React.SetStateAction<string[]>>;
-        setCurrentPageGalleryNamesArray: React.Dispatch<React.SetStateAction<string[]>>;
+        setCurrentPageListNamesArray: React.Dispatch<React.SetStateAction<SearchResCardData[]>>;
+        setCurrentPageGalleryNamesArray: React.Dispatch<React.SetStateAction<SearchResCardData[]>>;
         totalListPages: number;
         totalGalleryPages: number;
         updateTotalListPages: (filteredCardsLength: number) => void;

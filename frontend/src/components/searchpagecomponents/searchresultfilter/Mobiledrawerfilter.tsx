@@ -60,7 +60,7 @@ export function MobileSearchFilterDrawer({ filterprops }: FilterSidebar) {
 
     const uniqueSetNames = Array.isArray(cardData) ? Array.from(
         cardData.reduce((set, card) => {
-          card.card_sets?.forEach((setData: any) => {
+          card.card_sets?.forEach((setData) => {
             if (setData.set_name) set.add(setData.set_name);
           });
           return set;

@@ -56,7 +56,7 @@ export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupPro
                 price: set.set_price || 0,
             };
             try {
-                await addNewOwnedCard({ id: userId, CardData: cardToPost as any }).unwrap();
+                await addNewOwnedCard({ id: userId, CardData: cardToPost }).unwrap();
                 return { name: selectedCardData.name, set: selectedCardData?.card_sets?.[index]?.set_name}
             } catch (error) {
                 throw error

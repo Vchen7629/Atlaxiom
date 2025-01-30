@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/drawer"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter, faXmarkSquare } from "@fortawesome/free-solid-svg-icons";
-import { OwnedCard } from "../../types/dataStructures.ts";
+import { SetFilterValues } from "../../types/mobiletypes.ts";
 
 const MobileFilterDrawerComponent = ({ filterProps }: OwnedCardsFilterProps) => {
     const {
@@ -72,27 +72,27 @@ const MobileFilterDrawerComponent = ({ filterProps }: OwnedCardsFilterProps) => 
 
     useEffect(() => {
         if (ownedCards) {
-          const allCards: OwnedCard[] = Object.values(ownedCards?.entities?.defaultId?.ownedCards || {}).flat().filter(card => card) as OwnedCard[];
+          const allCards: SetFilterValues[] = Object.values(ownedCards?.entities?.defaultId?.ownedCards || {}).flat().filter(card => card) as SetFilterValues[];
 
-          const monsterTypeList = new Set(allCards.filter((card: any) => card.type.includes("Monster")).map((card: any) => card.race).filter(race => race));
+          const monsterTypeList = new Set(allCards.filter((card) => card.type.includes("Monster")).map((card) => card.race).filter(race => race));
           setUniqueMonsterType([...monsterTypeList])
 
-          const spellTypeList = new Set(allCards.filter((card: any) => card.type.includes("Spell")).map((card: any) => card.race).filter(race => race));
+          const spellTypeList = new Set(allCards.filter((card) => card.type.includes("Spell")).map((card) => card.race).filter(race => race));
           setUniqueSpellType([...spellTypeList])
 
-          const trapTypeList = new Set(allCards.filter((card: any) => card.type.includes("Trap")).map((card: any) => card.race).filter(race => race));
+          const trapTypeList = new Set(allCards.filter((card) => card.type.includes("Trap")).map((card) => card.race).filter(race => race));
           setUniqueTrapType([...trapTypeList])
     
-          const attributeList = new Set(allCards.map((card: any) => card.attribute).filter(attribute => attribute));
+          const attributeList = new Set(allCards.map((card) => card.attribute).filter(attribute => attribute));
           setUniqueAttribute([...attributeList])
     
-          const archetypeList = new Set(allCards.map((card: any) => card.archetype).filter(archetype => archetype));
+          const archetypeList = new Set(allCards.map((card) => card.archetype).filter(archetype => archetype));
           setUniqueArchetype([...archetypeList])
     
-          const setList = new Set(allCards.map((card: any) => card.set_name).filter(set_name => set_name));
+          const setList = new Set(allCards.map((card) => card.set_name).filter(set_name => set_name));
           setUniqueSet([...setList])
     
-          const rarityList = new Set(allCards.map((card: any) => card.rarity).filter(rarity => rarity));
+          const rarityList = new Set(allCards.map((card) => card.rarity).filter(rarity => rarity));
           setUniqueRarity([...rarityList])
     
         }

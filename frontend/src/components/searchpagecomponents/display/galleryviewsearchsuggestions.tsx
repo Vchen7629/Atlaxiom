@@ -38,7 +38,7 @@ const GalleryViewSearchSuggestionsComponent = ({ galleryviewprops }: GalleryView
                     className="grid grid-cols-4 sm-grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-4 w-full h-full p-4 justify-items-start items-start"  
                     style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                 >
-                    {currentPageGalleryNamesArray.map((card: any) => (
+                    {currentPageGalleryNamesArray.map((card: SearchResCardData) => (
                         <div key={card.id} className="relative flex h-full w-full group" onClick={handleClick(card)}>
                             <img src={card?.card_images[0].image_url} alt={card.name} className="h-full object-contain group-hover:blur-xs"/>
                             <div 

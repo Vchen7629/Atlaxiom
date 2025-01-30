@@ -17,7 +17,7 @@ export type DeckProps = {
         }
         listView: boolean;
         galleryView: boolean;
-        refetch: any;
+        refetch: () => void;
         refetchdecks: any;
         filteredDecks: any;
         currentListPageResults: any

@@ -15,6 +15,7 @@ import { useGetAllOwnedDecksQuery } from '@/app/api-slices/decksapislice.ts';
 import PaginationComponent from '@/components/profilepagecomponents/viewdeckcomponents/pagination/pagination.tsx';
 import { Deck } from '@/components/profilepagecomponents/statisticscomponents/types/paginationtypes.ts';
 import BarChartViewButton from '@/components/profilepagecomponents/statisticscomponents/buttons/barchartbutton.tsx';
+import { DeckApiResponse } from '@/app/api-slices/types/decktypes.ts';
 
 
 const Profilepage = () => {
@@ -43,8 +44,8 @@ const Profilepage = () => {
     }
     const [currentListPage, setListCurrentPage] = useState<number>(1);  
     const [currentGalleryPage, setGalleryCurrentPage] = useState<number>(1);
-    const [currentListPageResults, setCurrentListPageResults] = useState<string[]>([])
-    const [currentGalleryPageResults, setCurrentGalleryPageResults] = useState<string[]>([])
+    const [currentListPageResults, setCurrentListPageResults] = useState<DeckApiResponse[]>([])
+    const [currentGalleryPageResults, setCurrentGalleryPageResults] = useState<DeckApiResponse[]>([])
 
     const [yearView, setYearView] = useState<boolean>(true);
     const [monthView, setMonthView] = useState<boolean>(false);

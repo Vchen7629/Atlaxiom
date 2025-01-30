@@ -5,7 +5,7 @@ import GridListViewComponent from '../../components/searchpagecomponents/searchb
 import FilterCardComponent from '../../components/searchpagecomponents/searchresultfilter/FilterComponent';
 import SearchBarComponent from '../../components/searchpagecomponents/searchbar/searchbar';
 import ListViewSearchSuggestionsComponent from '../../components/searchpagecomponents/display/listviewsearchsuggestions';
-import { ApiCardData } from '../../components/searchpagecomponents/types/datastructuretypes';
+import { ApiCardData, SearchResCardData } from '../../components/searchpagecomponents/types/datastructuretypes';
 import GalleryViewSearchSuggestionsComponent from '../../components/searchpagecomponents/display/galleryviewsearchsuggestions';
 import ClearFilterButton from '../../components/searchpagecomponents/buttons/clearfilterbutton';
 import FilterButton from '../../components/searchpagecomponents/buttons/filterbutton';
@@ -17,8 +17,8 @@ const SearchBarPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [cardData, setCardData] = useState<ApiCardData[]>([]);
 
-  const [currentPageListNamesArray, setCurrentPageListNamesArray] = useState<string[]>([]);
-  const [currentPageGalleryNamesArray, setCurrentPageGalleryNamesArray] = useState<string[]>([]);
+  const [currentPageListNamesArray, setCurrentPageListNamesArray] = useState<SearchResCardData[]>([]);
+  const [currentPageGalleryNamesArray, setCurrentPageGalleryNamesArray] = useState<SearchResCardData[]>([]);
 
   const [/*errorMessage*/, setErrorMessage] = useState<string>('');
   const [expandStatus, setExpandStatus] = useState<boolean>(false);
