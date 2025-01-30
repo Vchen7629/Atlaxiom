@@ -1,5 +1,5 @@
 import { useAddCardsMainDeckMutation, useAddNewCardtoExtraDeckMutation, useAddNewCardtoSideDeckMutation, useDeleteCardfromExtraDeckMutation, useDeleteCardfromMainDeckMutation, useDeleteCardfromSideDeckMutation, useModifyCardAmountinExtraDeckMutation, useModifyCardAmountinMainDeckMutation, useModifyCardAmountinSideDeckMutation } from "@/app/api-slices/decksapislice"
-import { SaveDeckButton } from "../types/buttontypes";
+import { SaveDeckButton, UpdatedCard } from "../types/buttontypes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
 
@@ -29,11 +29,10 @@ const SaveDeckCardsButton = ({ savebuttonprops }: SaveDeckButton) => {
     const [modifyExtraDeckOwnedAmount] = useModifyCardAmountinExtraDeckMutation();
     const [modifySideDeckOwnedAmount] = useModifyCardAmountinSideDeckMutation();
 
-    const normalizeCard = (card: any) => ({
-        addedOn: new Date().toISOString().split('T')[0],
+    const normalizeCard = (card: UpdatedCard) => ({
+        card_name: card.name || card.card_name,
         archetype: card.archetype || null,
         cardInDeckOwnedAmount: card.cardInDeckOwnedAmount,
-        card_name: card.name || card.card_name,
         desc: card.desc || "",
         image_url: card.card_images?.[0]?.image_url || card?.image_url,
         price: card.card_prices?.[0]?.price || card.price,
@@ -42,7 +41,6 @@ const SaveDeckCardsButton = ({ savebuttonprops }: SaveDeckButton) => {
         set_code: card.card_sets?.[0]?.set_code || card.rarity,
         set_name: card.card_sets?.[0]?.set_name || card.set_name,
         type: card.type || "",
-        user_id: userId,
     });
 
     const handleSaveClick = async() => {
@@ -58,102 +56,143 @@ const SaveDeckCardsButton = ({ savebuttonprops }: SaveDeckButton) => {
             const normalizedDeleteSideDeckCards = cardsToDeleteSideDeckPlaceHolder.map(normalizeCard);
             const normalizedModifySideDeckCards = modifySideDeckCardAmountPlaceHolder.map(normalizeCard);
 
+            console.log("hi", normalizedMainCards)
+
             if (normalizedMainCards.length > 0) {
-                await addCardsToMainDeck({ id: userId, deckId, main_deck_cards: normalizedMainCards as any});
+                await addCardsToMainDeck({ id: userId, deckId,  main_deck_cards: normalizedMainCards as UpdatedCard[]});
                 setCardsToAddMainDeckPlaceHolder([])
             } 
 
             if (normalizedExtraDeckCards.length > 0) {
-                await addCardsToExtraDeck({ id: userId, deckId, extra_deck_cards: normalizedExtraDeckCards})
+                await addCardsToExtraDeck({ id: userId, deckId,  extra_deck_cards: normalizedExtraDeckCards as UpdatedCard[]})
                 setCardsToAddExtraDeckPlaceHolder([])
             }
 
             if (normalizedSideDeckCards.length > 0) {
-                await addCardsToSideDeck({ id: userId, deckId, side_deck_cards: normalizedSideDeckCards})
+                await addCardsToSideDeck({ id: userId, deckId, side_deck_cards: normalizedSideDeckCards as UpdatedCard[] })
                 setCardsToAddSideDeckPlaceHolder([])
             }
 
             if (normalizedDeleteMainCards.length > 0) {
-                await deleteCardsFromMainDeck({
-                    id: userId,
-                    DeckData: {
-                        deckId,
-                        cardUpdates: normalizedDeleteMainCards.map(card => ({
-                            card_name: card.card_name
-                        }))
-                    }
-                })
-                setCardsToDeleteMainDeckPlaceHolder([])
+                const filteredCards = normalizedDeleteMainCards
+                    .filter(card => card.card_name !== undefined)
+                    .map(card => ({
+                        card_name: card.card_name as string
+                    }));
+
+                if (filteredCards.length > 0) {
+                    await deleteCardsFromMainDeck({
+                        id: userId,
+                        DeckData: {
+                            deckId,
+                            cardUpdates: filteredCards
+                        }
+                    });
+
+                    setCardsToDeleteMainDeckPlaceHolder([]);
+                }
             }
 
             if (normalizedDeleteExtraDeckCards.length > 0) {
-                await deleteCardsFromExtraDeck({
-                    id: userId,
-                    DeckData: {
-                        deckId,
-                        cardUpdates: normalizedDeleteExtraDeckCards.map(card => ({
-                            card_name: card.card_name
-                        }))
-                    }
-                })
-                setCardsToDeleteExtraDeckPlaceHolder([])
+                const filteredCards = normalizedDeleteExtraDeckCards
+                    .filter(card => card.card_name !== undefined)
+                    .map(card => ({
+                        card_name: card.card_name as string
+                    }));
+
+                if (filteredCards.length > 0) {
+                    await deleteCardsFromExtraDeck({
+                        id: userId,
+                        DeckData: {
+                            deckId,
+                            cardUpdates: filteredCards
+                        }
+                    });
+
+                    setCardsToDeleteExtraDeckPlaceHolder([]);
+                }
             }
 
             
             if (normalizedDeleteSideDeckCards.length > 0) {
-                await deleteCardsFromSideDeck({
-                    id: userId,
-                    DeckData: {
-                        deckId,
-                        cardUpdates: normalizedDeleteSideDeckCards.map(card => ({
-                            card_name: card.card_name
-                        }))
-                    }
-                })
-                setCardsToDeleteSideDeckPlaceHolder([])
+                const filteredCards = normalizedDeleteSideDeckCards
+                    .filter(card => card.card_name !== undefined)
+                    .map(card => ({
+                        card_name: card.card_name as string
+                    }));
+
+                if (filteredCards.length > 0) {
+                    await deleteCardsFromSideDeck({
+                        id: userId,
+                        DeckData: {
+                            deckId,
+                            cardUpdates: filteredCards
+                        }
+                    });
+
+                    setCardsToDeleteSideDeckPlaceHolder([]);
+                }
             }
 
             if (normalizedModifyMainCards.length > 0) {
-                await modifyMainDeckOwnedAmount({ 
-                    id: userId, 
-                    DeckData: {
-                        deckId, 
-                        cardUpdates: normalizedModifyMainCards.map(card => ({
-                            card_name: card.card_name,
-                            modifyAmount: card.cardInDeckOwnedAmount
-                        }))
-                    }
-                })
-                setModifyMainDeckCardAmountPlaceHolder([])
+                const filteredCards = normalizedModifyMainCards
+                    .filter(card => card.card_name !== undefined)
+                    .map(card => ({
+                        card_name: card.card_name as string,
+                        modifyAmount: card.cardInDeckOwnedAmount as number
+                    }));
+                if (filteredCards.length > 0) {
+                    await modifyMainDeckOwnedAmount({ 
+                        id: userId, 
+                        DeckData: {
+                            deckId, 
+                            cardUpdates: filteredCards
+                        }
+                    });
+
+                    setModifyMainDeckCardAmountPlaceHolder([])
+                }
             }
 
             if (normalizedModifyExtraDeckCards.length > 0) {
-                await modifyExtraDeckOwnedAmount({ 
-                    id: userId, 
-                    DeckData: {
-                        deckId, 
-                        cardUpdates: normalizedModifyExtraDeckCards.map(card => ({
-                            card_name: card.card_name,
-                            modifyAmount: card.cardInDeckOwnedAmount
-                        }))
-                    }
-                })
-                setModifyExtraDeckCardAmountPlaceHolder([])
+                const filteredCards = normalizedModifyExtraDeckCards
+                    .filter(card => card.card_name !== undefined)
+                    .map(card => ({
+                        card_name: card.card_name as string,
+                        modifyAmount: card.cardInDeckOwnedAmount as number
+                    }));
+                if (filteredCards.length > 0) {
+                    await modifyExtraDeckOwnedAmount({ 
+                        id: userId, 
+                        DeckData: {
+                            deckId, 
+                            cardUpdates: filteredCards
+                        }
+                    });
+                    
+                    setModifyExtraDeckCardAmountPlaceHolder([])
+                }
             }
 
             
             if (normalizedModifySideDeckCards.length > 0) {
-                await modifySideDeckOwnedAmount({ 
-                    id: userId, 
-                    DeckData: {
-                        deckId, 
-                        cardUpdates: normalizedModifySideDeckCards.map(card => ({
-                            card_name: card.card_name,
-                            modifyAmount: card.cardInDeckOwnedAmount
-                        }))
-                    }
-                })
-                setModifySideDeckCardAmountPlaceHolder([])
+                const filteredCards = normalizedModifySideDeckCards
+                    .filter(card => card.card_name !== undefined)
+                    .map(card => ({
+                        card_name: card.card_name as string,
+                        modifyAmount: card.cardInDeckOwnedAmount as number
+                    }));
+                if (filteredCards.length > 0) {
+                    await modifySideDeckOwnedAmount({ 
+                        id: userId, 
+                        DeckData: {
+                            deckId, 
+                            cardUpdates: filteredCards
+                        }
+                    });
+                    
+                    setModifySideDeckCardAmountPlaceHolder([])
+                }
             }
             refetch()
         } catch  {

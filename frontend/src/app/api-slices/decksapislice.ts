@@ -1,6 +1,7 @@
 import { createEntityAdapter, EntityState } from "@reduxjs/toolkit";
 import { apiSlice } from "../api/apiSlice.js"
-import { DeckApiResponse } from "./types/decktypes.js";
+import { DeckApiResponse, DeckInput, DeckOutput, invalidatesTags } from "./types/decktypes.js";
+import { UpdatedCard } from "@/components/editdeckpagecomponents/types/buttontypes.js";
 
 const DeckAdapter = createEntityAdapter({})
 
@@ -8,13 +9,13 @@ const initialState = DeckAdapter.getInitialState()
 
 export const deckApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
-        createNewDeck: builder.mutation<any, any >({
+        createNewDeck: builder.mutation<DeckOutput , DeckInput>({
             query: (data) => ({
                 url: '/deck',
                 method: 'POST',
                 body: data
             }),
-            invalidatesTags: (arg: any) => [
+            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
                 { type: 'Deck', id: arg.id }
             ]
         }),
@@ -27,7 +28,7 @@ export const deckApiSlice = apiSlice.injectEndpoints({
                     deckId
                 },
             }),
-            invalidatesTags: (arg: any) => [
+            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
                 { type: 'Deck', id: arg.id }
             ]
         }),
@@ -78,12 +79,12 @@ export const deckApiSlice = apiSlice.injectEndpoints({
                     deckId,
                 }
             }),
-            invalidatesTags: (arg: any) => [
+            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
                 { type: 'Deck', id: arg.id }
             ]
         }),
 
-        addCardsMainDeck: builder.mutation<string, { id: string, deckId: string, main_deck_cards: { main_deck_cards: any } }>({
+        addCardsMainDeck: builder.mutation<string, { id: string, deckId: string, main_deck_cards: UpdatedCard[] }>({
             query: ({ id, deckId, main_deck_cards }) => ({
                 url: `/deck/maindeck/${id}`,
                 method: 'PATCH',
@@ -93,24 +94,24 @@ export const deckApiSlice = apiSlice.injectEndpoints({
                 },
                 credentials: 'include',
             }),
-            invalidatesTags: (arg: any) => [
+            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
                 { type: 'Deck', id: arg.id }
             ]
         }),
 
-        modifyCardAmountinMainDeck: builder.mutation<string, { id: string, DeckData: any }>({
+        modifyCardAmountinMainDeck: builder.mutation<string, { id: string, DeckData: { deckId: string, cardUpdates: { card_name: string, modifyAmount: number }[] } }>({
             query: ({ id, DeckData }) => ({
                 url: `/deck/maindeck/update/${id}`,
                 method: 'PATCH',
                 body: DeckData
             }),
-            invalidatesTags: (arg: any) => [
+            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
                 { type: 'Deck', id: arg.id }
             ]
         }),
 
 
-        addNewCardtoExtraDeck: builder.mutation<string, { id: string, deckId: string, extra_deck_cards: any }>({
+        addNewCardtoExtraDeck: builder.mutation<string, { id: string, deckId: string, extra_deck_cards: UpdatedCard[] }>({
             query: ({ id, deckId, extra_deck_cards }) => ({
                 url: `/deck/extradeck/${id}`,
                 method: 'PATCH',
@@ -119,24 +120,24 @@ export const deckApiSlice = apiSlice.injectEndpoints({
                     extra_deck_cards
                 }
             }),
-            invalidatesTags: (arg: any) => [
+            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
                 { type: 'Deck', id: arg.id }
             ]
         }),
 
-        modifyCardAmountinExtraDeck: builder.mutation<string, { id: string, DeckData: any }>({
+        modifyCardAmountinExtraDeck: builder.mutation<string, { id: string, DeckData: { deckId: string, cardUpdates: { card_name: string, modifyAmount: number }[] } }>({
             query: ({ id, DeckData }) => ({
                 url: `/deck/extradeck/update/${id}`,
                 method: 'PATCH',
                 body: DeckData
             }),
-            invalidatesTags: (arg: any) => [
+            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
                 { type: 'Deck', id: arg.id }
             ]
         }),
 
 
-        addNewCardtoSideDeck: builder.mutation<string, { id: string, deckId: string, side_deck_cards: any }>({
+        addNewCardtoSideDeck: builder.mutation<string, { id: string, deckId: string, side_deck_cards: UpdatedCard[] }>({
             query: ({ id, deckId, side_deck_cards }) => ({
                 url: `/deck/sidedeck/${id}`,
                 method: 'PATCH',
@@ -145,62 +146,62 @@ export const deckApiSlice = apiSlice.injectEndpoints({
                     side_deck_cards
                 }
             }),
-            invalidatesTags: (arg: any) => [
+            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
                 { type: 'Deck', id: arg.id }
             ]
         }),
 
-        modifyCardAmountinSideDeck: builder.mutation<string, { id: string, DeckData: any }>({
+        modifyCardAmountinSideDeck: builder.mutation<string, { id: string, DeckData: { deckId: string, cardUpdates: { card_name: string, modifyAmount: number }[] } }>({
             query: ({ id, DeckData }) => ({
                 url: `/deck/sidedeck/update/${id}`,
                 method: 'PATCH',
                 body: DeckData
             }),
-            invalidatesTags: (arg: any) => [
+            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
                 { type: 'Deck', id: arg.id }
             ]
         }),
 
-        deleteCardfromMainDeck: builder.mutation<string, { id: string, DeckData: any }>({
+        deleteCardfromMainDeck: builder.mutation<string, { id: string, DeckData: { deckId: string, cardUpdates: { card_name: string }[] } }>({
             query: ({ id, DeckData }) => ({
                 url: `/deck/maindeck/${id}`,
                 method: 'DELETE',
                 body: DeckData
             }),
-            invalidatesTags: (arg: any) => [
+            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
                 { type: 'Deck', id: arg.id}
             ]
         }),
 
-        deleteCardfromExtraDeck: builder.mutation<string, { id: string, DeckData: any }>({
+        deleteCardfromExtraDeck: builder.mutation<string, { id: string, DeckData: { deckId: string, cardUpdates: { card_name: string }[] } }>({
             query: ({ id, DeckData }) => ({
                 url: `/deck/extradeck/${id}`,
                 method: 'DELETE',
                 body: DeckData
             }),
-            invalidatesTags: (arg: any) => [
+            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
                 { type: 'Deck', id: arg.id}
             ]
         }),
 
-        deleteCardfromSideDeck: builder.mutation<string, { id: string, DeckData: any }>({
+        deleteCardfromSideDeck: builder.mutation<string, { id: string, DeckData: { deckId: string, cardUpdates: { card_name: string }[] } }>({
             query: ({ id, DeckData }) => ({
                 url: `/deck/sidedeck/${id}`,
                 method: 'DELETE',
                 body: DeckData
             }),
-            invalidatesTags: (arg: any) => [
+            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
                 { type: 'Deck', id: arg.id}
             ]
         }),
 
-        deleteDeck: builder.mutation<string, { id: string, DeckData: any }>({
+        deleteDeck: builder.mutation<string, { id: string, DeckData: { deckId: string } }>({
             query: ({ id, DeckData }) => ({
                 url: `/deck/${id}`,
                 method: 'DELETE',
                 body: DeckData
             }),
-            invalidatesTags: (arg: any) => [
+            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
                 { type: 'Deck', id: arg.id}
             ]
         })

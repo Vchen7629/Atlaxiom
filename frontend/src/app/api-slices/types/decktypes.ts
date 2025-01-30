@@ -22,5 +22,25 @@ export type DeckApiResponse = Deck & {
         total_cards_side_deck: number;
         total_cards_extra_deck: number;
         __v: number;
-    }
-}[]
+    }[];
+    createdOn: string
+}
+
+export type DeckInput = {
+    id: string
+}
+
+export type DeckOutput = {
+    deck: {
+        _id: string;
+        deck_name: string
+    } 
+}
+
+export type invalidatesTags = {
+    id: string
+}
+
+export type providesTags = {
+    id?: string
+}

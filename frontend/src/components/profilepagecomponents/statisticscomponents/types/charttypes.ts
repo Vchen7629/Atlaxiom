@@ -10,7 +10,7 @@ type OwnedCard = {
     card: string;
 }
 
-export type deckData = {
+export type deckData = DeckApiResponse & {
     createdOn: string;
 }
 
@@ -38,6 +38,10 @@ export type userId = {
     auth: {
         userId: string
     }
+}
+
+export type SelectedYear = {
+    selectedYear: string
 }
 
 export type Year = {
