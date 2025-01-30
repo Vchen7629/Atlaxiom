@@ -53,4 +53,4 @@ export type UpdatedCard = Card & {
     desc: string | undefined;
     cardInDeckOwnedAmount?: number;
     image_url?: string
-  }
+}

@@ -21,8 +21,8 @@ const StayLoggedIn = () => {
     useEffect(() => {
         console.log(loggingOut)
         
-        if (effectRan.current === true) {
-            if (!token && !loggingOut && !effectRan.current) {
+        if (effectRan.current === true || process.env.NODE_ENV !== "development") {
+            if (!token && !loggingOut) {
                 const verifyRefreshToken = async() => {
                     try {
                         await refresh()
@@ -38,7 +38,11 @@ const StayLoggedIn = () => {
         
         effectRan.current = true
 
-    }, [refresh, token, effectRan, loggingOut])
+        return () => {
+            effectRan.current = true;
+        };
+
+    }, [refresh, token, loggingOut])
 
     if (isError) {
         navigate("/login")

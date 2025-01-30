@@ -16,7 +16,6 @@ const CreateNewDeckComponent: React.FC<NewDeckButton> = ({ userId }) => {
     
             navigate('/modifyDeck', { state: { deckId: result.deck._id, userId: userId } });
             refetch()
-            console.log(result.deck.deck_name)
 
             return { name: result.deck.deck_name}
         } catch (error) {

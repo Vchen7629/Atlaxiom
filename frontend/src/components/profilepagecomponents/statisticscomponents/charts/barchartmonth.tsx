@@ -17,7 +17,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { ChartData } from "../types/charttypes"
+import { ChartData, SelectedYear } from "../types/charttypes"
+import { DeckApiResponse } from "@/app/api-slices/types/decktypes"
 
 export const description = "Bar Chart Displaying Information for decks/cards added by Month";
 
@@ -32,7 +33,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function ComponentBarMonthChart({ selectedYear }: any): JSX.Element {
+export function ComponentBarMonthChart({ selectedYear }: SelectedYear): JSX.Element {
     const userId = useSelector((state: { auth: { userId: string } }) => state.auth.userId);
     const { data: deckData } = useGetAllOwnedDecksQuery(userId);
     const { data: cardData } = useGetOwnedCardsQuery(userId)
@@ -70,7 +71,7 @@ export function ComponentBarMonthChart({ selectedYear }: any): JSX.Element {
           cards: 0,
       }));
 
-        ownedDeck.forEach((deck: any) => {
+        ownedDeck.forEach((deck: DeckApiResponse)=> {
             const deckYear = deck.createdOn.slice(0, 4);
             const createdDate = new Date(deck.createdOn);
             if (createdDate.getMonth() === monthIndex && deckYear === selectedYear) {

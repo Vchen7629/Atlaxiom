@@ -12,6 +12,7 @@ export type Card = {
         coolstuffinc_price?: number;
         ebay_price?: number;
         tcgplayer_price: number;
+        price: number;
     }[];
     card_sets: {
         set_code?: string;
@@ -20,6 +21,7 @@ export type Card = {
         set_rarity?: string;
         set_rarity_code?: string;
     }[];
+    set_code: string;
     frameType?: string;
     type?: string;
     race?: string;
@@ -30,6 +32,13 @@ export type Card = {
     _id: string | undefined;
     ownedamount?: number;
     ygoprodeck_url?: string;
+    cardInDeckOwnedAmount?: number
+    image_url?: string;
+    price?: number
+}
+
+export type NormalizedCard = Card & {
+    cardInDeckOwnedAmount: number
 }
 
 export type OwnedCard = {
