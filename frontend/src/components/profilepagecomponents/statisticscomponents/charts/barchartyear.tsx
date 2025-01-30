@@ -18,6 +18,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 import { Year } from "../types/charttypes"
+import { DeckApiResponse } from "@/app/api-slices/types/decktypes"
 
 export const description = "Bar Chart Displaying Information for decks/cards added by Year"
 
@@ -54,7 +55,7 @@ export function ComponentBarChart({ yearprops }: Year): JSX.Element {
         }));
     
         const ownedDeck = deckData || [];
-        ownedDeck.forEach((deck: any) => {
+        ownedDeck.forEach((deck: DeckApiResponse) => {
           const deckYear = deck.createdOn.slice(0, 4);
           const createdMonth = new Date(deck.createdOn).getMonth();
           if (deckYear === String(selectedYear)) {

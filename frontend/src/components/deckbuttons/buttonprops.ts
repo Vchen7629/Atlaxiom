@@ -18,4 +18,5 @@ export type FavoriteDeck = {
 export type GalleryDeck = {
     _id: string;
     favorite?: boolean;
+    deck_name?: string
 }

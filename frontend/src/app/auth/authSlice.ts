@@ -34,6 +34,6 @@ export default authSlice.reducer
 export const selectCurrentToken = (state: token) => state.auth.token
 export const selectCurrentuserId = (state: userId) => state.auth.userId
 export const selectCurrentUsername = (state: username) => state.auth.username;
-export const selectLoggingOut = (state: any) => state.auth.loggingOut;
+export const selectLoggingOut = (state: { auth: { loggingOut: boolean }}) => state.auth.loggingOut;
 
 

@@ -38,7 +38,7 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
         <main className="w-full">
             <div className="">
                 {currentPageListNamesArray.length > 0 ? (
-                    currentPageListNamesArray.map((card: any) => (
+                    currentPageListNamesArray.map((card: SearchResCardData) => (
                         <div key={card.id} onClick={handleClick(card)}>
                             <div className="flex w-full h-[20vh] mb-2 bg-transparentt">
                                 

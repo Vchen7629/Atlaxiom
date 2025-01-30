@@ -50,7 +50,9 @@ export type SearchResCardData = {
     linkval?: number;
     atk?: number;
     def?: number;
-
+    id?: string
+    level?: number;
+    attribute?: string;
 }
 
 export type SelectedCardData = {

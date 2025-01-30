@@ -278,7 +278,7 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
                       className="grid grid-cols-6 gap-4 w-full h-full p-4 justify-items-start items-start"  
                       style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                     >
-                      {monsterCards.map((card: any) => (
+                      {monsterCards.map((card: UpdatedCard) => (
                             <div key={card.id} className="relative group flex flex-col items-center space-y-2">
                               <label className="bg-[hsl(var(--background3))] font-bold text-[hsl(var(--text))] px-2 text-xs rounded-2xl">{card?.cardInDeckOwnedAmount}x</label>
                               <img
@@ -336,7 +336,7 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
                       className="grid grid-cols-6 gap-4 w-full h-full p-4 justify-items-start items-start"  
                       style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                     >
-                      {spellCards.map((card: any) => (
+                      {spellCards.map((card: UpdatedCard) => (
                             <div key={card.id} className="relative group flex flex-col items-center space-y-2">
                               <label className="bg-[hsl(var(--background3))] font-bold text-[hsl(var(--text))] px-2 text-xs rounded-2xl">{card?.cardInDeckOwnedAmount}x</label>
                               <img
@@ -393,7 +393,7 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
                         className="grid grid-cols-6 gap-4 w-full h-full p-4 justify-items-start items-start"  
                         style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                       >
-                        {trapCards.map((card: any) => (
+                        {trapCards.map((card: UpdatedCard) => (
                               <div key={card.id} className="flex flex-col relative group items-center space-y-2">
                                 <label className="bg-[hsl(var(--background3))] font-bold text-[hsl(var(--text))] px-2 text-xs rounded-2xl">{card?.cardInDeckOwnedAmount}x</label>
                                 <img

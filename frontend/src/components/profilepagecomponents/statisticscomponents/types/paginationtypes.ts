@@ -28,8 +28,8 @@ export type Pagination = {
         setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>;
         suggestionsPerListPage: number;
         suggestionsPerGalleryPage: number;
-        setCurrentListPageResults: React.Dispatch<React.SetStateAction<string[]>>
-        setCurrentGalleryPageResults:  React.Dispatch<React.SetStateAction<string[]>>
+        setCurrentListPageResults: React.Dispatch<React.SetStateAction<DeckApiResponse[]>>
+        setCurrentGalleryPageResults:  React.Dispatch<React.SetStateAction<DeckApiResponse[]>>
         totalListPages: number;
         totalGalleryPages: number;
         updateTotalListPages: (filteredCardsLength: number) => void;

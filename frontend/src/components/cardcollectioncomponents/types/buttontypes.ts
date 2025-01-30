@@ -1,7 +1,7 @@
 export type IncreaseCard = {
     userId: string;
     card: any;
-    refetch: any;
+    refetch: () => void;
 }
 
 export type DecreaseCard = {
