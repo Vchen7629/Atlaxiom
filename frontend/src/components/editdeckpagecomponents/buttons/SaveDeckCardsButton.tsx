@@ -43,7 +43,7 @@ const SaveDeckCardsButton = ({ savebuttonprops }: SaveDeckButton) => {
         type: card.type || "",
     });
 
-    const handleSaveClick = async() => {
+    async function handleSaveClick() {
         try {
             const deckId = deckData?._id;
             const normalizedMainCards = cardsToAddMainDeckPlaceHolder.map(normalizeCard);

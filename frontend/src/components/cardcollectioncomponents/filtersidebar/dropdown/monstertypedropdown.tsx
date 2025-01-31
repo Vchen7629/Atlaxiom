@@ -30,7 +30,7 @@ export function MonsterTypeDropDownComponent({ monstertypeprops }: MonsterTypeDr
   } = monstertypeprops 
   const [open, setOpen] = useState(false)
 
-  const handleClick = (newValue: string) => {
+  function handleClick(newValue: string) {
     setMonsterTypeFilter(newValue)
     setListCurrentPage(1);
     setGalleryCurrentPage(1);

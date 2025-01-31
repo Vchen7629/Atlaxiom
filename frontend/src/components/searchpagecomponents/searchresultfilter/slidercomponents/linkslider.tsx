@@ -8,7 +8,7 @@ export function LinkSliderComponent({ linkSliderProps, className, ...props }: Li
     setCanClearFilters
   } = linkSliderProps
   
-    const handleSliderChange = (newValue: number[]) => {
+    function handleSliderChange(newValue: number[]) {
       setLinkFilter(newValue[0])
       setCanClearFilters(newValue[0] !== null);
     }

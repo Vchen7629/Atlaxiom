@@ -3,12 +3,12 @@ import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { DeckSearchBarComp } from "../types/componenttypes";
 
 const DeckSearchBar = ({ setDeckName, deckName}: DeckSearchBarComp) => {
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const inputValue = e.target.value;
         setDeckName(inputValue);
     };
 
-    const handleClearClick = () => {
+    function handleClearClick() {
         setDeckName('');
     };
 

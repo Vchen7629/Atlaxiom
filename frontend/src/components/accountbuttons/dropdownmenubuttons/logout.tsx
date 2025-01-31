@@ -9,7 +9,7 @@ const Logout = () => {
 
     const [sendLogout, { isSuccess,isError }] = useSendLogoutMutation()
 
-    const handleLogout = async () => {
+    async function handleLogout() {
         try {
             await sendLogout({}).unwrap();
             navigate('/');

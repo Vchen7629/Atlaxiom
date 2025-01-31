@@ -40,7 +40,7 @@ const FavoriteDeckButtonComponent = ({ deck, refetch, userId, setCurrentPageList
         }
     }
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
         event.stopPropagation()
         const promise = handleFavoriteDeckClick(deck);
         toast.promise(promise, {

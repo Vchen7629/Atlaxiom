@@ -30,7 +30,7 @@ export function SpellTypeDropDownComponent({ spelltypeprops }: SpellTypeDropDown
   } = spelltypeprops 
   const [open, setOpen] = useState(false)
 
-  const handleClick = (newValue: string) => {
+  function handleClick(newValue: string) {
     setSpellTypeFilter(newValue)
     setListCurrentPage(1);
     setGalleryCurrentPage(1);

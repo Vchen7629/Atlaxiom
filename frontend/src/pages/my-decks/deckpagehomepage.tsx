@@ -36,10 +36,10 @@ const DeckPageHomepage = () => {
     const suggestionsPerListPage = 7;
     const [totalListPages, setTotalListPages] = useState<number>(1);
     const [totalGalleryPages, setTotalGalleryPages] = useState<number>(1);
-    const updateTotalListPages = (filteredDecksLength: number) => {
+    function updateTotalListPages(filteredDecksLength: number) {
         setTotalListPages(Math.ceil(filteredDecksLength / suggestionsPerListPage));
     }
-    const updateTotalGalleryPages = (filteredDecksLength: number) => {
+    function updateTotalGalleryPages(filteredDecksLength: number) {
         setTotalGalleryPages(Math.ceil(filteredDecksLength / suggestionsPerGalleryPage));
     }
     const [currentListPage, setListCurrentPage] = useState<number>(1);  
@@ -48,12 +48,12 @@ const DeckPageHomepage = () => {
     const [currentPageGalleryDecksArray, setCurrentPageGalleryDecksArray] = useState<GalleryDeck[]>([]);
 
     
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const inputValue = e.target.value;
         setDeckName(inputValue);
     };
 
-    const handleClearClick = () => {
+    function handleClearClick() {
         setDeckName('');
         setClickedOnCard(false);
     };

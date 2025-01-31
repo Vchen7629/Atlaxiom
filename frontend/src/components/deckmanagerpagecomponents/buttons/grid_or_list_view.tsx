@@ -11,7 +11,7 @@ const GridListViewComponent= ({ filterProps }: GridListViewComponentProps) => {
         galleryView, setGalleryView
     } = filterProps
 
-    const handleListView = () => {
+    function handleListView() {
         setListView(true)
         setGalleryView(false)
         setClickedOnCard(false)
@@ -19,7 +19,7 @@ const GridListViewComponent= ({ filterProps }: GridListViewComponentProps) => {
         setListCurrentPage(1)
     }
 
-    const handleGalleryView = () => {
+    function handleGalleryView() {
         setListView(false)
         setGalleryView(true)
         setClickedOnCard(false)

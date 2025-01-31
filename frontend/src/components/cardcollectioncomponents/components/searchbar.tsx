@@ -6,11 +6,11 @@ import { searchbarprops } from "../types/componenttypes"
 const MyCardsSearchbarComponent = ({ searchbarprops }: searchbarprops) => {
     const { searchTerm, setSearchTerm } = searchbarprops
 
-    const handleClearClick = () => {
+    function handleClearClick() {
         setSearchTerm('')
     }
     
-    const handleSearchTerm = (e: React.FormEvent<HTMLInputElement>) => {
+    function handleSearchTerm(e: React.FormEvent<HTMLInputElement>) {
         const target = e.target as HTMLInputElement
         setSearchTerm(target.value);
     }

@@ -27,7 +27,7 @@ const AllCardsSearchBarComponent = ({ AllCardsSearchBarCompProps }: AllCardsSear
 
     const apiUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
 
-    const prefetchAllCardData = async () => {
+    async function prefetchAllCardData() {
         try {
             const response = await fetch(apiUrl);
             const data = await response.json();
@@ -85,19 +85,19 @@ const AllCardsSearchBarComponent = ({ AllCardsSearchBarCompProps }: AllCardsSear
         setAllCardsCurrentGalleryResults(newCurrentGalleryResults);
     }, [allCardsCurrentPage, allCardsGalleryResults, resultsPerGalleryPage])
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const inputValue = e.target.value;
         setAllCardsName(inputValue);
         setAllCardsCurrentPage(1);
     };
 
-    const handleClearClick = () => {
+    function handleClearClick() {
         setAllCardsName('');
         setAllCardsGalleryResults([])
         setAllCardsListResults([])
     };
 
-    const handlePageChange = (page: number) => {
+    function handlePageChange(page: number) {
         setAllCardsCurrentPage(page);
     };
 

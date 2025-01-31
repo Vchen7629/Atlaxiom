@@ -20,11 +20,11 @@ const LoginPage = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const handleSignUpClick = () => {
+    function handleSignUpClick() {
         navigate('/signup')
     }
 
-    const handleSubmit = async () => {
+    async function handleSubmit() {
         if (!username ||username.trim() === '') {
             setUsernameError(true);
         }
@@ -45,19 +45,19 @@ const LoginPage = () => {
         }
     }
     
-    const handleUserInput = (e: React.FormEvent<HTMLInputElement>) => {
+    function handleUserInput(e: React.FormEvent<HTMLInputElement>) {
         const target = e.target as HTMLInputElement
         setUsername(target.value)
         setUsernameError(false)
     }
 
-    const handlePwdInput = (e: React.FormEvent<HTMLInputElement>) => {
+    function handlePwdInput(e: React.FormEvent<HTMLInputElement>) {
         const target = e.target as HTMLInputElement
         setPassword(target.value)
         setPasswordError(false)
     }
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
         const promise = handleSubmit();
         toast.promise(promise, {

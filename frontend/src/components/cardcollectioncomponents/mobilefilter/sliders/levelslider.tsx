@@ -15,21 +15,21 @@ export function LevelSliderComponent({ levelprops, className, ...props }: LevelS
     levelGreaterThanEqual, setLevelGreaterThanEqual,
   } = levelprops 
 
-  const handleLessThanClick = () => {
+  function handleLessThanClick() {
     setLevelLessThanEqual(true);
     setLevelEqual(false);
     setLevelGreaterThanEqual(false);
     setCanClearFilter(true);
   }
 
-  const handleEqualClick = () => {
+  function handleEqualClick() {
       setLevelLessThanEqual(false);
       setLevelEqual(true);
       setLevelGreaterThanEqual(false);
       setCanClearFilter(true);
   }
 
-  const handleGreaterThanClick = () => {
+  function handleGreaterThanClick() {
       setLevelLessThanEqual(false);
       setLevelEqual(false);
       setLevelGreaterThanEqual(true);
@@ -37,7 +37,7 @@ export function LevelSliderComponent({ levelprops, className, ...props }: LevelS
   }
 
 
-  const handleSliderChange = (newValue: number[]) => {
+  function handleSliderChange(newValue: number[]) {
     setLevelFilter(newValue[0])
     setListCurrentPage(1);
     setGalleryCurrentPage(1);

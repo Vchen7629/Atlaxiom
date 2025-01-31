@@ -102,21 +102,25 @@ const CollectionSearchBarComponent = ({ CollectionSearchBarCompProps }: Collecti
         }
     }, [collectionCurrentPage, collectionGalleryResults, collectionCardData, resultsPerGalleryPage])
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const inputValue = e.target.value;
         setCollectionCardsName(inputValue);
         setCollectionCardsCurrentPage(1);
     };
 
-    const handleClearClick = () => {
+    function handleClearClick() {
         setCollectionCardsName('');
         setCollectionGalleryResults([])
         setCollectionListResults([])
     };
 
-    const handlePageChange = (page: number) => {
-        setCollectionCardsCurrentPage(page);
-    };
+    function PrevPageClick() {
+        setCollectionCardsCurrentPage(collectionCurrentPage - 1)
+    }
+
+    function NextPageClick() {
+        setCollectionCardsCurrentPage(collectionCurrentPage + 1)
+    }
 
     return (
         <div className="flex flex-col">
@@ -147,14 +151,14 @@ const CollectionSearchBarComponent = ({ CollectionSearchBarCompProps }: Collecti
                             <button 
                                 className={`${collectionCurrentPage === 1 ? 'bg-gray-400' : 'bg-goldenrod'} h-[80%] w-[48%] rounded-md`}
                                 disabled={ collectionCurrentPage === 1} 
-                                onClick={() => handlePageChange( collectionCurrentPage - 1)}
+                                onClick={PrevPageClick}
                             >
                                 {'<'}
                             </button>
                             <button 
                                 className={`${collectionCurrentPage === collectionTotalListPage ? 'bg-gray-400' : 'bg-goldenrod'} h-[80%] w-[48%] rounded-md`}
                                 disabled={collectionCurrentPage === collectionTotalListPage} 
-                                onClick={() => handlePageChange(collectionCurrentPage + 1)}>
+                                onClick={NextPageClick}>
                                     {'>'}
                                 </button>
                         </div>
@@ -164,14 +168,14 @@ const CollectionSearchBarComponent = ({ CollectionSearchBarCompProps }: Collecti
                             <button 
                                 className={`${collectionCurrentPage === 1 ? 'bg-gray-400' : 'bg-goldenrod'} h-[80%] w-[48%] rounded-md`}
                                 disabled={collectionCurrentPage === 1} 
-                                onClick={() => handlePageChange(collectionCurrentPage - 1)}
+                                onClick={PrevPageClick}
                             >
                                 {'<'}
                             </button>
                             <button 
                                 className={`${collectionCurrentPage === collectionTotalGalleryPage ? 'bg-gray-400' : 'bg-goldenrod'} h-[80%] w-[48%] rounded-md`}
                                 disabled={collectionCurrentPage === collectionTotalGalleryPage} 
-                                onClick={() => handlePageChange(collectionCurrentPage + 1)}>
+                                onClick={NextPageClick}>
                                     {'>'}
                                 </button>
                         </div>

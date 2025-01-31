@@ -16,9 +16,18 @@ const FilterButton = ({ filterbuttonprops }: filterbutton) => {
         setFilterActive
     } = filterbuttonprops
 
-    const handleFilterClick = () => {
+    function handleFilterClick() {
         setExpandStatus(!expandStatus)
         setFilterActive(!filterActive)
+    }
+
+    function FilterClick() {
+        handleFilterClick();
+        {!filterActive ? (
+            toast.success("Re-opened Filter Search Sidebar")
+        ) : (
+            toast.success("Successfully hid the Filter Search Sidebar")
+        )}
     }
 
     return (
@@ -27,14 +36,7 @@ const FilterButton = ({ filterbuttonprops }: filterbutton) => {
                 <TooltipTrigger>
                     <a
                         className={`h-[40px] ml-2 px-4 py-3 rounded-xl ${filterActive ? "bg-[hsl(var(--background3))]" : "bg-gray-600"}`}  
-                        onClick={() => {
-                            handleFilterClick();
-                            {!filterActive ? (
-                                toast.success("Successfully hid the Filter Search Sidebar")
-                            ) : (
-                                toast.success("Re-opened Filter Search Sidebar")
-                            )}
-                        }}
+                        onClick={FilterClick}
                     >
                         Filter Card
                     </a>

@@ -12,28 +12,28 @@ const LinkFilterComponent = ({ linkfilterprops }: linkprops) => {
         linkGreaterThanEqual, setLinkGreaterThanEqual,
     } = linkfilterprops
 
-    const handleLessThanClick = () => {
+    function handleLessThanClick() {
         setLinkLessThanEqual(true);
         setLinkEqual(false);
         setLinkGreaterThanEqual(false);
         setCanClearFilters(true)
     }
 
-    const handleEqualClick = () => {
+    function handleEqualClick() {
         setLinkLessThanEqual(false);
         setLinkEqual(true);
         setLinkGreaterThanEqual(false);
         setCanClearFilters(true)
     }
 
-    const handleGreaterThanClick = () => {
+    function handleGreaterThanClick() {
         setLinkLessThanEqual(false);
         setLinkEqual(false);
         setLinkGreaterThanEqual(true);
         setCanClearFilters(true)
     }
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const inputValue = e.target.value;
         let numericValue = inputValue.trim() === '' ? null : parseFloat(inputValue);
 

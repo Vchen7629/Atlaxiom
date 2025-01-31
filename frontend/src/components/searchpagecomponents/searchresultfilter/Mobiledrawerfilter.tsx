@@ -71,15 +71,15 @@ export function MobileSearchFilterDrawer({ filterprops }: FilterSidebar) {
     const [pendDropdown, setPendDropdown] = useState(false);
     const [linkDropdown, setLinkDropdown] = useState(false);
 
-    const handleLevelFilter = () => {
+    function handleLevelFilter() {
         setLevelDropdown(prevState => !prevState);
     }
     
-    const handlePendFilter = () => {
+    function handlePendFilter() {
         setPendDropdown(prevState => !prevState);
     }
     
-    const handleLinkFilter = () => {
+    function handleLinkFilter() {
         setLinkDropdown(prevState => !prevState);
     }
 

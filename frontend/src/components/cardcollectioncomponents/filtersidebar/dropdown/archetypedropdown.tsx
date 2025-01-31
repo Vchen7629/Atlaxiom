@@ -31,7 +31,7 @@ export function ArchetypeDropDownComponent({ archetypeprops }: ArchetypeDropDown
 
   const [open, setOpen] = useState(false)
 
-  const handleClick = (newValue: string) => {
+  function handleClick(newValue: string) {
     setArcheTypeFilter(newValue)
     setListCurrentPage(1);
     setGalleryCurrentPage(1);

@@ -9,7 +9,7 @@ export function LevelSliderComponent({ levelSliderProps, className, ...props }: 
     setCanClearFilters
   } = levelSliderProps
 
-  const handleSliderChange = (newValue: number[]) => {
+  function handleSliderChange(newValue: number[]) {
     setLevelFilter(newValue[0]);
     setCanClearFilters(newValue[0] !== null);
   };  

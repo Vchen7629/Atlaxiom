@@ -31,7 +31,7 @@ export function CardSetDropDownComponent({ setprops }: CardSetDropDownProps) {
 
   const [open, setOpen] = useState(false)
 
-  const handleClick = (newValue: string) => {
+  function handleClick(newValue: string) {
     setSetFilter(newValue)
     setListCurrentPage(1);
     setGalleryCurrentPage(1);

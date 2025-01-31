@@ -15,7 +15,7 @@ const EmailUpdateButton = ({ UpdateEmailProps } : SaveEmailButton) => {
 
     const [updateUsername] = useUpdateUserMutation()
 
-    const handleSubmitEmail = async () => {
+    async function handleSubmitEmail() {
         try {
             await updateUsername({
                 id: userId,
@@ -29,7 +29,7 @@ const EmailUpdateButton = ({ UpdateEmailProps } : SaveEmailButton) => {
         }
     };
 
-    const handleClick = () => {
+    function handleClick() {
         const promise = handleSubmitEmail();
         toast.promise(promise, {
             loading: "loading...",

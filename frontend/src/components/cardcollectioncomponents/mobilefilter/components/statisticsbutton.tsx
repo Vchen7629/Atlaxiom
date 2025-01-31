@@ -8,7 +8,7 @@ const StatisticsViewButton = ({ statisticsprops }: StatisticsButtonProps) => {
         setFilterPage
     } = statisticsprops
 
-    const handleStatisticsClick = () => {
+    function handleStatisticsClick() {
         setFilterPage(false)
         setStatisticsPage(true)
     }

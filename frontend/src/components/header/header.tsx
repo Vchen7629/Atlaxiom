@@ -13,7 +13,7 @@ const Header = () => {
     const navigate = useNavigate()
     const isAuthenticated = useSelector((state: AuthenticationState) => state.auth.token !== null);
 
-    const handleHomeClick = () => {
+    function handleHomeClick() {
         if (isAuthenticated) {
             navigate("/loggedin")
         } else {
@@ -25,7 +25,7 @@ const Header = () => {
         "login", "Signup"
     ]
 
-    const renderAuthButtons = () => {   
+    function renderAuthButtons() {   
         if (isAuthenticated) {
           return (
             <div className="flex justify-center items-center xs:hidden lg:flex py-2.5 lg:mr-2.5">
@@ -34,7 +34,7 @@ const Header = () => {
         );
     }
 
-    const handlePageNav = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    function handlePageNav(e: React.ChangeEvent<HTMLSelectElement>) {
         const value = e.target.value;
         if (value === "login") {
             navigate("/login")

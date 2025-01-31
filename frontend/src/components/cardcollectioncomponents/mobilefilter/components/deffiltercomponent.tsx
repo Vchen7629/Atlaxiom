@@ -13,7 +13,7 @@ const DefFilterComponent = ({ deffilterprops }: defprops) => {
         defGreaterThanEqual, setDefGreaterThanEqual
     } = deffilterprops
 
-    const handleLessThanClick = () => {
+    function handleLessThanClick() {
         setListCurrentPage(1)
         setGalleryCurrentPage(1)
         setCanClearFilter(true)
@@ -22,7 +22,7 @@ const DefFilterComponent = ({ deffilterprops }: defprops) => {
         setDefGreaterThanEqual(false);
     }
 
-    const handleEqualClick = () => {
+    function handleEqualClick() {
         setListCurrentPage(1)
         setGalleryCurrentPage(1)
         setCanClearFilter(true)
@@ -31,7 +31,7 @@ const DefFilterComponent = ({ deffilterprops }: defprops) => {
         setDefGreaterThanEqual(false);
     }
 
-    const handleGreaterThanClick = () => {
+    function handleGreaterThanClick() {
         setListCurrentPage(1)
         setGalleryCurrentPage(1)
         setCanClearFilter(true)
@@ -40,7 +40,7 @@ const DefFilterComponent = ({ deffilterprops }: defprops) => {
         setDefGreaterThanEqual(true);
     }
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const inputValue = e.target.value;
         const numericValue = inputValue.trim() === '' ? null : parseFloat(inputValue);
         setDefFilter(numericValue)

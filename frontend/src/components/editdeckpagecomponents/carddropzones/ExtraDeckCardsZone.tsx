@@ -32,6 +32,7 @@ const ExtraDeckCardZone = ({ extradeckprops }: ExtraDeckProps) => {
     galleryView, setGalleryView
   }
 
+
   return (
     <section className="flex flex-grow flex-col justify-between min-h-[30vh] w-full px-4">
         <header className="flex w-full py-[2vh] pl-[3vw] justify-between text-[hsl(var(--text))]">

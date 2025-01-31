@@ -8,15 +8,23 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
         setErr
     } = pageselectorprops
 
-    const handleListPageChange = (page: number) => {
+    function handleListPageChange(page: number) {
         setCurrentPage(page);
         setPage(page)
         setErr("")
     };
 
+    function handlePageDecrease() {
+        setCurrentPage(currentPage - 1);
+    }
+
+    function handlePageIncrease() {
+        setCurrentPage(currentPage + 1);
+    }
+
     return (
         <div className="flex w-fit text-center space-x-2">
-            <button className="text-[hsl(var(--text))] px-2 border-[1px] border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentPage === 1} onClick={() => {handleListPageChange(currentPage - 1)}}>
+            <button className="text-[hsl(var(--text))] px-2 border-[1px] border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentPage === 1} onClick={handlePageDecrease}>
                 {'<<'}
             </button>
             {Array.from({ length: Math.min(4, totalPages) }, (_, index) => {
@@ -67,7 +75,7 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
                         {totalPages}
                     </button>
                 )}
-                <button className="text-[hsl(var(--text))] px-2 border-[1px] border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentPage === totalPages} onClick={() => {handleListPageChange(currentPage + 1)}}>
+                <button className="text-[hsl(var(--text))] px-2 border-[1px] border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentPage === totalPages} onClick={handlePageIncrease}>
                     {'>>'}
                 </button>
         </div>

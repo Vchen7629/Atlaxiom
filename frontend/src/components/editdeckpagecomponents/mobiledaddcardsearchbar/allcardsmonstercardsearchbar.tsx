@@ -27,7 +27,7 @@ const AllCardsMobileSearchBarComponent = ({ AllCardsSearchBarCompProps }: Mobile
 
     const apiUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
 
-    const prefetchAllCardData = async () => {
+    async function prefetchAllCardData() {
         try {
             const response = await fetch(apiUrl);
             const data = await response.json();
@@ -85,21 +85,25 @@ const AllCardsMobileSearchBarComponent = ({ AllCardsSearchBarCompProps }: Mobile
         setAllCardsCurrentGalleryResults(newCurrentGalleryResults);
     }, [allCardsCurrentPage, allCardsGalleryResults, resultsPerGalleryPage])
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const inputValue = e.target.value;
         setAllCardsName(inputValue);
         setAllCardsCurrentPage(1);
     };
 
-    const handleClearClick = () => {
+    function handleClearClick() {
         setAllCardsName('');
         setAllCardsGalleryResults([])
         setAllCardsListResults([])
     };
 
-    const handlePageChange = (page: number) => {
-        setAllCardsCurrentPage(page);
-    };
+    function handlePrevPage() {
+        setAllCardsCurrentPage(allCardsCurrentPage - 1)
+    }
+
+    function handleNextPage() {
+        setAllCardsCurrentPage(allCardsCurrentPage + 1)
+    }
 
     return (
         <div className="flex flex-col">
@@ -130,14 +134,14 @@ const AllCardsMobileSearchBarComponent = ({ AllCardsSearchBarCompProps }: Mobile
                             <button 
                                 className={`${allCardsCurrentPage === 1 ? 'bg-gray-400' : 'bg-goldenrod'} h-[80%] w-[48%] rounded-md`}
                                 disabled={allCardsCurrentPage === 1} 
-                                onClick={() => handlePageChange(allCardsCurrentPage - 1)}
+                                onClick={handlePrevPage}
                             >
                                 {'<'}
                             </button>
                             <button 
                                 className={`${allCardsCurrentPage === allCardsTotalListPages ? 'bg-gray-400' : 'bg-goldenrod'} h-[80%] w-[48%] rounded-md`}
                                 disabled={allCardsCurrentPage === allCardsTotalListPages} 
-                                onClick={() => handlePageChange(allCardsCurrentPage + 1)}>
+                                onClick={handleNextPage}>
                                     {'>'}
                                 </button>
                         </div>
@@ -147,14 +151,14 @@ const AllCardsMobileSearchBarComponent = ({ AllCardsSearchBarCompProps }: Mobile
                             <button 
                                 className={`${allCardsCurrentPage === 1 ? 'bg-gray-400' : 'bg-goldenrod'} h-[80%] w-[48%] rounded-md`}
                                 disabled={allCardsCurrentPage === 1} 
-                                onClick={() => handlePageChange(allCardsCurrentPage - 1)}
+                                onClick={handlePrevPage}
                             >
                                 {'<'}
                             </button>
                             <button 
                                 className={`${allCardsCurrentPage === allCardsTotalGalleryPages ? 'bg-gray-400' : 'bg-goldenrod'} h-[80%] w-[48%] rounded-md`}
                                 disabled={allCardsCurrentPage === allCardsTotalGalleryPages} 
-                                onClick={() => handlePageChange(allCardsCurrentPage + 1)}>
+                                onClick={handleNextPage}>
                                     {'>'}
                                 </button>
                         </div>

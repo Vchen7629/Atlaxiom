@@ -1,7 +1,7 @@
 import { DeleteInputProps } from "../types/deletecomponenttypes";
 
 const DeleteAccountInputComponent = ({ deleteInput, setDeleteInput }: DeleteInputProps) => {
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const inputValue = e.target.value;
         setDeleteInput(inputValue);
     };

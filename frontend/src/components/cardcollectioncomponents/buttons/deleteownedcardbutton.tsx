@@ -8,7 +8,7 @@ import { useDeleteOwnedCardMutation } from "@/app/api-slices/ownedCardapislice";
 const DeleteOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCard) => {
     const [deleteOwnedCard] = useDeleteOwnedCardMutation();
     
-    const handleDeleteCardClick = async (cardName: string) => {
+    async function handleDeleteCardClick(cardName: string) {
         try {
           await deleteOwnedCard({
             id: userId,
@@ -21,7 +21,7 @@ const DeleteOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCard)
         }
     }
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
       event.stopPropagation()
       const promise = handleDeleteCardClick(card.card_name);
       toast.promise(promise, {

@@ -15,28 +15,28 @@ export function PendScaleSliderComponent({ pendprops, className, ...props }: Pen
     pendGreaterThanEqual, setPendGreaterThanEqual,
   } = pendprops 
 
-  const handleSliderChange = (newValue: number[]) => {
+  function handleSliderChange(newValue: number[]) {
     setPendFilter(newValue[0])
     setListCurrentPage(1);
     setGalleryCurrentPage(1);
     setCanClearFilter(newValue[0] !== null);
   }
 
-  const handleLessThanClick = () => {
+  function handleLessThanClick() {
     setPendLessThanEqual(true);
     setPendEqual(false);
     setPendGreaterThanEqual(false);
     setCanClearFilter(true);
   }
 
-  const handleEqualClick = () => {
+  function handleEqualClick() {
       setPendLessThanEqual(false);
       setPendEqual(true);
       setPendGreaterThanEqual(false);
       setCanClearFilter(true);
   }
 
-  const handleGreaterThanClick = () => {
+  function handleGreaterThanClick() {
       setPendLessThanEqual(false);
       setPendEqual(false);
       setPendGreaterThanEqual(true);

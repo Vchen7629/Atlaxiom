@@ -15,7 +15,7 @@ const PasswordUpdateButton = ({ UpdatePasswordProps } : SavePasswordButton) => {
 
     const [updatePassword] = useUpdateUserMutation()
 
-    const handleSubmitPassword = async () => {
+    async function handleSubmitPassword() {
         try {
             await updatePassword({
                 id: userId,
@@ -28,7 +28,7 @@ const PasswordUpdateButton = ({ UpdatePasswordProps } : SavePasswordButton) => {
         }
     };
 
-    const handleClick = () => {
+    function handleClick()  {
         const promise = handleSubmitPassword();
         toast.promise(promise, {
             loading: "loading...",

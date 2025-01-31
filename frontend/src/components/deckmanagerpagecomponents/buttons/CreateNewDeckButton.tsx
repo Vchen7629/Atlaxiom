@@ -9,7 +9,7 @@ const CreateNewDeckComponent: React.FC<NewDeckButton> = ({ userId }) => {
     const { refetch } = useGetAllOwnedDecksQuery(userId)
     const [addNewDeck] = useCreateNewDeckMutation()
 
-    const handleCreateDeckClick = async () => {
+    async function handleCreateDeckClick() {
         try {
             const payload = { id: userId };
             const result = await addNewDeck(payload).unwrap();
@@ -23,7 +23,7 @@ const CreateNewDeckComponent: React.FC<NewDeckButton> = ({ userId }) => {
         }
     };
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
         event.stopPropagation()
         const promise = handleCreateDeckClick();
         toast.promise(promise, {

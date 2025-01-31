@@ -13,7 +13,7 @@ const Accountsbutton = () => {
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
     const cachedUsername = useSelector((state: UsernameState) => state.auth.username);
 
-    const toggleDropdown = () => {
+    function toggleDropdown() {
         setShowDropdown(!showDropdown);
     };
     

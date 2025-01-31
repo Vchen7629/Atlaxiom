@@ -8,7 +8,7 @@ export function PendSliderComponent({ pendSliderProps, className, ...props }: Pe
     setCanClearFilters
   } = pendSliderProps
 
-  const handleSliderChange = (newValue: number[]) => {
+  function handleSliderChange(newValue: number[]) {
     setPendFilter(newValue[0])
     setCanClearFilters(newValue[0] !== null);
   }

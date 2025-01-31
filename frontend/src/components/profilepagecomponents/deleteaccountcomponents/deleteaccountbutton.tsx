@@ -14,7 +14,7 @@ const DeleteAccountButton = ({ deleteInput }: DeleteButtonProps) => {
     const [sendLogout] = useSendLogoutMutation()
     const deleteMsg = ("DELETE")
 
-    const handleSubmitDelete = async () => {
+    async function handleSubmitDelete() {
         if (!deleteInput) {
             throw new Error("No Input provided, please enter DELETE to delete account");
         }
@@ -31,7 +31,7 @@ const DeleteAccountButton = ({ deleteInput }: DeleteButtonProps) => {
         }
     };
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
         const promise = handleSubmitDelete();
         toast.promise(promise, {

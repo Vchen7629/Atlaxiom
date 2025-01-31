@@ -7,7 +7,7 @@ import { IncreaseCard, toastErrorMessage, toastSuccessMessage } from "../types/b
 const IncreaseOwnedCardButtonComponent = ({ userId, refetch, card }: IncreaseCard) => {
     const [increaseOwnedCard] = useIncreaseOwnedCardMutation()
     
-    const handleIncreaseClick = async (cardName: string) => {
+    async function handleIncreaseClick(cardName: string) {
         try {
           await increaseOwnedCard({ 
             id: userId, 
@@ -24,7 +24,7 @@ const IncreaseOwnedCardButtonComponent = ({ userId, refetch, card }: IncreaseCar
     };
 
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
       event.stopPropagation()
       const promise = handleIncreaseClick(card.card_name);
       toast.promise(promise, {

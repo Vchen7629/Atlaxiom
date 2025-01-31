@@ -31,7 +31,7 @@ export function AttributeDropDownComponent({ attributeprops }: AttributeDropDown
 
   const [open, setOpen] = useState(false)
 
-  const handleClick = (newValue: string) => {
+  function handleClick(newValue: string) {
     setAttributeFilter(newValue)
     setListCurrentPage(1);
     setGalleryCurrentPage(1);

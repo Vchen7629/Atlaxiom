@@ -63,12 +63,12 @@ const AddMonsterCardDrawer = ({ monstercarddrawerprops }: MonsterDrawer) => {
     const allCardsTotalGalleryPages = Math.ceil(allCardsGalleryResults.length / resultsPerGalleryPage);
     const collectionTotalGalleryPage = Math.ceil(collectionGalleryResults.length / resultsPerGalleryPage);
 
-    const handleAllCardsView = () => {
+    function handleAllCardsView() {
         setAllCardsView(true);
         setCollectionCardsView(false);
     }
 
-    const handleCollectionCardsView = () => {
+    function handleCollectionCardsView() {
         setAllCardsView(false);
         setCollectionCardsView(true);
     }
