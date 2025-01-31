@@ -10,9 +10,9 @@ import DeleteAccountButton from "../../../components/profilepagecomponents/delet
 import { EditAccount } from "../types/subpagetypes.ts";
 import { Toaster } from "sonner";
 
-const EditAccountPage = ({ user, refetch }: EditAccount) => {
-    const username = user.username;
-    const email = user.email;
+const EditAccountPage = ({ usersData, refetch }: EditAccount) => {
+    const username = usersData?.username;
+    const email = usersData?.email;
     const [changeUsername, setChangeUsername] = useState(true);
     const [changeEmail, setChangeEmail] = useState(false);
     const [changePassword, setChangePassword] = useState(false);

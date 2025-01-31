@@ -14,7 +14,7 @@ import { UpdatedCard } from "../types/buttontypes";
 const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
   const {
     userId,
-    deck,
+    deckData,
     setModifyMainDeckCardAmountPlaceHolder,
     setCardsToDeleteMainDeckPlaceHolder,
     monsterCards, setMonsterCards,
@@ -84,7 +84,7 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
         <header className="flex w-full py-[2vh] pl-[3vw] justify-between text-[hsl(var(--text))]">
             <span className="hidden md:flex w-[10vw] font-black items-center">Main Deck</span>
             <div className="flex h-fit items-center w-full justify-between space-x-4">
-                <div className="font-bold">Total Main Deck Cards: {deck?.total_cards_main_deck}</div>
+                <div className="font-bold">Total Main Deck Cards: {deckData?.total_cards_main_deck}</div>
                 <div className='flex w-20 bg-footer rounded-xl'>
                     <SubGridListViewComponent filterProps={filterProps}/>
                 </div>

@@ -1,23 +1,11 @@
-import { createEntityAdapter, EntityState } from "@reduxjs/toolkit";
-import { apiSlice } from "../api/apiSlice"
+import { createEntityAdapter } from "@reduxjs/toolkit";
+import { apiSlice } from "../../app/api/apiSlice"
+import { GetOwnedCardsResponse } from "./types/ownedcardtypes";
+import { invalidatesTags } from "./types/decktypes";
 
-const ownedCardsAdapter = createEntityAdapter<any>({
-    selectId: (entityArray: any) => {
-        // Check if the entityArray is defined and has elements
-        if (entityArray && entityArray.length > 0) {
-          const firstEntity = entityArray[0];
-          // Check if the first entity is defined and has a card_name property
-          if (firstEntity?.card_name) {
-            return firstEntity.card_name;
-          }
-        }
-    
-        // Return a default value if the entityArray or card_name is undefined
-        return 'defaultId';
-      },
-}) 
+const ownedCardsAdapter = createEntityAdapter({}) 
 
-const initialState: EntityState<any> = ownedCardsAdapter.getInitialState()
+const initialState = ownedCardsAdapter.getInitialState()
 
 export const ownedCardsApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
@@ -27,29 +15,30 @@ export const ownedCardsApiSlice = apiSlice.injectEndpoints({
               method: 'POST',
               body: CardData,
             }),
-            invalidatesTags: (arg: any) => [
+            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
                 { type: 'OwnedCards', id: arg.id }
             ],
             
         }),
 
-        getOwnedCards: builder.query<EntityState<any>, string>({
+        getOwnedCards: builder.query<GetOwnedCardsResponse[], string>({
             query: (id) => ({
                 url: `/card/${id}`,
                 method: 'GET',
             }),
-            transformResponse: (responseData: any) => {
-                return ownedCardsAdapter.upsertOne(initialState, { ...responseData, id: responseData._id });
+            transformResponse: (responseData: { ownedCards: GetOwnedCardsResponse[]}): GetOwnedCardsResponse[] => {
+                const updatedCards = ownedCardsAdapter.upsertMany(initialState, responseData.ownedCards.map(card => ({ ...card, id: card._id })));
+                console.log(updatedCards)
+                return updatedCards.ids.map(id => updatedCards.entities[id]) as GetOwnedCardsResponse[]
             },
             providesTags: (result: any) => {
                 if (result?.ids) {
                     return [
                         { type: 'OwnedCards', id: 'LIST' },
-                        ...result.ids.map((id: any) => ({ type: 'OwnedCard', id }))
+                        ...result.ids.map((id: string) => ({ type: 'OwnedCard', id }))
                     ]
                 } else return [{ type: 'OwnedCards', id: 'LIST' }]
-            },
-            
+            }
         }),
 
         IncreaseOwnedCard: builder.mutation<string, { id: string; CardData: { card_name: string, increaseOwnedAmount: number } }>({
@@ -59,7 +48,7 @@ export const ownedCardsApiSlice = apiSlice.injectEndpoints({
                 body: CardData,
                 credentials: 'include'
             }),
-            invalidatesTags: (arg: any) => [
+            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
                 { type: 'OwnedCards', id: arg.id }
             ]
         }),
@@ -71,7 +60,7 @@ export const ownedCardsApiSlice = apiSlice.injectEndpoints({
                 body: CardData,
                 credentials: 'include'
             }), 
-            invalidatesTags: (arg: any) => [
+            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
                 { type: 'OwnedCards', id: arg.id }
             ]
         }),
@@ -82,7 +71,7 @@ export const ownedCardsApiSlice = apiSlice.injectEndpoints({
                 method: 'DELETE',
                 body: CardData
             }),
-            invalidatesTags: (arg: any) => [
+            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
                 { type: 'OwnedCards', id: arg.id }
             ]
         })

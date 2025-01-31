@@ -1,3 +1,4 @@
+import { DeckApiResponse } from "@/app/api-slices/types/decktypes";
 import { Card } from "./datatypes";
 
 export type GridListViewComponentProps = {
@@ -14,8 +15,8 @@ export type GridListViewComponentProps = {
 export type SaveDeckButton = {
     savebuttonprops: {
         userId: string;
-        refetch: any;
-        deck: any;
+        refetch: () => void;
+        deckData?: DeckApiResponse | null;
         cardsToAddMainDeckPlaceHolder: Card[];
         setCardsToAddMainDeckPlaceHolder: React.Dispatch<React.SetStateAction<Card[]>>
         cardsToDeleteMainDeckPlaceHolder: Card[];

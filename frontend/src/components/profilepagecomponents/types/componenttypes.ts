@@ -25,10 +25,10 @@ export type NavBarComp = {
 }
 
 export type ProfileHeader = {
-    usersData: {
+    usersData?: {
         username: string;
         totalOwnedCards: number;
         totalOwnedDecks: number;
         creation: string
-    }
+    } | null
 }

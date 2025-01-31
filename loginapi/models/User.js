@@ -37,10 +37,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    roles: [{
-        type: String,
-        default: "Member"
-    }],
     active: {
         type: Boolean,
         default: true

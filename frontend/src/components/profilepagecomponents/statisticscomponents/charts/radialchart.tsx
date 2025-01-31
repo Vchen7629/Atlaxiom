@@ -35,9 +35,9 @@ export function ComponentRadialChart() {
     const { data: userData } = useGetSpecificUserQuery(userId)
 
     const chartData = useMemo(() => {
-        if (!userData || !userData.entities || !userData.entities[userId]) return []
+        if (!userData) return []
 
-        const totalOwnedCards = userData.entities[userId].totalOwnedCards || 0
+        const totalOwnedCards = userData.totalOwnedCards || 0
         const totalCards = 13418
 
         return [

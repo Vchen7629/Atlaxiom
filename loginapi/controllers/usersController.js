@@ -38,7 +38,6 @@ const createNewUser = asyncHandler(async (req, res) => {
         username, 
         email, 
         "password": hashPassword, 
-        roles: ["Member"], 
         creation: creationDate,
         lastUpdated: null,
         lastUsernameUpdated: creationDate,

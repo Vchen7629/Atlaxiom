@@ -11,6 +11,7 @@ const FavoriteDeckButtonComponent = ({ deck, refetch, userId, setCurrentPageList
 
     const [favoriteDeck] = useMakeDeckFavoriteMutation();
 
+
     const handleFavoriteDeckClick = async(deck: handleDeckClick) => {
         try {
             const favoritedeck = await favoriteDeck({
@@ -18,7 +19,8 @@ const FavoriteDeckButtonComponent = ({ deck, refetch, userId, setCurrentPageList
                 deckId: deck._id
             });
             if (favoritedeck) {
-                refetch();
+                const refetchResult = await refetch();
+                console.log(refetchResult)
                 setCurrentPageListDecksArray((prevDecks: Deck[]) => 
                     prevDecks.map((prevDeck) => 
                         prevDeck._id === deck._id ? { ...prevDeck, favorite: true} : prevDeck

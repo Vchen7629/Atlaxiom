@@ -152,14 +152,14 @@ const AddMonsterCardDrawer = ({ monstercarddrawerprops }: MonsterDrawer) => {
                 </Button>
             </DrawerTrigger>
             <DrawerContent className="max-h-[75vh]">
-                <div className="mx-auto max-w-full">
-                    <DrawerHeader className="flex w-full justify-between">
+                <div className="mx-auto flex flex-col py-[2vh] items-center max-w-full">
+                    <DrawerHeader className="flex w-[90%] justify-between">
                         <DrawerTitle className="text-2xl text-[hsl(var(--background3))]">Add Monster Cards</DrawerTitle>
                             <DrawerClose className="bg-transparent" onClick={() => setOpenDrawer(null)}>
                                 <FontAwesomeIcon icon={faXmarkSquare} className="fa-2xl text-[hsl(var(--background3))]"/>
                             </DrawerClose>
                     </DrawerHeader>
-                    <section className="flex w-full flex-col pl-2 space-y-[1%]">
+                    <section className="flex w-[90%] flex-col pl-2 space-y-[1%]">
                         <div className="w-full flex justify-between">
                             <div className="flex w-fit bg-footer rounded-lg text-xs">
                                 <button className={`px-2 py-1 rounded-lg ${allCardsView ? "bg-[hsl(var(--background3))]" : "bg-transparent"}`} onClick={handleAllCardsView}>All cards</button>

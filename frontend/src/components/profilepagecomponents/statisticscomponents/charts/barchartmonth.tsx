@@ -50,7 +50,7 @@ export function ComponentBarMonthChart({ selectedYear }: SelectedYear): JSX.Elem
     const daysInMonth = (month: number, year: number) => new Date(year, month + 1, 0).getDate();
 
     const chartData = useMemo<ChartData[]>(() => {
-      if (!cardData || !cardData.entities) {
+      if (!cardData) {
             console.error("cardData.entities is undefined or empty.");
             return [];
       }
@@ -58,7 +58,7 @@ export function ComponentBarMonthChart({ selectedYear }: SelectedYear): JSX.Elem
       const currentYear = new Date().getFullYear();
       
       const ownedDeck = deckData || [];
-      const ownedCards = Object.values(cardData?.entities?.defaultId?.ownedCards || {}).flat();
+      const ownedCards = Object.values(cardData || {}).flat();
 
       if (selectedMonth === "All") return [];
 
@@ -98,7 +98,7 @@ export function ComponentBarMonthChart({ selectedYear }: SelectedYear): JSX.Elem
       <div>
           <Card className="relative w-full lg:w-[60vw] bg-[hsl(var(--profilebackground))] rounded-xl">
               <CardHeader>
-                <div className="flex flex-col lg:flex-row w-full  justify-between">
+                <div className="flex w-full  justify-between">
                     <div className="flex flex-col items-center lg:items-start space-y-2">
                         <CardTitle className="text-[hsl(var(--text))] lg:text-4xl">Your Cards/Deck Statistics</CardTitle>
                         <CardDescription className="text-md">

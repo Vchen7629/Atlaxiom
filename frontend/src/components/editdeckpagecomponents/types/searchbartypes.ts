@@ -1,5 +1,6 @@
 import { GalleryResult, Result } from "./sidebarcomponenttypes";
-import { Card, OwnedCard } from "./datatypes";
+import { Card } from "./datatypes";
+import { GetOwnedCardsResponse } from "@/app/api-slices/types/ownedcardtypes";
 
 export type AllCardsSearchbarCompProps = {
     AllCardsSearchBarCompProps: {
@@ -63,15 +64,15 @@ export type CollectionSearchbarCompProps = {
         collectionTotalGalleryPage: number;
         resultsPerListPage: number;
         resultsPerGalleryPage: number;
-        collectionCardData: OwnedCard[];
-        setCollectionCardData: React.Dispatch<React.SetStateAction<OwnedCard[]>>;
+        collectionCardData: GetOwnedCardsResponse[];
+        setCollectionCardData: React.Dispatch<React.SetStateAction<GetOwnedCardsResponse[]>>;
         collectionCardsName: string;
         setCollectionCardsName: React.Dispatch<React.SetStateAction<string>>;
-        collectionListResults: Result[];
-        setCollectionListResults: React.Dispatch<React.SetStateAction<Result[]>>;
+        collectionListResults: GetOwnedCardsResponse[];
+        setCollectionListResults: React.Dispatch<React.SetStateAction<GetOwnedCardsResponse[]>>;
         collectionGalleryResults: GalleryResult[];
         setCollectionGalleryResults: React.Dispatch<React.SetStateAction<GalleryResult[]>>;
-        setCollectionCurrentListResults: React.Dispatch<React.SetStateAction<Result[]>>;
+        setCollectionCurrentListResults: React.Dispatch<React.SetStateAction<GetOwnedCardsResponse[]>>;
         setCollectionCurrentGalleryResults: React.Dispatch<React.SetStateAction<GalleryResult[]>>;
         maxResults: number;
         listView: boolean;

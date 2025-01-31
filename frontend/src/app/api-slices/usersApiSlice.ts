@@ -1,14 +1,10 @@
-import { createEntityAdapter, EntityState} from "@reduxjs/toolkit";
 import { apiSlice } from "../api/apiSlice"
-import { Id } from "./types/usertypes";
-
-const usersAdapter = createEntityAdapter({})
-
-const initialState = usersAdapter.getInitialState()
+import { invalidatesTags } from "./types/decktypes";
+import { UserData } from "./types/usertypes";
 
 export const usersApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
-        addNewUser: builder.mutation<string, any>({
+        addNewUser: builder.mutation<string, { username: string, email: string, password: string,}>({
             query: initialUserData => ({
                 url: '/user/newuser',
                 method: 'POST',
@@ -21,51 +17,22 @@ export const usersApiSlice = apiSlice.injectEndpoints({
             ]
         }),
         
-        getUsers: builder.query<EntityState<any>, string>({
-            query: () => ({
-                url: '/users',
-                method: "GET",
-            }),
-            transformResponse: (responseData: any ) => {
-                const loadedUsers = responseData.map((user: Id) => {
-                    user.id = user._id
-                    return user
-                });
-                const entities = loadedUsers.reduce((acc: any, user: any) => {
-                    acc[user.id] = user;
-                    return acc;
-                }, {});
-            
-                return { ids: loadedUsers.map((user: any ) => user.id), entities };
-            },
-            providesTags: (result: any) => {
-                if (result?.ids) {
-                    return [
-                        { type: 'User', id: 'LIST' },
-                        ...result.ids.map((id: string) => ({ type: 'User', id }))
-                    ]
-                } else return [{ type: 'User', id: 'LIST' }]
-            }
-        }),
-
-        GetSpecificUser: builder.query<EntityState<any>, string>({
+        GetSpecificUser: builder.query<UserData | null, string>({
             query: (id) => ({
                 url: `/users/${id}`,
                 method: "GET",
             }),
-            transformResponse: (responseData) => {
+            transformResponse: (responseData: UserData) => {
                 if (responseData && typeof responseData === 'object' && "_id" in responseData) {
-                    return usersAdapter.upsertOne(initialState, { ...responseData, id: responseData._id });
+                    return responseData;
                 }
-                return initialState;
+                return null;
             },
-            providesTags: (result: any) => {
+            providesTags: (result: UserData | null | undefined) => {
                 if (result?.ids) {
-                    return [
-                        { type: 'User', id: 'LIST' },
-                        ...result.ids.map((id: any) => ({ type: 'User', id }))
-                    ]
-                } else return [{ type: 'User', id: 'LIST' }]
+                    return [{ type: 'User', id: result._id }];
+                }
+                return [];
             }
         }),
 
@@ -75,7 +42,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 method: 'PATCH',
                 body: userData
             }),
-            invalidatesTags: (arg: any) => [
+            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
                 { type: 'User', id: arg.id }
             ]
         }),
@@ -85,7 +52,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 url: `/users/${id}`,
                 method: 'DELETE',
             }),
-            invalidatesTags: (arg: any) => [
+            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
                 { type: 'User', id: arg.id }
             ]
         }),
@@ -93,7 +60,6 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 })
 
 export const { 
-    useGetUsersQuery,
     useGetSpecificUserQuery,
     useAddNewUserMutation,
     useUpdateUserMutation,

@@ -32,8 +32,6 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
         return () => handleSuggestionClick(card)
     }
 
-    console.log(currentPageListNamesArray)
-
     return (
         <main className="w-full">
             <div className="">

@@ -1,7 +1,10 @@
+import { GetOwnedCardsResponse } from "@/app/api-slices/types/ownedcardtypes";
+
+
 export type IncreaseCard = {
     userId: string;
     card: any;
-    refetch: () => void;
+    refetch: () => Promise<{ data?: GetOwnedCardsResponse[] }>;
 }
 
 export type DecreaseCard = {
@@ -9,7 +12,7 @@ export type DecreaseCard = {
     card: {
         card_name: string
     };
-    refetch: () => void;
+    refetch: () => Promise<{ data?: GetOwnedCardsResponse[] }>;
 }
 
 export type toastSuccessMessage = {

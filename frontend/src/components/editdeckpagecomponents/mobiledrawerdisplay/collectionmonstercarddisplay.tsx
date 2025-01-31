@@ -19,7 +19,7 @@ const MobileCollectionMonsterCardDisplayComponent = ({ CollectionDisplayCompProp
                     {collectionListResults.length > 0 ? (
                         <div className="flex flex-col space-y-[2vh]">
                             {collectionCurrentListResults.map((result) => (
-                                <div key={result._id} className="grid grid-cols-[20%_70%_10%] max-h-[10vh] w-full bg-[hsl(var(--background1))]">
+                                <div key={result._id} className="grid grid-cols-[20%_70%_10%] max-h-[10vh] w-full bg-transparent">
                                     <img src={result.image_url} className="w-1/2 object-contain" alt={result.card_name} />
                                     <div className="flex flex-col  max-h-[10vh]">
                                         <span className="font-black text-xs text-[hsl(var(--background3))]">{result.card_name}</span>

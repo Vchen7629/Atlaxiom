@@ -9,7 +9,6 @@ import { ListViewCardDisplayComponent } from "../../components/cardcollectioncom
 import FilterOwnedCards from '../../components/cardcollectioncomponents/filtersidebar/components/ownedCardFilter.tsx';
 import CardCollectionStatistics from '../../components/cardcollectioncomponents/filtersidebar/components/ownedCardStatistics.tsx';
 import MyCardsSearchbarComponent from '../../components/cardcollectioncomponents/components/searchbar.tsx';
-import { Card } from './ownedcardpagetypes.ts';
 import GridListViewComponent from '../../components/cardcollectioncomponents/components/grid_or_list_view.tsx';
 import { GalleryViewCardDisplayComponent } from '../../components/cardcollectioncomponents/carddisplaycomponents/galleryviewcarddisplaycomponent.tsx';
 import { useGetSpecificUserQuery } from '@/app/api-slices/usersApiSlice.ts';
@@ -17,6 +16,7 @@ import PaginationComponent from '@/components/cardcollectioncomponents/paginatio
 import { AddCardButton } from '@/components/cardcollectioncomponents/buttons/addcardbutton.tsx';
 import { OwnedCard } from '@/components/cardcollectioncomponents/types/dataStructures.ts';
 import MobileFilterDrawerComponent from '@/components/cardcollectioncomponents/mobilefilter/components/MobileFilterDrawer.tsx';
+import { GetOwnedCardsResponse } from '@/app/api-slices/types/ownedcardtypes.ts';
 
 const UserOwnedCardPage = () => {
   const location = useLocation();
@@ -89,11 +89,11 @@ const UserOwnedCardPage = () => {
   }, [userId, ownedCards, userData])
 
   const cardsToDisplay = useMemo(() => {
-    return Object.values(ownedCards?.entities?.defaultId?.ownedCards || {}).flat() as Card[];
+    return Object.values(ownedCards || {}).flat() as GetOwnedCardsResponse[];
   }, [ownedCards]);
             
   const filteredCards = useMemo(() => {
-    return cardsToDisplay.filter((card): card is Card => {
+    return cardsToDisplay.filter((card) => {
       if (!card || !card.card_name) return false;
       const matchesSearchTerm = card.card_name.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesMonsterTypeFilter = monsterTypeFilter ? card.race?.toLowerCase().trim() === monsterTypeFilter.toLowerCase().trim() : true;
@@ -283,7 +283,7 @@ const UserOwnedCardPage = () => {
             <header className="relative items-center flex flex-col sm:flex-col md:flex-row w-full my-[1%]">
               <section className="flex flex-col w-full md:w-1/4">
                 <div className="text-4xl text-center lg:text-left lg:text-[40px] text-goldenrod font-bold">My Collection</div>
-                <div className="text-center lg:text-left text-lg text-gray-400">Last Edited: {userData?.entities[userId]?.lastCardUpdated}</div>
+                <div className="text-center lg:text-left text-lg text-gray-400">Last Edited: {userData?.lastCardUpdated}</div>
               </section>
               <section className="relative space-y-[1vh] lg:space-y-0 flex flex-col lg:flex-row items-center lg:space-x-2 w-full">
                 <div className="flex w-full lg:w-1/2">

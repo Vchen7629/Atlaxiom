@@ -13,8 +13,6 @@ const MobileAllCardsMonsterCardDisplayComponent = ({ AllCardsDisplayCompProps }:
         //setMonsterCards
     } = AllCardsDisplayCompProps
 
-    console.log(allCardsCurrentListResults)
-
     return (
         <>
             {listView && (

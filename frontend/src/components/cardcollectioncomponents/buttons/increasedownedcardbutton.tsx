@@ -4,7 +4,6 @@ import { toast } from "sonner";
 import { useIncreaseOwnedCardMutation } from "@/app/api-slices/ownedCardapislice";
 import { IncreaseCard, toastErrorMessage, toastSuccessMessage } from "../types/buttontypes";
 
-
 const IncreaseOwnedCardButtonComponent = ({ userId, refetch, card }: IncreaseCard) => {
     const [increaseOwnedCard] = useIncreaseOwnedCardMutation()
     
@@ -23,6 +22,7 @@ const IncreaseOwnedCardButtonComponent = ({ userId, refetch, card }: IncreaseCar
           throw error
         }
     };
+
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation()
