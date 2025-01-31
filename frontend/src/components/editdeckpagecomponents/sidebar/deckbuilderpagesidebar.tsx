@@ -4,8 +4,9 @@ import AllCardsSearchResultsDisplayComponent from '../sidebardisplaycomponents/a
 import AllCardsSearchBarComponent from '../searchbar/allcardssearchbarcomponent';
 import CollectionDisplayComponent from '../sidebardisplaycomponents/collectiondisplaycomponent';
 import CollectionSearchBarComponent from '../searchbar/collectionsearchbarcomponent';
-import { GalleryResult, Result, Sidebar } from '../types/sidebarcomponenttypes';
+import { GalleryResult, Sidebar } from '../types/sidebarcomponenttypes';
 import { Card } from '../types/datatypes';
+import { GetOwnedCardsResponse } from '@/app/api-slices/types/ownedcardtypes';
 
 
 const DeckBuilderPageSidebarComponent = ({ sidebarprops }: Sidebar) => {
@@ -31,8 +32,8 @@ const DeckBuilderPageSidebarComponent = ({ sidebarprops }: Sidebar) => {
 
     const [collectionCurrentPage, setCollectionCardsCurrentPage] = useState(1);
     const [collectionCardsName, setCollectionCardsName] = useState('');
-    const [collectionListResults, setCollectionListResults] = useState<Result[]>([]);
-    const [collectionCurrentListResults, setCollectionCurrentListResults] = useState<Result[]>([]);
+    const [collectionListResults, setCollectionListResults] = useState<GetOwnedCardsResponse[]>([]);
+    const [collectionCurrentListResults, setCollectionCurrentListResults] = useState<GetOwnedCardsResponse[]>([]);
     const [collectionGalleryResults, setCollectionGalleryResults] = useState<GalleryResult[]>([]);
     const [collectionCurrentGalleryResults, setCollectionCurrentGalleryResults] = useState<GalleryResult[]>([]);
 

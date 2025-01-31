@@ -1,4 +1,4 @@
-import { createEntityAdapter, EntityState } from "@reduxjs/toolkit";
+import { createEntityAdapter } from "@reduxjs/toolkit";
 import { apiSlice } from "../api/apiSlice.js"
 import { DeckApiResponse, DeckInput, DeckOutput, invalidatesTags } from "./types/decktypes.js";
 import { UpdatedCard } from "@/components/editdeckpagecomponents/types/buttontypes.js";
@@ -40,7 +40,6 @@ export const deckApiSlice = apiSlice.injectEndpoints({
             }),
             transformResponse: (responseData: { ownedDecks: DeckApiResponse[]}): DeckApiResponse[] => {
                 const updatedDecks = DeckAdapter.upsertMany(initialState, responseData.ownedDecks.map(deck => ({ ...deck, id: deck._id })));
-                console.log(updatedDecks)
                 return updatedDecks.ids.map(id => updatedDecks.entities[id]) as DeckApiResponse[];
             },
             providesTags: (result: any) => {
@@ -53,21 +52,22 @@ export const deckApiSlice = apiSlice.injectEndpoints({
             }
         }),
 
-        getSpecificOwnedDeck: builder.query<EntityState<any>, { id: string; DeckId: string}>({
+        getSpecificOwnedDeck: builder.query<DeckApiResponse | null, { id: string; DeckId: string}>({
             query: ({ id, DeckId }) => ({
                 url: `/deck/specific/${id}/${DeckId}`,
                 method: "GET",
             }),
-            transformResponse: (responseData: any) => {
-                return DeckAdapter.upsertOne(initialState, { ...responseData, id: responseData._id });
+            transformResponse: (responseData: DeckApiResponse[]) => {
+                if (Array.isArray(responseData) && responseData.length > 0) {
+                    return responseData[0];
+                }
+                return null;
             },
-            providesTags: (result: any) => {
-                if (result?.ids) {
-                    return [
-                        { type: 'Deck', id: 'LIST' },
-                        ...result.ids.map((id: string) => ({ type: 'Deck', id }))
-                    ]
-                } else return [{ type: 'Deck', id: 'LIST' }]
+            providesTags: (result: DeckApiResponse | null | undefined) => {
+                if (result?.id) {
+                    return [{ type: 'Deck', id: result._id }]
+                } 
+                return []
             }
         }),
 

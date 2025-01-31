@@ -52,8 +52,6 @@ const Profilepage = () => {
 
     const {data: usersData, refetch} = useGetSpecificUserQuery(userId);
 
-    const user = usersData?.entities[userId]
-
     const navbarprops = {
         deckActive, setDeckActive,
         statisticsActive, setStatisticsActive,
@@ -67,7 +65,7 @@ const Profilepage = () => {
     }
 
     const deckprops = {
-        user,
+        usersData,
         deckName,
         listView,
         galleryView,
@@ -105,7 +103,7 @@ const Profilepage = () => {
     }
 
     const renderProfileContent = () => {
-        const header = <ProfilePageHeader usersData={user}/>
+        const header = <ProfilePageHeader usersData={usersData}/>
               
         switch (selectedNavItem) {
             case 'deck': 
@@ -139,7 +137,7 @@ const Profilepage = () => {
                     <>
                         {header}
                         <NavBarComponent navbarprops={navbarprops}/>
-                        <EditAccountPage user={user} refetch={refetch}/>
+                        <EditAccountPage usersData={usersData} refetch={refetch}/>
                     </>
                 );
             default:

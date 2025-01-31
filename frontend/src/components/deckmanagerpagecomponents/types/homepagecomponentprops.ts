@@ -30,7 +30,7 @@ export type DeckDisplayComponent = {
         listView: boolean;
         galleryView: boolean;
         userId: string;
-        refetch: any;
+        refetch: () => void;
         currentPageListDecksArray: Deck[];
         setCurrentPageListDecksArray: React.Dispatch<React.SetStateAction<Deck[]>>
         currentPageGalleryDecksArray: GalleryDeck[];

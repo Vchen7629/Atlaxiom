@@ -9,7 +9,7 @@ import { UpdatedCard } from "../types/buttontypes"
 
 const ExtraDeckCardZone = ({ extradeckprops }: ExtraDeckProps) => {
   const {
-    deck,
+    deckData,
     extraDeckCards, setExtraDeckCards,
     hoveredCard,
     setModifyExtraDeckCardAmountPlaceHolder,
@@ -37,7 +37,7 @@ const ExtraDeckCardZone = ({ extradeckprops }: ExtraDeckProps) => {
         <header className="flex w-full py-[2vh] pl-[3vw] justify-between text-[hsl(var(--text))]">
             <span className="hidden md:flex w-[10vw] font-black items-center">Extra Deck</span>
             <div className="flex h-fit items-center justify-between w-full space-x-4">
-                <div className="font-bold flex">Total Extra Deck Cards: {deck?.total_cards_extra_deck}</div>
+                <div className="font-bold flex">Total Extra Deck Cards: {deckData?.total_cards_extra_deck}</div>
                 <div className='flex w-20 bg-footer rounded-xl'>
                     <SubGridListViewComponent filterProps={filterProps}/>
                 </div>

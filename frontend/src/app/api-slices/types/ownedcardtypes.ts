@@ -1,6 +1,11 @@
-export type GetOwnedCardsResponse = {
+import { Card } from "@/pages/my-cards/ownedcardpagetypes";
+
+export type GetOwnedCardsResponse = Card & {
     id: string;
+    _id: string;
     ownedCards: OwnedCards[];
+    image_url: string;
+    desc: string
 }
 
 export type OwnedCards = {
@@ -24,4 +29,3 @@ export type OwnedCards = {
     set_code?: string,
     price: number,
 }
-

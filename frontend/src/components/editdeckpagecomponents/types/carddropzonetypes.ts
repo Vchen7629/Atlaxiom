@@ -1,11 +1,11 @@
+import { GetOwnedCardsResponse } from "@/app/api-slices/types/ownedcardtypes";
 import { UpdatedCard } from "./buttontypes";
-import { Card, OwnedCard } from "./datatypes";
+import { Card } from "./datatypes";
+import { DeckApiResponse } from "@/app/api-slices/types/decktypes";
 
 export type ExtraDeckProps = {
     extradeckprops: {
-        deck: {
-            total_cards_extra_deck: number;
-        };
+        deckData?:  DeckApiResponse & { total_cards_extra_deck?: number } | null | undefined;
         extraDeckCards: UpdatedCard[];
         setExtraDeckCards: React.Dispatch<React.SetStateAction<UpdatedCard[]>>;
         hoveredCard: Card | null
@@ -16,9 +16,7 @@ export type ExtraDeckProps = {
 
 export type MainDeckProps = {
     maindeckprops: {
-        deck: {
-            total_cards_main_deck: number;
-        };
+        deckData?:  DeckApiResponse & { total_cards_main_deck?: number } | null | undefined;
         monsterCards: UpdatedCard[];
         setMonsterCards: React.Dispatch<React.SetStateAction<UpdatedCard[]>>
         spellCards: UpdatedCard[];
@@ -35,16 +33,14 @@ export type MainDeckProps = {
         userId: string;
         allCardsListResults: Card[];
         setAllCardsListResults: React.Dispatch<React.SetStateAction<Card[]>>;
-        collectionCardData?: OwnedCard[];
-        setCollectionCardData?: React.Dispatch<React.SetStateAction<OwnedCard[]>>
+        collectionCardData?: GetOwnedCardsResponse[];
+        setCollectionCardData?: React.Dispatch<React.SetStateAction<GetOwnedCardsResponse[]>>
     }
 }
 
 export type SideDeckProps = {
     sidedeckprops: {
-        deck: {
-            total_cards_side_deck: number;
-        };
+        deckData?:  DeckApiResponse & { total_cards_side_deck?: number } | null | undefined;
         sideDeckCards: UpdatedCard[];
         setSideDeckCards: React.Dispatch<React.SetStateAction<UpdatedCard[]>>;
         hoveredCard: Card | null

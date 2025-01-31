@@ -11,7 +11,7 @@ import FavoriteDeckButtonComponent from '@/components/deckbuttons/makefavoritede
 
 const ViewDecks = ({ deckprops }: DeckProps) => {
     const {
-        user,
+        usersData,
         listView,
         galleryView,
         refetch,
@@ -22,7 +22,7 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
 
     const userId = useSelector((state: UserId) => state.auth.userId);
     const navigate = useNavigate();
-    const totalOwnedDecks = user?.totalOwnedDecks;
+    const totalOwnedDecks = usersData?.totalOwnedDecks;
         
     const handleDeckClick = async (deck: handleDeckClick) => {
         navigate('/modifyDeck', { state: { deckId: deck._id, userId: userId } });   

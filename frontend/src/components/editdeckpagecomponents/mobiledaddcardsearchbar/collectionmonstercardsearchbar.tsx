@@ -30,7 +30,7 @@ const MobileCollectionMonsterCardSearchBarComponent = ({ CollectionSearchBarComp
 
     const memoizedCards = useMemo(() => {
         if (cardData) {
-            return Object.values(cardData.entities.defaultId.ownedCards || {})
+            return Object.values(cardData || {})
                 .flat()
                 .filter((card): card is OwnedCard => card !== undefined && card !== null && Object.keys(card).length > 0)
                 .filter((card: any) => card.type && !filterTerms.some(term => card.type.includes(term)))
@@ -41,10 +41,6 @@ const MobileCollectionMonsterCardSearchBarComponent = ({ CollectionSearchBarComp
     useEffect(() => {
         setCollectionMonsterCards(memoizedCards);
     }, [memoizedCards]);
-
-    useEffect(() => {
-        console.log("Updated collectionMonsterCards:", collectionMonsterCards);
-    }, [collectionMonsterCards]);
 
     const DelayCollectionSearchResults = useCallback((inputValue: string) => {
 

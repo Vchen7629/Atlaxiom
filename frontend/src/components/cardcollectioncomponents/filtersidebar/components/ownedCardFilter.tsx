@@ -66,7 +66,7 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
 
     useEffect(() => {
         if (ownedCards) {
-          const allCards: SetFilterValues[] = Object.values(ownedCards?.entities?.defaultId?.ownedCards || {}).flat().filter(card => card) as SetFilterValues[];
+          const allCards: SetFilterValues[] = Object.values(ownedCards || {}).flat().filter(card => card) as SetFilterValues[];
 
           const monsterTypeList = new Set(allCards.filter((card) => card.type.includes("Monster")).map((card) => card.race).filter(race => race));
           setUniqueMonsterType([...monsterTypeList])

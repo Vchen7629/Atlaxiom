@@ -60,12 +60,12 @@ export const GalleryViewCardDisplayComponent = ({ displaygalleryprops }: filtere
                                 </div>
                             ))}
                         </div>
-                    ) : ownedCardCount?.entities[userId].totalOwnedCards === 0 ? (
-                        <div className="flex h-[80vh] w-full justify-center text-center pt-[25%] text-xl lg:text-3xl text-gray-400 font-black">
+                    ) : ownedCardCount?.totalOwnedCards === 0 ? (
+                        <div className="flex h-[90vh] w-full justify-center text-center pt-[25%] text-xl lg:text-3xl text-gray-400 font-black">
                           <span>You have no owned Cards</span>
                         </div>
                     ) : (
-                        <div className="flex w-full h-full justify-center text-center pt-[25%] text-xl lg:text-3xl text-gray-400 font-black">
+                        <div className="flex w-full h-[90vh] justify-center text-center pt-[25%] text-xl lg:text-3xl text-gray-400 font-black">
                             <span>No cards matching your Filters</span>
                         </div>
                     )}

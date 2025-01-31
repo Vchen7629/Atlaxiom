@@ -26,7 +26,6 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
         return () => handleDeckClick(deck);
     };
 
-    console.log(decksToDisplay)
 
     return (
         <>  

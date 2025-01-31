@@ -1,9 +1,9 @@
-import { EntityState } from "@reduxjs/toolkit";
+import { GetOwnedCardsResponse } from "@/app/api-slices/types/ownedcardtypes";
 
 export type OwnedCardsFilterProps = {
     filterProps: {
         setCanClearFilter: React.Dispatch<React.SetStateAction<boolean>>;
-        ownedCards: EntityState<any> | undefined;
+        ownedCards: GetOwnedCardsResponse[] | undefined;
         filterActive?: boolean
         monsterTypeFilter: string;
         setMonsterTypeFilter: React.Dispatch<React.SetStateAction<string>>;

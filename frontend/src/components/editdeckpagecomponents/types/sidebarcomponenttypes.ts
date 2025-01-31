@@ -1,4 +1,5 @@
-import { Card, OwnedCard } from "./datatypes";
+import { GetOwnedCardsResponse } from "@/app/api-slices/types/ownedcardtypes";
+import { Card } from "./datatypes";
 
 export type Sidebar = {
     sidebarprops: {
@@ -9,8 +10,8 @@ export type Sidebar = {
         setAllCardsListResults: React.Dispatch<React.SetStateAction<Card[]>>;
         collectionCardsView: boolean;
         setCollectionCardsView: React.Dispatch<React.SetStateAction<boolean>>;
-        collectionCardData: OwnedCard[];
-        setCollectionCardData: React.Dispatch<React.SetStateAction<OwnedCard[]>>
+        collectionCardData: GetOwnedCardsResponse[];
+        setCollectionCardData: React.Dispatch<React.SetStateAction<GetOwnedCardsResponse[]>>
     }
 
 }

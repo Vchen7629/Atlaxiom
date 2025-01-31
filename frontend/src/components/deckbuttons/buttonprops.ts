@@ -2,14 +2,14 @@ import { handleDeckClick } from "../deckmanagerpagecomponents/types/homepagecomp
 
 export type DeleteDeck = {
     deck: handleDeckClick;
-    refetch: () => void;
+    refetch: () => void
     refetchUser?: () => void;
     userId: string;
 }
 
 export type FavoriteDeck = {
     deck: handleDeckClick;
-    refetch: () => void;
+    refetch: () => void
     userId: string;
     setCurrentPageListDecksArray: React.Dispatch<React.SetStateAction<any[]>>
     setCurrentPageGalleryDecksArray: React.Dispatch<React.SetStateAction<GalleryDeck[]>>

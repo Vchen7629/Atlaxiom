@@ -1,6 +1,6 @@
 export type SaveUsernameButton = {
     UpdateUsernameProps: {
-        refetch: any;
+        refetch: () => void;
         newUsername: string
         setNewUsername: React.Dispatch<React.SetStateAction<string>>;
     }
@@ -8,7 +8,7 @@ export type SaveUsernameButton = {
 
 export type SaveEmailButton = {
     UpdateEmailProps: {
-        refetch: any;
+        refetch: () => void;
         newEmail: string
         setNewEmail: React.Dispatch<React.SetStateAction<string>>;
     }
@@ -16,7 +16,7 @@ export type SaveEmailButton = {
 
 export type SavePasswordButton = {
     UpdatePasswordProps: {
-        refetch: any;
+        refetch: () => void;
         newPassword: string;
         setNewPassword: React.Dispatch<React.SetStateAction<string>>
     }

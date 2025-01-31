@@ -12,9 +12,9 @@ export type Username = {
 
 export type DeckProps = {
     deckprops: {
-        user: {
+        usersData?: {
             totalOwnedDecks: number;
-        }
+        } | null
         listView: boolean;
         galleryView: boolean;
         refetch: () => void;
@@ -41,11 +41,11 @@ export type FilteredDecks = {
 }
 
 export type EditAccount = {
-    user: {
+    usersData?: {
         username: string;
         email: string
-    };
-    refetch: any;
+    } | null;
+    refetch: () => void;
 }
 
 export type Statistics = {

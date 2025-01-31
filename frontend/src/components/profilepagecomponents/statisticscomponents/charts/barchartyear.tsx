@@ -63,7 +63,7 @@ export function ComponentBarChart({ yearprops }: Year): JSX.Element {
           }
         });
     
-        const ownedCards = Object.values(cardData?.entities?.defaultId?.ownedCards || {}).flat();
+        const ownedCards = Object.values(cardData || {}).flat();
         ownedCards.forEach((card: any) => {
             if (card.addedOn.slice(0,4) === selectedYear) {
                 const addedMonth = new Date(card?.addedOn).getMonth();

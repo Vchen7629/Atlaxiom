@@ -3,7 +3,7 @@ import { faTimes, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useGetOwnedCardsQuery } from "../../../app/api-slices/ownedCardapislice";
 import { useEffect, useCallback } from "react";
 import { CollectionSearchbarCompProps } from "../types/searchbartypes";
-import { OwnedCard } from "../types/datatypes";
+import { GetOwnedCardsResponse } from "@/app/api-slices/types/ownedcardtypes";
 
 const CollectionSearchBarComponent = ({ CollectionSearchBarCompProps }: CollectionSearchbarCompProps) => {
     const {
@@ -32,10 +32,10 @@ const CollectionSearchBarComponent = ({ CollectionSearchBarCompProps }: Collecti
         try {
             const result = await refetch();
             if (result?.data) {
-                const isValidCard = (card: any): card is OwnedCard => {
+                const isValidCard = (card: GetOwnedCardsResponse) => {
                     return card !== undefined && card !== null && Object.keys(card).length > 0;
                 }
-                const cardsToDisplay = Object.values(result.data.entities.defaultId.ownedCards || {}).flat().filter(isValidCard);
+                const cardsToDisplay = Object.values(result.data || {}).flat().filter(isValidCard);
                 setCollectionCardData(cardsToDisplay);
             } else {
                 throw new Error('No data returned from prefetch.');
@@ -57,7 +57,7 @@ const CollectionSearchBarComponent = ({ CollectionSearchBarCompProps }: Collecti
             return normalizedCardName?.includes(normalizedInput);
         });
 
-        setCollectionListResults(filteredSuggestions.slice(0, maxResults).map((card) => ({
+        setCollectionListResults(filteredSuggestions.slice(0, maxResults).map((card): any => ({
             _id: card._id,
             card_name: card.card_name,
             image_url: card.image_url,
