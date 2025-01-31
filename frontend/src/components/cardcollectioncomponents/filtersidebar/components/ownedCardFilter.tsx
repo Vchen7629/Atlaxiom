@@ -4,7 +4,7 @@ import { CardSetDropDownComponent } from "../dropdown/cardsetdropdown.tsx"
 import { LevelSliderComponent } from '../sliders/levelslider.tsx';
 import { OwnedCardsFilterProps } from "../../types/ownedcardfiltertypes.ts";
 import { RarityDropDownComponent } from "../dropdown/raritydropdown.tsx";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import FilterCardViewButton from "./filtercardbutton.tsx";
 import StatisticsViewButton from "./statisticsbutton.tsx";
 import { MonsterTypeDropDownComponent } from "../dropdown/monstertypedropdown.tsx";
@@ -93,7 +93,7 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
       }, [ownedCards]);
 
 
-    function clearFilter() {
+    const clearFilter = useCallback(() => {
         setMonsterTypeFilter('');
         setSpellTypeFilter('');
         setTrapTypeFilter('');
@@ -122,7 +122,16 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         setRarityFilter('');
         setSetFilter('');
         setCanClearFilter(false);
-    }
+    }, [
+        setMonsterTypeFilter, setSpellTypeFilter, setTrapTypeFilter, setAttributeFilter, setArcheTypeFilter,
+        setLevelFilter, setLevelEqual, setLevelLessThanEqual, setLevelGreaterThanEqual,
+        setPendFilter, setPendEqual, setPendEqual, setPendLessThanEqual, setPendGreaterThanEqual,
+        setLinkFilter, setLinkEqual, setLinkLessThanEqual, setLinkGreaterThanEqual,
+        setAtkFilter, setAtkEqual, setAtkLessThanEqual, setAtkGreaterThanEqual,
+        setDefFilter, setDefEqual, setDefLessThanEqual, setDefGreaterThanEqual,
+        setDefFilter, setDefEqual, setDefLessThanEqual, setDefGreaterThanEqual,
+        setRarityFilter, setSetFilter, setCanClearFilter
+    ]);
 
 
     const filterprops = { 

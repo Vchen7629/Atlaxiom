@@ -18,7 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { RarityDropDownProps } from "../../types/dropdowntypes"
-import { useState } from "react"
+import { useCallback, useState } from "react"
  
 export function RarityDropDownComponent({ rarityprops }: RarityDropDownProps) {
   const {
@@ -31,7 +31,7 @@ export function RarityDropDownComponent({ rarityprops }: RarityDropDownProps) {
 
   const [open, setOpen] = useState(false)
 
-  function handleClick(newValue: string) {
+  const handleClick = useCallback((newValue: string) => {
     setRarityFilter(newValue)
     setListCurrentPage(1);
     setGalleryCurrentPage(1);
@@ -41,7 +41,7 @@ export function RarityDropDownComponent({ rarityprops }: RarityDropDownProps) {
     } else {
       setCanClearFilter(false);
     }
-  }
+  }, [setRarityFilter, setListCurrentPage, setGalleryCurrentPage, setOpen, setCanClearFilter]);
  
   return (
     <Popover open={open} onOpenChange={setOpen}>

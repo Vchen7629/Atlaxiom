@@ -8,7 +8,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Card, filteredGalleryCards, SelectedCard } from "../types/ownedcarddetailstypes.ts";
 import IncreaseOwnedCardButtonComponent from "../buttons/increasedownedcardbutton.tsx";
 import DecreaseOwnedCardButtonComponent from "../buttons/decreaseownedcardbutton.tsx";
@@ -29,9 +29,9 @@ export const GalleryViewCardDisplayComponent = ({ displaygalleryprops }: filtere
 
     const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null)
 
-    const handleClick = (card: Card) => () => {
+    const handleClick = useCallback((card: Card) => () => {
         setSelectedCard(card);
-    };
+    }, [setSelectedCard]);
 
     const { data: ownedCardCount } = useGetSpecificUserQuery(userId);
           

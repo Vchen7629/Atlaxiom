@@ -18,7 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { TrapTypeDropDownProps } from "../../types/dropdowntypes"
-import { useState } from "react"
+import { useCallback, useState } from "react"
  
 export function TrapTypeDropDownComponent({ traptypeprops }: TrapTypeDropDownProps) {
   const {
@@ -30,7 +30,7 @@ export function TrapTypeDropDownComponent({ traptypeprops }: TrapTypeDropDownPro
   } = traptypeprops 
   const [open, setOpen] = useState(false)
 
-  function handleClick(newValue: string) {
+  const handleClick = useCallback((newValue: string) => {
     setTrapTypeFilter(newValue)
     setListCurrentPage(1);
     setGalleryCurrentPage(1);
@@ -40,7 +40,7 @@ export function TrapTypeDropDownComponent({ traptypeprops }: TrapTypeDropDownPro
     } else {
       setCanClearFilter(false);
     }
-  }
+  }, [setTrapTypeFilter, setListCurrentPage, setGalleryCurrentPage, setOpen, setCanClearFilter]);
   
   return (
     <Popover open={open} onOpenChange={setOpen}>

@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { useDecreaseOwnedCardMutation } from "@/app/api-slices/ownedCardapislice";
 import { DecreaseCard, toastErrorMessage, toastSuccessMessage } from "../types/buttontypes";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
+import { useCallback } from "react";
 
 
 const DecreaseOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCard) => {
@@ -24,7 +25,7 @@ const DecreaseOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCar
         }
     };
 
-    function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation();
       const promise = handleDecreaseClick(card.card_name);
         toast.promise(promise, {
@@ -42,7 +43,7 @@ const DecreaseOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCar
           }
         },
       })
-    }
+    }, [handleDecreaseClick, card.card_name])
 
     return (
         <button className="h-8 w-8 rounded bg-[hsl(var(--background3))] cursor-pointer" onClick={handleClick}>

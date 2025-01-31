@@ -2,18 +2,19 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTimes, faSearch } from "@fortawesome/free-solid-svg-icons"
 import { searchbarprops } from "../types/componenttypes"
+import { useCallback } from "react"
 
 const MyCardsSearchbarComponent = ({ searchbarprops }: searchbarprops) => {
     const { searchTerm, setSearchTerm } = searchbarprops
 
-    function handleClearClick() {
+    const handleClearClick = useCallback(() => {
         setSearchTerm('')
-    }
+    }, [setSearchTerm]);
     
-    function handleSearchTerm(e: React.FormEvent<HTMLInputElement>) {
+    const handleSearchTerm = useCallback((e: React.FormEvent<HTMLInputElement>) => {
         const target = e.target as HTMLInputElement
         setSearchTerm(target.value);
-    }
+    }, [setSearchTerm]);
 
     return (
         <div className="relative w-full flex h-12 border-2 border-[hsl(var(--background3))] items-center rounded-md bg-[hsl(var(--background1))]">

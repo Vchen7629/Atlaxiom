@@ -1,13 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { useCallback } from 'react';
 
 const Profile = () => {
   const navigate = useNavigate();
 
-  const handleButtonClick = () => {
+  const handleButtonClick = useCallback(() => {
     navigate('/profile');
-  };
+  }, [navigate]);
 
   return (
     <div>

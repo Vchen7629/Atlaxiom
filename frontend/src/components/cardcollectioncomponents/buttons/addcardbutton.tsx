@@ -9,7 +9,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Button } from "@/components/ui/button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faPlusCircle, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -62,26 +62,26 @@ export const AddCardButton = ({ userId }: UserId) => {
     }
     const [currentCards, setCurrentCards] = useState<mappedCard[]>([])
 
-    function handleBackClick() {
+    const handleBackClick = useCallback(() => {
         setCardData([]);
         setSelectedCard(false);
-    };
+    }, [setCardData, setSelectedCard]);
 
-    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         setSearchTerm(inputValue);
         setCurrentPage(1);
-    };
+    }, [setSearchTerm, setCurrentPage]);
 
-    function handleClearClick() {
+    const handleClearClick = useCallback(() => {
         setSearchTerm('');
         setCurrentPage(1);
-    };
+    }, [setSearchTerm, setCurrentPage]);
 
-    function handleCardClick(name: string) {
+    const handleCardClick = useCallback((name: string) => {
         setSelectedCard(true)
         setCardName(name)
-    }
+    }, [setSelectedCard, setCardName]);
 
     const paginationprops = {
         filteredCards,

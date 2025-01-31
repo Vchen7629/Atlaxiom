@@ -18,7 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { CardSetDropDownProps } from "../../types/dropdowntypes"
-import { useState } from "react"
+import { useCallback, useState } from "react"
  
 export function CardSetDropDownComponent({ setprops }: CardSetDropDownProps) {
   const {
@@ -31,7 +31,7 @@ export function CardSetDropDownComponent({ setprops }: CardSetDropDownProps) {
 
   const [open, setOpen] = useState(false)
 
-  function handleClick(newValue: string) {
+  const handleClick = useCallback((newValue: string) => {
     setSetFilter(newValue)
     setListCurrentPage(1);
     setGalleryCurrentPage(1);
@@ -41,7 +41,7 @@ export function CardSetDropDownComponent({ setprops }: CardSetDropDownProps) {
     } else {
       setCanClearFilter(false);
     }
-  }
+  }, [setSetFilter, setListCurrentPage, setGalleryCurrentPage, setOpen, setCanClearFilter]);
  
   return (
     <Popover open={open} onOpenChange={setOpen}>

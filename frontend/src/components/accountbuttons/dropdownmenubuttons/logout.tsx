@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useCallback, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSendLogoutMutation } from '@/app/auth/authApiSlice'    
@@ -9,14 +9,19 @@ const Logout = () => {
 
     const [sendLogout, { isSuccess,isError }] = useSendLogoutMutation()
 
-    async function handleLogout() {
-        try {
-            await sendLogout({}).unwrap();
-            navigate('/');
-        } catch (err) {
-            console.error('Failed to log out: ', err);
+    const handleLogout = useCallback(() => {
+        const logoutAsync = async () => {
+            try {
+                console.log("logout")
+                await sendLogout({}).unwrap();
+                navigate('/');
+            } catch (err) {
+                console.error('Failed to log out: ', err);
+            }
         }
-    };
+
+        logoutAsync();
+    }, [navigate, sendLogout]);
 
     useEffect(() => {
         if (isSuccess) {

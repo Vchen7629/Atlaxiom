@@ -1,4 +1,4 @@
-import { useState }from 'react';
+import { useCallback, useState }from 'react';
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown, faUser } from '@fortawesome/free-solid-svg-icons';
@@ -13,9 +13,9 @@ const Accountsbutton = () => {
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
     const cachedUsername = useSelector((state: UsernameState) => state.auth.username);
 
-    function toggleDropdown() {
+    const toggleDropdown = useCallback(() => {
         setShowDropdown(!showDropdown);
-    };
+    }, [setShowDropdown]);
     
     return (
         <>

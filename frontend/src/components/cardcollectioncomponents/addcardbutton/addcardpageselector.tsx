@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { pageselector } from "../types/addcardtypes";
 
 export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
@@ -8,19 +9,19 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
         setErr
     } = pageselectorprops
 
-    function handleListPageChange(page: number) {
+    const handleListPageChange = useCallback((page: number) => {
         setCurrentPage(page);
         setPage(page)
         setErr("")
-    };
+    }, [setCurrentPage, setPage, setErr]);
 
-    function handlePageDecrease() {
+    const handlePageDecrease = useCallback(() => {
         setCurrentPage(currentPage - 1);
-    }
+    }, [setCurrentPage])
 
-    function handlePageIncrease() {
+    const handlePageIncrease = useCallback(() => {
         setCurrentPage(currentPage + 1);
-    }
+    }, [setCurrentPage])
 
     return (
         <div className="flex w-fit text-center space-x-2">

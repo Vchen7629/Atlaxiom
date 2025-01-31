@@ -3,14 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBox } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationState } from '../accounttypes.ts';
+import { useCallback } from 'react';
 
 const Mycards = () => {
   const navigate = useNavigate();
   const userId = useSelector((state: AuthenticationState) => state.auth.userId);
 
-  const handleButtonClick = () => {
+  const handleButtonClick = useCallback(() => {
     navigate('/getcards', { state: { userId }});
-  };
+  }, [navigate]);
 
   return (
     <div>

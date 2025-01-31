@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { PageSelectorComponent } from "./addcardpageselector.tsx";
 import { Pagination } from "../types/addcardtypes.ts";
 import { mappedCard } from "../types/buttontypes.ts";
@@ -17,20 +17,20 @@ const AddCardPaginationComponent = ({ paginationprops }: Pagination) => {
     const [err, setErr] = useState<string>("")
 
 
-    function updateCurrentPageList() {
+    const updateCurrentPageList = useCallback(() => {
         if (filteredCards.length > 0) {
             const startIndex = (currentPage - 1) * cardsPerPage;
             const endIndex = startIndex + cardsPerPage;
             const currentCards = filteredCards.slice(startIndex, endIndex) as mappedCard[];
             setCurrentCards(currentCards);
         }
-    };
+    }, [filteredCards.length, setCurrentCards, currentPage])
 
-    function handleListPageChange(page: number) {
+    const handleListPageChange = useCallback((page: number) => {
         setCurrentPage(page);        
-    };
+    }, [setCurrentPage]);
 
-    function handleListInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const handleListInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         // Allow only numeric input
         if (/^\d*$/.test(value)) {
@@ -43,7 +43,7 @@ const AddCardPaginationComponent = ({ paginationprops }: Pagination) => {
                 setErr(`Enter a page number between 1 and ${totalPages}`)
             }
         }
-    };
+    }, [setPage, handleListPageChange, setErr]);
 
     useEffect(() => {
         UpdateTotalPages(filteredCards.length);
@@ -52,7 +52,7 @@ const AddCardPaginationComponent = ({ paginationprops }: Pagination) => {
         } else if ((filteredCards.length === 0)) {
             setCurrentCards([]);
         }
-    }, [filteredCards.length, cardsPerPage, currentPage]);
+    }, [filteredCards.length, setCurrentCards]);
 
     const pageselectorprops = {
         currentPage, setCurrentPage,

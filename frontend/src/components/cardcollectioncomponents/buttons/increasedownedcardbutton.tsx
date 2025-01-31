@@ -3,6 +3,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "sonner";
 import { useIncreaseOwnedCardMutation } from "@/app/api-slices/ownedCardapislice";
 import { IncreaseCard, toastErrorMessage, toastSuccessMessage } from "../types/buttontypes";
+import { useCallback } from "react";
 
 const IncreaseOwnedCardButtonComponent = ({ userId, refetch, card }: IncreaseCard) => {
     const [increaseOwnedCard] = useIncreaseOwnedCardMutation()
@@ -24,7 +25,7 @@ const IncreaseOwnedCardButtonComponent = ({ userId, refetch, card }: IncreaseCar
     };
 
 
-    function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation()
       const promise = handleIncreaseClick(card.card_name);
       toast.promise(promise, {
@@ -40,7 +41,7 @@ const IncreaseOwnedCardButtonComponent = ({ userId, refetch, card }: IncreaseCar
           }
         },
       })
-    }
+    }, [handleIncreaseClick, card.card_name])
 
     return (
         <button className="h-8 w-8 rounded bg-[hsl(var(--background3))] cursor-pointer" onClick={handleClick}>

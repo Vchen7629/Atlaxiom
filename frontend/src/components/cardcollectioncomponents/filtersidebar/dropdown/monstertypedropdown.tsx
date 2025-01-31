@@ -18,7 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { MonsterTypeDropDownProps } from "../../types/dropdowntypes"
-import { useState } from "react"
+import { useCallback, useState } from "react"
  
 export function MonsterTypeDropDownComponent({ monstertypeprops }: MonsterTypeDropDownProps) {
   const {
@@ -30,7 +30,7 @@ export function MonsterTypeDropDownComponent({ monstertypeprops }: MonsterTypeDr
   } = monstertypeprops 
   const [open, setOpen] = useState(false)
 
-  function handleClick(newValue: string) {
+  const handleClick = useCallback((newValue: string) => {
     setMonsterTypeFilter(newValue)
     setListCurrentPage(1);
     setGalleryCurrentPage(1);
@@ -40,7 +40,7 @@ export function MonsterTypeDropDownComponent({ monstertypeprops }: MonsterTypeDr
     } else {
       setCanClearFilter(false);
     }
-  }
+  }, [setMonsterTypeFilter, setListCurrentPage, setGalleryCurrentPage, setOpen, setCanClearFilter]);
   
   return (
     <Popover open={open} onOpenChange={setOpen}>

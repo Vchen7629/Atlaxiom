@@ -8,7 +8,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useLocation } from 'react-router-dom';
 import { useGetOwnedCardsQuery } from '../../../app/api-slices/ownedCardapislice.ts';
 import { Card, filteredListCards, SelectedCard } from "../types/ownedcarddetailstypes.ts";
@@ -27,9 +27,9 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
 
     const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null)
 
-    const handleClick = (card: Card) => () => {
+    const handleClick = useCallback((card: Card) => () => {
         setSelectedCard(card);
-    };
+    }, [setSelectedCard]);
 
     const { refetch } = useGetOwnedCardsQuery(userId);
     const { data: ownedCardCount } = useGetSpecificUserQuery(userId);

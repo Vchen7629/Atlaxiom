@@ -3,18 +3,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 import { AuthenticationState } from '@/components/footer/footerbuttons/hometypes';
+import { useCallback } from 'react';
 
 const CardSearch = () => {
     const navigate = useNavigate();
     const authenticated = useSelector((state: AuthenticationState) => state.auth.token !== null);
 
-    const handleButtonClick = () => {
+    const handleButtonClick = useCallback(() => {
         if (authenticated) {
         navigate('/searchloggedin');
         } else {
         navigate('/search')
         }
-    };
+    }, [navigate, authenticated]);
 
     return (
         <div>

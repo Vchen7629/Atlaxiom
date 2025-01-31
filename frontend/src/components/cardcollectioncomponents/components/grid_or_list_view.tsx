@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars,  faGripHorizontal } from '@fortawesome/free-solid-svg-icons';
 import { GridListViewComponentProps } from '../types/componenttypes';
+import { useCallback } from 'react';
 
 const GridListViewComponent= ({ gridlistviewprops }: GridListViewComponentProps) => {
     const {
@@ -8,15 +9,15 @@ const GridListViewComponent= ({ gridlistviewprops }: GridListViewComponentProps)
         galleryView, setGalleryView,
     } = gridlistviewprops
 
-    function handleListView() {
+    const handleListView = useCallback(() => {
         setListView(true)
         setGalleryView(false)
-    }
+    }, [setListView, setGalleryView]);
 
-    function handleGalleryView() {
+    const handleGalleryView = useCallback(() => {
         setListView(false)
         setGalleryView(true)
-    }
+    }, [setListView, setGalleryView]);
 
     return (
         <>

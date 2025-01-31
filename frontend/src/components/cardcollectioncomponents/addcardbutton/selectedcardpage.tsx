@@ -3,7 +3,7 @@ import { CardSet } from "@/components/searchpagecomponents/types/searchresultcom
 import { useAddNewOwnedCardMutation, useGetOwnedCardsQuery } from "@/app/api-slices/ownedCardapislice";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { selectedcard } from "../types/addcardtypes";
 import { toast } from "sonner";
 import { toastErrorMessage, toastSuccessTwoMessage } from "../types/buttontypes";
@@ -48,9 +48,9 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
         fetchSelectedCardData(cardName)
     }, [cardName])
 
-    function handleClick() {
+    const handleClick = useCallback(() => {
         setSelectedCard(false)
-    }
+    }, [setSelectedCard])
 
     async function handleAddOwnedCardClick(set: CardSet, index: number) {
         if (selectedCardData) {
