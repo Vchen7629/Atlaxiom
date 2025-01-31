@@ -3,6 +3,7 @@ import { Slider } from "@/components/ui/slider"
 import { LevelSliderProps } from "../../types/dropdowntypes"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGreaterThanEqual, faEquals, faLessThanEqual } from "@fortawesome/free-solid-svg-icons"
+import { useCallback } from "react"
 
 export function LevelSliderComponent({ levelprops, className, ...props }: LevelSliderProps) {
   const {
@@ -15,34 +16,34 @@ export function LevelSliderComponent({ levelprops, className, ...props }: LevelS
     levelGreaterThanEqual, setLevelGreaterThanEqual,
   } = levelprops 
 
-  function handleLessThanClick() {
+  const handleLessThanClick = useCallback(() => {
     setLevelLessThanEqual(true);
     setLevelEqual(false);
     setLevelGreaterThanEqual(false);
     setCanClearFilter(true);
-  }
+  }, [setLevelLessThanEqual, setLevelEqual, setLevelGreaterThanEqual, setCanClearFilter]);
 
-  function handleEqualClick() {
+  const handleEqualClick = useCallback(() => {
       setLevelLessThanEqual(false);
       setLevelEqual(true);
       setLevelGreaterThanEqual(false);
       setCanClearFilter(true);
-  }
+  }, [setLevelLessThanEqual, setLevelEqual, setLevelGreaterThanEqual, setCanClearFilter]);
 
-  function handleGreaterThanClick() {
+  const handleGreaterThanClick = useCallback(() => {
       setLevelLessThanEqual(false);
       setLevelEqual(false);
       setLevelGreaterThanEqual(true);
       setCanClearFilter(true);
-  }
+  }, [setLevelLessThanEqual, setLevelEqual, setLevelEqual, setCanClearFilter]);
 
 
-  function handleSliderChange(newValue: number[]) {
+  const handleSliderChange = useCallback((newValue: number[]) => {
     setLevelFilter(newValue[0])
     setListCurrentPage(1);
     setGalleryCurrentPage(1);
     setCanClearFilter(newValue[0] !== null);
-  }
+  }, [setLevelFilter, setListCurrentPage, setGalleryCurrentPage, setCanClearFilter]);
 
   return (
     <div className="flex w-[94%] my-2 justify-between">

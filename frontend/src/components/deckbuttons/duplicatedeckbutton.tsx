@@ -5,6 +5,7 @@ import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { DeleteDeck } from "./buttonprops";
 import { toast } from "sonner";
 import { toastErrorMessage, toastSuccessMessage } from "../cardcollectioncomponents/types/buttontypes";
+import { useCallback } from "react";
 
 
 const DuplicateDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: DeleteDeck) => {
@@ -26,7 +27,7 @@ const DuplicateDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: De
         }
     }
 
-    function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation()
         const promise = handleDuplicateDeckClick(deck);
         toast.promise(promise, {
@@ -44,7 +45,7 @@ const DuplicateDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: De
                 }
             },
         })
-    }
+    }, [handleDuplicateDeckClick]);
 
     return (
         <button 

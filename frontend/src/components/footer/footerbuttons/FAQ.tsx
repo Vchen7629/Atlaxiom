@@ -1,18 +1,20 @@
 import { useNavigate } from 'react-router-dom';
-import { AuthenticationState } from './hometypes';
+import { AuthenticationState } from '../types/hometypes';
 import { useSelector } from 'react-redux';
+import { useCallback } from 'react';
 
 const FAQ = () => {
   const navigate = useNavigate();
   const authenticated = useSelector((state: AuthenticationState) => state.auth.token !== null);
 
-  function handleButtonClick() {
+  const handleButtonClick = useCallback(() => {
     if (authenticated) {
       navigate("/FAQloggedin")
     } else {
       navigate('/FAQ');
     }
-  };
+    console.log('hi')
+  }, [navigate]);
 
   return (
     <div>

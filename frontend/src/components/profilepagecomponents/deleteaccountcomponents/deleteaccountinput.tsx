@@ -1,10 +1,11 @@
+import { useCallback } from "react";
 import { DeleteInputProps } from "../types/deletecomponenttypes";
 
 const DeleteAccountInputComponent = ({ deleteInput, setDeleteInput }: DeleteInputProps) => {
-    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         setDeleteInput(inputValue);
-    };
+    }, [setDeleteInput]);
 
     return (
         <section className="flex flex-col">

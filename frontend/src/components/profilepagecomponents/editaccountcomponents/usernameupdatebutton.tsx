@@ -4,6 +4,7 @@ import { useUpdateUserMutation } from "@/app/api-slices/usersApiSlice";
 import { SaveUsernameButton } from "../types/editcomponenttypes";
 import { toast } from "sonner";
 import { toastErrorMessage, toastSuccessMessage } from "@/components/cardcollectioncomponents/types/buttontypes";
+import { useCallback } from "react";
 
 const UsernameUpdateButton = ({ UpdateUsernameProps } : SaveUsernameButton) => {
     const {
@@ -29,7 +30,7 @@ const UsernameUpdateButton = ({ UpdateUsernameProps } : SaveUsernameButton) => {
         }
     };
 
-    function handleClick() {
+    const handleClick = useCallback(() => {
         const promise = handleSubmitUsername();
         toast.promise(promise, {
             loading: "loading...",
@@ -46,7 +47,7 @@ const UsernameUpdateButton = ({ UpdateUsernameProps } : SaveUsernameButton) => {
                 }
             }
         })
-    }
+    }, [handleSubmitUsername])
 
     return (
         <button className="flex items-center justify-center rounded-2xl bg-blue-500 w-36 h-10" onClick={handleClick}>

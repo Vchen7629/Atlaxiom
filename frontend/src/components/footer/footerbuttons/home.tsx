@@ -1,18 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { AuthenticationState } from './hometypes';
+import { AuthenticationState } from '../types/hometypes';
+import { useCallback } from 'react';
 
 const Home = () => {
   const navigate = useNavigate();
   const authenticated = useSelector((state: AuthenticationState) => state.auth.token !== null);
 
-  function handleButtonClick() {
+  const handleButtonClick = useCallback(() => {
     if (authenticated) {
       navigate('/loggedin');
     } else {
       navigate('/')
     }
-  };
+  }, [navigate]);
 
   return (
     <div>

@@ -18,7 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { SpellTypeDropDownProps } from "../../types/dropdowntypes"
-import { useState } from "react"
+import { useCallback, useState } from "react"
  
 export function SpellTypeDropDownComponent({ spelltypeprops }: SpellTypeDropDownProps) {
   const {
@@ -28,9 +28,9 @@ export function SpellTypeDropDownComponent({ spelltypeprops }: SpellTypeDropDown
     setGalleryCurrentPage,
     setCanClearFilter
   } = spelltypeprops 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState<boolean>(false)
 
-  const handleClick = (newValue: string) => {
+  const handleClick = useCallback((newValue: string) => {
     setSpellTypeFilter(newValue)
     setListCurrentPage(1);
     setGalleryCurrentPage(1);
@@ -40,7 +40,7 @@ export function SpellTypeDropDownComponent({ spelltypeprops }: SpellTypeDropDown
     } else {
       setCanClearFilter(false);
     }
-  }
+  }, [setSpellTypeFilter, setListCurrentPage, setGalleryCurrentPage, setOpen, setCanClearFilter]);
   
   return (
     <Popover open={open} onOpenChange={setOpen}>

@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars,  faGripHorizontal } from '@fortawesome/free-solid-svg-icons';
 import { SubGridListViewComponentProps } from '../types/draganddropitemtypes';
+import { useCallback } from 'react';
 
 const SubGridListViewComponent= ({ filterProps }: SubGridListViewComponentProps) => {
     const {
@@ -8,15 +9,15 @@ const SubGridListViewComponent= ({ filterProps }: SubGridListViewComponentProps)
         galleryView, setGalleryView
     } = filterProps
 
-    function handleListView() {
+    const handleListView = useCallback(() => {
         setListView(true)
         setGalleryView(false)
-    }
+    }, [setListView, setGalleryView]);
 
-    function handleGalleryView() {
+    const handleGalleryView = useCallback(() => {
         setListView(false)
         setGalleryView(true)
-    }
+    }, [setListView, setGalleryView]);
 
     return (
         <>

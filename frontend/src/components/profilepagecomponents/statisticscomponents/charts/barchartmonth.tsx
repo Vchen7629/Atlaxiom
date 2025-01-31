@@ -2,7 +2,7 @@ import { useGetAllOwnedDecksQuery } from "../../../../app/api-slices/decksapisli
 import { useGetOwnedCardsQuery } from "../../../../app/api-slices/ownedCardapislice"
 
 import { useSelector } from "react-redux"
-import { useMemo, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 import { Bar, BarChart, XAxis } from "recharts"
 import {
   Card,
@@ -94,13 +94,13 @@ export function ComponentBarMonthChart({ selectedYear }: SelectedYear): JSX.Elem
     const totalCards = chartData.reduce((acc, curr) => acc + curr.cards, 0);
     const totalDecks = chartData.reduce((acc, curr) => acc + curr.decks, 0);
 
-    function SetCardView() {
+    const SetCardView = useCallback(() => {
         setStatisticType("cards")
-    }
+    }, [setStatisticType]);
 
-    function setDeckView() {
+    const setDeckView = useCallback(() => {
         setStatisticType("decks")
-    }
+    }, [setStatisticType]);
 
     return (
         <Card className="relative w-full lg:w-[60vw] bg-[hsl(var(--profilebackground))] rounded-xl">

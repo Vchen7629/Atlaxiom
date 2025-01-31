@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { NewDeckButton } from '../types/homepagecomponentprops.ts';
 import { toast } from 'sonner';
 import { toastErrorMessage, toastSuccessMessage } from '@/components/cardcollectioncomponents/types/buttontypes.ts';
+import { useCallback } from 'react';
 
 const CreateNewDeckComponent: React.FC<NewDeckButton> = ({ userId }) => {
     const navigate = useNavigate()
@@ -23,7 +24,7 @@ const CreateNewDeckComponent: React.FC<NewDeckButton> = ({ userId }) => {
         }
     };
 
-    function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation()
         const promise = handleCreateDeckClick();
         toast.promise(promise, {
@@ -39,7 +40,7 @@ const CreateNewDeckComponent: React.FC<NewDeckButton> = ({ userId }) => {
                 }
             }
         })
-    }
+    }, [handleCreateDeckClick]);
 
     return (
         <button className="flex text-md px-4 py-2 rounded-xl bg-[hsl(var(--background3))]" onClick={handleClick}>

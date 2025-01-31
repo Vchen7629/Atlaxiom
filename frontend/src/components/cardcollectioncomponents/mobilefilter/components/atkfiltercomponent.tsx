@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGreaterThanEqual, faEquals, faLessThanEqual } from "@fortawesome/free-solid-svg-icons"
 import { atkprops } from "../../types/componenttypes"
+import { useCallback } from "react"
 
 const AtkFilterComponent = ({ atkfilterprops }: atkprops) => {
     const {
@@ -13,41 +14,41 @@ const AtkFilterComponent = ({ atkfilterprops }: atkprops) => {
         atkGreaterThanEqual, setAtkGreaterThanEqual
     } = atkfilterprops
 
-    function handleLessThanClick() {
+    const handleLessThanClick = useCallback(() => {
         setListCurrentPage(1)
         setGalleryCurrentPage(1)
         setCanClearFilter(true)
         setAtkLessThanEqual(true);
         setAtkEqual(false);
         setAtkGreaterThanEqual(false);
-    }
+    }, [setListCurrentPage, setGalleryCurrentPage, setCanClearFilter, setAtkLessThanEqual, setAtkEqual, setAtkGreaterThanEqual]);
 
-    function handleEqualClick() {
+    const handleEqualClick = useCallback(() => {
         setListCurrentPage(1)
         setGalleryCurrentPage(1)
         setCanClearFilter(true)
         setAtkLessThanEqual(false);
         setAtkEqual(true);
         setAtkGreaterThanEqual(false);
-    }
+    }, [setListCurrentPage, setGalleryCurrentPage, setCanClearFilter, setAtkEqual, setAtkLessThanEqual, setAtkGreaterThanEqual]);
 
-    function handleGreaterThanClick() {
+    const handleGreaterThanClick = useCallback(() => {
         setListCurrentPage(1)
         setGalleryCurrentPage(1)
         setCanClearFilter(true)
         setAtkLessThanEqual(false);
         setAtkEqual(false);
         setAtkGreaterThanEqual(true);
-    }
+    }, [setListCurrentPage, setGalleryCurrentPage, setCanClearFilter, setAtkLessThanEqual, setAtkGreaterThanEqual]);
 
-    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         const numericValue = inputValue.trim() === '' ? null : parseFloat(inputValue);
         setAtkFilter(numericValue)
         setCanClearFilter(numericValue !== null)
         setListCurrentPage(1)
         setGalleryCurrentPage(1)
-    }
+    }, [setAtkFilter, setCanClearFilter, setListCurrentPage, setGalleryCurrentPage]);
 
     return (
         <div className="flex w-[93%] my-2">   

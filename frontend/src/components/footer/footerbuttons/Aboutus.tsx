@@ -1,11 +1,12 @@
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const AboutUs = () => {
   const navigate = useNavigate();
 
-  function handleButtonClick() {
+  const handleButtonClick = useCallback(() => {
     navigate('/aboutus');
-  };
+  }, [navigate]);
 
   return (
     <div>

@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { pageselector } from "../types/paginationtypes";
 
 export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
@@ -14,25 +15,25 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
         setGalleryErr,
     } = pageselectorprops
 
-    function handleListPageChange(page: number) {
+    const handleListPageChange = useCallback((page: number) => {
         setListCurrentPage(page);
         setListPage(page); 
         setListErr("")       
-    };
+    }, [setListCurrentPage, setListPage, setListErr]);
 
-    function handleGalleryPageChange(page: number) {
+    const handleGalleryPageChange = useCallback((page: number) => {
         setGalleryCurrentPage(page);
         setGalleryPage(page);  
         setGalleryErr("");      
-    };
+    }, [setGalleryCurrentPage, setGalleryPage, setGalleryErr]);
 
-    function PrevPage() {
+    const PrevPage = useCallback(() => {
         handleListPageChange(currentListPage - 1)
-    }
+    }, [handleListPageChange]);
 
-    function NextPage() {
+    const NextPage = useCallback(() => {
         handleListPageChange(currentListPage + 1)
-    }
+    },  [handleListPageChange]);
 
     return (
         <div className="flex w-fit text-center space-x-2">

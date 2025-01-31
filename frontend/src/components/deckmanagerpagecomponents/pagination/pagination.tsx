@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Pagination } from "../types/paginationtypes.ts";
 import { PageSelectorComponent } from "./pageselector.tsx";
 import { Deck } from "../types/homepagecomponentprops.ts";
@@ -26,20 +26,20 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
     const [gallerypage, setGalleryPage] = useState(currentGalleryPage);
     const [galleryerr, setGalleryErr] = useState<string>("")
 
-    function updateCurrentPageList() {
+    const updateCurrentPageList = useCallback(() => {
         if (filteredDecks.length > 0) {
             const startIndex = (currentListPage - 1) * suggestionsPerListPage;
             const endIndex = startIndex + suggestionsPerListPage;
             const currentListSuggestions = filteredDecks.slice(startIndex, endIndex) as Deck[];
             setCurrentPageListDecksArray(currentListSuggestions);
         }
-    };
+    }, [setCurrentPageListDecksArray]);
 
-    function handleListPageChange(page: number) {
+    const handleListPageChange = useCallback((page: number) => {
         setListCurrentPage(page);        
-    };
+    }, [setListCurrentPage]);
 
-    function handleListInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const handleListInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         // Allow only numeric input
         if (/^\d*$/.test(value)) {
@@ -52,16 +52,16 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
                 setListErr(`Enter a page number between 1 and ${totalListPages}`)
             }
         }
-    };
+    }, [setListPage, handleListPageChange, setListErr]);
 
-    function updateCurrentPageGallery() {
+    const updateCurrentPageGallery = useCallback(() => {
         if (filteredDecks.length > 0) {
             const startIndex = (currentGalleryPage - 1) * suggestionsPerGalleryPage;
             const endIndex = startIndex + suggestionsPerGalleryPage;
             const currentGallerySuggestions = filteredDecks.slice(startIndex, endIndex) as Deck[];
             setCurrentPageGalleryDecksArray(currentGallerySuggestions);
         }
-    };
+    }, [setCurrentPageGalleryDecksArray]);
 
     useEffect(() => {
         updateTotalListPages(filteredDecks.length);
@@ -75,11 +75,11 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         }
     }, [filteredDecks.length, suggestionsPerListPage, suggestionsPerGalleryPage, currentListPage, currentGalleryPage]);
 
-    function handleGalleryPageChange(page: number) {
+    const handleGalleryPageChange = useCallback((page: number) => {
         setGalleryCurrentPage(page);        
-    };
+    }, [setGalleryCurrentPage]);
 
-    function handleGalleryInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const handleGalleryInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         // Allow only numeric input
         if (/^\d*$/.test(value)) {
@@ -92,7 +92,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
                 setGalleryErr(`Enter a page number between 1 and ${totalListPages}`)
             }
         }
-    };
+    }, [setGalleryPage, handleGalleryPageChange, setGalleryErr]);
 
     const pageselectorprops = {
         listView,

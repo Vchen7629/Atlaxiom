@@ -3,18 +3,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 import { AuthenticationState } from '../types/searchbartypes';
+import { useCallback } from 'react';
 
 const Cardsearch = () => {
   const navigate = useNavigate();
   const authenticated = useSelector((state: AuthenticationState) => state.auth.token !== null);
 
-  function handleButtonClick() {
+  const handleButtonClick = useCallback(() => {
     if (authenticated) {
       navigate('/searchloggedin');
     } else {
       navigate('/search')
     }
-  };
+  }, [navigate]);
 
   return (
     <div>

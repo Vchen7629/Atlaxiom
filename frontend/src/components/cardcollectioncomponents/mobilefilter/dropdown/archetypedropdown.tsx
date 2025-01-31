@@ -18,7 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { ArchetypeDropDownProps } from "../../types/dropdowntypes"
-import { useState } from "react"
+import { useCallback, useState } from "react"
  
 export function ArchetypeDropDownComponent({ archetypeprops }: ArchetypeDropDownProps) {
   const {
@@ -31,7 +31,7 @@ export function ArchetypeDropDownComponent({ archetypeprops }: ArchetypeDropDown
 
   const [open, setOpen] = useState(false)
 
-  const handleClick = (newValue: string) => {
+  const handleClick = useCallback((newValue: string) => {
     setArcheTypeFilter(newValue)
     setListCurrentPage(1);
     setGalleryCurrentPage(1);
@@ -41,7 +41,7 @@ export function ArchetypeDropDownComponent({ archetypeprops }: ArchetypeDropDown
     } else {
       setCanClearFilter(false);
     }
-  }
+  }, []);
  
   return (
     <Popover open={open} onOpenChange={setOpen}>

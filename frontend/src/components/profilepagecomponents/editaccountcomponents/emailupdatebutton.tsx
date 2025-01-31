@@ -4,6 +4,7 @@ import { useUpdateUserMutation } from "@/app/api-slices/usersApiSlice";
 import { SaveEmailButton } from "../types/editcomponenttypes";
 import { toast } from "sonner";
 import { toastErrorTwoMessage, toastSuccessMessage } from "@/components/cardcollectioncomponents/types/buttontypes";
+import { useCallback } from "react";
 
 const EmailUpdateButton = ({ UpdateEmailProps } : SaveEmailButton) => {
     const {
@@ -29,7 +30,7 @@ const EmailUpdateButton = ({ UpdateEmailProps } : SaveEmailButton) => {
         }
     };
 
-    function handleClick() {
+    const handleClick = useCallback(() => {
         const promise = handleSubmitEmail();
         toast.promise(promise, {
             loading: "loading...",
@@ -48,7 +49,7 @@ const EmailUpdateButton = ({ UpdateEmailProps } : SaveEmailButton) => {
                 }
             }
         })
-    }
+    }, [handleSubmitEmail])
 
     return (
         <button className="flex items-center justify-center rounded-2xl bg-blue-500 w-36 h-10" onClick={handleClick}>

@@ -6,6 +6,7 @@ import { useSendLogoutMutation } from "@/app/auth/authApiSlice";
 import { DeleteButtonProps } from "../types/deletecomponenttypes";
 import { toast } from "sonner";
 import {  toastErrorTwoMessage } from "@/components/cardcollectioncomponents/types/buttontypes";
+import { useCallback } from "react";
 
 const DeleteAccountButton = ({ deleteInput }: DeleteButtonProps) => {
     const userId = useSelector((state: UserId) => state.auth.userId);
@@ -31,7 +32,7 @@ const DeleteAccountButton = ({ deleteInput }: DeleteButtonProps) => {
         }
     };
 
-    function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         const promise = handleSubmitDelete();
         toast.promise(promise, {
@@ -49,7 +50,7 @@ const DeleteAccountButton = ({ deleteInput }: DeleteButtonProps) => {
                 }
             }
         })
-    }
+    }, [handleSubmitDelete]);
 
     return (
         <button className="flex items-center justify-center rounded-2xl bg-red-500 w-36 h-10" onClick={handleClick}>

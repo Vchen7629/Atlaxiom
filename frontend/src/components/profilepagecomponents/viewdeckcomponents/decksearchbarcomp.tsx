@@ -1,16 +1,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { DeckSearchBarComp } from "../types/componenttypes";
+import { useCallback } from "react";
 
 const DeckSearchBar = ({ setDeckName, deckName}: DeckSearchBarComp) => {
-    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         setDeckName(inputValue);
-    };
+    }, [setDeckName]);
 
-    function handleClearClick() {
+    const handleClearClick = useCallback(() => {
         setDeckName('');
-    };
+    }, [setDeckName]);
 
     return (
         <div className="flex flex-grow w-[80vw] lg:min-w-[15vw] lg:max-w-[20vw] h-[40px] pl-3 relative border-2 border-gray-400 justify-start text-[hsl(var(--text))]">                      

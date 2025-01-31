@@ -5,6 +5,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FavoriteDeck, GalleryDeck } from "./buttonprops";
 import { toast } from "sonner";
 import { toastErrorMessage, toastSuccessMessage } from "../cardcollectioncomponents/types/buttontypes";
+import { useCallback } from "react";
 
 
 const FavoriteDeckButtonComponent = ({ deck, refetch, userId, setCurrentPageListDecksArray, setCurrentPageGalleryDecksArray}: FavoriteDeck) => {
@@ -40,7 +41,7 @@ const FavoriteDeckButtonComponent = ({ deck, refetch, userId, setCurrentPageList
         }
     }
 
-    function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation()
         const promise = handleFavoriteDeckClick(deck);
         toast.promise(promise, {
@@ -58,7 +59,7 @@ const FavoriteDeckButtonComponent = ({ deck, refetch, userId, setCurrentPageList
                 }
             },
         })
-    }
+    }, [handleFavoriteDeckClick]);
 
     return (
         <button className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]' onClick={handleClick}>

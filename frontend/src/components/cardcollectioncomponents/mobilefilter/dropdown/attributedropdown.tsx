@@ -18,7 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { AttributeDropDownProps } from "../../types/dropdowntypes"
-import { useState } from "react"
+import { useCallback, useState } from "react"
  
 export function AttributeDropDownComponent({ attributeprops }: AttributeDropDownProps) {
   const {
@@ -31,7 +31,7 @@ export function AttributeDropDownComponent({ attributeprops }: AttributeDropDown
 
   const [open, setOpen] = useState(false)
 
-  const handleClick = (newValue: string) => {
+  const handleClick = useCallback((newValue: string) => {
     setAttributeFilter(newValue)
     setListCurrentPage(1);
     setGalleryCurrentPage(1);
@@ -41,7 +41,7 @@ export function AttributeDropDownComponent({ attributeprops }: AttributeDropDown
     } else {
       setCanClearFilter(false);
     }
-  }
+  }, [setAttributeFilter, setListCurrentPage, setGalleryCurrentPage, setOpen, setCanClearFilter, setCanClearFilter])
  
   return (
     <Popover open={open} onOpenChange={setOpen}>

@@ -3,7 +3,7 @@ import { useGetAllOwnedDecksQuery } from "../../../../app/api-slices/decksapisli
 import { useGetOwnedCardsQuery } from "../../../../app/api-slices/ownedCardapislice"
 import { useSelector } from "react-redux"
 import { Bar, BarChart, XAxis } from "recharts"
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import {
   Card,
   CardContent,
@@ -44,9 +44,9 @@ export function ComponentBarChart({ yearprops }: Year): JSX.Element {
     const { data: deckData } = useGetAllOwnedDecksQuery(userId);
 
 
-    function handleSelectedYear(value: string) {
+    const handleSelectedYear = useCallback((value: string) => {
       setSelectedYear(value); 
-    };
+    }, [setSelectedYear]);
     
     const monthlyData = useMemo(() => {
         const data = Array.from({ length: 12 }, () => ({

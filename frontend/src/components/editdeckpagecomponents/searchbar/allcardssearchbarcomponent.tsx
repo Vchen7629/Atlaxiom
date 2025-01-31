@@ -85,21 +85,25 @@ const AllCardsSearchBarComponent = ({ AllCardsSearchBarCompProps }: AllCardsSear
         setAllCardsCurrentGalleryResults(newCurrentGalleryResults);
     }, [allCardsCurrentPage, allCardsGalleryResults, resultsPerGalleryPage])
 
-    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         setAllCardsName(inputValue);
         setAllCardsCurrentPage(1);
-    };
+    }, [setAllCardsName, setAllCardsCurrentPage]);
 
-    function handleClearClick() {
+    const handleClearClick = useCallback(() => {
         setAllCardsName('');
         setAllCardsGalleryResults([])
         setAllCardsListResults([])
-    };
+    }, [setAllCardsName]);
 
-    function handlePageChange(page: number) {
-        setAllCardsCurrentPage(page);
-    };
+    const PrevPageClick = useCallback(() => {
+        setAllCardsCurrentPage(allCardsCurrentPage - 1)
+    }, [setAllCardsCurrentPage]);
+
+    const NextPageClick = useCallback(() => {
+        setAllCardsCurrentPage(allCardsCurrentPage + 1)
+    }, [setAllCardsCurrentPage]);
 
     return (
         <div className="flex flex-col">
@@ -130,14 +134,14 @@ const AllCardsSearchBarComponent = ({ AllCardsSearchBarCompProps }: AllCardsSear
                             <button 
                                 className={`${allCardsCurrentPage === 1 ? 'bg-gray-400' : 'bg-goldenrod'} h-[80%] w-[48%] rounded-md`}
                                 disabled={allCardsCurrentPage === 1} 
-                                onClick={() => handlePageChange(allCardsCurrentPage - 1)}
+                                onClick={PrevPageClick}
                             >
                                 {'<'}
                             </button>
                             <button 
                                 className={`${allCardsCurrentPage === allCardsTotalListPages ? 'bg-gray-400' : 'bg-goldenrod'} h-[80%] w-[48%] rounded-md`}
                                 disabled={allCardsCurrentPage === allCardsTotalListPages} 
-                                onClick={() => handlePageChange(allCardsCurrentPage + 1)}>
+                                onClick={NextPageClick}>
                                     {'>'}
                                 </button>
                         </div>
@@ -147,14 +151,14 @@ const AllCardsSearchBarComponent = ({ AllCardsSearchBarCompProps }: AllCardsSear
                             <button 
                                 className={`${allCardsCurrentPage === 1 ? 'bg-gray-400' : 'bg-goldenrod'} h-[80%] w-[48%] rounded-md`}
                                 disabled={allCardsCurrentPage === 1} 
-                                onClick={() => handlePageChange(allCardsCurrentPage - 1)}
+                                onClick={PrevPageClick}
                             >
                                 {'<'}
                             </button>
                             <button 
                                 className={`${allCardsCurrentPage === allCardsTotalGalleryPages ? 'bg-gray-400' : 'bg-goldenrod'} h-[80%] w-[48%] rounded-md`}
                                 disabled={allCardsCurrentPage === allCardsTotalGalleryPages} 
-                                onClick={() => handlePageChange(allCardsCurrentPage + 1)}>
+                                onClick={NextPageClick}>
                                     {'>'}
                                 </button>
                         </div>

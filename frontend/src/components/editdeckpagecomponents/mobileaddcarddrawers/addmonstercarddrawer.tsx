@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/drawer"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faXmarkSquare } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import GridListViewComponent from "../buttons/gridlistviewcomponent";
 import { Card } from "../types/datatypes";
 import { GalleryResult, Result } from "../types/sidebarcomponenttypes";
@@ -63,15 +63,15 @@ const AddMonsterCardDrawer = ({ monstercarddrawerprops }: MonsterDrawer) => {
     const allCardsTotalGalleryPages = Math.ceil(allCardsGalleryResults.length / resultsPerGalleryPage);
     const collectionTotalGalleryPage = Math.ceil(collectionGalleryResults.length / resultsPerGalleryPage);
 
-    function handleAllCardsView() {
+    const handleAllCardsView = useCallback(() => {
         setAllCardsView(true);
         setCollectionCardsView(false);
-    }
+    }, [setAllCardsView, setCollectionCardsName]);
 
-    function handleCollectionCardsView() {
+    const handleCollectionCardsView = useCallback(() => {
         setAllCardsView(false);
         setCollectionCardsView(true);
-    }
+    }, [setAllCardsView, setCollectionCardsName]);
 
     const AllCardsSearchBarCompProps = {
         allMonsterCards, setAllMonsterCards,

@@ -1,11 +1,12 @@
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const navigate = useNavigate();
 
-  function handleButtonClick() {
+  const handleButtonClick = useCallback(() => {
     navigate('/signup');
-  };
+  }, [navigate]);
 
   return (
     <div>

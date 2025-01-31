@@ -4,6 +4,7 @@ import { useUpdateUserMutation } from "@/app/api-slices/usersApiSlice";
 import { SavePasswordButton } from "../types/editcomponenttypes";
 import { toast } from "sonner";
 import { toastErrorMessage } from "@/components/cardcollectioncomponents/types/buttontypes";
+import { useCallback } from "react";
 
 const PasswordUpdateButton = ({ UpdatePasswordProps } : SavePasswordButton) => {
     const {
@@ -28,7 +29,7 @@ const PasswordUpdateButton = ({ UpdatePasswordProps } : SavePasswordButton) => {
         }
     };
 
-    function handleClick()  {
+    const handleClick = useCallback(() => {
         const promise = handleSubmitPassword();
         toast.promise(promise, {
             loading: "loading...",
@@ -43,7 +44,7 @@ const PasswordUpdateButton = ({ UpdatePasswordProps } : SavePasswordButton) => {
                 }
             }
         })
-    }
+    }, [handleSubmitPassword]);
 
     return (
         <button className="flex items-center justify-center rounded-2xl bg-blue-500 w-36 h-10" onClick={handleClick}>

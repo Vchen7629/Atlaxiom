@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import GridListViewComponent from '../buttons/gridlistviewcomponent';
 import AllCardsSearchResultsDisplayComponent from '../sidebardisplaycomponents/allcardsdisplaycomponent';
 import AllCardsSearchBarComponent from '../searchbar/allcardssearchbarcomponent';
@@ -46,15 +46,15 @@ const DeckBuilderPageSidebarComponent = ({ sidebarprops }: Sidebar) => {
     const collectionTotalGalleryPage = Math.ceil(collectionGalleryResults.length / resultsPerGalleryPage);
 
 
-    function handleAllCardsView() {
+    const handleAllCardsView = useCallback(() => {
         setAllCardsView(true);
         setCollectionCardsView(false);
-    }
+    }, [setAllCardsView, setCollectionCardsView]);
 
-    function handleCollectionCardsView() {
+    const handleCollectionCardsView = useCallback(() => {
         setAllCardsView(false);
         setCollectionCardsView(true);
-    }
+    }, [setAllCardsView, setCollectionCardsView]);
 
     const filterProps = {
         listView, setListView,

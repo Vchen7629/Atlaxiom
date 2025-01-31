@@ -3,6 +3,7 @@ import { Slider } from "@/components/ui/slider"
 import { LinkSliderProps } from "../../types/dropdowntypes"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faLessThanEqual, faEquals, faGreaterThanEqual } from "@fortawesome/free-solid-svg-icons"
+import { useCallback } from "react"
 
 export function LinkScaleSliderComponent({ linkprops, className, ...props }: LinkSliderProps) {
   const {
@@ -15,33 +16,33 @@ export function LinkScaleSliderComponent({ linkprops, className, ...props }: Lin
     linkGreaterThanEqual, setLinkGreaterThanEqual,
   } = linkprops 
 
-  function handleSliderChange(newValue: number[]) {
+  const handleSliderChange = useCallback((newValue: number[]) => {
     setLinkFilter(newValue[0])
     setListCurrentPage(1);
     setGalleryCurrentPage(1);
     setCanClearFilter(newValue[0] !== null);
-  }
+  }, [setLinkFilter, setListCurrentPage, setGalleryCurrentPage, setCanClearFilter])
 
-  function handleLessThanClick() {
+  const handleLessThanClick = useCallback(() => {
     setLinkLessThanEqual(true);
     setLinkEqual(false);
     setLinkGreaterThanEqual(false);
     setCanClearFilter(true);
-  }
+  }, [setLinkLessThanEqual, setLinkEqual, setLinkGreaterThanEqual, setCanClearFilter]);
 
-  function handleEqualClick() {
+  const handleEqualClick = useCallback(() => {
       setLinkLessThanEqual(false);
       setLinkEqual(true);
       setLinkGreaterThanEqual(false);
       setCanClearFilter(true);
-  }
+  }, [setLinkLessThanEqual, setLinkEqual, setLinkGreaterThanEqual, setCanClearFilter]);
 
-  function handleGreaterThanClick() {
+  const handleGreaterThanClick = useCallback(() => {
       setLinkLessThanEqual(false);
       setLinkEqual(false);
       setLinkGreaterThanEqual(true);
       setCanClearFilter(true);
-  }
+  }, [setLinkLessThanEqual, setLinkEqual, setLinkGreaterThanEqual, setCanClearFilter]);
 
   return (
     <div className="flex w-[94%]  my-2 justify-between">

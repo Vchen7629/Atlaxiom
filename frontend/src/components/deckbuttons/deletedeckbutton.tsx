@@ -5,6 +5,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { DeleteDeck } from "./buttonprops";
 import { toast } from "sonner";
 import { toastErrorMessage, toastSuccessMessage } from "../cardcollectioncomponents/types/buttontypes";
+import { useCallback } from "react";
 
 
 const DeleteDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: DeleteDeck) => {
@@ -26,7 +27,7 @@ const DeleteDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: Delet
         }
     }
 
-    function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation()
         const promise = handleDeleteDeckClick(deck);
         toast.promise(promise, {
@@ -46,7 +47,7 @@ const DeleteDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: Delet
                 }
             },
         })
-    }
+    }, [handleDeleteDeckClick]);
 
     return (
         <button className='text-white h-8 w-8 rounded bg-[hsl(var(--background3))]' onClick={handleClick}>

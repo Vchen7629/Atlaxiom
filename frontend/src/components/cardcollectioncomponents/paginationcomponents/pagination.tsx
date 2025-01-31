@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { PageSelectorComponent } from "./pageselector";
 import { Pagination } from "../types/paginationtypes";
 import { OwnedCard } from "../types/dataStructures";
@@ -25,20 +25,20 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
     const [gallerypage, setGalleryPage] = useState(currentGalleryPage);
     const [galleryerr, setGalleryErr] = useState<string>("")
 
-    function updateCurrentPageList() {
+    const updateCurrentPageList = useCallback(() => {
         if (filteredCards.length > 0) {
             const startIndex = (currentListPage - 1) * suggestionsPerListPage;
             const endIndex = startIndex + suggestionsPerListPage;
             const currentListSuggestions = filteredCards.slice(startIndex, endIndex) as OwnedCard[];
             setCurrentListPageResults(currentListSuggestions);
         }
-    };
+    }, [setCurrentListPageResults])
 
-    function handleListPageChange(page: number) {
+    const handleListPageChange = useCallback((page: number) => {
         setListCurrentPage(page);        
-    };
+    }, [setListCurrentPage])
 
-    function handleListInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const handleListInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         // Allow only numeric input
         if (/^\d*$/.test(value)) {
@@ -51,22 +51,22 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
                 setListErr(`Enter a page number between 1 and ${totalListPages}`)
             }
         }
-    };
+    }, [setListPage, handleListPageChange, setListErr]);
 
-    function updateCurrentPageGallery() {
+    const updateCurrentPageGallery = useCallback(() => {
         if (filteredCards.length > 0) {
             const startIndex = (currentGalleryPage - 1) * suggestionsPerGalleryPage;
             const endIndex = startIndex + suggestionsPerGalleryPage;
             const currentGallerySuggestions = filteredCards.slice(startIndex, endIndex) as OwnedCard[];
             setCurrentGalleryPageResults(currentGallerySuggestions);
         }
-    };
+    }, [setCurrentGalleryPageResults])
 
-    function handleGalleryPageChange(page: number) {
+    const handleGalleryPageChange = useCallback((page: number) => {
         setGalleryCurrentPage(page);        
-    };
+    }, [setGalleryCurrentPage]);
 
-    function handleGalleryInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const handleGalleryInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         // Allow only numeric input
         if (/^\d*$/.test(value)) {
@@ -79,7 +79,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
                 setGalleryErr(`Enter a page number between 1 and ${totalListPages}`)
             }
         }
-    };
+    }, [setGalleryPage, handleGalleryPageChange, setGalleryErr]);
 
     useEffect(() => {
         updateTotalPages(filteredCards.length);

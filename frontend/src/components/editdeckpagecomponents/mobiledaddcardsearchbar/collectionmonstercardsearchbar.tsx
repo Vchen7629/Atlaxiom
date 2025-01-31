@@ -95,25 +95,25 @@ const MobileCollectionMonsterCardSearchBarComponent = ({ CollectionSearchBarComp
         }
     }, [collectionCurrentPage, collectionGalleryResults, collectionMonsterCards, resultsPerGalleryPage])
 
-    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         setCollectionCardsName(inputValue);
         setCollectionCardsCurrentPage(1);
-    };
+    }, [setCollectionCardsName, setCollectionCardsCurrentPage])
 
-    function handleClearClick() {
+    const handleClearClick = useCallback(() => {
         setCollectionCardsName('');
         setCollectionGalleryResults([])
         setCollectionListResults([])
-    };
+    }, [setCollectionCardsName, setCollectionGalleryResults, setCollectionListResults]);
 
-    function handlePrevPage() {
+    const handlePrevPage = useCallback(() => {
         setCollectionCardsCurrentPage(collectionCurrentPage - 1)
-    }
+    }, [setCollectionCardsCurrentPage]);
 
-    function handleNextPage() {
+    const handleNextPage = useCallback(() => {
         setCollectionCardsCurrentPage(collectionCurrentPage + 1)
-    }
+    }, [setCollectionCardsCurrentPage]);
 
     return (
         <div className="flex flex-col">

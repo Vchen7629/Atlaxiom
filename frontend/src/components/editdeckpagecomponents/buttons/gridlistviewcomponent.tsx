@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars,  faGripHorizontal } from '@fortawesome/free-solid-svg-icons';
 import { GridListViewComponentProps } from '../types/buttontypes';
+import { useCallback } from 'react';
 
 const GridListViewComponent= ({ filterProps }: GridListViewComponentProps) => {
     const {
@@ -10,19 +11,19 @@ const GridListViewComponent= ({ filterProps }: GridListViewComponentProps) => {
         galleryView, setGalleryView
     } = filterProps
 
-    function handleListView() {
+    const handleListView = useCallback(() => {
         setListView(true)
         setGalleryView(false)
         setAllCardsCurrentPage(1)
         setCollectionCardsCurrentPage(1)
-    }
+    }, [setListView, setGalleryView, setAllCardsCurrentPage, setCollectionCardsCurrentPage]);
 
-    function handleGalleryView() {
+    const handleGalleryView = useCallback(() => {
         setListView(false)
         setGalleryView(true)
         setAllCardsCurrentPage(1)
         setCollectionCardsCurrentPage(1)
-    }
+    }, [setListView, setGalleryView, setAllCardsCurrentPage, setCollectionCardsCurrentPage]);
 
     return (
         <>

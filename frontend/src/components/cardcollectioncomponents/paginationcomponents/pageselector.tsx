@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { pageselector } from "../types/paginationtypes";
 
 export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
@@ -12,23 +13,23 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
         totalGalleryPages,
     } = pageselectorprops
 
-    function handleListPageChange(page: number) {
+    const handleListPageChange = useCallback((page: number) => {
         setListCurrentPage(page);
         setListPage(page); 
-    };
+    }, [setListCurrentPage, setListPage])
 
-    function handleGalleryPageChange(page: number) {
+    const handleGalleryPageChange = useCallback((page: number) => {
         setGalleryCurrentPage(page);
         setGalleryPage(page);  
-    };
+    }, [setGalleryCurrentPage, setGalleryPage]);
 
-    function PrevPage() {
+    const PrevPage = useCallback(() => {
         handleListPageChange(currentListPage - 1)
-    }
+    }, [handleListPageChange])
 
-    function NextPage() {
+    const NextPage = useCallback(() => {
         handleListPageChange(currentListPage + 1)
-    }
+    }, [handleListPageChange])
 
 
     return (

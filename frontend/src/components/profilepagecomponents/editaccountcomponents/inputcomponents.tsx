@@ -1,17 +1,18 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTimes } from "@fortawesome/free-solid-svg-icons"
 import { EmailInput, PasswordInput, UsernameInput } from "../types/editcomponenttypes";
+import { useCallback } from "react";
 
 export const EditUsernameInputComponent = ({ newUsername, setNewUsername }: UsernameInput) => {
 
-    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         setNewUsername(inputValue);
-    };
+    }, [setNewUsername]);
 
-    function handleClearClick() {
+    const handleClearClick = useCallback(() => {
         setNewUsername('');
-    };
+    }, [setNewUsername]);
 
     return (
         <div className="flex w-[90%] xl:w-[25vw] h-[40px] pl-3 relative border-2 border-gray-400 justify-start text-[hsl(var(--text))]">                      

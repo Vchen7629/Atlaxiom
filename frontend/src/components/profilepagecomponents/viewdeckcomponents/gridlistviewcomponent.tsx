@@ -2,6 +2,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars,  faGripHorizontal } from '@fortawesome/free-solid-svg-icons';
 import { GridListViewComp } from '../types/componenttypes';
+import { useCallback } from 'react';
 
 const GridListViewComponent= ({ gridlistviewprops }: GridListViewComp) => {
     const {
@@ -9,15 +10,15 @@ const GridListViewComponent= ({ gridlistviewprops }: GridListViewComp) => {
         galleryView, setGalleryView
     } = gridlistviewprops
 
-    function handleListView() {
+    const handleListView = useCallback(() => {
         setListView(true)
         setGalleryView(false)
-    }
+    }, [setListView, setGalleryView]);
 
-    function handleGalleryView() {
+    const handleGalleryView = useCallback(() => {
         setListView(false)
         setGalleryView(true)
-    }
+    }, [setListView, setGalleryView]);
 
     return (
         <div className="ml-6 bg-footer flex w-[75px] rounded-xl">

@@ -1,13 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook } from '@fortawesome/free-solid-svg-icons';
+import { useCallback } from 'react';
 
 const Mydecks = () => {
   const navigate = useNavigate();
 
-  function handleButtonClick() {
+  const handleButtonClick = useCallback(() => {
     navigate('/deckmanager');
-  };
+  }, [navigate]);
 
   return (
     <div>

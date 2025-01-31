@@ -8,18 +8,19 @@ import Accountsbutton from '../accountbuttons/navbuttons/account.js'
 import { ModeToggle } from "../shadcn_components/darklightmode/mode-toggle.tsx"
 import { AuthenticationState } from './types/headertypes.ts'
 import Signup from './headerbuttons/signup.tsx'
+import { useCallback } from 'react'
 
 const Header = () => {
     const navigate = useNavigate()
     const isAuthenticated = useSelector((state: AuthenticationState) => state.auth.token !== null);
 
-    function handleHomeClick() {
+    const handleHomeClick = useCallback(() => {
         if (isAuthenticated) {
             navigate("/loggedin")
         } else {
             navigate("/")
         }
-    };
+    }, [navigate]);
 
     const pages = [
         "login", "Signup"
@@ -34,7 +35,7 @@ const Header = () => {
         );
     }
 
-    function handlePageNav(e: React.ChangeEvent<HTMLSelectElement>) {
+    const handlePageNav = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
         const value = e.target.value;
         if (value === "login") {
             navigate("/login")
@@ -43,7 +44,7 @@ const Header = () => {
         } else {
             navigate("/")
         }
-    }      
+    }, [navigate]);      
         
     return (
         <div className='flex h-full space-x-[1vw] md:mr-[2vw]'>

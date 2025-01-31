@@ -1,18 +1,19 @@
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { AuthenticationState } from './hometypes';
+import { AuthenticationState } from '../types/hometypes';
+import { useCallback } from 'react';
 
 const PrivacyPolicy = () => {
   const navigate = useNavigate();
   const authenticated = useSelector((state: AuthenticationState) => state.auth.token !== null);
 
-  function handleButtonClick() {
+  const handleButtonClick = useCallback(() => {
     if (authenticated) {
       navigate("/privacyloggedin")
     } else {
       navigate('/privacy');
     }
-  };
+  }, [navigate]);
 
   return (
     <div>

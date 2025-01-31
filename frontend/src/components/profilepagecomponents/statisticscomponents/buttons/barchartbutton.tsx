@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { barchartbutton } from "../types/buttontypes";
 
 const BarChartViewButton = ({ barchartbuttonprops }: barchartbutton) => {
@@ -6,15 +7,15 @@ const BarChartViewButton = ({ barchartbuttonprops }: barchartbutton) => {
         monthView, setMonthView
     } = barchartbuttonprops
 
-    function handleYearClick() {
+    const handleYearClick = useCallback(() => {
         setYearView(true);
         setMonthView(false);
-    }
+    }, [setYearView, setMonthView])
 
-    function handleMonthClick() {
+    const handleMonthClick = useCallback(() => {
         setYearView(false);
         setMonthView(true);
-    }
+    }, [setYearView, setMonthView])
 
     return (
         <div className="flex my-4 space-x-4 relative w-fit h-fit text-lg ">

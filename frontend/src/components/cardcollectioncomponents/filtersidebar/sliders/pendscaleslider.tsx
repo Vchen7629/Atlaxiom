@@ -3,6 +3,7 @@ import { Slider } from "@/components/ui/slider"
 import { PendSliderProps } from "../../types/dropdowntypes"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faLessThanEqual, faEquals, faGreaterThanEqual } from "@fortawesome/free-solid-svg-icons"
+import { useCallback } from "react"
 
 export function PendScaleSliderComponent({ pendprops, className, ...props }: PendSliderProps) {
   const {
@@ -15,33 +16,33 @@ export function PendScaleSliderComponent({ pendprops, className, ...props }: Pen
     pendGreaterThanEqual, setPendGreaterThanEqual,
   } = pendprops 
 
-  function handleSliderChange(newValue: number[]) {
+  const handleSliderChange = useCallback((newValue: number[]) => {
     setPendFilter(newValue[0])
     setListCurrentPage(1);
     setGalleryCurrentPage(1);
     setCanClearFilter(newValue[0] !== null);
-  }
+  }, [setPendFilter, setListCurrentPage, setGalleryCurrentPage, setCanClearFilter]);
 
-  function handleLessThanClick() {
+  const handleLessThanClick = useCallback(() => {
     setPendLessThanEqual(true);
     setPendEqual(false);
     setPendGreaterThanEqual(false);
     setCanClearFilter(true);
-  }
+  }, [setPendEqual, setPendLessThanEqual, setPendGreaterThanEqual, setCanClearFilter]);
 
-  function handleEqualClick() {
+  const handleEqualClick = useCallback(() => {
       setPendLessThanEqual(false);
       setPendEqual(true);
       setPendGreaterThanEqual(false);
       setCanClearFilter(true);
-  }
+  }, [setPendLessThanEqual, setPendEqual, setPendGreaterThanEqual, setCanClearFilter]);
 
-  function handleGreaterThanClick() {
+  const handleGreaterThanClick = useCallback(() => {
       setPendLessThanEqual(false);
       setPendEqual(false);
       setPendGreaterThanEqual(true);
       setCanClearFilter(true);
-  }
+  }, [setPendEqual, setPendLessThanEqual, setPendGreaterThanEqual, setCanClearFilter]);
 
   return (
     <div className="flex w-[94%] my-2 justify-between">

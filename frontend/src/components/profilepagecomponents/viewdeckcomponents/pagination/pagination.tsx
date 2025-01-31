@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { PageSelectorComponent } from "./pageselector.tsx";
 import { Pagination } from "../../statisticscomponents/types/paginationtypes.ts";
 import { DeckApiResponse } from "@/app/api-slices/types/decktypes.ts";
@@ -23,20 +23,20 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
     const [listpage, setListPage] = useState(currentListPage);
     const [gallerypage, setGalleryPage] = useState(currentGalleryPage);
 
-    const updateCurrentPageList = () => {
+    const updateCurrentPageList = useCallback(() => {
         if (filteredDecks.length > 0) {
             const startIndex = (currentListPage - 1) * suggestionsPerListPage;
             const endIndex = startIndex + suggestionsPerListPage;
             const currentListSuggestions = filteredDecks.slice(startIndex, endIndex) as DeckApiResponse[];
             setCurrentListPageResults(currentListSuggestions);
         }
-    };
+    }, [setCurrentListPageResults])
 
-    const handleListPageChange = (page: number) => {
+    const handleListPageChange = useCallback((page: number) => {
         setListCurrentPage(page);        
-    };
+    }, [setListCurrentPage]);
 
-    function handleListInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const handleListInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         if (/^\d*$/.test(value)) {
             let page = parseInt(value, 10) || 0;
@@ -50,22 +50,22 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
             setListPage(page);
             handleListPageChange(page);
         }
-    };
+    }, [setListPage, handleListPageChange]);
 
-    const updateCurrentPageGallery = () => {
+    const updateCurrentPageGallery = useCallback(() => {
         if (filteredDecks.length > 0) {
             const startIndex = (currentGalleryPage - 1) * suggestionsPerGalleryPage;
             const endIndex = startIndex + suggestionsPerGalleryPage;
             const currentGallerySuggestions = filteredDecks.slice(startIndex, endIndex) as DeckApiResponse[];
             setCurrentGalleryPageResults(currentGallerySuggestions);
         }
-    };
+    }, [setCurrentGalleryPageResults])
 
-    const handleGalleryPageChange = (page: number) => {
+    const handleGalleryPageChange = useCallback((page: number) => {
         setGalleryCurrentPage(page);        
-    };
+    }, [setGalleryCurrentPage]);
 
-    function handleGalleryInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const handleGalleryInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         if (/^\d*$/.test(value)) {
             let page = parseInt(value, 10) || 0;
@@ -79,7 +79,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
             setGalleryPage(page);
             handleGalleryPageChange(page);
         }
-    };
+    }, [setGalleryPage, handleGalleryPageChange]);
 
     useEffect(() => {
         updateTotalListPages(filteredDecks.length);
