@@ -36,7 +36,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         setListCurrentPage(page);        
     };
 
-    const handleListInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleListInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const value = e.target.value;
         if (/^\d*$/.test(value)) {
             let page = parseInt(value, 10) || 0;
@@ -65,7 +65,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         setGalleryCurrentPage(page);        
     };
 
-    const handleGalleryInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleGalleryInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const value = e.target.value;
         if (/^\d*$/.test(value)) {
             let page = parseInt(value, 10) || 0;

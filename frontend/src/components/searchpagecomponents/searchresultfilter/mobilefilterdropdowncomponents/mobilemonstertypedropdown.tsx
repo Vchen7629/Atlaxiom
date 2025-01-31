@@ -94,7 +94,7 @@ export function MobileMonsterTypeDropDownComponent({ monsterdropdownprops }: mon
 
   const [open, setOpen] = useState(false)
 
-  const handleClick = (newValue: string) => {
+  function handleClick(newValue: string) {
     setMonsterType(newValue)
     setSpellType("")
     setTrapType("")

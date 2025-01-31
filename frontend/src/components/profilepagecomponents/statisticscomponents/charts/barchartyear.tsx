@@ -44,7 +44,7 @@ export function ComponentBarChart({ yearprops }: Year): JSX.Element {
     const { data: deckData } = useGetAllOwnedDecksQuery(userId);
 
 
-    const handleSelectedYear = (value: string) => {
+    function handleSelectedYear(value: string) {
       setSelectedYear(value); 
     };
     
@@ -88,54 +88,52 @@ export function ComponentBarChart({ yearprops }: Year): JSX.Element {
     
 
     return (
-      <div className="relative w-full lg:w-[60vw] bg-[hsl(var(--profilebackground))] rounded-xl">
-          <Card>
-            <CardHeader>
-              <section className="flex w-full  justify-between">
-                <div className="flex flex-col space-y-2">
-                  <CardTitle className="text-[hsl(var(--text))]">Your Cards/Deck Statistics</CardTitle>
-                  <CardDescription className="text-md">Decks/Cards created January - December {selectedYear}</CardDescription>
-                </div>
-                <div>
-                  <label htmlFor="monthSelect" className="sr-only">Select Month</label>
-                  <select
-                    value={selectedYear}
-                    onChange={(e) => handleSelectedYear(e.target.value)}
-                    className="p-2 rounded max-h-[40px] bg-[hsl(var(--background3))] text-white"
-                  >
-                    {years?.map((year) => (<option key={year} value={year}>{year}</option>))}
-                  </select>  
-                </div>
-              </section>
-            </CardHeader>
-            <CardContent>
-                <ChartContainer config={chartConfig} className="max-h-[57.7vh] w-full">
-                <BarChart accessibilityLayer data={months}>
-                    <XAxis
-                        dataKey="month"
-                        tickLine={false}
-                        tickMargin={10}
-                        axisLine={false}
-                        tickFormatter={(value) => value.slice(0, 3)}
-                    />
-                    <ChartTooltip
-                        cursor={false}
-                        content={<ChartTooltipContent indicator="dashed" className="bg-white"/>}
-                    />
-                    <Bar 
-                        dataKey="decks" 
-                        fill="goldenrod" 
-                        minPointSize={5}
-                    />
-                    <Bar 
-                        dataKey="cards" 
-                        fill="gold" 
-                        minPointSize={5}
-                    />
-                </BarChart>
-                </ChartContainer>
-            </CardContent>
-          </Card>
-      </div>
+      <Card className="relative w-full lg:w-[60vw] bg-[hsl(var(--profilebackground))] rounded-xl">
+        <CardHeader>
+          <section className="flex w-full  justify-between">
+            <div className="flex flex-col space-y-2">
+              <CardTitle className="text-[hsl(var(--text))]">Your Cards/Deck Statistics</CardTitle>
+              <CardDescription className="text-md">Decks/Cards created January - December {selectedYear}</CardDescription>
+            </div>
+            <div>
+              <label htmlFor="monthSelect" className="sr-only">Select Month</label>
+              <select
+                value={selectedYear}
+                onChange={(e) => handleSelectedYear(e.target.value)}
+                className="p-2 rounded max-h-[40px] bg-[hsl(var(--background3))] text-white"
+              >
+                {years?.map((year) => (<option key={year} value={year}>{year}</option>))}
+              </select>  
+              </div>
+          </section>
+        </CardHeader>
+        <CardContent>
+          <ChartContainer config={chartConfig} className="max-h-[57.7vh] w-full">
+            <BarChart accessibilityLayer data={months}>
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={(value) => value.slice(0, 3)}
+              />
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent indicator="dashed" className="bg-white"/>}
+              />
+              <Bar 
+                dataKey="decks" 
+                fill="goldenrod" 
+                minPointSize={5}
+              />
+              <Bar 
+                dataKey="cards" 
+                fill="gold" 
+                minPointSize={5}
+              />
+            </BarChart>
+          </ChartContainer>
+        </CardContent>
+      </Card>
     )
 }

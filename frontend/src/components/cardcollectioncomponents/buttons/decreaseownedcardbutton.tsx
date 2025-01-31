@@ -8,7 +8,7 @@ import { faMinus } from "@fortawesome/free-solid-svg-icons";
 const DecreaseOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCard) => {
     const [decreaseOwnedCard] = useDecreaseOwnedCardMutation();
     
-    const handleDecreaseClick = async (cardName: string) => {
+    async function handleDecreaseClick(cardName: string) {
         try {
           await decreaseOwnedCard({ 
             id: userId, 
@@ -24,7 +24,7 @@ const DecreaseOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCar
         }
     };
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
       event.stopPropagation();
       const promise = handleDecreaseClick(card.card_name);
         toast.promise(promise, {

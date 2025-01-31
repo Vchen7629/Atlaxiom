@@ -28,7 +28,7 @@ export const AddCardButton = ({ userId }: UserId) => {
 
     const apiUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
 
-    const fetchAllCardData = async () => {
+    async function fetchAllCardData() {
         setLoading(true);
         setLoadErr(false);
         try {
@@ -57,28 +57,28 @@ export const AddCardButton = ({ userId }: UserId) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const cardsPerPage = 4; 
     const [totalPages, setTotalPages] = useState<number>(1);
-    const UpdateTotalPages = (filteredCardsLength: number) => {
+    function UpdateTotalPages(filteredCardsLength: number) {
         setTotalPages(Math.ceil(filteredCardsLength / cardsPerPage));
     }
     const [currentCards, setCurrentCards] = useState<mappedCard[]>([])
 
-    const handleBackClick = () => {
+    function handleBackClick() {
         setCardData([]);
         setSelectedCard(false);
     };
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const inputValue = e.target.value;
         setSearchTerm(inputValue);
         setCurrentPage(1);
     };
 
-    const handleClearClick = () => {
+    function handleClearClick() {
         setSearchTerm('');
         setCurrentPage(1);
     };
 
-    const handleCardClick = (name: string) => {
+    function handleCardClick(name: string) {
         setSelectedCard(true)
         setCardName(name)
     }

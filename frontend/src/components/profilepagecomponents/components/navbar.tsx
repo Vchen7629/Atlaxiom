@@ -11,21 +11,21 @@ const NavBarComponent = ({ navbarprops }: NavBarComp) => {
     } = navbarprops
 
 
-    const handleDeckClick = () => {
+    function handleDeckClick() {
         setSelectedNavItem('deck');
         setDeckActive(true);
         setStatisticsActive(false);
         setEditActive(false);
     };
 
-    const handleStatisticsClick = () => {
+    function handleStatisticsClick() {
         setSelectedNavItem('statistics');
         setDeckActive(false);
         setStatisticsActive(true);
         setEditActive(false);
     };
 
-    const handleEditAccClick = () => {
+    function handleEditAccClick() {
         setSelectedNavItem('edit');
         setDeckActive(false);
         setStatisticsActive(false);

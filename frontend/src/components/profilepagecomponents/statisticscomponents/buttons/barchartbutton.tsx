@@ -6,12 +6,12 @@ const BarChartViewButton = ({ barchartbuttonprops }: barchartbutton) => {
         monthView, setMonthView
     } = barchartbuttonprops
 
-    const handleYearClick = () => {
+    function handleYearClick() {
         setYearView(true);
         setMonthView(false);
     }
 
-    const handleMonthClick = () => {
+    function handleMonthClick() {
         setYearView(false);
         setMonthView(true);
     }

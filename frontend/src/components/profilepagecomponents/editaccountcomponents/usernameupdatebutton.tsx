@@ -15,7 +15,7 @@ const UsernameUpdateButton = ({ UpdateUsernameProps } : SaveUsernameButton) => {
 
     const [updateUsername ] = useUpdateUserMutation()
 
-    const handleSubmitUsername = async () => {
+    async function handleSubmitUsername() {
         try {
             await updateUsername({
                 id: userId,
@@ -29,7 +29,7 @@ const UsernameUpdateButton = ({ UpdateUsernameProps } : SaveUsernameButton) => {
         }
     };
 
-    const handleClick = () => {
+    function handleClick() {
         const promise = handleSubmitUsername();
         toast.promise(promise, {
             loading: "loading...",

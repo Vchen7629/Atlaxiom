@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 const AboutUs = () => {
   const navigate = useNavigate();
 
-  const handleButtonClick = () => {
+  function handleButtonClick() {
     navigate('/aboutus');
   };
 

@@ -15,28 +15,28 @@ export function LinkScaleSliderComponent({ linkprops, className, ...props }: Lin
     linkGreaterThanEqual, setLinkGreaterThanEqual,
   } = linkprops 
 
-  const handleSliderChange = (newValue: number[]) => {
+  function handleSliderChange(newValue: number[]) {
     setLinkFilter(newValue[0])
     setListCurrentPage(1);
     setGalleryCurrentPage(1);
     setCanClearFilter(newValue[0] !== null);
   }
 
-  const handleLessThanClick = () => {
+  function handleLessThanClick() {
     setLinkLessThanEqual(true);
     setLinkEqual(false);
     setLinkGreaterThanEqual(false);
     setCanClearFilter(true);
   }
 
-  const handleEqualClick = () => {
+  function handleEqualClick() {
       setLinkLessThanEqual(false);
       setLinkEqual(true);
       setLinkGreaterThanEqual(false);
       setCanClearFilter(true);
   }
 
-  const handleGreaterThanClick = () => {
+  function handleGreaterThanClick() {
       setLinkLessThanEqual(false);
       setLinkEqual(false);
       setLinkGreaterThanEqual(true);

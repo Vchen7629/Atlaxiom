@@ -10,7 +10,7 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
         setErrorMessage,
     } = searchbarprops
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const inputValue = e.target.value;
         setSearchTerm(inputValue);
         setListCurrentPage(1);
@@ -18,7 +18,7 @@ const SearchBarComponent = ({ searchbarprops }: SearchBar) => {
         setErrorMessage('');
     };
 
-    const handleClearClick = () => {
+    function handleClearClick() {
         setSearchTerm('');
         setErrorMessage('');
       };

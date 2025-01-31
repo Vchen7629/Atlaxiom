@@ -5,7 +5,7 @@ import { faBook } from '@fortawesome/free-solid-svg-icons';
 const Mydecks = () => {
   const navigate = useNavigate();
 
-  const handleButtonClick = () => {
+  function handleButtonClick() {
     navigate('/deckmanager');
   };
 

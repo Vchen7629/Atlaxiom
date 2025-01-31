@@ -17,7 +17,7 @@ const AddCardPaginationComponent = ({ paginationprops }: Pagination) => {
     const [err, setErr] = useState<string>("")
 
 
-    const updateCurrentPageList = () => {
+    function updateCurrentPageList() {
         if (filteredCards.length > 0) {
             const startIndex = (currentPage - 1) * cardsPerPage;
             const endIndex = startIndex + cardsPerPage;
@@ -26,11 +26,11 @@ const AddCardPaginationComponent = ({ paginationprops }: Pagination) => {
         }
     };
 
-    const handleListPageChange = (page: number) => {
+    function handleListPageChange(page: number) {
         setCurrentPage(page);        
     };
 
-    const handleListInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleListInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const value = e.target.value;
         // Allow only numeric input
         if (/^\d*$/.test(value)) {

@@ -11,28 +11,28 @@ const DefFilterComponent = ({ deffilterprops }: defprops) => {
         defGreaterThanEqual, setDefGreaterThanEqual
     } = deffilterprops
 
-    const handleLessThanClick = () => {
+    function handleLessThanClick() {
         setDefLessThanEqual(true);
         setDefEqual(false);
         setDefGreaterThanEqual(false);
         setCanClearFilters(true)
     }
 
-    const handleEqualClick = () => {
+    function handleEqualClick() {
         setDefLessThanEqual(false);
         setDefEqual(true);
         setDefGreaterThanEqual(false);
         setCanClearFilters(true)
     }
 
-    const handleGreaterThanClick = () => {
+    function handleGreaterThanClick() {
         setDefLessThanEqual(false);
         setDefEqual(false);
         setDefGreaterThanEqual(true);
         setCanClearFilters(true)
     }
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const inputValue = e.target.value;
         const numericValue = inputValue.trim() === '' ? null : parseFloat(inputValue);
         setDefFilter(numericValue)

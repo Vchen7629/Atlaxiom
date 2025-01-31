@@ -4,12 +4,12 @@ import { EmailInput, PasswordInput, UsernameInput } from "../types/editcomponent
 
 export const EditUsernameInputComponent = ({ newUsername, setNewUsername }: UsernameInput) => {
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const inputValue = e.target.value;
         setNewUsername(inputValue);
     };
 
-    const handleClearClick = () => {
+    function handleClearClick() {
         setNewUsername('');
     };
 
@@ -35,12 +35,12 @@ export const EditUsernameInputComponent = ({ newUsername, setNewUsername }: User
 
 export const EditEmailInputComponent = ({ newEmail, setNewEmail }: EmailInput) => {
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const inputValue = e.target.value;
         setNewEmail(inputValue);
     };
 
-    const handleClearClick = () => { 
+    function handleClearClick() { 
         setNewEmail('') 
     }
 
@@ -65,12 +65,12 @@ export const EditEmailInputComponent = ({ newEmail, setNewEmail }: EmailInput) =
 }
 
 export const EditPasswordInputComponent = ({ newPassword, setNewPassword }: PasswordInput) => {
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const inputValue = e.target.value;
         setNewPassword(inputValue);
     };
 
-    const handleClearClick = () => {
+    function handleClearClick() {
         setNewPassword('')
     };
 

@@ -12,28 +12,28 @@ const MobileLevelFilterComponent = ({ levelfilterprops }: levelprops) => {
         greaterThanEqual, setGreaterThanEqual,
     } = levelfilterprops
 
-    const handleLessThanClick = () => {
+    function handleLessThanClick() {
         setLessThanEqual(true);
         setEqual(false);
         setGreaterThanEqual(false);
         setCanClearFilters(true);
     }
 
-    const handleEqualClick = () => {
+    function handleEqualClick() {
         setLessThanEqual(false);
         setEqual(true);
         setGreaterThanEqual(false);
         setCanClearFilters(true);
     }
 
-    const handleGreaterThanClick = () => {
+    function handleGreaterThanClick() {
         setLessThanEqual(false);
         setEqual(false);
         setGreaterThanEqual(true);
         setCanClearFilters(true);
     }
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const inputValue = e.target.value;
         let numericValue = inputValue.trim() === '' ? null : parseFloat(inputValue);
 

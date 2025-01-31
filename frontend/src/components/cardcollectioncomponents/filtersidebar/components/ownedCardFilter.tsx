@@ -93,7 +93,7 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
       }, [ownedCards]);
 
 
-    const clearFilter = () => {
+    function clearFilter() {
         setMonsterTypeFilter('');
         setSpellTypeFilter('');
         setTrapTypeFilter('');

@@ -12,28 +12,28 @@ const PendFilterComponent = ({ pendfilterprops }: pendprops) => {
         pendGreaterThanEqual, setPendGreaterThanEqual,
     } = pendfilterprops
 
-    const handleLessThanClick = () => {
+    function handleLessThanClick() {
         setPendLessThanEqual(true);
         setPendEqual(false);
         setPendGreaterThanEqual(false);
         setCanClearFilters(true)
     }
 
-    const handleEqualClick = () => {
+    function handleEqualClick() {
         setPendLessThanEqual(false);
         setPendEqual(true);
         setPendGreaterThanEqual(false);
         setCanClearFilters(true)
     }
 
-    const handleGreaterThanClick = () => {
+    function handleGreaterThanClick() {
         setPendLessThanEqual(false);
         setPendEqual(false);
         setPendGreaterThanEqual(true);
         setCanClearFilters(true)
     }
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const inputValue = e.target.value;
         let numericValue = inputValue.trim() === '' ? null : parseFloat(inputValue);
 

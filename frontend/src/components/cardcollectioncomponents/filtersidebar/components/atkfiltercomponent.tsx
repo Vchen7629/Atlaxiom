@@ -13,7 +13,7 @@ const AtkFilterComponent = ({ atkfilterprops }: atkprops) => {
         atkGreaterThanEqual, setAtkGreaterThanEqual
     } = atkfilterprops
 
-    const handleLessThanClick = () => {
+    function handleLessThanClick() {
         setListCurrentPage(1)
         setGalleryCurrentPage(1)
         setCanClearFilter(true)
@@ -22,7 +22,7 @@ const AtkFilterComponent = ({ atkfilterprops }: atkprops) => {
         setAtkGreaterThanEqual(false);
     }
 
-    const handleEqualClick = () => {
+    function handleEqualClick() {
         setListCurrentPage(1)
         setGalleryCurrentPage(1)
         setCanClearFilter(true)
@@ -31,7 +31,7 @@ const AtkFilterComponent = ({ atkfilterprops }: atkprops) => {
         setAtkGreaterThanEqual(false);
     }
 
-    const handleGreaterThanClick = () => {
+    function handleGreaterThanClick() {
         setListCurrentPage(1)
         setGalleryCurrentPage(1)
         setCanClearFilter(true)

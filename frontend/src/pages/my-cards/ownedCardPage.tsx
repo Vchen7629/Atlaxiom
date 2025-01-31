@@ -170,14 +170,14 @@ const UserOwnedCardPage = () => {
   ]);
   
 
-  const handleClickFilter = () => {
+  function handleClickFilter() {
     setExpandStatus(!expandStatus)
     setFilterActive(!filterActive)
   }
 
   const [canClearFilter, setCanClearFilter] = useState<boolean>(false);
 
-  const clearFilter = () => {
+  function clearFilter() {
     setMonsterTypeFilter('');
     setSpellTypeFilter('');
     setTrapTypeFilter('');

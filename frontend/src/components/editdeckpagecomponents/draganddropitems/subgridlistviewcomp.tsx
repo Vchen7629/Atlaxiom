@@ -8,12 +8,12 @@ const SubGridListViewComponent= ({ filterProps }: SubGridListViewComponentProps)
         galleryView, setGalleryView
     } = filterProps
 
-    const handleListView = () => {
+    function handleListView() {
         setListView(true)
         setGalleryView(false)
     }
 
-    const handleGalleryView = () => {
+    function handleGalleryView() {
         setListView(false)
         setGalleryView(true)
     }

@@ -25,7 +25,7 @@ const ClearFilterButton = ({ clearfilterprops }: clearfilter) => {
         setDefFilter, setDefLessThanEqual, setDefEqual, setDefGreaterThanEqual,
     } = clearfilterprops
 
-    const handleClearFilter = () => {
+    function handleClearFilter() {
         setCanClearFilters(false);
         setMonsterType("");
         setSpellType("");
@@ -53,6 +53,13 @@ const ClearFilterButton = ({ clearfilterprops }: clearfilter) => {
         setDefGreaterThanEqual(false);
         setSetName("")
     }
+
+    function ClearFilter() {
+        handleClearFilter();
+        {canClearFilters && (
+            toast.success("Removed All Search Filters Successfully"))
+        }
+    }
       
     return (
         <TooltipProvider>
@@ -60,12 +67,7 @@ const ClearFilterButton = ({ clearfilterprops }: clearfilter) => {
                 <TooltipTrigger>
                     <a 
                         className={`${canClearFilters ? "bg-[hsl(var(--background3))]" : "bg-gray-600"} py-[12px] px-[14px] rounded-xl`} 
-                        onClick={() => {
-                            handleClearFilter();
-                            {canClearFilters && (
-                                toast.success("Removed All Search Filters Successfully"))
-                            }
-                        }}>
+                        onClick={ClearFilter}>
                         <FontAwesomeIcon icon={faArrowRotateRight}/>
                     </a>
                 </TooltipTrigger>

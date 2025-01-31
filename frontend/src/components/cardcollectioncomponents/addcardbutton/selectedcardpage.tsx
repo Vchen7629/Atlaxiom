@@ -25,7 +25,7 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
     const [addNewOwnedCard] = useAddNewOwnedCardMutation();
     const { refetch } = useGetOwnedCardsQuery(userId);
 
-    const fetchSelectedCardData = async (cardName: string) => {
+    async function fetchSelectedCardData(cardName: string) {
         setLoading(true);
         try {
           const response = await fetch(`${apiUrl}?name=${encodeURIComponent(cardName)}`);
@@ -48,11 +48,11 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
         fetchSelectedCardData(cardName)
     }, [cardName])
 
-    const handleClick = () => {
+    function handleClick() {
         setSelectedCard(false)
     }
 
-    const handleAddOwnedCardClick = async (set: CardSet, index: number) => {
+    async function handleAddOwnedCardClick(set: CardSet, index: number) {
         if (selectedCardData) {
             const cardToPost = {
                 card_name: selectedCardData.name,

@@ -94,11 +94,18 @@ export function ComponentBarMonthChart({ selectedYear }: SelectedYear): JSX.Elem
     const totalCards = chartData.reduce((acc, curr) => acc + curr.cards, 0);
     const totalDecks = chartData.reduce((acc, curr) => acc + curr.decks, 0);
 
+    function SetCardView() {
+        setStatisticType("cards")
+    }
+
+    function setDeckView() {
+        setStatisticType("decks")
+    }
+
     return (
-      <div>
-          <Card className="relative w-full lg:w-[60vw] bg-[hsl(var(--profilebackground))] rounded-xl">
-              <CardHeader>
-                <div className="flex w-full  justify-between">
+        <Card className="relative w-full lg:w-[60vw] bg-[hsl(var(--profilebackground))] rounded-xl">
+            <CardHeader>
+                <div className="flex flex-col lg:flex-row w-full  justify-between">
                     <div className="flex flex-col items-center lg:items-start space-y-2">
                         <CardTitle className="text-[hsl(var(--text))] lg:text-4xl">Your Cards/Deck Statistics</CardTitle>
                         <CardDescription className="text-md">
@@ -120,15 +127,14 @@ export function ComponentBarMonthChart({ selectedYear }: SelectedYear): JSX.Elem
                         </div>  
                         <div className="flex space-x-8">
                             <button
-                                onClick={() => setStatisticType("cards")}
+                                onClick={SetCardView}
                                 className={`flex flex-col items-center w-fit py-1 bg-transparent ${statisticType === "cards" ? "border-b-2 border-goldenrod" : " border-b-2 border-transparent"} text-[hsl(var(--text))]`}
                             >
-                                
                                 <div className="text-md lg:text-xl text-muted-foreground">Total Cards</div>
                                 <span className="lg:text-md font-bold leading-none sm:text-3xl">{totalCards}</span>
                             </button>
                             <button
-                                onClick={() => setStatisticType("decks")}
+                                onClick={setDeckView}
                                 className={`flex flex-col items-center w-fit py-1 bg-transparent ${statisticType === "decks" ? "border-b-2 border-goldenrod" : "border-b-2 border-transparent"} text-[hsl(var(--text))]`}
                             >
                                 <div className="text-md lg:text-xl text-muted-foreground">Total Decks</div>
@@ -137,8 +143,8 @@ export function ComponentBarMonthChart({ selectedYear }: SelectedYear): JSX.Elem
                         </div>
                     </div>
                 </div>
-              </CardHeader>
-              <CardContent>
+            </CardHeader>
+            <CardContent>
                 <ChartContainer config={chartConfig} className="max-h-[55vh] w-full">
                     <BarChart accessibilityLayer data={chartData}>
                         <XAxis
@@ -159,8 +165,7 @@ export function ComponentBarMonthChart({ selectedYear }: SelectedYear): JSX.Elem
                         )}
                     </BarChart>
                 </ChartContainer>
-              </CardContent>
-          </Card>
-      </div>
+            </CardContent>
+        </Card>
     );
 }

@@ -10,7 +10,7 @@ import { toastErrorMessage, toastSuccessMessage } from "../cardcollectioncompone
 const DuplicateDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: DeleteDeck) => {
     const [addNewDuplicateDeck] = useCreateDuplicateDeckMutation()
     
-    const handleDuplicateDeckClick = async(deck: handleDeckClick) => {
+    async function handleDuplicateDeckClick(deck: handleDeckClick) {
         try {
             const duplicate = await addNewDuplicateDeck({
                 id: userId, 
@@ -26,7 +26,7 @@ const DuplicateDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: De
         }
     }
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
         event.stopPropagation()
         const promise = handleDuplicateDeckClick(deck);
         toast.promise(promise, {

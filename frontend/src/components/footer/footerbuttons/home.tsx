@@ -6,7 +6,7 @@ const Home = () => {
   const navigate = useNavigate();
   const authenticated = useSelector((state: AuthenticationState) => state.auth.token !== null);
 
-  const handleButtonClick = () => {
+  function handleButtonClick() {
     if (authenticated) {
       navigate('/loggedin');
     } else {

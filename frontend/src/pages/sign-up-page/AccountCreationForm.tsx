@@ -87,19 +87,19 @@ import { ErrorRes } from "./types/creationformtypes"
         }, [isError, error]);
         
 
-        const onUsernameChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+        function onUsernameChanged(e: React.ChangeEvent<HTMLInputElement>) {
             setUsername(e.target.value)
             setUsernameError('')
             setFormSubmitted(false)
         }
 
-        const onEmailChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+        function onEmailChanged(e: React.ChangeEvent<HTMLInputElement>) {
             setEmail(e.target.value)
             setEmailError('')
             setFormSubmitted(false)
         }
 
-        const onPasswordChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+        function onPasswordChanged(e: React.ChangeEvent<HTMLInputElement>) {
             setPassword(e.target.value)
             setPasswordError('')
             setFormSubmitted(false)
@@ -107,7 +107,7 @@ import { ErrorRes } from "./types/creationformtypes"
 
         const canSave = validUsername && validEmail && validPassword && !isLoading;
 
-        const onSaveUserClicked = async (e: React.FormEvent) => {
+        async function onSaveUserClicked(e: React.FormEvent) {
             e.preventDefault()
 
             setFormSubmitted(true)

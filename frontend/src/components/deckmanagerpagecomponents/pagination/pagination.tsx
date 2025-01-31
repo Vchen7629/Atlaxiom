@@ -26,7 +26,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
     const [gallerypage, setGalleryPage] = useState(currentGalleryPage);
     const [galleryerr, setGalleryErr] = useState<string>("")
 
-    const updateCurrentPageList = () => {
+    function updateCurrentPageList() {
         if (filteredDecks.length > 0) {
             const startIndex = (currentListPage - 1) * suggestionsPerListPage;
             const endIndex = startIndex + suggestionsPerListPage;
@@ -35,11 +35,11 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         }
     };
 
-    const handleListPageChange = (page: number) => {
+    function handleListPageChange(page: number) {
         setListCurrentPage(page);        
     };
 
-    const handleListInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleListInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const value = e.target.value;
         // Allow only numeric input
         if (/^\d*$/.test(value)) {
@@ -54,7 +54,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         }
     };
 
-    const updateCurrentPageGallery = () => {
+    function updateCurrentPageGallery() {
         if (filteredDecks.length > 0) {
             const startIndex = (currentGalleryPage - 1) * suggestionsPerGalleryPage;
             const endIndex = startIndex + suggestionsPerGalleryPage;
@@ -75,11 +75,11 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         }
     }, [filteredDecks.length, suggestionsPerListPage, suggestionsPerGalleryPage, currentListPage, currentGalleryPage]);
 
-    const handleGalleryPageChange = (page: number) => {
+    function handleGalleryPageChange(page: number) {
         setGalleryCurrentPage(page);        
     };
 
-    const handleGalleryInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleGalleryInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const value = e.target.value;
         // Allow only numeric input
         if (/^\d*$/.test(value)) {

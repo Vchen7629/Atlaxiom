@@ -4,11 +4,11 @@ import AccountCreationForm from "./AccountCreationForm"
 const SignUpPageComponent = () => {
     const navigate = useNavigate()
 
-    const handleLoginClick = () => {
+    function handleLoginClick() {
         navigate("/login")
     }
 
-    const handleBackClick = () => {
+    function handleBackClick() {
         navigate("/")
     }
 

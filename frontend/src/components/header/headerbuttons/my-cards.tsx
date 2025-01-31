@@ -8,7 +8,7 @@ const Mycards = () => {
   const navigate = useNavigate();
   const userId = useSelector((state: AuthenticationState) => state.auth.userId);
 
-  const handleButtonClick = () => {
+  function handleButtonClick() {
     navigate('/getcards', { state: { userId }});
   };
 

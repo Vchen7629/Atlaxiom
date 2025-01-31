@@ -56,28 +56,28 @@ const EditAccountPage = ({ usersData, refetch }: EditAccount) => {
         newPassword, setNewPassword,
     }
 
-    const handleChangeUserNameClick = () => {
+    function handleChangeUserNameClick() {
         setChangeUsername(true);
         setChangeEmail(false);
         setChangePassword(false);
         setDeleteAccount(false);
     }
 
-    const handleChangeEmailClick = () => {
+    function handleChangeEmailClick() {
         setChangeUsername(false);
         setChangeEmail(true);
         setChangePassword(false);
         setDeleteAccount(false);
     }
 
-    const handleChangePasswordClick = () => {
+    function handleChangePasswordClick() {
         setChangeUsername(false);
         setChangeEmail(false);
         setChangePassword(true);
         setDeleteAccount(false);
     }
 
-    const handleDeleteAccountClick = () => {
+    function handleDeleteAccountClick() {
         setChangeUsername(false);
         setChangeEmail(false);
         setChangePassword(false);

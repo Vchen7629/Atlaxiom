@@ -8,12 +8,12 @@ const GridListViewComponent= ({ gridlistviewprops }: GridListViewComponentProps)
         galleryView, setGalleryView,
     } = gridlistviewprops
 
-    const handleListView = () => {
+    function handleListView() {
         setListView(true)
         setGalleryView(false)
     }
 
-    const handleGalleryView = () => {
+    function handleGalleryView() {
         setListView(false)
         setGalleryView(true)
     }

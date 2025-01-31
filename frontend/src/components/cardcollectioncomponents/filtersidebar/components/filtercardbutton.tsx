@@ -8,7 +8,7 @@ const FilterCardViewButton = ({ filterprops }: FilterButtonProps) => {
         setStatisticsPage
     } = filterprops
 
-    const handleFilterClick = () => {
+    function handleFilterClick() {
         setFilterPage(true)
         setStatisticsPage(false)
     }

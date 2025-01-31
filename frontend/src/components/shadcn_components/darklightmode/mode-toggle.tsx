@@ -11,6 +11,18 @@ import { useTheme } from "@/components/shadcn_components/darklightmode/theme-pro
  
 export function ModeToggle() {
   const { setTheme } = useTheme()
+
+  function DarkMode() {
+    setTheme("dark")
+  }
+
+  function LightMode() {
+    setTheme("light")
+  }
+
+  function System() {
+    setTheme("system")
+  }
  
   return (
     <DropdownMenu modal={false}>
@@ -22,13 +34,13 @@ export function ModeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="bg-[hsl(var(--background3))]">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
+        <DropdownMenuItem onClick={LightMode}>
           Light
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
+        <DropdownMenuItem onClick={DarkMode}>
           Dark
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
+        <DropdownMenuItem onClick={System}>
           System
         </DropdownMenuItem>
       </DropdownMenuContent>

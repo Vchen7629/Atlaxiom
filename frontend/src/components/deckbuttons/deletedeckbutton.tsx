@@ -10,7 +10,7 @@ import { toastErrorMessage, toastSuccessMessage } from "../cardcollectioncompone
 const DeleteDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: DeleteDeck) => {
     const [deleteDeck] = useDeleteDeckMutation();
     
-    const handleDeleteDeckClick = async(deck: handleDeckClick) => {
+    async function handleDeleteDeckClick(deck: handleDeckClick) {
         try {
             const deldeck = await deleteDeck({
                 id: userId, 
@@ -26,7 +26,7 @@ const DeleteDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: Delet
         }
     }
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
         event.stopPropagation()
         const promise = handleDeleteDeckClick(deck);
         toast.promise(promise, {
