@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build", 
+    "build": "tsc -b && vite build",
     "test": " ",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -41,6 +41,7 @@
     "framer-motion": "^11.11.17",
     "fuse.js": "^7.0.0",
     "jwt-decode": "^4.0.0",
+    "ldrs": "^1.0.2",
     "lucide-react": "^0.453.0",
     "motion": "^12.0.3",
     "next-themes": "^0.4.4",

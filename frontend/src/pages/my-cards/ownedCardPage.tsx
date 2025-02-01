@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { useGetOwnedCardsQuery } from '../../app/api-slices/ownedCardapislice.ts';
-import { useLocation } from 'react-router-dom';
 import Header from '../../components/header/header.tsx';
 import Footer from '../../components/footer/Footer.tsx';
 import { ListViewCardDisplayComponent } from "../../components/cardcollectioncomponents/carddisplaycomponents/listviewcarddisplaycomponent.tsx"
@@ -12,15 +11,17 @@ import MyCardsSearchbarComponent from '../../components/cardcollectioncomponents
 import GridListViewComponent from '../../components/cardcollectioncomponents/components/grid_or_list_view.tsx';
 import { GalleryViewCardDisplayComponent } from '../../components/cardcollectioncomponents/carddisplaycomponents/galleryviewcarddisplaycomponent.tsx';
 import { useGetSpecificUserQuery } from '@/app/api-slices/usersApiSlice.ts';
-import PaginationComponent from '@/components/cardcollectioncomponents/paginationcomponents/pagination.tsx';
 import { AddCardButton } from '@/components/cardcollectioncomponents/buttons/addcardbutton.tsx';
 import { OwnedCard } from '@/components/cardcollectioncomponents/types/dataStructures.ts';
 import MobileFilterDrawerComponent from '@/components/cardcollectioncomponents/mobilefilter/components/MobileFilterDrawer.tsx';
 import { GetOwnedCardsResponse } from '@/app/api-slices/types/ownedcardtypes.ts';
+import { UserIdState } from '../my-decks/deckpagetypes.ts';
+import { useSelector } from 'react-redux';
+import PaginationComponent from '@/components/cardcollectioncomponents/paginationcomponents/pagination.tsx';
 
 const UserOwnedCardPage = () => {
-  const location = useLocation();
-  const { userId } = location.state || {};
+  const userId = useSelector((state: UserIdState) => state.auth.userId);
+  
   
   const [searchTerm, setSearchTerm] = useState<string>('');
 
@@ -65,7 +66,7 @@ const UserOwnedCardPage = () => {
   const [listView, setListView] = useState<boolean>(true);
   const [galleryView, setGalleryView] = useState<boolean>(false);
 
-  const { data: ownedCards, refetch } = useGetOwnedCardsQuery(userId);
+  const { data: ownedCards, isLoading, refetch } = useGetOwnedCardsQuery(userId);
   const { data: userData, refetch: refetchOnUpdate} = useGetSpecificUserQuery(userId)
   const suggestionsPerGalleryPage = 20;
   const suggestionsPerListPage = 7;
@@ -80,6 +81,7 @@ const UserOwnedCardPage = () => {
 
   const [currentListPageResults, setCurrentListPageResults] = useState<OwnedCard[]>([])
   const [currentGalleryPageResults, setCurrentGalleryPageResults] = useState<OwnedCard[]>([])
+
 
   useEffect(() => {
     if (userId) {
@@ -272,11 +274,11 @@ const UserOwnedCardPage = () => {
     galleryView, setGalleryView
   }
 
-  const displaylistprops = { currentListPageResults } 
+  const displaylistprops = { currentListPageResults, isLoading } 
   const displaygalleryprops = { currentGalleryPageResults } 
 
   return (
-    <main className="flex flex-col min-h-[100vh]  ">
+    <main className="flex flex-col h-[100vh]  ">
         <Header/>
         <div className=" bg-[hsl(var(--background1))] flex items-center justify-center ">
           <div className="text-white relative flex flex-col items-center w-[95%] min-h-[110vh] p-5 pt-[10vh]">
@@ -315,9 +317,9 @@ const UserOwnedCardPage = () => {
                 <div className='w-full'>
                     {listView ? (
                       <main className="flex justify-between">
-                        <main className={`bg-[hsl(var(--ownedcardcollection))] ${expandStatus ? "w-3/4" : "w-full"} h-full rounded-xl`}>
+                        <main className={`${expandStatus ? "w-3/4" : "w-full"} h-full rounded-xl`}>
                           <PaginationComponent paginationprops={paginationprops} />
-                          <div className="hidden lg:grid font-black h-8 bg-[hsl(var(--background3))] text-lg rounded-lg items-center grid-cols-[5%_28%_10%_25%_6%_19%_5%]">
+                          <div className="hidden lg:grid font-black h-8 bg-[hsl(var(--background3))] text-lg rounded-t-lg items-center grid-cols-[5%_28%_10%_25%_6%_19%_5%]">
                             <div className="pl-4"> Qty </div>
                             <div> Name</div>
                             <div> Set Code</div>
