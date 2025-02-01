@@ -1,7 +1,6 @@
-import { Suspense } from 'react';
+import { Suspense, lazy } from 'react';
 import { useLocation } from 'react-router-dom';
 import FoldingCube from './foldingcube';
-import { lazy } from 'react';
 
 const HomePages = lazy(() => (import("../../pages/homepage/homepage.tsx")))
 const SignUpPage = lazy(() => (import("../../pages/sign-up-page/signuppage.tsx")))
@@ -31,8 +30,10 @@ export function LoadingWrapper({ children }: { children: React.ReactNode}) {
             case '/FAQ':
                 return <SiteHelpPage />
             default:
-                <div className="w-full h-screen" />;
+                <FoldingCube/>;
         }
+
+        return null;
     };
 
     return (
