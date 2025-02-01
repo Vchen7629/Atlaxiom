@@ -15,12 +15,10 @@ import { GalleryDeck } from '@/components/deckbuttons/buttonprops.ts';
 import { DeckApiResponse } from '@/app/api-slices/types/decktypes.ts';
 import { Deck } from '@/components/deckmanagerpagecomponents/types/homepagecomponentprops.ts';
 
-
-
 const DeckPageHomepage = () => {
     const userId = useSelector((state: UserIdState) => state.auth.userId);
     const [deckName, setDeckName] = useState<string>('');
-    const { data: modifyDecks, refetch } = useGetAllOwnedDecksQuery(userId);
+    const { data: modifyDecks, isLoading, refetch } = useGetAllOwnedDecksQuery(userId);
     const decksToDisplay: DeckApiResponse[] = modifyDecks || [];
 
     const filteredDecks = decksToDisplay.filter((deck: DeckApiResponse) =>
@@ -47,7 +45,6 @@ const DeckPageHomepage = () => {
     const [currentPageListDecksArray, setCurrentPageListDecksArray] = useState<Deck[]>([]);
     const [currentPageGalleryDecksArray, setCurrentPageGalleryDecksArray] = useState<GalleryDeck[]>([]);
 
-    
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const inputValue = e.target.value;
         setDeckName(inputValue);
@@ -83,6 +80,7 @@ const DeckPageHomepage = () => {
     }
 
     const deckdisplayprops = {
+        isLoading,
         decksToDisplay,
         listView,
         galleryView,
@@ -98,11 +96,11 @@ const DeckPageHomepage = () => {
             <Header/>
             <div className="flex flex-col items-center lg:items-start py-[15vh]">
                 <Toaster richColors  expand visibleToasts={4}/>
-                <div className="flex w-[80vw] lg:w-[50vw] lg:ml-[15vw] items-center justify-between">
+                <div className="flex w-[80vw] lg:w-[70vw] xl:w-[50vw] lg:ml-[15vw] items-center justify-between">
                     <span className="text-lg lg:text-3xl font-black text-[hsl(var(--text))]">Deck Manager</span>
                     <CreateNewDeckComponent userId={userId}/>
                 </div>
-                <div className="flex w-[80vw] lg:w-[50vw] lg:ml-[15vw] mt-[2.5vh] mb-[1.5vh] justify-between">
+                <div className="flex w-[80vw] lg:w-[70vw] xl:w-[50vw] lg:ml-[15vw] mt-[2.5vh] mb-[1.5vh] justify-between">
                     <div className="flex w-[50vw] lg:w-[15vw] h-[40px] pl-5 relative border-2 border-gray-400 justify-start text-[hsl(var(--text))]">                      
                       <div className="flex items-center w-full">
                         <FontAwesomeIcon icon={faSearch} className="mr-2" />
@@ -130,7 +128,7 @@ const DeckPageHomepage = () => {
                 <section className="flex w-[80vw] lg:hidden">
                     <PaginationComponent paginationprops={paginationprops}/>
                 </section>
-                <div className='flex w-[80vw] lg:w-[50vw] lg:ml-[15vw] items-center justify-between'>
+                <div className='flex w-[80vw] lg:w-[70vw] xl:w-[50vw] lg:ml-[15vw] items-center justify-between'>
                     <DeckDisplay deckdisplayprops={deckdisplayprops}/>
                 </div>
             </div>

@@ -26,6 +26,7 @@ export type GridListViewComponentProps = {
 
 export type DeckDisplayComponent = {
     deckdisplayprops:{ 
+        isLoading: boolean;
         decksToDisplay: DeckApiResponse[]
         listView: boolean;
         galleryView: boolean;
