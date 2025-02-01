@@ -44,7 +44,7 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
           }, 250);
           return () => clearTimeout(timer);
         }
-      }, [isLoading]);
+    }, [isLoading]);
       
     return (
         <AlertDialog >

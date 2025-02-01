@@ -9,7 +9,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faPlusCircle, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -17,14 +17,26 @@ import { ApiCardData } from "@/components/searchpagecomponents/types/datastructu
 import AddCardPaginationComponent from "../addcardbutton/addcardpagination";
 import SelectedCardComponent from "../addcardbutton/selectedcardpage";
 import { mappedCard, UserId } from "../types/buttontypes";
+import { waveform } from 'ldrs'
    
 export const AddCardButton = ({ userId }: UserId) => {
+    waveform.register()
     const [cardData, setCardData] = useState<ApiCardData[]>([])
     const [cardName, setCardName] = useState<string>("");
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [selectedcard, setSelectedCard] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [loadErr, setLoadErr] = useState<boolean>(false);
+    const [showLoading, setShowLoading] = useState(true);
+    
+    useEffect(() => {
+        if (!loading) {
+          const timer = setTimeout(() => {
+            setShowLoading(false);
+          }, 500);
+          return () => clearTimeout(timer);
+        }
+    }, [loading]);
 
     const apiUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
 
@@ -143,9 +155,14 @@ export const AddCardButton = ({ userId }: UserId) => {
                                 )}
                             </div>
                         </section>
-                        <section className="flex flex-col w-[90%] pt-4">
+                        <section className="flex flex-col w-[90%] h-[30vh] pt-4">
                             <AddCardPaginationComponent paginationprops={paginationprops} /> 
-                            {currentCards.length > 0 ? (
+                            {(showLoading ||loading) ? (
+                                <div className="flex space-x-[3vw] h-full justify-center items-center text-3xl text-[hsl(var(--background3))] font-black">
+                                    <span>Loading Card Data...</span>
+                                    <l-waveform size="50" stroke="3.5" speed="1" color="hsl(var(--background3))" />
+                                </div>
+                            ) : currentCards.length > 0 ? (
                                 currentCards.map((card: mappedCard) => (
                                     <div key={card.id} className="flex bg-transparent h-16 text-sm font-bold items-center hover:bg-blacktwo">
                                         <img 
@@ -163,16 +180,12 @@ export const AddCardButton = ({ userId }: UserId) => {
                                         </button>
                                     </div>
                                 ))
-                            ) : loading ? (
-                                <div className="flex h-[100%] justify-center items-center text-3xl text-gray-400 font-black">
-                                    <span>Loading Card Data...</span>
-                                </div>
                             ) : loadErr ? (
-                                <div className="flex min-h-[40vh] justify-center items-center text-3xl text-gray-400 font-black">
+                                <div className="flex h-full justify-center items-center text-3xl text-gray-400 font-black">
                                     <span>Load Error</span>
                                 </div>
                             ) : (
-                                <div className="flex min-h-[40vh] justify-center items-center text-3xl text-gray-400 font-black">
+                                <div className="flex h-full justify-center items-center text-3xl text-gray-400 font-black">
                                     <span>No cards matching your Filters</span>
                                 </div>
                             )}         
