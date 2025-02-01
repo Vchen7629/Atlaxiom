@@ -1,7 +1,7 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import StayLoggedIn from './app/auth/stayloggedin.tsx';
-import { lazy, Suspense, useEffect } from 'react';
-import FoldingCube from './components/loadingcomponents/foldingcube.tsx';
+import { lazy, useEffect } from 'react';
+import { LoadingWrapper } from './components/loadingcomponents/loadingwrapper.tsx';
 
 const SearchResults = lazy(() => (import('./pages/searchpage/searchresults.tsx')))
 const HomePage = lazy(() => (import("./pages/homepage/homepage.tsx")))
@@ -24,7 +24,7 @@ function App() {
   }, [location]);
 
   return (
-    <Suspense fallback={<FoldingCube/>}>
+    <LoadingWrapper>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignUpPage/>}/>
@@ -47,7 +47,7 @@ function App() {
         </Route>
       
       </Routes>
-    </Suspense>
+    </LoadingWrapper>
   );
 } 
 

@@ -8,17 +8,20 @@ import Accountsbutton from '../accountbuttons/navbuttons/account.js'
 import { ModeToggle } from "../shadcn_components/darklightmode/mode-toggle.tsx"
 import { AuthenticationState } from './types/headertypes.ts'
 import Signup from './headerbuttons/signup.tsx'
+import { startTransition } from 'react'
 
 const Header = () => {
     const navigate = useNavigate()
     const isAuthenticated = useSelector((state: AuthenticationState) => state.auth.token !== null);
 
     function handleHomeClick() {
-        if (isAuthenticated) {
-            navigate("/loggedin")
-        } else {
-            navigate("/")
-        }
+        startTransition(() => {
+            if (isAuthenticated) {
+                navigate("/loggedin")
+            } else {
+                navigate("/")
+            }
+        })
     };
 
     const pages = [
@@ -36,13 +39,15 @@ const Header = () => {
 
     function handlePageNav(e: React.ChangeEvent<HTMLSelectElement>) {
         const value = e.target.value;
-        if (value === "login") {
-            navigate("/login")
-        } else if (value === "Signup") {
-            navigate("/signup")
-        } else {
-            navigate("/")
-        }
+        startTransition(() => {
+            if (value === "login") {
+                navigate("/login")
+            } else if (value === "Signup") {
+                navigate("/signup")
+            } else {
+                navigate("/")
+            }
+        })
     }      
         
     return (

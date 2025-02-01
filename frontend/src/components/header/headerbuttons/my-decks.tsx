@@ -1,12 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook } from '@fortawesome/free-solid-svg-icons';
+import { startTransition } from 'react';
 
 const Mydecks = () => {
   const navigate = useNavigate();
 
   function handleButtonClick() {
-    navigate('/deckmanager');
+    startTransition(() => {
+      navigate('/deckmanager');
+    })
   };
 
   return (

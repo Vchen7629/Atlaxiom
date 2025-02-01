@@ -1,15 +1,20 @@
 import { useNavigate } from "react-router-dom"
 import AccountCreationForm from "./AccountCreationForm"
+import { startTransition } from "react"
 
 const SignUpPageComponent = () => {
     const navigate = useNavigate()
 
     function handleLoginClick() {
-        navigate("/login")
+        startTransition(() => {
+            navigate("/login")
+        })
     }
 
     function handleBackClick() {
-        navigate("/")
+        startTransition(() => {
+            navigate("/")
+        })
     }
 
     return (
