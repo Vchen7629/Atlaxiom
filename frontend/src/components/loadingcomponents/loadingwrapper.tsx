@@ -30,10 +30,8 @@ export function LoadingWrapper({ children }: { children: React.ReactNode}) {
             case '/FAQ':
                 return <SiteHelpPage />
             default:
-                <FoldingCube/>;
+                return null
         }
-
-        return null;
     };
 
     return (
