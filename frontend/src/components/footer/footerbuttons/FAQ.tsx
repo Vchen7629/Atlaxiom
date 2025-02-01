@@ -1,17 +1,20 @@
 import { useNavigate } from 'react-router-dom';
 import { AuthenticationState } from './hometypes';
 import { useSelector } from 'react-redux';
+import { startTransition } from 'react';
 
 const FAQ = () => {
   const navigate = useNavigate();
   const authenticated = useSelector((state: AuthenticationState) => state.auth.token !== null);
 
   function handleButtonClick() {
-    if (authenticated) {
-      navigate("/FAQloggedin")
-    } else {
-      navigate('/FAQ');
-    }
+    startTransition(() => {
+      if (authenticated) {
+        navigate("/FAQloggedin")
+      } else {
+        navigate('/FAQ');
+      }
+    })
   };
 
   return (

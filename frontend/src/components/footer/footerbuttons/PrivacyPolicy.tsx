@@ -1,17 +1,20 @@
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { AuthenticationState } from './hometypes';
+import { startTransition } from 'react';
 
 const PrivacyPolicy = () => {
   const navigate = useNavigate();
   const authenticated = useSelector((state: AuthenticationState) => state.auth.token !== null);
 
   function handleButtonClick() {
-    if (authenticated) {
-      navigate("/privacyloggedin")
-    } else {
-      navigate('/privacy');
-    }
+    startTransition(() => {
+      if (authenticated) {
+        navigate("/privacyloggedin")
+      } else {
+        navigate('/privacy');
+      }
+    })
   };
 
   return (
