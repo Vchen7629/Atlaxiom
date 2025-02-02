@@ -28,15 +28,6 @@ export const AddCardButton = ({ userId }: UserId) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [loadErr, setLoadErr] = useState<boolean>(false);
     const [showLoading, setShowLoading] = useState(true);
-    
-    useEffect(() => {
-        if (!loading) {
-          const timer = setTimeout(() => {
-            setShowLoading(false);
-          }, 500);
-          return () => clearTimeout(timer);
-        }
-    }, [loading]);
 
     const apiUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
 
@@ -61,6 +52,16 @@ export const AddCardButton = ({ userId }: UserId) => {
             setCardData([]);
         }
     };
+
+    useEffect(() => {
+        if (!loading) {
+          const timer = setTimeout(() => {
+            setShowLoading(false);
+          }, 300);
+          return () => clearTimeout(timer);
+        }
+    }, [loading]);
+
 
     const filteredCards = searchTerm ? cardData.filter((card) => 
       card.name?.toLowerCase().includes(searchTerm.toLowerCase())

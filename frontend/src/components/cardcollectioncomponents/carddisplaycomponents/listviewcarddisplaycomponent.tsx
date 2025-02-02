@@ -9,7 +9,6 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { useEffect, useState } from "react";
-import { useLocation } from 'react-router-dom';
 import { useGetOwnedCardsQuery } from '../../../app/api-slices/ownedCardapislice.ts';
 import { Card, filteredListCards, SelectedCard } from "../types/ownedcarddetailstypes.ts";
 import { useGetSpecificUserQuery } from "@/app/api-slices/usersApiSlice.ts";
@@ -20,12 +19,13 @@ import DeleteOwnedCardButtonComponent from "../buttons/deleteownedcardbutton.tsx
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { waveform } from 'ldrs'
+import { AuthenticationState } from "@/components/accountbuttons/accounttypes.ts";
+import { useSelector } from "react-redux";
 
 export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListCards) => {
     waveform.register()
     const { currentListPageResults, isLoading } = displaylistprops
-    const location = useLocation();
-    const { userId } = location.state || {};
+    const userId = useSelector((state: AuthenticationState) => state.auth.userId);
 
     const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null)
 

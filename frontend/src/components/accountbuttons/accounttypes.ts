@@ -6,6 +6,6 @@ export type UsernameState = {
 
 export type AuthenticationState = {
     auth: {
-        userId: string | null
+        userId: string
     }
 }
