@@ -54,4 +54,7 @@ export type mappedCard = {
             image_url: string
         }
     }
+    race: string;
+    atk?: number;
+    def?: number
 }

@@ -24,7 +24,6 @@ export type pageselector = {
 
 export type selectedcard = {
     selectedcardprops: {
-        setSelectedCard: React.Dispatch<React.SetStateAction<boolean>>
         cardName: string
         userId: string
     }
