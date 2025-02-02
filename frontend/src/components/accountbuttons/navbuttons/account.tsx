@@ -35,12 +35,12 @@ const Accountsbutton = () => {
         </div>
 
         {showDropdown && (
-            <main className="lg:w-[9vw] w-[34vw] border-2 border-[hsl(var(--background3))] text-[hsl(var(--background3))] top-16 absolute flex flex-col space-y-2 right-[3vw] lg:right-5 h-fit bg-[hsl(var(--header))] rounded-2xl py-4">
-                <div className="w-full flex pl-4"><Profile/></div>
-                <div className="w-full flex pl-4"><CardSearch/></div>
-                <div className="w-full flex pl-4"><Mycards/></div>
-                <div className="w-full flex pl-4"><MyDecks/></div>
-                <div className="w-full flex pl-4 text-red-500"><Logout/></div>
+            <main className="w-fit px-[4vw] md:px-[1.5vw] border-2 border-[hsl(var(--background3))] text-[hsl(var(--background3))] top-16 absolute flex flex-col space-y-2 right-[3vw] lg:right-5 h-fit bg-[hsl(var(--header))] rounded-2xl py-4">
+                <div className="w-full flex"><Profile/></div>
+                <div className="w-full flex"><CardSearch/></div>
+                <div className="w-full flex"><Mycards/></div>
+                <div className="w-full flex"><MyDecks/></div>
+                <div className="w-full flex text-red-500"><Logout/></div>
             </main>
         )}
         </>
