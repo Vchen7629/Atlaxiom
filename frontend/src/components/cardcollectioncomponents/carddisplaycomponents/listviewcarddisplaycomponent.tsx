@@ -8,7 +8,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from 'react-router-dom';
 import { useGetOwnedCardsQuery } from '../../../app/api-slices/ownedCardapislice.ts';
 import { Card, filteredListCards, SelectedCard } from "../types/ownedcarddetailstypes.ts";
@@ -19,9 +19,11 @@ import DecreaseOwnedCardButtonComponent from "../buttons/decreaseownedcardbutton
 import DeleteOwnedCardButtonComponent from "../buttons/deleteownedcardbutton.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { waveform } from 'ldrs'
 
 export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListCards) => {
-    const { currentListPageResults } = displaylistprops
+    waveform.register()
+    const { currentListPageResults, isLoading } = displaylistprops
     const location = useLocation();
     const { userId } = location.state || {};
 
@@ -33,12 +35,27 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
 
     const { refetch } = useGetOwnedCardsQuery(userId);
     const { data: ownedCardCount } = useGetSpecificUserQuery(userId);
+    const [showLoading, setShowLoading] = useState(true);
+
+    useEffect(() => {
+        if (!isLoading) {
+          const timer = setTimeout(() => {
+            setShowLoading(false);
+          }, 250);
+          return () => clearTimeout(timer);
+        }
+    }, [isLoading]);
       
     return (
         <AlertDialog >
             <AlertDialogTrigger asChild>       
-                <div className="text-[hsl(var(--text))] ">
-                    {currentListPageResults.length > 0 ? (
+                <div className="text-[hsl(var(--text))] bg-[hsl(var(--ownedcardcollection))] rounded-b-lg h-full flex flex-col">
+                    {(showLoading ||isLoading) ? (
+                        <div className="flex flex-col h-[100vh] space-y-[5vh] items-center justify-center text-center text-xl lg:text-3xl text-[hsl(var(--background3))] font-black">
+                            <span>Loading</span>
+                            <l-waveform size="50" stroke="3.5" speed="1" color="hsl(var(--background3))" />
+                        </div>
+                    ) : currentListPageResults.length > 0 ? (
                         currentListPageResults.map((card: Card) => (
                             <div key={card.id} className="grid grid-cols-[30%_35%_35%] lg:grid-cols-[5%_3%_25%_10%_25%_15%_9%_8%] bg-transparent min-h-24 text-sm font-bold items-center hover:bg-blacktwo" onClick={handleClick(card)}>
                                 <div className="hidden lg:flex pl-6 ">{card.ownedamount}</div>
@@ -79,11 +96,11 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
                             </div>
                         ))
                     ) : ownedCardCount?.totalOwnedCards === 0 ? (
-                      <div className="flex h-[90vh] justify-center pt-[25%] text-center text-xl lg:text-3xl text-gray-400 font-black">
+                      <div className="flex fkex-col h-[90vh] justify-center text-center text-xl lg:text-3xl text-gray-400 font-black">
                         <span>You have no owned Cards</span>
                       </div>
                     ) : (
-                        <div className="flex h-[90vh] justify-center text-center pt-[25%] text-xl lg:text-3xl text-gray-400 font-black">
+                        <div className="flex flex-col h-[90vh] justify-center text-center text-xl lg:text-3xl text-gray-400 font-black">
                           <span>No cards matching your Filters</span>
                         </div>
                     )}

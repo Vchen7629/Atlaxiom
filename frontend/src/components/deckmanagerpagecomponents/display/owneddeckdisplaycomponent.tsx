@@ -5,9 +5,12 @@ import DuplicateDeckButtonComponent from '../../deckbuttons/duplicatedeckbutton.
 import FavoriteDeckButtonComponent from '../../deckbuttons/makefavoritedeckbutton.tsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { useEffect, useState } from 'react';
+import { waveform } from 'ldrs';
 
 const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
     const {
+        isLoading,
         decksToDisplay,
         listView,
         galleryView,
@@ -17,6 +20,17 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
         currentPageGalleryDecksArray, setCurrentPageGalleryDecksArray,
     } = deckdisplayprops
     const navigate = useNavigate();
+    const [showLoading, setShowLoading] = useState(true);
+
+    waveform.register()
+    useEffect(() => {
+        if (!isLoading) {
+            const timer = setTimeout(() => {
+                setShowLoading(false);
+            }, 250);
+            return () => clearTimeout(timer);
+        }
+    }, [isLoading]);
 
     const handleDeckClick = async (deck: handleDeckClick) => {
         navigate('/modifyDeck', { state: { deckId: deck._id, userId: userId } });   
@@ -31,7 +45,12 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
         <>  
             {listView && (
                 <main className='flex flex-col w-full'>
-                    {currentPageListDecksArray.length > 0 ? (
+                    {(showLoading ||isLoading) ? (
+                        <div className="flex flex-col h-[45vh] space-y-[5vh] items-center justify-center text-center text-xl lg:text-3xl text-[hsl(var(--background3))] font-black">
+                            <span>Loading</span>
+                            <l-waveform size="50" stroke="3.5" speed="1" color="hsl(var(--background3))" />
+                        </div>
+                    ) : currentPageListDecksArray.length > 0 ? (
                         currentPageListDecksArray.map((deck: Deck) => (
                             <div 
                                 key={deck._id}
@@ -87,7 +106,12 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
             )}        
             {galleryView && (
                 <main className='flex flex-col w-full'>
-                    {currentPageGalleryDecksArray.length > 0 ? (
+                    {(showLoading ||isLoading) ? (
+                        <div className="flex flex-col h-[45vh] space-y-[5vh] items-center justify-center text-center text-xl lg:text-3xl text-[hsl(var(--background3))] font-black">
+                            <span>Loading</span>
+                            <l-waveform size="50" stroke="3.5" speed="1" color="hsl(var(--background3))" />
+                        </div>
+                    ) : currentPageGalleryDecksArray.length > 0 ? (
                         <div
                             className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 w-full h-full p-4 justify-items-center items-start"  
                             style={{ gridAutoRows: 'auto', alignContent: 'start' }}

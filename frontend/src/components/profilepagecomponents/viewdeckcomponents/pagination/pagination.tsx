@@ -41,7 +41,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         if (/^\d*$/.test(value)) {
             let page = parseInt(value, 10) || 0;
             
-            if (page < 1) {
+            if (page < 0) {
                 page = 1;
             } else if (page > totalListPages) {
                 page = totalListPages;
@@ -70,7 +70,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         if (/^\d*$/.test(value)) {
             let page = parseInt(value, 10) || 0;
 
-            if (page < 1) {
+            if (page < 0) {
                 page = 1;
             } else if (page > totalGalleryPages) {
                 page = totalGalleryPages;

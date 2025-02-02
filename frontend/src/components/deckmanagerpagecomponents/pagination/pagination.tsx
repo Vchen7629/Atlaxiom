@@ -21,10 +21,8 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
     } = paginationprops
     
     const [listpage, setListPage] = useState(currentListPage);
-    const [listerr, setListErr] = useState<string>("")
-
     const [gallerypage, setGalleryPage] = useState(currentGalleryPage);
-    const [galleryerr, setGalleryErr] = useState<string>("")
+
 
     function updateCurrentPageList() {
         if (filteredDecks.length > 0) {
@@ -43,14 +41,16 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         const value = e.target.value;
         // Allow only numeric input
         if (/^\d*$/.test(value)) {
-            const page = parseInt(value, 10);
-            setListPage(page || 0);
-            if (page >= 1 && page <= totalListPages) {
-                handleListPageChange(page);
-                setListErr("")
-            } else {
-                setListErr(`Enter a page number between 1 and ${totalListPages}`)
+            let page = parseInt(value, 10) || 0;
+            
+            if (page < 0) {
+                page = 1;
+            } else if (page > totalListPages) {
+                page = totalListPages;
             }
+
+            setListPage(page);
+            handleListPageChange(page);
         }
     };
 
@@ -62,6 +62,28 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
             setCurrentPageGalleryDecksArray(currentGallerySuggestions);
         }
     };
+
+    function handleGalleryPageChange(page: number) {
+        setGalleryCurrentPage(page);        
+    };
+
+    function handleGalleryInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const value = e.target.value;
+        // Allow only numeric input
+        if (/^\d*$/.test(value)) {
+            let page = parseInt(value, 10) || 0;
+
+            if (page < 0) {
+                page = 1;
+            } else if (page > totalGalleryPages) {
+                page = totalGalleryPages;
+            }
+
+            setGalleryPage(page);
+            handleGalleryPageChange(page);
+        }
+    };
+
 
     useEffect(() => {
         updateTotalListPages(filteredDecks.length);
@@ -75,25 +97,6 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         }
     }, [filteredDecks.length, suggestionsPerListPage, suggestionsPerGalleryPage, currentListPage, currentGalleryPage]);
 
-    function handleGalleryPageChange(page: number) {
-        setGalleryCurrentPage(page);        
-    };
-
-    function handleGalleryInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const value = e.target.value;
-        // Allow only numeric input
-        if (/^\d*$/.test(value)) {
-            const page = parseInt(value, 10);
-            setGalleryPage(page || 0);
-            if (page >= 1 && page <= totalListPages) {
-                handleGalleryPageChange(page);
-                setGalleryErr("")
-            } else {
-                setGalleryErr(`Enter a page number between 1 and ${totalListPages}`)
-            }
-        }
-    };
-
     const pageselectorprops = {
         listView,
         galleryView,
@@ -103,84 +106,50 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         totalListPages,
         currentGalleryPage, setGalleryCurrentPage,
         totalGalleryPages,
-        setListErr,
-        setGalleryErr,
     }
 
     return (
-        <div className="py-2 px-2 w-full lg:w-[30vw] bg-[hsl(var(--background1))]">
-            {listView && totalListPages > 1 && (
-                <div className="flex flex-col w-full">
-                    <div className="hidden md:flex space-x-[1vw] w-full justify-evenly">
-                        <section className="flex items-center h-full space-x-2"> 
-                            <span className="text-sm md:text-md lg:text-lg text-[hsl(var(--text))]">Page</span> 
-                            <input
-                                className="bg-transparent focus:outline-none w-10 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]"
-                                placeholder={String(currentListPage)}
-                                value={listpage}
-                                onChange={handleListInputChange}
-                            />
-                            <span className="text-lg text-[hsl(var(--text))] ">of {totalListPages}</span>
-                        </section>
-                        <PageSelectorComponent pageselectorprops={pageselectorprops}/>
-                    </div>
-                    <div className={`${totalListPages > 4 ? "flex flex-col" : "flex"} md:hidden space-y-[2vh] items-center space-x-[3vw] w-full`}>
-                        <section className="flex items-center h-full space-x-2"> 
-                            <span className="text-sm md:text-md text-[hsl(var(--text))]">Page</span> 
-                            <input
-                                className="bg-transparent focus:outline-none w-10 text-center text-sm md:text-md  text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]"
-                                placeholder={String(currentListPage)}
-                                value={listpage}
-                                onChange={handleListInputChange}
-                            />
-                            <span className="text-sm md:text-md  text-[hsl(var(--text))] ">of {totalListPages}</span>
-                            </section>
-                        <div><PageSelectorComponent pageselectorprops={pageselectorprops}/></div>
-                    </div> 
-                    <div className="pl-[4vw]">
-                        {listerr && (
-                            <span className="text-red-500 font-bold text-xs">{listerr}</span>
-                        )}
-                    </div>
-                </div>
-            )}
-
-            {galleryView && totalGalleryPages > 1 && (
-                <div className="flex flex-col w-full">
-                    <div className="hidden md:flex space-x-[1vw] w-full justify-evenly">
-                        <section className="flex items-center h-full space-x-2"> 
-                            <span className="text-lg">Page</span> 
-                            <input
-                                className="bg-transparent focus:outline-none w-10 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]"
-                                placeholder={String(currentGalleryPage)}
-                                value={gallerypage}
-                                onChange={handleGalleryInputChange}
-                            />
-                            <span className="text-lg">of {totalGalleryPages}</span>
-                            {galleryerr && (
-                                <span className="text-red-500 font-bold text-xs">{galleryerr}</span>
-                            )}
-                        </section>
-                        <PageSelectorComponent pageselectorprops={pageselectorprops}/>
-                    </div>
-                    <div className={`${totalGalleryPages > 4 ? "flex flex-col" : "flex"} md:hidden space-y-[2vh] items-center space-x-[3vw] w-full`}>
-                        <section className="flex items-center  h-full space-x-2"> 
-                            <span className="text-sm md:text-md">Page</span> 
-                            <input
-                                className="bg-transparent focus:outline-none w-10 text-center text-sm md:text-md text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]"
-                                placeholder={String(currentGalleryPage)}
-                                value={gallerypage}
-                                onChange={handleGalleryInputChange}
-                            />
-                            <span className="text-sm md:text-md">of {totalGalleryPages}</span>
-                            {galleryerr && (
-                                <span className="text-red-500 font-bold text-xs">{galleryerr}</span>
-                            )}
-                        </section>
-                        <PageSelectorComponent pageselectorprops={pageselectorprops}/>
-                    </div>
-                </div>
-            )}
+        <div className="flex flex-col py-2 px-2 w-full xl:w-[30vw] bg-[hsl(var(--background1))]">
+            <div className="hidden md:flex space-x-[1vw] w-full justify-evenly">
+                <section className="flex items-center h-full space-x-2"> 
+                    <span className="text-sm md:text-md lg:text-lg text-[hsl(var(--text))]">Page</span> 
+                    <input
+                        className={`${listView ? "flex" : "hidden"} bg-transparent focus:outline-none w-10 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
+                        placeholder={String(currentListPage || 1)}
+                        value={listpage}
+                        onChange={handleListInputChange}
+                    />
+                    <input
+                        className={`${galleryView ? "flex" : "hidden"} bg-transparent focus:outline-none w-10 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
+                        placeholder={String(currentGalleryPage || 1)}
+                        value={gallerypage}
+                        onChange={handleGalleryInputChange}
+                    />
+                    <span className={`${listView ? "flex" : "hidden"} text-lg text-[hsl(var(--text))]`}>of {totalListPages || 1}</span>
+                    <span className={`${galleryView ? "flex" : "hidden"} text-lg text-[hsl(var(--text))]`}>of {totalGalleryPages || 1}</span>
+                </section>
+                <PageSelectorComponent pageselectorprops={pageselectorprops}/>
+            </div>
+            <div className={`${totalListPages > 4 ? "flex flex-col" : "flex"} md:hidden space-y-[2vh] items-center space-x-[3vw] w-full`}>
+                <section className="flex items-center h-full space-x-2"> 
+                    <span className="text-sm md:text-md text-[hsl(var(--text))]">Page</span> 
+                    <input
+                        className={`${listView ? "flex" : "hidden"}bg-transparent focus:outline-none w-10 text-center text-sm md:text-md  text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
+                        placeholder={String(currentListPage || 1)}
+                        value={listpage}
+                        onChange={handleListInputChange}
+                    />
+                    <input
+                        className={`${galleryView ? "flex" : "hidden"}bg-transparent focus:outline-none w-10 text-center text-sm md:text-md  text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
+                        placeholder={String(currentGalleryPage || 1)}
+                        value={gallerypage}
+                        onChange={handleGalleryInputChange}
+                    />
+                    <span className={`${listView ? "flex" : "hidden"} text-sm md:text-md  text-[hsl(var(--text))] `}>of {totalListPages || 1}</span>
+                    <span className={`${galleryView ? "flex" : "hidden"} text-sm md:text-md  text-[hsl(var(--text))] `}>of {totalGalleryPages || 1}</span>
+                </section>
+                <PageSelectorComponent pageselectorprops={pageselectorprops}/>
+            </div> 
         </div>
     )
 

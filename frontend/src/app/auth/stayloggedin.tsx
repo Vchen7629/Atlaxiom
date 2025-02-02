@@ -40,8 +40,6 @@ const StayLoggedIn = () => {
             }
         }
         
-        effectRan.current = true
-
         return () => {
             effectRan.current = true;
         };

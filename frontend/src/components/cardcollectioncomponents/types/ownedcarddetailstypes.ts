@@ -13,6 +13,7 @@ export type Card = {
 export type filteredListCards = {
     displaylistprops: {
         currentListPageResults: any;
+        isLoading: boolean;
     }
 }
 
