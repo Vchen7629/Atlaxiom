@@ -15,6 +15,7 @@ export type DeckProps = {
         usersData?: {
             totalOwnedDecks: number;
         } | null
+        isLoading: boolean
         listView: boolean;
         galleryView: boolean;
         refetch: () => void;

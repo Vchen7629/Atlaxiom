@@ -8,9 +8,12 @@ import DeleteDeckButtonComponent from '@/components/deckbuttons/deletedeckbutton
 import { Toaster } from 'sonner';
 import DuplicateDeckButtonComponent from '@/components/deckbuttons/duplicatedeckbutton';
 import FavoriteDeckButtonComponent from '@/components/deckbuttons/makefavoritedeckbutton';
+import { waveform } from 'ldrs'
+import { useEffect, useState } from 'react';
 
 const ViewDecks = ({ deckprops }: DeckProps) => {
     const {
+        isLoading,
         usersData,
         listView,
         galleryView,
@@ -20,6 +23,18 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
         currentGalleryPageResults, setCurrentGalleryPageResults,
     } = deckprops 
 
+    const [showLoading, setShowLoading] = useState(true);
+    
+    useEffect(() => {
+        if (!isLoading) {
+            const timer = setTimeout(() => {
+                setShowLoading(false);
+            }, 250);
+            return () => clearTimeout(timer);
+        }
+    }, [isLoading]);
+
+    waveform.register()
     const userId = useSelector((state: UserId) => state.auth.userId);
     const navigate = useNavigate();
     const totalOwnedDecks = usersData?.totalOwnedDecks;
@@ -38,7 +53,12 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                 <Toaster richColors  expand visibleToasts={4}/>  
                 {listView && (
                     <main className='flex flex-col w-full'>
-                        {currentListPageResults.length > 0 ? (
+                        {showLoading ? (
+                            <div className="flex flex-col h-[55vh] space-y-[5vh] items-center justify-center text-center text-xl lg:text-3xl text-[hsl(var(--background3))] font-black">
+                                <span>Loading</span>
+                                <l-waveform size="50" stroke="3.5" speed="1" color="hsl(var(--background3))" />
+                            </div>
+                        ) : currentListPageResults.length > 0 ? (
                             <>
                                 {currentListPageResults.map((deck: FilteredDecks) => (
                                     <div 
@@ -94,7 +114,12 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
 
                 {galleryView && (
                     <main className='flex flex-col w-full'>
-                        {currentGalleryPageResults.length > 0 ? (
+                        {showLoading ? (
+                            <div className="flex flex-col h-[55vh] space-y-[5vh] items-center justify-center text-center text-xl lg:text-3xl text-[hsl(var(--background3))] font-black">
+                                <span>Loading</span>
+                                <l-waveform size="50" stroke="3.5" speed="1" color="hsl(var(--background3))" />
+                            </div>
+                        ) : currentGalleryPageResults.length > 0 ? (
                             <div
                                 className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-6 w-full h-full p-4 justify-items-center items-start"  
                                 style={{ gridAutoRows: 'auto', alignContent: 'start' }}

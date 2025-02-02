@@ -286,7 +286,7 @@ const UserOwnedCardPage = () => {
               <section className="flex flex-col w-full md:w-1/4">
                 <div className="text-4xl text-center lg:text-left lg:text-[40px] text-goldenrod font-bold">My Collection</div>
                 <div className="text-center lg:text-left text-lg text-gray-400">
-                  Last Edited: <span className="text-[hsl(var(--background3))]">{userData?.lastCardUpdated}</span></div>
+                  Last Edited: <span className="text-[hsl(var(--background3))]">{userData?.lastCardUpdated || "2025-01-01 01:01:01"}</span></div>
               </section>
               <section className="relative space-y-[1vh] lg:space-y-0 flex flex-col lg:flex-row items-center lg:space-x-2 w-full">
                 <div className="flex w-full lg:w-1/2">
@@ -353,7 +353,7 @@ const UserOwnedCardPage = () => {
                           <main className={`${expandStatus ? "w-3/4" : "w-full"} h-full rounded-xl`}>
                             <PaginationComponent paginationprops={paginationprops} />
                             <div className="bg-[hsl(var(--ownedcardcollection))]  border-2 border-[hsl(var(--background3))] min-h-full rounded-xl">
-                            <GalleryViewCardDisplayComponent displaygalleryprops={displaygalleryprops}/>
+                              <GalleryViewCardDisplayComponent displaygalleryprops={displaygalleryprops}/>
                             </div>                                           
                           </main>
                           

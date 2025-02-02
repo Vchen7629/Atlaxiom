@@ -111,18 +111,18 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
                     <span className="text-lg text-[hsl(var(--text))]">Page</span> 
                     <input
                         className={`bg-transparent focus:outline-none ${listView ? "flex" : "hidden"} w-10 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
-                        placeholder={String(currentListPage)}
+                        placeholder={String(currentListPage || 1)}
                         value={listpage}
                         onChange={handleListInputChange}
                     />
                     <input
                         className={`bg-transparent focus:outline-none ${galleryView ? "flex" : "hidden"} w-10 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
-                        placeholder={String(currentGalleryPage)}
+                        placeholder={String(currentGalleryPage || 1)}
                         value={gallerypage}
                         onChange={handleGalleryInputChange}
                     />
-                    <span className={`text-lg ${listView ? "flex" : "hidden"} text-[hsl(var(--text))]`}>of {totalListPages}</span>
-                    <span className={`text-lg ${galleryView ? "flex" : "hidden"} text-[hsl(var(--text))]`}>of {totalGalleryPages}</span>
+                    <span className={`text-lg ${listView ? "flex" : "hidden"} text-[hsl(var(--text))]`}>of {totalListPages || 1}</span>
+                    <span className={`text-lg ${galleryView ? "flex" : "hidden"} text-[hsl(var(--text))]`}>of {totalGalleryPages || 1}</span>
                 </section>
                 <PageSelectorComponent pageselectorprops={pageselectorprops}/>
             </div>
@@ -131,18 +131,18 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
                     <span className="text-sm md:text-md text-[hsl(var(--text))]">Page</span> 
                     <input
                         className={`bg-transparent focus:outline-none ${listView ? "flex" : "hidden"} w-10 text-center text-sm text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
-                        placeholder={String(currentListPage)}
+                        placeholder={String(currentListPage || 1)}
                         value={listpage}
                         onChange={handleListInputChange}
                     />
                     <input
                         className={`bg-transparent focus:outline-none ${galleryView ? "flex" : "hidden"} w-10 text-center text-sm text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
-                        placeholder={String(currentGalleryPage)}
+                        placeholder={String(currentGalleryPage || 1)}
                         value={gallerypage}
                         onChange={handleGalleryInputChange}
                     />
-                    <span className={`text-sm ${listView ? "flex" : "hidden"} text-[hsl(var(--text))]`}>of {totalListPages}</span>
-                    <span className={`text-sm ${galleryView ? "flex" : "hidden"} text-[hsl(var(--text))]`}>of {totalGalleryPages}</span>
+                    <span className={`text-sm ${listView ? "flex" : "hidden"} text-[hsl(var(--text))]`}>of {totalListPages || 1}</span>
+                    <span className={`text-sm ${galleryView ? "flex" : "hidden"} text-[hsl(var(--text))]`}>of {totalGalleryPages || 1}</span>
                 </section>
                 <PageSelectorComponent pageselectorprops={pageselectorprops}/>
             </div>

@@ -12,6 +12,9 @@ import ExtraDeckCardZone from '@/components/editdeckpagecomponents/carddropzones
 import SideDeckCardZone from '@/components/editdeckpagecomponents/carddropzones/SideDeckCardsZone.tsx';
 import SaveDeckCardsButton from '@/components/editdeckpagecomponents/buttons/SaveDeckCardsButton.tsx';
 import { GetOwnedCardsResponse } from '@/app/api-slices/types/ownedcardtypes.ts';
+import { waveform } from 'ldrs';
+import { EditDeckPageSidebarSkeleton } from '@/components/loadingcomponents/skeletons/components/editdeckpagesidebar.tsx';
+import { EditDeckHeaderSkeleton } from '@/components/loadingcomponents/skeletons/components/editdeckpageheaderskeleton.tsx';
 
 const DeckBuilderPage = () => {
     const location = useLocation();
@@ -21,10 +24,21 @@ const DeckBuilderPage = () => {
         DeckId: deckId
     })
 
+    waveform.register()
     const [allCardsView, setAllCardsView] = useState<boolean>(true);
     const [allCardsListResults, setAllCardsListResults] = useState<Card[]>([]);
     const [collectionCardsView, setCollectionCardsView] = useState<boolean>(false);
-    const [collectionCardData, setCollectionCardData] = useState<GetOwnedCardsResponse[]>([]);    
+    const [collectionCardData, setCollectionCardData] = useState<GetOwnedCardsResponse[]>([]); 
+    const [showLoading, setShowLoading] = useState(true);
+
+    useEffect(() => {
+        if (!isLoading) {
+          const timer = setTimeout(() => {
+            setShowLoading(false);
+          }, 300);
+          return () => clearTimeout(timer);
+        }
+    }, [isLoading]);
 
     useEffect(() => {
         if (deckId && userId) {
@@ -215,7 +229,20 @@ const DeckBuilderPage = () => {
         <>  
         <Header/>
             <main className="flex flex-col md:flex-row  w-full min-h-[110vh] bg-[hsl(var(--background1))]">           
-                {!isLoading && deckData && (
+                {showLoading ? (
+                    <div className='flex'>
+                        <section className="flex flex-col w-full md:w-[80vw] pt-[76px]">
+                            <EditDeckHeaderSkeleton />
+                            <div className="flex flex-col h-[70vh] w-full space-y-[5vh] items-center justify-center text-center text-xl lg:text-3xl text-[hsl(var(--background3))] font-black">
+                                <span>Loading</span>
+                                <l-waveform size="50" stroke="3.5" speed="1" color="hsl(var(--background3))" />
+                            </div>
+                        </section>
+                        <section className="hidden md:flex md:flex-col max-h-[110vh] w-[19vw] pt-[76px] px-4 justify-between">
+                            <EditDeckPageSidebarSkeleton />
+                        </section>
+                    </div>
+                ) : deckData && (
                     <DndContext onDragCancel={handleDragLeave} onDragMove={handleDragMove} onDragEnd={handleDragEnd} modifiers={[restrictToWindowEdges]}>
                         <section className="flex flex-col w-full md:w-[80vw] pt-[76px]">
                             <header className="flex justify-between items-center p-5 w-full h-[17vh] bg-gradient-to-t from-[hsl(var(--homepagegradient1))] to-[hsl(var(--homepagegradient3))]">
