@@ -57,10 +57,10 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                                 className="flex  h-[7vh] px-2 justify-between items-center mb-2 hover:bg-[hsl(var(--background5))]" 
                                 onClick={() => handleDeckClick(deck)}
                             >  
-                                <section className='flex w-1/4 space-x-8'>
+                                <section className='flex w-[30%] space-x-8'>
                                     <div className="flex flex-col">
                                         <div className="text-[hsl(var(--text))] text-xs lg:text-lg"><strong>{deck.deck_name}</strong></div>
-                                        <div className="text-gray-400 hidden md:text-md lg:text-lg lg:flex">Last Updated {deck.lastUpdated}</div>
+                                        <div className="text-gray-400 hidden md:text-md lg:text-lg lg:flex">Updated: {deck.lastUpdated}</div>
                                     </div>
                                     {deck.favorite === true && (
                                         <span className=' text-[hsl(var(--background3))] hidden md:flex items-center justify-center'>

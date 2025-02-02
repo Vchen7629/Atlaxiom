@@ -19,13 +19,11 @@ export type pageselector = {
         setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
         totalPages: number;
         setPage: React.Dispatch<React.SetStateAction<number>>;
-        setErr: React.Dispatch<React.SetStateAction<string>>;
     }
 }
 
 export type selectedcard = {
     selectedcardprops: {
-        setSelectedCard: React.Dispatch<React.SetStateAction<boolean>>
         cardName: string
         userId: string
     }

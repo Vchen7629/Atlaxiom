@@ -95,6 +95,10 @@ export const AddCardButton = ({ userId }: UserId) => {
         setCardName(name)
     }
 
+    function handleClick() {
+        setSelectedCard(false)
+    }
+
     const paginationprops = {
         filteredCards,
         currentPage, setCurrentPage,
@@ -104,11 +108,7 @@ export const AddCardButton = ({ userId }: UserId) => {
         currentCards, setCurrentCards
     }
 
-    const selectedcardprops = {
-        setSelectedCard,
-        cardName,
-        userId,
-    }
+    const selectedcardprops = { cardName, userId, }
 
     return (
       <AlertDialog>
@@ -120,20 +120,23 @@ export const AddCardButton = ({ userId }: UserId) => {
                 <FontAwesomeIcon className="lg:mr-1" icon={faPlusCircle}/>Add Card
             </Button>
         </AlertDialogTrigger>
-        <AlertDialogContent className="bg-[hsl(var(--background1))] min-w-[65vw] h-[55vh] max-h-[70vh] flex-grow border-transparent ">
+        <AlertDialogContent className="bg-[hsl(var(--background1))]  min-h-[55vh] min-w-[45vw] flex-grow border-transparent ">
           <AlertDialogHeader>
             <div className="flex justify-between items-center w-full">
-                <AlertDialogTitle className="text-[hsl(var(--text))]">Add Card to collection</AlertDialogTitle>
+                <AlertDialogTitle className="text-[hsl(var(--text))] w-[40%]">Add Card to collection</AlertDialogTitle>
                 <AlertDialogCancel 
-                    className="bg-transparent shadow-custom border-transparent text-[hsl(var(--text))] hover:text-[hsl(var(--background3))]"
+                    className={`${selectedcard ? "hidden" : "flex "} bg-transparent border-2 border-[hsl(var(--background3))] shadow-custom text-[hsl(var(--text))] hover:text-[hsl(var(--background3))]`}
                     onClick={handleBackClick}
                 >
                     Back
                 </AlertDialogCancel>
+                <button onClick={handleClick} className={`${selectedcard ? "flex" : "hidden"} border-2 border-[hsl(var(--background3))] hover:bg-[hsl(var(--background3))] py-2 px-2 text-sm rounded-md text-[hsl(var(--text))] mb-4`}>
+                    Back to Card Search
+                </button>
             </div>
-                <AlertDialogDescription className="flex flex-col  items-center justify-center pt-4">
+            <AlertDialogDescription className="flex flex-col w-full items-center justify-center pt-4">
                 {selectedcard ? (
-                    <div className="flex">
+                    <div className="flex w-full">
                         <SelectedCardComponent selectedcardprops={selectedcardprops}/>
                     </div>
                 ) : (
@@ -155,40 +158,56 @@ export const AddCardButton = ({ userId }: UserId) => {
                                 )}
                             </div>
                         </section>
-                        <section className="flex flex-col w-[90%] h-[30vh] pt-4">
+                        <section className="flex flex-col w-full h-fit pt-2 space-y-[2vh]">
                             <AddCardPaginationComponent paginationprops={paginationprops} /> 
-                            {(showLoading ||loading) ? (
-                                <div className="flex space-x-[3vw] h-full justify-center items-center text-3xl text-[hsl(var(--background3))] font-black">
-                                    <span>Loading Card Data...</span>
-                                    <l-waveform size="50" stroke="3.5" speed="1" color="hsl(var(--background3))" />
-                                </div>
-                            ) : currentCards.length > 0 ? (
-                                currentCards.map((card: mappedCard) => (
-                                    <div key={card.id} className="flex bg-transparent h-16 text-sm font-bold items-center hover:bg-blacktwo">
-                                        <img 
-                                            src={card.card_images[0]?.image_url} // Accessing the image from card_images array
-                                            alt={card.name || 'Unknown Card'} 
-                                            className="h-16" 
-                                        />
-                                        <span className="ml-2 text-[hsl(var(--text))]">{card.name}</span>
-                                        <button 
-                                            className="flex bg-[hsl(var(--background3))] absolute right-4 py-1 px-2 rounded-md items-center space-x-2"
-                                            onClick={() => handleCardClick(card.name)}
-                                        >
-                                            <FontAwesomeIcon icon={faPlus} />
-                                            <span>Add Card</span>
-                                        </button>
+                            <div>
+                                {(showLoading ||loading) ? (
+                                    <div className="flex space-x-[3vw] h-full justify-center items-center text-3xl text-[hsl(var(--background3))] font-black">
+                                        <span>Loading Card Data...</span>
+                                        <l-waveform size="50" stroke="3.5" speed="1" color="hsl(var(--background3))" />
                                     </div>
-                                ))
-                            ) : loadErr ? (
-                                <div className="flex h-full justify-center items-center text-3xl text-gray-400 font-black">
-                                    <span>Load Error</span>
-                                </div>
-                            ) : (
-                                <div className="flex h-full justify-center items-center text-3xl text-gray-400 font-black">
-                                    <span>No cards matching your Filters</span>
-                                </div>
-                            )}         
+                                ) : currentCards.length > 0 ? (
+                                    currentCards.map((card: mappedCard) => (
+                                        <div key={card.id} className="flex bg-transparent h-[9vh] text-sm font-bold items-center hover:bg-blacktwo">
+                                            <img 
+                                                src={card.card_images[0]?.image_url} // Accessing the image from card_images array
+                                                alt={card.name || 'Unknown Card'} 
+                                                className="h-16" 
+                                            />
+                                            <span className="ml-4 w-[30%] text-[hsl(var(--background3))]">{card.name}</span>
+                                            
+                                            <span className="hidden lg:flex items-center text-[hsl(var(--text))] w-[25%] text-sm">
+                                                <strong className="mr-2 text-[hsl(var(--background3))]">Card Type: </strong>{card.race}
+                                            </span>
+                                            {(card.atk || card.atk === 0 ) && (
+                                                <span className="hidden lg:flex text-[hsl(var(--text))] w-[10%] text-sm">
+                                                    <strong className="mr-2 text-[hsl(var(--background3))]">Atk:</strong> {card.atk}
+                                                </span>
+                                            )}
+                                            {(card.def || card.def === 0) && (
+                                                <span className="hidden lg:flex text-[hsl(var(--text))] w-[10%] text-sm">
+                                                    <strong className="mr-2 text-[hsl(var(--background3))]">Def:</strong> {card.def}
+                                                </span>
+                                            )}
+                                            <button 
+                                                className="flex bg-[hsl(var(--background3))] absolute right-4 py-1 px-2 rounded-md items-center space-x-2"
+                                                onClick={() => handleCardClick(card.name)}
+                                            >
+                                                <FontAwesomeIcon icon={faPlus} />
+                                                <span>Add Card</span>
+                                            </button>
+                                        </div>
+                                    ))
+                                ) : loadErr ? (
+                                    <div className="flex h-[30vh] justify-center items-center text-3xl text-gray-400 font-black">
+                                        <span>Load Error</span>
+                                    </div>
+                                ) : (
+                                    <div className="flex h-[30vh] justify-center items-center text-3xl text-gray-400 font-black">
+                                        <span>No cards matching your Filters</span>
+                                    </div>
+                                )}
+                            </div>         
                         </section>
                     </>
                 )}

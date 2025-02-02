@@ -14,7 +14,6 @@ const AddCardPaginationComponent = ({ paginationprops }: Pagination) => {
     } = paginationprops
     
     const [, setPage] = useState(currentPage);
-    const [err, setErr] = useState<string>("")
 
 
     function updateCurrentPageList() {
@@ -34,14 +33,15 @@ const AddCardPaginationComponent = ({ paginationprops }: Pagination) => {
         const value = e.target.value;
         // Allow only numeric input
         if (/^\d*$/.test(value)) {
-            const page = parseInt(value, 10);
-            setPage(page || 0);
-            if (page >= 1 && page <= totalPages) {
-                handleListPageChange(page);
-                setErr("")
-            } else {
-                setErr(`Enter a page number between 1 and ${totalPages}`)
+            let page = parseInt(value, 10) || 0;
+
+            if (page < 0) {
+                page = 1;
+            } else if (page > totalPages) {
+                page = totalPages;
             }
+
+            handleListPageChange(page);
         }
     };
 
@@ -58,14 +58,13 @@ const AddCardPaginationComponent = ({ paginationprops }: Pagination) => {
         currentPage, setCurrentPage,
         setPage,
         totalPages,
-        setErr,
     }
 
     return (
         <div className="py-2 px-2 bg-[hsl(var(--background1))]">
             {totalPages > 1 && (
-                <div className="flex w-full justify-between ">
-                    <section className="flex items-center h-full space-x-2"> 
+                <div className="flex flex-col lg:flex-row w-full items-center space-y-[2vh] lg:space-y-0 lg:items-start justify-between ">
+                    <section className="flex items-center h-full space-x-2 py-1"> 
                         <span className="text-lg text-[hsl(var(--text))]">Page</span> 
                         <input
                             className="bg-transparent focus:outline-none w-10 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]"
@@ -74,12 +73,10 @@ const AddCardPaginationComponent = ({ paginationprops }: Pagination) => {
                             onChange={handleListInputChange}
                         />
                         <span className="text-lg text-[hsl(var(--text))]">of {totalPages}</span>
-                        {err && (
-                            <span className="text-red-500 text-xs">{err}</span>
-                        )}
                     </section>
                     <PageSelectorComponent pageselectorprops={pageselectorprops}/>
                 </div>
+                
             )}
         </div>
     )

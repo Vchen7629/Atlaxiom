@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisVertical, faFilter } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRotateRight, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { useGetOwnedCardsQuery } from '../../app/api-slices/ownedCardapislice.ts';
 import Header from '../../components/header/header.tsx';
 import Footer from '../../components/footer/Footer.tsx';
@@ -69,7 +69,7 @@ const UserOwnedCardPage = () => {
   const { data: ownedCards, isLoading, refetch } = useGetOwnedCardsQuery(userId);
   const { data: userData, refetch: refetchOnUpdate} = useGetSpecificUserQuery(userId)
   const suggestionsPerGalleryPage = 20;
-  const suggestionsPerListPage = 7;
+  const suggestionsPerListPage = 9;
   const [totalListPages, setTotalListPages] = useState<number>(1);
   const [totalGalleryPages, setTotalGalleryPages] = useState<number>(1);
   const updateTotalPages = (filteredCardsLength: number) => {
@@ -285,7 +285,8 @@ const UserOwnedCardPage = () => {
             <header className="relative items-center flex flex-col sm:flex-col md:flex-row w-full my-[1%]">
               <section className="flex flex-col w-full md:w-1/4">
                 <div className="text-4xl text-center lg:text-left lg:text-[40px] text-goldenrod font-bold">My Collection</div>
-                <div className="text-center lg:text-left text-lg text-gray-400">Last Edited: {userData?.lastCardUpdated}</div>
+                <div className="text-center lg:text-left text-lg text-gray-400">
+                  Last Edited: <span className="text-[hsl(var(--background3))]">{userData?.lastCardUpdated}</span></div>
               </section>
               <section className="relative space-y-[1vh] lg:space-y-0 flex flex-col lg:flex-row items-center lg:space-x-2 w-full">
                 <div className="flex w-full lg:w-1/2">
@@ -295,16 +296,16 @@ const UserOwnedCardPage = () => {
                   <FontAwesomeIcon className="mr-2" icon={faFilter}/>Filter
                 </button>
                 <div className="hidden lg:flex"><AddCardButton userId={userId}/></div>
-                <button className="hidden lg:flex rounded-md px-4 items-center justify-center w-20 h-9 bg-footer">
-                  <FontAwesomeIcon icon={faEllipsisVertical} className="mr-2 text-gray-400"/>More
-                </button>
                 <div className="hidden lg:flex w-20 h-11 bg-footer rounded-xl absolute right-0">
                   <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                 </div>
                 <div className="flex sm:flex lg:hidden space-x-[1vw] w-full items-center">
                   <MobileFilterDrawerComponent filterProps={filterProps} />
                   <AddCardButton userId={userId}/>
-                  <button className={`flex items-center px-4 rounded-md h-9 ${canClearFilter ? "bg-[hsl(var(--background3))]" : "bg-gray-600"}`} onClick={clearFilter}> Clear </button>
+                  <button className={`hidden items-center lg:flex px-4 rounded-md h-9 ${canClearFilter ? "bg-[hsl(var(--background3))]" : "bg-gray-600"}`} onClick={clearFilter}> Clear </button>
+                  <button className={`flex items-center lg:hidden px-4 rounded-md h-9 ${canClearFilter ? "bg-[hsl(var(--background3))]" : "bg-gray-600"}`} onClick={clearFilter}> 
+                    <FontAwesomeIcon icon={faArrowRotateRight} />
+                  </button>
                   <div className="flex lg:hidden w-20 h-10 bg-footer rounded-xl absolute right-[-1px]">
                     <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                   </div>
@@ -349,7 +350,7 @@ const UserOwnedCardPage = () => {
                     ) : (
                       galleryView && (
                         <main className="flex justify-between">
-                          <main className={`${expandStatus ? "w-3/4" : "w-full"}`}>
+                          <main className={`${expandStatus ? "w-3/4" : "w-full"} h-full rounded-xl`}>
                             <PaginationComponent paginationprops={paginationprops} />
                             <div className="bg-[hsl(var(--ownedcardcollection))]  border-2 border-[hsl(var(--background3))] min-h-full rounded-xl">
                             <GalleryViewCardDisplayComponent displaygalleryprops={displaygalleryprops}/>

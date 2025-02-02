@@ -47,11 +47,11 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
     }, [isLoading]);
       
     return (
-        <AlertDialog >
+        <AlertDialog>
             <AlertDialogTrigger asChild>       
                 <div className="text-[hsl(var(--text))] bg-[hsl(var(--ownedcardcollection))] rounded-b-lg h-full flex flex-col">
-                    {(showLoading ||isLoading) ? (
-                        <div className="flex flex-col h-[100vh] space-y-[5vh] items-center justify-center text-center text-xl lg:text-3xl text-[hsl(var(--background3))] font-black">
+                    {showLoading ? (
+                        <div className="flex flex-col h-[65vh] space-y-[5vh] items-center justify-center text-center text-xl lg:text-3xl text-[hsl(var(--background3))] font-black">
                             <span>Loading</span>
                             <l-waveform size="50" stroke="3.5" speed="1" color="hsl(var(--background3))" />
                         </div>
@@ -96,28 +96,28 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
                             </div>
                         ))
                     ) : ownedCardCount?.totalOwnedCards === 0 ? (
-                      <div className="flex fkex-col h-[90vh] justify-center text-center text-xl lg:text-3xl text-gray-400 font-black">
+                      <div className="flex fkex-col h-[65vh] justify-center text-center text-xl lg:text-3xl text-gray-400 font-black">
                         <span>You have no owned Cards</span>
                       </div>
                     ) : (
-                        <div className="flex flex-col h-[90vh] justify-center text-center text-xl lg:text-3xl text-gray-400 font-black">
+                        <div className="flex flex-col h-[65vh] justify-center text-center text-xl lg:text-3xl text-gray-400 font-black">
                           <span>No cards matching your Filters</span>
                         </div>
                     )}
                 </div>
             </AlertDialogTrigger>
-            <AlertDialogContent className="bg-blackone min-w-[40vw] border-transparent ">
+            <AlertDialogContent className="bg-[hsl(var(--ownedcardcollection))] min-w-[40vw] border-transparent ">
             <AlertDialogHeader>
                 <div className="flex justify-between">
                     <AlertDialogTitle className="w-full flex justify-center items-center">
                         {selectedCard ? (
-                        <div className="text-gold ml-8">{selectedCard.card_name}</div>
+                        <div className="text-[hsl(var(--background3))] font-bold lg:text-3xl">{selectedCard.card_name}</div>
                         ) : (
                             <div>No card</div>
                         )}
                     </AlertDialogTitle>
                     <AlertDialogCancel 
-                        className="bg-footer shadow-custom border-transparent hover:bg-footer hover:text-gold"
+                        className="bg-[hsl(var(--background3))] shadow-custom border-transparent hover:bg-footer hover:text-gold"
                     >
                         <FontAwesomeIcon icon={faArrowLeft} />
                     </AlertDialogCancel>
@@ -146,30 +146,32 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
                                 <div className="flex flex-col space-y-[1vh] ml-[5vw] lg:ml-2">
                                     <div className="hidden lg:flex flex-col space-y-[2vh] w-full">
                                         <div className="flex w-full justify-between">
-                                            <span><strong className="mr-2">Type:</strong>{selectedCard.type}</span>
-                                            <span><strong className="mr-2">race:</strong> {selectedCard.race}</span>
-                                            <span><strong className="mr-2">Archetype:</strong> {selectedCard.archetype}</span>
+                                            <span className="text-[hsl(var(--text))] text-md"><strong className="mr-2">Type:</strong>{selectedCard.type}</span>
+                                            <span className="text-[hsl(var(--text))] text-md"><strong className="mr-2">race:</strong> {selectedCard.race}</span>
+                                            <span className="text-[hsl(var(--text))] text-md"><strong className="mr-2">Archetype:</strong> {selectedCard.archetype}</span>
                                         </div>
                                         {selectedCard.attribute || selectedCard.level && (
                                             <div className="flex w-full justfiy-between">
-                                                <span><strong>attribute:</strong> {selectedCard.attribute}</span>
-                                                <span><strong>level:</strong> {selectedCard.level}</span>
+                                                <span className="text-[hsl(var(--text))] text-md"><strong className="mr-2">attribute:</strong> {selectedCard.attribute}</span>
+                                                <span className="text-[hsl(var(--text))] text-md"><strong className="mr-2">level:</strong> {selectedCard.level}</span>
                                             </div>
                                         )}
-                                        <span><strong>Desc:</strong> {selectedCard.desc}</span>
+                                        <span className="text-[hsl(var(--text))] text-md"><strong className="mr-2">Desc:</strong> {selectedCard.desc}</span>
                                         {selectedCard.atk || selectedCard.def && (
                                             <div className="flex w-full justify-between">
-                                                <span><strong>Atk:</strong> {selectedCard.atk}</span>
-                                                <span><strong>Def:</strong> {selectedCard.def}</span>
+                                                <span className="text-[hsl(var(--text))] text-md"><strong className="mr-2">Atk:</strong> {selectedCard.atk}</span>
+                                                <span className="text-[hsl(var(--text))] text-md"><strong className="mr-2">Def:</strong> {selectedCard.def}</span>
                                             </div>
                                         )}
-                                        <div className="flex w-full justify-between">
-                                            <span><strong>Set Name:</strong> {selectedCard.set_name}</span>
-                                            <span><strong>Set Code:</strong> {selectedCard.set_code}</span>
+                                        <div className="flex w-full space-x-[1vw]">
+                                            <span className="text-[hsl(var(--text))] text-md"><strong className="mr-2">Set Name:</strong> {selectedCard.set_name}</span>
+                                            <span className="text-[hsl(var(--text))] text-md"><strong className="mr-2">Set Code:</strong> {selectedCard.set_code}</span>
                                         </div>
-                                        <div><strong>Rarity:</strong> {selectedCard.rarity}</div>
-                                        <div><strong>Owned Amount:</strong> {selectedCard.ownedamount}</div>
-                                        <div><strong>Price:</strong> ${selectedCard.price}</div>
+                                        <div className="flex w-full space-x-[1vw]">
+                                            <span className="text-[hsl(var(--text))] text-md"><strong className="mr-2">Rarity:</strong> {selectedCard.rarity}</span>
+                                            <span className="text-[hsl(var(--text))] text-md"><strong className="mr-2">Price:</strong> ${selectedCard.price}</span>
+                                        </div>
+                                        <span className="text-[hsl(var(--text))] text-md"><strong className="mr-2">Owned Amount:</strong> {selectedCard.ownedamount}</span>
                                     </div>
                                     <div className="flex flex-col space-y-[2vh] text-left lg:hidden w-[45vw] justify-between ">
                                         <span><strong className="mr-2">Type:</strong> {selectedCard.type}</span>

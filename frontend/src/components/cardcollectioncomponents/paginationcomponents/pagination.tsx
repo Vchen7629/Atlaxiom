@@ -105,25 +105,47 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
     }
 
     return (
-        <div className="w-full flex items-center justify-between h-[5vh] space-x-2 px-2 bg-[hsl(var(--background1))]">
-            <section className="flex items-center h-full space-x-2"> 
-                <span className="text-lg text-[hsl(var(--text))]">Page</span> 
-                <input
-                    className={`bg-transparent focus:outline-none ${listView ? "flex" : "hidden"} w-10 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
-                    placeholder={String(currentListPage)}
-                    value={listpage}
-                    onChange={handleListInputChange}
-                />
-                <input
-                    className={`bg-transparent focus:outline-none ${galleryView ? "flex" : "hidden"} w-10 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
-                    placeholder={String(currentGalleryPage)}
-                    value={gallerypage}
-                    onChange={handleGalleryInputChange}
-                />
-                <span className={`text-lg ${listView ? "flex" : "hidden"} text-[hsl(var(--text))]`}>of {totalListPages}</span>
-                <span className={`text-lg ${galleryView ? "flex" : "hidden"} text-[hsl(var(--text))]`}>of {totalGalleryPages}</span>
-            </section>
-            <PageSelectorComponent pageselectorprops={pageselectorprops}/>
+        <div className="flex flex-col py-2 px-2 w-full bg-[hsl(var(--background1))]">
+            <div className="hidden md:flex space-x-[1vw] w-full justify-between">
+                <section className="items-center flex h-full space-x-2"> 
+                    <span className="text-lg text-[hsl(var(--text))]">Page</span> 
+                    <input
+                        className={`bg-transparent focus:outline-none ${listView ? "flex" : "hidden"} w-10 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
+                        placeholder={String(currentListPage)}
+                        value={listpage}
+                        onChange={handleListInputChange}
+                    />
+                    <input
+                        className={`bg-transparent focus:outline-none ${galleryView ? "flex" : "hidden"} w-10 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
+                        placeholder={String(currentGalleryPage)}
+                        value={gallerypage}
+                        onChange={handleGalleryInputChange}
+                    />
+                    <span className={`text-lg ${listView ? "flex" : "hidden"} text-[hsl(var(--text))]`}>of {totalListPages}</span>
+                    <span className={`text-lg ${galleryView ? "flex" : "hidden"} text-[hsl(var(--text))]`}>of {totalGalleryPages}</span>
+                </section>
+                <PageSelectorComponent pageselectorprops={pageselectorprops}/>
+            </div>
+            <div className={`${totalListPages > 2 ? "flex flex-col space-y-[2vh]" : "flex"} w-full flex md:hidden items-center h-full justify-between`}>
+                <section className="flex items-center h-full space-x-2"> 
+                    <span className="text-sm md:text-md text-[hsl(var(--text))]">Page</span> 
+                    <input
+                        className={`bg-transparent focus:outline-none ${listView ? "flex" : "hidden"} w-10 text-center text-sm text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
+                        placeholder={String(currentListPage)}
+                        value={listpage}
+                        onChange={handleListInputChange}
+                    />
+                    <input
+                        className={`bg-transparent focus:outline-none ${galleryView ? "flex" : "hidden"} w-10 text-center text-sm text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
+                        placeholder={String(currentGalleryPage)}
+                        value={gallerypage}
+                        onChange={handleGalleryInputChange}
+                    />
+                    <span className={`text-sm ${listView ? "flex" : "hidden"} text-[hsl(var(--text))]`}>of {totalListPages}</span>
+                    <span className={`text-sm ${galleryView ? "flex" : "hidden"} text-[hsl(var(--text))]`}>of {totalGalleryPages}</span>
+                </section>
+                <PageSelectorComponent pageselectorprops={pageselectorprops}/>
+            </div>
         </div>
     )
 
