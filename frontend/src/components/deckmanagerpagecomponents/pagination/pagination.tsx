@@ -41,11 +41,16 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         const value = e.target.value;
         // Allow only numeric input
         if (/^\d*$/.test(value)) {
-            const page = parseInt(value, 10);
-            setListPage(page || 0);
-            if (page >= 1 && page <= totalListPages) {
-                handleListPageChange(page);
+            let page = parseInt(value, 10) || 0;
+            
+            if (page < 0) {
+                page = 1;
+            } else if (page > totalListPages) {
+                page = totalListPages;
             }
+
+            setListPage(page);
+            handleListPageChange(page);
         }
     };
 
@@ -58,6 +63,28 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         }
     };
 
+    function handleGalleryPageChange(page: number) {
+        setGalleryCurrentPage(page);        
+    };
+
+    function handleGalleryInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const value = e.target.value;
+        // Allow only numeric input
+        if (/^\d*$/.test(value)) {
+            let page = parseInt(value, 10) || 0;
+
+            if (page < 0) {
+                page = 1;
+            } else if (page > totalGalleryPages) {
+                page = totalGalleryPages;
+            }
+
+            setGalleryPage(page);
+            handleGalleryPageChange(page);
+        }
+    };
+
+
     useEffect(() => {
         updateTotalListPages(filteredDecks.length);
         updateTotalGalleryPages(filteredDecks.length);
@@ -69,22 +96,6 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
             updateCurrentPageGallery();
         }
     }, [filteredDecks.length, suggestionsPerListPage, suggestionsPerGalleryPage, currentListPage, currentGalleryPage]);
-
-    function handleGalleryPageChange(page: number) {
-        setGalleryCurrentPage(page);        
-    };
-
-    function handleGalleryInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const value = e.target.value;
-        // Allow only numeric input
-        if (/^\d*$/.test(value)) {
-            const page = parseInt(value, 10);
-            setGalleryPage(page || 0);
-            if (page >= 1 && page <= totalListPages) {
-                handleGalleryPageChange(page);
-            }
-        }
-    };
 
     const pageselectorprops = {
         listView,

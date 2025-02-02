@@ -96,11 +96,11 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
                             </div>
                         ))
                     ) : ownedCardCount?.totalOwnedCards === 0 ? (
-                      <div className="flex h-[90vh] justify-center text-center text-xl lg:text-3xl text-gray-400 font-black">
+                      <div className="flex fkex-col h-[90vh] justify-center text-center text-xl lg:text-3xl text-gray-400 font-black">
                         <span>You have no owned Cards</span>
                       </div>
                     ) : (
-                        <div className="flex h-[90vh] justify-center text-center text-xl lg:text-3xl text-gray-400 font-black">
+                        <div className="flex flex-col h-[90vh] justify-center text-center text-xl lg:text-3xl text-gray-400 font-black">
                           <span>No cards matching your Filters</span>
                         </div>
                     )}

@@ -22,12 +22,20 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
         setGalleryPage(page);        
     };
 
-    function PrevPage() {
+    function PrevPageList() {
         handleListPageChange(currentListPage - 1)
     }
 
-    function NextPage() {
+    function NextPageList() {
         handleListPageChange(currentListPage + 1)
+    }
+
+    function PrevPageGallery() {
+        handleGalleryPageChange(currentGalleryPage - 1)
+    }
+
+    function NextPageGallery() {
+        handleGalleryPageChange(currentGalleryPage + 1)
     }
 
 
@@ -35,7 +43,7 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
         <div className="flex w-fit text-center space-x-2">
             {listView && (
                 <>
-                    <button className="text-[hsl(var(--text))] bg-transparent px-2 border-[1px] font-bold border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentListPage === 1} onClick={PrevPage}>
+                    <button className="text-[hsl(var(--text))] bg-transparent px-2 border-[1px] font-bold border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentListPage === 1} onClick={PrevPageList}>
                         {'<<'}
                     </button>
                     {Array.from({ length: Math.min(4, totalListPages) }, (_, index) => {
@@ -67,7 +75,7 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
                             {totalListPages}
                         </button>
                     )}
-                    <button className="text-[hsl(var(--text))] px-2 border-[1px] bg-transparent font-bold border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentListPage === totalListPages} onClick={NextPage}>
+                    <button className="text-[hsl(var(--text))] px-2 border-[1px] bg-transparent font-bold border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentListPage === totalListPages} onClick={NextPageList}>
                         {'>>'}
                     </button>
                 </>
@@ -75,7 +83,7 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
 
             {galleryView && (
                 <>
-                    <button className="text-[hsl(var(--text))] px-2 border-[1px] bg-transparent font-bold border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentGalleryPage === 1} onClick={PrevPage}>
+                    <button className="text-[hsl(var(--text))] px-2 border-[1px] bg-transparent font-bold border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentGalleryPage === 1} onClick={PrevPageGallery}>
                         {'<<'}
                     </button>
                     {Array.from({ length: Math.min(4, totalGalleryPages) }, (_, index) => {
@@ -107,7 +115,7 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
                             {totalGalleryPages}
                         </button>
                     )}
-                    <button className="text-[hsl(var(--text))] px-2 border-[1px] bg-transparent font-bold border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentGalleryPage === totalGalleryPages} onClick={NextPage}>
+                    <button className="text-[hsl(var(--text))] px-2 border-[1px] bg-transparent font-bold border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" disabled={currentGalleryPage === totalGalleryPages} onClick={NextPageGallery}>
                         {'>>'}
                     </button>
                 </>

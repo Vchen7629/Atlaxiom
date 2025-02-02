@@ -1,22 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SearchResCardData } from "../types/datastructuretypes";
 import { ListViewComp } from "../types/searchbarcomponentstypes";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { SearchAuth } from "@/pages/searchpage/types/searchbarpagestypes";
-
+import { waveform } from 'ldrs';
 
 const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => {
     const {
+        loading,
         searchTerm,
         currentPageListNamesArray,
         setErrorMessage,
     } = listviewprops
-    
+
     const [, setSelectedCardData] = useState<SearchResCardData | null>(null);
     const authenticated = useSelector((state: SearchAuth) => state.auth.token !== null);
-
     const navigate = useNavigate();
+    const [showLoading, setShowLoading] = useState(true);
+
+    waveform.register();
+    useEffect(() => {
+        if (!loading) {
+            const timer = setTimeout(() => {
+                setShowLoading(false);
+            }, 250);
+            return () => clearTimeout(timer);
+        }
+    }, [loading]);
 
     const handleSuggestionClick = (card: SearchResCardData) => {
         setSelectedCardData(card);
@@ -35,7 +46,12 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
     return (
         <main className="w-full">
             <div className="">
-                {currentPageListNamesArray.length > 0 ? (
+                {showLoading ? (
+                    <div className="flex flex-col h-[70vh] space-y-[5vh] items-center justify-center text-center text-xl lg:text-3xl text-[hsl(var(--background3))] font-black">
+                        <span>Loading</span>
+                        <l-waveform size="50" stroke="3.5" speed="1" color="hsl(var(--background3))" />
+                    </div>
+                ) : currentPageListNamesArray.length > 0 ? (
                     currentPageListNamesArray.map((card: SearchResCardData) => (
                         <div key={card.id} onClick={handleClick(card)}>
                             <div className="flex w-full h-[20vh] mb-2 bg-transparentt">
@@ -97,10 +113,10 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
                     <main className="w-full h-[70vh] flex justify-center items-center">
                         <span className="text-3xl text-[hsl(var(--text))] font-bold">Enter a Card name to begin searching</span>
                     </main>
-                ) : (
+                ) : !loading && (
                     <main className="w-full h-[70vh] flex justify-center items-center">
                         <span className="text-3xl text-[hsl(var(--text))] font-bold">No cards matching your Filters</span>
-                    </main>
+                     </main>
                 )}
             </div>
         </main>

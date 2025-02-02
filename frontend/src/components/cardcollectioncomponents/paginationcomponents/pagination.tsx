@@ -20,10 +20,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
     } = paginationprops
     
     const [listpage, setListPage] = useState(currentListPage);
-    const [listerr, setListErr] = useState<string>("")
-
     const [gallerypage, setGalleryPage] = useState(currentGalleryPage);
-    const [galleryerr, setGalleryErr] = useState<string>("")
 
     function updateCurrentPageList() {
         if (filteredCards.length > 0) {
@@ -42,14 +39,16 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         const value = e.target.value;
         // Allow only numeric input
         if (/^\d*$/.test(value)) {
-            const page = parseInt(value, 10);
-            setListPage(page || 0);
-            if (page >= 1 && page <= totalListPages) {
-                handleListPageChange(page);
-                setListErr("")
-            } else {
-                setListErr(`Enter a page number between 1 and ${totalListPages}`)
+            let page = parseInt(value, 10) || 0;
+            
+            if (page < 0) {
+                page = 1;
+            } else if (page > totalListPages) {
+                page = totalListPages;
             }
+
+            setListPage(page);
+            handleListPageChange(page);
         }
     };
 
@@ -70,14 +69,16 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         const value = e.target.value;
         // Allow only numeric input
         if (/^\d*$/.test(value)) {
-            const page = parseInt(value, 10);
-            setGalleryPage(page || 0);
-            if (page >= 1 && page <= totalListPages) {
-                handleGalleryPageChange(page);
-                setGalleryErr("")
-            } else {
-                setGalleryErr(`Enter a page number between 1 and ${totalListPages}`)
+            let page = parseInt(value, 10) || 0;
+
+            if (page < 0) {
+                page = 1;
+            } else if (page > totalGalleryPages) {
+                page = totalGalleryPages;
             }
+
+            setGalleryPage(page);
+            handleGalleryPageChange(page);
         }
     };
 
@@ -101,8 +102,6 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         totalListPages,
         currentGalleryPage, setGalleryCurrentPage,
         totalGalleryPages,
-        setListErr,
-        setGalleryErr,
     }
 
     return (
@@ -123,11 +122,6 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
                 />
                 <span className={`text-lg ${listView ? "flex" : "hidden"} text-[hsl(var(--text))]`}>of {totalListPages}</span>
                 <span className={`text-lg ${galleryView ? "flex" : "hidden"} text-[hsl(var(--text))]`}>of {totalGalleryPages}</span>
-                {listerr ? (
-                    <span className="text-red-500">{listerr}</span>
-                ) : galleryerr && (
-                    <span className="text-red-500">{galleryerr}</span>
-                )}
             </section>
             <PageSelectorComponent pageselectorprops={pageselectorprops}/>
         </div>

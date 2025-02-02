@@ -72,21 +72,26 @@ const SearchBarPage = () => {
   }
   const [currentListPage, setListCurrentPage] = useState<number>(1);  
   const [currentGalleryPage, setGalleryCurrentPage] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const apiUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
 
   const fetchAllCardData = async () => {
     try {
+      setLoading(true)
       const response = await fetch(apiUrl);
       const data = await response.json();
 
       if (response.ok) {
         setCardData(data.data);
+        setLoading(false);
       } else {
         setCardData([]);
+        setLoading(false);
       }
     } catch (error) {
       setCardData([]);
+      setLoading(false);
     }
   };
 
@@ -207,12 +212,14 @@ const SearchBarPage = () => {
     searchTerm,
     currentPageListNamesArray,
     setErrorMessage,
+    loading
   } 
 
   const galleryviewprops = {
     searchTerm,
     currentPageGalleryNamesArray,
     setErrorMessage,
+    loading
   } 
 
   const filterprops = {
@@ -304,7 +311,7 @@ const SearchBarPage = () => {
                 </main>
               )}
               {galleryView && (
-                <main className="flex flex-col w-full  justify-center space-y-2 px-[3vw] lg:px-[1vw]">
+                <main className={`flex flex-col justify-center space-y-2 px-[3vw] lg:px-[1vw] ${expandStatus ? "md:w-[77.5vw]" : "md:w-full"}`}>
                   <PaginationComponent paginationprops={paginationprops}/>
                   <GalleryViewSearchSuggestionsComponent galleryviewprops={galleryviewprops}/>
                   <PaginationComponent paginationprops={paginationprops}/>
