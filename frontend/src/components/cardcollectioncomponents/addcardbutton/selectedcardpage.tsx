@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { selectedcard } from "../types/addcardtypes";
 import { toast } from "sonner";
 import { toastErrorMessage, toastSuccessTwoMessage } from "../types/buttontypes";
+import { waveform } from 'ldrs'
 
 const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
     const {
@@ -15,6 +16,7 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
         userId
     } = selectedcardprops
 
+    waveform.register()
     const [selectedCardData, setSelectedCardData] = useState<SelectedCardData | null>(null);
     const [cardSets, setCardSets] = useState<CardSet[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -41,8 +43,18 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
         } catch (error) {
           throw error
         }
-        
     }
+    
+    const [showLoading, setShowLoading] = useState(true);
+
+    useEffect(() => {
+        if (!loading) {
+          const timer = setTimeout(() => {
+            setShowLoading(false);
+          }, 250);
+          return () => clearTimeout(timer);
+        }
+    }, [loading]);
 
     useEffect(() => {
         fetchSelectedCardData(cardName)
@@ -90,8 +102,11 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
 
     return (
         <div>
-            {loading ? (
-                <span className="h-[50vh] w-full flex items-center justify-center text-3xl font-bold">Loading...</span>
+            {(loading || showLoading) ? (
+                <div className="flex flex-col h-[40vh] space-y-[5vh] items-center justify-center text-center text-xl lg:text-3xl text-[hsl(var(--background3))] font-black">
+                    <span>Loading</span>
+                    <l-waveform size="50" stroke="3.5" speed="1" color="hsl(var(--background3))" />
+                </div>
             ) : (
                 <main className="flex w-full  h-full">
                     <img className="w-[15vw] object-contain"

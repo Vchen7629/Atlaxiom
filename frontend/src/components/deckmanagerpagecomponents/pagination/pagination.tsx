@@ -134,13 +134,13 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
                 <section className="flex items-center h-full space-x-2"> 
                     <span className="text-sm md:text-md text-[hsl(var(--text))]">Page</span> 
                     <input
-                        className={`${listView ? "flex" : "hidden"}bg-transparent focus:outline-none w-10 text-center text-sm md:text-md  text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
+                        className={`${listView ? "flex" : "hidden"} bg-transparent focus:outline-none w-10 text-center text-sm md:text-md  text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
                         placeholder={String(currentListPage || 1)}
                         value={listpage}
                         onChange={handleListInputChange}
                     />
                     <input
-                        className={`${galleryView ? "flex" : "hidden"}bg-transparent focus:outline-none w-10 text-center text-sm md:text-md  text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
+                        className={`${galleryView ? "flex" : "hidden"} bg-transparent focus:outline-none w-10 text-center text-sm md:text-md  text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
                         placeholder={String(currentGalleryPage || 1)}
                         value={gallerypage}
                         onChange={handleGalleryInputChange}

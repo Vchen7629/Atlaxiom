@@ -19,7 +19,6 @@ export type pageselector = {
         setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
         totalPages: number;
         setPage: React.Dispatch<React.SetStateAction<number>>;
-        setErr: React.Dispatch<React.SetStateAction<string>>;
     }
 }
 
