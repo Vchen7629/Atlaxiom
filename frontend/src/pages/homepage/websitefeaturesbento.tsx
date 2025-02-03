@@ -8,7 +8,7 @@ import {
    
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import { useSelector } from "react-redux";
-import { AuthenticationState } from "@/components/footer/footerbuttons/hometypes";
+import { AuthenticationState } from "@/components/footer/types/hometypes";
    
   export function WebsiteFeaturesBento() {
     const isAuthenticated = useSelector((state: AuthenticationState) => state.auth.token !== null);

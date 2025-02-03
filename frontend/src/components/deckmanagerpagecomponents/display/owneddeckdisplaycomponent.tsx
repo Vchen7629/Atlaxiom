@@ -52,7 +52,7 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                         </div>
                     ) : currentPageListDecksArray.length > 0 ? (
                         currentPageListDecksArray.map((deck: Deck) => (
-                            <div 
+                            <article 
                                 key={deck._id}
                                 className="flex  h-[7vh] px-2 justify-between items-center mb-2 hover:bg-[hsl(var(--background5))]" 
                                 onClick={() => handleDeckClick(deck)}
@@ -87,7 +87,7 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                                     <DuplicateDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                     <DeleteDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                 </section>    
-                            </div>
+                            </article>
                         ))
                     ) : decksToDisplay.length === 0 ? (
                         <div className="flex h-[45vh] w-full items-center justify-center">
@@ -117,7 +117,7 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                             style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                         >
                             {currentPageGalleryDecksArray.map((deck: any) => (
-                                <div key={deck._id} className="flex flex-col items-center">
+                                <article key={deck._id} className="flex flex-col items-center">
                                     <button className="relative bg-deckpage flex flex-col h-[20vh] w-[28vw] md:h-[18vh] md:w-[15vw] lg:h-[12vh] lg:w-[4.8vw] rounded-lg" onClick={handleDeckClickWrapper(deck)}>
                                         {deck.favorite === true && (
                                             <span className='absolute left-1/2 top-2 translate-x-[-50%] text-[hsl(var(--background3))] flex'>
@@ -137,7 +137,7 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                                         <DuplicateDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                         <DeleteDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                     </section>
-                                </div>   
+                                </article>   
                             ))}
                         </div>
                     ) : decksToDisplay.length === 0 ? (

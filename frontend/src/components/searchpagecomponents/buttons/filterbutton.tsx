@@ -34,12 +34,12 @@ const FilterButton = ({ filterbuttonprops }: filterbutton) => {
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger>
-                    <a
+                    <span
                         className={`h-[40px] ml-2 px-4 py-3 rounded-xl ${filterActive ? "bg-[hsl(var(--background3))]" : "bg-gray-600"}`}  
                         onClick={FilterClick}
                     >
                         Filter Card
-                    </a>
+                    </span>
                 </TooltipTrigger>
                 <TooltipContent className="bg-[hsl(var(--ownedcardcollection))] border-transparent" side="bottom">
                     <span className="text-[hsl(var(--text))]">Click to Hide Filter Sidebar</span>

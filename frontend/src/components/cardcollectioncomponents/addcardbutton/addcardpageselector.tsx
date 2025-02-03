@@ -53,7 +53,9 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
                             </button>
                         );
                     }
+                    return null;
                 }
+                
             )}
 
             {totalPages > 9 && <span className=" px-1 py-1 text-bottom text-[hsl(var(--text))] text-lg flex">...</span>}

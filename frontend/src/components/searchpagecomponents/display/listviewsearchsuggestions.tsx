@@ -53,7 +53,7 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
                     </div>
                 ) : currentPageListNamesArray.length > 0 ? (
                     currentPageListNamesArray.map((card: SearchResCardData) => (
-                        <div key={card.id} onClick={handleClick(card)}>
+                        <article key={card.id} onClick={handleClick(card)}>
                             <div className="flex w-full h-[20vh] mb-2 bg-transparentt">
                                 
                                 <img src={card?.card_images[0].image_url} alt={card.name} className="w-auto"/>
@@ -107,7 +107,7 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </article>
                     ))
                 ) : searchTerm === "" ? (
                     <main className="w-full h-[70vh] flex justify-center items-center">

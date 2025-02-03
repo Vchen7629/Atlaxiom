@@ -241,20 +241,18 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
         setCanClearFilter
     }
 
-    return (
+    return expandStatus ? (
         <>
-        {expandStatus && (
-            <>
-                <section className="flex w-[92%] justify-between items-center mb-6 pl-4">
-                    <span className="text-2xl text-[hsl(var(--background3))] font-bold">Card Filter </span>
-                    <div className="flex w-fit space-x-2">
-                        <button className={`flex items-center px-4 py-4 rounded-xl h-11 ${canClearFilter ? "bg-[hsl(var(--background3))]" : "bg-gray-600"}`} onClick={clearFilter}> Clear </button>
-                        <div className="flex w-19 h-11 bg-footer rounded-xl">
-                            <FilterCardViewButton filterprops={filterprops}/>
-                            <StatisticsViewButton statisticsprops={statisticsprops}/>
-                        </div>
+            <section className="flex w-[92%] justify-between items-center mb-6 pl-4">
+                <span className="text-2xl text-[hsl(var(--background3))] font-bold">Card Filter </span>
+                <div className="flex w-fit space-x-2">
+                    <button className={`flex items-center px-4 py-4 rounded-xl h-11 ${canClearFilter ? "bg-[hsl(var(--background3))]" : "bg-gray-600"}`} onClick={clearFilter}> Clear </button>
+                    <div className="flex w-19 h-11 bg-footer rounded-xl">
+                        <FilterCardViewButton filterprops={filterprops}/>
+                        <StatisticsViewButton statisticsprops={statisticsprops}/>
                     </div>
-                </section>
+                </div>
+            </section>
                 <section className="flex flex-col w-[92%] pl-2 items-center  space-y-[2%]">
                     <div className="flex w-full items-center">
                         <div className="flex h-full w-[7vw] text-sm font-black items-center text-[hsl(var(--text))] ">Monster Type:</div>
@@ -306,9 +304,6 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
                     </div>
                 </section>
             </>
-        )}
-            
-        </>
-    )}
+    ) : null};
 
 export default FilterOwnedCards

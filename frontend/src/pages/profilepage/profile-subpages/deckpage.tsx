@@ -61,7 +61,7 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                         ) : currentListPageResults.length > 0 ? (
                             <>
                                 {currentListPageResults.map((deck: FilteredDecks) => (
-                                    <div 
+                                    <article
                                         className="flex  h-[7vh] px-2 justify-between items-center mb-2 hover:bg-[hsl(var(--background5))]" 
                                         key={deck._id} 
                                         onClick={handleClick(deck)}
@@ -96,7 +96,7 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                                                 <DuplicateDeckButtonComponent userId={userId} refetch={refetchdecks} refetchUser={refetch} deck={deck}/>
                                                 <DeleteDeckButtonComponent userId={userId} refetch={refetchdecks} refetchUser={refetch} deck={deck}/>
                                             </section>      
-                                    </div>
+                                    </article>
                                 ))}        
                             </>
                         ) : totalOwnedDecks === 0 ? (
@@ -125,7 +125,7 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                                 style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                             >
                                 {currentGalleryPageResults.map((deck: FilteredDecks) =>
-                                    <div key={deck._id} className="flex flex-col items-center">
+                                    <article key={deck._id} className="flex flex-col items-center">
                                         <div className="relative bg-deckpage flex flex-col items-center h-[20vh] md:h-[16vh] lg:h-[15vh] lg:w-[8vw] xl:h-[13vh] xl:w-[5.4vw] rounded-lg" onClick={handleClick(deck)}>
                                             {deck.favorite === true && (
                                                 <span className='absolute left-1/2 top-2 translate-x-[-50%] text-[hsl(var(--background3))] flex'>
@@ -145,7 +145,7 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                                             <DuplicateDeckButtonComponent userId={userId} refetch={refetchdecks} refetchUser={refetch} deck={deck}/>
                                             <DeleteDeckButtonComponent userId={userId} refetch={refetchdecks}  refetchUser={refetch} deck={deck}/>
                                         </section>
-                                    </div>
+                                    </article>
                                 )}
                             </div>
                         ) : totalOwnedDecks === 0 ? (

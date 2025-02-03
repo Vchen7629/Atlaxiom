@@ -30,18 +30,18 @@ const GridListViewComponent= ({ gridlistviewprops }: GridListViewComponentProps)
             <Tooltip>
                 <TooltipTrigger>
                     <div className='flex'>
-                        <a
+                        <span
                             className={`text-gray-400 p-2 rounded-xl hover:text-gold mr-2 ${listView ? "bg-[hsl(var(--background3))] text-white" : "bg-transparent"}`}
                             onClick={handleListView}
                         >
                             <FontAwesomeIcon icon={faBars} className="fa-xl"/>
-                        </a>
-                        <a
+                        </span>
+                        <span
                             className={`text-gray-400 p-2 rounded-xl hover:text-gold mr-2 ${galleryView ? "bg-[hsl(var(--background3))] text-white" : "bg-transparent"}`}
                             onClick={handleGalleryView}
                         >
                             <FontAwesomeIcon icon={faGripHorizontal } className="fa-xl"/>
-                        </a>
+                        </span>
                     </div>
                 </TooltipTrigger>
                 <TooltipContent className="bg-[hsl(var(--ownedcardcollection))] border-transparent" side="bottom">
