@@ -23,6 +23,7 @@ const DeleteDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: Delet
             }
             return { name: deck.deck_name}
         } 
+        return undefined
     }
 
     function handleClick(event: React.MouseEvent<HTMLButtonElement>) {

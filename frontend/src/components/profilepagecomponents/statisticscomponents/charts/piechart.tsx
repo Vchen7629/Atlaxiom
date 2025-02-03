@@ -125,6 +125,7 @@ export function ComponentPieChart() {
                       </text>
                     )
                   }
+                  return undefined;
                 }}
               />
             </Pie>

@@ -38,6 +38,7 @@ const DeckBuilderPage = () => {
           }, 300);
           return () => clearTimeout(timer);
         }
+        return undefined
     }, [isLoading]);
 
     useEffect(() => {

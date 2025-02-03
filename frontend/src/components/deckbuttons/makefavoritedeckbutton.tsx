@@ -34,6 +34,8 @@ const FavoriteDeckButtonComponent = ({ deck, refetch, userId, setCurrentPageList
             );
             return { name: deck.deck_name}
         } 
+
+        return undefined;
     }
 
     function handleClick(event: React.MouseEvent<HTMLButtonElement>) {

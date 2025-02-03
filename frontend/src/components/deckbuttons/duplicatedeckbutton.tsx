@@ -20,6 +20,7 @@ const DuplicateDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: De
             if (refetchUser) refetchUser();
             return { name: deck.deck_name}
         } 
+        throw undefined
     }
 
     function handleClick(event: React.MouseEvent<HTMLButtonElement>) {

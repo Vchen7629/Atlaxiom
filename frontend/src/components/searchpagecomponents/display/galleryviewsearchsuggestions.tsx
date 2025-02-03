@@ -27,6 +27,7 @@ const GalleryViewSearchSuggestionsComponent = ({ galleryviewprops }: GalleryView
             }, 250);
             return () => clearTimeout(timer);
         }
+        return undefined;
     }, [loading]);
     
     const handleSuggestionClick = (card: SearchResCardData) => {

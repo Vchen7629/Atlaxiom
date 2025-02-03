@@ -93,6 +93,7 @@ export function ComponentRadialChart() {
                                 </text>
                             )
                         }
+                        return undefined
                     }}
                 />
                 </PolarRadiusAxis>
