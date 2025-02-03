@@ -45,10 +45,11 @@ export const GalleryViewCardDisplayComponent = ({ displaygalleryprops }: filtere
                             style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                         >
                             {currentGalleryPageResults.map((card: Card) => (
-                                <article 
+                                <div
                                     key={card.id} 
                                     className="flex flex-col w-fit group relative items-center space-y-2 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--background3))]" 
                                     onClick={handleClick(card)}
+                                    role="button"
                                     onKeyDown={(e) => {
                                         if (e.key === 'Enter' || e.key === ' ') {
                                             e.preventDefault();
@@ -69,7 +70,7 @@ export const GalleryViewCardDisplayComponent = ({ displaygalleryprops }: filtere
                                         <DecreaseOwnedCardButtonComponent card={card} userId={userId} refetch={refetch}/>
                                         <DeleteOwnedCardButtonComponent card={card} userId={userId} refetch={refetch}/>
                                     </div>              
-                                </article>
+                                </div>
                             ))}
                         </div>
                     ) : ownedCardCount?.totalOwnedCards === 0 ? (

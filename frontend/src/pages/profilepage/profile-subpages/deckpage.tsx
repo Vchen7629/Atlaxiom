@@ -60,7 +60,7 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                             </div>
                         ) : currentListPageResults.length > 0 ? (
                             currentListPageResults.map((deck: FilteredDecks) => (
-                                <article
+                                <div
                                     className="flex  h-[7vh] px-2 justify-between items-center mb-2 hover:bg-[hsl(var(--background5))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--background3))] rounded-md" 
                                     key={deck._id} 
                                     onClick={handleClick(deck)}
@@ -71,6 +71,7 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                                             }
                                         }}
                                         tabIndex={0}
+                                        role="button"
                                         aria-label={`Select deck ${deck.deck_name}`}
                                         >  
                                             <section className='flex w-1/4 space-x-8'>
@@ -103,7 +104,7 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                                                 <DuplicateDeckButtonComponent userId={userId} refetch={refetchdecks} refetchUser={refetch} deck={deck}/>
                                                 <DeleteDeckButtonComponent userId={userId} refetch={refetchdecks} refetchUser={refetch} deck={deck}/>
                                             </section>      
-                                </article>
+                                </div>
                             ))       
                         ) : totalOwnedDecks === 0 ? (
                             <section className="flex w-full h-[50vh] justify-center items-center">
@@ -131,7 +132,19 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                                 style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                             >
                                 {currentGalleryPageResults.map((deck: FilteredDecks) =>
-                                    <article key={deck._id} className="flex flex-col items-center">
+                                    <div 
+                                        key={deck._id} 
+                                        className="flex flex-col items-center"
+                                        role="button"
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter' || e.key === ' ') {
+                                                e.preventDefault();
+                                                handleDeckClick(deck);
+                                            }
+                                            }}
+                                        tabIndex={0}
+                                        aria-label={`Select card ${deck.deck_name}`}
+                                    >
                                         <div className="relative bg-deckpage flex flex-col items-center h-[20vh] md:h-[16vh] lg:h-[15vh] lg:w-[8vw] xl:h-[13vh] xl:w-[5.4vw] rounded-lg" onClick={handleClick(deck)}>
                                             {deck.favorite === true && (
                                                 <span className='absolute left-1/2 top-2 translate-x-[-50%] text-[hsl(var(--background3))] flex'>
@@ -151,7 +164,7 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                                             <DuplicateDeckButtonComponent userId={userId} refetch={refetchdecks} refetchUser={refetch} deck={deck}/>
                                             <DeleteDeckButtonComponent userId={userId} refetch={refetchdecks}  refetchUser={refetch} deck={deck}/>
                                         </section>
-                                    </article>
+                                    </div>
                                 )}
                             </div>
                         ) : totalOwnedDecks === 0 ? (

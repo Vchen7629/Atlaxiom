@@ -52,10 +52,19 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                         </div>
                     ) : currentPageListDecksArray.length > 0 ? (
                         currentPageListDecksArray.map((deck: Deck) => (
-                            <article 
+                            <div 
                                 key={deck._id}
                                 className="flex  h-[7vh] px-2 justify-between items-center mb-2 hover:bg-[hsl(var(--background5))]" 
                                 onClick={() => handleDeckClick(deck)}
+                                role="button"
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        handleDeckClick(deck);
+                                    }
+                                    }}
+                                tabIndex={0}
+                                aria-label={`Select card ${deck.deck_name}`}
                             >  
                                 <section className='flex w-[30%] space-x-8'>
                                     <div className="flex flex-col">
@@ -87,7 +96,7 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                                     <DuplicateDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                     <DeleteDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                 </section>    
-                            </article>
+                            </div>
                         ))
                     ) : decksToDisplay.length === 0 ? (
                         <div className="flex h-[45vh] w-full items-center justify-center">
@@ -117,7 +126,7 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                             style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                         >
                             {currentPageGalleryDecksArray.map((deck: any) => (
-                                <article 
+                                <div
                                     key={deck._id} 
                                     className="flex flex-col items-center focus:outline-none focus:ring-2 focus:ring-[hsl(var(--background3))] rounded-md"
                                     onKeyDown={(e) => {
@@ -127,6 +136,7 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                                         }
                                         }}
                                     tabIndex={0}
+                                    role="button"
                                     aria-label={`Select deck ${deck.deck_name}`}
                                 >
                                     <button className="relative bg-deckpage flex flex-col h-[20vh] w-[28vw] md:h-[18vh] md:w-[15vw] lg:h-[12vh] lg:w-[4.8vw] rounded-lg" onClick={handleDeckClickWrapper(deck)}>
@@ -148,7 +158,7 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                                         <DuplicateDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                         <DeleteDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
                                     </section>
-                                </article>   
+                                </div>   
                             ))}
                         </div>
                     ) : decksToDisplay.length === 0 ? (
