@@ -2,7 +2,7 @@
 [![DeepSource](https://app.deepsource.com/gh/Vchen7629/Atlaxiom.svg/?label=resolved+issues&show_trend=true&token=-cGZztkl5gmbggfqKDor8NdW)](https://app.deepsource.com/gh/Vchen7629/Atlaxiom/)
 
 <h1><strong>Atlaxiom</strong></h1>
-new all-in-one Yu-Gi-Oh! Database, Deck Builder and Collection Manager app.
+All-in-one Yu-Gi-Oh! Database, Deck Builder and Collection Manager app.
 <h1><strong>Notable features of the website</strongZ></h1>
 <ul>
     <li>built in User authentication to create and login to accounts using mongodb.</li>
