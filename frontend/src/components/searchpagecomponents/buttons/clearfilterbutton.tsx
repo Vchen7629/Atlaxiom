@@ -68,8 +68,14 @@ const ClearFilterButton = ({ clearfilterprops }: clearfilter) => {
                     <span
                         className={`${canClearFilters ? "bg-[hsl(var(--background3))]" : "bg-gray-600"} py-[12px] px-[14px] rounded-xl`} 
                         onClick={ClearFilter}
-                        onFocus={ClearFilter}
                         role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                ClearFilter();
+                            }
+                        }}
                     >
                         <FontAwesomeIcon icon={faArrowRotateRight}/>
                     </span>

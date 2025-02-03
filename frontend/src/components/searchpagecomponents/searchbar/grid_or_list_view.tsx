@@ -33,16 +33,28 @@ const GridListViewComponent= ({ gridlistviewprops }: GridListViewComponentProps)
                         <span
                             className={`text-gray-400 p-2 rounded-xl hover:text-gold mr-2 ${listView ? "bg-[hsl(var(--background3))] text-white" : "bg-transparent"}`}
                             onClick={handleListView}
-                            onFocus={handleListView}
                             role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    handleListView();
+                                }
+                            }}
                         >
                             <FontAwesomeIcon icon={faBars} className="fa-xl"/>
                         </span>
                         <span
                             className={`text-gray-400 p-2 rounded-xl hover:text-gold mr-2 ${galleryView ? "bg-[hsl(var(--background3))] text-white" : "bg-transparent"}`}
                             onClick={handleGalleryView}
-                            onFocus={handleGalleryView}
                             role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    handleGalleryView();
+                                }
+                            }}
                         >
                             <FontAwesomeIcon icon={faGripHorizontal } className="fa-xl"/>
                         </span>

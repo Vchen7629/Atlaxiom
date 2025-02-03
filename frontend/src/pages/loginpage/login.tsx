@@ -10,11 +10,16 @@ import { faUser } from "@fortawesome/free-solid-svg-icons"
 import { toast, Toaster } from "sonner"
 import { toastErrorMessage } from "@/components/cardcollectioncomponents/types/buttontypes.ts"
 
+interface UserAuth {
+    accessToken: string;
+    userId: string;
+}
+
 const LoginPage = () => {
     const userRef = useRef<HTMLInputElement>(null)
-    const [username, setUsername] = useState<string | null>('')
+    const [username, setUsername] = useState<string>('')
     const [usernameError, setUsernameError] = useState<boolean>(false);
-    const [password, setPassword] = useState<string | null>('')
+    const [password, setPassword] = useState<string>('')
     const [passwordError, setPasswordError] = useState<boolean>(false);
     const [login] = useLoginMutation()
     const navigate = useNavigate()
@@ -33,7 +38,7 @@ const LoginPage = () => {
             setPasswordError(true);
         }
 
-        const { accessToken, userId }: any = await login({ username, password }).unwrap();
+        const { accessToken, userId }: UserAuth = await login({ username, password }).unwrap();
         dispatch(setCredentials({ accessToken, userId, username }));
         setUsername('');
         setPassword('');

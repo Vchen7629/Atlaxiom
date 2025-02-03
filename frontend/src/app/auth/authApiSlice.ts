@@ -1,10 +1,10 @@
 import { apiSlice } from "../../app/api/apiSlice";
 import { logOut, setCredentials } from "./authSlice";
-import { Refresh } from "./types";
+import { LoginCredentials, LoginResponse, Refresh } from "./types";
 
 export const authApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
-        login: builder.mutation<string, any>({
+        login: builder.mutation<LoginResponse, LoginCredentials>({
             query: credentials => ({
                 url: "/auth",
                 method: "POST",
