@@ -14,31 +14,26 @@ const FavoriteDeckButtonComponent = ({ deck, refetch, userId, setCurrentPageList
 
 
     const handleFavoriteDeckClick = async(deck: handleDeckClick) => {
-        try {
-            const favoritedeck = await favoriteDeck({
-                id: userId,
-                deckId: deck._id
-            });
-            if (favoritedeck) {
-                const refetchResult = await refetch();
-                console.log(refetchResult)
-                setCurrentPageListDecksArray((prevDecks: DeckApiResponse[]) => 
-                    prevDecks.map((prevDeck) => 
-                        prevDeck._id === deck._id ? { ...prevDeck, favorite: true} : prevDeck
-                    )
+        const favoritedeck = await favoriteDeck({
+            id: userId,
+            deckId: deck._id
+        });
+        if (favoritedeck) {
+            refetch();
+            setCurrentPageListDecksArray((prevDecks: DeckApiResponse[]) => 
+                prevDecks.map((prevDeck) => 
+                    prevDeck._id === deck._id ? { ...prevDeck, favorite: true} : prevDeck
                 )
-                setCurrentPageGalleryDecksArray((prevGalleryDecks: DeckApiResponse[]) =>
-                    prevGalleryDecks.map((prevGalleryDeck) =>
-                        prevGalleryDeck._id === deck._id 
-                            ? { ...prevGalleryDeck, favorite: true }
-                            : prevGalleryDeck
-                    )
-                );
-                return { name: deck.deck_name}
-            } 
-        } catch (error) {
-            throw error
-        }
+            )
+            setCurrentPageGalleryDecksArray((prevGalleryDecks: DeckApiResponse[]) =>
+                prevGalleryDecks.map((prevGalleryDeck) =>
+                    prevGalleryDeck._id === deck._id 
+                        ? { ...prevGalleryDeck, favorite: true }
+                        : prevGalleryDeck
+                )
+            );
+            return { name: deck.deck_name}
+        } 
     }
 
     function handleClick(event: React.MouseEvent<HTMLButtonElement>) {

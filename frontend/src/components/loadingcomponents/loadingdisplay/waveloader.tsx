@@ -15,6 +15,7 @@ export function loadingState({ waveloaderprops }: { waveloaderprops: {isLoading:
             }, 250);
             return () => clearTimeout(timer);
         }
+        return undefined;
     }, [isLoading]);
 
     return (

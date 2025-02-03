@@ -11,20 +11,15 @@ const DuplicateDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: De
     const [addNewDuplicateDeck] = useCreateDuplicateDeckMutation()
     
     async function handleDuplicateDeckClick(deck: handleDeckClick) {
-        try {
-            console.log("hi")
-            const duplicate = await addNewDuplicateDeck({
-                id: userId, 
-                deckId: deck._id
-            });
-            if (duplicate) {
-                refetch();
-                if (refetchUser) refetchUser();
-                return { name: deck.deck_name}
-            } 
-        } catch (error) {
-            throw error
-        }
+        const duplicate = await addNewDuplicateDeck({
+            id: userId, 
+            deckId: deck._id
+        });
+        if (duplicate) {
+            refetch();
+            if (refetchUser) refetchUser();
+            return { name: deck.deck_name}
+        } 
     }
 
     function handleClick(event: React.MouseEvent<HTMLButtonElement>) {

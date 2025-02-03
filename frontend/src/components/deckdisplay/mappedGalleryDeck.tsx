@@ -4,7 +4,7 @@ import DuplicateDeckButtonComponent from "../deckbuttons/duplicatedeckbutton";
 import FavoriteDeckButtonComponent from "../deckbuttons/makefavoritedeckbutton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { handleDeckClick, MappedGallery } from "./types";
+import { Deck, DeckClick, MappedGallery } from "./types";
 
 export function MappedGalleryDeck({ MappedGalleryProps }: MappedGallery) {
     const {
@@ -18,11 +18,11 @@ export function MappedGalleryDeck({ MappedGalleryProps }: MappedGallery) {
     const navigate = useNavigate()
     
 
-    const handleDeckClick = async (deck: handleDeckClick) => {
+    function handleDeckClick(deck: DeckClick) {
         navigate('/modifyDeck', { state: { deckId: deck._id, userId: userId } });   
     };
 
-    const handleDeckClickWrapper = (deck: handleDeckClick) => {
+    function handleDeckClickWrapper(deck: DeckClick) {
         return () => handleDeckClick(deck);
     };
 
@@ -31,7 +31,7 @@ export function MappedGalleryDeck({ MappedGalleryProps }: MappedGallery) {
             className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 w-full h-full p-4 justify-items-center items-start"  
             style={{ gridAutoRows: 'auto', alignContent: 'start' }}
         >
-            {currentPageGalleryDecksArray.map((deck: any) => (
+            {currentPageGalleryDecksArray.map((deck: Deck) => (
                 <div
                     key={deck._id} 
                     className="flex flex-col items-center focus:outline-none focus:ring-2 focus:ring-[hsl(var(--background3))] rounded-md"

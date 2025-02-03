@@ -26,6 +26,7 @@ const DeckDisplay = ({ deckdisplayprops }: DeckDisplayComponent) => {
             }, 250);
             return () => clearTimeout(timer);
         }
+        return undefined;
     }, [isLoading]);
 
 

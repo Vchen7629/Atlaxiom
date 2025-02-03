@@ -16,7 +16,7 @@ export type DeckDisplayComponent = {
     }
 }
 
-export type handleDeckClick = {
+export type DeckClick = {
     _id: string;
     deck_name: string;
 }

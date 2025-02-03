@@ -4,7 +4,7 @@ import DuplicateDeckButtonComponent from "../deckbuttons/duplicatedeckbutton";
 import FavoriteDeckButtonComponent from "../deckbuttons/makefavoritedeckbutton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { Deck, handleDeckClick, MappedList } from "./types";
+import { Deck, DeckClick, MappedList } from "./types";
 
 export function MappedListDeck({ MappedListProps }: MappedList) {
     const {
@@ -18,7 +18,7 @@ export function MappedListDeck({ MappedListProps }: MappedList) {
 
     const navigate = useNavigate()
 
-    const handleDeckClick = async (deck: handleDeckClick) => {
+    function handleDeckClick(deck: DeckClick) {
         navigate('/modifyDeck', { state: { deckId: deck._id, userId: userId } });   
     };
 
