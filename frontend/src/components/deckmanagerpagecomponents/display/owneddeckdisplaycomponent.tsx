@@ -117,7 +117,19 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                             style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                         >
                             {currentPageGalleryDecksArray.map((deck: any) => (
-                                <article key={deck._id} className="flex flex-col items-center">
+                                <article 
+                                    key={deck._id} 
+                                    className="flex flex-col items-center focus:outline-none focus:ring-2 focus:ring-[hsl(var(--background3))] rounded-md"
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' || e.key === ' ') {
+                                            e.preventDefault();
+                                            handleDeckClickWrapper(deck)();
+                                        }
+                                        }}
+                                    tabIndex={0}
+                                    role="button"
+                                    aria-label={`Select deck ${deck.deck_name}`}
+                                >
                                     <button className="relative bg-deckpage flex flex-col h-[20vh] w-[28vw] md:h-[18vh] md:w-[15vw] lg:h-[12vh] lg:w-[4.8vw] rounded-lg" onClick={handleDeckClickWrapper(deck)}>
                                         {deck.favorite === true && (
                                             <span className='absolute left-1/2 top-2 translate-x-[-50%] text-[hsl(var(--background3))] flex'>

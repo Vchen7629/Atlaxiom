@@ -53,7 +53,20 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
                     </div>
                 ) : currentPageListNamesArray.length > 0 ? (
                     currentPageListNamesArray.map((card: SearchResCardData) => (
-                        <article key={card.id} onClick={handleClick(card)}>
+                        <article 
+                            key={card.id} 
+                            onClick={handleClick(card)} 
+                            className="focus:outline-none focus:ring-2 focus:ring-[hsl(var(--background3))] rounded-md"
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    handleClick(card)();
+                                }
+                                }}
+                            tabIndex={0}
+                            role="button"
+                            aria-label={`Select card ${card.name}`}
+                        >
                             <div className="flex w-full h-[20vh] mb-2 bg-transparentt">
                                 
                                 <img src={card?.card_images[0].image_url} alt={card.name} className="w-auto"/>

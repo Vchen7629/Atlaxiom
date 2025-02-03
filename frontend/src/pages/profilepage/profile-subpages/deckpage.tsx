@@ -62,9 +62,18 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                             <>
                                 {currentListPageResults.map((deck: FilteredDecks) => (
                                     <article
-                                        className="flex  h-[7vh] px-2 justify-between items-center mb-2 hover:bg-[hsl(var(--background5))]" 
+                                        className="flex  h-[7vh] px-2 justify-between items-center mb-2 hover:bg-[hsl(var(--background5))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--background3))] rounded-md" 
                                         key={deck._id} 
                                         onClick={handleClick(deck)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter' || e.key === ' ') {
+                                                e.preventDefault();
+                                                handleClick(deck)();
+                                            }
+                                        }}
+                                        tabIndex={0}
+                                        role="button"
+                                        aria-label={`Select deck ${deck.deck_name}`}
                                         >  
                                             <section className='flex w-1/4 space-x-8'>
                                                 <div className="flex flex-col">
