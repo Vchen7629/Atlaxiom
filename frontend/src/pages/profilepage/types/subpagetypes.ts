@@ -1,3 +1,5 @@
+import { DeckApiResponse } from "@/app/api-slices/types/decktypes"
+
 export type UserId = {
     auth: {
         userId: string
@@ -19,12 +21,12 @@ export type DeckProps = {
         listView: boolean;
         galleryView: boolean;
         refetch: () => void;
-        refetchdecks: any;
-        filteredDecks: any;
-        currentListPageResults: any
-        setCurrentListPageResults: React.Dispatch<React.SetStateAction<any>> 
-        currentGalleryPageResults: any
-        setCurrentGalleryPageResults: React.Dispatch<React.SetStateAction<any>> 
+        refetchdecks: () => void;
+        filteredDecks: DeckApiResponse[];
+        currentPageListDecksArray: DeckApiResponse[]
+        setCurrentPageListDecksArray: React.Dispatch<React.SetStateAction<DeckApiResponse[]>> 
+        currentPageGalleryDecksArray: DeckApiResponse[]
+        setCurrentPageGalleryDecksArray: React.Dispatch<React.SetStateAction<DeckApiResponse[]>> 
     }
 }
 

@@ -65,11 +65,11 @@ const ClearFilterButton = ({ clearfilterprops }: clearfilter) => {
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger>
-                    <a 
+                    <span
                         className={`${canClearFilters ? "bg-[hsl(var(--background3))]" : "bg-gray-600"} py-[12px] px-[14px] rounded-xl`} 
                         onClick={ClearFilter}>
                         <FontAwesomeIcon icon={faArrowRotateRight}/>
-                    </a>
+                    </span>
                 </TooltipTrigger>
                 <TooltipContent className="bg-[hsl(var(--ownedcardcollection))] border-transparent" side="bottom">
                     <span className="text-[hsl(var(--text))]">Click to clear filters</span>

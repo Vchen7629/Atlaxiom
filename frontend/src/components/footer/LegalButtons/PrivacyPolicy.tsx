@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { AuthenticationState } from './hometypes';
+import { AuthenticationState } from '../types/hometypes';
 import { startTransition } from 'react';
 
 const PrivacyPolicy = () => {
@@ -20,7 +20,7 @@ const PrivacyPolicy = () => {
   return (
     <div>
         <button 
-          className="bg-transparent border-transparent cursor-pointer border-b-2 px-2 hover:border-b-goldenrod text-white"
+          className="bg-transparent text-gray-300 cursor-pointer hover:text-gold"
           onClick={handleButtonClick} 
         >
             Privacy Policy

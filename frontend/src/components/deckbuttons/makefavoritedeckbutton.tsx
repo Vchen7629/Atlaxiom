@@ -1,10 +1,11 @@
 import { useMakeDeckFavoriteMutation } from "@/app/api-slices/decksapislice";
-import { Deck, handleDeckClick } from "../deckmanagerpagecomponents/types/homepagecomponentprops";
+import { handleDeckClick } from "../deckmanagerpagecomponents/types/homepagecomponentprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { FavoriteDeck, GalleryDeck } from "./buttonprops";
+import { FavoriteDeck } from "./buttonprops";
 import { toast } from "sonner";
 import { toastErrorMessage, toastSuccessMessage } from "../cardcollectioncomponents/types/buttontypes";
+import { DeckApiResponse } from "@/app/api-slices/types/decktypes";
 
 
 const FavoriteDeckButtonComponent = ({ deck, refetch, userId, setCurrentPageListDecksArray, setCurrentPageGalleryDecksArray}: FavoriteDeck) => {
@@ -13,31 +14,26 @@ const FavoriteDeckButtonComponent = ({ deck, refetch, userId, setCurrentPageList
 
 
     const handleFavoriteDeckClick = async(deck: handleDeckClick) => {
-        try {
-            const favoritedeck = await favoriteDeck({
-                id: userId,
-                deckId: deck._id
-            });
-            if (favoritedeck) {
-                const refetchResult = await refetch();
-                console.log(refetchResult)
-                setCurrentPageListDecksArray((prevDecks: Deck[]) => 
-                    prevDecks.map((prevDeck) => 
-                        prevDeck._id === deck._id ? { ...prevDeck, favorite: true} : prevDeck
-                    )
+        const favoritedeck = await favoriteDeck({
+            id: userId,
+            deckId: deck._id
+        });
+        if (favoritedeck) {
+            refetch();
+            setCurrentPageListDecksArray((prevDecks: DeckApiResponse[]) => 
+                prevDecks.map((prevDeck) => 
+                    prevDeck._id === deck._id ? { ...prevDeck, favorite: true} : prevDeck
                 )
-                setCurrentPageGalleryDecksArray((prevGalleryDecks: GalleryDeck[]) =>
-                    prevGalleryDecks.map((prevGalleryDeck) =>
-                        prevGalleryDeck._id === deck._id 
-                            ? { ...prevGalleryDeck, favorite: true }
-                            : prevGalleryDeck
-                    )
-                );
-                return { name: deck.deck_name}
-            } 
-        } catch (error) {
-            throw error
-        }
+            )
+            setCurrentPageGalleryDecksArray((prevGalleryDecks: DeckApiResponse[]) =>
+                prevGalleryDecks.map((prevGalleryDeck) =>
+                    prevGalleryDeck._id === deck._id 
+                        ? { ...prevGalleryDeck, favorite: true }
+                        : prevGalleryDeck
+                )
+            );
+            return { name: deck.deck_name}
+        } 
     }
 
     function handleClick(event: React.MouseEvent<HTMLButtonElement>) {

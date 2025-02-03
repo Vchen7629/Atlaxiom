@@ -56,7 +56,20 @@ const GalleryViewSearchSuggestionsComponent = ({ galleryviewprops }: GalleryView
                     style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                 >
                     {currentPageGalleryNamesArray.map((card: SearchResCardData) => (
-                        <div key={card.id} className="relative flex h-full w-full group" onClick={handleClick(card)}>
+                        <div 
+                            key={card.id} 
+                            className="relative flex h-full w-full group" 
+                            onClick={handleClick(card)}
+                            role="button"
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        handleClick(card);
+                                    }
+                                }}
+                            tabIndex={0}
+                            aria-label={`Select card ${card.name}`}
+                        >
                             <img src={card?.card_images[0].image_url} alt={card.name} className="h-full object-contain group-hover:blur-xs"/>
                             <div 
                                 className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white text-center text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300"

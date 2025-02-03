@@ -10,7 +10,7 @@ const AboutUs = () => {
   return (
     <div>
         <button 
-          className="bg-transparent border-transparent cursor-pointer border-b-2 px-2  hover:border-b-goldenrod text-white"
+          className="bg-transparent text-gray-300 cursor-pointer hover:text-gold"
           onClick={handleButtonClick} 
         >
           About Us

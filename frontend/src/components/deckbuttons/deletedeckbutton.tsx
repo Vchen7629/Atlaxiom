@@ -11,19 +11,18 @@ const DeleteDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: Delet
     const [deleteDeck] = useDeleteDeckMutation();
     
     async function handleDeleteDeckClick(deck: handleDeckClick) {
-        try {
-            const deldeck = await deleteDeck({
-                id: userId, 
-                DeckData: { deckId: deck._id }
-            });
-            if (deldeck) {
-                refetch();
-                if (refetchUser) refetchUser();
-                return { name: deck.deck_name}
-            } 
-        } catch (error) {
-            throw error
-        }
+        const deldeck = await deleteDeck({
+            id: userId, 
+            DeckData: { deckId: deck._id }
+        });
+        if (deldeck) {
+            refetch();
+            if (refetchUser) {
+                refetchUser();
+                console.log("refetched")
+            }
+            return { name: deck.deck_name}
+        } 
     }
 
     function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
