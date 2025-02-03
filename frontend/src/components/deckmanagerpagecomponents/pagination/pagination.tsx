@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Pagination } from "../types/paginationtypes.ts";
 import { PageSelectorComponent } from "./pageselector.tsx";
-import { Deck } from "../types/homepagecomponentprops.ts";
+import { DeckApiResponse } from "@/app/api-slices/types/decktypes.ts";
 
 const PaginationComponent = ({ paginationprops }: Pagination) => {
     const {
@@ -28,7 +28,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         if (filteredDecks.length > 0) {
             const startIndex = (currentListPage - 1) * suggestionsPerListPage;
             const endIndex = startIndex + suggestionsPerListPage;
-            const currentListSuggestions = filteredDecks.slice(startIndex, endIndex) as Deck[];
+            const currentListSuggestions = filteredDecks.slice(startIndex, endIndex) as DeckApiResponse[];
             setCurrentPageListDecksArray(currentListSuggestions);
         }
     };
@@ -58,7 +58,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         if (filteredDecks.length > 0) {
             const startIndex = (currentGalleryPage - 1) * suggestionsPerGalleryPage;
             const endIndex = startIndex + suggestionsPerGalleryPage;
-            const currentGallerySuggestions = filteredDecks.slice(startIndex, endIndex) as Deck[];
+            const currentGallerySuggestions = filteredDecks.slice(startIndex, endIndex) as DeckApiResponse[];
             setCurrentPageGalleryDecksArray(currentGallerySuggestions);
         }
     };

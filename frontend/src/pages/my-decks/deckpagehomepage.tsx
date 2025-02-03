@@ -4,16 +4,14 @@ import Footer from "../../components/footer/Footer.tsx"
 import Header from "../../components/header/header.tsx"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
-import DeckDisplay from '../../components/deckmanagerpagecomponents/display/owneddeckdisplaycomponent.tsx';
 import GridListViewComponent from '../../components/deckmanagerpagecomponents/buttons/grid_or_list_view.tsx';
 import CreateNewDeckComponent from '../../components/deckmanagerpagecomponents/buttons/CreateNewDeckButton.tsx';
 import { UserIdState } from './deckpagetypes.ts';
 import PaginationComponent from '@/components/deckmanagerpagecomponents/pagination/pagination.tsx';
 import { useGetAllOwnedDecksQuery } from '@/app/api-slices/decksapislice.ts';
 import { Toaster } from 'sonner';
-import { GalleryDeck } from '@/components/deckbuttons/buttonprops.ts';
 import { DeckApiResponse } from '@/app/api-slices/types/decktypes.ts';
-import { Deck } from '@/components/deckmanagerpagecomponents/types/homepagecomponentprops.ts';
+import DeckDisplay from '@/components/deckdisplay/deckapidisplay.tsx';
 
 const DeckPageHomepage = () => {
     const userId = useSelector((state: UserIdState) => state.auth.userId);
@@ -42,8 +40,8 @@ const DeckPageHomepage = () => {
     }
     const [currentListPage, setListCurrentPage] = useState<number>(1);  
     const [currentGalleryPage, setGalleryCurrentPage] = useState<number>(1);
-    const [currentPageListDecksArray, setCurrentPageListDecksArray] = useState<Deck[]>([]);
-    const [currentPageGalleryDecksArray, setCurrentPageGalleryDecksArray] = useState<GalleryDeck[]>([]);
+    const [currentPageListDecksArray, setCurrentPageListDecksArray] = useState<DeckApiResponse[]>([]);
+    const [currentPageGalleryDecksArray, setCurrentPageGalleryDecksArray] = useState<DeckApiResponse[]>([]);
 
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const inputValue = e.target.value;

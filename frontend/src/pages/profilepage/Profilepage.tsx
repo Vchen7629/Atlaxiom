@@ -7,7 +7,6 @@ import UserStatistics from './profile-subpages/statistics.tsx';
 import { UserId } from './types/subpagetypes.ts';
 import NavBarComponent from '../../components/profilepagecomponents/components/navbar.tsx';
 import ProfilePageHeader from '../../components/profilepagecomponents/components/profilepageheader.tsx';
-import ViewDecks from './profile-subpages/deckpage.tsx';
 import DeckSearchBar from '../../components/profilepagecomponents/viewdeckcomponents/decksearchbarcomp.tsx';
 import GridListViewComponent from '../../components/profilepagecomponents/viewdeckcomponents/gridlistviewcomponent.tsx';
 import EditAccountPage from './profile-subpages/editaccountpage.tsx';
@@ -16,6 +15,8 @@ import PaginationComponent from '@/components/profilepagecomponents/viewdeckcomp
 import { Deck } from '@/components/profilepagecomponents/statisticscomponents/types/paginationtypes.ts';
 import BarChartViewButton from '@/components/profilepagecomponents/statisticscomponents/buttons/barchartbutton.tsx';
 import { DeckApiResponse } from '@/app/api-slices/types/decktypes.ts';
+import DeckDisplay from '@/components/deckdisplay/deckapidisplay.tsx';
+import { Toaster } from 'sonner';
 
 
 const Profilepage = () => {
@@ -29,7 +30,7 @@ const Profilepage = () => {
     const [listView, setListView] = useState(true);
     const [galleryView, setGalleryView] = useState(false);
 
-    const { data: modifyDecks, isLoading, refetch: refetchdecks } = useGetAllOwnedDecksQuery(userId);
+    const { data: modifyDecks, isLoading, refetch } = useGetAllOwnedDecksQuery(userId);
     const decksToDisplay = modifyDecks || [];
     const filteredDecks = decksToDisplay.filter((deck: Deck) => deck?.deck_name?.toLowerCase().includes(deckName.toLowerCase()));
     const suggestionsPerGalleryPage = 20;
@@ -44,13 +45,13 @@ const Profilepage = () => {
     }
     const [currentListPage, setListCurrentPage] = useState<number>(1);  
     const [currentGalleryPage, setGalleryCurrentPage] = useState<number>(1);
-    const [currentListPageResults, setCurrentListPageResults] = useState<DeckApiResponse[]>([])
-    const [currentGalleryPageResults, setCurrentGalleryPageResults] = useState<DeckApiResponse[]>([])
+    const [currentPageListDecksArray, setCurrentPageListDecksArray] = useState<DeckApiResponse[]>([])
+    const [currentPageGalleryDecksArray, setCurrentPageGalleryDecksArray] = useState<DeckApiResponse[]>([])
 
     const [yearView, setYearView] = useState<boolean>(true);
     const [monthView, setMonthView] = useState<boolean>(false);
 
-    const {data: usersData, refetch} = useGetSpecificUserQuery(userId);
+    const {data: usersData, refetch: RefetchUser } = useGetSpecificUserQuery(userId);
 
     const navbarprops = {
         deckActive, setDeckActive,
@@ -64,17 +65,17 @@ const Profilepage = () => {
         galleryView, setGalleryView
     }
 
-    const deckprops = {
+    const deckdisplayprops = {
         isLoading,
-        usersData,
-        deckName,
+        decksToDisplay,
         listView,
         galleryView,
+        userId,
         refetch,
-        refetchdecks,
+        RefetchUser,
         filteredDecks,
-        currentListPageResults, setCurrentListPageResults,
-        currentGalleryPageResults, setCurrentGalleryPageResults,
+        currentPageListDecksArray, setCurrentPageListDecksArray,
+        currentPageGalleryDecksArray, setCurrentPageGalleryDecksArray
     }
 
     const paginationprops = {
@@ -85,8 +86,8 @@ const Profilepage = () => {
         currentGalleryPage, setGalleryCurrentPage,
         suggestionsPerListPage,
         suggestionsPerGalleryPage,
-        setCurrentListPageResults,
-        setCurrentGalleryPageResults,
+        setCurrentPageListDecksArray,
+        setCurrentPageGalleryDecksArray,
         totalListPages,
         totalGalleryPages,
         updateTotalListPages,
@@ -119,7 +120,7 @@ const Profilepage = () => {
                                 <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                             </div>
                         </div>
-                        <ViewDecks deckprops={deckprops}/>
+                        <DeckDisplay deckdisplayprops={deckdisplayprops}/>
                     </>
                 );
             case 'statistics':
@@ -138,7 +139,7 @@ const Profilepage = () => {
                     <>
                         {header}
                         <NavBarComponent navbarprops={navbarprops}/>
-                        <EditAccountPage usersData={usersData} refetch={refetch}/>
+                        <EditAccountPage usersData={usersData} refetch={RefetchUser}/>
                     </>
                 );
             default:
@@ -153,7 +154,7 @@ const Profilepage = () => {
                                 <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                             </div>
                         </div>
-                        <ViewDecks deckprops={deckprops}/>
+                        <DeckDisplay deckdisplayprops={deckdisplayprops}/>
                     </>
                 );
             }
@@ -162,6 +163,7 @@ const Profilepage = () => {
     return (
         <main className="min-h-[100vh] flex flex-col justify-center">
             <Header/>
+            <Toaster richColors  expand visibleToasts={4}/>
             <div className="flex justify-center pt-[10vh] bg-[hsl(var(--background1))] min-h-[120vh]">
                 <div className="flex flex-col w-full px-[5%] lg:px-[10%] my-[3%]">
                     <div className="flex flex-col align-center w-full">

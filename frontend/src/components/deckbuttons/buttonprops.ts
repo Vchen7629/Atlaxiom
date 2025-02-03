@@ -1,3 +1,4 @@
+import { DeckApiResponse } from "@/app/api-slices/types/decktypes";
 import { handleDeckClick } from "../deckmanagerpagecomponents/types/homepagecomponentprops";
 
 export type DeleteDeck = {
@@ -11,8 +12,8 @@ export type FavoriteDeck = {
     deck: handleDeckClick;
     refetch: () => void
     userId: string;
-    setCurrentPageListDecksArray: React.Dispatch<React.SetStateAction<any[]>>
-    setCurrentPageGalleryDecksArray: React.Dispatch<React.SetStateAction<GalleryDeck[]>>
+    setCurrentPageListDecksArray: React.Dispatch<React.SetStateAction<DeckApiResponse[]>>
+    setCurrentPageGalleryDecksArray: React.Dispatch<React.SetStateAction<DeckApiResponse[]>>
 }
 
 export type GalleryDeck = {

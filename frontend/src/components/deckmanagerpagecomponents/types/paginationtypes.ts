@@ -1,5 +1,5 @@
-import { GalleryDeck } from "@/components/deckbuttons/buttonprops";
 import { Deck } from "./homepagecomponentprops";
+import { DeckApiResponse } from "@/app/api-slices/types/decktypes";
 
 export type Pagination = {
     paginationprops: {
@@ -12,8 +12,8 @@ export type Pagination = {
         setGalleryCurrentPage: React.Dispatch<React.SetStateAction<number>>;
         suggestionsPerListPage: number;
         suggestionsPerGalleryPage: number;
-        setCurrentPageListDecksArray: React.Dispatch<React.SetStateAction<Deck[]>>;
-        setCurrentPageGalleryDecksArray: React.Dispatch<React.SetStateAction<GalleryDeck[]>>;
+        setCurrentPageListDecksArray: React.Dispatch<React.SetStateAction<DeckApiResponse[]>>;
+        setCurrentPageGalleryDecksArray: React.Dispatch<React.SetStateAction<DeckApiResponse[]>>;
         totalListPages: number;
         totalGalleryPages: number;
         updateTotalListPages: (filteredCardsLength: number) => void;

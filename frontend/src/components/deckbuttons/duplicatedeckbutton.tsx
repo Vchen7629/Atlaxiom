@@ -12,6 +12,7 @@ const DuplicateDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: De
     
     async function handleDuplicateDeckClick(deck: handleDeckClick) {
         try {
+            console.log("hi")
             const duplicate = await addNewDuplicateDeck({
                 id: userId, 
                 deckId: deck._id

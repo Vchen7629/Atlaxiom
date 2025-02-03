@@ -18,7 +18,10 @@ const DeleteDeckButtonComponent = ({ deck, refetch, refetchUser, userId }: Delet
             });
             if (deldeck) {
                 refetch();
-                if (refetchUser) refetchUser();
+                if (refetchUser) {
+                    refetchUser();
+                    console.log("refetched")
+                }
                 return { name: deck.deck_name}
             } 
         } catch (error) {

@@ -21,10 +21,10 @@ export type DeckProps = {
         refetch: () => void;
         refetchdecks: any;
         filteredDecks: any;
-        currentListPageResults: any
-        setCurrentListPageResults: React.Dispatch<React.SetStateAction<any>> 
-        currentGalleryPageResults: any
-        setCurrentGalleryPageResults: React.Dispatch<React.SetStateAction<any>> 
+        currentPageListDecksArray: any
+        setCurrentPageListDecksArray: React.Dispatch<React.SetStateAction<any>> 
+        currentPageGalleryDecksArray: any
+        setCurrentPageGalleryDecksArray: React.Dispatch<React.SetStateAction<any>> 
     }
 }
 

@@ -12,8 +12,8 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         currentGalleryPage, setGalleryCurrentPage,
         suggestionsPerListPage,
         suggestionsPerGalleryPage,
-        setCurrentListPageResults,
-        setCurrentGalleryPageResults,
+        setCurrentPageListDecksArray,
+        setCurrentPageGalleryDecksArray,
         totalListPages,
         totalGalleryPages,
         updateTotalListPages,
@@ -28,7 +28,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
             const startIndex = (currentListPage - 1) * suggestionsPerListPage;
             const endIndex = startIndex + suggestionsPerListPage;
             const currentListSuggestions = filteredDecks.slice(startIndex, endIndex) as DeckApiResponse[];
-            setCurrentListPageResults(currentListSuggestions);
+            setCurrentPageListDecksArray(currentListSuggestions);
         }
     };
 
@@ -57,7 +57,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
             const startIndex = (currentGalleryPage - 1) * suggestionsPerGalleryPage;
             const endIndex = startIndex + suggestionsPerGalleryPage;
             const currentGallerySuggestions = filteredDecks.slice(startIndex, endIndex) as DeckApiResponse[];
-            setCurrentGalleryPageResults(currentGallerySuggestions);
+            setCurrentPageGalleryDecksArray(currentGallerySuggestions);
         }
     };
 
@@ -85,8 +85,8 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         updateTotalListPages(filteredDecks.length);
         updateTotalGalleryPages(filteredDecks.length)
         if ((filteredDecks.length === 0)) {
-            setCurrentListPageResults([]);
-            setCurrentGalleryPageResults([]);
+            setCurrentPageListDecksArray([]);
+            setCurrentPageGalleryDecksArray([]);
         } else if (filteredDecks.length > 0) {
             updateCurrentPageList();
             updateCurrentPageGallery();
