@@ -64,7 +64,6 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
                                 }
                                 }}
                             tabIndex={0}
-                            role="button"
                             aria-label={`Select card ${card.name}`}
                         >
                             <div className="flex w-full h-[20vh] mb-2 bg-transparentt">

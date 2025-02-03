@@ -68,7 +68,6 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
                                     }
                                 }}
                                 tabIndex={0}
-                                role="button"
                                 aria-label={`Select card ${card.card_name}`}
                             >
                                 <div className="hidden lg:flex pl-6 ">{card.ownedamount}</div>

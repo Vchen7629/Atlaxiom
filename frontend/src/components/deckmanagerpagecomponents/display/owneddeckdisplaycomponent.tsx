@@ -127,7 +127,6 @@ const DeckDisplay= ({ deckdisplayprops }: DeckDisplayComponent) => {
                                         }
                                         }}
                                     tabIndex={0}
-                                    role="button"
                                     aria-label={`Select deck ${deck.deck_name}`}
                                 >
                                     <button className="relative bg-deckpage flex flex-col h-[20vh] w-[28vw] md:h-[18vh] md:w-[15vw] lg:h-[12vh] lg:w-[4.8vw] rounded-lg" onClick={handleDeckClickWrapper(deck)}>

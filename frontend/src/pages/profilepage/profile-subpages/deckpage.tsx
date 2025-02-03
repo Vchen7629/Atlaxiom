@@ -59,12 +59,11 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                                 <l-waveform size="50" stroke="3.5" speed="1" color="hsl(var(--background3))" />
                             </div>
                         ) : currentListPageResults.length > 0 ? (
-                            <>
-                                {currentListPageResults.map((deck: FilteredDecks) => (
-                                    <article
-                                        className="flex  h-[7vh] px-2 justify-between items-center mb-2 hover:bg-[hsl(var(--background5))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--background3))] rounded-md" 
-                                        key={deck._id} 
-                                        onClick={handleClick(deck)}
+                            currentListPageResults.map((deck: FilteredDecks) => (
+                                <article
+                                    className="flex  h-[7vh] px-2 justify-between items-center mb-2 hover:bg-[hsl(var(--background5))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--background3))] rounded-md" 
+                                    key={deck._id} 
+                                    onClick={handleClick(deck)}
                                         onKeyDown={(e) => {
                                             if (e.key === 'Enter' || e.key === ' ') {
                                                 e.preventDefault();
@@ -72,7 +71,6 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                                             }
                                         }}
                                         tabIndex={0}
-                                        role="button"
                                         aria-label={`Select deck ${deck.deck_name}`}
                                         >  
                                             <section className='flex w-1/4 space-x-8'>
@@ -105,9 +103,8 @@ const ViewDecks = ({ deckprops }: DeckProps) => {
                                                 <DuplicateDeckButtonComponent userId={userId} refetch={refetchdecks} refetchUser={refetch} deck={deck}/>
                                                 <DeleteDeckButtonComponent userId={userId} refetch={refetchdecks} refetchUser={refetch} deck={deck}/>
                                             </section>      
-                                    </article>
-                                ))}        
-                            </>
+                                </article>
+                            ))       
                         ) : totalOwnedDecks === 0 ? (
                             <section className="flex w-full h-[50vh] justify-center items-center">
                                 <span className="text-[hsl(var(--text))] font-bold text-2xl">You don&apos;t have any owned Decks</span>

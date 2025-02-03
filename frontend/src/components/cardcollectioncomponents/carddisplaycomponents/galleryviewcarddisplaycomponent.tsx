@@ -56,7 +56,6 @@ export const GalleryViewCardDisplayComponent = ({ displaygalleryprops }: filtere
                                         }
                                     }}
                                     tabIndex={0}
-                                    role="button"
                                     aria-label={`Select card ${card.card_name}`}
                                 >
                                     <label className="bg-[hsl(var(--background3))] w-fit  font-bold text-[hsl(var(--text))] px-4 text-sm rounded-xl">{card?.ownedamount}x</label>
