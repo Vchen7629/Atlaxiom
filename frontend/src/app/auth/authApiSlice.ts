@@ -1,4 +1,4 @@
-import { apiSlice } from "../../app/api/apiSlice";
+import { apiSlice } from "../api/apiSlice";
 import { logOut, setCredentials } from "./authSlice";
 import { LoginCredentials, LoginResponse, Refresh } from "./types";
 

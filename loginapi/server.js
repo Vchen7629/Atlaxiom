@@ -18,10 +18,6 @@ const cert = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/fullchain.p
 
 const httpsOptions = { key: privateKey, cert };
 
-connectDB().catch(_ => {
-    process.exit(1); 
-});
-
 app.use(cors(corsOptions))
 app.use(checkHost)
 app.use(logger)
