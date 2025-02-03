@@ -1,3 +1,4 @@
+import { ApiCardData } from "@/components/searchpagecomponents/types/datastructuretypes";
 import { CardSet } from "../../../components/searchpagecomponents/types/searchresultcomptypes";
 
 export type SearchResult = {
@@ -21,7 +22,7 @@ export type SearchUserId = {
 
 export type ListViewSearchSuggestions = {
     listView: {
-        cardData: any[];
+        cardData: ApiCardData[];
         setCardName: React.Dispatch<React.SetStateAction<string>>
         setClickedOnCard: React.Dispatch<React.SetStateAction<boolean>>
         

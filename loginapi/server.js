@@ -16,7 +16,7 @@ const checkHost = require('./middleware/checkhostname')
 const privateKey = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/privkey.pem', "utf-8")
 const cert = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem', "utf-8")
 
-const httpsOptions = { key: privateKey, cert: cert };
+const httpsOptions = { key: privateKey, cert };
 
 connectDB().catch(_ => {
     process.exit(1); 

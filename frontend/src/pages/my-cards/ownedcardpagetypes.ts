@@ -1,6 +1,6 @@
 
 export type Card = {
-    filteredCards: any[];
+    filteredCards: string[];
     card_name: string;
     type?: string;
     race?: string;

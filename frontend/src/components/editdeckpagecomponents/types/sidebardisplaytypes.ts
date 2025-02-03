@@ -11,7 +11,7 @@ export type AllCardsDisplayCompProps = {
         allCardsGalleryResults: Card[];
         allCardsCurrentListResults: UpdatedCard[];
         allCardsCurrentGalleryResults: UpdatedCard[];
-        setMonsterCards?: any
+        setMonsterCards?: React.Dispatch<React.SetStateAction<UpdatedCard[]>>
     }
 }
 

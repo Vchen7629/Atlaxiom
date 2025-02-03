@@ -1,5 +1,5 @@
 import { GalleryResult, Result } from "./sidebarcomponenttypes";
-import { Card } from "./datatypes";
+import { Card, OwnedCard } from "./datatypes";
 import { GetOwnedCardsResponse } from "@/app/api-slices/types/ownedcardtypes";
 
 export type AllCardsSearchbarCompProps = {
@@ -84,14 +84,14 @@ export type CollectionSearchbarCompProps = {
 
 export type MobileCollectionSearchbarCompProps = {
     CollectionSearchBarCompProps: {
-        cardData: any;
+        cardData: GetOwnedCardsResponse[] | undefined;
         collectionCurrentPage: number;
         collectionTotalListPage: number;
         collectionTotalGalleryPage: number;
         resultsPerListPage: number;
         resultsPerGalleryPage: number;
-        collectionMonsterCards: any;
-        setCollectionMonsterCards: React.Dispatch<React.SetStateAction<any>>
+        collectionMonsterCards: OwnedCard[];
+        setCollectionMonsterCards: React.Dispatch<React.SetStateAction<OwnedCard[]>>
         collectionCardsName: string;
         setCollectionCardsName: React.Dispatch<React.SetStateAction<string>>;
         collectionListResults: Result[];

@@ -44,10 +44,7 @@ const createNewDeck = asyncHandler(async (req, res) => {
     await user.save();
 
     if (deck) {
-        res.status(201).json({ 
-            message: `New deck named ${deck.deck_name} created for user ${user.username}`,
-            deck: deck
-        });
+        res.status(201).json({ message: `New deck named ${deck.deck_name} created for user ${user.username}`, deck });
     } else {
         res.status(400).json({ message: "Invalid deck data recieved"})
     }

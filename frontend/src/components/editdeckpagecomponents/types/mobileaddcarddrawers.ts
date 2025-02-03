@@ -1,5 +1,5 @@
 import { UpdatedCard } from "./buttontypes";
-import { Card } from "./datatypes";
+import { Card, OwnedCard } from "./datatypes";
 
 export type MonsterDrawer = {
     monstercarddrawerprops: {
@@ -12,8 +12,8 @@ export type MonsterDrawer = {
         setAllCardsListResults: React.Dispatch<React.SetStateAction<Card[]>>;
         collectionCardsView: boolean;
         setCollectionCardsView: React.Dispatch<React.SetStateAction<boolean>>;
-        collectionMonsterCards: Card[];
-        setCollectionMonsterCards: React.Dispatch<React.SetStateAction<Card[]>>;
+        collectionMonsterCards: OwnedCard[];
+        setCollectionMonsterCards: React.Dispatch<React.SetStateAction<OwnedCard[]>>;
         allMonsterCards: Card[];
         setAllMonsterCards: React.Dispatch<React.SetStateAction<Card[]>>;
         setMonsterCards: React.Dispatch<React.SetStateAction<UpdatedCard[]>>;
