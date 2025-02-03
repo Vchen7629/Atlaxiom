@@ -67,7 +67,9 @@ const ClearFilterButton = ({ clearfilterprops }: clearfilter) => {
                 <TooltipTrigger>
                     <span
                         className={`${canClearFilters ? "bg-[hsl(var(--background3))]" : "bg-gray-600"} py-[12px] px-[14px] rounded-xl`} 
-                        onClick={ClearFilter}>
+                        onClick={ClearFilter}
+                        role="button"
+                    >
                         <FontAwesomeIcon icon={faArrowRotateRight}/>
                     </span>
                 </TooltipTrigger>

@@ -37,6 +37,7 @@ const FilterButton = ({ filterbuttonprops }: filterbutton) => {
                     <span
                         className={`h-[40px] ml-2 px-4 py-3 rounded-xl ${filterActive ? "bg-[hsl(var(--background3))]" : "bg-gray-600"}`}  
                         onClick={FilterClick}
+                        role="button"
                     >
                         Filter Card
                     </span>

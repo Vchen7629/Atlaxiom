@@ -16,16 +16,12 @@ const PasswordUpdateButton = ({ UpdatePasswordProps } : SavePasswordButton) => {
     const [updatePassword] = useUpdateUserMutation()
 
     async function handleSubmitPassword() {
-        try {
-            await updatePassword({
-                id: userId,
-                userData: { password: newPassword },
-            }).unwrap();  
-            setNewPassword('')
-            refetch();
-        } catch (error) {
-            throw error
-        }
+        await updatePassword({
+            id: userId,
+            userData: { password: newPassword },
+        }).unwrap();  
+        setNewPassword('')
+        refetch();
     };
 
     function handleClick()  {

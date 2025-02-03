@@ -33,16 +33,12 @@ const LoginPage = () => {
             setPasswordError(true);
         }
 
-        try {
-            const { accessToken, userId }: any = await login({ username, password }).unwrap();
-            dispatch(setCredentials({ accessToken, userId, username }));
-            setUsername('');
-            setPassword('');
-            navigate("/profile");
-            return Promise.resolve();
-        } catch (error) {
-            throw error
-        }
+        const { accessToken, userId }: any = await login({ username, password }).unwrap();
+        dispatch(setCredentials({ accessToken, userId, username }));
+        setUsername('');
+        setPassword('');
+        navigate("/profile");
+        return Promise.resolve();
     }
     
     function handleUserInput(e: React.FormEvent<HTMLInputElement>) {
