@@ -68,6 +68,7 @@ const ClearFilterButton = ({ clearfilterprops }: clearfilter) => {
                     <span
                         className={`${canClearFilters ? "bg-[hsl(var(--background3))]" : "bg-gray-600"} py-[12px] px-[14px] rounded-xl`} 
                         onClick={ClearFilter}
+                        onFocus={ClearFilter}
                         role="button"
                     >
                         <FontAwesomeIcon icon={faArrowRotateRight}/>
