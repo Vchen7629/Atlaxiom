@@ -23,7 +23,7 @@ const DeleteAccountButton = ({ deleteInput }: DeleteButtonProps) => {
             throw new Error("Input doesn't match DELETE");
         } 
         await deleteUser({ id: userId }).unwrap();
-        await sendLogout({}).unwrap();
+        await sendLogout().unwrap();
         navigate("/")
     };
 

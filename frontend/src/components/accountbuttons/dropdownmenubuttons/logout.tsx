@@ -11,7 +11,7 @@ const Logout = () => {
 
     async function handleLogout() {
         try {
-            await sendLogout({}).unwrap();
+            await sendLogout().unwrap();
             navigate('/');
         } catch (err) {
             console.error('Failed to log out: ', err);

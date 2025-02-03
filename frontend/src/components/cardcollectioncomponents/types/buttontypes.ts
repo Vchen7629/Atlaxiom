@@ -1,9 +1,10 @@
 import { GetOwnedCardsResponse } from "@/app/api-slices/types/ownedcardtypes";
+import { Card } from "./ownedcarddetailstypes";
 
 
 export type IncreaseCard = {
     userId: string;
-    card: any;
+    card: Card;
     refetch: () => Promise<{ data?: GetOwnedCardsResponse[] }>;
 }
 
