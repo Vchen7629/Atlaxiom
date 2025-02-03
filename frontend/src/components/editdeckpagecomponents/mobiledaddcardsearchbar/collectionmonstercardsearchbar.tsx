@@ -2,8 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useCallback, useMemo } from "react";
 import { MobileCollectionSearchbarCompProps } from "../types/searchbartypes";
-import { OwnedCard } from "../types/datatypes";
 import { SetCollectionGallery, SetCollectionList } from "../types/mobileaddcardsearchbartypes";
+import { GetOwnedCardsResponse } from "@/app/api-slices/types/ownedcardtypes";
 
 const MobileCollectionMonsterCardSearchBarComponent = ({ CollectionSearchBarCompProps }: MobileCollectionSearchbarCompProps) => {
     const {
@@ -32,7 +32,7 @@ const MobileCollectionMonsterCardSearchBarComponent = ({ CollectionSearchBarComp
         if (cardData) {
             return Object.values(cardData || {})
                 .flat()
-                .filter((card): card is OwnedCard => card !== undefined && card !== null && Object.keys(card).length > 0)
+                .filter((card): card is GetOwnedCardsResponse => card !== undefined && card !== null && Object.keys(card).length > 0)
                 .filter((card: any) => card.type && !filterTerms.some(term => card.type.includes(term)))
         }
         return [];

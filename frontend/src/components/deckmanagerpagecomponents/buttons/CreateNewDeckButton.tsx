@@ -13,7 +13,7 @@ const CreateNewDeckComponent: React.FC<NewDeckButton> = ({ userId }) => {
         const payload = { id: userId };
         const result = await addNewDeck(payload).unwrap();
     
-        navigate('/modifyDeck', { state: { deckId: result.deck._id, userId: userId } });
+        navigate('/modifyDeck', { state: { deckId: result.deck._id, userId } });
         refetch()
 
         return { name: result.deck.deck_name}

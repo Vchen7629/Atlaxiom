@@ -1,8 +1,8 @@
-import { SearchResCardData } from "./datastructuretypes";
+import { ApiCardData, SearchResCardData } from "./datastructuretypes";
 
 export type Pagination = {
     paginationprops: {
-        filteredCards: any;
+        filteredCards: ApiCardData[];
         listView: boolean;
         galleryView: boolean;
         currentListPage: number;

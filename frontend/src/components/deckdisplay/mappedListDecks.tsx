@@ -19,7 +19,7 @@ export function MappedListDeck({ MappedListProps }: MappedList) {
     const navigate = useNavigate()
 
     function handleDeckClick(deck: DeckClick) {
-        navigate('/modifyDeck', { state: { deckId: deck._id, userId: userId } });   
+        navigate('/modifyDeck', { state: { deckId: deck._id, userId } });   
     };
 
 

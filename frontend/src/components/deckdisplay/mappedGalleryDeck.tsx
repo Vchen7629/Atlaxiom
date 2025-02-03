@@ -19,7 +19,7 @@ export function MappedGalleryDeck({ MappedGalleryProps }: MappedGallery) {
     
 
     function handleDeckClick(deck: DeckClick) {
-        navigate('/modifyDeck', { state: { deckId: deck._id, userId: userId } });   
+        navigate('/modifyDeck', { state: { deckId: deck._id, userId } });   
     };
 
     function handleDeckClickWrapper(deck: DeckClick) {

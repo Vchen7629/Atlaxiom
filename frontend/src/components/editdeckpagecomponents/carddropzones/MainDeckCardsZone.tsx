@@ -8,7 +8,7 @@ import SubGridListViewComponent from "../../editdeckpagecomponents/draganddropit
 import AddMonsterCardDrawer from "../mobileaddcarddrawers/addmonstercarddrawer";
 import AddSpellCardDrawer from "../mobileaddcarddrawers/addspellcarddrawer";
 import AddTrapCardDrawer from "../mobileaddcarddrawers/addtrapcarddrawer";
-import { Card } from "../types/datatypes";
+import { Card, OwnedCard } from "../types/datatypes";
 import { UpdatedCard } from "../types/buttontypes";
 
 const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
@@ -50,7 +50,7 @@ const MainDeckCardZone = ({ maindeckprops }: MainDeckProps) => {
   const shouldTrapBlur = isTrapOver && hoveredCard && hoveredCard?.type?.includes("Trap");
 
   const [openDrawer, setOpenDrawer] = useState<string | null>(null);
-  const [collectionMonsterCards, setCollectionMonsterCards] = useState<Card[]>([])
+  const [collectionMonsterCards, setCollectionMonsterCards] = useState<OwnedCard[]>([])
   const [allMonsterCards, setAllMonsterCards] = useState<Card[]>([])
   //const [collectionSpellCards, setCollectionSpellCards] = useState([])
   //const [collectionTrapCards, setCollectionTrapCards] = useState([])

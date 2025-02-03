@@ -20,7 +20,7 @@ const SearchBarPage = () => {
   const [currentPageListNamesArray, setCurrentPageListNamesArray] = useState<SearchResCardData[]>([]);
   const [currentPageGalleryNamesArray, setCurrentPageGalleryNamesArray] = useState<SearchResCardData[]>([]);
 
-  const [/*errorMessage*/, setErrorMessage] = useState<string>('');
+  const [_, setErrorMessage] = useState<string>('');
   const [expandStatus, setExpandStatus] = useState<boolean>(false);
   const [filterActive, setFilterActive] = useState<boolean>(false);
   const [canClearFilters, setCanClearFilters] = useState<boolean>(false);
