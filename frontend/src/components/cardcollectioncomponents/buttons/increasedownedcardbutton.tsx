@@ -9,19 +9,15 @@ const IncreaseOwnedCardButtonComponent = ({ userId, refetch, card }: IncreaseCar
 
     
     async function handleIncreaseClick(cardName: string) {
-        try {
-          await increaseOwnedCard({ 
-            id: userId, 
-            CardData: { 
-              card_name: cardName,
-              increaseOwnedAmount: 1 
-            } 
-          }).unwrap();
-          refetch();
-          return { name: cardName };
-        } catch (error) {
-          throw error
-        }
+      await increaseOwnedCard({ 
+        id: userId, 
+        CardData: { 
+          card_name: cardName,
+          increaseOwnedAmount: 1 
+        } 
+      }).unwrap();
+      refetch();
+      return { name: cardName };
     };
 
 

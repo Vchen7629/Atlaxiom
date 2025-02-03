@@ -16,17 +16,13 @@ const UsernameUpdateButton = ({ UpdateUsernameProps } : SaveUsernameButton) => {
     const [updateUsername ] = useUpdateUserMutation()
 
     async function handleSubmitUsername() {
-        try {
-            await updateUsername({
-                id: userId,
-                userData: { username: newUsername },
-            }).unwrap();
-            setNewUsername('')
-            refetch();
-            return { name: newUsername }
-        } catch (error) {
-            throw error
-        }
+        await updateUsername({
+            id: userId,
+            userData: { username: newUsername },
+        }).unwrap();
+        setNewUsername('')
+        refetch();
+        return { name: newUsername }
     };
 
     function handleClick() {

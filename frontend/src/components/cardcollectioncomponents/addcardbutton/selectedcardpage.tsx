@@ -25,19 +25,15 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
 
     async function fetchSelectedCardData(cardName: string) {
         setLoading(true);
-        try {
-          const response = await fetch(`${apiUrl}?name=${encodeURIComponent(cardName)}`);
-          const data = await response.json();
+        const response = await fetch(`${apiUrl}?name=${encodeURIComponent(cardName)}`);
+        const data = await response.json();
     
-          if (response.ok) {
+        if (response.ok) {
             setLoading(false);
             setSelectedCardData(data.data[0]);
             setCardSets(data.data[0].card_sets || []);
-          } else {
+        } else {
             console.error('Error fetching card data:');
-          }
-        } catch (error) {
-          throw error
         }
     }
     
@@ -78,13 +74,9 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
                 set_code: set.set_code || 0,
                 price: set.set_price || 0,
             };
-            try {
-                await addNewOwnedCard({ id: userId, CardData: cardToPost }).unwrap();
-                refetch();
-                return { name: selectedCardData.name, set: selectedCardData?.card_sets?.[index]?.set_name};
-            } catch (error) {
-                throw error;
-            }
+            await addNewOwnedCard({ id: userId, CardData: cardToPost }).unwrap();
+            refetch();
+            return { name: selectedCardData.name, set: selectedCardData?.card_sets?.[index]?.set_name};
         } else {
             console.error("No selected Card Data")
         }

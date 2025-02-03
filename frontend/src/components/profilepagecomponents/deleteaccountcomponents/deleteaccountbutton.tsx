@@ -22,13 +22,9 @@ const DeleteAccountButton = ({ deleteInput }: DeleteButtonProps) => {
         if (deleteInput !== deleteMsg) {
             throw new Error("Input doesn't match DELETE");
         } 
-        try {
-            await deleteUser({ id: userId }).unwrap();
-            await sendLogout({}).unwrap();
-            navigate("/")
-        }   catch (error) {
-            throw error
-        }
+        await deleteUser({ id: userId }).unwrap();
+        await sendLogout({}).unwrap();
+        navigate("/")
     };
 
     function handleClick(event: React.MouseEvent<HTMLButtonElement>) {

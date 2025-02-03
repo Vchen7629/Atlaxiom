@@ -10,17 +10,13 @@ const CreateNewDeckComponent: React.FC<NewDeckButton> = ({ userId }) => {
     const [addNewDeck] = useCreateNewDeckMutation()
 
     async function handleCreateDeckClick() {
-        try {
-            const payload = { id: userId };
-            const result = await addNewDeck(payload).unwrap();
+        const payload = { id: userId };
+        const result = await addNewDeck(payload).unwrap();
     
-            navigate('/modifyDeck', { state: { deckId: result.deck._id, userId: userId } });
-            refetch()
+        navigate('/modifyDeck', { state: { deckId: result.deck._id, userId: userId } });
+        refetch()
 
-            return { name: result.deck.deck_name}
-        } catch (error) {
-            throw error
-        }
+        return { name: result.deck.deck_name}
     };
 
     function handleClick(event: React.MouseEvent<HTMLButtonElement>) {

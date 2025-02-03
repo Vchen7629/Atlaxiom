@@ -1,10 +1,10 @@
 import { apiSlice } from "../../app/api/apiSlice";
 import { logOut, setCredentials } from "./authSlice";
-import { Refresh } from "./types";
+import { LoginCredentials, LoginResponse, Refresh } from "./types";
 
 export const authApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
-        login: builder.mutation<string, any>({
+        login: builder.mutation<LoginResponse, LoginCredentials>({
             query: credentials => ({
                 url: "/auth",
                 method: "POST",
@@ -20,12 +20,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 method: "POST",
             }),
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
-                try {
-                    await queryFulfilled; 
-                    dispatch(logOut());
-                } catch (err) {
-                    console.error("sendLogout onQueryStarted returned with error: ", err)
-                }
+                await queryFulfilled; 
+                dispatch(logOut());
             }
         }),
 
@@ -36,13 +32,9 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 credentials: 'include' 
             }), 
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
-                try {
-                    const { data } = await queryFulfilled
-                    const { accessToken, userId, username } = data
-                    dispatch(setCredentials({ accessToken, userId, username }))
-                } catch (err) {
-                    throw err
-                }
+                const { data } = await queryFulfilled
+                const { accessToken, userId, username } = data
+                dispatch(setCredentials({ accessToken, userId, username }))
             }
         })
     })

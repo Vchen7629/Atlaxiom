@@ -9,19 +9,15 @@ const DecreaseOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCar
     const [decreaseOwnedCard] = useDecreaseOwnedCardMutation();
     
     async function handleDecreaseClick(cardName: string) {
-        try {
-          await decreaseOwnedCard({ 
-            id: userId, 
-            CardData: { 
-              card_name: cardName,
-              decreaseOwnedAmount: 1 
-            } 
-          }).unwrap();
-          refetch();
-          return { name: cardName };
-        } catch (error) {
-          throw error
-        }
+      await decreaseOwnedCard({ 
+        id: userId, 
+        CardData: { 
+          card_name: cardName,
+          decreaseOwnedAmount: 1 
+        } 
+      }).unwrap();
+      refetch();
+      return { name: cardName };
     };
 
     function handleClick(event: React.MouseEvent<HTMLButtonElement>) {

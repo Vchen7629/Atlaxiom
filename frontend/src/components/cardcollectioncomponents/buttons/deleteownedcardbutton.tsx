@@ -9,16 +9,12 @@ const DeleteOwnedCardButtonComponent = ({ userId, refetch, card }: DecreaseCard)
     const [deleteOwnedCard] = useDeleteOwnedCardMutation();
     
     async function handleDeleteCardClick(cardName: string) {
-        try {
-          await deleteOwnedCard({
-            id: userId,
-            CardData: { card_name: cardName }
-          }).unwrap();
-          refetch();
-          return { name: cardName }
-        } catch (error) {
-          throw error
-        }
+      await deleteOwnedCard({
+        id: userId,
+        CardData: { card_name: cardName }
+      }).unwrap();
+      refetch();
+      return { name: cardName }
     }
 
     function handleClick(event: React.MouseEvent<HTMLButtonElement>) {

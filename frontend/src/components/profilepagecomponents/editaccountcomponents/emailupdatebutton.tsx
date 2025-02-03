@@ -16,17 +16,13 @@ const EmailUpdateButton = ({ UpdateEmailProps } : SaveEmailButton) => {
     const [updateUsername] = useUpdateUserMutation()
 
     async function handleSubmitEmail() {
-        try {
-            await updateUsername({
-                id: userId,
-                userData: { email: newEmail },
-            }).unwrap();
-            setNewEmail('')
-            refetch()
-            return { name: newEmail}
-        } catch (error) {
-            throw error
-        }
+        await updateUsername({
+            id: userId,
+            userData: { email: newEmail },
+        }).unwrap();
+        setNewEmail('')
+        refetch()
+        return { name: newEmail}
     };
 
     function handleClick() {
