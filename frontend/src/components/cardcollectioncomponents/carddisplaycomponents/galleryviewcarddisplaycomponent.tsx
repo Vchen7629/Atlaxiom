@@ -19,6 +19,7 @@ import { Toaster } from "sonner";
 import { useGetSpecificUserQuery } from "@/app/api-slices/usersApiSlice.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { OwnedCard } from "../types/dataStructures.ts";
 
 export const GalleryViewCardDisplayComponent = ({ displaygalleryprops }: filteredGalleryCards) => {
     const { currentGalleryPageResults } = displaygalleryprops
@@ -44,7 +45,7 @@ export const GalleryViewCardDisplayComponent = ({ displaygalleryprops }: filtere
                             className="grid grid-cols-2 sm-grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-4 p-4 justify-items-start items-start hover:border-10 hover-border-blacktwo"  
                             style={{ gridAutoRows: 'auto', alignContent: 'start' }}
                         >
-                            {currentGalleryPageResults.map((card: Card) => (
+                            {currentGalleryPageResults.map((card: OwnedCard) => (
                                 <div
                                     key={card.id} 
                                     className="flex flex-col w-fit group relative items-center space-y-2 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--background3))]" 

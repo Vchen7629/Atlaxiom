@@ -38,6 +38,7 @@ const DeckBuilderPage = () => {
           }, 300);
           return () => clearTimeout(timer);
         }
+        return undefined
     }, [isLoading]);
 
     useEffect(() => {
@@ -46,7 +47,7 @@ const DeckBuilderPage = () => {
         }
     }, [deckId, userId]);
 
-    const [hoveredCard, setHoveredCard] = useState<Card | null>(null);
+    const [hoveredCard, setHoveredCard] = useState<Card | GetOwnedCardsResponse | undefined>(undefined);
     const [monsterCards, setMonsterCards] = useState<Card[]>([]);
     const [spellCards, setSpellCards] = useState<Card[]>([]);
     const [trapCards, setTrapCards] = useState<Card[]>([]);
@@ -84,11 +85,11 @@ const DeckBuilderPage = () => {
         const { active } = event;
     
         if (!active?.id) {
-            setHoveredCard(null);
+            setHoveredCard(undefined);
             return;
         }
     
-        const draggedCard: any =
+        const draggedCard: Card | GetOwnedCardsResponse | undefined =
             allCardsListResults.find((card) => card.id === active.id) ||
             collectionCardData.find((card) => card._id === active.id);
     
@@ -96,7 +97,7 @@ const DeckBuilderPage = () => {
     };
 
     const handleDragLeave = () => {
-        setHoveredCard(null);
+        setHoveredCard(undefined);
     };
 
     const handleDragEnd = (event: DragEndEvent) => {
@@ -115,7 +116,7 @@ const DeckBuilderPage = () => {
 
             const draggedCard = { ...originalDraggedCard };
 
-            const addOrUpdateCard = (setDeckFunction: React.Dispatch<React.SetStateAction<any[]>>) => {
+            const addOrUpdateCard = (setDeckFunction: React.Dispatch<React.SetStateAction<Card[]>>) => {
                 setDeckFunction((prevDeck) => {
                     const existingCardIndex = prevDeck.findIndex(
                         (card) => (card.name || card.card_name) === (draggedCard.name || draggedCard.card_name)

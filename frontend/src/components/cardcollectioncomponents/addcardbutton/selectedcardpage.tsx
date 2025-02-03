@@ -46,6 +46,7 @@ const SelectedCardComponent = ({ selectedcardprops }: selectedcard) => {
           }, 250);
           return () => clearTimeout(timer);
         }
+        return undefined;
     }, [loading]);
 
     useEffect(() => {

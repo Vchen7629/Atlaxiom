@@ -1,4 +1,6 @@
-export type OwnedCard = {
+import { Card } from "./ownedcarddetailstypes"
+
+export type OwnedCard = Card & {
     entities?: {
         defaultId: {
             ownedCards: {

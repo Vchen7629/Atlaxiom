@@ -27,6 +27,7 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
             }, 250);
             return () => clearTimeout(timer);
         }
+        return undefined;
     }, [loading]);
 
     const handleSuggestionClick = (card: SearchResCardData) => {

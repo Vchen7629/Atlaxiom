@@ -11,8 +11,8 @@ export type DeckProps = {
     deckprops: {
         listView: boolean;
         galleryView: boolean;
-        refetchdecks: any;
-        filteredDecks: any;
+        refetchdecks: () => void;
+        filteredDecks: DeckApiResponse[];
     }
 }
 

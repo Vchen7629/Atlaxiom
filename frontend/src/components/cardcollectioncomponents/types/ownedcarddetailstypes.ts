@@ -1,3 +1,5 @@
+import { OwnedCard } from "./dataStructures";
+
 export type Card = {
     id?: string
     filteredCards: string[];
@@ -12,14 +14,14 @@ export type Card = {
 
 export type filteredListCards = {
     displaylistprops: {
-        currentListPageResults: any;
+        currentListPageResults: OwnedCard[];
         isLoading: boolean;
     }
 }
 
 export type filteredGalleryCards = {
     displaygalleryprops: {
-        currentGalleryPageResults: any;
+        currentGalleryPageResults: OwnedCard[];
     }
 }
 

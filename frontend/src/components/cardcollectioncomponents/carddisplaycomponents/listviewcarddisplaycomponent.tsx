@@ -21,6 +21,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { waveform } from 'ldrs'
 import { AuthenticationState } from "@/components/accountbuttons/accounttypes.ts";
 import { useSelector } from "react-redux";
+import { OwnedCard } from "../types/dataStructures.ts";
 
 export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListCards) => {
     waveform.register()
@@ -44,6 +45,7 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
           }, 250);
           return () => clearTimeout(timer);
         }
+        return undefined;
     }, [isLoading]);
       
     return (
@@ -56,7 +58,7 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
                             <l-waveform size="50" stroke="3.5" speed="1" color="hsl(var(--background3))" />
                         </div>
                     ) : currentListPageResults.length > 0 ? (
-                        currentListPageResults.map((card: Card) => (
+                        currentListPageResults.map((card: OwnedCard) => (
                             <div 
                                 key={card.id} 
                                 className="grid grid-cols-[30%_35%_35%] lg:grid-cols-[5%_3%_25%_10%_25%_15%_9%_8%] bg-transparent min-h-24 text-sm font-bold items-center hover:bg-blacktwo focus:outline-none focus:ring-2 focus:ring-[hsl(var(--background3))]" 

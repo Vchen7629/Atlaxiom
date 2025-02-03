@@ -60,6 +60,7 @@ export const AddCardButton = ({ userId }: UserId) => {
           }, 300);
           return () => clearTimeout(timer);
         }
+        return undefined
     }, [loading]);
 
 
