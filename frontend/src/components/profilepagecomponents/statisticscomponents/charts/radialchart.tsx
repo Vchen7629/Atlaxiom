@@ -37,7 +37,7 @@ export function ComponentRadialChart() {
     const chartData = useMemo(() => {
         if (!userData) return []
 
-        const totalOwnedCards = userData.totalOwnedCards || 0
+        const totalOwnedCards = userData?.totalOwnedCards || 0
         const totalCards = 13418
 
         return [
@@ -81,7 +81,7 @@ export function ComponentRadialChart() {
                                         y={(viewBox.cy || 0) - 1}
                                         className="fill-current text-2xl font-bold"
                                     >
-                                        {chartData[0].owned} / {chartData[0].total}
+                                        {chartData[0]?.owned} / {chartData[0].total}
                                     </tspan>
                                     <tspan
                                         x={viewBox.cx}

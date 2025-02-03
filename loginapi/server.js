@@ -7,7 +7,6 @@ const errorhandler = require('./middleware/errorHandler')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const corsOptions = require('./config/corsOptions')
-const connectDB = require('./config/dbConn')
 const mongoose = require('mongoose')
 const fs = require('fs')
 const https = require('https');

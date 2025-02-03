@@ -38,11 +38,6 @@ export function ComponentPieChart() {
   const { data: cardData } = useGetOwnedCardsQuery(userId)
 
   const chartData = useMemo(() => {
-    if (!cardData) {
-      console.error("cardData.entities is undefined or empty.");
-      return [];
-    }
-
     const ownedCards = Object.values(cardData || {}).flat();        
 
     const cardCounts = {

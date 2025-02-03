@@ -30,8 +30,6 @@ const Accountsbutton = () => {
                 </div>
                 <FontAwesomeIcon icon={faCaretDown}/>
             </button>
-
-
         </div>
 
         {showDropdown && (

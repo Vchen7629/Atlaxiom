@@ -7,7 +7,7 @@ const SignUpPage = lazy(() => (import("../../pages/sign-up-page/signuppage.tsx")
 const LoginPage = lazy(() => import("../../pages/loginpage/login.tsx"))
 const SearchBarPage = lazy(() => import("../../pages/searchpage/searchbarpage.tsx"))
 const PrivacyPolicyPage = lazy(() => import("../../pages/privacypolicypage/privacypolicypage.tsx"))
-const SiteHelpPage = lazy(() => import("../../pages/sitehelppage/FaqPage.tsx"))
+const SiteHelpPage = lazy(() => import("../../pages/sitehelppage/Documentation.tsx"))
 
 export function LoadingWrapper({ children }: { children: React.ReactNode}) {
     const location = useLocation();
