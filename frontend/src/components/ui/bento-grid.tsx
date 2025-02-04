@@ -16,6 +16,7 @@ interface BentoCardProps extends ComponentPropsWithoutRef<"div"> {
   Icon: React.ElementType;
   description: React.ReactNode;
   href: string;
+  navigateHandler?: () => void
   cta: string;
 }
 
