@@ -30,19 +30,25 @@ const SiteHelpPage = () => {
         setCardSearchPageFilter,
     }
 
-    const content = (
+    function SidebarHeader() {
+        return (
+            <section className="flex flex-col space-y-[2vh] w-full lg:w-[20%] h-[95vh]">
+                <div className="flex w-[100vw] lg:w-full space-x-[1vw] items-center font-bold">
+                    <FontAwesomeIcon icon={faQuestionCircle} className="fa-2xl text-[hsl(var(--background3))]"/>
+                    <span className="text-3xl text-[hsl(var(--text))]">Site Help</span>
+                    <div className="flex lg:hidden text-[hsl(var(--text))]">Dropdown</div>
+                </div>
+                <div className="hidden lg:flex"><FAQPageMenuSideBar MenuProps={MenuProps}/></div>
+            </section>
+        )
+    }
+
+    return (
         <main className="min-h-[100vh] flex flex-col justify-between">
             <Toaster richColors  expand visibleToasts={4} position="bottom-center"/>
             <Header/>
             <div className="flex relative min-h-[95vh] py-[15vh] w-full px-[10vw] bg-[hsl(var(--background1))]  overflow-hidden ">
-                <section className="flex flex-col space-y-[2vh] w-full lg:w-[20%] h-[95vh]">
-                    <div className="flex w-[100vw] lg:w-full space-x-[1vw] items-center font-bold">
-                        <FontAwesomeIcon icon={faQuestionCircle} className="fa-2xl text-[hsl(var(--background3))]"/>
-                        <span className="text-3xl text-[hsl(var(--text))]">Site Help</span>
-                        <div className="flex lg:hidden text-[hsl(var(--text))]">Dropdown</div>
-                    </div>
-                    <div className="hidden lg:flex"><FAQPageMenuSideBar MenuProps={MenuProps}/></div>
-                </section>
+                <SidebarHeader />
                 <section className="flex w-[75%] ml-[5%] h-full justify-center items-center text-3xl text-black font-bold">
                     {welcomePage ? (
                         <WelcomeSubPage/>
@@ -52,18 +58,14 @@ const SiteHelpPage = () => {
                         <CreatingUserAccountOverviewSubPage/>
                     ) : howToCreateAccountPage ? (
                         <HowToCreateAccountSubPage />
-                    ) : cardSearchPageFilter ? (
+                    ) : cardSearchPageFilter && (
                         <CardSearchFilterSubPage />
-                    ) : (
-                        <></>
                     )}
                 </section>
             </div>
             <Footer/>
         </main>
     )
-
-    return content
 }
 
 export default SiteHelpPage

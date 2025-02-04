@@ -4,8 +4,9 @@ import {
     AccordionItem,
     AccordionTrigger,
   } from "@/components/ui/accordion"
+import { FAQSidebar } from "./types/dropdownmenutypes";
    
-  export function FAQPageMenuSideBar({ MenuProps}: any) {
+  export function FAQPageMenuSideBar({ MenuProps}: FAQSidebar) {
     const {
       setWelcomePage,
       setDarkLightModePage,
