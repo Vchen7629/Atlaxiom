@@ -1,14 +1,15 @@
 import Footer from "../../components/footer/Footer.tsx"
 import Header from "../../components/header/header.tsx"
-import { useRef, useState } from "react"
+import { startTransition, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux"
-import { setCredentials } from "../../app/auth/authSlice.ts"
 import { useLoginMutation } from "../../app/auth/authApiSlice.ts"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUser } from "@fortawesome/free-solid-svg-icons"
 import { toast, Toaster } from "sonner"
 import { toastErrorMessage } from "@/components/cardcollectioncomponents/types/buttontypes.ts"
+import { useGoogleLogin } from "@react-oauth/google"
+import googleIcon from "../../../img/google.png"
+import { useGoogleLoginMutation } from "@/app/auth/GoogleOauthApiSlice.ts"
 
 const LoginPage = () => {
     const userRef = useRef<HTMLInputElement>(null)
@@ -17,11 +18,13 @@ const LoginPage = () => {
     const [password, setPassword] = useState<string>('')
     const [passwordError, setPasswordError] = useState<boolean>(false);
     const [login] = useLoginMutation()
+    const [googleLoginApi] = useGoogleLoginMutation();
     const navigate = useNavigate()
-    const dispatch = useDispatch()
 
     function handleSignUpClick() {
-        navigate('/signup')
+        startTransition(() => {
+            navigate('/signup')
+        })
     }
 
     async function handleSubmit() {
@@ -34,17 +37,10 @@ const LoginPage = () => {
         }
 
         const result = await login({ username, password }).unwrap();
-        console.log('Login response:', result);
         if (!result.accessToken || !result.userId) {
             console.error('Missing data in login response:', result);
             return;
         }
-        dispatch(setCredentials({ 
-            accessToken: result.accessToken, 
-            userId: result.userId,
-            username: result.username 
-        }));
-        console.log('Credentials set, navigating...');
         setUsername('');
         setPassword('');
         navigate("/profile");
@@ -63,7 +59,7 @@ const LoginPage = () => {
         setPasswordError(false)
     }
 
-    function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
         const promise = handleSubmit();
         toast.promise(promise, {
@@ -81,13 +77,31 @@ const LoginPage = () => {
         })
     }
 
+    const Login = useGoogleLogin({
+        flow: 'implicit',
+        scope: 'email profile openid',
+        onSuccess: async (tokenResponse) => {
+            console.log('Google OAuth Success Response:', tokenResponse);
+            try {
+                await googleLoginApi(tokenResponse);
+                navigate("/profile");
+            } catch (err) {
+                console.error("API Call Failed: ", err)
+            }
+        },
+        onError: (error) => {
+          console.log('Login Failed:', error);
+        },
+      }
+    );
+
     const content = (
         <main className="min-h-[100vh] flex flex-col justify-between">
             <Toaster richColors  expand visibleToasts={4} position="bottom-center"/>
             <Header/>
             <div className="flex relative h-[95vh] w-full bg-[hsl(var(--background1))] justify-center overflow-hidden ">
                 <div className="flex items-center justify-center">
-                        <form className="relative py-8 h-fit lg:max-h-[65vh] bg-[hsl(var(--header))] w-[100vw] lg:w-[50vw] xl:w-[30vw] flex flex-col items-center rounded-3xl" onSubmit={handleSubmit} noValidate>
+                        <form className="relative py-8 h-fit  bg-[hsl(var(--header))] w-[100vw] lg:w-[50vw] xl:w-[25vw] flex flex-col items-center rounded-3xl" onSubmit={handleSubmit} noValidate>
                             <div className="flex justify-center mt-[5vh] lg:mt-[1vh]">
                                 <FontAwesomeIcon className="text-[hsl(var(--background3))] w-[10vh] h-[10vh] xl:h-[6vh] xl:w-[3vw] p-4 shadow-custom rounded-[24px] bg-[hsl(var(--header))]" icon={faUser}/>
                             </div>
@@ -122,9 +136,18 @@ const LoginPage = () => {
                                         required
                                     />
                                 </div>
-                                <div className="w-full h-32 flex flex-col items-center ">
-                                    <button className="bg-[hsl(var(--background3))] w-[92%] h-12 rounded-2xl" onClick={handleClick}>
+                                <div className="w-full h-fit flex flex-col items-center space-y-[2vh]">
+                                    <button className="bg-[hsl(var(--background3))] w-[92%] h-12 rounded-lg" onClick={handleClick}>
                                         <h1 className="text-[25px] text-white">Login</h1>
+                                    </button>
+                                    <div className="text-[hsl(var(--text))]">Or</div>
+                                    <button 
+                                        type="button"
+                                        className="flex items-center relative bg-google-gray w-[93%] h-14 rounded-md" 
+                                        onClick={() => Login()}
+                                    >
+                                        <img src={googleIcon}  alt="Google Icon" className="h-14 ml-3"/>
+                                        <span className="absolute left-1/2 translate-x-[-50%] font-roboto text-black text-xl">Continue with Google</span>
                                     </button>
                                 </div>
                             </div>    

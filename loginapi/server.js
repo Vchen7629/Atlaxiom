@@ -49,6 +49,8 @@ app.use('/card', require('./routes/ownedCardRoutes'))
 
 app.use('/deck', require('./routes/deckRoutes'))
 
+app.use('/google', require("./routes/googleOauthRoutes"))
+
 app.all('*', (req, res) => {
     res.status(404)
     if (req.accepts('html')) {

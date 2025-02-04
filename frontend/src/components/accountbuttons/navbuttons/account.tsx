@@ -12,6 +12,7 @@ import CardSearch from '../dropdownmenubuttons/cardsearch.tsx';
 const Accountsbutton = () => {
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
     const cachedUsername = useSelector((state: UsernameState) => state.auth.username);
+    console.log("cached", cachedUsername)
 
     function toggleDropdown() {
         setShowDropdown(!showDropdown);
@@ -21,11 +22,11 @@ const Accountsbutton = () => {
         <>
         <div>
             <button 
-            className="flex bg-[hsl(var(--profile))] xl:w-[9vw] h-10 px-4 lg:px-8 items-center justify-between rounded-xl lg:rounded-3xl  text-[hsl(var(--background3))]  border-2 border-[hsl(var(--background3))]" 
+            className="flex bg-[hsl(var(--profile))] xl:max-w-[25vw] h-10 px-4 lg:px-8 items-center justify-between rounded-xl lg:rounded-3xl  text-[hsl(var(--background3))]  border-2 border-[hsl(var(--background3))]" 
             onClick={toggleDropdown}
             >   
                 <FontAwesomeIcon icon={faUser}/>
-                <div className="fatextmargin font-bold mr-2 lg:text-xl">
+                <div className="fatextmargin font-bold mx-2 lg:text-xl">
                     {cachedUsername}
                 </div>
                 <FontAwesomeIcon icon={faCaretDown}/>

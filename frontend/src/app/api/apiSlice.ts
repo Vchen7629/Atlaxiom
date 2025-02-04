@@ -3,6 +3,7 @@ import { setCredentials } from '../auth/authSlice.ts'
 
 const baseQuery = fetchBaseQuery({
     baseUrl: 'https://api.atlaxiom.com:8443',
+    //baseUrl: 'http://localhost:3000',
     credentials: 'include',
     prepareHeaders: (headers, { getState }: any) => {
         const token = getState().auth.token 

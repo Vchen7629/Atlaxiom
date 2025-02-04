@@ -9,6 +9,9 @@ export default {
   ],
   theme: {
   	extend: {
+		fontFamily: {
+			roboto: ['Roboto', 'sans-serif'],
+		},
   		backgroundImage: {
   			'radial-gray': 'radial-gradient(circle, #2e2e2e, #000000)',
   			'radial-gold': 'radial-gradient(ellipse, #3C3105 20%, #000000 80%)',
@@ -48,7 +51,8 @@ export default {
   			},
   			test: {
   				DEFAULT: '#222222'
-  			}
+  			},
+			'google-gray': '#F2F2F2',
   		},
   		boxShadow: {
   			custom: '0 4px 30px rgba(0, 0, 0, 0.5)',

@@ -1,6 +1,6 @@
 import { apiSlice } from "../api/apiSlice";
 import { logOut, setCredentials } from "./authSlice";
-import { LoginCredentials, LoginResponse, Refresh } from "./types";
+import { LoginCredentials, LoginResponse } from "./types";
 
 export const authApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
@@ -34,12 +34,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled
-                    console.log('Refresh response:', data)
-                    dispatch(setCredentials({
-                        accessToken: data.accessToken,
-                        userId: data.userId,
-                        username: data.username
-                    }))
+                    const { accessToken, userId, username } = data
+                    dispatch(setCredentials({ accessToken, userId, username }))
                 } catch (err) {
                     console.error('Refresh onQueryStarted error:', err)
                 }

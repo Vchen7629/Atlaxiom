@@ -56,19 +56,18 @@ const login = asyncHandler(async (req, res) => {
         {
             "UserInfo": {
                 "username": foundUser.username,
-                "roles": foundUser.roles,
                 "userId": foundUser._id
             }
         },
         accessTokenSecret,
-        { expiresIn: '15min' }
+        { expiresIn: '24h' }
     )
 
     res.cookie('accessToken', accessToken, {
         domain: '.atlaxiom.com',
         httpOnly: true,
         secure: true,
-        sameSite: 'None',
+        sameSite: 'none',
         maxAge: 15 * 60 * 1000, 
     });
 
@@ -82,7 +81,7 @@ const login = asyncHandler(async (req, res) => {
         domain: '.atlaxiom.com',
         httpOnly: true, 
         secure: true,
-        sameSite: 'None',
+        sameSite: 'none',
         maxAge: 7 * 24 * 60 * 60 * 1000
     })
 
@@ -96,7 +95,7 @@ const login = asyncHandler(async (req, res) => {
 const refresh = (req, res) => {
     const cookies = req.cookies
 
-    if (!cookies?.jwt) return res.status(401).json({ message: 'Unauthorized' })
+    if (!cookies?.jwt) return res.status(401).json({ message: 'Unauthorized no cookies' })
 
     const refreshToken = cookies.jwt
 
@@ -110,23 +109,40 @@ const refresh = (req, res) => {
     jwt.verify(refreshToken, refreshTokenSecret, asyncHandler(async (err, decoded) => {
             if (err) return res.status(403).json({ message: 'Forbidden' })
 
-            const foundUser = await User.findOne({ username: decoded.username }).exec()
+            const searchQuery = decoded.email 
+                ? { email: decoded.email }
+                : { username: decoded.username };
 
-            if (!foundUser) return res.status(401).json({ message: 'Unauthorized' })
+            const foundUser = await User.findOne(searchQuery).exec()
 
-            const accessToken = jwt.sign(
-                {
-                    "UserInfo": {
-                        "userId": foundUser._id,
-                        "username": foundUser.username,
-                        "roles": foundUser.roles
-                    }
-                },
-                accessTokenSecret,
-                { expiresIn: '15m' }
-            )
-
-            res.json({ accessToken, userId: foundUser._id, username: foundUser.username })
+            if (!foundUser) return res.status(401).json({ message: 'Unauthorized No user found' })
+            
+            if (foundUser.authType === "google") {
+                const accessToken = jwt.sign(
+                    {
+                        "UserInfo": {
+                            "userId": foundUser._id,
+                            "email": foundUser.email,
+                            "username": foundUser.username
+                        }
+                    },
+                    accessTokenSecret,
+                    { expiresIn: "24h"}
+                )
+                res.json({ accessToken, username: foundUser.username, userId: foundUser._id, email: foundUser.email })
+            } else {
+                const accessToken = jwt.sign(
+                    {
+                        "UserInfo": {
+                            "userId": foundUser._id,
+                            "username": foundUser.username,
+                        }
+                    },
+                    accessTokenSecret,
+                    { expiresIn: '24h' }
+                )
+                res.json({ accessToken, userId: foundUser._id, username: foundUser.username })
+            }
         })
     )
 }

@@ -9,6 +9,15 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    password: {
+        type: String,
+        required: function() {  return this.authType === 'local'; }
+    },
+    authType: {
+        type: String,
+        required: true,
+        enum: ['local', 'google']
+    },
     creation: {
         type: String,
         required: true
@@ -32,10 +41,6 @@ const userSchema = new mongoose.Schema({
     lastDeleted: {
         type: String,
         default: null
-    },
-    password: {
-        type: String,
-        required: true
     },
     active: {
         type: Boolean,
