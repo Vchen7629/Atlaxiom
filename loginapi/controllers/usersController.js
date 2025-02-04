@@ -38,6 +38,7 @@ const createNewUser = asyncHandler(async (req, res) => {
         username, 
         email, 
         "password": hashPassword, 
+        authType: "local",
         creation: creationDate,
         lastUpdated: null,
         lastUsernameUpdated: creationDate,

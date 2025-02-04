@@ -24,12 +24,12 @@ const ProfilePageHeader = ({ usersData }: ProfileHeader) => {
             <div className="flex lg:flex-col items-center">
               <span className='hidden lg:flex text-xl text-[hsl(var(--background3))]'>Collected Cards</span> 
               <span className="flex lg:hidden text-xl font-bold text-[hsl(var(--background3))] mr-2">Cards:</span>
-              <span className="font-bold text-md  lg:text-xl">{totalOwnedCards || 1}</span>
+              <span className="font-bold text-md  lg:text-xl">{totalOwnedCards || 0}</span>
             </div>
             <div className="flex lg:flex-col items-center">
               <span className='hidden lg:flex text-xl text-[hsl(var(--background3))]'>Owned Decks</span> 
               <span className="flex lg:hidden text-xl font-bold text-[hsl(var(--background3))] mr-2">Decks:</span>
-              <span className="font-bold text-md lg:text-xl">{totalOwnedDecks || 1}</span>
+              <span className="font-bold text-md lg:text-xl">{totalOwnedDecks || 0}</span>
             </div>
           </div> 
         </div>

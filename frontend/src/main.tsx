@@ -7,6 +7,7 @@ import { store } from './app/store.ts';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from './components/shadcn_components/darklightmode/theme-provider.js';
 import { DndContext } from '@dnd-kit/core';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const rootElement = document.getElementById('root');
 
@@ -18,6 +19,7 @@ const root = ReactDOM.createRoot(rootElement);
 
 root.render(
   <React.StrictMode>
+    <GoogleOAuthProvider clientId="816514207950-njavekthq65pnv95u7lemint14bjkr57.apps.googleusercontent.com">
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
     <DndContext>
     <Provider store={store}>
@@ -29,5 +31,6 @@ root.render(
     </Provider>
     </DndContext>
     </ThemeProvider>
+    </GoogleOAuthProvider>
   </React.StrictMode>
 );
