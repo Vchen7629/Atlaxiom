@@ -10,11 +10,6 @@ import { faUser } from "@fortawesome/free-solid-svg-icons"
 import { toast, Toaster } from "sonner"
 import { toastErrorMessage } from "@/components/cardcollectioncomponents/types/buttontypes.ts"
 
-interface UserAuth {
-    accessToken: string;
-    userId: string;
-}
-
 const LoginPage = () => {
     const userRef = useRef<HTMLInputElement>(null)
     const [username, setUsername] = useState<string>('')
@@ -38,8 +33,18 @@ const LoginPage = () => {
             setPasswordError(true);
         }
 
-        const { accessToken, userId }: UserAuth = await login({ username, password }).unwrap();
-        dispatch(setCredentials({ accessToken, userId, username }));
+        const result = await login({ username, password }).unwrap();
+        console.log('Login response:', result);
+        if (!result.accessToken || !result.userId) {
+            console.error('Missing data in login response:', result);
+            return;
+        }
+        dispatch(setCredentials({ 
+            accessToken: result.accessToken, 
+            userId: result.userId,
+            username: result.username 
+        }));
+        console.log('Credentials set, navigating...');
         setUsername('');
         setPassword('');
         navigate("/profile");

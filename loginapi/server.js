@@ -2,18 +2,21 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const path = require('path')
-const { logger, logEvents } = require('./middleware/logger')
+const { logger } = require('./middleware/logger')
 const errorhandler = require('./middleware/errorHandler')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const corsOptions = require('./config/corsOptions')
-const mongoose = require('mongoose')
 const fs = require('fs')
 const https = require('https');
 const checkHost = require('./middleware/checkhostname')
+const PORT = 3000
+const connectDB = require('./config/dbConn')
 
 const privateKey = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/privkey.pem', "utf-8")
 const cert = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem', "utf-8")
+//const privateKey = "placeholder"
+//const cert = "placeholder"
 
 const httpsOptions = { key: privateKey, cert };
 
@@ -29,6 +32,7 @@ app.options('*', (req, res) => {
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.status(200).end(); 
 });
+
 
 
 app.use('/', express.static(path.join(__dirname, 'public'))) /*code for telling the program to fetch static css files from the public folder */
@@ -61,19 +65,23 @@ app.all('*', (req, res) => {
 
 app.use(errorhandler)
 
-mongoose.connection.once('open', () => {
-    https.createServer(httpsOptions, app).listen(8443, '0.0.0.0', () => {
-        console.log("HTTPS server running on https://api.atlaxiom.com");
-    });
-})
+const startServer = async () => {
+    try {
+        await connectDB();
+        
+        if (process.env.NODE_ENV === 'production') {
+            https.createServer(httpsOptions, app).listen(8443, '0.0.0.0', () => {
+                console.log("HTTPS server running on https://api.atlaxiom.com");
+            });
+        } else {
+            app.listen(PORT, '0.0.0.0', () => {
+                console.log(`Development server running on http://localhost:${PORT}`);
+            });
+        }
+    } catch (error) {
+        console.error('Failed to start server:', error);
+        process.exit(1);
+    }
+}
 
-/*mongoose.connection.once('open', () => {
-    app.listen(PORT, () => {
-        console.log(`HTTPS server running on http://localhost:${PORT}`);
-    });
-})*/
-
-mongoose.connection.on('error', err => {
-    logEvents(`${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`, 
-    'mongoErrLog.log')
-})
+startServer();

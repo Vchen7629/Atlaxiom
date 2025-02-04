@@ -3,31 +3,42 @@ import Footer from "../../components/footer/Footer.tsx"
 import Header from "../../components/header/header.tsx"
 import { Toaster } from "sonner"
 import { useState } from "react"
+import { useLocation } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons"
-import { CardSearchFilterSubPage } from "@/components/documentationcomponents/CardSearchOptionSubpages/cardsearchsubpage.tsx"
 import { WelcomeSubPage } from "@/components/documentationcomponents/WelcomeOptionSubpages/welcomesubpage.tsx"
 import { DarkLightModeSubPage } from "@/components/documentationcomponents/DarkLightModeOptionSubpage/darklightmodesubpage.tsx"
 import { CreatingUserAccountOverviewSubPage } from "@/components/documentationcomponents/CreatingUserAccountSubpages/creationoverviewsubpage.tsx"
 import { HowToCreateAccountSubPage } from "@/components/documentationcomponents/CreatingUserAccountSubpages/howtocreateaccountsubpage.tsx"
+import { CardSearchOverviewSubPage } from "@/components/documentationcomponents/CardSearchOptionSubpages/cardsearchoverview.tsx"
+import { CardSearchFilterSubPage } from "@/components/documentationcomponents/CardSearchOptionSubpages/cardsearchfilters.tsx"
+import { WorkInProgressPlaceholder } from "@/components/documentationcomponents/components/workinprogressplaceholder.tsx"
 
 const SiteHelpPage = () => {
-    const [welcomePage, setWelcomePage] = useState(true);
+    const location = useLocation();
+    const [welcomePage, setWelcomePage] = useState(location.state?.welcomepage ?? true);
     const [darkLightModePage, setDarkLightModePage] = useState(false);
     const [creationOverviewPage, setCreationOverviewPage] = useState(false);
     const [howToCreateAccountPage, setHowToCreateAccountPage] = useState(false);
+    const [cardSearchPageOverview, setCardSearchPageOverview] = useState(location.state?.searchOverview ?? false);
     const [cardSearchPageFilter, setCardSearchPageFilter] = useState(false);
+    const [cardSearchSelectedCardPage, setCardSearchSelectedCardPage] = useState(false);
+    const [cardSearchPageGalleryList, setCardSearchPageGalleryList] = useState(false);
     /*const [collectionPageView, setCollectionPageView] = useState(false);
     const [deckBuildPageView, setDeckBuildPageView] = useState(false);
     const [editProfileView, setEditProfileView] = useState(true);
     const [darkLightModeView, setDarkLightModeView] = useState(true);*/
 
+    console.log(cardSearchPageOverview)
     const MenuProps = {
         setWelcomePage,
         setDarkLightModePage,
         setCreationOverviewPage,
         setHowToCreateAccountPage,
+        setCardSearchPageOverview,
         setCardSearchPageFilter,
+        setCardSearchSelectedCardPage,
+        setCardSearchPageGalleryList,
     }
 
     function SidebarHeader() {
@@ -58,8 +69,14 @@ const SiteHelpPage = () => {
                         <CreatingUserAccountOverviewSubPage/>
                     ) : howToCreateAccountPage ? (
                         <HowToCreateAccountSubPage />
-                    ) : cardSearchPageFilter && (
+                    ) : cardSearchPageOverview ? (
+                        <CardSearchOverviewSubPage />
+                    ) : cardSearchPageFilter ? (
                         <CardSearchFilterSubPage />
+                    ) : cardSearchSelectedCardPage ? (
+                        <WorkInProgressPlaceholder />
+                    ) : cardSearchPageGalleryList &&(
+                        <WorkInProgressPlaceholder />
                     )}
                 </section>
             </div>

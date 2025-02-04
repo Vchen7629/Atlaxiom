@@ -84,3 +84,42 @@ export function PcHeaderSignUpPlaceholder() {
         </header>
     )
 }
+
+export function PcHeaderSearchbarPlaceholder() {
+    return (
+        <header className="relative justify-between items-center w-full flex py-2 text-white bg-[hsl(var(--header))] bg-opacity-60 px-2.5">
+            <div className="absolute left-[7vw] top-1/2 transform -translate-y-1/2 z-10">
+                <svg 
+                    width="90" 
+                    height="70" 
+                    viewBox="0 0 100 60"
+                    className="scale-x-[-1]" 
+                >
+                <path
+                    d="M10,30 L80,30 L70,20 M80,30 L70,40"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    fill="none"
+                    className="text-[hsl(var(--background3))]"
+                />
+                </svg>
+            </div>
+            <div className="flex space-x-2">
+                <div className="flex text-sm h-8 px-3 bg-[hsl(var(--background3))] items-center text-[hsl(var(--profile))] rounded-lg">
+                    <FontAwesomeIcon icon={faSearch} rotation={90} />
+                    <span className="ml-2">Card Search </span>
+                </div>
+            </div>
+            <div className="absolute left-[40%] text-[hsl(var(--background3))] bg-transparent font-black text-xl md:text-3xl">Atlaxiom</div>
+            <div className='flex w-fit justify-between items-center space-x-[1vw]'>
+                <div className="absolute xl:relative"><ModeToggle/></div>
+                <div className="flex text-sm h-8 px-3 bg-[hsl(var(--text))] items-center text-[hsl(var(--profile))] rounded-md">
+                    <span>Sign Up</span>
+                </div>
+                <div className="flex text-sm h-8 px-3 bg-[hsl(var(--background3))] items-center text-[hsl(var(--text))] rounded-md">
+                    <span>Login</span>
+                </div>
+            </div>
+        </header>
+    )
+}

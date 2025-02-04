@@ -1,5 +1,5 @@
 
-export function CardSearchFilterSubPage() {
+export function WorkInProgressPlaceholder() {
 
     return (
         <main className="flex flex-col w-full h-full">
