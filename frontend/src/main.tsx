@@ -18,7 +18,8 @@ if (!rootElement) {
 const root = ReactDOM.createRoot(rootElement);
 
 root.render(
-  <React.StrictMode>
+  // skipcq: JS-0415
+  <React.StrictMode> 
     <GoogleOAuthProvider clientId="816514207950-njavekthq65pnv95u7lemint14bjkr57.apps.googleusercontent.com">
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
     <DndContext>

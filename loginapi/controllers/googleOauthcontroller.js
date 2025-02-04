@@ -1,5 +1,6 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const fs = require('fs')
 const { User } = require('../../loginapi/models/genmodels');
 const asyncHandler = require('express-async-handler')
 
@@ -39,7 +40,6 @@ const OauthLogin = asyncHandler(async (req, res) => {
     }
 
     const userData = await userInfoResponse.json();
-    console.log('Google user info:', userData);
     const { email, name } = userData;
     
     let user = await User.findOne({ email }).lean().exec();
@@ -100,7 +100,7 @@ const OauthLogin = asyncHandler(async (req, res) => {
         maxAge: 7 * 24 * 60 * 60 * 1000
     });
 
-    res.json({ accessToken, refreshToken, userId: user._id, username: name, email: email })
+    res.json({ accessToken, refreshToken, userId: user._id, username: name, email })
 })
 
 
