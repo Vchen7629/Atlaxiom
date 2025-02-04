@@ -76,92 +76,48 @@ import { FAQSidebar } from "./types/dropdownmenutypes";
         <AccordionItem className="border-[hsl(var(--text))] text-[hsl(var(--text))]" value="item-2">
           <AccordionTrigger className="ml-2 font-bold hover:text-[hsl(var(--background3))]">Creating a User Account</AccordionTrigger>
           <AccordionContent className="flex flex-col space-y-[1.5vh]">
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleCreationOverviewClick}>
-              <span>Overview</span>
-            </button>
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleHowToCreateAccountClick}>
-                <span>How to create a user account</span>
-            </button>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleCreationOverviewClick}>Overview</button>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleHowToCreateAccountClick}>How to create a user account</button>
           </AccordionContent>
         </AccordionItem>
         <AccordionItem className="border-[hsl(var(--text))] text-[hsl(var(--text))]" value="item-3">
           <AccordionTrigger className="ml-2 font-bold hover:text-[hsl(var(--background3))]">Card Search Page</AccordionTrigger>
           <AccordionContent className="flex flex-col space-y-[1.5vh]">
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>
-              <span>Overview</span>
-            </button>
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>
-                <span>Card Search Filters</span>
-            </button>
-            <button className="text-start pl-[1vw]">
-              <span>Selected Card Page</span>
-            </button>
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>
-                <span>Gallery and List View</span>
-            </button>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>Overview</button>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>Card Search Filters</button>
+            <button className="text-start pl-[1vw]">Selected Card Page</button>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>Gallery and List View</button>
           </AccordionContent>
         </AccordionItem>
         <AccordionItem className="border-[hsl(var(--text))] text-[hsl(var(--text))]" value="item-4">
           <AccordionTrigger className="ml-2 font-bold hover:text-[hsl(var(--background3))]">Collection Manager Page</AccordionTrigger>
           <AccordionContent className="flex flex-col space-y-[1.5vh]">
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>
-              <span>Overview</span>
-            </button>
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>
-              <span>Creating a new Deck</span>
-            </button>
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>
-              <span>Duplicating Decks</span>
-            </button>
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>
-              <span>Favoriting Decks</span>
-            </button>
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>
-              <span>Deleting Decks</span>
-            </button>
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>
-                <span>Gallery and List View</span>
-            </button>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>Overview</button>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>Creating a new Deck</button>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>Duplicating Decks</button>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>Favoriting Decks</button>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>Deleting Decks</button>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>Gallery and List View</button>
           </AccordionContent>
         </AccordionItem>
         <AccordionItem className="border-[hsl(var(--text))] text-[hsl(var(--text))]" value="item-5">
           <AccordionTrigger className="ml-2 font-bold hover:text-[hsl(var(--background3))]">Deck Builder Page</AccordionTrigger>
           <AccordionContent className="flex flex-col space-y-[1.5vh]">
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>
-              <span>Overview</span>
-            </button>
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>
-              <span>Building your Deck</span>
-            </button>
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>
-              <span>Gallery and List View</span>
-            </button>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>Overview</button>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>Building your Deck</button>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>Gallery and List View</button>
           </AccordionContent>
         </AccordionItem>
         <AccordionItem className="border-[hsl(var(--text))] text-[hsl(var(--text))]" value="item-6">
           <AccordionTrigger className="ml-2 font-bold hover:text-[hsl(var(--background3))]">Edit Profile Options</AccordionTrigger>
           <AccordionContent className="flex flex-col space-y-[1.5vh]">
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>
-              <span>Overview</span>
-            </button>
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>
-              <span>Viewing Decks through profile</span>
-            </button>
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>
-              <span>Your Statistics</span>
-            </button>
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>
-              <span>Changing your Username</span>
-            </button>
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>
-              <span>Changing your Email</span>
-            </button>
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>
-              <span>Changing your Password</span>
-            </button>
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>
-              <span>Deleting your account</span>
-            </button>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>Overview</button>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>Viewing Decks through profile</button>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>Your Statistics</button>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>Changing your Username</button>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>Changing your Email</button>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>Changing your Password</button>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>Deleting your account</button>
           </AccordionContent>
         </AccordionItem>
       </Accordion>

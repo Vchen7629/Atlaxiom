@@ -46,6 +46,7 @@ export function ComponentRadialChart() {
     }, [userData, userId])
 
     return (
+        // skipcq: JS-0415
         <Card className="flex flex-col bg-[hsl(var(--profilebackground))] items-center border-transparent rounded-xl">
         <CardHeader>
             <CardTitle className="text-[hsl(var(--text) mb-[2vh]">Collection status</CardTitle>

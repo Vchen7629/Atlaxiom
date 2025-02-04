@@ -4,6 +4,7 @@ import { PcHeaderSignUpPlaceholder } from "../components/pcheaderplaceholder";
 export function HowToCreateAccountSubPage() {
 
     return (
+        // skipcq: JS-0415
         <main className="flex flex-col space-y-[3vh] w-full h-full">
             <span className="text-4xl text-[hsl(var(--background3))] font-bold">How to create a user account</span>
             <span className="w-[80%] text-lg font-normal text-gray-400">New Users can create their user account using username, email and password</span>
