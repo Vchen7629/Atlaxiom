@@ -9,24 +9,48 @@ import {
     const {
       setWelcomePage,
       setDarkLightModePage,
-      setCardSearchPageFilter
+      setCreationOverviewPage,
+      setHowToCreateAccountPage,
+      setCardSearchPageFilter,
     } = MenuProps
 
     function handleWelcomeClick() {
       setWelcomePage(true);
       setDarkLightModePage(false);
+      setCreationOverviewPage(false);
+      setHowToCreateAccountPage(false);
       setCardSearchPageFilter(false);
     }
 
     function handleDarkLightModeClick() {
       setWelcomePage(false);
       setDarkLightModePage(true);
+      setCreationOverviewPage(false);
+      setHowToCreateAccountPage(false);
+      setCardSearchPageFilter(false);
+    }
+
+    function handleCreationOverviewClick() {
+      setWelcomePage(false);
+      setDarkLightModePage(false);
+      setCreationOverviewPage(true);
+      setHowToCreateAccountPage(false);
+      setCardSearchPageFilter(false);
+    }
+
+    function handleHowToCreateAccountClick() {
+      setWelcomePage(false);
+      setDarkLightModePage(false);
+      setCreationOverviewPage(false);
+      setHowToCreateAccountPage(true);
       setCardSearchPageFilter(false);
     }
 
     function handleSearchFilter() {
       setWelcomePage(false);
       setDarkLightModePage(false);
+      setCreationOverviewPage(false);
+      setHowToCreateAccountPage(false);
       setCardSearchPageFilter(true);
     }
 
@@ -51,10 +75,10 @@ import {
         <AccordionItem className="border-[hsl(var(--text))] text-[hsl(var(--text))]" value="item-2">
           <AccordionTrigger className="ml-2 font-bold hover:text-[hsl(var(--background3))]">Creating a User Account</AccordionTrigger>
           <AccordionContent className="flex flex-col space-y-[1.5vh]">
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleCreationOverviewClick}>
               <span>Overview</span>
             </button>
-            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleSearchFilter}>
+            <button className="text-start pl-[1vw] hover:text-[hsl(var(--background3))]" onClick={handleHowToCreateAccountClick}>
                 <span>How to create a user account</span>
             </button>
           </AccordionContent>

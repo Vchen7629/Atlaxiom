@@ -1,5 +1,5 @@
-import { MobileHeaderPlaceholder } from "./mobileheaderplaceholder";
-import { PcHeaderPlaceholder } from "./pcheaderplaceholder";
+import { MobileHeaderDarkModePlaceholder } from "../components/mobileheaderplaceholder";
+import { PcHeaderDarkModePlaceholder} from "../components/pcheaderplaceholder";
 
 export function DarkLightModeSubPage() {
 
@@ -10,10 +10,10 @@ export function DarkLightModeSubPage() {
             <div className="flex flex-col space-y-[2vh]">
                 <span className="text-3xl text-[hsl(var(--text))]">Where to find the Button</span>
                 <div className="flex flex-col space-y-[3vh]"> 
-                    <span className="text-lg font-normal text-gray-400">You can find the button in the top right section of the screen on the header bar if you are on PC:</span>
-                    <PcHeaderPlaceholder />
-                    <span className="text-lg font-normal text-gray-400">You can find the button in the top left section of the screen on the header bar if you are on Mobile:</span>
-                    <MobileHeaderPlaceholder />
+                    <span className="text-lg font-normal text-gray-400">You can find the button in the top right section of the screen on the header bar on PC:</span>
+                    <PcHeaderDarkModePlaceholder />
+                    <span className="text-lg font-normal text-gray-400">You can find the button in the top left section of the screen on the header bar on mobile:</span>
+                    <MobileHeaderDarkModePlaceholder />
                 </div>
             </div>
             <div className="flex flex-col space-y-[2vh]">
