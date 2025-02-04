@@ -20,11 +20,6 @@ const cert = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/fullchain.p
 
 const httpsOptions = { key: privateKey, cert };
 
-app.use(cors(corsOptions))
-app.use(checkHost)
-app.use(logger)
-app.use(express.json())
-app.use(cookieParser())
 
 app.options('*', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', req.headers.origin || 'https://atlaxiom.com');
@@ -34,7 +29,11 @@ app.options('*', (req, res) => {
     res.status(200).end(); 
 });
 
-
+app.use(cors(corsOptions))
+app.use(checkHost)
+app.use(logger)
+app.use(express.json())
+app.use(cookieParser())
 
 app.use('/', express.static(path.join(__dirname, 'public'))) /*code for telling the program to fetch static css files from the public folder */
 
