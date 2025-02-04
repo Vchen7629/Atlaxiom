@@ -12,6 +12,7 @@ const https = require('https');
 const checkHost = require('./middleware/checkhostname')
 const PORT = 3000
 const connectDB = require('./config/dbConn')
+const environment = process.env.NODE_ENV || 'production';
 
 const privateKey = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/privkey.pem', "utf-8")
 const cert = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem', "utf-8")
@@ -71,7 +72,7 @@ const startServer = async () => {
     try {
         await connectDB();
         
-        if (process.env.NODE_ENV === 'production') {
+        if (environment === 'production') {
             https.createServer(httpsOptions, app).listen(8443, '0.0.0.0', () => {
                 console.log("HTTPS server running on https://api.atlaxiom.com");
             });
