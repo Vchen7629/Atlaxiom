@@ -10,7 +10,7 @@ import UserOwnedCardPage from "@/pages/my-cards/ownedCardPage.tsx"
 import MyDecks from "@/components/accountbuttons/dropdownmenubuttons/decks.tsx"
 import Profilepage from "@/pages/profilepage/Profilepage.tsx"
 import PrivacyPolicyPage from "@/pages/privacypolicypage/privacypolicypage.tsx"
-import SiteHelpPage from "@/pages/sitehelppage/FaqPage.tsx"
+import SiteHelpPage from "@/pages/sitehelppage/Documentation.tsx"
 
 const StayLoggedIn = () => {
     const navigate = useNavigate()

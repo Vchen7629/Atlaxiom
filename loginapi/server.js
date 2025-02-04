@@ -7,7 +7,6 @@ const errorhandler = require('./middleware/errorHandler')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const corsOptions = require('./config/corsOptions')
-const connectDB = require('./config/dbConn')
 const mongoose = require('mongoose')
 const fs = require('fs')
 const https = require('https');
@@ -17,10 +16,6 @@ const privateKey = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/privk
 const cert = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem', "utf-8")
 
 const httpsOptions = { key: privateKey, cert };
-
-connectDB().catch(_ => {
-    process.exit(1); 
-});
 
 app.use(cors(corsOptions))
 app.use(checkHost)

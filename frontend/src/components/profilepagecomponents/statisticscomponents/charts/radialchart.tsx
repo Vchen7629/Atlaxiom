@@ -37,7 +37,7 @@ export function ComponentRadialChart() {
     const chartData = useMemo(() => {
         if (!userData) return []
 
-        const totalOwnedCards = userData.totalOwnedCards || 0
+        const totalOwnedCards = userData?.totalOwnedCards || 0
         const totalCards = 13418
 
         return [
@@ -46,6 +46,7 @@ export function ComponentRadialChart() {
     }, [userData, userId])
 
     return (
+        // skipcq: JS-0415
         <Card className="flex flex-col bg-[hsl(var(--profilebackground))] items-center border-transparent rounded-xl">
         <CardHeader>
             <CardTitle className="text-[hsl(var(--text) mb-[2vh]">Collection status</CardTitle>
@@ -81,7 +82,7 @@ export function ComponentRadialChart() {
                                         y={(viewBox.cy || 0) - 1}
                                         className="fill-current text-2xl font-bold"
                                     >
-                                        {chartData[0].owned} / {chartData[0].total}
+                                        {chartData[0]?.owned} / {chartData[0].total}
                                     </tspan>
                                     <tspan
                                         x={viewBox.cx}

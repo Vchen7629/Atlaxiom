@@ -2,9 +2,9 @@ import { useDroppable } from "@dnd-kit/core"
 import {  useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { handleDecreaseCardOwnedAmount, handleDeleteCardClick, handleIncreaseCardOwnedAmount } from "../../editdeckpagecomponents/buttons/EditDeckCardButtons";
+import { handleDecreaseCardOwnedAmount, handleDeleteCardClick, handleIncreaseCardOwnedAmount } from "../buttons/EditDeckCardButtons";
 import { MainDeckProps } from "../types/carddropzonetypes";
-import SubGridListViewComponent from "../../editdeckpagecomponents/draganddropitems/subgridlistviewcomp";
+import SubGridListViewComponent from "../draganddropitems/subgridlistviewcomp";
 import AddMonsterCardDrawer from "../mobileaddcarddrawers/addmonstercarddrawer";
 import AddSpellCardDrawer from "../mobileaddcarddrawers/addspellcarddrawer";
 import AddTrapCardDrawer from "../mobileaddcarddrawers/addtrapcarddrawer";

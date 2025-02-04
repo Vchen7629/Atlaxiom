@@ -1,4 +1,4 @@
-import { apiSlice } from "../../app/api/apiSlice";
+import { apiSlice } from "../api/apiSlice";
 import { logOut, setCredentials } from "./authSlice";
 import { LoginCredentials, LoginResponse, Refresh } from "./types";
 
@@ -25,6 +25,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
             }
         }),
 
+        //skipq: JS-0333
         refresh: builder.mutation<Refresh, void>({
             query: () => ({
                 url: "/auth/refresh",
