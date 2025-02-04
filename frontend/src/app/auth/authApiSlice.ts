@@ -25,17 +25,24 @@ export const authApiSlice = apiSlice.injectEndpoints({
             }
         }),
 
-        //skipq: JS-0333
-        refresh: builder.mutation<Refresh, void>({
+        refresh: builder.mutation<LoginResponse, void>({
             query: () => ({
                 url: "/auth/refresh",
                 method: "GET",
                 credentials: 'include' 
             }), 
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
-                const { data } = await queryFulfilled
-                const { accessToken, userId, username } = data
-                dispatch(setCredentials({ accessToken, userId, username }))
+                try {
+                    const { data } = await queryFulfilled
+                    console.log('Refresh response:', data)
+                    dispatch(setCredentials({
+                        accessToken: data.accessToken,
+                        userId: data.userId,
+                        username: data.username
+                    }))
+                } catch (err) {
+                    console.error('Refresh onQueryStarted error:', err)
+                }
             }
         })
     })

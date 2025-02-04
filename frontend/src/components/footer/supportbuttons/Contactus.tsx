@@ -10,9 +10,9 @@ const ContactUs = () => {
   function handleButtonClick() {
     startTransition(() => {
       if (authenticated) {
-        navigate("/FAQloggedin")
+        navigate("/contactloggedin")
       } else {
-        navigate('/FAQ');
+        navigate('/contact');
       }
     })
   };

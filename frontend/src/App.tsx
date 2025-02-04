@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import StayLoggedIn from './app/auth/stayloggedin.tsx';
 import { lazy, useEffect } from 'react';
 import { LoadingWrapper } from './components/loadingcomponents/loadingwrapper.tsx';
+import ContactPage from './pages/ContactPage/Contact.tsx';
 
 const SearchResults = lazy(() => (import('./pages/searchpage/searchresults.tsx')))
 const HomePage = lazy(() => (import("./pages/homepage/homepage.tsx")))
@@ -33,6 +34,7 @@ function App() {
         <Route path="/searchresult" element={<SearchResults/>}/>
         <Route path="/privacy" element={<PrivacyPolicyPage/>}/>
         <Route path="/FAQ" element={<SiteHelpPage/>}/>
+        <Route path="/contact" element={<ContactPage />} />
 
         <Route element={<StayLoggedIn/>}>
           <Route path="/loggedin" element={<HomePage/>}/>
@@ -44,6 +46,7 @@ function App() {
           <Route path="/profile" element={<Profilepage />}/>
           <Route path="/privacyloggedin" element={<PrivacyPolicyPage/>}/>
           <Route path="/FAQloggedin" element={<SiteHelpPage/>}/>
+          <Route path="/contactloggedin" element={<ContactPage />} />
         </Route>
       
       </Routes>

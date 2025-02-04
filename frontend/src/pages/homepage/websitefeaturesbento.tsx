@@ -10,9 +10,11 @@ import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import { useSelector } from "react-redux";
 import { AuthenticationState } from "@/components/footer/types/hometypes";
 import { startTransition } from "react";
+import { useNavigate } from "react-router-dom";
    
   export function WebsiteFeaturesBento() {
     const isAuthenticated = useSelector((state: AuthenticationState) => state.auth.token !== null);
+    const navigate = useNavigate()
 
     const features = [
         {
@@ -26,7 +28,7 @@ import { startTransition } from "react";
                 <span>- Search for previously created Decks</span>
               </p>
             ) as React.ReactNode,
-            href: isAuthenticated ? "/Deck" : "/login", 
+            //href: isAuthenticated ? "/Deck" : "/login", 
             navigateHandler: () => {
               startTransition(() => {
                 window.location.href = isAuthenticated ? "/Deck" : "/login";
@@ -40,10 +42,10 @@ import { startTransition } from "react";
             Icon: FileTextIcon,
             name: "Manage Your Card Collection",
             description: "Add and Modify your Yugioh Card Collection",
-            href: isAuthenticated ? "/getcards" : "/login",
+            //href: "/FAQ",
             navigateHandler: () => {
               startTransition(() => {
-                window.location.href = isAuthenticated ? "/getcards" : "/login";
+                navigate('/FAQ', { state: { welcomepage: false, searchOverview: true } });
               });
             },
             cta: "Learn more",
@@ -61,12 +63,11 @@ import { startTransition } from "react";
                   <span>- View Pricing History of the Card</span>
                 </p>
               ) as React.ReactNode,
-            href: isAuthenticated ? "/searchloggedin" : "/search",
-            navigateHandler: () => {
-              startTransition(() => {
-                window.location.href = isAuthenticated ? "/searchloggedin" : "/search";
-              });
-            },
+              navigateHandler: () => {
+                startTransition(() => {
+                  navigate('/FAQ', { state: { welcomepage: false, searchOverview: true } });
+                });
+              },
             cta: "Learn more",
             background: <img className="absolute -right-20 -top-20 opacity-60" alt="Searchbar Page Feature details homepage element"/>,
             className: "lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3",
@@ -84,7 +85,12 @@ import { startTransition } from "react";
           href: isAuthenticated ? "/profile" : "/login",
           navigateHandler: () => {
             startTransition(() => {
-              window.location.href = isAuthenticated ? "/profile" : "/login";
+              navigate('/FAQ', { 
+                state: { 
+                  welcomepage: false, 
+                  searchOverview: true 
+                } 
+              });
             });
           },
           cta: "Learn more",
