@@ -31,10 +31,10 @@ export function PcFilterButtonPlaceholder() {
             </div>
             <div className="space-x-1 flex w-fit">
                <div className='flex bg-footer rounded-lg'>
-                    <span className={`text-white p-1 px-2 rounded-xl mr-2 bg-[hsl(var(--background3))]`}>
+                    <span className="text-white p-1 px-2 rounded-xl mr-2 bg-[hsl(var(--background3))]">
                         <FontAwesomeIcon icon={faBars} className="fa-xs"/>
                     </span>
-                    <span className={`text-gray-400 p-1 rounded-xl mr-2 bg-transparent`}>
+                    <span className="text-gray-400 p-1 rounded-xl mr-2 bg-transparent">
                         <FontAwesomeIcon icon={faGripHorizontal} className="fa-xs"/>
                     </span>
                 </div>

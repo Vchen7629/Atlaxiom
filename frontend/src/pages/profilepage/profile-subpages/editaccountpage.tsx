@@ -8,7 +8,6 @@ import PasswordUpdateButton from "../../../components/profilepagecomponents/edit
 import DeleteAccountInputComponent from "../../../components/profilepagecomponents/deleteaccountcomponents/deleteaccountinput.tsx";
 import DeleteAccountButton from "../../../components/profilepagecomponents/deleteaccountcomponents/deleteaccountbutton.tsx";
 import { EditAccount } from "../types/subpagetypes.ts";
-import { Toaster } from "sonner";
 
 const EditAccountPage = ({ usersData, refetch }: EditAccount) => {
     const username = usersData?.username;
