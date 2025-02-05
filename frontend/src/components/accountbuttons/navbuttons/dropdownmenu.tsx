@@ -31,7 +31,7 @@ export function LoggedInDropdownMenu() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="center" className="py-2 px-[4vw] mt-2 md:px-[1.5vw] border-2 border-[hsl(var(--background3))] text-[hsl(var(--background3))] flex flex-col space-y-2 h-fit bg-[hsl(var(--header))] rounded-2xl">
                 <DropdownMenuGroup>
-                    <DropdownMenuItem className="focus:bg-transparent">
+                    <DropdownMenuItem className="focus:bg-transparent ">
                         <Profile/>
                     </DropdownMenuItem>
                     <DropdownMenuItem className="focus:bg-transparent">

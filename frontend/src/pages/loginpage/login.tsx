@@ -87,7 +87,6 @@ const LoginPage = () => {
                 startTransition(() => {
                     navigate("/profile");
                 })
-                return Promise.resolve();
             } catch (err) {
                 console.error("API Call Failed: ", err)
             }
@@ -97,6 +96,7 @@ const LoginPage = () => {
         },
       }
     );
+    
 
     const content = (
         <main className="min-h-[100vh] flex flex-col justify-between">
