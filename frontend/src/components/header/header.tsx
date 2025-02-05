@@ -4,11 +4,12 @@ import Cardsearch from './headerbuttons/searchbar.tsx'
 import Mycards from './headerbuttons/my-cards.tsx'
 import Login from './headerbuttons/login.tsx'
 import Mydecks from './headerbuttons/my-decks.tsx'
-import Accountsbutton from '../accountbuttons/navbuttons/account.js'
 import { ModeToggle } from "../shadcn_components/darklightmode/mode-toggle.tsx"
 import { AuthenticationState } from './types/headertypes.ts'
 import Signup from './headerbuttons/signup.tsx'
 import { startTransition } from 'react'
+import { HeaderDropdown } from './dropdownmenu/dropdown.tsx'
+import { LoggedInDropdownMenu } from '../accountbuttons/navbuttons/dropdownmenu.tsx'
 
 const Header = () => {
     const navigate = useNavigate()
@@ -24,46 +25,18 @@ const Header = () => {
         })
     };
 
-    const pages = [
-        "login", "Signup"
-    ]
-
     function renderAuthButtons() {   
         if (isAuthenticated) {
           return (
             <div className="flex justify-center items-center xs:hidden lg:flex py-2.5 lg:mr-2.5">
-                <div className=''><Accountsbutton/></div>
+                <div className=''><LoggedInDropdownMenu/></div>
             </div>
         );
     }
-
-    function handlePageNav(e: React.ChangeEvent<HTMLSelectElement>) {
-        const value = e.target.value;
-        startTransition(() => {
-            if (value === "login") {
-                navigate("/login")
-            } else if (value === "Signup") {
-                navigate("/signup")
-            } else {
-                navigate("/")
-            }
-        })
-    }      
         
     return (
         <div className='flex h-full space-x-[1vw] md:mr-[2vw]'>
-            <select 
-                value="menu"
-                className="appearance-none text-end outline-none text-2xl flex bg-transparent text-[hsl(var(--background3))] md:hidden " 
-                onChange={handlePageNav}
-            >
-                <option value="menu" disabled hidden>☰</option>
-                {pages.map((page) => (
-                    <option key={page} value={page} className='h-[30vh] p-4 bg-[hsl(var(--header))] border-2 border-[hsl(var(--background3))] text-lg flex justify-start'>
-                        {page}
-                    </option>
-                ))}
-            </select>
+            <div className='flex md:hidden'><HeaderDropdown /></div>
             <a className="hidden md:flex" href="/signup"><Signup/></a>
             <a className="hidden md:flex" href="/login"><Login/></a>
         </div>

@@ -84,7 +84,9 @@ const LoginPage = () => {
             console.log('Google OAuth Success Response:', tokenResponse);
             try {
                 await googleLoginApi(tokenResponse);
-                navigate("/profile");
+                startTransition(() => {
+                    navigate("/profile");
+                })
             } catch (err) {
                 console.error("API Call Failed: ", err)
             }
@@ -94,6 +96,7 @@ const LoginPage = () => {
         },
       }
     );
+    
 
     const content = (
         <main className="min-h-[100vh] flex flex-col justify-between">

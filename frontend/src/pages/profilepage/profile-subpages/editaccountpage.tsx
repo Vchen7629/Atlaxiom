@@ -8,7 +8,6 @@ import PasswordUpdateButton from "../../../components/profilepagecomponents/edit
 import DeleteAccountInputComponent from "../../../components/profilepagecomponents/deleteaccountcomponents/deleteaccountinput.tsx";
 import DeleteAccountButton from "../../../components/profilepagecomponents/deleteaccountcomponents/deleteaccountbutton.tsx";
 import { EditAccount } from "../types/subpagetypes.ts";
-import { Toaster } from "sonner";
 
 const EditAccountPage = ({ usersData, refetch }: EditAccount) => {
     const username = usersData?.username;
@@ -86,7 +85,6 @@ const EditAccountPage = ({ usersData, refetch }: EditAccount) => {
 
     return (
         <div className="flex flex-col lg:flex-row pl-8 pt-8 bg-[hsl(var(--profilebackground))] rounded-xl">
-            <Toaster richColors expand visibleToasts={4} position="bottom-center"/>
             <section className="flex xl:hidden w-full pr-[5vw] h-fit mb-2 items-center justify-between">
                 {changeUsername ? (
                     <header className="flex h-fit items-center space-x-4 xl:hidden font-bold text-xl text-[hsl(var(--text))]">

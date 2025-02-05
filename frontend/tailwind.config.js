@@ -53,6 +53,7 @@ export default {
   				DEFAULT: '#222222'
   			},
 			'google-gray': '#F2F2F2',
+			'google-black': "#131314"
   		},
   		boxShadow: {
   			custom: '0 4px 30px rgba(0, 0, 0, 0.5)',

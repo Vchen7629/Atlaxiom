@@ -21,7 +21,7 @@ const Mycards = () => {
           className="flex items-center pb-2 border-b-2 bg-transparent border-transparent hover:border-b-2 hover:border-[hsl(var(--background3))] " 
           onClick={handleButtonClick}
         >
-          <span className='lg:mr-2'><FontAwesomeIcon icon={faBox} /></span>
+          <span className='lg:mr-2 text-[hsl(var(--background3))]'><FontAwesomeIcon icon={faBox} /></span>
           <span className="fatextmargin font-bold text-[hsl(var(--text))] text-xs lg:text-lg">Collection</span>
         </button>
     </div>
