@@ -84,7 +84,10 @@ const LoginPage = () => {
             console.log('Google OAuth Success Response:', tokenResponse);
             try {
                 await googleLoginApi(tokenResponse);
-                navigate("/profile");
+                startTransition(() => {
+                    navigate("/profile");
+                })
+                return Promise.resolve();
             } catch (err) {
                 console.error("API Call Failed: ", err)
             }
