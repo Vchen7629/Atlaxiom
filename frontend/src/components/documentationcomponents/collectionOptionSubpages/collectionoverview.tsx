@@ -6,6 +6,7 @@ import { MobileHeaderCollectionPlaceholder } from "../components/mobileheaderpla
 export function CollectionOverviewSubPage() {
 
     return (
+        // skipcq: JS-0415
         <main className="flex flex-col space-y-[3vh] w-full h-full">
             <span className="text-4xl text-[hsl(var(--background3))] font-bold">Overview</span>
             <span className="w-[80%] text-lg font-normal text-gray-400">The Collection page allows you to track and filter your card collection</span>

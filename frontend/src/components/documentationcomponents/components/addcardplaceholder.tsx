@@ -4,7 +4,8 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons"
 
 export function AddCardPlaceholder() {
     return (
-        <div className="relative flex flex-col bg-gray-600 space-y-[2vh] ml-2 w-[40vw] h-[40vh] px-[1vw] pt-[1vh] rounded-lg">
+        // skipcq: JS-0415
+        <div className="relative flex flex-col bg-gray-600 space-y-[2vh] ml-2 w-[40vw] h-[40vh] px-[1vw] pt-[1vh] rounded-lg"> 
             <div className="absolute right-[-3vw] top-1/2 transform translate-y-[-100%] z-10">
                 <svg 
                     width="90" 
@@ -28,14 +29,14 @@ export function AddCardPlaceholder() {
                 </div>
             </div>
             <div className="flex w-full space-x-[2vw]">
-                <img src={cardIcon} className="h-[20vh]"/>
+                <img src={cardIcon} alt="image for placeholder card blue-eyes abyss dragon" className="h-[20vh]"/>
                 <div className="w-[40vw] flex flex-col space-y-[1vh]">
                     <span className="text-xl text-[hsl(var(--background3))] font-bold">Blue-Eyes Abyss Dragon</span>
                     <p className="text-xs w-full text-white">
-                        If this card is Special Summoned: You can add 1 Ritual Spell or 1 "Polymerization" from your Deck to your hand.
+                        If this card is Special Summoned: You can add 1 Ritual Spell or 1 &quot;Polymerization&quot; from your Deck to your hand.
                         During your End Phase: You can add 1 Level 8 or higher Dragon monster from your Deck to your hand. You can banish 
                         this card from your GY; all Level 8 or higher Dragon monsters you control gain 1000 ATK. You can only use each effect 
-                        of "Blue-Eyes Abyss Dragon" once per turn, and can only activate them while "Blue-Eyes White Dragon" is on your field 
+                        of &quot;Blue-Eyes Abyss Dragon&quot; once per turn, and can only activate them while "Blue-Eyes White Dragon" is on your field 
                         or in your GY.
                     </p>
                     <div className="flex space-x-8">

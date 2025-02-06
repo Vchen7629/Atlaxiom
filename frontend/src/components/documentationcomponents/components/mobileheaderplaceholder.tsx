@@ -104,7 +104,8 @@ export function MobileHeaderSearchbarPlaceholder() {
 
 export function MobileHeaderCollectionPlaceholder() {
     return (
-        <div className="h-[16vh] w-full">
+        // skipcq: JS-0415
+        <div className="h-[16vh] w-full"> 
             <header className="relative justify-between items-center w-full flex py-2 text-[hsl(var(--text))] bg-[hsl(var(--header))] bg-opacity-60 px-2.5">
                 <div className="absolute right-[8vw] translate-y-[160%] transform z-10">
                     <svg 

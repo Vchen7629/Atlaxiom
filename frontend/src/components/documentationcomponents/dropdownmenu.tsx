@@ -43,7 +43,7 @@ export function FAQPageMenuSideBar({ MenuProps}: FAQSidebar) {
     function pageReducer(state: PageState, action: PageAction): PageState {
       switch (action.type) {
         case 'SET_PAGE':
-          const newState = {
+          const newState = { // skipcq: JS-0054
             welcomePage: action.payload === 'welcome',
             darkLightModePage: action.payload === 'darkLightMode',
             creationOverviewPage: action.payload === 'creationOverview',
