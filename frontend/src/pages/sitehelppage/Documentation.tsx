@@ -13,6 +13,11 @@ import { HowToCreateAccountSubPage } from "@/components/documentationcomponents/
 import { CardSearchOverviewSubPage } from "@/components/documentationcomponents/CardSearchOptionSubpages/cardsearchoverview.tsx"
 import { CardSearchFilterSubPage } from "@/components/documentationcomponents/CardSearchOptionSubpages/cardsearchfilters.tsx"
 import { WorkInProgressPlaceholder } from "@/components/documentationcomponents/components/workinprogressplaceholder.tsx"
+import { GalleryListViewSubPage} from "@/components/documentationcomponents/CardSearchOptionSubpages/gallery_listview.tsx"
+import { GalleryListViewCollectionSubPage } from "@/components/documentationcomponents/collectionOptionSubpages/gallery_listview.tsx"
+import { CollectionOverviewSubPage } from "@/components/documentationcomponents/collectionOptionSubpages/collectionoverview.tsx"
+import { CollectionFilterSubPage } from "@/components/documentationcomponents/collectionOptionSubpages/collectionfilter.tsx"
+import { AddNewCardSubPage } from "@/components/documentationcomponents/collectionOptionSubpages/addingnewcard.tsx"
 
 const SiteHelpPage = () => {
     const location = useLocation();
@@ -24,12 +29,15 @@ const SiteHelpPage = () => {
     const [cardSearchPageFilter, setCardSearchPageFilter] = useState(false);
     const [cardSearchSelectedCardPage, setCardSearchSelectedCardPage] = useState(false);
     const [cardSearchPageGalleryList, setCardSearchPageGalleryList] = useState(false);
+    const [collectionOverview, setCollectionOverview] = useState(location.state?.collectionOverview ?? false);
+    const [collectionFilter, setCollectionFilter] = useState(false);
+    const [collectionAddNewCard, setCollectionAddNewCard] = useState(false);
+    const [collectionGalleryList, setCollectionGalleryList] = useState(false);
     /*const [collectionPageView, setCollectionPageView] = useState(false);
     const [deckBuildPageView, setDeckBuildPageView] = useState(false);
     const [editProfileView, setEditProfileView] = useState(true);
     const [darkLightModeView, setDarkLightModeView] = useState(true);*/
 
-    console.log(cardSearchPageOverview)
     const MenuProps = {
         setWelcomePage,
         setDarkLightModePage,
@@ -39,6 +47,10 @@ const SiteHelpPage = () => {
         setCardSearchPageFilter,
         setCardSearchSelectedCardPage,
         setCardSearchPageGalleryList,
+        setCollectionOverview,
+        setCollectionFilter,
+        setCollectionAddNewCard,
+        setCollectionGalleryList
     }
 
     function SidebarHeader() {
@@ -74,9 +86,17 @@ const SiteHelpPage = () => {
                     ) : cardSearchPageFilter ? (
                         <CardSearchFilterSubPage />
                     ) : cardSearchSelectedCardPage ? (
-                        <WorkInProgressPlaceholder />
-                    ) : cardSearchPageGalleryList &&(
-                        <WorkInProgressPlaceholder />
+                        <WorkInProgressPlaceholder/>
+                    ) : cardSearchPageGalleryList ? (
+                        <GalleryListViewSubPage />
+                    ) : collectionOverview ? (
+                        <CollectionOverviewSubPage />
+                    ) : collectionFilter ? (
+                        <CollectionFilterSubPage />
+                    ) : collectionAddNewCard ? (
+                        <AddNewCardSubPage />
+                    ) : collectionGalleryList && (
+                        <GalleryListViewCollectionSubPage />
                     )}
                 </section>
             </div>
