@@ -29,14 +29,14 @@ export function AddCardPlaceholder() {
                 </div>
             </div>
             <div className="flex w-full space-x-[2vw]">
-                <img src={cardIcon} alt="image for placeholder card blue-eyes abyss dragon" className="h-[20vh]"/>
+                <img src={cardIcon} alt="placeholder card blue-eyes abyss dragon" className="h-[20vh]"/>
                 <div className="w-[40vw] flex flex-col space-y-[1vh]">
                     <span className="text-xl text-[hsl(var(--background3))] font-bold">Blue-Eyes Abyss Dragon</span>
                     <p className="text-xs w-full text-white">
                         If this card is Special Summoned: You can add 1 Ritual Spell or 1 &quot;Polymerization&quot; from your Deck to your hand.
                         During your End Phase: You can add 1 Level 8 or higher Dragon monster from your Deck to your hand. You can banish 
                         this card from your GY; all Level 8 or higher Dragon monsters you control gain 1000 ATK. You can only use each effect 
-                        of &quot;Blue-Eyes Abyss Dragon&quot; once per turn, and can only activate them while "Blue-Eyes White Dragon" is on your field 
+                        of &quot;Blue-Eyes Abyss Dragon&quot; once per turn, and can only activate them while &quot;Blue-Eyes White Dragon&quot; is on your field 
                         or in your GY.
                     </p>
                     <div className="flex space-x-8">
