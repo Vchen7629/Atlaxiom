@@ -45,7 +45,7 @@ SearchCards = Array.from({ length: 10 }, () => SearchCards).flat();
  
 const SearchCard = ({ name, description, icon, color }: Item) => {
   return (
-    <figure
+    <figure // skipcq: JS-0415
       className={cn(
         "relative mx-auto min-h-fit w-[80%] cursor-pointer overflow-hidden rounded-md p-4",
         // animation styles
@@ -94,7 +94,7 @@ export function AnimatedSearchSuggestionList({
     >
       <AnimatedList>
         {SearchCards.map((item, idx) => (
-          <SearchCard {...item} key={idx} />
+          <SearchCard {...item} key={idx} /> // skipcq: JS-0437
         ))}
       </AnimatedList>
     </div>

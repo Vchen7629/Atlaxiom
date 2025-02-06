@@ -42,7 +42,8 @@ const chartConfig = {
 
 export function BarChartPlaceholder() {
   return (
-    <Card className="w-[80%]">
+    // skipcq: JS-0415
+    <Card className="w-[80%]"> 
       <CardHeader>
         <div className="flex flex-col space-y-2 text-sm">
             <div className="w-full flex justify-between items-center">

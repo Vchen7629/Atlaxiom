@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { SearchCardBentoBackground } from "./searchCardBentoBackgroundcomponents/searchforcardsbackground";
 import { UserProfileBentoGridBackground } from "./userprofilebentobackgroundcomponents/userprofilebackground";
 
-const files = [
+/*const files = [
   {
     name: "bitcoin.pdf",
     body: "Bitcoin is a cryptocurrency invented in 2008 by an unknown person or group of people using the name Satoshi Nakamoto.",
@@ -39,7 +39,7 @@ const files = [
     name: "seed.txt",
     body: "A seed phrase, seed recovery phrase or backup seed phrase is a list of words which store all the information needed to recover Bitcoin funds on-chain.",
   },
-];
+];*/
 
    
   export function WebsiteFeaturesBento() {
