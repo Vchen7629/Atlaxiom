@@ -141,6 +141,7 @@ section {
     --profilebackground: 0, 0%, 90%;
     --shadow-color: 0, 0%, 5%;
     --filterbutton: 200, 100%, 50%;
+    --signupbutton:  0, 0%, 5%;
     --text: 0, 0%, 5%;
     --homepagegradient1: 232.2, 100%, 65.3%;
     --homepagegradient2: 189.7, 92.4%, 78.2%; 
@@ -169,6 +170,7 @@ section {
     --profilebackground: 0 7% 11%;
     --shadow-color: 0, 0%, 40%;
     --filterbutton: 217, 1%, 27%;
+    --signupbutton:  100, 100%, 100%;
     --text: 100, 100%, 100%;
     --homepagegradient1: 211, 12%, 48%;
     --homepagegradient2: 0, 0%, 0%; 
