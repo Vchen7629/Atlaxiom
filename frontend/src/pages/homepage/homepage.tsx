@@ -3,7 +3,7 @@
 import Header from '../../components/header/header.tsx';
 import Footer from '../../components/footer/Footer.tsx';
  
-import { WebsiteFeaturesBento } from "./websitefeaturesbento.tsx";
+import { WebsiteFeaturesBento } from "../../components/homepagecomponents/websitefeaturesbento.tsx";
 
  
 const HomePage = () => {  
@@ -24,6 +24,14 @@ const HomePage = () => {
     </div>
     <div className="px-[3vw] flex flex-col bg-[hsl(var(--background1))] space-y-[5vh] pt-[5vh] min-h-[100vh] items-center">
       <span className="text-3xl text-[hsl(var(--background3))] w-full md:w-1/2 text-center font-black">Create a User Account today to get access to all of the features!</span>
+      <div className="flex w-full space-x-[2vw] h-fit px-[38%]">
+        <button className="bg-[hsl(var(--signupbutton))] border-2 border-[hsl(var(--border))] font-bold text-[hsl(var(--profile))] w-[10vw] h-[6vh] rounded-3xl text-[22px]">
+          Sign Up
+        </button>
+        <button className="bg-[hsl(var(--background3))] border-2 border-[hsl(var(--border))] font-bold  w-[10vw] h-[6vh] rounded-3xl text-[22px]">
+          Sign in
+        </button>
+      </div>
       <WebsiteFeaturesBento />
     </div>
     <Footer/>
