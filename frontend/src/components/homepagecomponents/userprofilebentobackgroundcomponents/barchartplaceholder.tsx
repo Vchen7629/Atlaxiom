@@ -45,8 +45,9 @@ export function BarChartPlaceholder() {
     <Card className="w-[80%]">
       <CardHeader>
         <div className="flex flex-col space-y-2 text-sm">
-            <div className="w-full flex justify-between">
-              <CardTitle className="text-[hsl(var(--text))] text-md">Your Cards/Deck Statistics</CardTitle>
+            <div className="w-full flex justify-between items-center">
+              <CardTitle className="hidden lg:flex text-[hsl(var(--text))]">Your Cards/Deck Statistics</CardTitle>
+              <CardTitle className="flex lg:hidden text-xs text-[hsl(var(--text))]">Your Cards/Deck Statistics</CardTitle>
               <div className="py-1 px-2 space-x-2 items-center text-center justify-between rounded max-h-[40px] bg-[hsl(var(--background3))] text-white">
                 <span>2025</span>
                 <FontAwesomeIcon icon={faCaretDown} />

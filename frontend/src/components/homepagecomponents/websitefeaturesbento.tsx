@@ -11,10 +11,10 @@ import { useSelector } from "react-redux";
 import { AuthenticationState } from "@/components/footer/types/hometypes";
 import { startTransition } from "react";
 import { useNavigate } from "react-router-dom";
-import { Marquee } from "../ui/marquee";
-import { cn } from "@/lib/utils";
-import { BarChart } from "lucide-react";
-import { ComponentBarChart } from "../profilepagecomponents/statisticscomponents/charts/barchartyear";
+//import { Marquee } from "../ui/marquee";
+//import { cn } from "@/lib/utils";
+//import { BarChart } from "lucide-react";
+//import { ComponentBarChart } from "../profilepagecomponents/statisticscomponents/charts/barchartyear";
 import { SearchCardBentoBackground } from "./searchCardBentoBackgroundcomponents/searchforcardsbackground";
 import { UserProfileBentoGridBackground } from "./userprofilebentobackgroundcomponents/userprofilebackground";
 
@@ -51,12 +51,20 @@ const files = [
           Icon: GlobeIcon,
           name: "Create and Manage Decks",
           description: (
-              <p className="flex flex-col text-gray-400">
+            <>
+              <p className="hidden lg:flex flex-col text-md text-gray-400">
                 <span>- Create Decks</span>
                 <span>- Add owned cards or search for cards to add via drag and drop</span>
                 <span>- Duplicate, Favorite, or Delete Decks</span>
                 <span>- Search for previously created Decks</span>
               </p>
+              <p className="flex lg:hidden text-xs flex-col text-gray-400">
+                <span>- Create Decks</span>
+                <span>- Add owned cards or search for cards to add via drag and drop</span>
+                <span>- Duplicate, Favorite, or Delete Decks</span>
+                <span>- Search for previously created Decks</span>
+              </p>
+            </>
             ) as React.ReactNode,
             //href: isAuthenticated ? "/Deck" : "/login", 
             navigateHandler: () => {
@@ -114,12 +122,20 @@ const files = [
             Icon: InputIcon,
             name: "Search For Cards",
             description: (
-                <p className="flex flex-col text-gray-400">
+              <>
+                <p className="hidden lg:flex text-md flex-col text-gray-400">
                   <span>- Search Through a dataset of thousands of Yugioh Cards</span>
                   <span>- Filter Search Results via different filters</span>
                   <span>- Add Selected Cards to your User Collection</span>
                   <span>- View Pricing History of the Card</span>
                 </p>
+                <p className="flex lg:hidden text-xs flex-col text-gray-400">
+                  <span>- Search Through a dataset of thousands of Yugioh Cards</span>
+                  <span>- Filter Search Results via different filters</span>
+                  <span>- Add Selected Cards to your User Collection</span>
+                  <span>- View Pricing History of the Card</span>
+                </p>
+              </>
               ) as React.ReactNode,
               navigateHandler: () => {
                 startTransition(() => {
@@ -136,11 +152,18 @@ const files = [
           Icon: PersonIcon,
           name: "User Profiles",
           description: (
-            <p className="flex flex-col text-gray-400">
+            <>  
+              <p className="hidden lg:flex text-md flex-col text-gray-400">
+                <span>- View Statistics of your User Account like collection history or collection status</span>
+                <span>- Edit User Account Details like Username, Email, or Password</span>
+                <span>- Delete your user account</span>
+              </p>
+              <p className="flex lg:hidden text-xs flex-col text-gray-400">
               <span>- View Statistics of your User Account like collection history or collection status</span>
-              <span>- Edit User Account Details like Username, Email, or Password</span>
-              <span>- Delete your user account</span>
-            </p>
+                <span>- Edit User Account Details like Username, Email, or Password</span>
+                <span>- Delete your user account</span>
+              </p>
+            </>
           ) as React.ReactNode,
           href: isAuthenticated ? "/profile" : "/login",
           navigateHandler: () => {

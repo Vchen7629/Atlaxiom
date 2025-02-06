@@ -19,25 +19,25 @@ let SearchCards = [
     name: "Blue-Eyes Abyss Dragon",
     description: "If this card is Special Summoned: You can add 1 Ritual Spell or 1 Polymerization from your Deck",
     icon: blueeyesabyssdragon,
-    color: "#00C9A7",
+    color: "transparent",
   },
   {
     name: "Blue-Eyes Alternative Ultimate Dragon",
     description: "Your opponent cannot target or destroy this card with card effects.",
     icon: blueeyesaltultdragon,
-    color: "#FFB800",
+    color: "transparent",
   },
   {
     name: "Blue-Eyes Alternative White Dragon",
     description: "Once per turn: You can target 1 monster your opponent controls; destroy it.",
     icon: blueeyesaltwhitedragon,
-    color: "#FF3D71",
+    color: "transparent",
   },
   {
     name: "Blue-Eyes Chaos Dragon",
     description: "Your opponent cannot target this card with card effects, also it cannot be destroyed by your opponent's card effects.",
     icon: blueeyeschaosdragon,
-    color: "#1E86FF",
+    color: "transparent",
   },
 ];
  
@@ -71,7 +71,7 @@ const SearchCard = ({ name, description, icon, color }: Item) => {
           <figcaption className="flex flex-row items-center whitespace-pre text-lg font-medium dark:text-white ">
             <span className="text-sm sm:text-lg text-[hsl(var(--background3))]">{name}</span>
           </figcaption>
-          <p className="text-sm font-normal dark:text-white/60">
+          <p className="text-xs lg:text-sm font-normal dark:text-white/60">
             {description}
           </p>
         </div>
@@ -88,7 +88,7 @@ export function AnimatedSearchSuggestionList({
   return (
     <div
       className={cn(
-        "absolute top-4 mt-[10vh] h-[300px] w-full border-none transition-all duration-300000 ease-out [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] group-hover:scale-105",
+        "absolute top-8 lg:top-4 mt-[10vh] h-[150px] lg:h-[300px] w-full border-none transition-all duration-300000 ease-out [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] group-hover:scale-105",
         className,
       )}
     >
