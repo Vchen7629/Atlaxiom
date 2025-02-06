@@ -8,18 +8,26 @@ export type FAQSidebar = {
         setCardSearchPageOverview: React.Dispatch<React.SetStateAction<boolean>>
         setCardSearchSelectedCardPage: React.Dispatch<React.SetStateAction<boolean>>
         setCardSearchPageGalleryList: React.Dispatch<React.SetStateAction<boolean>>
+        setCollectionOverview: React.Dispatch<React.SetStateAction<boolean>>
+        setCollectionFilter: React.Dispatch<React.SetStateAction<boolean>>
+        setCollectionAddNewCard: React.Dispatch<React.SetStateAction<boolean>>
+        setCollectionGalleryList: React.Dispatch<React.SetStateAction<boolean>>
     }
 }
 
 export type PageType = 
-  | 'welcome'
-  | 'darkLightMode'
-  | 'creationOverview'
-  | 'howToCreateAccount'
-  | 'cardSearchOverview'
-  | 'cardSearchFilter'
-  | 'cardSearchSelectedCard'
-  | 'cardSearchGalleryList';
+    | 'welcome'
+    | 'darkLightMode'
+    | 'creationOverview'
+    | 'howToCreateAccount'
+    | 'cardSearchOverview'
+    | 'cardSearchFilter'
+    | 'cardSearchSelectedCard'
+    | 'cardSearchGalleryList'
+    | 'collectionOverview'
+    | 'collectionFilter'
+    | 'collectionAddNewCard'
+    | 'collectionGalleryList';
 
 export type PageAction = {
     type: 'SET_PAGE';
@@ -35,4 +43,8 @@ export type PageState = {
     cardSearchPageFilter: boolean;
     cardSearchSelectedCardPage: boolean;
     cardSearchPageGalleryList: boolean;
+    collectionOverview: boolean;
+    collectionFilter: boolean;
+    collectionAddNewCard: boolean;
+    collectionGalleryList: boolean;
 }
