@@ -61,8 +61,8 @@ export function ContactForm() {
     useEffect(() => {
         if (username && email) {
             form.reset({
-                email: email,
-                username: username,
+                email,
+                username,
                 subject: "",
                 body: "",
             });
@@ -86,7 +86,7 @@ export function ContactForm() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-[20vw]">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full lg:w-[30vw] xl:w-[20vw]">
                 <FormField
                     control={form.control}
                     name="username"
