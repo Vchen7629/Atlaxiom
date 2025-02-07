@@ -4,6 +4,12 @@ export type token = {
     }
 }
 
+export type email = {
+    auth: {
+        email: string
+    }
+}
+
 export type username = {
     auth: {
         username: string
@@ -30,5 +36,6 @@ export type LoginCredentials = {
 export type LoginResponse = {
     accessToken: string;
     userId: string;
-    username: string
+    username: string;
+    email: string;
 }
