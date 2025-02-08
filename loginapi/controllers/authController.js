@@ -55,6 +55,7 @@ const login = asyncHandler(async (req, res) => {
     const accessToken = jwt.sign(
         {
             "UserInfo": {
+                "email": foundUser.email,
                 "username": foundUser.username,
                 "userId": foundUser._id
             }
@@ -135,13 +136,14 @@ const refresh = (req, res) => {
                     {
                         "UserInfo": {
                             "userId": foundUser._id,
+                            "email": foundUser.email,
                             "username": foundUser.username,
                         }
                     },
                     accessTokenSecret,
                     { expiresIn: '24h' }
                 )
-                res.json({ accessToken, userId: foundUser._id, username: foundUser.username })
+                res.json({ accessToken, userId: foundUser._id, username: foundUser.username, email: foundUser.email })
             }
         })
     )
