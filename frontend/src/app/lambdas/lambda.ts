@@ -7,6 +7,9 @@ export const lambdaApiSlice = createApi({
         baseUrl: "https://h8eu5qryxj.execute-api.us-west-1.amazonaws.com/default",
         prepareHeaders: (headers) => {
             headers.set('Content-Type', 'application/json');
+            headers.set('Access-Control-Allow-Origin', 'https://www.atlaxiom.com');
+            headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+            headers.set('Access-Control-Allow-Headers', '*');
             return headers;
         },
     }),
