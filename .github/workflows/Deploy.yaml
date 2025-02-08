@@ -82,6 +82,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Clean Docker resources
+        uses: appleboy/ssh-action@v1.2.0
+        with: 
+          port: 22
+          host: ${{ secrets.VPS_IP_ADDRESS }}
+          username: vchen7629
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            docker image prune --force
+
       - name: 'Pulling latest container'
         uses: appleboy/ssh-action@v1.2.0
         with: 
