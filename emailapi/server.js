@@ -5,7 +5,7 @@ const corsOptions = require('./config/corsOptions')
 const cookieParser = require('cookie-parser')
 const fs = require('fs')
 const https = require('https');
-const checkHost = require('./middleware/checkhostname')
+//const checkHost = require('./middleware/checkhostname')
 const app = express();
 const PORT = 3005;
 const connectMongoDB = require('./config/mongodbConn')
@@ -23,7 +23,7 @@ app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
-app.use(checkHost)
+//app.use(checkHost)
 app.get('/test', (req, res) => {
     res.json({ message: 'Test route working' });
 });
