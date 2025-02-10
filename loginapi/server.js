@@ -40,6 +40,10 @@ app.use('/', express.static(path.join(__dirname, 'public'))) /*code for telling 
 
 app.use('/', require('./routes/root'))
 
+app.use("/health", (_, res) => {
+    res.status(200).send('OK');
+})
+
 app.use('/auth', require('./routes/authRoutes'))
 
 app.use('/users', require('./routes/userRoutes'))

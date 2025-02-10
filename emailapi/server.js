@@ -37,6 +37,10 @@ app.get('/test', (req, res) => {
     res.json({ message: 'Test route working' });
 });
 
+app.use("/health", (_, res) => {
+    res.status(200).send('OK');
+})
+
 app.use('/password', require('./routes/passwordResetRoutes'))
 
 app.use('/contact', require('./routes/contactEmailRoutes'))
