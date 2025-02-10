@@ -52,7 +52,7 @@ services:
   emailapi: 
     image: ghcr.io/vchen7629/atlaxiom-emailapi:prod
     ports:
-      - 8440:8440 # alternative port for https since 443 is in use by frontend
+      - 2096:2096 # alternative port for https since 443 is in use by frontend
     labels:
       - com.centurylinklabs.watchtower.enable=true
     secrets:
@@ -71,7 +71,7 @@ services:
       - DYNAMODB_SECRET_KEY_FILE=/run/secrets/dynamodb-secret-key
       - API_KEY_FILE=/run/secrets/api-key
     healthcheck:
-      test: ["CMD-SHELL", "curl -k --retry 3 --retry-connrefused https://api.atlaxiom.com:8440 || exit 1"]
+      test: ["CMD-SHELL", "curl -k --retry 3 --retry-connrefused https://api.atlaxiom.com:2096 || exit 1"]
       interval: 1m30s
       timeout: 30s
       retries: 3
