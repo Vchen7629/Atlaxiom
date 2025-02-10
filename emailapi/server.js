@@ -43,7 +43,10 @@ app.use("/health", (_, res) => {
 
 app.use('/password', require('./routes/passwordResetRoutes'))
 
-app.use('/contact', require('./routes/contactEmailRoutes'))
+app.use('/contact', (req, res, next) => {
+    console.log('Contact route hit:', req.method, req.url);
+    next();
+}, require('./routes/contactEmailRoutes'));
 
 const startServer = async () => {
     try {        
@@ -51,8 +54,14 @@ const startServer = async () => {
         await checkDynamoDBConnection()
 
         if (environment === 'production') {
-            https.createServer(httpsOptions, app).listen(2096, '0.0.0.0', () => {
-                console.log("HTTPS server running on https://api.atlaxiom.com");
+            const httpsServer = https.createServer(httpsOptions, app);
+
+            httpsServer.on('error', (error) => {
+                console.error('HTTPS Server Error:', error);
+            });
+
+            httpsServer.listen(2096, '0.0.0.0', () => {
+                    console.log("HTTPS server running on https://api.atlaxiom.com:2096");
             });
         } else {
             app.listen(PORT, '0.0.0.0', () => {
