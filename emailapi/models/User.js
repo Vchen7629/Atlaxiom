@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: function() {  return this.authType === 'local'; }
+        required: function() {  return this.authType === 'local'; } // skipcq: JS-0240
     },
     authType: {
         type: String,
