@@ -1,11 +1,11 @@
-import Home from "./QuickLinkButtons/home.tsx"
-import FAQ from "./supportbuttons/FAQ.tsx"
-import PrivacyPolicy from "./LegalButtons/PrivacyPolicy.tsx"
-import ContactUs from "./supportbuttons/Contactus.tsx"
-import CardSearch from "./QuickLinkButtons/CardSearch.tsx"
-import Github from "./SocialButtons/Github.tsx"
-import Login from "./QuickLinkButtons/Login.tsx"
-import Signup from "./QuickLinkButtons/Signup.tsx"
+import Home from "@/navigation/footerbuttons/QuickLinkButtons/home.tsx"
+import FAQ from "@/navigation/footerbuttons//supportbuttons/FAQ.tsx"
+import PrivacyPolicy from "@/navigation/footerbuttons//LegalButtons/PrivacyPolicy.tsx"
+import ContactUs from "@/navigation/footerbuttons/supportbuttons/Contactus.tsx"
+import CardSearch from "@/navigation/footerbuttons/QuickLinkButtons/CardSearch.tsx"
+import Github from "@/navigation/footerbuttons//SocialButtons/Github.tsx"
+import Login from "@/navigation/footerbuttons/QuickLinkButtons/Login.tsx"
+import Signup from "@/navigation/footerbuttons/QuickLinkButtons/Signup.tsx"
 
 const Footer = () => {
     

@@ -1,4 +1,4 @@
-import CardSearch from "@/components/footer/QuickLinkButtons/CardSearch";
+import CardSearch from "@/navigation/footerbuttons/QuickLinkButtons/CardSearch";
 import { MobileHeaderSearchbarPlaceholder } from "../components/mobileheaderplaceholder";
 import { PcHeaderSearchbarPlaceholder } from "../components/pcheaderplaceholder";
 

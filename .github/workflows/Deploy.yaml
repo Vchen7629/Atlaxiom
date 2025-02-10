@@ -40,7 +40,7 @@ jobs:
           tags: ghcr.io/vchen7629/atlaxiom-frontend:prod
           cache-from: type=registry,ref=ghcr.io/vchen7629/frontend-npm-cache:latest
 
-  build-and-push-backend-image:
+  build-and-push-loginapi-image:
     runs-on: ubuntu-latest
     steps: 
       - name: Checkout repository
@@ -57,20 +57,47 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push backend image
+      - name: Build and push loginapi image
         uses: docker/build-push-action@v5
         with:
           context: ./loginapi
           file: ./loginapi/Dockerfile
           push: true
-          tags: ghcr.io/vchen7629/atlaxiom-backend:prod
+          tags: ghcr.io/vchen7629/atlaxiom-loginapi:prod
           cache-from: type=registry,ref=ghcr.io/vchen7629/loginapi-npm-cache:latest
+
+  build-and-push-emailapi-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Log into registry https://ghcr.io
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d
+        with:
+          registry: https://ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push emailapi image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./emailapi
+          file: ./emailapi/Dockerfile
+          push: true
+          tags: ghcr.io/vchen7629/atlaxiom-emailapi:prod
+          cache-from: type=registry,ref=ghcr.io/vchen7629/emailapi-npm-cache:latest
 
   deploy:
     runs-on: ubuntu-latest
     needs:
       - build-and-push-frontend-image
-      - build-and-push-backend-image
+      - build-and-push-loginapi-image
+      - build-and-push-emailapi-image
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

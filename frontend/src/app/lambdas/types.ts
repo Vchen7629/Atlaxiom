@@ -1,4 +1,4 @@
-export type ContactLambdaResponse = {
+export type LambdaResponse = {
     message: string;
     error?: string;
     data?: {
@@ -12,3 +12,17 @@ export type ContactLambdaRequest = {
     subject: string,
     body: string
 }
+
+export type PasswordResetReqLambdaRequest = {
+    email: string,
+}
+
+export type VerifyTokenLambdaRequest = {
+    token: string,
+}
+
+export type PasswordResetLambdaRequest = {
+    token: string,
+    newPassword: string
+}
+
