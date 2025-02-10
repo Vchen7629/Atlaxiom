@@ -13,7 +13,7 @@ COPY --from=cache ./node_modules ./node_modules
 
 COPY . .
 
-EXPOSE 8440
+EXPOSE 2096
 
 # Start the application
 CMD ["node", "server.js"]
