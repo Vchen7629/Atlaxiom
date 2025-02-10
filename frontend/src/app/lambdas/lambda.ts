@@ -5,7 +5,7 @@ export const lambdaEmailApiSlice = createApi({
     reducerPath: "lambdaContactApi",
     baseQuery: fetchBaseQuery({
         //baseUrl: "http://localhost:3005",
-        baseUrl: "https://api.atlaxiom.com:8440",
+        baseUrl: "https://api.atlaxiom.com:2096",
         prepareHeaders: (headers) => {
             headers.set('Content-Type', 'application/json');
             return headers;
