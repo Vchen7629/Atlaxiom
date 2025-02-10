@@ -9,6 +9,8 @@ FROM node:22-alpine
 
 WORKDIR /loginapi
 
+RUN apk add --no-cache curl
+
 COPY --from=cache ./node_modules ./node_modules
 
 COPY . .

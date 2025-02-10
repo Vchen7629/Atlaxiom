@@ -9,6 +9,8 @@ FROM node:22-alpine
 
 WORKDIR /email
 
+RUN apk add --no-cache curl
+
 COPY --from=cache ./node_modules ./node_modules
 
 COPY . .
