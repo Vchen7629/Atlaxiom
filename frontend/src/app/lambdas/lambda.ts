@@ -1,27 +1,53 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ContactLambdaRequest, ContactLambdaResponse } from "./types";
+import { ContactLambdaRequest, LambdaResponse, PasswordResetLambdaRequest, PasswordResetReqLambdaRequest, VerifyTokenLambdaRequest } from "./types";
 
-export const lambdaApiSlice = createApi({
-    reducerPath: "lambdaApi",
+export const lambdaEmailApiSlice = createApi({
+    reducerPath: "lambdaContactApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://h8eu5qryxj.execute-api.us-west-1.amazonaws.com/default",
+        //baseUrl: "http://localhost:3005",
+        baseUrl: "https://api.atlaxiom.com:8440",
         prepareHeaders: (headers) => {
             headers.set('Content-Type', 'application/json');
-            headers.set('Access-Control-Allow-Origin', 'https://www.atlaxiom.com');
-            headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
-            headers.set('Access-Control-Allow-Headers', '*');
             return headers;
         },
     }),
     endpoints: (builder) => ({
-        sendContactEmail: builder.mutation<ContactLambdaResponse, ContactLambdaRequest>({
+        sendContactEmail: builder.mutation<LambdaResponse, ContactLambdaRequest>({
             query: (contactData) => ({
-                url: "/Contact_form_Lambda",
+                url: "/contact",
                 method: "POST",
                 body: contactData,
             }),
+        }),
+        sendPasswordResetEmail: builder.mutation<LambdaResponse, PasswordResetReqLambdaRequest>({
+            query: (passwordData) => ({
+                url: "/password/token",
+                method: "POST",
+                body: passwordData,
+            }),
+        }),
+        verifyToken: builder.mutation<LambdaResponse, VerifyTokenLambdaRequest>({
+            query: (tokenData) => ({
+                url: "/password/validate-token",
+                method: "PATCH",
+                body: tokenData,
+                credentials: 'include'
+            })
+        }),
+        resetPassword: builder.mutation<LambdaResponse, PasswordResetLambdaRequest>({
+            query: (passwordData) => ({
+                url: "/password/reset",
+                method: "POST",
+                body: passwordData,
+                credentials: "include"
+            })
         })
     })
 })
 
-export const { useSendContactEmailMutation } = lambdaApiSlice;
+export const { 
+    useSendContactEmailMutation,
+    useSendPasswordResetEmailMutation, 
+    useVerifyTokenMutation, 
+    useResetPasswordMutation
+} = lambdaEmailApiSlice;

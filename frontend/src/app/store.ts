@@ -2,18 +2,17 @@ import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./api/apiSlice";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import authReducer from "./auth/authSlice"
-import { lambdaApiSlice } from "./lambdas/lambda.ts";
+import { lambdaEmailApiSlice } from "./lambdas/lambda.ts";
 
 export const store = configureStore({
     reducer: {
         [apiSlice.reducerPath]: apiSlice.reducer,
-        [lambdaApiSlice.reducerPath]: lambdaApiSlice.reducer,
+        [lambdaEmailApiSlice.reducerPath]: lambdaEmailApiSlice.reducer,
         auth: authReducer,
     },
-    middleware: getDefaultMiddleware =>
-        getDefaultMiddleware()
-            .concat(apiSlice.middleware)
-            .concat(lambdaApiSlice.middleware),
+    middleware: getDefaultMiddleware => getDefaultMiddleware()
+        .concat(apiSlice.middleware)
+        .concat(lambdaEmailApiSlice.middleware),
     devTools: true
 })
 

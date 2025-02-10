@@ -8,6 +8,8 @@ const LoginPage = lazy(() => import("../../pages/loginpage/login.tsx"))
 const SearchBarPage = lazy(() => import("../../pages/searchpage/searchbarpage.tsx"))
 const PrivacyPolicyPage = lazy(() => import("../../pages/privacypolicypage/privacypolicypage.tsx"))
 const SiteHelpPage = lazy(() => import("../../pages/sitehelppage/Documentation.tsx"))
+const ContactPage = lazy(() => import("../../pages/ContactPage/Contact.tsx"))
+const PasswordResetPage = lazy(() => import("../../pages/ResetPasswordPage/requestpasswordreset.tsx"))
 
 export function LoadingWrapper({ children }: { children: React.ReactNode}) {
     const location = useLocation();
@@ -29,6 +31,10 @@ export function LoadingWrapper({ children }: { children: React.ReactNode}) {
                 return <PrivacyPolicyPage />
             case '/FAQ':
                 return <SiteHelpPage />
+            case '/contact':
+                return <ContactPage />
+            case "./passwordreset":
+                return <PasswordResetPage />
             default:
                 return null
         }

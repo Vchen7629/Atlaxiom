@@ -1,18 +1,18 @@
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { AuthenticationState } from '../types/hometypes';
+import { AuthenticationState } from '../../../components/footer/types/hometypes';
+import { useSelector } from 'react-redux';
 import { startTransition } from 'react';
 
-const PrivacyPolicy = () => {
+const ContactUs = () => {
   const navigate = useNavigate();
   const authenticated = useSelector((state: AuthenticationState) => state.auth.token !== null);
 
   function handleButtonClick() {
     startTransition(() => {
       if (authenticated) {
-        navigate("/privacyloggedin")
+        navigate("/contactloggedin")
       } else {
-        navigate('/privacy');
+        navigate('/contact');
       }
     })
   };
@@ -20,13 +20,13 @@ const PrivacyPolicy = () => {
   return (
     <div>
         <button 
-          className="bg-transparent text-gray-300 cursor-pointer hover:text-gold"
-          onClick={handleButtonClick} 
+          className="bg-transparent text-gray-300 cursor-pointer hover:text-gold" 
+          onClick={handleButtonClick}
         >
-            Privacy Policy
+          Contact
         </button>
     </div>
   );
 }
 
-export default PrivacyPolicy;
+export default ContactUs;

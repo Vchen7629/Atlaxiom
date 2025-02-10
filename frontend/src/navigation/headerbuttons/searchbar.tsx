@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
-import { AuthenticationState } from '../types/searchbartypes';
+import { AuthenticationState } from '../../components/header/types/searchbartypes';
 import { startTransition } from 'react';
 
 const Cardsearch = () => {

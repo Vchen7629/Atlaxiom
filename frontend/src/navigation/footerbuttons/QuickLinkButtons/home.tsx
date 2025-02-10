@@ -1,19 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { AuthenticationState } from '../types/hometypes';
 import { startTransition } from 'react';
+import { AuthenticationState } from '@/components/header/types/searchbartypes';
 
-const CardSearch = () => {
+const Home = () => {
   const navigate = useNavigate();
   const authenticated = useSelector((state: AuthenticationState) => state.auth.token !== null);
 
   function handleButtonClick() {
     startTransition(() => {
-        if (authenticated) {
-            navigate('/searchloggedin');
-        } else {
-            navigate('/search')
-        }
+      if (authenticated ) {
+        navigate('/loggedin');
+      } else {
+        navigate('/')
+      }
     })
   };
 
@@ -23,10 +23,10 @@ const CardSearch = () => {
           className="bg-transparent text-gray-300 cursor-pointer hover:text-gold" 
           onClick={handleButtonClick}
         >
-          Card Search
+          Home
         </button>
     </div>
   );
 }
 
-export default CardSearch;
+export default Home;

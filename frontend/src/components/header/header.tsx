@@ -1,14 +1,14 @@
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import Cardsearch from './headerbuttons/searchbar.tsx'
-import Mycards from './headerbuttons/my-cards.tsx'
-import Login from './headerbuttons/login.tsx'
-import Mydecks from './headerbuttons/my-decks.tsx'
+import Cardsearch from '../../navigation/headerbuttons/searchbar.tsx'
+import Mycards from '../../navigation/headerbuttons/my-cards.tsx'
+import Login from '../../navigation/headerbuttons/login.tsx'
+import Mydecks from '../../navigation/headerbuttons/my-decks.tsx'
 import { ModeToggle } from "../shadcn_components/darklightmode/mode-toggle.tsx"
 import { AuthenticationState } from './types/headertypes.ts'
-import Signup from './headerbuttons/signup.tsx'
+import Signup from '../../navigation/headerbuttons/signup.tsx'
 import { startTransition } from 'react'
-import { HeaderDropdown } from './dropdownmenu/dropdown.tsx'
+import { HeaderDropdown } from './dropdown.tsx'
 import { LoggedInDropdownMenu } from '../accountbuttons/navbuttons/dropdownmenu.tsx'
 
 const Header = () => {

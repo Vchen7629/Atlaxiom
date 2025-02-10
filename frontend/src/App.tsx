@@ -2,7 +2,6 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import StayLoggedIn from './app/auth/stayloggedin.tsx';
 import { lazy, useEffect } from 'react';
 import { LoadingWrapper } from './components/loadingcomponents/loadingwrapper.tsx';
-import ContactPage from './pages/ContactPage/Contact.tsx';
 
 const SearchResults = lazy(() => (import('./pages/searchpage/searchresults.tsx')))
 const HomePage = lazy(() => (import("./pages/homepage/homepage.tsx")))
@@ -15,6 +14,10 @@ const UserOwnedCardPage = lazy(() => import("./pages/my-cards/ownedCardPage.tsx"
 const MyDeck = lazy(() => import("./pages/my-decks/deckpagehomepage.tsx"))
 const DeckBuilderPage = lazy(() => import("./pages/my-decks/editdeckpage.tsx"))
 const Profilepage = lazy(() => import("./pages/profilepage/Profilepage.tsx"))
+const ContactPage = lazy(() => import("./pages/ContactPage/Contact.tsx"))
+const RequestPasswordResetPage = lazy(() => import("./pages/ResetPasswordPage/requestpasswordreset.tsx"))
+const PasswordResetPage = lazy(() => import("./pages/ResetPasswordPage/passwordreset.tsx"))
+
 
 function App() {
   const location = useLocation();
@@ -35,6 +38,8 @@ function App() {
         <Route path="/privacy" element={<PrivacyPolicyPage/>}/>
         <Route path="/FAQ" element={<SiteHelpPage/>}/>
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/requestpasswordreset" element={<RequestPasswordResetPage/>} />
+        <Route path="/password-reset/:token" element={<PasswordResetPage />} />
 
         <Route element={<StayLoggedIn/>}>
           <Route path="/loggedin" element={<HomePage/>}/>
