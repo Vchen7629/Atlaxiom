@@ -24,15 +24,19 @@ services:
 
 
   loginapi: 
-    image: ghcr.io/vchen7629/atlaxiom-backend:prod
+    image: ghcr.io/vchen7629/atlaxiom-loginapi:prod
     ports:
       - 8443:8443 # alternative port for https since 443 is in use by frontend
     labels:
       - com.centurylinklabs.watchtower.enable=true
+    secrets:
+      - node-env
+      - mongodb-db-uri
+      - access-token-secret
+      - refresh-token-secret
     volumes:
       - /etc/letsencrypt/live/api.atlaxiom.com/privkey.pem:/etc/letsencrypt/live/api.atlaxiom.com/privkey.pem:ro # Read only lets encrypt generated cert
       - /etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem:/etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem:ro # Read only lets encrypt generated private key\
-      - ./loginapi/.env:/loginapi/.env:ro
     environment:
       - NODE_ENV_FILE=/run/secrets/node-env
       - DATABASE_URI_FILE=/run/secrets/mongodb-db-uri
@@ -40,6 +44,34 @@ services:
       - REFRESH_TOKEN_SECRET_FILE=/run/secrets/refresh-token-secret
     healthcheck:
       test: ["CMD-SHELL", "curl -k --retry 3 --retry-connrefused https://api.atlaxiom.com:8443 || exit 1"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 3
+      start_period: 30s
+
+  emailapi: 
+    image: ghcr.io/vchen7629/atlaxiom-emailapi:prod
+    ports:
+      - 8440:8440 # alternative port for https since 443 is in use by frontend
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    secrets:
+      - node-env
+      - mongodb-db-uri
+      - dynamodb-access-key
+      - dynamodb-secret-key
+      - api-key
+    volumes:
+      - /etc/letsencrypt/live/api.atlaxiom.com/privkey.pem:/etc/letsencrypt/live/api.atlaxiom.com/privkey.pem:ro # Read only lets encrypt generated cert
+      - /etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem:/etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem:ro # Read only lets encrypt generated private key\
+    environment:
+      - NODE_ENV_FILE=/run/secrets/node-env
+      - MONGODB_DATABASE_URI_FILE=/run/secrets/mongodb-db-uri
+      - DYNAMODB_ACCESS_KEY_FILE=/run/secrets/dynamodb-access-key
+      - DYNAMODB_SECRET_KEY_FILE=/run/secrets/dynamodb-secret-key
+      - API_KEY_FILE=/run/secrets/api-key
+    healthcheck:
+      test: ["CMD-SHELL", "curl -k --retry 3 --retry-connrefused https://api.atlaxiom.com:8440 || exit 1"]
       interval: 1m30s
       timeout: 30s
       retries: 3
@@ -54,3 +86,9 @@ services:
       file: ./loginapi/secrets/access_token_secret.txt
     refresh-token-secret:
       file: ./loginapi/secrets/refresh_token_secret.txt
+    dynamodb-access-key:
+      file: ./emailapi/secrets/dynamodb_access_key.txt
+    dynamodb-secret-key:
+      file: ./emailapi/secrets/dynamodb_secret_key.txt
+    api-key:
+      file: ./emailapi/secrets/api_key.txt

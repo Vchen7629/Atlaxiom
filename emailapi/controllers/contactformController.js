@@ -41,24 +41,19 @@ const SendContactEmail = asyncHandler(async (req, res) => {
                     'x-api-key': API_KEY
                 },
                 body: JSON.stringify({
-                    email: email,
-                    username: username,
-                    subject: subject,
-                    body: body
+                    email,
+                    username,
+                    subject,
+                    body
                 }),
             }
         )
 
         if (!Lambda.ok) {
-            const errorData = await response.json();
-            console.error('Lambda error:', errorData);
-            return res.status(response.status).json({ 
-                message: "Failed to send email",
-                error: errorData
-            });
+            return res.status(400).json({ message: "Failed to send email" });
         }
         const LambdaData = await Lambda.json();
-        return res.status(200).json({ message: `Successfully called Lambda`, LambdaData});
+        return res.status(200).json({ message: "Successfully called Lambda", LambdaData});
     } catch (error) {
         console.error('Lambda request failed:', error);
         return res.status(500).json({ message: "Failed to send reset email" });

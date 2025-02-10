@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors')
 const corsOptions = require('./config/corsOptions')
 const cookieParser = require('cookie-parser')
-//const fs = require('fs')
+const fs = require('fs')
 const https = require('https');
 const checkHost = require('./middleware/checkhostname')
 const app = express();
@@ -48,7 +48,7 @@ const startServer = async () => {
         }
     } catch (error) {
         console.error('Failed to start server:', error);
-        process.exit(1);
+        process.exit(1); // skipcq: JS-0263
     }
 }
 

@@ -34,7 +34,8 @@ const LoginPage = () => {
     
 
     const content = (
-        <main className="min-h-[100vh] flex flex-col justify-between">
+        // skipcq: JS-0415
+        <main className="min-h-[100vh] flex flex-col justify-between"> 
             <Toaster richColors  expand visibleToasts={4} position="bottom-center"/>
             <Header/>
             <div className="flex relative h-[95vh] w-full bg-[hsl(var(--background1))] justify-center overflow-hidden ">

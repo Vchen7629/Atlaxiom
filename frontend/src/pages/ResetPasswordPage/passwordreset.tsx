@@ -33,7 +33,7 @@ const PasswordResetPage = () => {
                 {(isSuccess || isLoading)? (
                     <div className="flex flex-col w-full mt-[20vh] px-[2%] space-y-[2vh] items-center">              
                         <span className="text-3xl font-bold text-[hsl(var(--background3))]">Reset Password</span>
-                        <span className="text-md text-gray-400 w-[25%] text-center">No worries! Enter your email below, and we'll send you a link to reset your password.</span>
+                        <span className="text-md text-gray-400 w-[25%] text-center">No worries! Enter your email below, and we&apos;ll send you a link to reset your password.</span>
                         <div className="w-[20vw]">
                                 <PasswordResetForm/>
                         </div>

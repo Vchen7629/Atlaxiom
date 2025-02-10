@@ -37,7 +37,7 @@ const PasswordToken = asyncHandler(async (req, res) => {
     const filterbyemail = new GetCommand({
         TableName: "email-bounces",
         Key: {
-            email: email
+            email
         }
     });
 
@@ -77,14 +77,14 @@ const PasswordToken = asyncHandler(async (req, res) => {
                                 'x-api-key': API_KEY
                             },
                             body: JSON.stringify({
-                                email: email,
+                                email,
                                 username: foundUser.username,
                                 token: token.token,
                             })
                         }
                     );
                     const LambdaData = await Lambda.json();
-                    return res.status(200).json({ message: `Successfully called Lambda`, LambdaData});
+                    return res.status(200).json({ message: "Successfully called Lambda", LambdaData});
                 } catch (error) {
                     return res.status(500).json({ message: "Failed to send reset email" });
                 }
@@ -142,7 +142,7 @@ const VerifyResetToken = async (req, res) => {
         secure: true,
         sameSite: "none",
         maxAge: 900000
-    }),
+    })
 
     res.status(200).json({ message: "Valid reset Link" });
 };

@@ -80,7 +80,7 @@ export function LoginForm() {
           }
     }
 
-    async function onSubmit(event: React.MouseEvent<HTMLButtonElement>) {
+    function onSubmit(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
         const values = form.getValues();
         const promise = handleSubmit(values);
