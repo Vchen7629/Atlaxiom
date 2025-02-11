@@ -29,6 +29,12 @@ const PasswordToken = asyncHandler(async (req, res) => {
     }
     
     const foundUser = await User.findOne({ email }).exec();
+
+    if (!foundUser) {
+        return res.status(200).json({ 
+            message: 'If an account exists with this email, you will receive reset instructions' 
+        });
+    }
     
     const filterbyemail = new GetCommand({
         TableName: "email-bounces",
@@ -43,7 +49,6 @@ const PasswordToken = asyncHandler(async (req, res) => {
         throw new Error('Api key is missing.');
     }
     
-    if (foundUser) {
         try {
             const response = await dynamoDB.send(filterbyemail);
             
@@ -96,7 +101,6 @@ const PasswordToken = asyncHandler(async (req, res) => {
         } catch (error) {
             return res.status(500).json({ message: "Error checking email status" });
         }
-    }
 })
 
 // @desc Verify the Reset Token passed from lambda is valid and set a sessionId to it so it cant be used again
