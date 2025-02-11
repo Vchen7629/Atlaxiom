@@ -30,10 +30,6 @@ const PasswordToken = asyncHandler(async (req, res) => {
     
     const foundUser = await User.findOne({ email }).exec();
     
-    if (!foundUser) {
-        return res.status(401).json({ message: "User Doesn't exist" });
-    }
-    
     const filterbyemail = new GetCommand({
         TableName: "email-bounces",
         Key: {
@@ -47,57 +43,59 @@ const PasswordToken = asyncHandler(async (req, res) => {
         throw new Error('Api key is missing.');
     }
     
-    try {
-        const response = await dynamoDB.send(filterbyemail);
-        
-        if (!response.Item) {
-            const resetToken = crypto.randomBytes(32).toString('hex');
+    if (foundUser) {
+        try {
+            const response = await dynamoDB.send(filterbyemail);
             
-            const token = await PasswordResetTokenSchema.findOneAndUpdate(
-                { email },
-                {
-                    token: resetToken,
-                    sessionId: null,
-                    createdAt: Date.now()
-                },
-                {
-                    new: true,
-                    upsert: true
+            if (!response.Item) {
+                const resetToken = crypto.randomBytes(32).toString('hex');
+                
+                const token = await PasswordResetTokenSchema.findOneAndUpdate(
+                    { email },
+                    {
+                        token: resetToken,
+                        sessionId: null,
+                        createdAt: Date.now()
+                    },
+                    {
+                        new: true,
+                        upsert: true
+                    }
+                );
+                
+                if (token) {
+                    try {
+                        const Lambda = await fetch(
+                            "https://1e9a40ob22.execute-api.us-west-1.amazonaws.com/Prod/password",
+                            {
+                                method: "POST",
+                                headers: {
+                                    'content-type': 'application/json',
+                                    'x-api-key': API_KEY
+                                },
+                                body: JSON.stringify({
+                                    email,
+                                    username: foundUser.username,
+                                    token: token.token,
+                                })
+                            }
+                        );
+                        const LambdaData = await Lambda.json();
+                        return res.status(200).json({ message: "Successfully called Lambda", LambdaData});
+                    } catch (error) {
+                        return res.status(500).json({ message: "Failed to send reset email" });
+                    }
+                } else {
+                    return res.status(400).json({ message: "Invalid user data received" });
                 }
-            );
-            
-            if (token) {
-                try {
-                    const Lambda = await fetch(
-                        "https://1e9a40ob22.execute-api.us-west-1.amazonaws.com/Prod/password",
-                        {
-                            method: "POST",
-                            headers: {
-                                'content-type': 'application/json',
-                                'x-api-key': API_KEY
-                            },
-                            body: JSON.stringify({
-                                email,
-                                username: foundUser.username,
-                                token: token.token,
-                            })
-                        }
-                    );
-                    const LambdaData = await Lambda.json();
-                    return res.status(200).json({ message: "Successfully called Lambda", LambdaData});
-                } catch (error) {
-                    return res.status(500).json({ message: "Failed to send reset email" });
-                }
-            } else {
-                return res.status(400).json({ message: "Invalid user data received" });
             }
+            
+            if (response.Item) {
+                return res.status(400).json({ message: "Email bounced in the past"});
+            }
+        } catch (error) {
+            return res.status(500).json({ message: "Error checking email status" });
         }
-        
-        if (response.Item) {
-            return res.status(400).json({ message: "Email bounced in the past"});
-        }
-    } catch (error) {
-        return res.status(500).json({ message: "Error checking email status" });
     }
 })
 
