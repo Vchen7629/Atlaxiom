@@ -58,8 +58,8 @@ export function PasswordResetForm() {
         try {
             await resetPassword(payload).unwrap();
             navigate("/login")
-        } catch (error) {
-            throw error;
+        } catch {
+            throw new Error;
         }
     }
 

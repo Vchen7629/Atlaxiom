@@ -79,8 +79,8 @@ export function ContactForm() {
         };
         try {
             await sendContactEmail(payload).unwrap();
-        } catch (error) {
-            throw error
+        } catch {
+            throw new Error
         }
     }
 

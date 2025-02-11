@@ -42,8 +42,8 @@ export function RequestPasswordResetForm() {
 
         try {
             await sendPasswordResetEmail(payload).unwrap();
-        } catch (error) {
-            throw error
+        } catch {
+            throw new Error
         }
     }
 
@@ -81,7 +81,7 @@ export function RequestPasswordResetForm() {
                     )}
                 />
                  <Button type="submit" className="px-6 py-2 rounde-lg bg-[hsl(var(--background3))] font-bold">
-                    {isSuccess ? (
+                 {isSuccess ? (
                         <FontAwesomeIcon icon={faCheck} />
                     ) : isError ? (
                         <FontAwesomeIcon icon={faX} />
