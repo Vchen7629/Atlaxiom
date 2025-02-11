@@ -18,16 +18,17 @@ import { Input } from "@/components/ui/input"
 import { useSendPasswordResetEmailMutation } from "@/app/lambdas/lambda"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCheck, faX } from "@fortawesome/free-solid-svg-icons"
+import { toast } from "sonner"
 
 const formSchema = z.object({
-    email: z.string().min(1, {
-        message: "No Username entered"
+    email: z.string().email({
+        message: "Please Enter a Valid Email"
     }),
 })
 
 
 export function RequestPasswordResetForm() {
-    const [sendPasswordResetEmail, { isSuccess, isLoading, isError}] = useSendPasswordResetEmailMutation();
+    const [sendPasswordResetEmail, {isSuccess, isError}] = useSendPasswordResetEmailMutation();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -36,15 +37,30 @@ export function RequestPasswordResetForm() {
         },
     })
 
-    async function onSubmit(values: z.infer<typeof formSchema>) {
+    async function handleRequestPasswordEmail(values: z.infer<typeof formSchema>) {
         const payload = { email: values.email };
 
         try {
-            const response = await sendPasswordResetEmail(payload).unwrap();
-            console.log("success.", response)
-        } catch (error) {
-            console.error('Error:', error);
+            await sendPasswordResetEmail(payload).unwrap();
+        } catch {
+            throw new Error
         }
+    }
+
+    function onSubmit() {
+        const values = form.getValues();
+        const promise =  handleRequestPasswordEmail(values);
+        toast.promise(promise, {
+            loading: "loading...",
+            success: () => "If an account exists with this email address, you will receive password reset instructions shortly.",
+            error: (error) => {
+                if (error?.status === 500) {
+                    return error?.data?.message || "Invalid Username or Password";
+                } else {
+                    return "An unexpected error occurred";
+                }
+            }
+        })
     }
    
 
@@ -65,7 +81,7 @@ export function RequestPasswordResetForm() {
                     )}
                 />
                  <Button type="submit" className="px-6 py-2 rounde-lg bg-[hsl(var(--background3))] font-bold">
-                    {(isSuccess || isLoading) ? (
+                 {isSuccess ? (
                         <FontAwesomeIcon icon={faCheck} />
                     ) : isError ? (
                         <FontAwesomeIcon icon={faX} />

@@ -20,13 +20,14 @@ import { useEffect } from "react"
 import { useSendContactEmailMutation } from "@/app/lambdas/lambda.ts"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCheck, faX } from "@fortawesome/free-solid-svg-icons"
+import { toast } from "sonner"
 
 const formSchema = z.object({
     username: z.string().min(1, {
         message: "Username is required for contact"
     }),
-    email: z.string().min(2, {
-            message: "Email must be at least 2 characters."
+    email: z.string().email({
+            message: "Please enter a valid email"
     }),
     subject: z.union([
         z.string().max(200, {
@@ -46,7 +47,7 @@ export function ContactForm() {
     const email = useSelector((state: { auth: { email: string } }) => state.auth.email);
     console.log(email)
     const username = useSelector((state: { auth: { username: string } }) => state.auth.username);
-    const [sendContactEmail, { isSuccess, isLoading, isError}] = useSendContactEmailMutation();
+    const [sendContactEmail, { isSuccess, isError}] = useSendContactEmailMutation();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -69,7 +70,7 @@ export function ContactForm() {
         }
     }, [email, username, form]);
 
-    async function onSubmit(values: z.infer<typeof formSchema>) {
+    async function handleSendContactEmail(values: z.infer<typeof formSchema>) {
         const payload = {
             username: values.username,
             email: values.email,
@@ -77,12 +78,27 @@ export function ContactForm() {
             body: values.body
         };
         try {
-            const response = await sendContactEmail(payload).unwrap();
-            console.log("success.", response)
-        } catch (error) {
-            console.error('Error:', error);
+            await sendContactEmail(payload).unwrap();
+        } catch {
+            throw new Error
         }
     }
+
+    function onSubmit() {
+        const values = form.getValues();
+        const promise = handleSendContactEmail(values);
+        toast.promise(promise, {
+            loading: "loading...",
+            success: () => "Successfully sent your Contact Email",
+            error: (error) => {
+                if (error?.status === 400) {
+                    return error?.data?.message || "Failed to send email";
+                } else {
+                    return "An unexpected error occurred";
+                }
+            }
+        })
+    }   
 
     return (
         <Form {...form}>
@@ -143,7 +159,7 @@ export function ContactForm() {
                     )}
                 />
                 <Button type="submit" className="px-6 py-2 rounde-lg bg-[hsl(var(--background3))] font-bold">
-                    {(isSuccess || isLoading) ? (
+                    {isSuccess ? (
                         <FontAwesomeIcon icon={faCheck} />
                     ) : isError ? (
                         <FontAwesomeIcon icon={faX} />

@@ -17,11 +17,8 @@ const getSecret = (filePath, envVar) => {
 // @route POST /token
 // @access Public
 const SendContactEmail = asyncHandler(async (req, res) => {
-    console.log('🔥 START: Contact Email Request');
-    console.log('Request body:', JSON.stringify(req.body, null, 2));
     try {
         const API_KEY = getSecret(process.env.API_KEY_FILE, process.env.API_KEY);
-        console.log('API Key retrieved:', API_KEY ? 'Present' : 'Missing');
 
         if (!API_KEY) {
             throw new Error('Api key is missing.');
@@ -36,7 +33,6 @@ const SendContactEmail = asyncHandler(async (req, res) => {
             })
         }
 
-        console.log('Making Lambda request...');
         const Lambda = await fetch(
             "https://1e9a40ob22.execute-api.us-west-1.amazonaws.com/Prod/contact", {
                 method: "POST",
@@ -53,18 +49,12 @@ const SendContactEmail = asyncHandler(async (req, res) => {
             }
         )
 
-        console.log('Lambda response status:', Lambda.status);
         if (!Lambda.ok) {
             return res.status(400).json({ message: "Failed to send email" });
         }
         const LambdaData = await Lambda.json();
         return res.status(200).json({ message: "Successfully called Lambda", LambdaData});
     } catch (error) {
-        console.error('Detailed error:', {
-            name: error.name,
-            message: error.message,
-            stack: error.stack
-        });
         return res.status(500).json({ 
             message: "Failed to send reset email",
             error: error.message
