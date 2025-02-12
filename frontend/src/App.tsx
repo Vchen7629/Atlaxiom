@@ -17,6 +17,7 @@ const Profilepage = lazy(() => import("./pages/profilepage/Profilepage.tsx"))
 const ContactPage = lazy(() => import("./pages/ContactPage/Contact.tsx"))
 const RequestPasswordResetPage = lazy(() => import("./pages/ResetPasswordPage/requestpasswordreset.tsx"))
 const PasswordResetPage = lazy(() => import("./pages/ResetPasswordPage/passwordreset.tsx"))
+const InvalidPage = lazy(() => import("./pages/404page/404.tsx"))
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
     <LoadingWrapper>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="*" element={<InvalidPage/>}/>
         <Route path="/signup" element={<SignUpPage/>}/>
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/search" element={<SearchBarPage/>}/>

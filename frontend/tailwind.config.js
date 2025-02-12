@@ -53,7 +53,8 @@ export default {
   				DEFAULT: '#222222'
   			},
 			'google-gray': '#F2F2F2',
-			'google-black': "#131314"
+			'google-black': "#131314",
+			deckpage: 'linear-gradient(45deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%)',
   		},
   		boxShadow: {
   			custom: '0 4px 30px rgba(0, 0, 0, 0.5)',
@@ -62,6 +63,16 @@ export default {
   			'inner-border': 'inset 0 0 0 4px rgba(55, 65, 81, 1)'
   		},
   		keyframes: {
+			pulse: {
+				'0%': {
+					transform: 'translate(-50%, -50%) scale(0)',
+					opacity: '0.5'
+				},
+				'100%': {
+					transform: 'translate(-50%, -50%) scale(1)',
+					opacity: '0'
+				}
+			},
   			skFoldCube: {
   				'0%, 10%': {
   					transform: 'perspective(140px) rotateX(-180deg)',
@@ -107,14 +118,26 @@ export default {
   				to: {
   					height: '0'
   				}
-  			}
+  			},
+			"fade-in-up": {
+				"0%": {
+					opacity: "0",
+					transform: "translateY(10px)"
+				},
+				"100%": {
+					opacity: "1",
+					transform: "translateY(0)"
+				},
+			}
   		},
   		animation: {
   			marquee: 'marquee var(--duration) infinite linear',
   			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
   			skFoldCube: 'skFoldCube 2.4s infinite linear both',
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+			pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) forwards',
+			"fade-in-up": "fade-in-up 0.3s ease-out forwards"
   		}
   	}
   },

@@ -25,7 +25,7 @@ const chartConfig = {
   },
   totalCards: {
     label: "total",
-    color: "hsl(var(--chart-2))",
+    color: "hsl(var(--background3))",
   },
 } satisfies ChartConfig
 
@@ -47,7 +47,7 @@ export function ComponentRadialChart() {
 
     return (
         // skipcq: JS-0415
-        <Card className="flex flex-col bg-[hsl(var(--profilebackground))] items-center border-transparent rounded-xl">
+        <Card className="flex flex-col bg-[hsl(var(--contrast))] items-center border-transparent rounded-xl shadow-lg">
         <CardHeader>
             <CardTitle className="text-[hsl(var(--text) mb-[2vh]">Collection status</CardTitle>
         </CardHeader>
@@ -102,7 +102,7 @@ export function ComponentRadialChart() {
                     dataKey="total"
                     stackId="a"
                     cornerRadius={5}
-                    fill="hsl(var(--background1))"
+                    fill=""
                     className="stroke-transparent stroke-2"
                 />
                 <RadialBar

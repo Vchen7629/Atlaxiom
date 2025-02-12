@@ -84,8 +84,8 @@ const EditAccountPage = ({ usersData, refetch }: EditAccount) => {
     }
 
     return (
-        <div className="flex flex-col lg:flex-row pl-8 pt-8 bg-[hsl(var(--profilebackground))] rounded-xl">
-            <section className="flex xl:hidden w-full pr-[5vw] h-fit mb-2 items-center justify-between">
+        <div className="animate-fade-in-up flex flex-col lg:flex-row rounded-xl">
+            <section className="flex xl:hidden w-full pr-[5vw] bg-[hsl(var(--contrast))] h-fit mb-2 items-center justify-between rounded-lg shadow-md pl-3">
                 {changeUsername ? (
                     <header className="flex h-fit items-center space-x-4 xl:hidden font-bold text-xl text-[hsl(var(--text))]">
                         <FontAwesomeIcon icon={faUser} className="text-[hsl(var(--background3))] fa-xl" />
@@ -118,7 +118,7 @@ const EditAccountPage = ({ usersData, refetch }: EditAccount) => {
                     <FontAwesomeIcon icon={faCaretDown} className="text-[hsl(var(--text))]"/>
                 </select>
             </section>
-            <section className="hidden xl:flex flex-col h-full w-1/4 space-y-6 text-xl text-[hsl(var(--text))]">
+            <section className="hidden xl:flex flex-col h-fit w-fit mr-[2vw] py-[3vh] px-[2vw] max-w-1/4 space-y-6 text-xl bg-[hsl(var(--contrast))] text-[hsl(var(--text))] rounded-xl shadow-md">
                 <button className="w-full flex items-center space-x-6" onClick={handleChangeUserNameClick}>
                     <div className={`flex items-center justify-center w-10 h-10 ${changeUsername ? "bg-[hsl(var(--background3))]" : "bg-footer text-white"} rounded-xl`}>
                         <FontAwesomeIcon icon={faUser}/>
@@ -144,7 +144,7 @@ const EditAccountPage = ({ usersData, refetch }: EditAccount) => {
                     <span>Delete Account</span>
                 </button>
             </section>
-            <section className="h-[50vh] w-full lg:w-3/4 ">
+            <section className="h-[50vh] w-full bg-[hsl(var(--contrast))] rounded-xl  lg:py-[3vh] px-[2vw] lg:w-3/4 shadow-lg">
                 {changeUsername && (
                     <div className="flex flex-col">
                         <header className="hidden xl:flex font-bold text-3xl text-[hsl(var(--text))]">Change Username</header>

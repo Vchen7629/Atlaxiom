@@ -43,7 +43,7 @@ export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {
             {listView && (
                 <>
                     <button 
-                        className="text-[hsl(var(--text))] px-1 lg:px-2 py-1 border-[1px] border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" 
+                        className="text-[hsl(var(--text))] px-1 lg:px-2 py-1 border-[1px]  border-gray-400 rounded-lg hover:border-[hsl(var(--background3))] disabled:text-gray-400 disabled:hover:border-gray-400" 
                         disabled={currentListPage === 1} 
                         onClick={PrevPageList}
                     >

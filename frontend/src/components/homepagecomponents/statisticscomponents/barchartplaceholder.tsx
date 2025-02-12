@@ -10,8 +10,6 @@ import {
 import {
   ChartConfig,
   ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
 } from "@/components/ui/chart"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons"
@@ -43,7 +41,7 @@ const chartConfig = {
 export function BarChartPlaceholder() {
   return (
     // skipcq: JS-0415
-    <Card className="w-[80%]"> 
+    <Card> 
       <CardHeader>
         <div className="flex flex-col space-y-2 text-sm">
             <div className="w-full flex justify-between items-center">
@@ -67,10 +65,6 @@ export function BarChartPlaceholder() {
               tickMargin={10}
               axisLine={false}
               tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="dashed" />}
             />
             <Bar dataKey="card" fill="goldenrod" radius={2} />
             <Bar dataKey="deck" fill="gold" radius={2} />

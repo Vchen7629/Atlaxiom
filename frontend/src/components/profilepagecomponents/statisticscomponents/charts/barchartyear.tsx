@@ -88,7 +88,7 @@ export function ComponentBarChart({ yearprops }: Year): JSX.Element {
     
 
     return (
-      <Card className="relative w-full lg:w-[60vw] bg-[hsl(var(--profilebackground))] rounded-xl">
+      <Card className="relative w-full lg:w-[60vw] bg-[hsl(var(--contrast))] rounded-xl shadow-lg">
         <CardHeader>
           <section className="flex w-full  justify-between">
             <div className="flex flex-col space-y-2">
@@ -123,7 +123,7 @@ export function ComponentBarChart({ yearprops }: Year): JSX.Element {
               />
               <Bar 
                 dataKey="decks" 
-                fill="goldenrod" 
+                fill="hsl(var(--background3))" 
                 minPointSize={5}
               />
               <Bar 

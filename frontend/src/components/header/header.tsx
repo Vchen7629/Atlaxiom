@@ -43,7 +43,7 @@ const Header = () => {
     )};
 
     return (
-        <header className="fixed justify-between items-center z-50 top-0 left-0 w-full flex py-2 text-white bg-[hsl(var(--header))] bg-opacity-60 backdrop-blur-md backdrop-brightness-150 px-2.5">
+        <header className="fixed justify-between items-center z-50 top-0 left-0 w-full flex py-2 text-white bg-[hsl(var(--header))] bg-opacity-60 backdrop-blur-md backdrop-brightness-150 px-2.5 shadow-md">
             <div className="w-fit flex py-2.5 ml-2.5">
                 <div className='w-fit flex'>
                     <div className="mr-[1vw] hidden xl:flex"><Cardsearch/></div>

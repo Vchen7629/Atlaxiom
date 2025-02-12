@@ -71,7 +71,7 @@ const SearchCard = ({ name, description, icon, color }: Item) => {
           <figcaption className="flex flex-row items-center whitespace-pre text-lg font-medium dark:text-white ">
             <span className="text-sm sm:text-lg text-[hsl(var(--background3))]">{name}</span>
           </figcaption>
-          <p className="text-xs lg:text-sm font-normal dark:text-white/60">
+          <p className="text-xs lg:text-sm font-normal text-[hsl(var(--text))]">
             {description}
           </p>
         </div>
@@ -88,7 +88,9 @@ export function AnimatedSearchSuggestionList({
   return (
     <div
       className={cn(
-        "absolute top-8 lg:top-4 mt-[10vh] h-[150px] lg:h-[300px] w-full border-none transition-all duration-300000 ease-out [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] group-hover:scale-105",
+        "relative h-[150px] lg:h-[300px] mt-[2vh] w-full overflow-hidden [mask-image:linear-gradient(to_top,transparent_1%,#000_100%)]",
+        "before:absolute before:inset-x-0 before:top-0 before:h-12 ",
+        "after:absolute after:inset-x-0 after:bottom-0 after:h-12 ",
         className,
       )}
     >

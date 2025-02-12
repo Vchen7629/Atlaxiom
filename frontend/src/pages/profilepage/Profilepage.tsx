@@ -164,7 +164,7 @@ const Profilepage = () => {
         <main className="min-h-[100vh] flex flex-col justify-center">
             <Header/>
             <Toaster richColors  expand visibleToasts={4}/>
-            <div className="flex justify-center pt-[10vh] bg-[hsl(var(--background1))] min-h-[120vh]">
+            <div className="flex justify-center pt-[10vh] bg-[hsl(var(--bentogridbackground))] min-h-[120vh]">
                 <div className="flex flex-col w-full px-[5%] lg:px-[10%] my-[3%]">
                     <div className="flex flex-col align-center w-full">
                         {renderProfileContent()}
