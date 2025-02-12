@@ -30,8 +30,8 @@ export function MappedListDeck({ MappedListProps }: MappedList) {
     return (
         <div className="flex flex-col animate-fade-in-up">
             {currentPageListDecksArray.map((deck: Deck) => (
-                <div 
-                    key={deck._id}
+                <div // skipcq: JS-0415
+                    key={deck._id} 
                     className={`flex h-[10vh] px-2 justify-between rounded-xl items-center mb-3 bg-[hsl(var(--contrast))] shadow-lg border-[2px] ${deck.favorite ? "border-[hsl(var(--background3))]" : "border-transparent"} hover:scale-105 transition-transform duration-200 `}
                     onClick={() => handleDeckClick(deck)}
                     role="button"

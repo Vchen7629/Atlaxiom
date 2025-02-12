@@ -90,6 +90,7 @@ const DeckPageHomepage = () => {
 
 
     return (
+        // skipcq: JS-0415
         <main className="min-h-[110vh] flex flex-col bg-[hsl(var(--bentogridbackground))] justify-between">
             <Header/>
             <div className="flex flex-col items-center lg:items-start py-[15vh]">

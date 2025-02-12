@@ -88,6 +88,7 @@ export function ComponentBarChart({ yearprops }: Year): JSX.Element {
     
 
     return (
+      // skipcq: JS-0415
       <Card className="relative w-full lg:w-[60vw] bg-[hsl(var(--contrast))] rounded-xl shadow-lg">
         <CardHeader>
           <section className="flex w-full  justify-between">

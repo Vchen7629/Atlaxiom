@@ -35,6 +35,7 @@ const chartConfig = {
 
 export function PieChartPlaceholder() {
   return (
+    // skipcq: JS-0415
     <Card className="flex flex-col transition-all duration-300 ease-out group-hover:scale-105">
         <div className="w-full flex justify-center">
             <CardTitle className="hidden lg:flex text-[hsl(var(--text))]">Card Type Make-up</CardTitle>
