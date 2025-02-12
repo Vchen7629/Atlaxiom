@@ -3,8 +3,14 @@ import DeleteDeckButtonComponent from "../deckbuttons/deletedeckbutton";
 import DuplicateDeckButtonComponent from "../deckbuttons/duplicatedeckbutton";
 import FavoriteDeckButtonComponent from "../deckbuttons/makefavoritedeckbutton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faFolderPlus, faPlus, } from "@fortawesome/free-solid-svg-icons";
 import { Deck, DeckClick, MappedGallery } from "./types";
+
+import {
+    Avatar,
+    AvatarFallback,
+    AvatarImage,
+  } from "@/components/ui/avatar"
 
 export function MappedGalleryDeck({ MappedGalleryProps }: MappedGallery) {
     const {
@@ -28,7 +34,7 @@ export function MappedGalleryDeck({ MappedGalleryProps }: MappedGallery) {
 
     return (
         <div
-            className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 w-full h-full p-4 justify-items-center items-start"  
+            className="animate-fade-in-up grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 w-full h-full p-4 justify-items-center items-start"  
             style={{ gridAutoRows: 'auto', alignContent: 'start' }}
         >
             {currentPageGalleryDecksArray.map((deck: Deck) => (
@@ -45,27 +51,39 @@ export function MappedGalleryDeck({ MappedGalleryProps }: MappedGallery) {
                     role="button"
                     aria-label={`Select deck ${deck.deck_name}`}
                 >
-                    <button className="relative bg-deckpage flex flex-col h-[20vh] w-[28vw] md:h-[18vh] md:w-[15vw] lg:h-[12vh] lg:w-[4.8vw] rounded-lg" onClick={handleDeckClickWrapper(deck)}>
-                        {deck.favorite === true && (
-                            <span className='absolute left-1/2 top-2 translate-x-[-50%] text-[hsl(var(--background3))] flex'>
-                                <FontAwesomeIcon icon={faStar} className='fa-lg'/>
-                            </span>
-                        )}
-                        <span className="flex text-wrap text-white text-sm w-[90%] h-full text-center items-center font-bold">{deck.deck_name}</span>
+                    <button 
+                        className={`relative flex flex-col items-center bg-[hsl(var(--contrast))] p-2 w-[30vw] md:w-[18vw] lg:w-[12vw] xl:w-[8vw] h-[20vh] rounded-2xl shadow-lg border-2 ${deck.favorite ? "border-[hsl(var(--background3))]" : "border-transparent"}  justify-between hover:scale-105 transition-transform duration-200  mx-auto`}
+                        onClick={handleDeckClickWrapper(deck)}
+                    >
+                        <span className="flex text-[hsl(var(--text))] mt-2 text-md w-fit h-fit text-center items-center font-bold">{deck.deck_name}</span>
+                        <Avatar className="w-20 h-20">
+                            <AvatarImage src="https://images.ygoprodeck.com/images/cards_cropped/64202399.jpg" alt="@shadcn" />
+                            <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>
+                        <section className="flex w-fit mt-2 space-x-1">
+                            <FavoriteDeckButtonComponent 
+                                deck={deck} 
+                                userId={userId} 
+                                refetch={refetch} 
+                                setCurrentPageListDecksArray={setCurrentPageListDecksArray}
+                                setCurrentPageGalleryDecksArray={setCurrentPageGalleryDecksArray}
+                            />
+                            <DuplicateDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
+                            <DeleteDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
+                        </section>
                     </button>
-                    <section className="flex w-full mt-2 space-x-1">
-                        <FavoriteDeckButtonComponent 
-                            deck={deck} 
-                            userId={userId} 
-                            refetch={refetch} 
-                            setCurrentPageListDecksArray={setCurrentPageListDecksArray}
-                            setCurrentPageGalleryDecksArray={setCurrentPageGalleryDecksArray}
-                        />
-                        <DuplicateDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
-                        <DeleteDeckButtonComponent deck={deck} userId={userId} refetch={refetch}/>
-                    </section>
                 </div>   
             ))}
+            <div className="bg-[hsl(var(--contrast))] p-2 w-[30vw] md:w-[18vw] lg:w-[12vw] xl:w-[8vw] h-[20vh] rounded-2xl shadow-lg  flex flex-col items-center justify-between hover:scale-105 transition-transform duration-200  mx-auto">
+                <div className="text-[hsl(var(--background3))] p-3 rounded-full">
+                    <FontAwesomeIcon icon={faFolderPlus} className="fa-2xl"/>
+                </div>
+                <h3 className="text-lg font-semibold text-[hsl(var(--text))] text-center">Create New Deck</h3>
+                <button className="w-full bg-[hsl(var(--background3))] text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200 flex items-center justify-center gap-2">
+                    <FontAwesomeIcon icon={faPlus} className="fa-sm"/>
+                    
+                </button>
+            </div>
         </div>
     )
 }

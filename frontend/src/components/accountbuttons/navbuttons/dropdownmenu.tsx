@@ -21,9 +21,9 @@ export function LoggedInDropdownMenu() {
     return (
         <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
-                <Button variant="cardcollection" className="flex bg-[hsl(var(--profile))]  outline-none max-w-[30vw] h-fit px-4 lg:px-8 items-center justify-between rounded-xl lg:rounded-3xl  text-[hsl(var(--background3))]  border-2 border-[hsl(var(--background3))]" >
+                <Button variant="cardcollection" className="flex bg-[hsl(var(--profile))]  outline-none max-w-[30vw] items-center justify-between rounded-xl lg:rounded-xl shadow-md text-[hsl(var(--background3))]  border-2 border-[hsl(var(--background3))]" >
                     <FontAwesomeIcon icon={faUser}/>
-                        <div className="fatextmargin w-full overflow-auto font-bold mx-2 text-xs lg:text-xl">
+                        <div className="fatextmargin w-full overflow-auto font-bold mx-2 text-xs lg:text-lg">
                             {cachedUsername}
                         </div>
                     <FontAwesomeIcon icon={faCaretDown}/>

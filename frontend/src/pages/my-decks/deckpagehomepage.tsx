@@ -90,16 +90,27 @@ const DeckPageHomepage = () => {
 
 
     return (
-        <main className="min-h-[110vh] flex flex-col bg-[hsl(var(--background1))] justify-between">
+        // skipcq: JS-0415
+        <main className="min-h-[110vh] flex flex-col bg-[hsl(var(--bentogridbackground))] justify-between">
             <Header/>
             <div className="flex flex-col items-center lg:items-start py-[15vh]">
                 <Toaster richColors  expand visibleToasts={4}/>
-                <div className="flex w-[80vw] lg:w-[70vw] xl:w-[50vw] lg:ml-[15vw] items-center justify-between">
-                    <span className="text-lg lg:text-3xl font-black text-[hsl(var(--text))]">Deck Manager</span>
+                <div className="flex w-[80vw] lg:w-[70vw] xl:w-[60vw] lg:ml-[15vw] items-center justify-between">
+                    <div className='flex space-x-[3vw]'>
+                        <span className="text-lg lg:text-3xl font-black text-[hsl(var(--background3))] mb-1">Deck Manager</span>
+                        <div className='flex space-x-[1vw]'>
+                            <button className='text-xl text-gray-500 border-b-2 border-transparent hover:border-goldenrod'>
+                                All Decks
+                            </button>
+                            <button className='text-xl text-gray-500 border-b-2 border-transparent hover:border-blue-400'>
+                                Favorites
+                            </button>
+                        </div>
+                    </div>
                     <CreateNewDeckComponent userId={userId}/>
                 </div>
-                <div className="flex w-[80vw] lg:w-[70vw] xl:w-[50vw] lg:ml-[15vw] mt-[2.5vh] mb-[1.5vh] justify-between">
-                    <div className="flex w-[50vw] lg:w-[15vw] h-[40px] pl-5 relative border-2 border-gray-400 justify-start text-[hsl(var(--text))]">                      
+                <div className="flex w-[80vw] lg:w-[70vw] xl:w-[60vw] lg:ml-[15vw] mt-[2.5vh] mb-[1.5vh] justify-between">
+                    <div className="flex w-[50vw] lg:w-[20vw] h-[40px] pl-5 relative justify-start text-[hsl(var(--text))] bg-[hsl(var(--border))] text-gray-400 rounded-lg border-2 border-gray-300 focus:outline-none">                   
                       <div className="flex items-center w-full">
                         <FontAwesomeIcon icon={faSearch} className="mr-2" />
                         <input
@@ -126,7 +137,7 @@ const DeckPageHomepage = () => {
                 <section className="flex w-[80vw] lg:hidden">
                     <PaginationComponent paginationprops={paginationprops}/>
                 </section>
-                <div className='flex w-[80vw] lg:w-[70vw] xl:w-[50vw] lg:ml-[15vw] items-center justify-between'>
+                <div className='flex w-[80vw] lg:w-[70vw] xl:w-[60vw] lg:ml-[15vw] items-center justify-between'>
                     <DeckDisplay deckdisplayprops={deckdisplayprops}/>
                 </div>
             </div>

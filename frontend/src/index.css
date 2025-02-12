@@ -148,8 +148,10 @@ section {
     --homepagegradient3: 189.7, 92.4%, 78.2%;
     --ownedcardcollection: 0, 0%, 90%;
     --editdeckdraganddropbackground: 0, 0%, 90%;
+    --bentogridbackground: 60, 10%, 97%;
     --atkdefcomponent: 100, 100%, 100%;
-    --border: 0, 5%, 92%
+    --border: 0, 5%, 92%;
+    --contrast: 0, 0%, 100%;
   }
  
   .dark {
@@ -177,7 +179,9 @@ section {
     --homepagegradient3: 43, 77%, 49%; 
     --ownedcardcollection:  0, 2%, 10%;
     --editdeckdraganddropbackground: 0, 2%, 11%;
+    --bentogridbackground: 0, 2%, 11%;
     --atkdefcomponent: 0, 0%, 20%;
-    --border: 240, 4%, 16%
+    --border: 240, 4%, 16%;
+    --contrast: 0, 2%, 14%;
   }
 }

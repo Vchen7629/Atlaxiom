@@ -71,7 +71,8 @@ export function ComponentPieChart() {
   }, [chartData])
 
   return (
-    <Card className="flex flex-col bg-[hsl(var(--profilebackground))] border-transparent rounded-xl">
+    // skipcq: JS-0415
+    <Card className="flex flex-col bg-[hsl(var(--contrast))] border-transparent rounded-xl shadow-lg">
       <CardHeader className="items-center pb-0">
         <CardTitle className="text-[hsl(var(--text))]">Card Type Make-up</CardTitle>
       </CardHeader>

@@ -80,7 +80,7 @@ const DeckDisplay = ({ deckdisplayprops }: DeckDisplayComponent) => {
                     <l-waveform size="50" stroke="3.5" speed="1" color="hsl(var(--background3))" />
                 </div>
             ) : currentPageGalleryDecksArray.length > 0 ? (
-                <MappedGalleryDeck MappedGalleryProps={MappedGalleryProps}/>
+                    <MappedGalleryDeck MappedGalleryProps={MappedGalleryProps}/>
             ) : decksToDisplay.length === 0 ? (
                 <div className="flex h-[45vh] w-full items-center justify-center">
                     <span className="text-xl font-bold text-[hsl(var(--text))]">
