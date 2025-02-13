@@ -13,7 +13,7 @@ const DeckSearchBar = ({ setDeckName, deckName}: DeckSearchBarComp) => {
     };
 
     return (
-        <div className="flex flex-grow w-[80vw] lg:min-w-[15vw] lg:max-w-[20vw] h-[40px] pl-3 relative border-2 border-gray-400 justify-start text-[hsl(var(--text))]">                      
+        <div className="flex flex-grow w-[80vw] lg:min-w-[15vw] lg:max-w-[20vw] h-[40px] pl-3 relative border-2 border-gray-400 dark:border-gray-600 bg-[hsl(var(--contrast))] rounded-lg justify-start text-[hsl(var(--text))]">                      
             <div className="flex items-center w-full">
                 <FontAwesomeIcon icon={faSearch} className="mr-2" />
                 <input

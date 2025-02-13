@@ -6,7 +6,6 @@ import { IncreaseCard, toastErrorMessage, toastSuccessMessage } from "../types/b
 
 const IncreaseOwnedCardButtonComponent = ({ userId, refetch, card }: IncreaseCard) => {
     const [increaseOwnedCard] = useIncreaseOwnedCardMutation()
-
     
     async function handleIncreaseClick(cardName: string) {
       await increaseOwnedCard({ 

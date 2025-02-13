@@ -273,7 +273,7 @@ const SearchBarPage = () => {
 
   return (
     <main className="min-h-[100vh]">
-      <div className="flex flex-col min-h-[120vh] bg-[hsl(var(--background1))] justify-between overflow-auto" >
+      <div className="flex flex-col min-h-[120vh] bg-[hsl(var(--bentogridbackground))] justify-between overflow-auto" >
         <Header/>
         <main className="flex flex-grow py-[15vh] items-start ">
           <Toaster richColors  expand visibleToasts={4}/>            
@@ -282,19 +282,19 @@ const SearchBarPage = () => {
               <div className="text-4xl text-goldenrod pl-8">
                 <strong>Card Search</strong>
               </div>
-              <section className="flex px-[3vw] lg:px-0">
+              <section className="flex items-center px-[3vw] lg:px-0">
                 <div className="lg:w-[30vw] md:w-[90%] w-[90%]">
                   <SearchBarComponent searchbarprops={searchbarprops}/>
                 </div>
                 <div className="flex ml-2 items-center">
                   <ClearFilterButton clearfilterprops={clearfilterprops}/>
-                  <div className='hidden lg:flex'>
+                  <div className='hidden lg:flex '>
                     <FilterButton filterbuttonprops={filterbuttonprops}/>
                   </div>
                 </div>
               </section>
-              <div className="flex mr-[3vw] bg-transparent">
-                <div className="flex w-20 bg-footer rounded-xl ml-4">
+              <div className="flex mr-[3vw] bg-transparent h-fit items-center">
+                <div className="flex h-12 w-20 bg-[hsl(var(--contrast))] drop-shadow-lg shadow-[hsl(var(--shadow))] rounded-xl ml-4">
                   <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                 </div>
                 <div className='flex lg:hidden'>

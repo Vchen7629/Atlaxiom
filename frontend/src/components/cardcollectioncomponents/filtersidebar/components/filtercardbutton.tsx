@@ -14,7 +14,7 @@ const FilterCardViewButton = ({ filterprops }: FilterButtonProps) => {
     }
 
     return (
-        <button className={`p-2 rounded-xl font-black mr-2 ${filterpage ? "bg-[hsl(var(--background3))] text-white" : "bg-transparent text-gray-400"}`} onClick={handleFilterClick}>
+        <button className={`flex rounded-xl font-black p-2 mr-2 items-center ${filterpage ? "bg-[hsl(var(--background3))] text-white" : "bg-transparent text-gray-400"}`} onClick={handleFilterClick}>
             <FontAwesomeIcon icon={faFilter} className="fa-lg"/>
         </button>
     )

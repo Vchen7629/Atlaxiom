@@ -35,21 +35,21 @@ const NavBarComponent = ({ navbarprops }: NavBarComp) => {
     return (
         <div className="flex my-4 space-x-4 relative h-fit text-sm w-full lg:text-lg lg:w-3/4 ">
             <button 
-                className={`flex py-2 px-2 rounded-lg ${deckActive ? "bg-[hsl(var(--background3))]" : "bg-footer"} text-white items-center`} 
+                className={`flex py-2 px-2 rounded-lg shadow-md shadow-[hsl(var(--shadow))] ${deckActive ? "bg-[hsl(var(--background3))] " : "bg-[hsl(var(--contrast))]"} text-[hsl(var(--text))] items-center`} 
                 onClick={handleDeckClick}
             >
                 <FontAwesomeIcon icon={faChartColumn}/>
                 <span className="ml-[10px]">View Decks</span>
             </button>
             <button 
-                className={`flex py-2 px-2 rounded-lg ${statisticsActive ? "bg-[hsl(var(--background3))]" : "bg-footer"} text-white items-center`} 
+                className={`flex py-2 px-2 rounded-lg shadow-md shadow-[hsl(var(--shadow))] ${statisticsActive ? "bg-[hsl(var(--background3))] " : "bg-[hsl(var(--contrast))]"} text-[hsl(var(--text))] items-center`}
                 onClick={handleStatisticsClick}
             >
                 <FontAwesomeIcon icon={faChartColumn}/>
                 <span className="ml-[10px]">View Statistics</span>
             </button>
             <button 
-                className={`flex py-2 px-2 rounded-lg ${editActive ? "bg-[hsl(var(--background3))]" : "bg-footer"} text-white items-center`} 
+                className={`flex py-2 px-2 rounded-lg shadow-md shadow-[hsl(var(--shadow))] ${editActive ? "bg-[hsl(var(--background3))] " : "bg-[hsl(var(--contrast))]"} text-[hsl(var(--text))] items-center`}
                 onClick={handleEditAccClick}
             >
                 <FontAwesomeIcon icon={faEdit}/>

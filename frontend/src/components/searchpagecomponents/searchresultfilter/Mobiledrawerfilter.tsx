@@ -162,7 +162,7 @@ export function MobileSearchFilterDrawer({ filterprops }: FilterSidebar) {
     return (
         <Drawer modal={false}>
             <DrawerTrigger asChild>
-                <Button className={`h-[40px] text-white ml-2 px-4 py-3 rounded-xl ${filterActive ? "bg-[hsl(var(--filterbutton))]" : "bg-gray-600"}`} variant="default">
+                <Button className={`h-11 border-2 text-[hsl(var(--text))] font-bold shadow-lg ml-2 px-4 py-3 rounded-xl ${filterActive ? "bg-[hsl(var(--filterbutton))]" : "bg-[hsl(var(--contrast))]"}`} variant="default">
                     Filter Cards
                 </Button>
             </DrawerTrigger>

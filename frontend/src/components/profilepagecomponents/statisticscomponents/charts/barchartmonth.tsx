@@ -150,7 +150,7 @@ export function ComponentBarMonthChart({ selectedYear }: SelectedYear): JSX.Elem
 
     return (
         // skipcq: JS-0415
-        <Card className="relative w-full lg:w-[60vw] bg-[hsl(var(--contrast))] rounded-xl shadow-lg">
+        <Card className="relative w-full lg:w-[60vw] bg-[hsl(var(--contrast))] rounded-xl shadow-lg shadow-[hsl(var(--shadow))]">
             <CardHeader>
                 <div className="flex flex-col lg:flex-row w-full  justify-between">
                     <Header/>

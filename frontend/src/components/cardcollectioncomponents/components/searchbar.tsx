@@ -16,7 +16,7 @@ const MyCardsSearchbarComponent = ({ searchbarprops }: searchbarprops) => {
     }
 
     return (
-        <div className="relative w-full flex h-12 border-2 border-[hsl(var(--background3))] items-center rounded-md bg-[hsl(var(--background1))]">
+        <div className="relative w-full flex h-12 border-2 border-gray-400 dark:border-gray-600 items-center rounded-xl bg-[hsl(var(--background1))]">
             <FontAwesomeIcon icon={faSearch} className="text-xl text-[hsl(var(--text))] mx-[3%]"/>
             <input 
                 className="w-[85%] bg-transparent text-[hsl(var(--text))] h-full outline-none"

@@ -112,7 +112,7 @@ const Profilepage = () => {
                 return (
                     <>
                         {header}
-                        <div className="flex flex-col xl:flex-row items-center">
+                        <div className="flex flex-col xl:flex-row items-center mb-[3vh] lg:mb-[1vh]">
                             <NavBarComponent navbarprops={navbarprops}/>
                             <PaginationComponent paginationprops={paginationprops}/>
                             <div className='flex justify-between w-full lg:w-fit'>
@@ -146,7 +146,7 @@ const Profilepage = () => {
                 return (
                     <>
                         {header}
-                        <div className="flex flex-col xl:flex-row items-center">
+                        <div className="flex flex-col xl:flex-row items-center mb-[3vh] lg:mb-[1vh]">
                             <NavBarComponent navbarprops={navbarprops}/>
                             <PaginationComponent paginationprops={paginationprops}/>
                             <div className="flex justify-between w-full lg:w-fit">

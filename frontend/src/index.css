@@ -152,6 +152,8 @@ section {
     --atkdefcomponent: 100, 100%, 100%;
     --border: 0, 5%, 92%;
     --contrast: 0, 0%, 100%;
+    --shadow: 60, 10%, 82%;
+    --test: 135, 15%, 98%
   }
  
   .dark {
@@ -183,5 +185,6 @@ section {
     --atkdefcomponent: 0, 0%, 20%;
     --border: 240, 4%, 16%;
     --contrast: 0, 2%, 14%;
+    --shadow: 0, 2%, 7%;
   }
 }

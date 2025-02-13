@@ -34,7 +34,7 @@ const UserStatistics = ({ statisticsprops }: Statistics) => {
                         <ComponentBarMonthChart selectedYear={selectedYear}/>
                     </div>
                 )}
-                <div className="flex flex-col space-y-[5vh] justify-between lg:space-y-[3%]">
+                <div className="flex flex-col h-fit space-y-[5vh] justify-between lg:space-y-[4vh]">
                     <ComponentPieChart/>
                     <ComponentRadialChart/>
                 </div>

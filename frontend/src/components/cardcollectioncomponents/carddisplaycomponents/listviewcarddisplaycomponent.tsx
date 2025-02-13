@@ -50,8 +50,9 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
       
     return (
         <AlertDialog>
-            <AlertDialogTrigger asChild>       
-                <div className="text-[hsl(var(--text))] bg-[hsl(var(--ownedcardcollection))] rounded-b-lg h-full flex flex-col">
+            <AlertDialogTrigger asChild>      
+                <div className="text-[hsl(var(--text))]   rounded-b-lg h-full flex flex-col">
+                    <Toaster richColors  expand visibleToasts={4}/>
                     {showLoading ? (
                         <div className="flex flex-col h-[65vh] space-y-[5vh] items-center justify-center text-center text-xl lg:text-3xl text-[hsl(var(--background3))] font-black">
                             <span>Loading</span>
@@ -61,7 +62,7 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
                         currentListPageResults.map((card: OwnedCard) => (
                             <div 
                                 key={card.id} 
-                                className="grid grid-cols-[30%_35%_35%] lg:grid-cols-[5%_3%_25%_10%_25%_15%_9%_8%] bg-transparent min-h-24 text-sm font-bold items-center hover:bg-blacktwo focus:outline-none focus:ring-2 focus:ring-[hsl(var(--background3))]" 
+                                className="animate-fade-in-up grid grid-cols-[30%_35%_35%] lg:grid-cols-[5%_3%_25%_10%_25%_15%_9%_8%] bg-[hsl(var(--contrast))] shadow-lg shadow-[hsl(var(--shadow))] rounded-xl mb-[3vh] min-h-24 text-sm font-bold items-center hover:bg-blacktwo" 
                                 onClick={handleClick(card)}
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter' || e.key === ' ') {
@@ -73,7 +74,7 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
                                 tabIndex={0}
                                 aria-label={`Select card ${card.card_name}`}
                             >
-                                <div className="hidden lg:flex pl-6 ">{card.ownedamount}</div>
+                                <div className="hidden lg:flex ml-8 text-lg font-bold">{card.ownedamount}x</div>
                                 <div className="flex items-center justify-center h-24">
                                     <img src={card.image_url} alt={card.card_name} className="w-3/4 h-[65%] lg:w-full lg:h-[90%] object-contain" />
                                 </div>
@@ -85,29 +86,26 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
                                         <span className="text-xs md:text-xl text-center">${card.price}</span>
                                     </div>
                                 </div>
-                                <div className="hidden lg:flex overflow-y-auto h-full px-[2vw] items-center">
+                                <div className="hidden lg:flex overflow-y-auto h-full text-lg px-[2vw] items-center">
                                     {card.card_name}
                                 </div>
-                                <div className="hidden lg:flex overflow-y-auto h-full items-center">
+                                <div className="hidden lg:flex overflow-y-auto h-full text-lg items-center">
                                     {card.set_code}
                                 </div>
-                                <div className="hidden lg:flex overflow-y-auto h-full items-center">
+                                <div className="hidden lg:flex overflow-y-auto h-full text-lg items-center">
                                     {card.set_name}
                                 </div>
-                                <div className="hidden lg:flex overflow-y-auto h-full items-center">
+                                <div className="hidden lg:flex overflow-y-auto h-full text-lg items-center">
                                     {card.rarity}
                                 </div>
-                                <div className="hidden lg:flex overflow-y-auto h-full items-center">
+                                <div className="hidden lg:flex overflow-y-auto text-lg h-full items-center">
                                     ${card.price}
                                 </div>
                                 <div className="flex space-x-1 h-[10%] w-[90%] justify-center items-center mr-6">
                                     <IncreaseOwnedCardButtonComponent card={card} userId={userId} refetch={refetch}/>
                                     <DecreaseOwnedCardButtonComponent card={card} userId={userId} refetch={refetch}/>
                                     <DeleteOwnedCardButtonComponent card={card} userId={userId} refetch={refetch}/>
-                                </div>
-                                
-                                <Toaster richColors  expand visibleToasts={4}/>
-                                
+                                </div>                                
                             </div>
                         ))
                     ) : ownedCardCount?.totalOwnedCards === 0 ? (

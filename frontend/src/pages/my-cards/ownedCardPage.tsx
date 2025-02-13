@@ -275,12 +275,12 @@ const UserOwnedCardPage = () => {
   }
 
   const displaylistprops = { currentListPageResults, isLoading } 
-  const displaygalleryprops = { currentGalleryPageResults } 
+  const displaygalleryprops = { currentGalleryPageResults, expandStatus } 
 
   return (
     <main className="flex flex-col h-[100vh]  ">
         <Header/>
-        <div className=" bg-[hsl(var(--background1))] flex items-center justify-center ">
+        <div className=" bg-[hsl(var(--bentogridbackground))] flex items-center justify-center ">
           <div className="text-white relative flex flex-col items-center w-[95%] min-h-[110vh] p-5 pt-[10vh]">
             <header className="relative items-center flex flex-col sm:flex-col md:flex-row w-full my-[1%]">
               <section className="flex flex-col w-full md:w-1/4">
@@ -292,19 +292,20 @@ const UserOwnedCardPage = () => {
                 <div className="flex w-full lg:w-1/2">
                   <MyCardsSearchbarComponent searchbarprops={searchbarprops}/>
                 </div>
-                <button className={`hidden lg:flex justify-center items-center rounded-md h-9 w-24 ${expandStatus ? "bg-[hsl(var(--background3))]" : "bg-footer"}`} onClick={handleClickFilter}>
-                  <FontAwesomeIcon className="mr-2" icon={faFilter}/>Filter
-                </button>
                 <div className="hidden lg:flex"><AddCardButton userId={userId}/></div>
-                <div className="hidden lg:flex w-20 h-11 bg-footer rounded-xl absolute right-0">
+                <button className={`hidden lg:flex border-2 justify-center items-center text-[hsl(var(--text))] rounded-xl h-12 w-32 ${expandStatus ? "bg-[hsl(var(--background3))] border-transparent" : "bg-[hsl(var(--contrast))] border-gray-400 dark:border-gray-600"}`} onClick={handleClickFilter}>
+                  <FontAwesomeIcon className="mr-3" icon={faFilter}/>
+                  <span className='text-lg font-bold'>Filter</span>
+                </button>
+                <div className="hidden lg:flex w-20 h-11 bg-[hsl(var(--contrast))] shadow-md shadow-[hsl(var(--shadow))] rounded-xl absolute right-0">
                   <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
                 </div>
                 <div className="flex sm:flex lg:hidden space-x-[1vw] w-full items-center">
                   <MobileFilterDrawerComponent filterProps={filterProps} />
                   <AddCardButton userId={userId}/>
                   <button className={`hidden items-center lg:flex px-4 rounded-md h-9 ${canClearFilter ? "bg-[hsl(var(--background3))]" : "bg-gray-600"}`} onClick={clearFilter}> Clear </button>
-                  <button className={`flex items-center lg:hidden px-4 rounded-md h-9 ${canClearFilter ? "bg-[hsl(var(--background3))]" : "bg-gray-600"}`} onClick={clearFilter}> 
-                    <FontAwesomeIcon icon={faArrowRotateRight} />
+                  <button className={`flex items-center lg:hidden px-4 rounded-md h-9 ${canClearFilter ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--contrast))] border-2 border-gray-300 "}`} onClick={clearFilter}> 
+                    <FontAwesomeIcon icon={faArrowRotateRight} className={`${canClearFilter ? "text-white" : "text-[hsl(var(--background3))]"}`}/>
                   </button>
                   <div className="flex lg:hidden w-20 h-10 bg-footer rounded-xl absolute right-[-1px]">
                     <GridListViewComponent gridlistviewprops={gridlistviewprops}/>
@@ -320,8 +321,8 @@ const UserOwnedCardPage = () => {
                       <main className="flex justify-between">
                         <main className={`${expandStatus ? "w-3/4" : "w-full"} h-full rounded-xl`}>
                           <PaginationComponent paginationprops={paginationprops} />
-                          <div className="hidden lg:grid font-black h-8 bg-[hsl(var(--background3))] text-lg rounded-t-lg items-center grid-cols-[5%_28%_10%_25%_6%_19%_5%]">
-                            <div className="pl-4"> Qty </div>
+                          <div className="hidden lg:grid animate-fade-in-up font-black h-8 bg-[hsl(var(--background3))] text-lg mb-[2vh] rounded-lg items-center grid-cols-[5%_28%_10%_25%_6%_19%_5%]">
+                            <div className="pl-7"> Qty </div>
                             <div> Name</div>
                             <div> Set Code</div>
                             <div> Set</div>
@@ -329,7 +330,7 @@ const UserOwnedCardPage = () => {
                             <div className="text-center ">Price</div>
                             <div className="text-center ml-[2%]">Options</div>
                           </div>
-                          <div className="grid grid-cols-[30%_35%_35%] font-black text-lg items-center lg:hidden w-full h-8 bg-[hsl(var(--background3))]">
+                          <div className="grid grid-cols-[30%_35%_35%] font-black text-lg items-center lg:hidden w-full h-8 bg-[hsl(var(--background3))] rounded-lg mb-[2vh] shadow-lg shadow-[hsl(var(--shadow))]">
                             <div className="text-center">Card</div>
                             <div className="text-center">Details</div>
                             <div className="text-center">Actions</div>
@@ -337,7 +338,7 @@ const UserOwnedCardPage = () => {
                           <ListViewCardDisplayComponent displaylistprops={displaylistprops}/>
                         </main>
                         
-                        <div className={`flex flex-col h-fit ${expandStatus ? "w-[24%] border-[hsl(var(--background3))] border-2" : "w-0"} items-center bg-[hsl(var(--ownedcardcollection))] rounded-lg py-8`}>
+                        <div className={`flex flex-col h-fit ${expandStatus ? "w-[24%]" : "w-0"} items-center bg-[hsl(var(--contrast))] shadow-lg shadow-[hsl(var(--shadow))] rounded-lg py-8`}>
                             {filterpage && (
                               <FilterOwnedCards filterProps={filterProps}/>
                             )}
@@ -352,12 +353,12 @@ const UserOwnedCardPage = () => {
                         <main className="flex justify-between">
                           <main className={`${expandStatus ? "w-3/4" : "w-full"} h-full rounded-xl`}>
                             <PaginationComponent paginationprops={paginationprops} />
-                            <div className="bg-[hsl(var(--ownedcardcollection))]  border-2 border-[hsl(var(--background3))] min-h-full rounded-xl">
+                            <div className="min-h-full">
                               <GalleryViewCardDisplayComponent displaygalleryprops={displaygalleryprops}/>
                             </div>                                           
                           </main>
                           
-                          <div className={`flex flex-col h-fit ${expandStatus ? "w-[24%] border-[hsl(var(--background3))] border-2" : "w-0"} items-center bg-[hsl(var(--ownedcardcollection))] rounded-lg py-8`}>
+                          <div className={`flex flex-col h-fit ${expandStatus ? "w-[24%]" : "w-0"} items-center bg-[hsl(var(--contrast))] shadow-lg shadow-[hsl(var(--shadow))] rounded-xl py-8`}>
                               {filterpage && (
                                 <FilterOwnedCards filterProps={filterProps}/>
                               )}

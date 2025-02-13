@@ -12,7 +12,7 @@ const ProfilePageHeader = ({ usersData }: ProfileHeader) => {
     const cachedUsername = useSelector((state: UsernameState) => state.auth.username);
 
     return (
-        <div className="flex min-h-[25vh] mt-4 rounded-3xl h-full px-12 items-center justify-between w-full bg-[hsl(var(--contrast))] text-[hsl(var(--text))]">
+        <div className="flex min-h-[25vh] mt-4 rounded-3xl h-full px-12 items-center justify-between w-full bg-[hsl(var(--contrast))] shadow-md shadow-[hsl(var(--shadow))] text-[hsl(var(--text))]">
           <div className="flex items-center">  
             <FontAwesomeIcon icon={faUser} className="mr-7 text-5xl text-[hsl(var(--background3))]"/>
             <div className='flex flex-col space-y-[1vh] lg:space-y-2'>

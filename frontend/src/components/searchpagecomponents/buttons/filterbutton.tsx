@@ -34,8 +34,8 @@ const FilterButton = ({ filterbuttonprops }: filterbutton) => {
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger>
-                    <span
-                        className={`h-[40px] ml-2 px-4 py-3 rounded-xl ${filterActive ? "bg-[hsl(var(--background3))]" : "bg-gray-600"}`}  
+                    <div
+                        className={`flex text-center items-center h-12 px-4 ml-2 rounded-xl shadow-md shadow-[hsl(var(--shadow))] ${filterActive ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--contrast))] border-2 dark:border-gray-600"}`}  
                         onClick={FilterClick}
                         role="button"
                         tabIndex={0}
@@ -46,8 +46,8 @@ const FilterButton = ({ filterbuttonprops }: filterbutton) => {
                             }
                         }}
                     >
-                        Filter Card
-                    </span>
+                        <span className="text-[hsl(var(--text))] font-bold">Filter Card</span>
+                    </div>
                 </TooltipTrigger>
                 <TooltipContent className="bg-[hsl(var(--ownedcardcollection))] border-transparent" side="bottom">
                     <span className="text-[hsl(var(--text))]">Click to Hide Filter Sidebar</span>
