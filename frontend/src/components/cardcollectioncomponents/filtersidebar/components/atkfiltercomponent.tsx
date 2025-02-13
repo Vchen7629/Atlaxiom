@@ -73,7 +73,7 @@ const AtkFilterComponent = ({ atkfilterprops }: atkprops) => {
                     </button>
                 </div>
                 <input
-                    className="flex text-center text-[hsl(var(--text))] rounded-lg bg-[hsl(var(--atkdefcomponent))] border-2 ml-2 w-1/4 border-transparent"
+                    className="flex text-center text-[hsl(var(--text))] rounded-lg bg-[hsl(var(--atkdefcomponent))] shadow-md shadow-[hsl(var(--shadow))] border-2 border-[hsl(var(--border))] focus:outline-none  ml-2 w-1/4"
                     value={atkFilter ?? ""}
                     onChange={handleInputChange}
                 />

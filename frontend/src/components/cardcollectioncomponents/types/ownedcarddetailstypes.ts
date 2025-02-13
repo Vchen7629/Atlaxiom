@@ -22,6 +22,7 @@ export type filteredListCards = {
 export type filteredGalleryCards = {
     displaygalleryprops: {
         currentGalleryPageResults: OwnedCard[];
+        expandStatus: boolean;
     }
 }
 

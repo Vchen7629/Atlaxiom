@@ -6,8 +6,8 @@ import { Database, SlidersHorizontal, Sword, TrendingUpIcon } from "lucide-react
 export function SearchHomePageComponent() {
 
     return (
-        <div className='animate-fade-in-up relative flex flex-col lg:flex-row space-x-[5vh] w-full max-h-[50vh] '>
-          <div className=" w-full lg:w-[50%] h-full">
+        <div className='animate-fade-in-up relative flex flex-col lg:flex-row space-y-[5vh] lg:space-y-0 lg:space-x-[5vh] w-full lg:max-h-[50vh] '>
+          <div className=" w-full lg:w-[50%] h-full shadow-lg shadow-[hsl(var(--shadow))]">
             <SearchCardBentoBackground/>
           </div>
           <div className="w-full lg:w-[50%] h-full flex flex-col space-y-[5vh] ">

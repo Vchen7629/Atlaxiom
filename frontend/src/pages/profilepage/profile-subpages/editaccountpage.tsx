@@ -85,9 +85,9 @@ const EditAccountPage = ({ usersData, refetch }: EditAccount) => {
 
     return (
         <div className="animate-fade-in-up flex flex-col lg:flex-row rounded-xl">
-            <section className="flex xl:hidden w-full pr-[5vw] bg-[hsl(var(--contrast))] h-fit mb-2 items-center justify-between rounded-lg shadow-md pl-3">
+            <section className="flex xl:hidden w-full p-[2vw] bg-[hsl(var(--contrast))] h-fit mb-2 items-center justify-between rounded-xl shadow-md shadow-[hsl(var(--shadow))] pl-3">
                 {changeUsername ? (
-                    <header className="flex h-fit items-center space-x-4 xl:hidden font-bold text-xl text-[hsl(var(--text))]">
+                    <header className="flex h-fit items-center space-x-4 font-bold text-xl text-[hsl(var(--text))]">
                         <FontAwesomeIcon icon={faUser} className="text-[hsl(var(--background3))] fa-xl" />
                         <span>Change Username</span>
                     </header>
@@ -108,7 +108,7 @@ const EditAccountPage = ({ usersData, refetch }: EditAccount) => {
                     </header>
                 )}
                 <select 
-                    className="flex bg-transparent text-[hsl(var(--text))] items-center px-4 space-x-2 sm:w-[15vw] lg:w-[10vw] h-[4vh] rounded-lg outline-none border-2 border-[hsl(var(--text))]"
+                    className="flex bg-transparent text-[hsl(var(--text))] items-center px-4 space-x-2 sm:w-[15vw] lg:w-[10vw] h-[4vh] rounded-lg outline-none border-2 dark:border-gray-600"
                     onChange={(e) => handlePageChange(e.target.value)}
                     value={selectedPage}
                 >

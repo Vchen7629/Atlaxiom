@@ -110,7 +110,7 @@ const DeckPageHomepage = () => {
                     <CreateNewDeckComponent userId={userId}/>
                 </div>
                 <div className="flex w-[80vw] lg:w-[70vw] xl:w-[60vw] lg:ml-[15vw] mt-[2.5vh] mb-[1.5vh] justify-between">
-                    <div className="flex w-[50vw] lg:w-[20vw] h-[40px] pl-5 relative justify-start text-[hsl(var(--text))] bg-[hsl(var(--border))] text-gray-400 rounded-lg border-2 border-gray-300 focus:outline-none">                   
+                    <div className="flex w-[50vw] lg:w-[20vw] h-[40px] pl-5 relative justify-start text-[hsl(var(--text))] bg-[hsl(var(--contrast))] shadow-lg shadow-[hsl(var(--shadow))] text-gray-400 rounded-lg border-2 border-gray-400 dark:border-gray-600 focus:outline-none">                   
                       <div className="flex items-center w-full">
                         <FontAwesomeIcon icon={faSearch} className="mr-2" />
                         <input
@@ -130,7 +130,7 @@ const DeckPageHomepage = () => {
                     <section className="hidden lg:flex">
                         <PaginationComponent paginationprops={paginationprops}/>
                     </section>
-                    <div className="flex w-20 h-11 bg-footer rounded-xl">
+                    <div className="flex w-20 h-11 bg-[hsl(var(--contrast))] shadow-md shadow-[hsl(var(--shadow))] rounded-xl">
                         <GridListViewComponent filterProps={filterProps}/>  
                     </div>
                 </div>

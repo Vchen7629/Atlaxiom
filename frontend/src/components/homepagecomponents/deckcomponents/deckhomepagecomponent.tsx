@@ -5,8 +5,11 @@ import { CreateDeckBackground } from "./animatedCreateDeck";
 
 export function DeckHomepageComponent() {
     return (
-        <div className='animate-fade-in-up relative flex flex-col lg:flex-row space-x-[5vh] w-full max-h-[50vh] '>
-          <div className="w-[50%] h-full flex flex-col space-y-[5vh] ">
+        <div className='animate-fade-in-up relative flex flex-col lg:flex-row space-y-[5vh] lg:space-y-0 lg:space-x-[5vh] w-full lg:max-h-[50vh] '>
+          <div className="flex lg:hidden w-full h-full shadow-lg shadow-[hsl(var(--shadow))]">
+            <CreateDeckBackground/>
+          </div>
+          <div className="w-full lg:w-[50%] h-full flex flex-col space-y-[5vh] ">
             <div className="flex space-x-6 w-full justify-center text-[hsl(var(--background3))]">
               <Folder className='w-10 h-9'/>
               <span className='text-3xl font-bold'>Create and Manage your Decks</span>
@@ -28,7 +31,7 @@ export function DeckHomepageComponent() {
               <span className='text-xl text-[hsl(var(--text))] font-bold'>Search through owned decks</span>
             </div>
           </div>
-          <div className=" w-[50%] h-full">
+          <div className="hidden lg:flex w-[50%] h-full shadow-lg shadow-[hsl(var(--shadow))]">
             <CreateDeckBackground/>
           </div>
         </div>

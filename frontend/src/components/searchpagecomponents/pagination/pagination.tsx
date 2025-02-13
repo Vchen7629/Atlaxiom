@@ -107,7 +107,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
     }
 
     return (
-        <div className="py-2 px-2 bg-[hsl(var(--background1))]">
+        <div className="py-2 px-2 bg-[hsl(var(--bentogridbackground))]">
             {listView && totalListPages > 1 && (
                 <div className="flex flex-col w-full">
                     <div className="hidden md:flex space-x-[1vw] w-full justify-between">

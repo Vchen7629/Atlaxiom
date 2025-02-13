@@ -12,7 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faPlusCircle, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { ApiCardData } from "@/components/searchpagecomponents/types/datastructuretypes";
 import AddCardPaginationComponent from "../addcardbutton/addcardpagination";
 import SelectedCardComponent from "../addcardbutton/selectedcardpage";
@@ -116,10 +116,11 @@ export const AddCardButton = ({ userId }: UserId) => {
       <AlertDialog>
         <AlertDialogTrigger asChild>
             <Button 
-                className="flex items-center justify-center rounded-md w-24 h-9 md:w-28 md:h-9 bg-blue-500"
+                className="flex items-center lg:text-lg font-bold font-roboto justify-center rounded-xl w-24 h-9 md:w-32 md:h-12 bg-blue-500"
                 onClick={fetchAllCardData}
             >
-                <FontAwesomeIcon className="lg:mr-1" icon={faPlusCircle}/>Add Card
+                <FontAwesomeIcon className="lg:mr-1" icon={faPlus}/>
+                Add Card
             </Button>
         </AlertDialogTrigger>
         <AlertDialogContent className="bg-[hsl(var(--background1))]  min-h-[55vh] min-w-[45vw] flex-grow border-transparent ">

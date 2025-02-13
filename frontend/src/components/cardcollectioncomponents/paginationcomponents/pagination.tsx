@@ -105,7 +105,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
     }
 
     return (
-        <div className="flex flex-col py-2 px-2 w-full bg-[hsl(var(--background1))]">
+        <div className="flex flex-col py-2 px-2 w-full ">
             <div className="hidden md:flex space-x-[1vw] w-full justify-between">
                 <section className="items-center flex h-full space-x-2"> 
                     <span className="text-lg text-[hsl(var(--text))]">Page</span> 

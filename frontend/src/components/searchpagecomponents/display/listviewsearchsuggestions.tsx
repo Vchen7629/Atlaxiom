@@ -45,7 +45,7 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
     }
 
     return (
-        <main className="w-full">
+        <main className="flex items-center justify-center w-full">
             <div className="">
                 {showLoading ? (
                     <div className="flex flex-col h-[70vh] space-y-[5vh] items-center justify-center text-center text-xl lg:text-3xl text-[hsl(var(--background3))] font-black">
@@ -57,7 +57,7 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
                         <div 
                             key={card.id} 
                             onClick={handleClick(card)} 
-                            className="focus:outline-none focus:ring-2 focus:ring-[hsl(var(--background3))] rounded-md"
+                            className="ml-[2.5%] w-[95%] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--background3))] rounded-2xl mb-[2vh] bg-[hsl(var(--contrast))] shadow-lg pl-4  hover:scale-105 transition-transform duration-200"
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter' || e.key === ' ') {
                                     e.preventDefault();
@@ -68,10 +68,10 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
                             role="button"
                             aria-label={`Select card ${card.name}`}
                         >
-                            <div className="flex w-full h-[20vh] mb-2 bg-transparentt">
+                            <div className="flex items-center w-full h-[20vh] mb-2 bg-transparentt">
                                 
-                                <img src={card?.card_images[0].image_url} alt={card.name} className="w-auto"/>
-                                <div className="flex h-[20vh] overflow-y-auto w-full min-h-full flex-col border-2 border-transparent hover:border-gray-500">
+                                <img src={card?.card_images[0].image_url} alt={card.name} className="w-auto h-[80%]"/>
+                                <div className="flex h-[20vh] overflow-y-auto w-full min-h-full flex-col">
                                     <section className="relative flex justify-between w-full h-[20%]">
                                         <span className="flex text-center items-center pl-[3%] w-[55%] text-[hsl(var(--background3))] font-black text-[11px] lg:text-2xl">{card.name}</span>
                                         <div className="flex justify-between items-center lg:font-bold w-[45%]">

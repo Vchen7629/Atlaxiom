@@ -38,7 +38,7 @@ const CreateNewDeckComponent: React.FC<NewDeckButton> = ({ userId }) => {
     }
 
     return (
-        <button className="flex text-md px-4 py-2 rounded-xl bg-[hsl(var(--background3))]" onClick={handleClick}>
+        <button className="flex text-md px-4 py-2 rounded-2xl bg-[hsl(var(--background3))] shadow-lg" onClick={handleClick}>
             New Deck
         </button>
     )

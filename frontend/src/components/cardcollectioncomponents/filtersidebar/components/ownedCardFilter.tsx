@@ -246,8 +246,8 @@ const FilterOwnedCards = ({ filterProps }: OwnedCardsFilterProps) => {
             <section className="flex w-[92%] justify-between items-center mb-6 pl-4">
                 <span className="text-2xl text-[hsl(var(--background3))] font-bold">Card Filter </span>
                 <div className="flex w-fit space-x-2">
-                    <button className={`flex items-center px-4 py-4 rounded-xl h-11 ${canClearFilter ? "bg-[hsl(var(--background3))]" : "bg-gray-600"}`} onClick={clearFilter}> Clear </button>
-                    <div className="flex w-19 h-11 bg-footer rounded-xl">
+                    <button className={`flex items-center px-4 border-2 border-gray-300 dark:border-gray-600 py-4 text-[hsl(var(--text))] rounded-xl h-11 shadow-md shadow-[hsl(var(--shadow))] ${canClearFilter ? "bg-[hsl(var(--background3))]" : "bg-[hsl(var(--bentogridbackground))] "}`} onClick={clearFilter}> Clear </button>
+                    <div className="flex w-19 h-11 bg-[hsl(var(--bentogridbackground))] shadow-lg shadow-[hsl(var(--shadow))] rounded-xl">
                         <FilterCardViewButton filterprops={filterprops}/>
                         <StatisticsViewButton statisticsprops={statisticsprops}/>
                     </div>

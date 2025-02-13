@@ -50,7 +50,7 @@ export function CardSetDropDownComponent({ setprops }: CardSetDropDownProps) {
           variant="cardcollection"
           role="combobox"
           aria-expanded={open}
-          className="w-[15vw] bg-transparent border-transparent text-[hsl(var(--text))] justify-between"
+          className="w-[15vw] border-2 border-gray-300 dark:border-gray-600  text-[hsl(var(--text))] justify-between"
         >
           <div className="flex w-[15vw] items-center justify-center text-sm hover:text-[hsl(var(--background3))]">
             {setFilter ? (

@@ -3,7 +3,7 @@ import DeleteDeckButtonComponent from "../deckbuttons/deletedeckbutton";
 import DuplicateDeckButtonComponent from "../deckbuttons/duplicatedeckbutton";
 import FavoriteDeckButtonComponent from "../deckbuttons/makefavoritedeckbutton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFolderPlus, faPlus, } from "@fortawesome/free-solid-svg-icons";
+import { faFolderPlus } from "@fortawesome/free-solid-svg-icons";
 import { Deck, DeckClick, MappedGallery } from "./types";
 
 import {
@@ -11,6 +11,7 @@ import {
     AvatarFallback,
     AvatarImage,
   } from "@/components/ui/avatar"
+import { DeckDisplayGalleryNewDeckButton } from "../deckbuttons/deckdisplaynewdeck";
 
 export function MappedGalleryDeck({ MappedGalleryProps }: MappedGallery) {
     const {
@@ -52,7 +53,7 @@ export function MappedGalleryDeck({ MappedGalleryProps }: MappedGallery) {
                     aria-label={`Select deck ${deck.deck_name}`}
                 >
                     <button 
-                        className={`relative flex flex-col items-center bg-[hsl(var(--contrast))] p-2 w-[30vw] md:w-[18vw] lg:w-[12vw] xl:w-[8vw] h-[20vh] rounded-2xl shadow-lg border-2 ${deck.favorite ? "border-[hsl(var(--background3))]" : "border-transparent"}  justify-between hover:scale-105 transition-transform duration-200  mx-auto`}
+                        className={`relative flex flex-col items-center bg-[hsl(var(--contrast))] p-2 w-[30vw] md:w-[18vw] lg:w-[12vw] xl:w-[8vw] h-[20vh] rounded-2xl shadow-lg shadow-[hsl(var(--shadow))] border-2 ${deck.favorite ? "border-[hsl(var(--background3))]" : "border-transparent"}  justify-between hover:scale-105 transition-transform duration-200  mx-auto`}
                         onClick={handleDeckClickWrapper(deck)}
                     >
                         <span className="flex text-[hsl(var(--text))] mt-2 text-md w-fit h-fit text-center items-center font-bold">{deck.deck_name}</span>
@@ -78,11 +79,8 @@ export function MappedGalleryDeck({ MappedGalleryProps }: MappedGallery) {
                 <div className="text-[hsl(var(--background3))] p-3 rounded-full">
                     <FontAwesomeIcon icon={faFolderPlus} className="fa-2xl"/>
                 </div>
-                <h3 className="text-lg font-semibold text-[hsl(var(--text))] text-center">Create New Deck</h3>
-                <button className="w-full bg-[hsl(var(--background3))] text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200 flex items-center justify-center gap-2">
-                    <FontAwesomeIcon icon={faPlus} className="fa-sm"/>
-                    
-                </button>
+                <h3 className="text-lg font-semibold text-[hsl(var(--text))] text-center mt-[-16px]">Create New Deck</h3>
+                <DeckDisplayGalleryNewDeckButton userId={userId}/>
             </div>
         </div>
     )

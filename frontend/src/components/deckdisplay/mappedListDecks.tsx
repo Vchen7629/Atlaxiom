@@ -9,6 +9,9 @@ import {
     AvatarFallback,
     AvatarImage,
   } from "@/components/ui/avatar"
+import { DeckDisplayListNewDeckButton } from "../deckbuttons/deckdisplaynewdeck";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFolderPlus } from "@fortawesome/free-solid-svg-icons";
 
 export function MappedListDeck({ MappedListProps }: MappedList) {
     const {
@@ -32,7 +35,7 @@ export function MappedListDeck({ MappedListProps }: MappedList) {
             {currentPageListDecksArray.map((deck: Deck) => (
                 <div // skipcq: JS-0415
                     key={deck._id} 
-                    className={`flex h-[10vh] px-2 justify-between rounded-xl items-center mb-3 bg-[hsl(var(--contrast))] shadow-lg border-[2px] ${deck.favorite ? "border-[hsl(var(--background3))]" : "border-transparent"} hover:scale-105 transition-transform duration-200 `}
+                    className={`flex h-[10vh] px-2 justify-between rounded-xl items-center mb-3 bg-[hsl(var(--contrast))] shadow-lg shadow-[hsl(var(--shadow))] border-[2px] ${deck.favorite ? "border-[hsl(var(--background3))]" : "border-transparent"} hover:scale-105 transition-transform duration-200 `}
                     onClick={() => handleDeckClick(deck)}
                     role="button"
                     onKeyDown={(e) => {
@@ -70,6 +73,15 @@ export function MappedListDeck({ MappedListProps }: MappedList) {
                     </section>    
                 </div>
             ))}
+            <div className="flex h-[10vh] pl-2 pr-9 justify-between rounded-xl items-center mb-3 bg-[hsl(var(--contrast))] shadow-lg shadow-[hsl(var(--shadow))] border-[2px] border-transparent hover:scale-105 transition-transform duration-200 ">
+                <div className="flex space-x-[1vw] items-center text-center">
+                    <div className="flex lg:w-24 lg:h-24 items-center justify-center">
+                        <FontAwesomeIcon icon={faFolderPlus} className="fa-2xl text-[hsl(var(--background3))]"/>
+                    </div>
+                    <h3 className="text-lg font-semibold text-[hsl(var(--text))] text-center">Create New Deck</h3>
+                </div>
+                <DeckDisplayListNewDeckButton userId={userId} />
+            </div>
         </div>
     )
 }
