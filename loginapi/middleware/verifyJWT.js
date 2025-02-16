@@ -15,12 +15,12 @@ if (!accessTokenSecret) {
 }
 
 const verifyJWT = (req, res, next) => {
-    let token;
+    let token = null;
     const authHeader = req.headers.authorization || req.headers.Authorization
 
-    if (authHeader && authHeader.startsWith('Bearer ')) {
+    if (authHeader?.startsWith('Bearer ')) {
         token = authHeader.split(' ')[1];
-    } else if (req.cookies && req.cookies.accessToken) {
+    } else if (req.cookies?.accessToken) {
         token = req.cookies.accessToken;
     }
 
