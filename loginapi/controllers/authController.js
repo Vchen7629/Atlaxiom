@@ -80,14 +80,14 @@ const login = asyncHandler(async (req, res) => {
 
     res.cookie('jwt', refreshToken, {
         domain: '.atlaxiom.com',
-        httpOnly: true, 
+        httpOnly: true,
         secure: true,
         sameSite: 'none',
         maxAge: 7 * 24 * 60 * 60 * 1000
     })
 
     // Send accessToken containing username and roles 
-    res.json({accessToken, userId: foundUser._id, username: foundUser.username })
+    res.json({userId: foundUser._id, username: foundUser.username })
 })
 
 // @desc Refresh
