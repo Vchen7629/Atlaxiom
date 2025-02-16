@@ -78,6 +78,10 @@ const getspecificuser = asyncHandler(async (req, res) => {
     // Extract username from the request parameters
     const { id } = req.params
 
+    if (!id || id === "null") {
+        return res.status(400).json({ message: "Invalid user ID provided" });
+    }
+
     // Find the user with the specified id
     const user = await User.findById(id).select('-password').lean();
 

@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { startTransition } from 'react';
-import { AuthenticationState } from '@/components/header/types/searchbartypes';
+import { UserIdState } from '@/pages/my-decks/deckpagetypes';
 
 const Home = () => {
   const navigate = useNavigate();
-  const authenticated = useSelector((state: AuthenticationState) => state.auth.token !== null);
+  const authenticated = useSelector((state: UserIdState) => state.auth.userId !== null);
 
   function handleButtonClick() {
     startTransition(() => {

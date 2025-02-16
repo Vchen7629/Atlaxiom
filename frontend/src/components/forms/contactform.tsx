@@ -21,6 +21,7 @@ import { useSendContactEmailMutation } from "@/app/lambdas/lambda.ts"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCheck, faX } from "@fortawesome/free-solid-svg-icons"
 import { toast } from "sonner"
+import { UsernameState } from "../accountbuttons/accounttypes"
 
 const formSchema = z.object({
     username: z.string().min(1, {
@@ -45,8 +46,7 @@ const formSchema = z.object({
 
 export function ContactForm() {
     const email = useSelector((state: { auth: { email: string } }) => state.auth.email);
-    console.log(email)
-    const username = useSelector((state: { auth: { username: string } }) => state.auth.username);
+    const username = useSelector((state: UsernameState) => state.auth.username);
     const [sendContactEmail, { isSuccess, isError}] = useSendContactEmailMutation();
 
     const form = useForm<z.infer<typeof formSchema>>({

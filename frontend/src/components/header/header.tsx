@@ -5,15 +5,15 @@ import Mycards from '../../navigation/headerbuttons/my-cards.tsx'
 import Login from '../../navigation/headerbuttons/login.tsx'
 import Mydecks from '../../navigation/headerbuttons/my-decks.tsx'
 import { ModeToggle } from "../shadcn_components/darklightmode/mode-toggle.tsx"
-import { AuthenticationState } from './types/headertypes.ts'
 import Signup from '../../navigation/headerbuttons/signup.tsx'
 import { startTransition } from 'react'
 import { HeaderDropdown } from './dropdown.tsx'
 import { LoggedInDropdownMenu } from '../accountbuttons/navbuttons/dropdownmenu.tsx'
+import { UserIdState } from '@/pages/my-decks/deckpagetypes.ts'
 
 const Header = () => {
     const navigate = useNavigate()
-    const isAuthenticated = useSelector((state: AuthenticationState) => state.auth.token !== null);
+    const isAuthenticated = useSelector((state: UserIdState) => state.auth.userId !== null);
 
     function handleHomeClick() {
         startTransition(() => {

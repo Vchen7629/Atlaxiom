@@ -1,9 +1,3 @@
-export type token = {
-    auth: {
-        token: string
-    }
-}
-
 export type email = {
     auth: {
         email: string

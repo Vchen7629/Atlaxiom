@@ -2,12 +2,12 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
-import { AuthenticationState } from '../../components/header/types/searchbartypes';
 import { startTransition } from 'react';
+import { UserIdState } from '@/pages/my-decks/deckpagetypes';
 
 const Cardsearch = () => {
   const navigate = useNavigate();
-  const authenticated = useSelector((state: AuthenticationState) => state.auth.token !== null);
+  const authenticated = useSelector((state: UserIdState) => state.auth.userId !== null);
 
   function handleButtonClick() {
     startTransition(() => {

@@ -14,10 +14,10 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { useSelector } from 'react-redux';
-import { token } from "../types/searchresultcomptypes";
+import { UserIdState } from "@/pages/my-decks/deckpagetypes";
    
 export function BreadcrumbSearchResult() {
-    const isAuthenticated = useSelector((state: token) => state.auth.token !== null);
+    const isAuthenticated = useSelector((state: UserIdState) => state.auth.userId !== null);
     
     return (
         <TooltipProvider>

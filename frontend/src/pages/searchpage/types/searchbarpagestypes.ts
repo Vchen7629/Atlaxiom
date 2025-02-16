@@ -8,11 +8,7 @@ export type SearchResult = {
     }
 }
 
-export type SearchAuth = {
-    auth: {
-        token: string
-    }
-}
+
 
 export type SearchUserId = {
     auth: {

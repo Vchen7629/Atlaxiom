@@ -15,13 +15,18 @@ if (!accessTokenSecret) {
 }
 
 const verifyJWT = (req, res, next) => {
+    let token;
     const authHeader = req.headers.authorization || req.headers.Authorization
 
-    if (!authHeader?.startsWith('Bearer ')) {
-        return res.status(401).json({ message: 'Verify Jwt Unauthorized' })
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+        token = authHeader.split(' ')[1];
+    } else if (req.cookies && req.cookies.accessToken) {
+        token = req.cookies.accessToken;
     }
 
-    const token = authHeader.split(' ')[1]
+    if (!token) {
+        return res.status(401).json({ message: 'Verify Jwt Unauthorized' });
+    }
 
     jwt.verify( token, accessTokenSecret, (err, decoded) => {
             if (err) return res.status(403).json({ message: 'Forbidden' })
