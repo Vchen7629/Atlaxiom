@@ -3,8 +3,8 @@ import { SearchResCardData } from "../types/datastructuretypes";
 import { ListViewComp } from "../types/searchbarcomponentstypes";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { SearchAuth } from "@/pages/searchpage/types/searchbarpagestypes";
 import { waveform } from 'ldrs';
+import { UserIdState } from "@/pages/my-decks/deckpagetypes";
 
 const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => {
     const {
@@ -15,7 +15,7 @@ const ListViewSearchSuggestionsComponent = ({ listviewprops }: ListViewComp) => 
     } = listviewprops
 
     const [, setSelectedCardData] = useState<SearchResCardData | null>(null);
-    const authenticated = useSelector((state: SearchAuth) => state.auth.token !== null);
+    const authenticated = useSelector((state: UserIdState) => state.auth.userId !== null);
     const navigate = useNavigate();
     const [showLoading, setShowLoading] = useState(true);
 

@@ -2,7 +2,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import { startTransition, Suspense, useEffect, useRef } from "react"
 import { useRefreshMutation } from "./authApiSlice.ts"
 import { useSelector } from "react-redux"
-import { selectCurrentToken, selectLoggingOut } from "./authSlice"
+import { selectCurrentuserId,  selectLoggingOut } from "./authSlice"
 import HomePage from "@/pages/homepage/homepage.tsx"
 import SearchBarPage from "@/pages/searchpage/searchbarpage.tsx"
 import FoldingCube from "@/components/loadingcomponents/foldingcube.tsx"
@@ -15,7 +15,7 @@ import SiteHelpPage from "@/pages/sitehelppage/Documentation.tsx"
 const StayLoggedIn = () => {
     const navigate = useNavigate()
     const location = useLocation();
-    const token = useSelector(selectCurrentToken)
+    const token = useSelector(selectCurrentuserId)
     const loggingOut = useSelector(selectLoggingOut);
     const effectRan = useRef(false)
 

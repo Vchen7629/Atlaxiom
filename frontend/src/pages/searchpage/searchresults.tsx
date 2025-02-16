@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { BreadcrumbSearchResult } from '../../components/searchpagecomponents/searchresultpagecomponents/breadcrumb.tsx';
-import { SearchAuth, SearchUserId } from './types/searchbarpagestypes.ts';
+import { SearchUserId } from './types/searchbarpagestypes.ts';
 import { PriceChartComponent } from '@/components/searchpagecomponents/searchresultpagecomponents/pricechart.tsx';
 import { useLocation } from 'react-router-dom';
 import Footer from '@/components/footer/Footer.tsx';
@@ -9,13 +9,14 @@ import { CardSet } from '@/components/searchpagecomponents/types/searchresultcom
 import { useState } from 'react';
 import { ComponentCardSetPopup } from '@/components/searchpagecomponents/searchresultpagecomponents/addcard.tsx';
 import { Toaster } from 'sonner';
+import { UserIdState } from '../my-decks/deckpagetypes.ts';
 
 const SearchResults = () => { 
     const location = useLocation();
     const { selectedCardData } = location.state || {}
     const [cardSets, setCardSets] = useState<CardSet[]>([]);
    
-    const authenticated = useSelector((state: SearchAuth) => state.auth.token !== null);
+    const authenticated = useSelector((state: UserIdState) => state.auth.userId !== null);
     const userId = useSelector((state: SearchUserId) => state.auth.userId);
 
     const addcardprops = {

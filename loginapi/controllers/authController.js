@@ -87,7 +87,7 @@ const login = asyncHandler(async (req, res) => {
     })
 
     // Send accessToken containing username and roles 
-    res.json({ accessToken, userId: foundUser._id, username: foundUser.username })
+    res.json({accessToken, userId: foundUser._id, username: foundUser.username })
 })
 
 // @desc Refresh
@@ -119,7 +119,7 @@ const refresh = (req, res) => {
             if (!foundUser) return res.status(401).json({ message: 'Unauthorized No user found' })
             
             if (foundUser.authType === "google") {
-                const accessToken = jwt.sign(
+                jwt.sign(
                     {
                         "UserInfo": {
                             "userId": foundUser._id,
@@ -130,9 +130,9 @@ const refresh = (req, res) => {
                     accessTokenSecret,
                     { expiresIn: "24h"}
                 )
-                res.json({ accessToken, username: foundUser.username, userId: foundUser._id, email: foundUser.email })
+                res.json({ username: foundUser.username, userId: foundUser._id, email: foundUser.email })
             } else {
-                const accessToken = jwt.sign(
+                jwt.sign(
                     {
                         "UserInfo": {
                             "userId": foundUser._id,
@@ -143,7 +143,7 @@ const refresh = (req, res) => {
                     accessTokenSecret,
                     { expiresIn: '24h' }
                 )
-                res.json({ accessToken, userId: foundUser._id, username: foundUser.username, email: foundUser.email })
+                res.json({ userId: foundUser._id, username: foundUser.username, email: foundUser.email })
             }
         })
     )

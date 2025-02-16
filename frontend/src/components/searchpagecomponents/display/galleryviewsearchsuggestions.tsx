@@ -3,8 +3,8 @@ import { SearchResCardData } from "../types/datastructuretypes";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { SearchAuth } from "@/pages/searchpage/types/searchbarpagestypes";
 import { waveform } from 'ldrs';
+import { UserIdState } from "@/pages/my-decks/deckpagetypes";
 
 const GalleryViewSearchSuggestionsComponent = ({ galleryviewprops }: GalleryViewComp) => {
     const {
@@ -16,7 +16,7 @@ const GalleryViewSearchSuggestionsComponent = ({ galleryviewprops }: GalleryView
 
     const navigate = useNavigate();
     const [, setSelectedCardData] = useState<SearchResCardData | null>(null);
-    const authenticated = useSelector((state: SearchAuth) => state.auth.token !== null);
+    const authenticated = useSelector((state: UserIdState) => state.auth.userId !== null);
     const [showLoading, setShowLoading] = useState(true);
 
     waveform.register();
