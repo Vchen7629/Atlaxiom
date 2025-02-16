@@ -65,7 +65,7 @@ export function LoginForm() {
               password: values.password,
             }).unwrap();
       
-            if (!result.accessToken || !result.userId) {
+            if (!result.userId) {
               throw new Error('Missing data in login response');
             }
             
