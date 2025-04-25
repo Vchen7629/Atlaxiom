@@ -12,10 +12,15 @@ const connectMongoDB = require('./config/mongodbConn')
 const { checkDynamoDBConnection } = require('./config/DynamoDBConn');
 const environment = process.env.NODE_ENV || 'production';
 
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/privkey.pem', "utf-8")
-const cert = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem', "utf-8")
-//const privateKey = "placeholder"
-//const cert = "placeholder"
+let privateKey, cert;
+
+if (environment == "production") {
+    privateKey = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/privkey.pem', "utf-8")
+    cert = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem', "utf-8")
+} else {
+    privateKey = "placeholder"
+    cert = "placeholder"
+}
 
 const httpsOptions = { key: privateKey, cert };
 

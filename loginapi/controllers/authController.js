@@ -34,12 +34,13 @@ const login = asyncHandler(async (req, res) => {
     }   
 
     const foundUser = await User.findOne({ username }).exec()
+    console.log("login:", foundUser)
 
     if (!foundUser || !foundUser.active) {
         return res.status(401).json({ message: "Invalid Username" })
     }
 
-    const match = await bcrypt.compare(password, foundUser.password)
+    const match = bcrypt.compare(password, foundUser.password)
 
     if (!match) return res.status(401).json({ message: 'Invalid Password' })
 

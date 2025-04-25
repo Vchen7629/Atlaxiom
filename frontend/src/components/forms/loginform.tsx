@@ -58,46 +58,46 @@ export function LoginForm() {
         })
     }
 
-    async function handleSubmit(values: z.infer<typeof formSchema>) {
-        try {
-            const result = await login({
-              username: values.username,
-              password: values.password,
-            }).unwrap();
-      
-            if (!result.userId) {
-              throw new Error('Missing data in login response');
-            }
-            
-            await refresh()
-            
-            startTransition(() => {
-                navigate('/profile')
-            })
-            return Promise.resolve();
-          } catch (error) {
-            return Promise.reject(error);
-          }
-    }
-
-    function onSubmit(event: React.MouseEvent<HTMLButtonElement>) {
-        event.preventDefault();
-        const values = form.getValues();
-        const promise = handleSubmit(values);
-        toast.promise(promise, {
-            loading: "loading...",
-            success: () => "sucessfully logged in",
-            error: (error: toastErrorMessage) => {
-                if (error?.status === 401) {
-                    return error?.data?.message || "Invalid Username or Password";
-                } else if (error?.status === 400) {
-                    return error?.data?.message || "Missing Username or Password";
-                } else {
-                    return "An unexpected error occurred";
+        async function handleSubmit(values: z.infer<typeof formSchema>) {
+            try {
+                const result = await login({
+                username: values.username,
+                password: values.password,
+                }).unwrap();
+        
+                if (!result.userId) {
+                throw new Error('Missing data in login response');
                 }
-            },
-        })
-    }
+                
+                await refresh()
+                
+                startTransition(() => {
+                    navigate('/profile')
+                })
+                return Promise.resolve();
+            } catch (error) {
+                return Promise.reject(error);
+            }
+        }
+
+        function onSubmit(event: React.MouseEvent<HTMLButtonElement>) {
+            event.preventDefault();
+            const values = form.getValues();
+            const promise = handleSubmit(values);
+            toast.promise(promise, {
+                loading: "loading...",
+                success: () => "sucessfully logged in",
+                error: (error: toastErrorMessage) => {
+                    if (error?.status === 401) {
+                        return error?.data?.message || "Invalid Username or Password";
+                    } else if (error?.status === 400) {
+                        return error?.data?.message || "Missing Username or Password";
+                    } else {
+                        return "An unexpected error occurred";
+                    }
+                },
+            })
+        }
 
     return (
         <Form {...form}>
@@ -131,8 +131,9 @@ export function LoginForm() {
                     control={form.control}
                     name="password"
                     
+                    
                     render={({ field }) => (
-                        <FormItem>
+                        <FormItem >
                             <FormLabel className="text-gray-400">Password</FormLabel>
                             <FormLabel className="absolute right-0 text-gray-400 hover:text-[hsl(var(--background3))]">
                                 <button onClick={handlePasswordReset}>

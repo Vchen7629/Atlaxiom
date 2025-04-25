@@ -14,10 +14,17 @@ const PORT = 3000
 const connectDB = require('./config/dbConn')
 const environment = process.env.NODE_ENV || 'production';
 
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/privkey.pem', "utf-8")
-const cert = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem', "utf-8")
-//const privateKey = "placeholder"
-//const cert = "placeholder"
+let privateKey, cert
+
+if (process.env.NODE_ENV == "production") {
+    privateKey = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/privkey.pem', "utf-8")
+    cert = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem', "utf-8")
+    app.use(checkHost)
+} else {
+    privateKey = "placeholder"
+    cert = "placeholder"
+}
+
 
 const httpsOptions = { key: privateKey, cert };
 
@@ -31,7 +38,6 @@ app.options('*', (req, res) => {
 });
 
 app.use(cors(corsOptions))
-app.use(checkHost)
 app.use(logger)
 app.use(express.json())
 app.use(cookieParser())

@@ -170,9 +170,11 @@ const ResetPassword = asyncHandler(async (req, res) => {
     }
 
     const user = await User.findOne({ email: checkTokenSessionId.email });
+    console.log("User hi", user)
     if (user) {
         user.password = newPassword;
-        await user.save();
+        const save = await user.save();
+        console.log("saved status is", save)
 
         await PasswordResetTokenSchema.deleteOne({ token });
 
