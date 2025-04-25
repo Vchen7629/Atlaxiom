@@ -4,8 +4,8 @@ import { ContactLambdaRequest, LambdaResponse, PasswordResetLambdaRequest, Passw
 export const lambdaEmailApiSlice = createApi({
     reducerPath: "lambdaContactApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:3005",
-        //baseUrl: "https://api.atlaxiom.com:2096",
+        //baseUrl: "http://localhost:3005",
+        baseUrl: "https://api.atlaxiom.com:2096",
         prepareHeaders: (headers) => {
             headers.set('Content-Type', 'application/json');
             return headers;
