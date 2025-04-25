@@ -1,6 +1,10 @@
 const allowedHost = "api.atlaxiom.com:8443"
 
 const checkHost = (req, res, next) => {
+    if (req.method === 'OPTIONS') {
+        return next();
+    }
+
     const host = req.headers.host;
 
     if (host !== allowedHost) {
