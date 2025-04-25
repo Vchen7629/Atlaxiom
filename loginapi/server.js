@@ -16,7 +16,7 @@ const environment = process.env.NODE_ENV || 'production';
 
 let privateKey, cert
 
-if (process.env.NODE_ENV == "production") {
+if (environment == "production") {
     privateKey = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/privkey.pem', "utf-8")
     cert = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem', "utf-8")
     app.use(checkHost)
