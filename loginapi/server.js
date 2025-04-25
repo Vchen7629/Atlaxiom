@@ -9,14 +9,21 @@ const cors = require('cors')
 const corsOptions = require('./config/corsOptions')
 const fs = require('fs')
 const https = require('https');
-//const checkHost = require('./middleware/checkhostname')
+const checkHost = require('./middleware/checkhostname')
 const PORT = 3000
 const connectDB = require('./config/dbConn')
 const environment = process.env.NODE_ENV || 'production';
 
+let privateKey, cert
 
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/privkey.pem', "utf-8")
-const cert = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem', "utf-8")
+if (environment == "production") {
+    privateKey = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/privkey.pem', "utf-8")
+    cert = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem', "utf-8")
+} else {
+    privateKey = "placeholder"
+    cert = "placeholder"
+}
+
 
 const httpsOptions = { key: privateKey, cert };
 
@@ -30,6 +37,7 @@ app.options('*', (req, res) => {
 });
 
 app.use(cors(corsOptions))
+app.use(checkHost)
 app.use(logger)
 app.use(express.json())
 app.use(cookieParser())
