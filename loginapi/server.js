@@ -37,10 +37,10 @@ app.options('*', (req, res) => {
 });
 
 app.use(cors(corsOptions))
-app.use(checkHost)
 app.use(logger)
 app.use(express.json())
 app.use(cookieParser())
+app.use(checkHost())
 
 app.use('/', express.static(path.join(__dirname, 'public'))) /*code for telling the program to fetch static css files from the public folder */
 

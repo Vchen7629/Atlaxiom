@@ -37,7 +37,7 @@ app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
-//app.use(checkHost)
+app.use(checkHost)
 app.get('/test', (req, res) => {
     res.json({ message: 'Test route working' });
 });
