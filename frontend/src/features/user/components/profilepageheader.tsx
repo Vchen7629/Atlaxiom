@@ -2,14 +2,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { ProfileHeader } from '../types/componenttypes';
 import { useSelector } from 'react-redux';
-import { UsernameState } from '@/shared/types/accounttypes';
 
 const ProfilePageHeader = ({ usersData }: ProfileHeader) => {
     const username = usersData?.username
     const totalOwnedCards = usersData?.totalOwnedCards
     const totalOwnedDecks = usersData?.totalOwnedDecks
     const creation = usersData?.creation
-    const cachedUsername = useSelector((state: UsernameState) => state.auth.username);
+    const cachedUsername = useSelector((state: { auth: { username: string | undefined}}) => state.auth.username);
 
     return (
         <div className="flex min-h-[25vh] mt-4 rounded-3xl h-full px-12 items-center justify-between w-full bg-[hsl(var(--contrast))] shadow-md shadow-[hsl(var(--shadow))] text-[hsl(var(--text))]">

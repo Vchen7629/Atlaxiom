@@ -17,6 +17,7 @@ import { toastSuccessMessage } from "../types/toast";
 import FormatDeckApiResponse from "@/shared/utils/formatDeckApiResponse";
 import ModifyDataDB from "../buttons/modifyDataDB";
 import { useHandleSubmitCreate } from "@/features/decks/hooks/useHandleSubmitCreate";
+import NormalizeToToastError from "../utils/normalizeToToastError";
 
 // This component displays maps all of the user's data from the api and displays
 // in the view decks subpage on profile page with styling
@@ -81,10 +82,10 @@ export function DeckDisplay({ DeckDisplayProps }: deckDisplayProps) {
                                     setCurrentPageGalleryDecksArray={setCurrentPageGalleryDecksArray}
                                 />
                                 <DuplicateDeckButtonComponent deck={deck}/>
-                                <ModifyDataDB
+                                <ModifyDataDB<toastSuccessMessage, unknown>
                                     onModify={() => handleSubmitDelete(deck)}
                                     successMessage={(data: toastSuccessMessage) => `Deleted Deck: ${data?.name}`}
-                                    errorHandler={(error) => FormatDeckApiResponse(error, "delete")}
+                                    errorHandler={(error: unknown) => FormatDeckApiResponse(NormalizeToToastError(error), "delete")}
                                     className="text-white h-8 w-8 rounded bg-[hsl(var(--background3))]"
                                 >
                                     <FontAwesomeIcon icon={faTrash}/>
@@ -131,7 +132,7 @@ export function DeckDisplay({ DeckDisplayProps }: deckDisplayProps) {
                                     <ModifyDataDB
                                         onModify={() => handleSubmitDelete(deck)}
                                         successMessage={(data: toastSuccessMessage) => `Deleted Deck: ${data?.name}`}
-                                        errorHandler={(error) => FormatDeckApiResponse(error, "delete")}
+                                        errorHandler={(error: unknown) => FormatDeckApiResponse(NormalizeToToastError(error), "delete")}
                                         className="text-white h-8 w-8 rounded bg-[hsl(var(--background3))]"
                                     >
                                         <FontAwesomeIcon icon={faTrash}/>
@@ -152,7 +153,7 @@ export function DeckDisplay({ DeckDisplayProps }: deckDisplayProps) {
                 <ModifyDataDB
                     onModify={() => handleSubmitCreate()}
                     successMessage={(data: toastSuccessMessage) => `Created New Deck Named: ${data?.name}`}
-                    errorHandler={(error) => FormatDeckApiResponse(error, "create")}
+                    errorHandler={(error: unknown) => FormatDeckApiResponse(NormalizeToToastError(error), "create")}
                     className="w-10 h-10 bg-[hsl(var(--background3))] text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200 flex items-center justify-center gap-2"
                 >
                     <FontAwesomeIcon icon={faPlus} className="fa-sm"/>

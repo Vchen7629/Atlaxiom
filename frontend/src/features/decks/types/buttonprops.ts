@@ -18,3 +18,12 @@ export type GalleryDeck = {
     favorite?: boolean;
     deck_name?: string
 }
+
+export type pageselector = {
+    pageselectorprops: {
+        currentPage: number
+        setCurrentPage: React.Dispatch<React.SetStateAction<number>>
+        totalPages: number
+        setPage: React.Dispatch<React.SetStateAction<number>>
+    }
+}

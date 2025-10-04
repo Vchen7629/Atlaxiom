@@ -10,7 +10,7 @@ const MobileCollectionMonsterCardSearchBarComponent = ({ CollectionSearchBarComp
         cardData,
         listView,
         galleryView,
-        collectionMonsterCards, setCollectionMonsterCards,
+        collectionMonsterCards, //setCollectionMonsterCards,
         collectionCardsName, setCollectionCardsName,
         collectionListResults, setCollectionListResults,
         collectionGalleryResults, setCollectionGalleryResults,

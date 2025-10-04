@@ -3,7 +3,7 @@ import { UserId } from "../types/subpagetypes";
 import { useUpdateUserMutation } from "@/app/api-slices/usersApiSlice";
 import { SaveUsernameButton } from "../types/editcomponenttypes";
 import { toast } from "sonner";
-import { toastErrorMessage, toastSuccessMessage } from "@/features/card_collection/types/buttontypes";
+import { toastErrorMessage, toastSuccessMessage } from "@/shared/types/toast";
 
 const UsernameUpdateButton = ({ UpdateUsernameProps } : SaveUsernameButton) => {
     const {

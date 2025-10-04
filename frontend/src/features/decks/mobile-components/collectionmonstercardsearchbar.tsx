@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faSearch } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useCallback, useMemo, memo } from "react";
+import { useEffect, useCallback, useMemo } from "react";
 import { MobileCollectionSearchbarCompProps } from "../types/searchBar";
 import { SetCollectionGallery, SetCollectionList } from "../types/mobileaddcardsearchbartypes";
 import { GetOwnedCardsResponse } from "@/app/api-slices/types/ownedcardtypes";
@@ -10,7 +10,7 @@ const MobileCollectionMonsterCardSearchBarComponent = ({ CollectionSearchBarComp
         cardData,
         listView,
         galleryView,
-        collectionMonsterCards, setCollectionMonsterCards,
+        collectionMonsterCards, //setCollectionMonsterCards,
         collectionCardsName, setCollectionCardsName,
         collectionListResults, setCollectionListResults,
         collectionGalleryResults, setCollectionGalleryResults,

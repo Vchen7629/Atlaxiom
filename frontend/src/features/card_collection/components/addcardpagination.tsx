@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { PageSelectorComponent } from "../buttons/addcardpageselector.tsx";
-import { Pagination } from "../../../components/cardcollectioncomponents/types/addcardtypes.ts";
 import { mappedCard } from "../types/buttontypes.ts";
+import { PaginationTwo } from "../types/paginationtypes.ts";
 
-const AddCardPaginationComponent = ({ paginationprops }: Pagination) => {
+
+
+const AddCardPaginationComponent = ({ paginationprops }: PaginationTwo) => {
     const {
         filteredCards,
         currentPage, setCurrentPage,

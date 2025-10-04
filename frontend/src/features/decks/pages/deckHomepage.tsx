@@ -15,6 +15,7 @@ import { useHandleSubmitCreate } from '../hooks/useHandleSubmitCreate.tsx';
 import { toastSuccessMessage } from '@/shared/types/toast.ts';
 import FormatDeckApiResponse from '@/shared/utils/formatDeckApiResponse.tsx';
 import ModifyDataDB from '@/shared/buttons/modifyDataDB.tsx';
+import NormalizeToToastError from '@/shared/utils/normalizeToToastError.tsx';
 
 const DeckHomepage = () => {
     const userId = useSelector((state: UserIdState) => state.auth.userId);
@@ -105,10 +106,10 @@ const DeckHomepage = () => {
                             </button>
                         </div>
                     </div>
-                    <ModifyDataDB
+                    <ModifyDataDB<toastSuccessMessage, unknown>
                         onModify={() => handleSubmitCreate()}
                         successMessage={(data: toastSuccessMessage) => `Created New Deck Named: ${data?.name}`}
-                        errorHandler={(error) => FormatDeckApiResponse(error, "create")}
+                        errorHandler={(error: unknown) => FormatDeckApiResponse(NormalizeToToastError(error), "create")}
                         className='flex text-md px-4 py-2 rounded-2xl bg-[hsl(var(--background3))] shadow-lg'
                     >
                         New Deck

@@ -1,22 +1,22 @@
 import { toast } from "sonner";
 
-type ButtonProps<T> = {
-    onModify: () => Promise<T>; // async function for interacting with db
-    successMessage: (data: T) => string;
-    errorHandler: (error: T) => string;
+type ButtonProps<TSuccess, TError = unknown> = {
+    onModify: () => Promise<TSuccess>; // async function for interacting with db
+    successMessage: (data: TSuccess) => string;
+    errorHandler: (error: TError) => string;
     children?: React.ReactNode; // the button text
     className?: string; // import styles from parent
 }
 
 
 // This component implements a button that interacts with the database
-export default function ModifyDataDB<T>({
+export default function ModifyDataDB<TSuccess, TError = unknown>({
     onModify, 
     successMessage,
     errorHandler,
     children,
     className
-}: ButtonProps<T>) {
+}: ButtonProps<TSuccess, TError>) {
 
     function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault()

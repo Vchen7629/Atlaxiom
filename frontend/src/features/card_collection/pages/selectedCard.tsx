@@ -8,6 +8,7 @@ import { toastSuccessTwoMessage } from "@/shared/types/toast";
 import ModifyDataDB from "@/shared/buttons/modifyDataDB";
 import { UseHandleAddNewCardClick } from "../hooks/useHandleAddOwnedCardClick";
 import FormatCardApiResponse from "@/shared/utils/formatCardApiResponse";
+import NormalizeToToastError from "@/shared/utils/normalizeToToastError";
 
 // This component implements the popup window when you click add card in the
 // user card collection page
@@ -138,10 +139,10 @@ const SelectedCardMiniPage = ({ cardName }: { cardName: string }) => {
                                                 <div className="text-xs">{set.set_rarity}</div>
                                                 <div className="text-xs">${set.set_price}</div>
                                                 <div className="">
-                                                <ModifyDataDB
+                                                <ModifyDataDB<toastSuccessTwoMessage, unknown>
                                                     onModify={() => handleAddCard(selectedCardData, set, index)}
                                                     successMessage={(data: toastSuccessTwoMessage) => `Card: ${data?.name} from set: ${data?.set} has been added`}
-                                                    errorHandler={(error) => FormatCardApiResponse(error, "add")}
+                                                    errorHandler={(error: unknown) => FormatCardApiResponse(NormalizeToToastError(error), "add")}
                                                     className="bg-[hsl(var(--background3))] rounded-lg flex items-center p-2"
                                                 >
                                                     <FontAwesomeIcon icon={faPlus} />
@@ -172,10 +173,10 @@ const SelectedCardMiniPage = ({ cardName }: { cardName: string }) => {
                                         <div className="w-[15%]">{set.set_rarity}</div>
                                         <div className="w-[13%]">${set.set_price}</div>
                                         <div className="w-[8%]">
-                                        <ModifyDataDB
+                                        <ModifyDataDB<toastSuccessTwoMessage, unknown>
                                             onModify={() => handleAddCard(selectedCardData, set, index)}
                                             successMessage={(data: toastSuccessTwoMessage) => `Card: ${data?.name} from set: ${data?.set} has been added`}
-                                            errorHandler={(error) => FormatCardApiResponse(error, "add")}
+                                            errorHandler={(error: unknown) => FormatCardApiResponse(NormalizeToToastError(error), "add")}
                                             className="bg-[hsl(var(--background3))] rounded-lg flex items-center p-2"
                                         >
                                             <FontAwesomeIcon icon={faPlus} />
