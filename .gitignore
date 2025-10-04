@@ -1,0 +1,9 @@
+node_modules
+logs
+.env
+
+# Terraform
+.Terraform
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfvars

@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const passwordResetController = require("../controllers/passwordresetController") 
+const passwordResetController = require("../controllers/passwordresetController.js") 
 const LoginLimiter = require('../middleware/loginlimiter.js')
 
 router.route('/validate-token')
