@@ -3,7 +3,7 @@ import AccountCreationForm from "../components/AccountCreationForm"
 import { startTransition } from "react"
 import { useGoogleLogin } from "@react-oauth/google"
 import { useGoogleLoginMutation } from "@/app/auth/GoogleOauthApiSlice"
-import googleIcon from "../../../img/googledark.png"
+import googleIcon from "../../../../img/googledark.png"
 
 const SignUpPageComponent = () => {
     const navigate = useNavigate()
