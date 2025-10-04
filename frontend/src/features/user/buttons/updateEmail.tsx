@@ -3,7 +3,7 @@ import { UserId } from "../types/subpagetypes";
 import { useUpdateUserMutation } from "@/app/api-slices/usersApiSlice";
 import { SaveEmailButton } from "../types/editcomponenttypes";
 import { toast } from "sonner";
-import { toastErrorTwoMessage, toastSuccessMessage } from "@/features/card_collection/types/buttontypes";
+import { toastErrorMessage, toastSuccessMessage } from "@/shared/types/toast";
 
 const UpdateEmailButton = ({ UpdateEmailProps } : SaveEmailButton) => {
     const {
@@ -30,7 +30,7 @@ const UpdateEmailButton = ({ UpdateEmailProps } : SaveEmailButton) => {
         toast.promise(promise, {
             loading: "loading...",
             success: (data: toastSuccessMessage) => `Email Updated Successfully to: ${data?.name}`,
-            error: (error: toastErrorTwoMessage) => {
+            error: (error: toastErrorMessage) => {
                 if (error?.status === 404) {
                     return "User Not Found";
                 } else if (error?.status === 400) {

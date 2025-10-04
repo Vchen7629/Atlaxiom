@@ -1,4 +1,4 @@
-import { pageselector } from "../../../components/cardcollectioncomponents/types/addcardtypes";
+import { pageselector } from "@/features/decks/types/buttonprops";
 
 // page selector for add card button popup window pagination
 export const PageSelectorComponent = ({ pageselectorprops }: pageselector) => {

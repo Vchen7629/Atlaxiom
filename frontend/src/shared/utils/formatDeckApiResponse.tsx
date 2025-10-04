@@ -12,6 +12,6 @@ export default function FormatDeckApiResponse(error: toastErrorMessage, type: st
     } else if (error?.status === 500) {
         return error?.response?.data?.message || `Failed to ${type} Deck`;
     } else {
-        return "An unexpected error occurred";
+        return error?.response?.data?.message || `Unknown error has occured`;
     }
 }

@@ -13,6 +13,7 @@ import { useGetOwnedCardsQuery } from '../../../app/api-slices/ownedCardapislice
 import { Card, filteredListCards, SelectedCard } from "../types/ownedcarddetailstypes.ts";
 import { useGetSpecificUserQuery } from "@/app/api-slices/usersApiSlice.ts";
 import { Toaster } from "sonner";
+import { toastSuccessMessage} from "@/shared/types/toast.ts"
 import IncreaseOwnedCardButtonComponent from "../buttons/increaseOwnedCard.tsx";
 import DecreaseOwnedCardButtonComponent from "../buttons/decreaseOwnedCard.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -23,6 +24,7 @@ import { OwnedCard } from "../types/dataStructures.ts";
 import { useHandleSubmitDelete } from "../hooks/useHandleSubmitDelete.tsx";
 import FormatCardApiResponse from "@/shared/utils/formatCardApiResponse.tsx";
 import ModifyDataDB from "@/shared/buttons/modifyDataDB.tsx";
+import NormalizeToToastError from "@/shared/utils/normalizeToToastError.tsx";
 
 export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListCards) => {
     waveform.register()
@@ -105,10 +107,10 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
                                 <div className="flex space-x-1 h-[10%] w-[90%] justify-center items-center mr-6">
                                     <IncreaseOwnedCardButtonComponent card={card} userId={userId} refetch={refetch}/>
                                     <DecreaseOwnedCardButtonComponent card={card} userId={userId} refetch={refetch}/>
-                                    <ModifyDataDB
+                                    <ModifyDataDB<toastSuccessMessage, unknown>
                                         onModify={() => handleSubmitDelete(card.card_name)}
                                         successMessage={(data: { name: string } | undefined ) => `Deleted Card: ${data?.name}`}
-                                        errorHandler={(error) => FormatCardApiResponse(error, "delete")}
+                                        errorHandler={(error: unknown) => FormatCardApiResponse(NormalizeToToastError(error), "delete")}
                                         className="h-8 w-8 rounded bg-[hsl(var(--background3))] cursor-pointer"
                                     >
                                         <FontAwesomeIcon icon={faTrash}/>

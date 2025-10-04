@@ -1,4 +1,4 @@
-import { GalleryResult, Result } from "./sidebarcomponenttypes";
+import { GalleryResult, Result } from "./sidebarComponents";
 import { Card, OwnedCard } from "./data";
 import { GetOwnedCardsResponse } from "@/app/api-slices/types/ownedcardtypes";
 

@@ -1,12 +1,21 @@
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
-import { SearchListResult } from '../types/dragAndDropItem';
+
+interface CardItem {
+    id?: string;
+    name?: string;
+    card_name?: string;
+    desc?: string;
+    image_url?: string
+    card_images?: Array<{ image_url: string }>
+}
+
 
 // This component implements the styling and dragndrop logic for card items showing
 // up in the sidebar when you are creating a new deck
 const DeckBuilderSidebarCardItem = (
     { card, listView, galleryView }: 
-    {card: SearchListResult, listView: boolean, galleryView: boolean}
+    { card: CardItem, listView: boolean, galleryView: boolean}
 ) => {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
         id: card.id as string 

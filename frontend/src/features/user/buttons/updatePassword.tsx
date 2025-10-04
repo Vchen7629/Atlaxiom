@@ -3,7 +3,7 @@ import { UserId } from "../types/subpagetypes";
 import { useUpdateUserMutation } from "@/app/api-slices/usersApiSlice";
 import { SavePasswordButton } from "../types/editcomponenttypes";
 import { toast } from "sonner";
-import { toastErrorMessage } from "@/features/card_collection/types/buttontypes";
+import { toastErrorMessage } from "@/shared/types/toast";
 
 const PasswordUpdateButton = ({ UpdatePasswordProps } : SavePasswordButton) => {
     const {

@@ -1,5 +1,20 @@
+import { ApiCardData } from "@/features/search/types/dataStructures";
 import { OwnedCard } from "../../../features/card_collection/types/dataStructures";
 import { Card } from "./ownedcarddetailstypes";
+import { mappedCard } from "./buttontypes";
+
+export type PaginationTwo = {
+    paginationprops: {
+        filteredCards: ApiCardData[];
+        currentPage: number;
+        setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+        cardsPerPage: number;
+        totalPages: number;
+        currentCards: mappedCard[];
+        setCurrentCards: React.Dispatch<React.SetStateAction<mappedCard[]>>;
+        UpdateTotalPages: (filteredCardsLength: number) => void;
+    }
+}
 
 export type Pagination = {
     paginationprops: {

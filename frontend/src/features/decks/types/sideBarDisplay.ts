@@ -1,6 +1,6 @@
 import { UpdatedCard } from "./buttontypes";
 import { Card } from "./data";
-import { GalleryResult, Result } from "./sidebarcomponenttypes";
+import { GalleryResult, Result } from "./sidebarComponents";
 
 export type AllCardsDisplayCompProps = {
     AllCardsDisplayCompProps: {
