@@ -1,4 +1,4 @@
-const { User } = require('../../../loginapi/models/genmodels.js');
+const { User } = require('../models/genmodels.js');
 const bcrypt = require('bcrypt')
 const fs = require('fs')
 const jwt = require('jsonwebtoken')

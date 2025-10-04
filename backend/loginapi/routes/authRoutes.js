@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const authController = require('../controllers/authController.js')
-const LoginLimiter = require('../../../frontend/middleware/loginlimiter.js')
+const LoginLimiter = require('../middleware/loginlimiter.js')
 
 router.route('/')
     .post(LoginLimiter, authController.login)
