@@ -3,14 +3,12 @@ import { startTransition, Suspense, useEffect, useRef } from "react"
 import { useRefreshMutation } from "./authApiSlice.ts"
 import { useSelector } from "react-redux"
 import { selectCurrentuserId,  selectLoggingOut } from "./authSlice"
-import HomePage from "@/pages/homepage/homepage.tsx"
-import SearchBarPage from "@/pages/searchpage/searchbarpage.tsx"
-import FoldingCube from "@/components/loadingcomponents/foldingcube.tsx"
-import UserOwnedCardPage from "@/pages/my-cards/ownedCardPage.tsx"
-import MyDecks from "@/components/accountbuttons/dropdownmenubuttons/decks.tsx"
-import Profilepage from "@/pages/profilepage/Profilepage.tsx"
-import PrivacyPolicyPage from "@/pages/privacypolicypage/privacypolicypage.tsx"
-import SiteHelpPage from "@/pages/sitehelppage/Documentation.tsx"
+import HomePage from "@/features/homepage/pages/homepage.tsx"
+import SearchBarPage from "@/features/search/pages/searchBar.tsx"
+import FoldingCube from "@/shared/loading-components/foldingcube.tsx"
+import UserOwnedCardPage from "@/features/card_collection/pages/ownedCardPage.tsx"
+import MyDecks from "@/shared/navigation/decks.tsx"
+import Profilepage from "@/features/user/pages/Profilepage.tsx"
 
 const StayLoggedIn = () => {
     const navigate = useNavigate()
@@ -62,10 +60,6 @@ const StayLoggedIn = () => {
                 return <FoldingCube />;
             case '/profile':
                 return <Profilepage />;
-            case '/privacyloggedin':
-                return <PrivacyPolicyPage />;
-            case '/FAQloggedin':
-                return <SiteHelpPage />;
             default:
                 return <div className="w-full h-screen" />;
         }

@@ -1,23 +1,21 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import StayLoggedIn from './app/auth/stayloggedin.tsx';
 import { lazy, useEffect } from 'react';
-import { LoadingWrapper } from './components/loadingcomponents/loadingwrapper.tsx';
+import { LoadingWrapper } from './shared/loading-components/loadingwrapper.tsx';
 
-const SearchResults = lazy(() => (import('./pages/searchpage/searchresults.tsx')))
-const HomePage = lazy(() => (import("./pages/homepage/homepage.tsx")))
-const SignUpPage = lazy(() => (import("./pages/sign-up-page/signuppage.tsx")))
-const LoginPage = lazy(() => import("./pages/loginpage/login.tsx"))
-const SearchBarPage = lazy(() => import("./pages/searchpage/searchbarpage.tsx"))
-const PrivacyPolicyPage = lazy(() => import("./pages/privacypolicypage/privacypolicypage.tsx"))
-const SiteHelpPage = lazy(() => import("./pages/sitehelppage/Documentation.tsx"))
-const UserOwnedCardPage = lazy(() => import("./pages/my-cards/ownedCardPage.tsx"))
-const MyDeck = lazy(() => import("./pages/my-decks/deckpagehomepage.tsx"))
-const DeckBuilderPage = lazy(() => import("./pages/my-decks/editdeckpage.tsx"))
-const Profilepage = lazy(() => import("./pages/profilepage/Profilepage.tsx"))
-const ContactPage = lazy(() => import("./pages/ContactPage/Contact.tsx"))
-const RequestPasswordResetPage = lazy(() => import("./pages/ResetPasswordPage/requestpasswordreset.tsx"))
-const PasswordResetPage = lazy(() => import("./pages/ResetPasswordPage/passwordreset.tsx"))
-const InvalidPage = lazy(() => import("./pages/404page/404.tsx"))
+const SearchResults = lazy(() => (import('./features/search/pages/searchResults.tsx')))
+const HomePage = lazy(() => (import("./features/homepage/pages/homepage.tsx")))
+const SignUpPage = lazy(() => (import("./features/user/pages/signuppage.tsx")))
+const LoginPage = lazy(() => import("./features/user/pages/login.tsx"))
+const SearchBarPage = lazy(() => import("./features/search/pages/searchBar.tsx"))
+const UserOwnedCardPage = lazy(() => import("./features/card_collection/pages/ownedCardPage.tsx"))
+const MyDeck = lazy(() => import("./features/decks/pages/deckHomepage.tsx"))
+const DeckBuilderPage = lazy(() => import("./features/decks/pages/deckBuilder.tsx"))
+const Profilepage = lazy(() => import("./features/user/pages/Profilepage.tsx"))
+const ContactPage = lazy(() => import("./features/misc/pages/Contact.tsx"))
+const RequestPasswordResetPage = lazy(() => import("./features/user/pages/requestpasswordreset.tsx"))
+const PasswordResetPage = lazy(() => import("./features/user/pages/passwordreset.tsx"))
+const InvalidPage = lazy(() => import("./features/misc/pages/404.tsx"))
 
 
 function App() {
@@ -37,8 +35,6 @@ function App() {
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/search" element={<SearchBarPage/>}/>
         <Route path="/searchresult" element={<SearchResults/>}/>
-        <Route path="/privacy" element={<PrivacyPolicyPage/>}/>
-        <Route path="/FAQ" element={<SiteHelpPage/>}/>
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/requestpasswordreset" element={<RequestPasswordResetPage/>} />
         <Route path="/password-reset/:token" element={<PasswordResetPage />} />
@@ -51,8 +47,6 @@ function App() {
           <Route path="/deckmanager" element={<MyDeck/>}/>
           <Route path="/modifyDeck" element={<DeckBuilderPage/>}/>         
           <Route path="/profile" element={<Profilepage />}/>
-          <Route path="/privacyloggedin" element={<PrivacyPolicyPage/>}/>
-          <Route path="/FAQloggedin" element={<SiteHelpPage/>}/>
           <Route path="/contactloggedin" element={<ContactPage />} />
         </Route>
       

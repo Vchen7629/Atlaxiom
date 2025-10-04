@@ -1,11 +1,12 @@
-import { Card } from "@/pages/my-cards/ownedcardpagetypes";
+import { Card } from "@/features/card_collection/types/ownedcardpagetypes";
 
 export type GetOwnedCardsResponse = Card & {
     id: string;
     _id: string;
     ownedCards: OwnedCards[];
     image_url: string;
-    desc: string
+    desc: string;
+    
 }
 
 export type OwnedCards = {
