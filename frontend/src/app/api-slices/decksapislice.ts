@@ -1,7 +1,7 @@
 import { createEntityAdapter } from "@reduxjs/toolkit";
 import { apiSlice } from "../api/apiSlice.js"
 import { DeckApiResponse, DeckInput, DeckOutput, invalidatesTags } from "./types/decktypes.js";
-import { UpdatedCard } from "@/components/editdeckpagecomponents/types/buttontypes.js";
+import { UpdatedCard } from "@/features/decks/types/buttontypes.js";
 
 const DeckAdapter = createEntityAdapter({})
 

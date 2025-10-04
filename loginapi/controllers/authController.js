@@ -66,10 +66,10 @@ const login = asyncHandler(async (req, res) => {
     )
 
     res.cookie('accessToken', accessToken, {
-        domain: '.atlaxiom.com',
+        //domain: '.atlaxiom.com',
         httpOnly: true,
-        secure: true,
-        sameSite: 'none',
+        secure: false,
+        sameSite: 'lax',
         maxAge: 15 * 60 * 1000, 
     });
 
@@ -80,10 +80,10 @@ const login = asyncHandler(async (req, res) => {
     )
 
     res.cookie('jwt', refreshToken, {
-        domain: '.atlaxiom.com',
+        //domain: '.atlaxiom.com',
         httpOnly: true,
-        secure: true,
-        sameSite: 'none',
+        secure: false,
+        sameSite: 'lax',
         maxAge: 7 * 24 * 60 * 60 * 1000
     })
 

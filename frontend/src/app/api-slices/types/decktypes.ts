@@ -1,5 +1,5 @@
-import { Deck } from "@/components/deckmanagerpagecomponents/types/homepagecomponentprops";
-import { UpdatedCard } from "@/components/editdeckpagecomponents/types/buttontypes";
+import { Deck } from "@/features/decks/types/homepagecomponentprops";
+import { UpdatedCard } from "@/features/decks/types/buttontypes";
 
 export type Arg = {
     id: string

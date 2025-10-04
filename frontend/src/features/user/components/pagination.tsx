@@ -1,0 +1,174 @@
+import { useCallback, useEffect, useState } from "react";
+import { PageSelectorComponent } from "./pageSelector.tsx";
+import { Pagination } from "../types/paginationtypes.ts";
+import { DeckApiResponse } from "@/app/api-slices/types/decktypes.ts";
+
+const PaginationComponent = ({ paginationprops }: Pagination) => {
+    const {
+        filteredDecks,
+        listView,
+        galleryView,
+        currentListPage, setListCurrentPage,
+        currentGalleryPage, setGalleryCurrentPage,
+        suggestionsPerListPage,
+        suggestionsPerGalleryPage,
+        setCurrentPageListDecksArray,
+        setCurrentPageGalleryDecksArray,
+        totalListPages,
+        totalGalleryPages,
+        updateTotalListPages,
+        updateTotalGalleryPages,
+    } = paginationprops
+    
+    const [listpage, setListPage] = useState(currentListPage);
+    const [gallerypage, setGalleryPage] = useState(currentGalleryPage);
+
+    const updateCurrentPageList = useCallback(() => {
+        if (filteredDecks.length > 0) {
+            const startIndex = (currentListPage - 1) * suggestionsPerListPage;
+            const endIndex = startIndex + suggestionsPerListPage;
+            const currentListSuggestions = filteredDecks.slice(startIndex, endIndex) as DeckApiResponse[];
+            setCurrentPageListDecksArray(currentListSuggestions);
+        }
+    }, [filteredDecks, currentListPage, suggestionsPerListPage, setCurrentPageListDecksArray]);
+
+    const handleListPageChange = (page: number) => {
+        setListCurrentPage(page);        
+    };
+
+    function handleListInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const value = e.target.value;
+        if (/^\d*$/.test(value)) {
+            let page = parseInt(value, 10) || 0;
+            
+            if (page < 0) {
+                page = 1;
+            } else if (page > totalListPages) {
+                page = totalListPages;
+            }
+
+            setListPage(page);
+            handleListPageChange(page);
+        }
+    };
+
+    const updateCurrentPageGallery = useCallback(() => {
+        if (filteredDecks.length > 0) {
+            const startIndex = (currentGalleryPage - 1) * suggestionsPerGalleryPage;
+            const endIndex = startIndex + suggestionsPerGalleryPage;
+            const currentGallerySuggestions = filteredDecks.slice(startIndex, endIndex) as DeckApiResponse[];
+            setCurrentPageGalleryDecksArray(currentGallerySuggestions);
+        }
+    }, [filteredDecks, currentGalleryPage, suggestionsPerGalleryPage, setCurrentPageGalleryDecksArray]);
+
+    const handleGalleryPageChange = (page: number) => {
+        setGalleryCurrentPage(page);        
+    };
+
+    function handleGalleryInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const value = e.target.value;
+        if (/^\d*$/.test(value)) {
+            let page = parseInt(value, 10) || 0;
+
+            if (page < 0) {
+                page = 1;
+            } else if (page > totalGalleryPages) {
+                page = totalGalleryPages;
+            }
+
+            setGalleryPage(page);
+            handleGalleryPageChange(page);
+        }
+    };
+
+    // This triggers when the page or decks changes to update current page arrays
+    useEffect(() => {
+        if (filteredDecks.length === 0) {
+            setCurrentPageListDecksArray([]);
+            setCurrentPageGalleryDecksArray([]);
+        } else {
+            updateCurrentPageList();
+            updateCurrentPageGallery();
+        }
+    }, [
+        filteredDecks.length, 
+        currentListPage, 
+        currentGalleryPage, 
+        updateCurrentPageList, 
+        updateCurrentPageGallery,
+        setCurrentPageListDecksArray, // including these two cause esline exhaustive deps is complaining,
+        setCurrentPageGalleryDecksArray // state setters are stable and this is redundant :/
+    ]);
+
+    // This Triggers whenever the user's decks changes to update the pagination pages
+    useEffect(() => {
+        updateTotalListPages(filteredDecks.length);
+        updateTotalGalleryPages(filteredDecks.length);
+    }, [
+        filteredDecks.length, 
+        suggestionsPerListPage, 
+        suggestionsPerGalleryPage, 
+        updateTotalListPages, // including these two cause esline exhaustive deps is complaining
+        updateTotalGalleryPages // state setters are stable and this is redundant :/
+    ]);
+
+    const pageselectorprops = {
+        listView,
+        galleryView,
+        setListPage,
+        setGalleryPage,
+        currentListPage, setListCurrentPage,
+        totalListPages,
+        currentGalleryPage, setGalleryCurrentPage,
+        totalGalleryPages,
+    }
+
+    return (
+        <div className="flex py-2 px-2 w-fit bg-[hsl(var(--bentogridbackground))]">
+            <div className="hidden md:flex space-x-[1vw] w-full justify-evenly">
+                <section className="flex items-center w-[90px] h-full space-x-2"> 
+                    <span className="text-[hsl(var(--text))] text-sm">Page</span> 
+                    <input
+                        className={`${listView ? "flex" : "hidden"} bg-transparent focus:outline-none w-4 text-center text-sm text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
+                        placeholder={String(currentListPage || 1)}
+                        value={listpage}
+                        onChange={handleListInputChange}
+                    />
+                    <input
+                        className={`${galleryView ? "flex" : "hidden"} bg-transparent focus:outline-none w-4 text-center text-sm text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
+                        placeholder={String(currentGalleryPage || 1)}
+                        value={gallerypage}
+                        onChange={handleGalleryInputChange}
+                    />
+                    <span className={`${listView ? "flex" : "hidden"} text-[hsl(var(--text))] text-sm`}> of {totalListPages || 1}</span>
+                    <span className={`${galleryView ? "flex" : "hidden"} text-[hsl(var(--text))] text-sm`}> of {totalGalleryPages || 1}</span>
+                </section>
+                <PageSelectorComponent pageselectorprops={pageselectorprops}/>
+            </div>
+            <div className={`${totalListPages > 4 ? "flex flex-col" : "flex"} md:hidden space-y-[2vh] items-center space-x-[3vw] w-full`}>
+                <section className="flex items-center w-full h-full space-x-2 justify-center"> 
+                    <span className="text-lg text-[hsl(var(--text))]">Page</span> 
+                    <input
+                        className={`${listView ? "flex" : "hidden"} bg-transparent focus:outline-none w-8 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
+                        placeholder={String(currentListPage || 1)}
+                        value={listpage}
+                        onChange={handleListInputChange}
+                    />
+                    <input
+                        className={`${galleryView ? "flex" : "hidden"} bg-transparent focus:outline-none w-8 text-center text-lg text-[hsl(var(--text))] border-b-2 border-[hsl(var(--background3))]`}
+                        placeholder={String(currentGalleryPage || 1)}
+                        value={gallerypage}
+                        onChange={handleGalleryInputChange}
+                    />
+                    <span className={`${listView ? "flex" : "hidden"} text-lg text-[hsl(var(--text))]`}> of {totalGalleryPages || 1}</span>
+                    <span className={`${galleryView ? "flex" : "hidden"} text-lg text-[hsl(var(--text))]`}> of {totalGalleryPages || 1}</span>
+                </section>
+                <PageSelectorComponent pageselectorprops={pageselectorprops}/>
+            </div>
+        </div>
+    )
+
+    
+}
+
+export default PaginationComponent

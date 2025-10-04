@@ -5,7 +5,7 @@ import App from './App';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { store } from './app/store.ts';
 import { Provider } from 'react-redux';
-import { ThemeProvider } from './components/shadcn_components/darklightmode/theme-provider.js';
+import { ThemeProvider } from './shared/shadcn_components/theme-provider.js';
 import { DndContext } from '@dnd-kit/core';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
