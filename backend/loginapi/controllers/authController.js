@@ -125,14 +125,13 @@ const logout = asyncHandler(async (req, res) => {
         console.error('Error removing session from database:', err);
     }
 
-    res.cookie('sessionId', session.session_id, {
+    res.clearCookie("sessionId", {
         httpOnly: true,
         secure: true,
         sameSite: 'none',
-        maxAge: 60 * 60 * 1000
-    });
+    })
 
-    res.status(200).json({ message: "Login successful" })
+    res.status(200).json({ message: "Logout successful" })
 })
 
 module.exports = {
