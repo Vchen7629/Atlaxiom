@@ -26,11 +26,13 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: backend/loginapi
 
       - name: Bundle and zip Lambda
         run: |
           mkdir -p dist
           zip -r dist/lambda.zip . -x "*.git*" "node_modules/aws-sdk/*"
+        working-directory: backend/loginapi
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
