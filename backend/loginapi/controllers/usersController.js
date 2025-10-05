@@ -118,7 +118,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
         // Check if the email is already taken
         const emailTaken = await User.findOne({ email }).lean().exec();
-        if (emailTaken && emailTaken._id.toString() !== id) {
+        if (emailTaken && emailTaken._id.toString() !== userId) {
             return res.status(409).json({ message: 'Duplicate email' });
         }
 
