@@ -46,3 +46,4 @@ jobs:
           aws lambda update-function-code \
             --function-name atlaxiom-login-api \
             --zip-file fileb://dist/lambda.zip
+        working-directory: backend/loginapi
