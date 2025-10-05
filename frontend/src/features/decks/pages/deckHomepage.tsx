@@ -1,13 +1,11 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import Footer from "@/shared/components/Footer.tsx"
 import Header from "@/shared/components/header.tsx"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import GridListViewComponent from '../../../shared/buttons/gridOrListView.tsx';
-import { UserIdState } from '../types/deckPage.ts';
 import PaginationComponent from '@/features/decks/buttons/pagination.tsx';
-import { useGetAllOwnedDecksQuery } from '@/app/api-slices/decksapislice.ts';
+import { useGetAllOwnedDecksQuery } from '@/app/api-slices/deckApiSlice.ts';
 import { Toaster } from 'sonner';
 import { DeckApiResponse } from '@/app/api-slices/types/decktypes.ts';
 import DeckDisplay from '@/features/user/components/deckDisplayWrapper.tsx';
@@ -18,9 +16,8 @@ import ModifyDataDB from '@/shared/buttons/modifyDataDB.tsx';
 import NormalizeToToastError from '@/shared/utils/normalizeToToastError.tsx';
 
 const DeckHomepage = () => {
-    const userId = useSelector((state: UserIdState) => state.auth.userId);
     const [deckName, setDeckName] = useState<string>('');
-    const { data: modifyDecks, isLoading, refetch } = useGetAllOwnedDecksQuery(userId);
+    const { data: modifyDecks, isLoading, refetch } = useGetAllOwnedDecksQuery();
     const decksToDisplay: DeckApiResponse[] = modifyDecks || [];
     const handleSubmitCreate = useHandleSubmitCreate()
 
@@ -81,7 +78,6 @@ const DeckHomepage = () => {
         decksToDisplay,
         listView,
         galleryView,
-        userId,
         refetch,
         currentPageListDecksArray, setCurrentPageListDecksArray,
         currentPageGalleryDecksArray, setCurrentPageGalleryDecksArray,

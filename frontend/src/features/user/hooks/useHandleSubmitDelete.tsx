@@ -1,10 +1,8 @@
 import { useDeleteUserMutation } from "@/app/api-slices/usersApiSlice";
-import { useSendLogoutMutation } from "@/app/auth/authApiSlice";
-import { useSelector } from "react-redux";
+import { useSendLogoutMutation } from "@/app/api-slices/authApiSlice";
 import { useNavigate } from "react-router-dom";
 
 export function useHandleSubmitDelete() {
-    const userId = useSelector((state: { auth: { userId: string }}) => state.auth.userId);
     const navigate = useNavigate();
     const [deleteUser] = useDeleteUserMutation();
     const [sendLogout] = useSendLogoutMutation();
@@ -19,8 +17,8 @@ export function useHandleSubmitDelete() {
         if (deleteInput !== deleteMsg) {
             throw new Error("Input doesn't match DELETE");
         } 
-        await deleteUser({ id: userId }).unwrap();
-        await sendLogout({}).unwrap();
+        await deleteUser().unwrap();
+        await sendLogout().unwrap();
         navigate("/")
     };
 };

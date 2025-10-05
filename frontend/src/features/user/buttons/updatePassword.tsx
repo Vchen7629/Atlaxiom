@@ -1,5 +1,3 @@
-import { useSelector } from "react-redux";
-import { UserId } from "../types/subpagetypes";
 import { useUpdateUserMutation } from "@/app/api-slices/usersApiSlice";
 import { SavePasswordButton } from "../types/editcomponenttypes";
 import { toast } from "sonner";
@@ -11,15 +9,11 @@ const PasswordUpdateButton = ({ UpdatePasswordProps } : SavePasswordButton) => {
         newPassword, setNewPassword,
     } = UpdatePasswordProps
 
-    const userId = useSelector((state: UserId) => state.auth.userId);
 
     const [updatePassword] = useUpdateUserMutation()
 
     async function handleSubmitPassword() {
-        await updatePassword({
-            id: userId,
-            userData: { password: newPassword },
-        }).unwrap();  
+        await updatePassword({ userData: { password: newPassword } }).unwrap();  
         setNewPassword('')
         refetch();
     };

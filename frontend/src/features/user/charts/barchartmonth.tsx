@@ -1,7 +1,5 @@
-import { useGetAllOwnedDecksQuery } from "@/app/api-slices/decksapislice"
+import { useGetAllOwnedDecksQuery } from "@/app/api-slices/deckApiSlice"
 import { useGetOwnedCardsQuery } from "@/app/api-slices/ownedCardapislice"
-
-import { useSelector } from "react-redux"
 import { useMemo, useState } from "react"
 import { Bar, BarChart, XAxis } from "recharts"
 import {
@@ -34,9 +32,8 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function ComponentBarMonthChart({ selectedYear }: SelectedYear): JSX.Element {
-    const userId = useSelector((state: { auth: { userId: string } }) => state.auth.userId);
-    const { data: deckData } = useGetAllOwnedDecksQuery(userId);
-    const { data: cardData } = useGetOwnedCardsQuery(userId)
+    const { data: deckData } = useGetAllOwnedDecksQuery();
+    const { data: cardData } = useGetOwnedCardsQuery()
     
     const months = [
         "January", "February", "March", "April", "May", "June",

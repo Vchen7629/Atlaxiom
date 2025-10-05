@@ -1,7 +1,6 @@
 "use client"
-import { useGetAllOwnedDecksQuery } from "@/app/api-slices/decksapislice"
+import { useGetAllOwnedDecksQuery } from "@/app/api-slices/deckApiSlice"
 import { useGetOwnedCardsQuery } from "@/app/api-slices/ownedCardapislice"
-import { useSelector } from "react-redux"
 import { Bar, BarChart, XAxis } from "recharts"
 import { useMemo } from "react";
 import {
@@ -39,9 +38,8 @@ export function ComponentBarChart({ yearprops }: Year): JSX.Element {
       selectedYear, setSelectedYear
     } = yearprops
   
-    const userId = useSelector((state: { auth: { userId: string } }) => state.auth.userId);
-    const { data: cardData } = useGetOwnedCardsQuery(userId);
-    const { data: deckData } = useGetAllOwnedDecksQuery(userId);
+    const { data: cardData } = useGetOwnedCardsQuery();
+    const { data: deckData } = useGetAllOwnedDecksQuery();
 
 
     function handleSelectedYear(value: string) {

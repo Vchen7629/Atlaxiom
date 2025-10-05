@@ -17,9 +17,9 @@ export const usersApiSlice = apiSlice.injectEndpoints({
             ]
         }),
         
-        GetSpecificUser: builder.query<UserData | null, string>({
-            query: (id) => ({
-                url: `/users/${id}`,
+        GetSpecificUser: builder.query<UserData | null, void>({
+            query: () => ({
+                url: `/user`,
                 method: "GET",
             }),
             transformResponse: (responseData: UserData) => {
@@ -36,25 +36,21 @@ export const usersApiSlice = apiSlice.injectEndpoints({
             }
         }),
 
-        updateUser: builder.mutation<string, { id: string; userData: { username?: string, password?: string, email?: string } }>({
-            query: ({ id, userData }) => ({
-                url: `/users/${id}`,
+        updateUser: builder.mutation<string, { userData: { username?: string, password?: string, email?: string } }>({
+            query: ({ userData }) => ({
+                url: `/user`,
                 method: 'PATCH',
                 body: userData
             }),
-            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
-                { type: 'User', id: arg.id }
-            ]
+            invalidatesTags: [{ type: 'User', id: 'LIST' }]
         }),
 
-        deleteUser: builder.mutation<string, { id: string }>({
-            query: ({ id }) => ({
-                url: `/users/${id}`,
+        deleteUser: builder.mutation<string, void>({
+            query: () => ({
+                url: `/user`,
                 method: 'DELETE',
             }),
-            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
-                { type: 'User', id: arg.id }
-            ]
+            invalidatesTags: [{ type: 'User', id: 'LIST' }]
         }),
     }),
 })

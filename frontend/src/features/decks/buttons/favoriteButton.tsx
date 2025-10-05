@@ -1,24 +1,19 @@
-import { useGetAllOwnedDecksQuery, useMakeDeckFavoriteMutation } from "@/app/api-slices/decksapislice";
+import { useGetAllOwnedDecksQuery, useMakeDeckFavoriteMutation } from "@/app/api-slices/deckApiSlice";
 import { handleDeckClick } from "../types/homepagecomponentprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FavoriteDeck } from "../types/buttonprops";
 import { toast } from "sonner";
 import { DeckApiResponse } from "@/app/api-slices/types/decktypes";
-import { useSelector } from "react-redux";
 import { toastErrorMessage, toastSuccessMessage } from "@/shared/types/toast";
 
 
 const FavoriteDeckButton = ({ deck, setCurrentPageListDecksArray, setCurrentPageGalleryDecksArray}: FavoriteDeck) => {
-    const userId = useSelector((state: { auth: { userId: string }}) => state.auth.userId);
     const [favoriteDeck] = useMakeDeckFavoriteMutation();
-    const { refetch } = useGetAllOwnedDecksQuery(userId);
+    const { refetch } = useGetAllOwnedDecksQuery();
 
     const handleFavoriteDeckClick = async(deck: handleDeckClick) => {
-        const favoritedeck = await favoriteDeck({
-            id: userId,
-            deckId: deck._id
-        });
+        const favoritedeck = await favoriteDeck({ deckId: deck._id });
         if (favoritedeck) {
             refetch();
             setCurrentPageListDecksArray((prevDecks: DeckApiResponse[]) => 

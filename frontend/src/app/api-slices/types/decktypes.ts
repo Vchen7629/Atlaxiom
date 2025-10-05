@@ -26,9 +26,6 @@ export type DeckApiResponse = Deck & {
     createdOn: string
 }
 
-export type DeckInput = {
-    id: string
-}
 
 export type DeckOutput = {
     deck: {
@@ -43,4 +40,23 @@ export type invalidatesTags = {
 
 export type providesTags = {
     id?: string
+}
+
+export type ModifyCardInDeckInput = {
+    DeckData: { 
+        deckId: string, 
+        cardUpdates: { 
+            card_name: string, 
+            modifyAmount: number 
+        }[] 
+    }
+}
+
+export type DeleteCardFromDeckInput = {
+    DeckData: { 
+        deckId: string, 
+        cardUpdates: { 
+            card_name: string 
+        }[] 
+    } 
 }

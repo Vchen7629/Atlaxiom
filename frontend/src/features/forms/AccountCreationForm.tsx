@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react"
-import { useAddNewUserMutation } from "../../../app/api-slices/usersApiSlice"
+import { useAddNewUserMutation } from "../../app/api-slices/usersApiSlice"
 import { useNavigate } from "react-router-dom"
-import { isUsernameValid, isPasswordValid, isEmailValid } from "../../../app/auth/UserDataValidation"
+import { isUsernameValid, isPasswordValid, isEmailValid } from "../../app/auth/UserDataValidation"
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query"
-import { ErrorRes } from "../types/creationformtypes"
+import { ErrorRes } from "../user/types/creationformtypes"
 
 const AccountCreationForm = () => {
 

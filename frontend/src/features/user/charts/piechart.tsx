@@ -13,7 +13,6 @@ import {
   ChartTooltipContent,
 } from "@/shared/ui/chart"
 import { useGetOwnedCardsQuery } from "../../../app/api-slices/ownedCardapislice"
-import { useSelector } from "react-redux"
 import { useMemo } from "react"
 export const description = "A Pie Chart displaying the user's card collection makeup by the number of monster/spell/trap cards"
 
@@ -34,8 +33,7 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function ComponentPieChart() {
-  const userId = useSelector((state: { auth: { userId: string } }) => state.auth.userId);
-  const { data: cardData } = useGetOwnedCardsQuery(userId)
+  const { data: cardData } = useGetOwnedCardsQuery()
 
   const chartData = useMemo(() => {
     const ownedCards = Object.values(cardData || {}).flat();        

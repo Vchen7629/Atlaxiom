@@ -1,6 +1,5 @@
-import { useDeleteDeckMutation, useGetAllOwnedDecksQuery } from "@/app/api-slices/decksapislice";
+import { useDeleteDeckMutation, useGetAllOwnedDecksQuery } from "@/app/api-slices/deckApiSlice";
 import { useGetSpecificUserQuery } from "@/app/api-slices/usersApiSlice";
-import { useSelector } from "react-redux";
 
 type handleDeckClick = {
     _id: string;
@@ -8,15 +7,15 @@ type handleDeckClick = {
 }
 
 export function useHandleSubmitDelete() {
-    const userId = useSelector((state: { auth: { userId: string }}) => state.auth.userId);
     const [deleteDeck] = useDeleteDeckMutation();
-    const { refetch } = useGetAllOwnedDecksQuery(userId);
-    const { refetch: refetchUser } = useGetSpecificUserQuery(userId);
+    const { refetch } = useGetAllOwnedDecksQuery();
+    const { refetch: refetchUser } = useGetSpecificUserQuery();
     
     return async function handleSubmitDelete(deck: handleDeckClick) {
         const deldeck = await deleteDeck({
-            id: userId, 
-            DeckData: { deckId: deck._id }
+            DeckData: { 
+                deckId: deck._id 
+            }
         });
         if (deldeck) {
             refetch();

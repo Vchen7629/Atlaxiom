@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useSendLogoutMutation } from '@/app/auth/authApiSlice'    
+import { useSendLogoutMutation } from '@/app/api-slices/authApiSlice'    
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 const Logout = () => {

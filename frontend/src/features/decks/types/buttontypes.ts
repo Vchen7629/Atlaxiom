@@ -14,7 +14,6 @@ export type GridListViewComponentProps = {
 
 export type SaveDeckButton = {
     savebuttonprops: {
-        userId: string;
         refetch: () => void;
         deckData?: DeckApiResponse | null;
         cardsToAddMainDeckPlaceHolder: Card[];

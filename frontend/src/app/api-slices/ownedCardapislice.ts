@@ -9,26 +9,22 @@ const initialState = ownedCardsAdapter.getInitialState()
 
 export const ownedCardsApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
-        AddNewOwnedCard: builder.mutation<string, { id: string; CardData: any }>({
-            query: ({ id, CardData }) => ({
-              url: `/card/${id}`,
+        AddNewOwnedCard: builder.mutation<string, { CardData: any }>({
+            query: ({ CardData }) => ({
+              url: `/card`,
               method: 'POST',
               body: CardData,
             }),
-            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
-                { type: 'OwnedCards', id: arg.id }
-            ],
-            
+            invalidatesTags: [{ type: 'OwnedCards', id: 'LIST' }]  
         }),
 
-        getOwnedCards: builder.query<GetOwnedCardsResponse[], string>({
-            query: (id) => ({
-                url: `/card/${id}`,
+        getOwnedCards: builder.query<GetOwnedCardsResponse[], void>({
+            query: () => ({
+                url: `/card`,
                 method: 'GET',
             }),
             transformResponse: (responseData: { ownedCards: GetOwnedCardsResponse[]}): GetOwnedCardsResponse[] => {
                 const updatedCards = ownedCardsAdapter.upsertMany(initialState, responseData.ownedCards.map(card => ({ ...card, id: card._id })));
-                console.log(updatedCards)
                 return updatedCards.ids.map(id => updatedCards.entities[id]) as GetOwnedCardsResponse[]
             },
             providesTags: (result: any) => {
@@ -41,39 +37,33 @@ export const ownedCardsApiSlice = apiSlice.injectEndpoints({
             }
         }),
 
-        IncreaseOwnedCard: builder.mutation<string, { id: string; CardData: { card_name: string, increaseOwnedAmount: number } }>({
-            query: ({ id, CardData }) => ({
-                url: `/card/increasecard/${id}`,
+        IncreaseOwnedCard: builder.mutation<string, { CardData: { card_name: string, increaseOwnedAmount: number } }>({
+            query: ({ CardData }) => ({
+                url: `/card/increasecard`,
                 method: 'PATCH',
                 body: CardData,
                 credentials: 'include'
             }),
-            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
-                { type: 'OwnedCards', id: arg.id }
-            ]
+            invalidatesTags: [{ type: 'OwnedCards', id: 'LIST' }]  
         }),
 
-        DecreaseOwnedCard: builder.mutation<string, { id: string; CardData: { card_name: string, decreaseOwnedAmount: number } }>({
-            query: ({ id, CardData }) => ({
-                url: `/card/decreasecard/${id}`,
+        DecreaseOwnedCard: builder.mutation<string, { CardData: { card_name: string, decreaseOwnedAmount: number } }>({
+            query: ({ CardData }) => ({
+                url: `/card/decreasecard`,
                 method: 'PATCH',
                 body: CardData,
                 credentials: 'include'
             }), 
-            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
-                { type: 'OwnedCards', id: arg.id }
-            ]
+            invalidatesTags: [{ type: 'OwnedCards', id: 'LIST' }]  
         }),
 
-        DeleteOwnedCard: builder.mutation<string, { id: string; CardData: { card_name: string } }>({
-            query: ({ id, CardData }) => ({
-                url: `/card/${id}`,
+        DeleteOwnedCard: builder.mutation<string, { CardData: { card_name: string } }>({
+            query: ({ CardData }) => ({
+                url: `/card/`,
                 method: 'DELETE',
                 body: CardData
             }),
-            invalidatesTags: (_result, _error, arg: invalidatesTags) => [
-                { type: 'OwnedCards', id: arg.id }
-            ]
+            invalidatesTags: [{ type: 'OwnedCards', id: 'LIST' }]  
         })
         
     }),
