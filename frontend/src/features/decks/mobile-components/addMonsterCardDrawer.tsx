@@ -23,7 +23,6 @@ import { MonsterDrawer } from "../types/mobileaddcarddrawers";
 
 const AddMonsterCardDrawer = ({ monstercarddrawerprops }: MonsterDrawer) => {
     const {
-        userId,
         openDrawer, setOpenDrawer,
         allCardsView, setAllCardsView,
         allCardsListResults, setAllCardsListResults,
@@ -39,7 +38,7 @@ const AddMonsterCardDrawer = ({ monstercarddrawerprops }: MonsterDrawer) => {
     const [listView, setListView] = useState(true);
     const [, setError] = useState<string | null>(null);
 
-    const { data: cardData, isLoading } = useGetOwnedCardsQuery(userId)
+    const { data: cardData, isLoading } = useGetOwnedCardsQuery()
     
     
     const [allCardsCurrentPage, setAllCardsCurrentPage] = useState(1);

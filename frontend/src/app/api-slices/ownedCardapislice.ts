@@ -1,7 +1,6 @@
 import { createEntityAdapter } from "@reduxjs/toolkit";
 import { apiSlice } from "../api/apiSlice"
 import { GetOwnedCardsResponse } from "./types/ownedcardtypes";
-import { invalidatesTags } from "./types/decktypes";
 
 const ownedCardsAdapter = createEntityAdapter({}) 
 

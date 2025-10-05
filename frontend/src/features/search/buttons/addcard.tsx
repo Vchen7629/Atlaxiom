@@ -22,7 +22,6 @@ import { toastErrorMessage, toastSuccessTwoMessage } from "@/shared/types/toast"
 export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupProps) => {
     const {
         selectedCardData,
-        userId, 
         cardSets, setCardSets
     } = addcardprops 
     
@@ -55,7 +54,7 @@ export const ComponentCardSetPopup = ({ addcardprops }: ComponentCardSetPopupPro
                 set_code: set.set_code || 0,
                 price: set.set_price || 0,
             };
-            await addNewOwnedCard({ id: userId, CardData: cardToPost }).unwrap();
+            await addNewOwnedCard({ CardData: cardToPost }).unwrap();
             return { name: selectedCardData.name, set: selectedCardData?.card_sets?.[index]?.set_name}
         } else {
             console.error("No selected Card Data")

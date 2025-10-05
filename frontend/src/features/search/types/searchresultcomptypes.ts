@@ -11,7 +11,6 @@ export type CardSet = {
 export type ComponentCardSetPopupProps = {
     addcardprops: {
         selectedCardData: SelectedCardData | null;
-        userId: string;
         cardSets: CardSet[];
         setCardSets: React.Dispatch<React.SetStateAction<CardSet[]>>
     }

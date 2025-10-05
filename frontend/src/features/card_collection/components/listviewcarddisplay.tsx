@@ -19,7 +19,6 @@ import DecreaseOwnedCardButtonComponent from "../buttons/decreaseOwnedCard.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { waveform } from 'ldrs'
-import { useSelector } from "react-redux";
 import { OwnedCard } from "../types/dataStructures.ts";
 import { useHandleSubmitDelete } from "../hooks/useHandleSubmitDelete.tsx";
 import FormatCardApiResponse from "@/shared/utils/formatCardApiResponse.tsx";
@@ -29,7 +28,6 @@ import NormalizeToToastError from "@/shared/utils/normalizeToToastError.tsx";
 export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListCards) => {
     waveform.register()
     const { currentListPageResults, isLoading } = displaylistprops
-    const userId = useSelector((state: { auth: { userId: string }}) => state.auth.userId);
     const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null)
     const handleSubmitDelete = useHandleSubmitDelete()
 
@@ -37,8 +35,8 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
         setSelectedCard(card);
     };
 
-    const { refetch } = useGetOwnedCardsQuery(userId);
-    const { data: ownedCardCount } = useGetSpecificUserQuery(userId);
+    const { refetch } = useGetOwnedCardsQuery();
+    const { data: ownedCardCount } = useGetSpecificUserQuery();
     const [showLoading, setShowLoading] = useState(true);
 
     useEffect(() => {
@@ -105,8 +103,8 @@ export const ListViewCardDisplayComponent = ({ displaylistprops }: filteredListC
                                     ${card.price}
                                 </div>
                                 <div className="flex space-x-1 h-[10%] w-[90%] justify-center items-center mr-6">
-                                    <IncreaseOwnedCardButtonComponent card={card} userId={userId} refetch={refetch}/>
-                                    <DecreaseOwnedCardButtonComponent card={card} userId={userId} refetch={refetch}/>
+                                    <IncreaseOwnedCardButtonComponent card={card} refetch={refetch}/>
+                                    <DecreaseOwnedCardButtonComponent card={card} refetch={refetch}/>
                                     <ModifyDataDB<toastSuccessMessage, unknown>
                                         onModify={() => handleSubmitDelete(card.card_name)}
                                         successMessage={(data: { name: string } | undefined ) => `Deleted Card: ${data?.name}`}

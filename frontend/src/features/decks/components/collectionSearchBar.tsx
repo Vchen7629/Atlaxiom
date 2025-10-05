@@ -7,7 +7,6 @@ import { GetOwnedCardsResponse } from "@/app/api-slices/types/ownedcardtypes";
 
 const CollectionSearchBar = ({ CollectionSearchBarCompProps }: CollectionSearchbarCompProps) => {
     const {
-        userId,
         listView,
         galleryView,
         collectionCardData, setCollectionCardData,
@@ -26,7 +25,7 @@ const CollectionSearchBar = ({ CollectionSearchBarCompProps }: CollectionSearchb
         maxResults,
     } = CollectionSearchBarCompProps
 
-    const { refetch } = useGetOwnedCardsQuery(userId)
+    const { refetch } = useGetOwnedCardsQuery()
 
     const prefetchCollection = async () => {
         try {

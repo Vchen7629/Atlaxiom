@@ -5,12 +5,11 @@ import { IncreaseCard} from "../types/buttontypes";
 import useApiWithToast from "@/shared/hooks/useApiWithToast";
 import FormatCardApiResponse from "@/shared/utils/formatCardApiResponse";
 
-const IncreaseOwnedCardButtonComponent = ({ userId, refetch, card }: IncreaseCard) => {
+const IncreaseOwnedCardButtonComponent = ({ refetch, card }: IncreaseCard) => {
     const [increaseOwnedCard] = useIncreaseOwnedCardMutation()
     
     async function updateDatabaseCardIncrease(cardName: string) {
       await increaseOwnedCard({ 
-        id: userId, 
         CardData: { 
           card_name: cardName,
           increaseOwnedAmount: 1 

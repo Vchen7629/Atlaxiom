@@ -3,13 +3,11 @@ import { Card } from "./ownedcarddetailstypes";
 
 
 export type IncreaseCard = {
-    userId: string;
     card: Card;
     refetch: () => Promise<{ data?: GetOwnedCardsResponse[] }>;
 }
 
 export type DecreaseCard = {
-    userId: string;
     card: {
         card_name: string
     };

@@ -3,7 +3,6 @@ import { Card, OwnedCard } from "../../../features/decks/types/data";
 
 export type MonsterDrawer = {
     monstercarddrawerprops: {
-        userId: string;
         openDrawer: string | null;
         setOpenDrawer: React.Dispatch<React.SetStateAction<string | null>>;
         allCardsView: boolean;

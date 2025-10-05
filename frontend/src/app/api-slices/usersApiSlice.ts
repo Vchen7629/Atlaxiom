@@ -1,5 +1,4 @@
 import { apiSlice } from "../api/apiSlice"
-import { invalidatesTags } from "./types/decktypes";
 import { UserData } from "./types/usertypes";
 
 export const usersApiSlice = apiSlice.injectEndpoints({
