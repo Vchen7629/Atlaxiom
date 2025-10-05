@@ -1,7 +1,7 @@
 
 // This is middleware for checking sessionID in the database and returning
-import expressAsyncHandler from "express-async-handler";
-import { Session } from "../models/genmodels.js";
+const expressAsyncHandler = require('express-async-handler');
+const { Session } = require('../models/genmodels.js');
 
 // userID to be used in requests
 export const authMiddleware = expressAsyncHandler(async (req, res, next) => {
