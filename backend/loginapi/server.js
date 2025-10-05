@@ -9,7 +9,7 @@ const cors = require('cors')
 const corsOptions = require('./config/corsOptions')
 const PORT = 3000
 const connectDB = require('./config/dbConn')
-const { authMiddleware } = require('./middleware/auth_middleware')
+const authMiddleware = require('./middleware/auth_middleware')
 const environment = 'production';
 
 app.use(cors(corsOptions))
