@@ -96,8 +96,8 @@ const refresh = asyncHandler(async(req, res) => {
     // Update cookie
     res.cookie('sessionId', session.session_id, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        secure: true,
+        sameSite: 'none',
         maxAge: 60 * 60 * 1000
     });
     
@@ -125,11 +125,12 @@ const logout = asyncHandler(async (req, res) => {
         console.error('Error removing session from database:', err);
     }
 
-    res.clearCookie('sessionId', { 
-        httpOnly: true, 
-        sameSite: 'strict', 
-        secure: process.env.NODE_ENV === 'production'
-    })
+    res.cookie('sessionId', session.session_id, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'none',
+        maxAge: 60 * 60 * 1000
+    });
 
     res.status(200).json({ message: "Login successful" })
 })
