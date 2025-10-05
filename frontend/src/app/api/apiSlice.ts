@@ -2,8 +2,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { setCredentials } from '../auth/authSlice.ts'
 
 const baseQuery = fetchBaseQuery({
-    //baseUrl: 'https://api.atlaxiom.com:8443',
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'https://pm87cq0tbe.execute-api.us-west-1.amazonaws.com',
+    //baseUrl: 'http://localhost:3000',
     credentials: 'include',
 })
 
