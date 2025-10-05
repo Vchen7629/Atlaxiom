@@ -23,7 +23,7 @@ app.use("/health", (_, res) => {
     res.status(200).send('OK');
 })
 
-// trigger
+// 
 app.use('/auth', require('./routes/authRoutes'))
 
 app.use('/user', require('./routes/userRoutes'))
