@@ -8,21 +8,16 @@ import { ListViewCardDisplayComponent } from "../components/listviewcarddisplay.
 import FilterOwnedCards from '../components/ownedCardFilter.tsx';
 import CardCollectionStatistics from '../../user/components/ownedCardStatistics.tsx';
 import MyCardsSearchbarComponent from '../components/searchbar.tsx';
-
 import { GalleryViewCardDisplayComponent } from '../components/galleryviewcarddisplay.tsx';
 import { useGetSpecificUserQuery } from '@/app/api-slices/usersApiSlice.ts';
 import { AddCardButton } from '@/features/card_collection/buttons/addCard.tsx';
 import { OwnedCard } from '@/features/card_collection/types/dataStructures.ts';
 import MobileFilterDrawerComponent from '@/features/card_collection/mobile-components/mobileFilterDrawer.tsx';
 import { GetOwnedCardsResponse } from '@/app/api-slices/types/ownedcardtypes.ts';
-import { UserIdState } from '../../decks/types/deckPage.ts';
-import { useSelector } from 'react-redux';
 import PaginationComponent from '../components/pagination.tsx';
 import GridListView from '@/shared/buttons/gridOrListView.tsx';
 
-const UserOwnedCardPage = () => {
-  const userId = useSelector((state: UserIdState) => state.auth.userId);
-  
+const UserOwnedCardPage = () => {  
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   const [filterpage, setFilterPage] = useState<boolean>(true);
@@ -66,8 +61,8 @@ const UserOwnedCardPage = () => {
   const [listView, setListView] = useState<boolean>(true);
   const [galleryView, setGalleryView] = useState<boolean>(false);
 
-  const { data: ownedCards, isLoading, refetch } = useGetOwnedCardsQuery(userId);
-  const { data: userData, refetch: refetchOnUpdate} = useGetSpecificUserQuery(userId)
+  const { data: ownedCards, isLoading, refetch } = useGetOwnedCardsQuery();
+  const { data: userData, refetch: refetchOnUpdate} = useGetSpecificUserQuery()
   const suggestionsPerGalleryPage = 20;
   const suggestionsPerListPage = 9;
   const [totalListPages, setTotalListPages] = useState<number>(1);
@@ -84,11 +79,11 @@ const UserOwnedCardPage = () => {
 
 
   useEffect(() => {
-    if (userId) {
+    if (ownedCards) {
       refetch();
       refetchOnUpdate();
     }
-  }, [userId, ownedCards, userData])
+  }, [ownedCards, userData])
 
   const cardsToDisplay = useMemo(() => {
     return Object.values(ownedCards || {}).flat() as GetOwnedCardsResponse[];

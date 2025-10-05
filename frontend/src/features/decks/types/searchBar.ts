@@ -58,7 +58,6 @@ export type MobileAllCardsSearchbarCompProps = {
 
 export type CollectionSearchbarCompProps = {
     CollectionSearchBarCompProps: {
-        userId: string;
         collectionCurrentPage: number;
         collectionTotalListPage: number;
         collectionTotalGalleryPage: number;

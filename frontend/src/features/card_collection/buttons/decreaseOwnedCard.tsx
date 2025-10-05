@@ -6,12 +6,11 @@ import useApiWithToast from "../../../shared/hooks/useApiWithToast";
 import FormatCardApiResponse from "@/shared/utils/formatCardApiResponse";
 
 
-const DecreaseOwnedCardButton = ({ userId, refetch, card }: DecreaseCard) => {
+const DecreaseOwnedCardButton = ({ refetch, card }: DecreaseCard) => {
     const [decreaseOwnedCard] = useDecreaseOwnedCardMutation();
     
     async function updateDatabaseCardDecrease(cardName: string) {
       await decreaseOwnedCard({ 
-        id: userId, 
         CardData: { 
           card_name: cardName,
           decreaseOwnedAmount: 1 
