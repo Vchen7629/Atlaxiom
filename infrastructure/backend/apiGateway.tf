@@ -5,7 +5,7 @@ resource "aws_apigatewayv2_api" "atlaxiom_login_api" {
     cors_configuration {
         allow_origins     = ["https://www.atlaxiom.com", "https://atlaxiom.com"]
         allow_methods     = ["GET", "POST", "PATCH", "DELETE", "OPTIONS"]
-        allow_headers     = ["*"]
+        allow_headers     = ["Content-Type,Authorization"]
         allow_credentials = true
     }
 }

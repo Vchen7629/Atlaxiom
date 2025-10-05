@@ -25,7 +25,7 @@ function handler (event, context) {
       headers: {
         "Access-Control-Allow-Origin": "https://www.atlaxiom.com",
         "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
-        "Access-Control-Allow-Headers": "*",
+        "Access-Control-Allow-Headers": "Content-Type,Authorization",
         "Access-Control-Allow-Credentials": "true",
       },
       body: "",
