@@ -3,9 +3,7 @@ const fs = require('fs')
 
 const connectDB = async() => {
     try {
-        const databaseURI = process.env.DATABASE_URI_FILE
-        ? fs.readFileSync(process.env.DATABASE_URI_FILE, 'utf8').trim()
-        : process.env.DATABASE_URI;
+        const databaseURI = process.env.MONGODB_URI;
 
         if (!databaseURI) {
             throw new Error('DATABASE_URI is not set.');
