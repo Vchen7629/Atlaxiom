@@ -1,20 +1,8 @@
 const { User, Session } = require('../models/genmodels.js');
 const bcrypt = require('bcrypt')
-const fs = require('fs')
-const jwt = require('jsonwebtoken')
 const asyncHandler = require('express-async-handler')
 const { v4: uuidv4 } = require('uuid')
 require('dotenv').config();
-
-const getSecret = (filePath, envVar) => {
-    if (filePath && fs.existsSync(filePath)) {
-            return fs.readFileSync(filePath, 'utf8').trim();
-    } else {
-        console.log("error 1")
-    }
-    
-    return envVar || null;
-};
 
 // @desc Login
 // @route POST /auth
@@ -134,7 +122,7 @@ const logout = asyncHandler(async (req, res) => {
     try {
         await Session.deleteOne({ session_id: cookies.sessionId })
     } catch (err) {
-        console.error('Error removing session from database:', error);
+        console.error('Error removing session from database:', err);
     }
 
     res.clearCookie('sessionId', { 

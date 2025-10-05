@@ -4,7 +4,7 @@ const expressAsyncHandler = require('express-async-handler');
 const { Session } = require('../models/genmodels.js');
 
 // userID to be used in requests
-export const authMiddleware = expressAsyncHandler(async (req, res, next) => {
+const authMiddleware = expressAsyncHandler(async (req, res, next) => {
     const { sessionId } = req.cookies;
 
     if (!sessionId) {
@@ -22,3 +22,5 @@ export const authMiddleware = expressAsyncHandler(async (req, res, next) => {
     req.userId = session.user_id;
     next();
 })
+
+module.exports = authMiddleware
