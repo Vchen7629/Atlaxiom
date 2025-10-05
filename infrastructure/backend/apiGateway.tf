@@ -1,6 +1,13 @@
 resource "aws_apigatewayv2_api" "atlaxiom_login_api" {
     name            = var.apigateway-name
     protocol_type   = "HTTP"
+
+    cors_configuration {
+        allow_origins     = ["https://www.atlaxiom.com", "https://atlaxiom.com"]
+        allow_methods     = ["GET", "POST", "PATCH", "DELETE", "OPTIONS"]
+        allow_headers     = ["*"]
+        allow_credentials = true
+    }
 }
 
 resource "aws_apigatewayv2_integration" "lambda_integration" {
