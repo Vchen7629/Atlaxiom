@@ -6,7 +6,6 @@ const bcrypt = require('bcrypt')
 // @route POST /user/newuser
 // @access private
 const createNewUser = asyncHandler(async (req, res) => {
-
     const { username, email, password} = req.body
 
     // confirm data
@@ -38,7 +37,7 @@ const createNewUser = asyncHandler(async (req, res) => {
         username, 
         email, 
         "password": hashPassword, 
-        authType: "local",
+        authType: "local", // either google or local, just to differentiate between oauth and username/password signup
         creation: creationDate,
         lastUpdated: null,
         lastUsernameUpdated: creationDate,
@@ -55,35 +54,18 @@ const createNewUser = asyncHandler(async (req, res) => {
     }
 })
 
-// @desc Get all users
+// @desc Get a specific user
 // @route GET /users
 // @access private
-const getAllUsers = asyncHandler(async (req, res) => {
-    // Get all users from MongoDB
-    const users = await User.find().select('-password').lean()
+const getSpecificUser = asyncHandler(async (req, res) => {
+    const userId = req.userId
 
-    // If no users 
-    if (!users?.length) {
-        return res.status(400).json({ message: 'No users found' })
-    }
-
-    res.json(users)
-
-})
-
-// @desc Get a specific user
-// @route GET /users/:id
-// @access private
-const getspecificuser = asyncHandler(async (req, res) => {
-    // Extract username from the request parameters
-    const { id } = req.params
-
-    if (!id || id === "null") {
+    if (!userId || userId === "null") {
         return res.status(400).json({ message: "Invalid user ID provided" });
     }
 
     // Find the user with the specified id
-    const user = await User.findById(id).select('-password').lean();
+    const user = await User.findById(userId).select('-password').lean();
 
     // If no user found
     if (!user) {
@@ -96,11 +78,10 @@ const getspecificuser = asyncHandler(async (req, res) => {
 
 
 // @desc update a user
-// @route PATCH /users/:id
+// @route PATCH /user
 // @access private
 const updateUser = asyncHandler(async (req, res) => {
-
-    const { id } = req.params;
+    const userId = req.userId
     const { username, email, password } = req.body
 
     // Confirm data 
@@ -109,7 +90,7 @@ const updateUser = asyncHandler(async (req, res) => {
     }
 
     // Does the user exist to update?
-    const user = await User.findById(id).exec()
+    const user = await User.findById(userId).exec()
 
     if (!user) {
         return res.status(404).json({ message: 'User not found' })
@@ -167,18 +148,17 @@ const updateUser = asyncHandler(async (req, res) => {
 })
 
 // @desc delete a user
-// @route DELETE /user/:id
+// @route DELETE /user
 // @access private
 const deleteUser = asyncHandler(async (req, res) => {
-    
-    const { id } = req.params
+    const userId = req.userId
 
-    if (!id) {
+    if (!userId) {
         return res.status(400).json({ message: 'Invalid user ID' });
     }
 
     // Does the user exist to delete?
-    const user = await User.findById(id).exec()
+    const user = await User.findById(userId).exec()
 
     if (!user) {
         return res.status(400).json({ message: 'User not found' })
@@ -195,8 +175,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 
 module.exports = {
-    getAllUsers,
-    getspecificuser,
+    getSpecificUser,
     createNewUser,
     updateUser,
     deleteUser,

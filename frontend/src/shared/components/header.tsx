@@ -5,14 +5,13 @@ import { ModeToggle } from "../shadcn_components/mode-toggle.tsx"
 import { startTransition } from 'react'
 import { HeaderDropdown } from './dropdown.tsx'
 import { LoggedInDropdownMenu } from './dropdownmenu.tsx'
-import { UserIdState } from '@/features/decks/types/deckPage.ts'
 import Signup from '../navigation/signup.tsx'
 import Login from '../navigation/login.tsx'
 import HeaderNavButton from '../navigation/headerButton.tsx'
 
 const Header = () => {
     const navigate = useNavigate()
-    const isAuthenticated = useSelector((state: UserIdState) => state.auth.userId !== null);
+    const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
 
     function handleHomeClick() {
         startTransition(() => {

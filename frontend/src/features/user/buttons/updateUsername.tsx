@@ -1,5 +1,3 @@
-import { useSelector } from "react-redux";
-import { UserId } from "../types/subpagetypes";
 import { useUpdateUserMutation } from "@/app/api-slices/usersApiSlice";
 import { SaveUsernameButton } from "../types/editcomponenttypes";
 import { toast } from "sonner";
@@ -11,15 +9,11 @@ const UsernameUpdateButton = ({ UpdateUsernameProps } : SaveUsernameButton) => {
         newUsername, setNewUsername,
     } = UpdateUsernameProps
 
-    const userId = useSelector((state: UserId) => state.auth.userId);
 
     const [updateUsername ] = useUpdateUserMutation()
 
     async function handleSubmitUsername() {
-        await updateUsername({
-            id: userId,
-            userData: { username: newUsername },
-        }).unwrap();
+        await updateUsername({ userData: { username: newUsername } }).unwrap();
         setNewUsername('')
         refetch();
         return { name: newUsername }

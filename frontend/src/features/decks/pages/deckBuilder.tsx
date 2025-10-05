@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Header from '@/shared/components/header.tsx';
 import Footer from '@/shared/components/Footer.tsx';
 import { useLocation } from 'react-router-dom';
-import { useGetSpecificOwnedDeckQuery } from '@/app/api-slices/decksapislice.ts';
+import { useGetSpecificOwnedDeckQuery } from '@/app/api-slices/deckApiSlice.ts';
 import DeckBuilderPageSidebarComponent from '../components/deckBuilderSidebar.tsx';
 import MainDeckCardZone from '../components/MainDeckCardsZone.tsx';
 import { DndContext, DragEndEvent, DragMoveEvent } from '@dnd-kit/core';
@@ -19,10 +19,7 @@ import { EditDeckHeaderSkeleton } from '@/shared/components/editdeckpageheadersk
 const DeckBuilderPage = () => {
     const location = useLocation();
     const { userId, deckId } = location.state || {};
-    const { refetch, data: deckData, isLoading } = useGetSpecificOwnedDeckQuery({
-        id: userId,
-        DeckId: deckId
-    })
+    const { refetch, data: deckData, isLoading } = useGetSpecificOwnedDeckQuery({ DeckId: deckId })
 
     waveform.register()
     const [allCardsView, setAllCardsView] = useState<boolean>(true);

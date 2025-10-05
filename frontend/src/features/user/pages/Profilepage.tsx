@@ -1,16 +1,14 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import Header from '../../../shared/components/header.tsx';
 import Footer from '../../../shared/components/Footer.tsx';
 import { useGetSpecificUserQuery } from '../../../app/api-slices/usersApiSlice.ts';
 import UserStatistics from './statistics.tsx';
-import { UserId } from '../types/subpagetypes.ts';
 import NavBarComponent from '../components/navbar.tsx';
 import ProfilePageHeader from '../components/profilepageheader.tsx';
 import DeckSearchBar from '../components/decksearchbar.tsx';
 import GridListViewComponent from '../components/gridlistviewcomponent.tsx';
 import EditAccountPage from './editaccountpage.tsx';
-import { useGetAllOwnedDecksQuery } from '@/app/api-slices/decksapislice.ts';
+import { useGetAllOwnedDecksQuery } from '@/app/api-slices/deckApiSlice.ts';
 import PaginationComponent from '@/features/user/components/pagination.tsx';
 import { Deck } from '@/features/user/types/paginationtypes.ts';
 import BarChartViewButton from '../buttons/barChart.tsx';
@@ -21,7 +19,6 @@ import { Toaster } from 'sonner';
 
 const Profilepage = () => {
     const [selectedNavItem, setSelectedNavItem] = useState('');
-    const userId = useSelector((state: UserId) => state.auth.userId);
     const [deckName, setDeckName] = useState('')
     const [deckActive, setDeckActive] = useState(true);
     const [statisticsActive, setStatisticsActive] = useState(false);
@@ -30,7 +27,7 @@ const Profilepage = () => {
     const [listView, setListView] = useState(true);
     const [galleryView, setGalleryView] = useState(false);
 
-    const { data: modifyDecks, isLoading, refetch } = useGetAllOwnedDecksQuery(userId);
+    const { data: modifyDecks, isLoading, refetch } = useGetAllOwnedDecksQuery();
     const decksToDisplay = modifyDecks || [];
     const filteredDecks = decksToDisplay.filter((deck: Deck) => deck?.deck_name?.toLowerCase().includes(deckName.toLowerCase()));
     const suggestionsPerGalleryPage = 20;
@@ -51,7 +48,7 @@ const Profilepage = () => {
     const [yearView, setYearView] = useState<boolean>(true);
     const [monthView, setMonthView] = useState<boolean>(false);
 
-    const {data: usersData, refetch: RefetchUser } = useGetSpecificUserQuery(userId);
+    const {data: usersData, refetch: RefetchUser } = useGetSpecificUserQuery();
 
     const navbarprops = {
         deckActive, setDeckActive,

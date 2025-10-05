@@ -1,11 +1,10 @@
-import { useAddCardsMainDeckMutation, useAddNewCardtoExtraDeckMutation, useAddNewCardtoSideDeckMutation, useDeleteCardfromExtraDeckMutation, useDeleteCardfromMainDeckMutation, useDeleteCardfromSideDeckMutation, useModifyCardAmountinExtraDeckMutation, useModifyCardAmountinMainDeckMutation, useModifyCardAmountinSideDeckMutation } from "@/app/api-slices/decksapislice"
+import { useAddCardsMainDeckMutation, useAddNewCardtoExtraDeckMutation, useAddNewCardtoSideDeckMutation, useDeleteCardfromExtraDeckMutation, useDeleteCardfromMainDeckMutation, useDeleteCardfromSideDeckMutation, useModifyCardAmountinExtraDeckMutation, useModifyCardAmountinMainDeckMutation, useModifyCardAmountinSideDeckMutation } from "@/app/api-slices/deckApiSlice"
 import { SaveDeckButton, UpdatedCard } from "../types/buttontypes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
 
 const SaveDeckCardsButton = ({ savebuttonprops }: SaveDeckButton) => {
     const {
-        userId,
         refetch,
         deckData,
         cardsToAddMainDeckPlaceHolder, setCardsToAddMainDeckPlaceHolder,
@@ -57,17 +56,17 @@ const SaveDeckCardsButton = ({ savebuttonprops }: SaveDeckButton) => {
             const normalizedModifySideDeckCards = modifySideDeckCardAmountPlaceHolder.map(normalizeCard);
 
             if (normalizedMainCards.length > 0) {
-                await addCardsToMainDeck({ id: userId, deckId: deckId as string,  main_deck_cards: normalizedMainCards as UpdatedCard[]});
+                await addCardsToMainDeck({ deckId: deckId as string,  main_deck_cards: normalizedMainCards as UpdatedCard[]});
                 setCardsToAddMainDeckPlaceHolder([])
             } 
 
             if (normalizedExtraDeckCards.length > 0) {
-                await addCardsToExtraDeck({ id: userId, deckId: deckId as string,  extra_deck_cards: normalizedExtraDeckCards as UpdatedCard[]})
+                await addCardsToExtraDeck({ deckId: deckId as string,  extra_deck_cards: normalizedExtraDeckCards as UpdatedCard[]})
                 setCardsToAddExtraDeckPlaceHolder([])
             }
 
             if (normalizedSideDeckCards.length > 0) {
-                await addCardsToSideDeck({ id: userId, deckId: deckId as string, side_deck_cards: normalizedSideDeckCards as UpdatedCard[] })
+                await addCardsToSideDeck({ deckId: deckId as string, side_deck_cards: normalizedSideDeckCards as UpdatedCard[] })
                 setCardsToAddSideDeckPlaceHolder([])
             }
 
@@ -80,7 +79,6 @@ const SaveDeckCardsButton = ({ savebuttonprops }: SaveDeckButton) => {
 
                 if (filteredCards.length > 0) {
                     await deleteCardsFromMainDeck({
-                        id: userId,
                         DeckData: {
                             deckId: deckId as string,
                             cardUpdates: filteredCards
@@ -100,7 +98,6 @@ const SaveDeckCardsButton = ({ savebuttonprops }: SaveDeckButton) => {
 
                 if (filteredCards.length > 0) {
                     await deleteCardsFromExtraDeck({
-                        id: userId,
                         DeckData: {
                             deckId: deckId as string,
                             cardUpdates: filteredCards
@@ -121,7 +118,6 @@ const SaveDeckCardsButton = ({ savebuttonprops }: SaveDeckButton) => {
 
                 if (filteredCards.length > 0) {
                     await deleteCardsFromSideDeck({
-                        id: userId,
                         DeckData: {
                             deckId: deckId as string,
                             cardUpdates: filteredCards
@@ -141,7 +137,6 @@ const SaveDeckCardsButton = ({ savebuttonprops }: SaveDeckButton) => {
                     }));
                 if (filteredCards.length > 0) {
                     await modifyMainDeckOwnedAmount({ 
-                        id: userId, 
                         DeckData: {
                             deckId: deckId as string, 
                             cardUpdates: filteredCards
@@ -161,7 +156,6 @@ const SaveDeckCardsButton = ({ savebuttonprops }: SaveDeckButton) => {
                     }));
                 if (filteredCards.length > 0) {
                     await modifyExtraDeckOwnedAmount({ 
-                        id: userId, 
                         DeckData: {
                             deckId: deckId as string, 
                             cardUpdates: filteredCards
@@ -182,7 +176,6 @@ const SaveDeckCardsButton = ({ savebuttonprops }: SaveDeckButton) => {
                     }));
                 if (filteredCards.length > 0) {
                     await modifySideDeckOwnedAmount({ 
-                        id: userId, 
                         DeckData: {
                             deckId: deckId as string, 
                             cardUpdates: filteredCards

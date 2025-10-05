@@ -28,8 +28,11 @@ export type LoginCredentials = {
 }
 
 export type LoginResponse = {
-    accessToken: string;
-    userId: string;
-    username: string;
-    email: string;
+    message: string;
+    authenticated: boolean
+}
+
+export type RefreshResponse = {
+    message: string;
+    sessionValid: boolean
 }

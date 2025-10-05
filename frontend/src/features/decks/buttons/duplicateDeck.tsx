@@ -1,4 +1,4 @@
-import { useCreateDuplicateDeckMutation, useGetAllOwnedDecksQuery } from "@/app/api-slices/decksapislice";
+import { useCreateDuplicateDeckMutation, useGetAllOwnedDecksQuery } from "@/app/api-slices/deckApiSlice";
 import { handleDeckClick } from "../types/homepagecomponentprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
@@ -6,20 +6,15 @@ import { toast } from "sonner";
 import { toastErrorMessage } from "@/shared/types/toast"
 import { toastSuccessMessage } from "@/shared/types/toast";
 import { useGetSpecificUserQuery } from "@/app/api-slices/usersApiSlice";
-import { useSelector } from "react-redux";
 
 
 const DuplicateDeckButton = ({ deck }: { deck: { _id: string, deck_name: string}}) => {
     const [addNewDuplicateDeck] = useCreateDuplicateDeckMutation()
-    const userId = useSelector((state: { auth: { userId: string }}) => state.auth.userId);
-    const { refetch } = useGetAllOwnedDecksQuery(userId);
-    const { refetch: refetchUser } = useGetSpecificUserQuery(userId);    
+    const { refetch } = useGetAllOwnedDecksQuery();
+    const { refetch: refetchUser } = useGetSpecificUserQuery();    
     
     async function handleDuplicateDeckClick(deck: handleDeckClick) {
-        const duplicate = await addNewDuplicateDeck({
-            id: userId, 
-            deckId: deck._id
-        });
+        const duplicate = await addNewDuplicateDeck({ deckId: deck._id });
         if (duplicate) {
             refetch();
             if (refetchUser) refetchUser();

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import AccountCreationForm from "../components/AccountCreationForm"
+import AccountCreationForm from "../../forms/AccountCreationForm"
 import { startTransition } from "react"
 import { useGoogleLogin } from "@react-oauth/google"
 import { useGoogleLoginMutation } from "@/app/auth/GoogleOauthApiSlice"

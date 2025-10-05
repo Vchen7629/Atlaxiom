@@ -30,7 +30,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
             const currentListSuggestions = filteredDecks.slice(startIndex, endIndex) as DeckApiResponse[];
             setCurrentPageListDecksArray(currentListSuggestions);
         }
-    }, [filteredDecks, currentListPage, suggestionsPerListPage, setCurrentPageListDecksArray]);
+    }, [filteredDecks, currentListPage, suggestionsPerListPage]);
 
     const handleListPageChange = (page: number) => {
         setListCurrentPage(page);        
@@ -59,7 +59,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
             const currentGallerySuggestions = filteredDecks.slice(startIndex, endIndex) as DeckApiResponse[];
             setCurrentPageGalleryDecksArray(currentGallerySuggestions);
         }
-    }, [filteredDecks, currentGalleryPage, suggestionsPerGalleryPage, setCurrentPageGalleryDecksArray]);
+    }, [filteredDecks, currentGalleryPage, suggestionsPerGalleryPage]);
 
     const handleGalleryPageChange = (page: number) => {
         setGalleryCurrentPage(page);        
@@ -93,11 +93,7 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
     }, [
         filteredDecks.length, 
         currentListPage, 
-        currentGalleryPage, 
-        updateCurrentPageList, 
-        updateCurrentPageGallery,
-        setCurrentPageListDecksArray, // including these two cause esline exhaustive deps is complaining,
-        setCurrentPageGalleryDecksArray // state setters are stable and this is redundant :/
+        currentGalleryPage,
     ]);
 
     // This Triggers whenever the user's decks changes to update the pagination pages
@@ -108,8 +104,6 @@ const PaginationComponent = ({ paginationprops }: Pagination) => {
         filteredDecks.length, 
         suggestionsPerListPage, 
         suggestionsPerGalleryPage, 
-        updateTotalListPages, // including these two cause esline exhaustive deps is complaining
-        updateTotalGalleryPages // state setters are stable and this is redundant :/
     ]);
 
     const pageselectorprops = {

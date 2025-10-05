@@ -5,15 +5,6 @@ const baseQuery = fetchBaseQuery({
     //baseUrl: 'https://api.atlaxiom.com:8443',
     baseUrl: 'http://localhost:3000',
     credentials: 'include',
-    prepareHeaders: (headers, { getState }: any) => {
-        const token = getState().auth.token 
-
-        if (token) {
-            headers.set("authorization", `Bearer ${token}`)
-        }
-
-        return headers
-    }
 })
 
 const baseQueryWithReauth = async (args: any, api: any) => {
@@ -21,12 +12,15 @@ const baseQueryWithReauth = async (args: any, api: any) => {
     console.log(result)
 
     if (result?.error?.status === 403 ) {
+        console.log("403 error, attempting refresh...")
         const refreshResult = await baseQuery('/auth/refresh', api, { credentials: "include" })
 
         if (refreshResult?.data) {
-            api.dispatch(setCredentials({ ...refreshResult.data}))
+            console.log("Refresh successful, setting credentials")
+            api.dispatch(setCredentials())
             result = await baseQuery(args, api, { credentials: "include" })
         } else {
+            console.log("Refresh failed")
             if (refreshResult?.error?.status === 403) {
                 (refreshResult.error.data as {message: string }).message = "Your login has expired. "
             }

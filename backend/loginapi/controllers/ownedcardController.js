@@ -2,24 +2,23 @@ const { User, OwnedCard } = require('../models/genmodels');
 const asyncHandler = require('express-async-handler')
 
 // @desc Create a new owned card
-// @route POST /:id
+// @route POST /
 // @access Public
 const createOwnedCard = asyncHandler(async (req, res) => {
-  
-  const { id } = req.params
+  const userId = req.userId
   const { card_name, image_url, set_code, type, race, desc, ...optionalFields } = req.body;
 
-  if (!id || !card_name || !image_url || !type || !race || !desc || !set_code) {
+  if (!userId || !card_name || !image_url || !type || !race || !desc || !set_code) {
     return res.status(400).json({ message: 'User ID and all card fields are required' });
   }
 
-  const user = await User.findById(id);
+  const user = await User.findById(userId);
 
   if (!user) {
     return res.status(404).json({ message: 'User not found' });
   }
 
-  const userCards = await OwnedCard.find({ user_id: id });
+  const userCards = await OwnedCard.find({ user_id: userId });
 
   const duplicateCard = userCards.some(card => card.card_name === card_name && card.set_code === set_code);
 
@@ -32,7 +31,7 @@ const createOwnedCard = asyncHandler(async (req, res) => {
   const formattedTime = now.toTimeString().split(' ')[0];
 
   const newCard = new OwnedCard({
-    user_id: id,
+    user_id: userId,
     card_name,
     image_url,
     ownedamount: 1,
@@ -64,37 +63,36 @@ const createOwnedCard = asyncHandler(async (req, res) => {
 
 
 // @desc Get all owned cards for a user
-// @route GET /:id
+// @route GET /
 // @access Public
 const getAllOwnedCards = asyncHandler(async (req, res) => {
-
-  const { id } = req.params;
+  const userId = req.userId;
   
-  if (!id) {
+  if (!userId) {
     return res.status(400).json({ message: 'user id is required' });
   }
 
-  const allCards = await OwnedCard.find({ user_id: id })
+  const allCards = await OwnedCard.find({ user_id: userId })
 
   // If the user has owned cards, return them
-  res.json({ id, ownedCards: allCards});
+  res.status(200).json({ ownedCards: allCards});
 
 });
 
 
 // @desc Update by increasing the amount of an owned card
-// @route PATCH /increasecard/:id
+// @route PATCH /increasecard/
 // @access Public
 const IncreaseCard = asyncHandler(async (req, res) => {
-  const { id } = req.params;
+  const userId = req.userId;
   const { card_name, increaseOwnedAmount } = req.body;
 
-  if (!id || !card_name || isNaN(increaseOwnedAmount)) {
+  if (!userId || !card_name || isNaN(increaseOwnedAmount)) {
     return res.status(400).json({ message: 'User ID and card name and valid increaseownedamount are required' });
   }
 
-  const user = await User.findById(id);
-  const card = await OwnedCard.findOne({ user_id: id, card_name})
+  const user = await User.findById(userId);
+  const card = await OwnedCard.findOne({ user_id: userId, card_name})
 
   if (!card) {
     return res.status(404).json({ message: 'Card not found' });
@@ -112,23 +110,22 @@ const IncreaseCard = asyncHandler(async (req, res) => {
   await user.save();
   await card.save();
 
-  res.json( `Successfully increased owned amount for ${card_name} ` );
+  res.status(200).json( `Successfully increased owned amount for ${card_name} ` );
 });
 
 // @desc Update by decreasing the amount of an owned card
 // @route PATCH /decreasecard/:id
 // @access Public
 const DecreaseCard = asyncHandler(async (req, res) => {
-  
-  const { id } = req.params
+  const userId = req.userId
   const { card_name, decreaseOwnedAmount } = req.body;
 
-  if (!id || !card_name || isNaN(decreaseOwnedAmount)) {
+  if (!userId || !card_name || isNaN(decreaseOwnedAmount)) {
     return res.status(400).json({ message: 'User ID, card name, and valid decreaseownedamount are required' });
   }
 
-  const user = await User.findById(id);
-  const card = await OwnedCard.findOne({ user_id: id, card_name})
+  const user = await User.findById(userId);
+  const card = await OwnedCard.findOne({ user_id: userId, card_name})
 
   if (!card) {
     return res.status(404).json({ message: 'Card not found' });
@@ -150,24 +147,23 @@ const DecreaseCard = asyncHandler(async (req, res) => {
   await user.save();
   await card.save();
 
-  res.json(`Successfully decreased owned amount for ${card_name} `);
+  res.status(200).json(`Successfully decreased owned amount for ${card_name} `);
 });
 
 
 // @desc Delete an owned card for a user by card name
-// @route DELETE /:id
+// @route DELETE /
 // @access Public
 const deleteOwnedCardByUsername = asyncHandler(async (req, res) => {
-
-  const { id } = req.params
+  const userId = req.userId
   const { card_name } = req.body;
   
-  if (!id || !card_name) {
+  if (!userId || !card_name) {
     return res.status(400).json({ message: 'User ID and card name are required' });
   }
 
-  const user = await User.findById(id);
-  const card = await OwnedCard.findOne({ user_id: id, card_name})
+  const user = await User.findById(userId);
+  const card = await OwnedCard.findOne({ user_id: userId, card_name})
 
   if (!card) {
     return res.status(404).json({ message: 'Card not found' });

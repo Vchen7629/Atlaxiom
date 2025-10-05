@@ -1,8 +1,8 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
-import { startTransition, Suspense, useEffect, useRef } from "react"
-import { useRefreshMutation } from "./authApiSlice.ts"
+import { Suspense, useEffect, useRef } from "react"
+import { useRefreshMutation } from "../api-slices/authApiSlice.ts"
 import { useSelector } from "react-redux"
-import { selectCurrentuserId,  selectLoggingOut } from "./authSlice"
+import { selectIsAuthenticated,  selectIsLoggingOut } from "./authSlice"
 import HomePage from "@/features/homepage/pages/homepage.tsx"
 import SearchBarPage from "@/features/search/pages/searchBar.tsx"
 import FoldingCube from "@/shared/loading-components/foldingcube.tsx"
@@ -11,38 +11,33 @@ import MyDecks from "@/shared/navigation/decks.tsx"
 import Profilepage from "@/features/user/pages/Profilepage.tsx"
 
 const StayLoggedIn = () => {
-    const navigate = useNavigate()
     const location = useLocation();
-    const token = useSelector(selectCurrentuserId)
-    const loggingOut = useSelector(selectLoggingOut);
-    const effectRan = useRef(false)
+    const isAuthenticated = useSelector(selectIsAuthenticated)
+    const loggingOut = useSelector(selectIsLoggingOut);
+    const refreshAttempted = useRef(false)
 
     const [refresh, {
-        isUninitialized,
         isSuccess,
+        isLoading,
         isError,
     }] = useRefreshMutation()
 
-    useEffect(() => {        
-        if (effectRan.current === true || process.env.NODE_ENV !== "development") {
-            if (!token && !loggingOut) {
-                const verifyRefreshToken = async() => {
-                    try {
-                        await refresh()
-                    } catch (err) {
-                        console.error(err)
-                    }
-                }
-
-                verifyRefreshToken();
-            }
+    // This runs once on mount 
+    useEffect(() => {
+        // Only run once on component mount
+        if (!refreshAttempted.current && !isAuthenticated && !loggingOut) {
+            refreshAttempted.current = true
+            console.log("StayLoggedIn: Attempting refresh on mount")
+            refresh()
         }
-        
-        return () => {
-            effectRan.current = true;
-        };
+    }, []) 
 
-    }, [refresh, token, loggingOut])
+    // Reset refresh flag when logging out
+    useEffect(() => {
+        if (loggingOut) {
+            refreshAttempted.current = false
+        }
+    }, [loggingOut])
 
     const getCurrentFallback = () => {
         switch (location.pathname) {
@@ -65,27 +60,36 @@ const StayLoggedIn = () => {
         }
     };
 
+    console.log("StayLoggedIn render:", { 
+        isAuthenticated, 
+        isSuccess, 
+        isLoading, 
+        isError, 
+        refreshAttempted: refreshAttempted.current,
+        pathname: location.pathname 
+    });
+
     if (isError) {
-        startTransition(() => {
-            navigate("/login");
-        });
-        return null;
-    } else if (isSuccess) {
+       console.log("Auth error, redirecting to login")
+        return <div>Redirecting to login...</div>;
+    } 
+    
+    if (isSuccess || isAuthenticated) {
+        console.log("Authenticated, showing outlet");
         return (
             <Suspense fallback={getCurrentFallback()}>
                 <Outlet />
             </Suspense>
         );
-    } else if (token && isUninitialized) {
-        return (
-            <Suspense fallback={getCurrentFallback()}>
-                <Outlet />
-            </Suspense>
-        );
+    } 
+    
+    if (isLoading) {
+        console.log("Loading, showing fallback");
+        return getCurrentFallback();
     }
 
-    return null;
-
+    console.log("Default case, showing fallback");
+    return getCurrentFallback();
 }
 
 export default StayLoggedIn

@@ -15,13 +15,14 @@ import {
     FormMessage,
   } from "@/shared/ui/form"
 import { Input } from "@/shared/ui/input"
-import { useLoginMutation, useRefreshMutation } from "@/app/auth/authApiSlice"
+import { useLoginMutation } from "@/app/api-slices/authApiSlice"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUser } from "@fortawesome/free-solid-svg-icons"
 import { startTransition } from "react"
 import { toastErrorMessage } from "@/shared/types/toast"
+import { useSelector } from "react-redux"
 
 const formSchema = z.object({
     username: z.string().min(1, {
@@ -36,7 +37,9 @@ const formSchema = z.object({
 export function LoginForm() {
     const navigate = useNavigate()
     const [login] = useLoginMutation()
-    const [refresh] = useRefreshMutation();
+    const isAuthenticated = useSelector((
+        state: { auth: { isAuthenticated: boolean} }
+    ) => state.auth.isAuthenticated);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -61,19 +64,16 @@ export function LoginForm() {
         async function handleSubmit(values: z.infer<typeof formSchema>) {
             try {
                 const result = await login({
-                username: values.username,
-                password: values.password,
+                    username: values.username,
+                    password: values.password,
                 }).unwrap();
-        
-                if (!result.userId) {
-                throw new Error('Missing data in login response');
+                
+                if (result) {
+                    console.log("testing: ", isAuthenticated)
+                    startTransition(() => {
+                        navigate('/profile')
+                    })
                 }
-                
-                await refresh()
-                
-                startTransition(() => {
-                    navigate('/profile')
-                })
                 return Promise.resolve();
             } catch (error) {
                 return Promise.reject(error);

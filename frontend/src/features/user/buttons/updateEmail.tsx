@@ -1,5 +1,3 @@
-import { useSelector } from "react-redux";
-import { UserId } from "../types/subpagetypes";
 import { useUpdateUserMutation } from "@/app/api-slices/usersApiSlice";
 import { SaveEmailButton } from "../types/editcomponenttypes";
 import { toast } from "sonner";
@@ -11,15 +9,10 @@ const UpdateEmailButton = ({ UpdateEmailProps } : SaveEmailButton) => {
         newEmail, setNewEmail,
     } = UpdateEmailProps
 
-    const userId = useSelector((state: UserId) => state.auth.userId);
-
     const [updateUsername] = useUpdateUserMutation()
 
     async function handleSubmitEmail() {
-        await updateUsername({
-            id: userId,
-            userData: { email: newEmail },
-        }).unwrap();
+        await updateUsername({ userData: { email: newEmail } }).unwrap();
         setNewEmail('')
         refetch()
         return { name: newEmail}

@@ -13,8 +13,6 @@ import {
   ChartTooltipContent,
 } from "@/shared/ui/chart"
 import { useGetSpecificUserQuery } from "@/app/api-slices/usersApiSlice"
-import { useSelector } from "react-redux"
-import { userId } from "../types/chartTypes"
 import { useMemo } from "react"
 export const description = "A radial chart displaying the user's unique cards compared to the total unique cards"
 
@@ -30,9 +28,7 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function ComponentRadialChart() {
-
-    const userId = useSelector((state: userId) => state.auth.userId)
-    const { data: userData } = useGetSpecificUserQuery(userId)
+    const { data: userData } = useGetSpecificUserQuery()
 
     const chartData = useMemo(() => {
         if (!userData) return []
