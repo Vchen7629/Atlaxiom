@@ -5,13 +5,13 @@ const { User, Deck } = require("../models/genmodels");
 // @route POST /
 // @access Public
 const createNewDeck = asyncHandler(async (req, res) => {
-    const { id } = req.body;
+    const userId = req.userId // userId from the session cookie
 
-    if (!id) {
+    if (!userId) {
         return res.status(400).json({ message: "User ID is required" });
     }
 
-    const user = await User.findById(id);
+    const user = await User.findById(userId);
 
     if (!user) {
         return res.status(404).json({ message: "User not found" });
@@ -29,7 +29,7 @@ const createNewDeck = asyncHandler(async (req, res) => {
 
     const deckObject = {
         favorite: false,
-        user_id: id,
+        user_id: userId,
         deck_name: "Unnamed Deck",
         deck_desc: "a new deck",
         createdOn: `${formattedDate}`,
@@ -55,20 +55,20 @@ const createNewDeck = asyncHandler(async (req, res) => {
 // @route POST /duplicate/:id
 // @access Public
 const createDuplicateDeck = asyncHandler(async (req, res) => {
-    const { id } = req.params;
+    const userId = req.userId
     const { deckId } = req.body
 
-    if (!id || !deckId ) {
+    if (!userId || !deckId ) {
         return res.status(400).json({ message: "User ID and DeckId are required" });
     }
 
-    const user = await User.findById(id);
+    const user = await User.findById(userId);
 
     if (!user) {
         return res.status(404).json({ message: "User not found" });
     }
 
-    const originalDeck = await Deck.findOne({ user_id: id, _id: deckId})
+    const originalDeck = await Deck.findOne({ user_id: userId, _id: deckId})
     if (!originalDeck) {
         return res.status(405).json({ message: "Original deck not found" });
     }
@@ -79,7 +79,7 @@ const createDuplicateDeck = asyncHandler(async (req, res) => {
 
     const deckObject = {
         favorite: false,
-        user_id: id,
+        user_id: userId,
         deck_name: originalDeck.deck_name,
         deck_desc: originalDeck.deck_desc,
         createdOn: formattedDate,
@@ -110,31 +110,32 @@ const createDuplicateDeck = asyncHandler(async (req, res) => {
 });
 
 // @desc Get all decks for the user
-// @route GET /:id
+// @route GET /
 // @access Public
 const getAllDecksforUser = asyncHandler(async (req, res) => {
-    const { id } = req.params
+    const userId = req.userId
 
-    if (!id) {
+    if (!userId) {
         return res.status(400).json({ message: 'user id is required' });
     }
 
-    const alldecks = await Deck.find({ user_id: id})
+    const alldecks = await Deck.find({ user_id: userId})
     
-    res.json({ id , ownedDecks: alldecks});
+    res.status(200).json({ ownedDecks: alldecks});
 })
 
 // @desc Get a specific deck for a user
 // @route GET /specific/:id/:DeckId
 // @access Public
 const getSpecificDeckforUser = asyncHandler(async (req, res) => {
-    const { id, deckId } = req.params
+    const userId = req.userId
+    const { deckId } = req.params
 
-    if (!id || !deckId) {
+    if (!userId || !deckId) {
         return res.status(400).json({ message: "User ID and deck name are required" });
     }
 
-    const deck = await Deck.find({ user_id: id, _id: deckId })
+    const deck = await Deck.find({ user_id: userId, _id: deckId })
 
     if (!deck) {
         return res.status(404).json({ message: "User not found" });
@@ -147,20 +148,20 @@ const getSpecificDeckforUser = asyncHandler(async (req, res) => {
 // @route PATCH /favorite/:id
 // @access Public
 const makeFavoriteDeck = asyncHandler(async (req, res) => {
-    const { id } = req.params
+    const userId = req.userId
     const { deckId } = req.body
 
-    if (!id || !deckId) {
+    if (!userId || !deckId) {
         return res.status(400).json({ message: "No UserId or Deck Id provided"})
     }
 
-    const user = await User.findById(id);
+    const user = await User.findById(userId);
 
     if (!user) {
         return res.status(404).json({ message: "User not found" });
     }
 
-    const deck = await Deck.findOne({ user_id: id, _id: deckId})
+    const deck = await Deck.findOne({ user_id: userId, _id: deckId})
 
     if (!deck) {
         return res.status(405).json({ message: `Deck of ID ${deckId} not found for this user` });
@@ -185,10 +186,10 @@ const makeFavoriteDeck = asyncHandler(async (req, res) => {
 // @route PATCH /maindeck/:id
 // @access Public
 const addCardtoMainDeck = asyncHandler(async (req, res) => {
-    const { id } = req.params
+    const userId = req.userId
     const { deckId, main_deck_cards } = req.body
 
-    if (!id || !deckId || !main_deck_cards) {
+    if (!userId || !deckId || !main_deck_cards) {
         return res.status(400).json({ message: "no userid, card-data, and/or deck ID provided" })
     }
 
@@ -202,13 +203,13 @@ const addCardtoMainDeck = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: 'Missing card names in input' });
     }
 
-    const user = await User.findById(id);
+    const user = await User.findById(userId);
 
     if (!user) {
         return res.status(404).json({ message: "User not found" });
     }
 
-    const deck = await Deck.findOne({ user_id: id, _id: deckId})
+    const deck = await Deck.findOne({ user_id: userId, _id: deckId})
 
     if (!deck) {
         return res.status(404).json({ message: `Deck of ID ${deckId} not found for this user` });
@@ -254,10 +255,10 @@ const addCardtoMainDeck = asyncHandler(async (req, res) => {
 // @route PATCH /extradeck/:id
 // @access Public
 const addCardtoExtraDeck = asyncHandler(async (req, res) => {
-    const { id } = req.params
+    const userId = req.userId
     const { deckId, extra_deck_cards } = req.body
 
-    if (!id || !deckId || !extra_deck_cards) {
+    if (!userId || !deckId || !extra_deck_cards) {
         return res.status(400).json({ message: "no userid, card-data, and/or deckId provided" })
     }
 
@@ -271,8 +272,8 @@ const addCardtoExtraDeck = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: 'Missing card_name' });
     }
 
-    const user = await User.findById(id)
-    const deck = await Deck.findOne({ user_id: id, _id: deckId})
+    const user = await User.findById(userId)
+    const deck = await Deck.findOne({ user_id: userId, _id: deckId})
 
     if (!deck) {
         return res.status(404).json({ message: "Deck name not found for this user" })
@@ -315,10 +316,10 @@ const addCardtoExtraDeck = asyncHandler(async (req, res) => {
 // @route PATCH /sidedeck/:id
 // @access Public
 const addCardtoSideDeck = asyncHandler(async (req, res) => {
-    const { id } = req.params
+    const userId = req.userId
     const { deckId, side_deck_cards } = req.body
 
-    if (!id || !deckId || !side_deck_cards) {
+    if (!userId || !deckId || !side_deck_cards) {
         return res.status(400).json({ message: "no userid, card-data, and/or deckId provided" })
     }
 
@@ -332,8 +333,8 @@ const addCardtoSideDeck = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: 'Missing either card_name, image_url, type, race, or desc params in input' });
     }
 
-    const user = await User.findById(id)
-    const deck = await Deck.findOne({ user_id: id, _id: deckId})
+    const user = await User.findById(userId)
+    const deck = await Deck.findOne({ user_id: userId, _id: deckId})
 
     if (!deck) {
         return res.status(404).json({ message: "Deck name not found for this user" })
@@ -373,15 +374,15 @@ const addCardtoSideDeck = asyncHandler(async (req, res) => {
 // @route PATCH /maindeck/update/:id
 // @access Public
 const modifyCardAmountinMainDeck = asyncHandler(async (req, res) => {
-    const { id } = req.params;
+    const userId = req.params;
     const { deckId, cardUpdates } = req.body;
 
-    if (!id || !deckId || !Array.isArray(cardUpdates)) {
+    if (!userId || !deckId || !Array.isArray(cardUpdates)) {
         return res.status(400).json({ message: 'User ID, deck ID, and an array of card updates are required' });
     }
 
-    const user = await User.findById(id);
-    const deck = await Deck.findOne({ user_id: id, _id: deckId})
+    const user = await User.findById(userId);
+    const deck = await Deck.findOne({ user_id: userId, _id: deckId})
 
     if (!deck) {
         return res.status(404).json({ message: 'Deck not found for user' });
@@ -427,15 +428,15 @@ const modifyCardAmountinMainDeck = asyncHandler(async (req, res) => {
 // @route PATCH /extradeck/update/:id
 // @access Public
 const modifyCardAmountinExtraDeck = asyncHandler(async (req, res) => {
-    const { id } = req.params;
+    const userId = req.userId;
     const { deckId, cardUpdates } = req.body;
 
-    if (!id || !deckId || !Array.isArray(cardUpdates)) {
+    if (!userId || !deckId || !Array.isArray(cardUpdates)) {
         return res.status(400).json({ message: 'User ID, deck ID, and an array of card updates are required' });
     }
 
-    const user = await User.findById(id);
-    const deck = await Deck.findOne({ user_id: id, _id: deckId})
+    const user = await User.findById(userId);
+    const deck = await Deck.findOne({ user_id: userId, _id: deckId})
 
     if (!deck) {
         return res.status(404).json({ message: 'Deck not found for user' });
@@ -535,15 +536,15 @@ const modifyCardAmountinSideDeck = asyncHandler(async (req, res) => {
 // @route Delete /maindeck/:id
 // @access Public
 const DeleteCardfromMainDeck = asyncHandler(async (req, res) => {
-    const { id } = req.params
+    const userId = req.userId
     const { deckId, cardUpdates } = req.body
 
-    if (!id || !deckId || !cardUpdates) {
+    if (!userId || !deckId || !cardUpdates) {
         return res.status(400).json({ message: 'User ID, deck ID, and an array of card updates are required' });
     }
 
-    const user = await User.findById(id);
-    const deck = await Deck.findOne({ user_id: id, _id: deckId})
+    const user = await User.findById(userId);
+    const deck = await Deck.findOne({ user_id: userId, _id: deckId})
 
     if (!deck) {
         return res.status(404).json({ message: 'Deck not found for user' });
@@ -581,15 +582,15 @@ const DeleteCardfromMainDeck = asyncHandler(async (req, res) => {
 // @route Delete /extradeck/:id
 // @access Public
 const DeleteCardfromExtraDeck = asyncHandler(async (req, res) => {
-    const { id } = req.params
+    const userId = req.userId
     const { deckId, cardUpdates } = req.body
 
-    if (!id || !deckId || !cardUpdates) {
+    if (!userId || !deckId || !cardUpdates) {
         return res.status(400).json({ message: 'User ID, deckId, and cards are required' });
     }
 
-    const user = await User.findById(id);
-    const deck = await Deck.findOne({ user_id: id, _id: deckId})
+    const user = await User.findById(userId);
+    const deck = await Deck.findOne({ user_id: userId, _id: deckId})
 
     cardUpdates.forEach(({ card_name }) => {
         if (!card_name) {
@@ -623,15 +624,15 @@ const DeleteCardfromExtraDeck = asyncHandler(async (req, res) => {
 // @route Delete /sidedeck/:id
 // @access Public
 const DeleteCardfromSideDeck = asyncHandler(async (req, res) => {
-    const { id } = req.params
+    const { userId } = req.params
     const { deckId, cardUpdates } = req.body
 
-    if (!id || !deckId || !cardUpdates) {
+    if (!userId || !deckId || !cardUpdates) {
         return res.status(400).json({ message: 'User ID, deckId, and cards are required' });
     }
 
-    const user = await User.findById(id);
-    const deck = await Deck.findOne({ user_id: id, _id: deckId})
+    const user = await User.findById(userId);
+    const deck = await Deck.findOne({ user_id: userId, _id: deckId})
 
     cardUpdates.forEach(({ card_name }) => {
         if (!card_name) {
@@ -665,26 +666,26 @@ const DeleteCardfromSideDeck = asyncHandler(async (req, res) => {
 // @route Delete /:id
 // @access Public
 const DeleteDeck = asyncHandler(async (req, res) => {
-    const { id } = req.params
+    const userId = req.userId
     const { deckId } = req.body
 
-    if (!id || !deckId) {
+    if (!userId || !deckId) {
         return res.status(400).json({ message: "userid and/or deck id are missing "})
     }
 
-    const deck = await Deck.find({ user_id: id, _id: deckId})
+    const deck = await Deck.find({ user_id: userId, _id: deckId})
 
     if (!deck) {
         return res.status(405).json({ message: "Deck not found" });
     }
     
-    const user = await User.findById(id)
+    const user = await User.findById(userId)
 
     if (!user) {
         return res.status(404).json({ message: "User Not Found" })
     }
 
-    const deleteResult = await Deck.deleteOne({ user_id: id, _id: deckId});
+    const deleteResult = await Deck.deleteOne({ user_id: userId, _id: deckId});
     if (deleteResult.deletedCount === 0) {
         return res.status(500).json({ message: "Failed to delete deck from database" });
     }

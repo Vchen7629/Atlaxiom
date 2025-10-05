@@ -1,8 +1,9 @@
-const { User } = require('../models/genmodels.js');
+const { User, Session } = require('../models/genmodels.js');
 const bcrypt = require('bcrypt')
 const fs = require('fs')
 const jwt = require('jsonwebtoken')
 const asyncHandler = require('express-async-handler')
+const { v4: uuidv4 } = require('uuid')
 require('dotenv').config();
 
 const getSecret = (filePath, envVar) => {
@@ -23,142 +24,127 @@ const login = asyncHandler(async (req, res) => {
     
     if (!username && !password) {
         return res.status(400).json({ message: 'No Username and Password entered, please input a Username and Password' })
-    }   
-
-    if (!username) {
+    } else if (!username) {
         return res.status(400).json({ message: 'No Username entered, please input a Username' })
-    } 
-
-    if (!password) {
+    } else if (!password) {
         return res.status(400).json({ message: 'No Paasword entered, please input a Password' })
-    }   
+    }  
 
+    // This checks to see if the username exists in db
     const foundUser = await User.findOne({ username }).exec()
-    console.log("login:", foundUser)
-
     if (!foundUser || !foundUser.active) {
         return res.status(401).json({ message: "Invalid Username" })
     }
 
-    const match = bcrypt.compare(password, foundUser.password)
-
-    if (!match) return res.status(401).json({ message: 'Invalid Password' })
-
-    // Read secrets
-    const accessTokenSecret = getSecret(process.env.ACCESS_TOKEN_SECRET_FILE, process.env.ACCESS_TOKEN_SECRET);
-    const refreshTokenSecret = getSecret(process.env.REFRESH_TOKEN_SECRET_FILE, process.env.REFRESH_TOKEN_SECRET);
-
-    // Ensure secrets are available
-    if (!accessTokenSecret || !refreshTokenSecret) {
-        throw new Error('Access or Refresh token secrets are missing.');
+    // This checks to see if password matches the user in database
+    const match = await bcrypt.compare(password, foundUser.password)
+    if (!match) {
+        return res.status(401).json({ message: 'Invalid Password' })
     }
 
-    const accessToken = jwt.sign(
-        {
-            "UserInfo": {
-                "email": foundUser.email,
-                "username": foundUser.username,
-                "userId": foundUser._id
-            }
-        },
-        accessTokenSecret,
-        { expiresIn: '24h' }
-    )
+    const sessionId = uuidv4(); // generate SessionID
+    const expire =  new Date(Date.now() + 60 * 60 * 1000); // create a expire timestamp 1 hour from now
+    // session object to be saved to database
+    const sessionObject = {
+        session_id: sessionId,
+        user_id: foundUser._id,
+        expires_at: expire
+    }
 
-    res.cookie('accessToken', accessToken, {
-        //domain: '.atlaxiom.com',
+    const session = await Session.create(sessionObject)
+
+    res.cookie('sessionId', session.session_id, {
         httpOnly: true,
-        secure: false,
-        sameSite: 'lax',
-        maxAge: 15 * 60 * 1000, 
-    });
-
-    const refreshToken = jwt.sign(
-        { "username": foundUser.username },
-        refreshTokenSecret,
-        { expiresIn: '7d' }
-    )
-
-    res.cookie('jwt', refreshToken, {
-        //domain: '.atlaxiom.com',
-        httpOnly: true,
-        secure: false,
-        sameSite: 'lax',
-        maxAge: 7 * 24 * 60 * 60 * 1000
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 1000
     })
 
-    // Send accessToken containing username and roles 
-    res.json({userId: foundUser._id, username: foundUser.username })
+    // Checks to see if session was created successfully in db
+    if (session) {
+        res.status(200).json({ 
+            message: "Login successful",
+            authenticated: true
+        })
+    } else {
+        res.status(500).json({ message: "Session could not be created"})
+    }
 })
 
 // @desc Refresh
 // @route GET /auth/refresh
-// @access Public - because access token has expired
-const refresh = (req, res) => {
-    const cookies = req.cookies
+// @access Public 
+const refresh = asyncHandler(async(req, res) => {
+    const { sessionId } = req.cookies
 
-    if (!cookies?.jwt) return res.status(401).json({ message: 'Unauthorized no cookies' })
-
-    const refreshToken = cookies.jwt
-
-    const refreshTokenSecret = getSecret(process.env.REFRESH_TOKEN_SECRET_FILE, process.env.REFRESH_TOKEN_SECRET);
-    const accessTokenSecret = getSecret(process.env.ACCESS_TOKEN_SECRET_FILE, process.env.ACCESS_TOKEN_SECRET);
+    // error handling: checking to see if session cookies exist
+    if (!sessionId) {
+        return res.status(401).json({ message: 'Unauthorized no session cookie found on refresh' })
+    }
     
-    if (!refreshTokenSecret) {
-        return res.status(500).json({ message: 'Refresh token secret is missing' });
+    // Find Session in Database
+    const session = await Session.findOne({ session_id: sessionId}).exec()
+
+    // potential race condition, as the user refreshes, session could expire and return 401,
+    if (!session || session.expires_at < new Date()) {
+        return res.status(401).json({ message: 'Unauthorized: invalid or expired session' });
     }
 
-    jwt.verify(refreshToken, refreshTokenSecret, asyncHandler(async (err, decoded) => {
-            if (err) return res.status(403).json({ message: 'Forbidden' })
+    // Verify user still exists and is active
+    const foundUser = await User.findById(session.user_id).exec();
+    
+    if (!foundUser || !foundUser.active) {
+        return res.status(401).json({ message: 'Unauthorized: user not found' });
+    }
 
-            const searchQuery = decoded.email 
-                ? { email: decoded.email }
-                : { username: decoded.username };
+    // Update and Extend by 1 hour
+    session.expires_at = new Date(Date.now() + 60 * 60 * 1000); 
+    const update = await session.save(); // update mongodb session expire time
 
-            const foundUser = await User.findOne(searchQuery).exec()
+    if (!update) {
+        return res.status(500).json({ message: 'error updating session in database'})
+    } 
 
-            if (!foundUser) return res.status(401).json({ message: 'Unauthorized No user found' })
-            
-            if (foundUser.authType === "google") {
-                jwt.sign(
-                    {
-                        "UserInfo": {
-                            "userId": foundUser._id,
-                            "email": foundUser.email,
-                            "username": foundUser.username
-                        }
-                    },
-                    accessTokenSecret,
-                    { expiresIn: "24h"}
-                )
-                res.json({ username: foundUser.username, userId: foundUser._id, email: foundUser.email })
-            } else {
-                jwt.sign(
-                    {
-                        "UserInfo": {
-                            "userId": foundUser._id,
-                            "email": foundUser.email,
-                            "username": foundUser.username,
-                        }
-                    },
-                    accessTokenSecret,
-                    { expiresIn: '24h' }
-                )
-                res.json({ userId: foundUser._id, username: foundUser.username, email: foundUser.email })
-            }
-        })
-    )
-}
+    // Update cookie
+    res.cookie('sessionId', session.session_id, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 1000
+    });
+    
+    res.status(200).json({ 
+        message: 'Session refreshed successfully',
+        sessionValid: true
+    });
+})
 
 // @desc Logout
 // @route POST /auth/logout
 // @access Public - just to clear cookie if exists
-const logout = (req, res) => {
-    const cookies = req.cookies
-    if (!cookies?.jwt) return res.sendStatus(204) //No content
-    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true })
-    res.json({ message: 'Cookie cleared' })
-}
+const logout = asyncHandler(async (req, res) => {
+    const cookies = req.cookies // check for cookies
+
+    // check for the sessionId cookie
+    if (!cookies?.sessionId) {
+        return res.sendStatus(204) //No content
+    }
+
+    // Try to delete Session from database
+    try {
+        await Session.deleteOne({ session_id: cookies.sessionId })
+    } catch (err) {
+        console.error('Error removing session from database:', error);
+    }
+
+    res.clearCookie('sessionId', { 
+        httpOnly: true, 
+        sameSite: 'strict', 
+        secure: process.env.NODE_ENV === 'production'
+    })
+
+    res.status(200).json({ message: "Login successful" })
+})
 
 module.exports = {
     login,

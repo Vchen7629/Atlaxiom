@@ -12,35 +12,12 @@ const connectMongoDB = require('./config/mongodbConn')
 const { checkDynamoDBConnection } = require('./config/DynamoDBConn');
 const environment = process.env.NODE_ENV || 'production';
 
-let privateKey, cert;
-
-if (environment == "production") {
-    privateKey = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/privkey.pem', "utf-8")
-    cert = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem', "utf-8")
-} else {
-    privateKey = "placeholder"
-    cert = "placeholder"
-}
-
-const httpsOptions = { key: privateKey, cert };
-
-app.options('*', (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', req.headers.origin || 'https://atlaxiom.com');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Range, Authorization');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.status(200).end(); 
-});
-
-
 app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
-//app.use(checkHost())
-app.get('/test', (req, res) => {
-    res.json({ message: 'Test route working' });
-});
+
+app.use("/", (_, res) => res.send("hello from lambda!"))
 
 app.use("/health", (_, res) => {
     res.status(200).send('OK');

@@ -7,44 +7,17 @@ const errorhandler = require('./middleware/errorHandler')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const corsOptions = require('./config/corsOptions')
-const fs = require('fs')
-const https = require('https');
-const checkHost = require('./middleware/checkhostname')
 const PORT = 3000
 const connectDB = require('./config/dbConn')
-const environment = process.env.NODE_ENV || 'production';
-
-let privateKey, cert
-
-if (environment == "production") {
-    privateKey = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/privkey.pem', "utf-8")
-    cert = fs.readFileSync('/etc/letsencrypt/live/api.atlaxiom.com/fullchain.pem', "utf-8")
-} else {
-    privateKey = "placeholder"
-    cert = "placeholder"
-}
-
-
-const httpsOptions = { key: privateKey, cert };
-
-
-app.options('*', (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', req.headers.origin || 'https://atlaxiom.com');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Range, Authorization');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.status(200).end(); 
-});
+const { authMiddleware } = require('./middleware/auth_middleware')
+const environment = 'production';
 
 app.use(cors(corsOptions))
 app.use(logger)
 app.use(express.json())
 app.use(cookieParser())
-//app.use(checkHost())
 
-app.use('/', express.static(path.join(__dirname, 'public'))) /*code for telling the program to fetch static css files from the public folder */
-
-app.use('/', require('./routes/root'))
+app.get("/", (_, res) => res.send("Hello from Lambda!"));
 
 app.use("/health", (_, res) => {
     res.status(200).send('OK');
@@ -52,13 +25,11 @@ app.use("/health", (_, res) => {
 
 app.use('/auth', require('./routes/authRoutes'))
 
-app.use('/users', require('./routes/userRoutes'))
+app.use('/user', require('./routes/userRoutes'))
 
-app.use('/user', require('./routes/userSignUpRoutes'))
+app.use('/card', authMiddleware, require('./routes/ownedCardRoutes'))
 
-app.use('/card', require('./routes/ownedCardRoutes'))
-
-app.use('/deck', require('./routes/deckRoutes'))
+app.use('/deck', authMiddleware, require('./routes/deckRoutes'))
 
 app.use('/google', require("./routes/googleOauthRoutes"))
 
@@ -78,23 +49,21 @@ app.all('*', (req, res) => {
 
 app.use(errorhandler)
 
-const startServer = async () => {
-    try {
-        await connectDB();
-        
-        if (environment === 'production') {
-            https.createServer(httpsOptions, app).listen(8443, '0.0.0.0', () => {
-                console.log("HTTPS server running on https://api.atlaxiom.com");
-            });
-        } else {
+if (environment !== 'production') {
+    const startServer = async () => {
+        try {
+            await connectDB();
+
             app.listen(PORT, '0.0.0.0', () => {
                 console.log(`Development server running on http://localhost:${PORT}`);
             });
+        } catch (error) {
+            console.error('Failed to start server:', error);
+            process.exit(1);
         }
-    } catch (error) {
-        console.error('Failed to start server:', error);
-        process.exit(1);
     }
+
+    startServer();
 }
 
-startServer();
+module.exports = app;
