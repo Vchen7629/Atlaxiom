@@ -1,0 +1,43 @@
+name: deploy frontend to aws
+
+on:
+    push:
+        branches: 
+            - main
+            - cd-test
+        paths:
+            - 'frontend/**'
+
+jobs: 
+    build:
+        name: Deploy Frontend to AWS S3 Bucket
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        steps: 
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: setup node
+              uses: actions/setup-node@v5
+              with:
+                node-version: '>=23.6.1'
+            
+            - name: Install dependencies
+              working-directory: frontend
+              run: npm install
+
+            - name: build
+              working-directory: frontend
+              run: npm run build
+            
+            - name: set aws credentials
+              uses: aws-actions/configure-aws-credentials@v5.0.0
+              with:
+                aws-access-key-id: ${{ secrets.AWS_FRONTEND_ACCESS_KEY_ID }}
+                aws-secret-access-key: ${{ secrets.AWS_FRONTEND_SECRET_ACCESS_KEY }}
+                aws-region: us-west-1
+
+            - name: Sync files to S3
+              run: aws s3 sync frontend/dist s3://$S3_BUCKET_NAME --delete
+              env:
+                S3_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
