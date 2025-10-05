@@ -1,7 +1,9 @@
+// Entry Point for Lambda Functions 
+
 require('source-map-support/register')
 const serverlessExpress = require('@codegenie/serverless-express')
-const app = require('../server');
-const connectDB = require('./dbConn');
+const app = require('./server');
+const connectDB = require('./config/dbConn');
 
 let serverlessExpressInstance
 
