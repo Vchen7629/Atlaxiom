@@ -1,7 +1,7 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const fs = require('fs')
-const { User } = require('../../loginapi/models/genmodels');
+const { User } = require('../models/genmodels');
 const asyncHandler = require('express-async-handler')
 
 const getSecret = (filePath, envVar) => {
