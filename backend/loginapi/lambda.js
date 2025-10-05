@@ -18,21 +18,23 @@ async function setup (event, context) {
   return serverlessExpressInstance(event, context);
 }
 
-function handler (event, context) {
-  if (event.httpMethod === "OPTIONS") {
+const handler = async (event, context) => {
+  if (event.httpMethod === 'OPTIONS') {
     return {
-      statusCode: 204, 
+      statusCode: 204,
       headers: {
-        "Access-Control-Allow-Origin": "https://www.atlaxiom.com",
-        "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type,Authorization",
-        "Access-Control-Allow-Credentials": "true",
+        'Access-Control-Allow-Origin': 'https://www.atlaxiom.com', 
+        'Access-Control-Allow-Methods': 'GET,POST,PATCH,DELETE,OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type,Authorization',
+        'Access-Control-Allow-Credentials': 'true',
       },
-      body: "",
+      body: '',
     };
   }
 
-  return setup(event, context)
-}
+  // Handle normal requests
+  return setup(event, context);
+};
+
 
 exports.handler = handler
